@@ -711,4 +711,3 @@ public class AnimeInformation extends JPanel
 		return link;
 	}
 }
-
