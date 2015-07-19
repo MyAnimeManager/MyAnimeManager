@@ -616,13 +616,14 @@ public class AnimeInformation extends JPanel
 			}
 		});
 		GridBagConstraints gbc_btnSave = new GridBagConstraints();
+		gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnSave.gridwidth = 2;
 		gbc_btnSave.insets = new Insets(0, 0, 0, 5);
 		gbc_btnSave.gridx = 1;
 		gbc_btnSave.gridy = 11;
 		add(btnSave, gbc_btnSave);
 		GridBagConstraints gbc_finishedButton = new GridBagConstraints();
-		gbc_finishedButton.anchor = GridBagConstraints.WEST;
+		gbc_finishedButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_finishedButton.insets = new Insets(0, 0, 0, 5);
 		gbc_finishedButton.gridx = 10;
 		gbc_finishedButton.gridy = 11;
