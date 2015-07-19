@@ -61,6 +61,7 @@ import util.window.AnimeInformation;
 import util.window.ExitSaveDialog;
 import javax.swing.SwingConstants;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
+//kemomimi OP
 public class AnimeIndex extends JFrame
 {
 
