@@ -79,7 +79,6 @@ public class AnimeInformation extends JPanel
 	/**
 	 * Create the panel.
 	 * 
-	 * 
 	 */
 	public AnimeInformation()
 	{
