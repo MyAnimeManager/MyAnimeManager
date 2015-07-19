@@ -72,6 +72,9 @@ public class AnimeInformation extends JPanel
 	private JButton setLinkButton;
 	private SetLinkDialog setLink;
 	public String link;
+	private JTextField textField;
+	private JLabel lblTipo;
+	public JButton addToSeeButton;
 
 	/**
 	 * Create the panel.
@@ -82,9 +85,9 @@ public class AnimeInformation extends JPanel
 	{
 		setSize(new Dimension(625, 441));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 50, 0, 94, 0, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 93, 0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{60, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -92,10 +95,10 @@ public class AnimeInformation extends JPanel
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		scrollPane.setBorder(null);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.gridwidth = 12;
+		gbc_scrollPane.gridwidth = 14;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridx = 2;
 		gbc_scrollPane.gridy = 0;
 		add(scrollPane, gbc_scrollPane);
 		
@@ -193,13 +196,12 @@ public class AnimeInformation extends JPanel
 		GridBagConstraints gbc_animeImage = new GridBagConstraints();
 		gbc_animeImage.gridheight = 9;
 		gbc_animeImage.insets = new Insets(0, 0, 5, 5);
-		gbc_animeImage.gridx = 1;
+		gbc_animeImage.gridx = 2;
 		gbc_animeImage.gridy = 2;
 		add(animeImage, gbc_animeImage);
 		GridBagConstraints gbc_lblEpisode = new GridBagConstraints();
-		gbc_lblEpisode.anchor = GridBagConstraints.WEST;
 		gbc_lblEpisode.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEpisode.gridx = 8;
+		gbc_lblEpisode.gridx = 10;
 		gbc_lblEpisode.gridy = 3;
 		add(lblEpisode, gbc_lblEpisode);
 		
@@ -212,14 +214,15 @@ public class AnimeInformation extends JPanel
 		GridBagConstraints gbc_currentEpisodeField = new GridBagConstraints();
 		gbc_currentEpisodeField.anchor = GridBagConstraints.WEST;
 		gbc_currentEpisodeField.insets = new Insets(0, 0, 5, 5);
-		gbc_currentEpisodeField.gridx = 9;
+		gbc_currentEpisodeField.gridx = 11;
 		gbc_currentEpisodeField.gridy = 3;
 		add(currentEpisodeField, gbc_currentEpisodeField);
 		currentEpisodeField.setColumns(3);
 		((AbstractDocument)currentEpisodeField.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,4}"));
 		GridBagConstraints gbc_plusButton = new GridBagConstraints();
+		gbc_plusButton.anchor = GridBagConstraints.WEST;
 		gbc_plusButton.insets = new Insets(0, 0, 5, 5);
-		gbc_plusButton.gridx = 10;
+		gbc_plusButton.gridx = 13;
 		gbc_plusButton.gridy = 3;
 		add(plusButton, gbc_plusButton);
 		plusButton.setPreferredSize(new Dimension(30,30));
@@ -252,7 +255,7 @@ public class AnimeInformation extends JPanel
 		GridBagConstraints gbc_minusButton = new GridBagConstraints();
 		gbc_minusButton.anchor = GridBagConstraints.EAST;
 		gbc_minusButton.insets = new Insets(0, 0, 5, 5);
-		gbc_minusButton.gridx = 11;
+		gbc_minusButton.gridx = 14;
 		gbc_minusButton.gridy = 3;
 		add(minusButton, gbc_minusButton);
 		minusButton.setPreferredSize(new Dimension(30,30));
@@ -260,7 +263,7 @@ public class AnimeInformation extends JPanel
 		rigidArea_1 = Box.createRigidArea(new Dimension(5, 20));
 		GridBagConstraints gbc_rigidArea_1 = new GridBagConstraints();
 		gbc_rigidArea_1.gridheight = 11;
-		gbc_rigidArea_1.gridx = 12;
+		gbc_rigidArea_1.gridx = 15;
 		gbc_rigidArea_1.gridy = 1;
 		add(rigidArea_1, gbc_rigidArea_1);
 		
@@ -270,7 +273,7 @@ public class AnimeInformation extends JPanel
 		JLabel lblTotalEpisode = new JLabel("Episodi Totali :");
 		GridBagConstraints gbc_lblTotalEpisode = new GridBagConstraints();
 		gbc_lblTotalEpisode.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTotalEpisode.gridx = 8;
+		gbc_lblTotalEpisode.gridx = 10;
 		gbc_lblTotalEpisode.gridy = 4;
 		add(lblTotalEpisode, gbc_lblTotalEpisode);
 		
@@ -280,16 +283,34 @@ public class AnimeInformation extends JPanel
 		GridBagConstraints gbc_totalEpisodeText = new GridBagConstraints();
 		gbc_totalEpisodeText.anchor = GridBagConstraints.WEST;
 		gbc_totalEpisodeText.insets = new Insets(0, 0, 5, 5);
-		gbc_totalEpisodeText.gridx = 9;
+		gbc_totalEpisodeText.gridx = 11;
 		gbc_totalEpisodeText.gridy = 4;
 		add(totalEpisodeText, gbc_totalEpisodeText);
 		totalEpisodeText.setColumns(3);
 		((AbstractDocument)totalEpisodeText.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,4}"));
 		
-		JLabel lblFansub = new JLabel("Fansub:");
+		lblTipo = new JLabel("Tipo :");
+		GridBagConstraints gbc_lblTipo = new GridBagConstraints();
+		gbc_lblTipo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTipo.anchor = GridBagConstraints.EAST;
+		gbc_lblTipo.gridx = 12;
+		gbc_lblTipo.gridy = 4;
+		add(lblTipo, gbc_lblTipo);
+		
+		textField = new JTextField();
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridwidth = 2;
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.gridx = 13;
+		gbc_textField.gridy = 4;
+		add(textField, gbc_textField);
+		textField.setColumns(10);
+		
+		JLabel lblFansub = new JLabel("Fansub :");
 		GridBagConstraints gbc_lblFansub = new GridBagConstraints();
 		gbc_lblFansub.insets = new Insets(0, 0, 5, 5);
-		gbc_lblFansub.gridx = 8;
+		gbc_lblFansub.gridx = 10;
 		gbc_lblFansub.gridy = 5;
 		add(lblFansub, gbc_lblFansub);
 		
@@ -309,9 +330,10 @@ public class AnimeInformation extends JPanel
 		});
 		fansubComboBox.setModel(new DefaultComboBoxModel(AnimeIndex.getFansubList()));
 		GridBagConstraints gbc_fansubComboBox = new GridBagConstraints();
+		gbc_fansubComboBox.gridwidth = 2;
 		gbc_fansubComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_fansubComboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_fansubComboBox.gridx = 9;
+		gbc_fansubComboBox.gridx = 11;
 		gbc_fansubComboBox.gridy = 5;
 		add(fansubComboBox, gbc_fansubComboBox);
 		String[] dayWeek = {"-----","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica", "Concluso"};
@@ -345,16 +367,17 @@ public class AnimeInformation extends JPanel
 			}
 		});
 		GridBagConstraints gbc_fansubButton = new GridBagConstraints();
+		gbc_fansubButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_fansubButton.gridwidth = 2;
 		gbc_fansubButton.insets = new Insets(0, 0, 5, 5);
-		gbc_fansubButton.gridx = 10;
+		gbc_fansubButton.gridx = 13;
 		gbc_fansubButton.gridy = 5;
 		add(fansubButton, gbc_fansubButton);
 		
 		JLabel lblFansubLink = new JLabel("Link :");
 		GridBagConstraints gbc_lblFansubLink = new GridBagConstraints();
 		gbc_lblFansubLink.insets = new Insets(0, 0, 5, 5);
-		gbc_lblFansubLink.gridx = 8;
+		gbc_lblFansubLink.gridx = 10;
 		gbc_lblFansubLink.gridy = 6;
 		add(lblFansubLink, gbc_lblFansubLink);
 		
@@ -398,86 +421,42 @@ public class AnimeInformation extends JPanel
 			}
 		});
 		GridBagConstraints gbc_btnScegliLink = new GridBagConstraints();
+		gbc_btnScegliLink.gridwidth = 2;
 		gbc_btnScegliLink.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnScegliLink.insets = new Insets(0, 0, 5, 5);
-		gbc_btnScegliLink.gridx = 9;
+		gbc_btnScegliLink.gridx = 11;
 		gbc_btnScegliLink.gridy = 6;
 		add(setLinkButton, gbc_btnScegliLink);
 		GridBagConstraints gbc_btnOpen = new GridBagConstraints();
 		gbc_btnOpen.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnOpen.gridwidth = 2;
 		gbc_btnOpen.insets = new Insets(0, 0, 5, 5);
-		gbc_btnOpen.gridx = 10;
+		gbc_btnOpen.gridx = 13;
 		gbc_btnOpen.gridy = 6;
 		add(btnOpen, gbc_btnOpen);
 		
-		lblExitDay = new JLabel("Giorno di Uscita");
+		lblExitDay = new JLabel("Giorno di Uscita :");
 		GridBagConstraints gbc_lblExitDay = new GridBagConstraints();
 		gbc_lblExitDay.insets = new Insets(0, 0, 5, 5);
-		gbc_lblExitDay.gridx = 8;
+		gbc_lblExitDay.gridx = 10;
 		gbc_lblExitDay.gridy = 7;
 		add(lblExitDay, gbc_lblExitDay);
 		
 		exitDaycomboBox = new JComboBox();
 		exitDaycomboBox.setModel(new DefaultComboBoxModel(dayWeek));
 		GridBagConstraints gbc_exitDaycomboBox = new GridBagConstraints();
+		gbc_exitDaycomboBox.gridwidth = 2;
 		gbc_exitDaycomboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_exitDaycomboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_exitDaycomboBox.gridx = 9;
+		gbc_exitDaycomboBox.gridx = 11;
 		gbc_exitDaycomboBox.gridy = 7;
 		add(exitDaycomboBox, gbc_exitDaycomboBox);
-		
-		btnSave = new JButton("Salva");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				String name = lblAnimeName.getText();
-				String currEp = currentEpisodeField.getText();
-				String totEp = totalEpisodeText.getText();
-				String fansub = (String) fansubComboBox.getSelectedItem();
-				String fansubLink = getLink();
-				String note = noteTextArea.getText();
-				String day = (String) exitDaycomboBox.getSelectedItem();
-				
-				String list = AnimeIndex.getList();
-				if (list.equalsIgnoreCase("Anime Completati"))
-					{
-					String image = AnimeIndex.completedMap.get(name).getImageName();
-					AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-					AnimeIndex.completedMap.put(name, data);
-					}
-				else if (list.equalsIgnoreCase("Anime in Corso"))
-					{
-					String image = AnimeIndex.airingMap.get(name).getImageName();
-					AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-					AnimeIndex.airingMap.put(name, data);
-					}
-				else if (list.equalsIgnoreCase("OAV"))
-					{
-					String image = AnimeIndex.ovaMap.get(name).getImageName();
-					AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-					AnimeIndex.ovaMap.put(name, data);
-					}
-				else if (list.equalsIgnoreCase("Film"))
-				{
-					String image = AnimeIndex.filmMap.get(name).getImageName();
-					AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-					AnimeIndex.filmMap.put(name, data);
-				}
-				else if (list.equalsIgnoreCase("Completi Da Vedere"))
-				{
-					String image = AnimeIndex.completedToSeeMap.get(name).getImageName();
-					AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-					AnimeIndex.completedToSeeMap.put(name, data);
-				}
-			}
-		});
 		
 		lblNote = new JLabel("Note:");
 		GridBagConstraints gbc_lblNote = new GridBagConstraints();
 		gbc_lblNote.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblNote.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNote.gridx = 8;
+		gbc_lblNote.gridx = 10;
 		gbc_lblNote.gridy = 9;
 		add(lblNote, gbc_lblNote);
 		
@@ -488,8 +467,8 @@ public class AnimeInformation extends JPanel
 		GridBagConstraints gbc_noteScrollPane = new GridBagConstraints();
 		gbc_noteScrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_noteScrollPane.anchor = GridBagConstraints.NORTHWEST;
-		gbc_noteScrollPane.gridwidth = 4;
-		gbc_noteScrollPane.gridx = 8;
+		gbc_noteScrollPane.gridwidth = 5;
+		gbc_noteScrollPane.gridx = 10;
 		gbc_noteScrollPane.gridy = 10;
 		add(noteScrollPane, gbc_noteScrollPane);
 		
@@ -549,20 +528,120 @@ public class AnimeInformation extends JPanel
 			    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
 			}
 		});
+		
+		btnSave = new JButton("Salva");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String name = lblAnimeName.getText();
+				String currEp = currentEpisodeField.getText();
+				String totEp = totalEpisodeText.getText();
+				String fansub = (String) fansubComboBox.getSelectedItem();
+				String fansubLink = getLink();
+				String note = noteTextArea.getText();
+				String day = (String) exitDaycomboBox.getSelectedItem();
+				
+				String list = AnimeIndex.getList();
+				if (list.equalsIgnoreCase("Anime Completati"))
+					{
+					String image = AnimeIndex.completedMap.get(name).getImageName();
+					AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+					AnimeIndex.completedMap.put(name, data);
+					}
+				else if (list.equalsIgnoreCase("Anime in Corso"))
+					{
+					String image = AnimeIndex.airingMap.get(name).getImageName();
+					AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+					AnimeIndex.airingMap.put(name, data);
+					}
+				else if (list.equalsIgnoreCase("OAV"))
+					{
+					String image = AnimeIndex.ovaMap.get(name).getImageName();
+					AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+					AnimeIndex.ovaMap.put(name, data);
+					}
+				else if (list.equalsIgnoreCase("Film"))
+				{
+					String image = AnimeIndex.filmMap.get(name).getImageName();
+					AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+					AnimeIndex.filmMap.put(name, data);
+				}
+				else if (list.equalsIgnoreCase("Completi Da Vedere"))
+				{
+					String image = AnimeIndex.completedToSeeMap.get(name).getImageName();
+					AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+					AnimeIndex.completedToSeeMap.put(name, data);
+				}
+			}
+		});
+		GridBagConstraints gbc_btnSave = new GridBagConstraints();
+		gbc_btnSave.gridwidth = 2;
+		gbc_btnSave.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSave.gridx = 1;
+		gbc_btnSave.gridy = 11;
+		add(btnSave, gbc_btnSave);
 		GridBagConstraints gbc_finishedButton = new GridBagConstraints();
 		gbc_finishedButton.anchor = GridBagConstraints.WEST;
 		gbc_finishedButton.insets = new Insets(0, 0, 0, 5);
-		gbc_finishedButton.gridx = 8;
+		gbc_finishedButton.gridx = 10;
 		gbc_finishedButton.gridy = 11;
 		finishedButton.setEnabled(false);
 		add(finishedButton, gbc_finishedButton);
-		GridBagConstraints gbc_btnSave = new GridBagConstraints();
-		gbc_btnSave.anchor = GridBagConstraints.EAST;
-		gbc_btnSave.gridwidth = 2;
-		gbc_btnSave.insets = new Insets(0, 0, 0, 5);
-		gbc_btnSave.gridx = 10;
-		gbc_btnSave.gridy = 11;
-		add(btnSave, gbc_btnSave);
+		
+		addToSeeButton = new JButton("Concluso da Vedere");
+		addToSeeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String name = lblAnimeName.getText();
+				String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
+				
+				DefaultListModel model = null;
+				JList list = null;
+				TreeMap<String,AnimeData> map = null;								
+				if (type.equalsIgnoreCase("anime in corso"))
+				{
+					model = AnimeIndex.airingModel;
+					list = AnimeIndex.airingList;
+					map = AnimeIndex.airingMap;
+				}
+				else if (type.equalsIgnoreCase("oav"))
+				{
+					model = AnimeIndex.ovaModel;
+					list = AnimeIndex.ovaList;
+					map = AnimeIndex.ovaMap;
+				}
+				else if (type.equalsIgnoreCase("film"))
+				{
+					model = AnimeIndex.filmModel;
+					list = AnimeIndex.filmList;
+					map = AnimeIndex.filmMap;
+				}
+				else if (type.equalsIgnoreCase("anime completati"))
+				{
+					model = AnimeIndex.completedModel;
+					list = AnimeIndex.completedAnimeList;
+					map = AnimeIndex.completedMap;
+				}
+				AnimeData oldData = map.get(name);
+				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), oldData.getFansubLink(), oldData.getNote(), oldData.getImageName(), "Concluso da Vedere");
+				map.remove(name);
+				AnimeIndex.completedToSeeMap.put(name, newData);
+				int index = list.getSelectedIndex();
+				model.removeElementAt(index);
+				AnimeIndex.completedToSeeModel.addElement(name);
+				
+				AnimeIndex.animeInformation.plusButton.setEnabled(true);
+				AnimeIndex.animeInformation.minusButton.setEnabled(true);
+			    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+			    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
+			}
+		});
+		GridBagConstraints gbc_addToSeeButton = new GridBagConstraints();
+		gbc_addToSeeButton.anchor = GridBagConstraints.EAST;
+		gbc_addToSeeButton.gridwidth = 4;
+		gbc_addToSeeButton.insets = new Insets(0, 0, 0, 5);
+		gbc_addToSeeButton.gridx = 11;
+		gbc_addToSeeButton.gridy = 11;
+		add(addToSeeButton, gbc_addToSeeButton);
 	}
 	
 	public void setAnimeName(String name)
