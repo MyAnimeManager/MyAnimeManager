@@ -151,6 +151,7 @@ public class AnimeIndex extends JFrame
 	 */
 	public AnimeIndex()
 	{
+		setTitle("My Anime Manager");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AnimeIndex.class.getResource("/image/icon.png")));
 		setResizable(false);
 		addWindowListener(new WindowAdapter() {

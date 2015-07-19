@@ -44,6 +44,7 @@ public class SetFilterDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public SetFilterDialog() {
+		setTitle("Filtri");
 		setBounds(100, 100, 223, 180);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -136,7 +137,7 @@ public class SetFilterDialog extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Annulla");
+				JButton cancelButton = new JButton("Rimuovi");
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
