@@ -240,7 +240,7 @@ public class AnimeIndex extends JFrame
 				if (shouldCancel == 0)
 				{
 				try {
-					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeIndex"));
+					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -266,6 +266,7 @@ public class AnimeIndex extends JFrame
 				animeInformation.setTotalEp("");
 				animeInformation.setLink("");
 				animeInformation.setDay("-----");
+				animeInformation.fansubComboBox.removeAllItems();
 				JOptionPane.showMessageDialog(mainFrame, "Dati eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}

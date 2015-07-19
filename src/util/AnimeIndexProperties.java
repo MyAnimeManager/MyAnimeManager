@@ -10,7 +10,7 @@ import java.util.Properties;
 public class AnimeIndexProperties
 {
 	//private boolean prova = true;
-	private final static String APPDATA_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeIndex" + File.separator;
+	private final static String APPDATA_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator;
 	private final static String PROPERTIES_PATH = APPDATA_PATH + "properties.properties";
 	private static Properties applicationProps;
 	public static Properties createProperties() 

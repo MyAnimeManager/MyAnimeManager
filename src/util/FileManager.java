@@ -23,7 +23,7 @@ public class FileManager
 {
 //	private final static String PATH = System.getProperty("user.home");
 
-	private final static String APPDATA_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeIndex" + File.separator;
+	private final static String APPDATA_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator;
 	private final static String FANSUB_PATH = APPDATA_PATH + "Fansub.txt";
 	private final static String ANIME_PATH = APPDATA_PATH + File.separator + "Anime" + File.separator;
 	private final static String IMAGE_PATH = APPDATA_PATH + "Images" + File.separator;

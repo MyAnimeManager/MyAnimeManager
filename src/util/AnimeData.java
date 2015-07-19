@@ -11,7 +11,7 @@ public class AnimeData
 	String note;
 	String imageName;
 	String day;
-	private final static String APPDATA_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeIndex" + File.separator;
+	private final static String APPDATA_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator;
 	private final static String IMAGE_PATH = APPDATA_PATH + "Images" + File.separator;
 		
 	public AnimeData(String currentEpisode, String totalEpisode, String fansub, String fansubLink, String note, String image, String day)

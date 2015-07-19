@@ -50,7 +50,7 @@ public class AddImageDialog extends JDialog
 	private DefaultListModel filmAdd = new DefaultListModel();
 	private DefaultListModel ovaAdd = new DefaultListModel();
 	private DefaultListModel completedToSeeAdd = new DefaultListModel();
-	private final static String APPDATA_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeIndex" + File.separator;
+	private final static String APPDATA_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator;
 	private final static String IMAGE_PATH = APPDATA_PATH + "Images" + File.separator;
 	public static boolean shouldAdd;
 
