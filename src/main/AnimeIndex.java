@@ -61,7 +61,6 @@ import util.window.AnimeInformation;
 import util.window.ExitSaveDialog;
 import javax.swing.SwingConstants;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
-//anaconda;
 public class AnimeIndex extends JFrame
 {
 
