@@ -631,6 +631,8 @@ public class AnimeInformation extends JPanel
 				AnimeIndex.animeTypeComboBox.setSelectedItem("Completi Da Vedere");
 				AnimeIndex.completedToSeeList.setSelectedValue(name, true);
 				
+				AnimeIndex.animeInformation.minusButton.setEnabled(true);
+			    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 			    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
 			    AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
 			}
