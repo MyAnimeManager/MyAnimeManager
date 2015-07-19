@@ -3,36 +3,42 @@ package util.window;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JRadioButton;
+
 import java.awt.GridBagConstraints;
+
 import javax.swing.JToggleButton;
+
 import java.awt.Insets;
+
 import javax.swing.SwingConstants;
+
 import java.awt.GridLayout;
+
 import javax.swing.JSeparator;
+
 import java.awt.Color;
 
 public class SetFilterDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			SetFilterDialog dialog = new SetFilterDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	private final ButtonGroup filterGroup = new ButtonGroup();
+	private JRadioButton rdbtnBlueray;
+	private JRadioButton rdbtnStoppate;
+	private JRadioButton rdbtnAcquistate;
+	private JRadioButton rdbtnRilascioIrregolare;
+	private JRadioButton rdbtnOavRilasciati;
+	private JRadioButton rdbtnOavInUscita;
+	private JRadioButton rdbtnFilmRilasciati;
+	private JRadioButton rdbtnFilmInUscita;
 
 	/**
 	 * Create the dialog.
@@ -49,7 +55,7 @@ public class SetFilterDialog extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JRadioButton rdbtnBlueray = new JRadioButton("Blu-Ray");
+			rdbtnBlueray = new JRadioButton("Blu-Ray");
 			GridBagConstraints gbc_rdbtnBlueray = new GridBagConstraints();
 			gbc_rdbtnBlueray.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnBlueray.insets = new Insets(0, 0, 5, 5);
@@ -58,7 +64,7 @@ public class SetFilterDialog extends JDialog {
 			contentPanel.add(rdbtnBlueray, gbc_rdbtnBlueray);
 		}
 		{
-			JRadioButton rdbtnOavRilasciati = new JRadioButton("OAV Rilasciati");
+			rdbtnOavRilasciati = new JRadioButton("OAV Rilasciati");
 			GridBagConstraints gbc_rdbtnOavRilasciati = new GridBagConstraints();
 			gbc_rdbtnOavRilasciati.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnOavRilasciati.insets = new Insets(0, 0, 5, 0);
@@ -67,7 +73,7 @@ public class SetFilterDialog extends JDialog {
 			contentPanel.add(rdbtnOavRilasciati, gbc_rdbtnOavRilasciati);
 		}
 		{
-			JRadioButton rdbtnStoppate = new JRadioButton("Sospese");
+			rdbtnStoppate = new JRadioButton("Sospese");
 			GridBagConstraints gbc_rdbtnStoppate = new GridBagConstraints();
 			gbc_rdbtnStoppate.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnStoppate.insets = new Insets(0, 0, 5, 5);
@@ -76,7 +82,7 @@ public class SetFilterDialog extends JDialog {
 			contentPanel.add(rdbtnStoppate, gbc_rdbtnStoppate);
 		}
 		{
-			JRadioButton rdbtnOavInUscita = new JRadioButton("OAV in Uscita");
+			rdbtnOavInUscita = new JRadioButton("OAV in Uscita");
 			GridBagConstraints gbc_rdbtnOavInUscita = new GridBagConstraints();
 			gbc_rdbtnOavInUscita.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnOavInUscita.insets = new Insets(0, 0, 5, 0);
@@ -85,7 +91,7 @@ public class SetFilterDialog extends JDialog {
 			contentPanel.add(rdbtnOavInUscita, gbc_rdbtnOavInUscita);
 		}
 		{
-			JRadioButton rdbtnAcquistate = new JRadioButton("Acquistate");
+			rdbtnAcquistate = new JRadioButton("Acquistate");
 			GridBagConstraints gbc_rdbtnAcquistate = new GridBagConstraints();
 			gbc_rdbtnAcquistate.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnAcquistate.insets = new Insets(0, 0, 5, 5);
@@ -94,7 +100,7 @@ public class SetFilterDialog extends JDialog {
 			contentPanel.add(rdbtnAcquistate, gbc_rdbtnAcquistate);
 		}
 		{
-			JRadioButton rdbtnFilmRilasciati = new JRadioButton("Film Rilasciati");
+			rdbtnFilmRilasciati = new JRadioButton("Film Rilasciati");
 			GridBagConstraints gbc_rdbtnFilmRilasciati = new GridBagConstraints();
 			gbc_rdbtnFilmRilasciati.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnFilmRilasciati.insets = new Insets(0, 0, 5, 0);
@@ -103,7 +109,7 @@ public class SetFilterDialog extends JDialog {
 			contentPanel.add(rdbtnFilmRilasciati, gbc_rdbtnFilmRilasciati);
 		}
 		{
-			JRadioButton rdbtnRilascioIrregolare = new JRadioButton("Irregolari");
+			rdbtnRilascioIrregolare = new JRadioButton("Irregolari");
 			GridBagConstraints gbc_rdbtnRilascioIrregolare = new GridBagConstraints();
 			gbc_rdbtnRilascioIrregolare.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnRilascioIrregolare.insets = new Insets(0, 0, 0, 5);
@@ -112,7 +118,7 @@ public class SetFilterDialog extends JDialog {
 			contentPanel.add(rdbtnRilascioIrregolare, gbc_rdbtnRilascioIrregolare);
 		}
 		{
-			JRadioButton rdbtnFilmInUscita = new JRadioButton("Film in Uscita");
+			rdbtnFilmInUscita = new JRadioButton("Film in Uscita");
 			GridBagConstraints gbc_rdbtnFilmInUscita = new GridBagConstraints();
 			gbc_rdbtnFilmInUscita.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnFilmInUscita.gridx = 1;
@@ -135,6 +141,15 @@ public class SetFilterDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		
+		filterGroup.add(rdbtnAcquistate);
+		filterGroup.add(rdbtnBlueray);
+		filterGroup.add(rdbtnFilmInUscita);
+		filterGroup.add(rdbtnFilmRilasciati);
+		filterGroup.add(rdbtnOavInUscita);
+		filterGroup.add(rdbtnOavRilasciati);
+		filterGroup.add(rdbtnRilascioIrregolare);
+		filterGroup.add(rdbtnStoppate);
 	}
 
 }
