@@ -543,6 +543,10 @@ public class AnimeInformation extends JPanel
 				int index = list.getSelectedIndex();
 				model.removeElementAt(index);
 				AnimeIndex.completedModel.addElement(name);
+				
+				AnimeIndex.animeInformation.minusButton.setEnabled(false);
+			    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
+			    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
 			}
 		});
 		GridBagConstraints gbc_finishedButton = new GridBagConstraints();
