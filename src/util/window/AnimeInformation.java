@@ -421,7 +421,7 @@ public class AnimeInformation extends JPanel
 		exitDaycomboBox = new JComboBox();
 		exitDaycomboBox.setModel(new DefaultComboBoxModel(dayWeek));
 		GridBagConstraints gbc_exitDaycomboBox = new GridBagConstraints();
-		gbc_exitDaycomboBox.anchor = GridBagConstraints.WEST;
+		gbc_exitDaycomboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_exitDaycomboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_exitDaycomboBox.gridx = 9;
 		gbc_exitDaycomboBox.gridy = 7;

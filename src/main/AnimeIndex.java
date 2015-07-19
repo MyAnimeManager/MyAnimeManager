@@ -59,6 +59,7 @@ import util.window.AddFansubDialog;
 import util.window.AddImageDialog;
 import util.window.AnimeInformation;
 import util.window.ExitSaveDialog;
+import javax.swing.SwingConstants;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 public class AnimeIndex extends JFrame
@@ -335,7 +336,7 @@ public class AnimeIndex extends JFrame
 		        	addButton.setEnabled(true);
 			}
 		});
-		animeTypeComboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi da Vedere","Uscite del Giorno"}));
+		animeTypeComboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere","Uscite del Giorno"}));
 		animeSelectionPanel.add(animeTypeComboBox, BorderLayout.NORTH);
 		
 		searchBar = new SearchBar();
@@ -479,6 +480,10 @@ public class AnimeIndex extends JFrame
 						animeInformation.plusButton.setEnabled(false);
 					else
 						animeInformation.plusButton.setEnabled(true);
+					
+				    AnimeIndex.animeInformation.minusButton.setEnabled(false);
+				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
+				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
 					}
 				}
 				
@@ -513,6 +518,7 @@ public class AnimeIndex extends JFrame
                     AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 				else
 					 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
+				    
 				}
 				
 			}
@@ -572,6 +578,10 @@ public class AnimeIndex extends JFrame
 	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 					else
 						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
+					
+					AnimeIndex.animeInformation.minusButton.setEnabled(true);
+				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
@@ -648,6 +658,10 @@ public class AnimeIndex extends JFrame
 	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 					else
 						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
+					
+					AnimeIndex.animeInformation.minusButton.setEnabled(true);
+				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
@@ -724,6 +738,10 @@ public class AnimeIndex extends JFrame
 	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 					else
 						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
+					
+					AnimeIndex.animeInformation.minusButton.setEnabled(true);
+				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
@@ -800,6 +818,10 @@ public class AnimeIndex extends JFrame
 	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 					else
 						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
+					
+					AnimeIndex.animeInformation.minusButton.setEnabled(true);
+				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
@@ -887,6 +909,10 @@ public class AnimeIndex extends JFrame
 	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 					else
 						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
+					
+					AnimeIndex.animeInformation.minusButton.setEnabled(true);
+				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);

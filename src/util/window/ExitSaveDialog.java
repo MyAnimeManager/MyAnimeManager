@@ -69,6 +69,20 @@ public class ExitSaveDialog extends JDialog
 							System.exit(0);
 						}
 					});
+					JButton btnExit = new JButton("Esci");
+					btnExit.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
+							
+							deleteUselessImage(AnimeIndex.completedSessionAnime, AnimeIndex.completedMap);
+							deleteUselessImage(AnimeIndex.airingSessionAnime, AnimeIndex.airingMap);
+							deleteUselessImage(AnimeIndex.ovaSessionAnime, AnimeIndex.ovaMap);
+							deleteUselessImage(AnimeIndex.filmSessionAnime, AnimeIndex.filmMap);
+							deleteUselessImage(AnimeIndex.comletedToSeeSessionAnime, AnimeIndex.completedToSeeMap);
+							System.exit(0);
+						}
+					});
+					buttonPane.add(btnExit);
 					buttonPane.add(btnSaveAndExit);
 				}
 			}
@@ -81,20 +95,6 @@ public class ExitSaveDialog extends JDialog
 						dialog.dispose();;
 					}
 				});
-				JButton btnExit = new JButton("Esci");
-				btnExit.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
-						
-						deleteUselessImage(AnimeIndex.completedSessionAnime, AnimeIndex.completedMap);
-						deleteUselessImage(AnimeIndex.airingSessionAnime, AnimeIndex.airingMap);
-						deleteUselessImage(AnimeIndex.ovaSessionAnime, AnimeIndex.ovaMap);
-						deleteUselessImage(AnimeIndex.filmSessionAnime, AnimeIndex.filmMap);
-						deleteUselessImage(AnimeIndex.comletedToSeeSessionAnime, AnimeIndex.completedToSeeMap);
-						System.exit(0);
-					}
-				});
-				buttonPane.add(btnExit);
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
