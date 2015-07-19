@@ -330,8 +330,11 @@ public class AnimeIndex extends JFrame
 		        	dayExitList.clearSelection();
 		        	
 		        }
+		        
+		        JList list = getJList();
+		        list.setSelectedIndex(0);
 		        String type = (String) animeTypeComboBox.getSelectedItem();
-		       //disabilitazione pulsanti vari
+		       //TODO disabilitazione pulsanti vari
 		        if(type.equalsIgnoreCase("uscite del giorno"))
 		        	addButton.setEnabled(false);
 		        else
