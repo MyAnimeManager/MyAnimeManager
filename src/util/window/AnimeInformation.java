@@ -628,11 +628,11 @@ public class AnimeInformation extends JPanel
 				int index = list.getSelectedIndex();
 				model.removeElementAt(index);
 				AnimeIndex.completedToSeeModel.addElement(name);
+				AnimeIndex.animeTypeComboBox.setSelectedItem("Completi Da Vedere");
+				AnimeIndex.completedToSeeList.setSelectedValue(name, true);
 				
-				AnimeIndex.animeInformation.plusButton.setEnabled(true);
-				AnimeIndex.animeInformation.minusButton.setEnabled(true);
-			    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 			    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
+			    AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
 			}
 		});
 		GridBagConstraints gbc_addToSeeButton = new GridBagConstraints();
