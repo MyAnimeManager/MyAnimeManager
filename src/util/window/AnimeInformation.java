@@ -72,9 +72,13 @@ public class AnimeInformation extends JPanel
 	private JButton setLinkButton;
 	private SetLinkDialog setLink;
 	public String link;
-	private JTextField textField;
 	private JLabel lblTipo;
 	public JButton addToSeeButton;
+	private JComboBox typeComboBox;
+	private JTextField startDateField;
+	private JLabel lblInizio;
+	private JLabel lblFine;
+	private JTextField endDateField;
 
 	/**
 	 * Create the panel.
@@ -296,15 +300,16 @@ public class AnimeInformation extends JPanel
 		gbc_lblTipo.gridy = 4;
 		add(lblTipo, gbc_lblTipo);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridwidth = 2;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.gridx = 13;
-		gbc_textField.gridy = 4;
-		add(textField, gbc_textField);
-		textField.setColumns(10);
+//TODO importare tipo anime da anilist
+		typeComboBox = new JComboBox();
+		typeComboBox.setModel(new DefaultComboBoxModel(new String[] {"-----", "Tv", "Movie", "Special", "OVA", "ONA", "Tv Short", "Blu-Ray"}));
+		GridBagConstraints gbc_typeComboBox = new GridBagConstraints();
+		gbc_typeComboBox.gridwidth = 2;
+		gbc_typeComboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_typeComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_typeComboBox.gridx = 13;
+		gbc_typeComboBox.gridy = 4;
+		add(typeComboBox, gbc_typeComboBox);
 		
 		JLabel lblFansub = new JLabel("Fansub :");
 		GridBagConstraints gbc_lblFansub = new GridBagConstraints();
@@ -335,7 +340,7 @@ public class AnimeInformation extends JPanel
 		gbc_fansubComboBox.gridx = 11;
 		gbc_fansubComboBox.gridy = 5;
 		add(fansubComboBox, gbc_fansubComboBox);
-		String[] dayWeek = {"-----","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica", "Concluso"};
+		String[] dayWeek = {"-----","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica","Concluso","Irregolare","Sospesa"};
 		
 		fansubButton = new JButton("Apri Fansub");
 		fansubButton.setEnabled(false);
@@ -434,21 +439,58 @@ public class AnimeInformation extends JPanel
 		gbc_btnOpen.gridy = 6;
 		add(btnOpen, gbc_btnOpen);
 		
+		lblInizio = new JLabel("Inizio :");
+		GridBagConstraints gbc_lblInizio = new GridBagConstraints();
+		gbc_lblInizio.insets = new Insets(0, 0, 5, 5);
+		gbc_lblInizio.gridx = 10;
+		gbc_lblInizio.gridy = 7;
+		add(lblInizio, gbc_lblInizio);
+
+//TODO importare da anilist data di inizio e fine dell'anime
+//TODO se la data di inizio coincide con quella di fine impostarle uguali
+//TODO implementarne la disattivazione per anime completati e completi da vedere
+		
+		startDateField = new JTextField();
+		GridBagConstraints gbc_startDateField = new GridBagConstraints();
+		gbc_startDateField.insets = new Insets(0, 0, 5, 5);
+		gbc_startDateField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_startDateField.gridx = 11;
+		gbc_startDateField.gridy = 7;
+		add(startDateField, gbc_startDateField);
+		startDateField.setColumns(10);
+		
+		lblFine = new JLabel("Fine :");
+		GridBagConstraints gbc_lblFine = new GridBagConstraints();
+		gbc_lblFine.anchor = GridBagConstraints.EAST;
+		gbc_lblFine.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFine.gridx = 12;
+		gbc_lblFine.gridy = 7;
+		add(lblFine, gbc_lblFine);
+		
+		endDateField = new JTextField();
+		GridBagConstraints gbc_endDateField = new GridBagConstraints();
+		gbc_endDateField.gridwidth = 2;
+		gbc_endDateField.insets = new Insets(0, 0, 5, 5);
+		gbc_endDateField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_endDateField.gridx = 13;
+		gbc_endDateField.gridy = 7;
+		add(endDateField, gbc_endDateField);
+		endDateField.setColumns(10);
+		
 		lblExitDay = new JLabel("Giorno di Uscita :");
 		GridBagConstraints gbc_lblExitDay = new GridBagConstraints();
 		gbc_lblExitDay.insets = new Insets(0, 0, 5, 5);
 		gbc_lblExitDay.gridx = 10;
-		gbc_lblExitDay.gridy = 7;
+		gbc_lblExitDay.gridy = 8;
 		add(lblExitDay, gbc_lblExitDay);
 		
 		exitDaycomboBox = new JComboBox();
 		exitDaycomboBox.setModel(new DefaultComboBoxModel(dayWeek));
 		GridBagConstraints gbc_exitDaycomboBox = new GridBagConstraints();
-		gbc_exitDaycomboBox.gridwidth = 2;
 		gbc_exitDaycomboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_exitDaycomboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_exitDaycomboBox.gridx = 11;
-		gbc_exitDaycomboBox.gridy = 7;
+		gbc_exitDaycomboBox.gridy = 8;
 		add(exitDaycomboBox, gbc_exitDaycomboBox);
 		
 		lblNote = new JLabel("Note:");
@@ -692,7 +734,7 @@ public class AnimeInformation extends JPanel
 			System.out.println("Immagine mancante");
 		}
 	 catch (Exception e) {
-		// TODO Auto-generated catch block
+
 		e.printStackTrace();
 	}
 	}

@@ -42,7 +42,7 @@ public class SetLinkDialog extends JDialog {
 		setResizable(false);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);
-		setBounds(100, 100, 341, 88);
+		setBounds(100, 100, 342, 88);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);

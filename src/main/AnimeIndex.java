@@ -195,6 +195,15 @@ public class AnimeIndex extends JFrame
 		mnMenu.add(mntmAddImage);
 		mnMenu.add(mntmAggiungiFansub);
 		
+		JMenuItem mntmModificaNome = new JMenuItem("Modifica Nome");
+		mntmModificaNome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Si consiglia di lasciare invariato\n\ril nome dell'anime per una\n\rmaggiore compatibilita' coi dati\n\rdel server AniList.\n\rAlcune funzioni potrebbero\n\ressere disattivate. Continuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+//TODO collegare pannello di modifica				
+			}
+		});
+		mnMenu.add(mntmModificaNome);
+		
 		JSeparator separator = new JSeparator();
 		mnMenu.add(separator);
 		
@@ -287,6 +296,11 @@ public class AnimeIndex extends JFrame
 		mnMenu.add(mnHelp);
 		
 		JMenuItem mntmAboutMyAnime = new JMenuItem("Versione");
+		mntmAboutMyAnime.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(mainFrame, "My Anime Manager    1.0", "Versione", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		mnHelp.add(mntmAboutMyAnime);
 		
 		JMenuItem mntmCredit = new JMenuItem("Crediti");
@@ -359,7 +373,7 @@ public class AnimeIndex extends JFrame
 		        JList list = getJList();
 		        list.setSelectedIndex(0);
 		        String type = (String) animeTypeComboBox.getSelectedItem();
-		       //TODO disabilitazione pulsanti vari
+//TODO disabilitazione pulsanti vari
 		        if(type.equalsIgnoreCase("uscite del giorno"))
 		        	addButton.setEnabled(false);
 		        else
@@ -1084,7 +1098,7 @@ public class AnimeIndex extends JFrame
 			}
 		});
 		deleteButton.setEnabled(false);
-		buttonPanel.add(deleteButton, BorderLayout.NORTH);
+		buttonPanel.add(deleteButton, BorderLayout.CENTER);
 		
 		
 		addButton = new JButton("Aggiungi");
@@ -1099,6 +1113,9 @@ public class AnimeIndex extends JFrame
 			}
 		});
 		buttonPanel.add(addButton, BorderLayout.SOUTH);
+		
+		JButton setFilterButton = new JButton("Filtro");
+		buttonPanel.add(setFilterButton, BorderLayout.NORTH);
 		
 		fansubList = FileManager.loadFansubList();
 		animeInformation = new AnimeInformation();
