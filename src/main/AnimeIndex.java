@@ -337,12 +337,12 @@ public class AnimeIndex extends JFrame
 		        else
 		        	addButton.setEnabled(true);
 		        
-		        if (type.equalsIgnoreCase("anime in corso"))
+		        if (type.equalsIgnoreCase("anime in corso") || type.equalsIgnoreCase("anime completati") || type.equalsIgnoreCase("oav") || type.equalsIgnoreCase("film"))
 		        	AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
 		        else
 		        	AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
 		        
-		        if (type.equalsIgnoreCase("anime in corso") || type.equalsIgnoreCase("completi da vedere"))
+		        if (type.equalsIgnoreCase("anime in corso") || type.equalsIgnoreCase("oav") || type.equalsIgnoreCase("film") || type.equalsIgnoreCase("completi da vedere"))
 		        	AnimeIndex.animeInformation.finishedButton.setEnabled(true);
 		        else
 		        	AnimeIndex.animeInformation.finishedButton.setEnabled(false);
@@ -834,7 +834,6 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
-				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
 					}
 				}
 				deleteButton.setEnabled(true);
