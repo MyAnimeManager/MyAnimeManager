@@ -820,6 +820,10 @@ public class AnimeIndex extends JFrame
 					else
 						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 					
+					AnimeIndex.animeInformation.minusButton.setEnabled(true);
+				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
+				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
 					}
 				}
 				deleteButton.setEnabled(true);
