@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -17,6 +18,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,7 +62,11 @@ import util.window.AddFansubDialog;
 import util.window.AddImageDialog;
 import util.window.AnimeInformation;
 import util.window.ExitSaveDialog;
+
 import javax.swing.SwingConstants;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import javax.swing.Box;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 //kemomimi OP
 public class AnimeIndex extends JFrame
@@ -273,17 +280,35 @@ public class AnimeIndex extends JFrame
 		});
 		mnMenu.add(mntmDeleteImage);
 		
-		JSeparator separator_3 = new JSeparator();
-		mnMenu.add(separator_3);
-		
-		JMenuItem mntmGoToAnilist = new JMenuItem("Vai ad Anilist");
-		mnMenu.add(mntmGoToAnilist);
-		
 		JSeparator separator_2 = new JSeparator();
 		mnMenu.add(separator_2);
 		
+		JMenu mnHelp = new JMenu("Aiuto");
+		mnMenu.add(mnHelp);
+		
+		JMenuItem mntmAboutMyAnime = new JMenuItem("Versione");
+		mnHelp.add(mntmAboutMyAnime);
+		
 		JMenuItem mntmCredit = new JMenuItem("Crediti");
-		mnMenu.add(mntmCredit);
+		mnHelp.add(mntmCredit);
+		
+		JMenu mnAnichart = new JMenu("AniChart");
+		menuBar.add(mnAnichart);
+		
+		JMenuItem mntmAnichart = new JMenuItem("Apri AniChart");
+		mnAnichart.add(mntmAnichart);
+		mntmAnichart.setHorizontalAlignment(SwingConstants.LEFT);
+		mntmAnichart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String link = "http://anichart.net/";
+				try {
+					URI uriLink = new URI(link);
+					Desktop.getDesktop().browse(uriLink);
+				} catch (URISyntaxException a) {
+				} catch (IOException a) {
+			}
+		  }
+		});
 		mntmCredit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String name = System.getProperty("user.home");
