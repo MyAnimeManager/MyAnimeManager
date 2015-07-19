@@ -44,6 +44,7 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
@@ -62,11 +63,7 @@ import util.window.AddFansubDialog;
 import util.window.AddImageDialog;
 import util.window.AnimeInformation;
 import util.window.ExitSaveDialog;
-
-import javax.swing.SwingConstants;
-import javax.swing.KeyStroke;
-import java.awt.event.KeyEvent;
-import javax.swing.Box;
+import util.window.SetFilterDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 //kemomimi OP
 public class AnimeIndex extends JFrame
@@ -333,9 +330,7 @@ public class AnimeIndex extends JFrame
 				
 			}
 		});
-		
-		ButtonGroup group = new ButtonGroup();
-		
+				
 		mainFrame = new JPanel();
 		mainFrame.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(mainFrame);
@@ -428,7 +423,6 @@ public class AnimeIndex extends JFrame
 				{
 					model = AnimeIndex.completedToSeeModel;
 				}
-				//TODO
 				CardLayout cl = (CardLayout)(cardContainer.getLayout());
 		        cl.show(cardContainer, "Ricerca");
 				SearchInList(search, model);
@@ -461,7 +455,6 @@ public class AnimeIndex extends JFrame
 				{
 					model = AnimeIndex.completedToSeeModel;
 				}
-				//TODO
 				if (!search.isEmpty())
 				{	
 				CardLayout cl = (CardLayout)(cardContainer.getLayout());
@@ -1115,6 +1108,13 @@ public class AnimeIndex extends JFrame
 		buttonPanel.add(addButton, BorderLayout.SOUTH);
 		
 		JButton setFilterButton = new JButton("Filtro");
+		setFilterButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SetFilterDialog filterDialog = new SetFilterDialog();
+				filterDialog.setLocationRelativeTo(mainFrame);
+				filterDialog.setVisible(true);
+			}
+		});
 		buttonPanel.add(setFilterButton, BorderLayout.NORTH);
 		
 		fansubList = FileManager.loadFansubList();
