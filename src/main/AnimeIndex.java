@@ -335,6 +335,16 @@ public class AnimeIndex extends JFrame
 		        	addButton.setEnabled(false);
 		        else
 		        	addButton.setEnabled(true);
+		        
+		        if (type.equalsIgnoreCase("anime in corso"))
+		        	AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+		        else
+		        	AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
+		        
+		        if (type.equalsIgnoreCase("anime in corso") || type.equalsIgnoreCase("completi da vedere"))
+		        	AnimeIndex.animeInformation.finishedButton.setEnabled(true);
+		        else
+		        	AnimeIndex.animeInformation.finishedButton.setEnabled(false);
 			}
 		});
 		animeTypeComboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere","Uscite del Giorno"}));

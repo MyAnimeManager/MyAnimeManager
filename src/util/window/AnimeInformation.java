@@ -55,7 +55,7 @@ public class AnimeInformation extends JPanel
 	public JButton plusButton;
 	public JLabel lblAnimeName;
 	public static JComboBox fansubComboBox;
-	private JButton finishedButton;
+	public JButton finishedButton;
 	public JButton btnOpen;
 	public JLabel lblEpisode;
 	private JButton btnSave;
