@@ -1,6 +1,7 @@
 package util.window;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.ButtonGroup;
@@ -25,6 +26,8 @@ import java.awt.GridLayout;
 
 import javax.swing.JSeparator;
 
+import main.AnimeIndex;
+
 import java.awt.Color;
 import java.awt.Window.Type;
 import java.awt.Toolkit;
@@ -35,7 +38,7 @@ import java.awt.event.ActionEvent;
 public class SetFilterDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private final ButtonGroup filterGroup = new ButtonGroup();
+	public static final ButtonGroup filterGroup = new ButtonGroup();
 	private JRadioButton rdbtnBlueray;
 	private JRadioButton rdbtnSospese;
 	private JRadioButton rdbtnAcquistate;
@@ -153,6 +156,14 @@ public class SetFilterDialog extends JDialog {
 				JButton okButton = new JButton("Applica");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						if(filterGroup.getSelection() != null)
+							AnimeIndex.setFilterButton.setSelected(true);
+						else
+							AnimeIndex.setFilterButton.setSelected(false);
+//TODO memorizza e applica il filtro					
+						JButton but = (JButton) e.getSource();
+						JDialog dialog = (JDialog) but.getTopLevelAncestor();
+						dialog.dispose();
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -161,6 +172,18 @@ public class SetFilterDialog extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Rimuovi");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						filterGroup.clearSelection();
+						AnimeIndex.setFilterButton.setSelected(false);
+						String listName = AnimeIndex.getList();
+						CardLayout cl = (CardLayout)(AnimeIndex.cardContainer.getLayout());
+				        cl.show(AnimeIndex.cardContainer, listName);
+						JButton but = (JButton) e.getSource();
+						JDialog dialog = (JDialog) but.getTopLevelAncestor();
+						dialog.dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

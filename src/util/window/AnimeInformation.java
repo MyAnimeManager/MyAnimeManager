@@ -61,7 +61,7 @@ public class AnimeInformation extends JPanel
 	private JButton btnSave;
 	public JTextArea noteTextArea;
 	private JScrollPane scrollPane;
-	private JLabel animeImage;
+	public JLabel animeImage;
 	private JLabel lblExitDay;
 	public JComboBox exitDaycomboBox;
 	private JLabel lblNote;
@@ -661,8 +661,6 @@ public class AnimeInformation extends JPanel
 				int index = list.getSelectedIndex();
 				model.removeElementAt(index);
 				AnimeIndex.completedToSeeModel.addElement(name);
-				AnimeIndex.animeTypeComboBox.setSelectedItem("Completi Da Vedere");
-				AnimeIndex.completedToSeeList.setSelectedValue(name, true);
 				
 				AnimeIndex.animeInformation.minusButton.setEnabled(true);
 			    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);

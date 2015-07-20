@@ -64,13 +64,14 @@ import util.window.AnimeInformation;
 import util.window.ExitSaveDialog;
 import util.window.SetAnimeNameDialog;
 import util.window.SetFilterDialog;
+import javax.swing.JToggleButton;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 //kemomimi OP
 public class AnimeIndex extends JFrame
 {
 
 	public static JPanel mainFrame;
-	private JPanel cardContainer;
+	public static JPanel cardContainer;
 	private JButton deleteButton;
 	public static AnimeInformation animeInformation;
 	public static JList completedToSeeList;
@@ -107,6 +108,7 @@ public class AnimeIndex extends JFrame
 	public static ArrayList<String> comletedToSeeSessionAnime = new ArrayList();
 	private JList searchList;
 	public static AddFansubDialog fansubDialog;
+	public static JToggleButton setFilterButton;
 
 	/**
 	 * Launch the application.
@@ -163,7 +165,7 @@ public class AnimeIndex extends JFrame
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		//setBounds(100, 100, 700, 385);
-		setBounds(100, 100, 800, 520);
+		setBounds((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() /5, (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() /8, 800, 520);
 		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2));
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -327,6 +329,7 @@ public class AnimeIndex extends JFrame
 		        	completedList.clearSelection();
 		        	completedToSeeList.clearSelection();
 		        	dayExitList.clearSelection();
+		        	searchBar.setText("");
 		        	
 		        }
 		        
@@ -1052,12 +1055,14 @@ public class AnimeIndex extends JFrame
 		});
 		buttonPanel.add(addButton, BorderLayout.SOUTH);
 		
-		JButton setFilterButton = new JButton("Filtro");
+	    setFilterButton = new JToggleButton("Filtro");
 		setFilterButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent arg0) {
+				if(SetFilterDialog.filterGroup.getSelection() != null)
+					setFilterButton.setSelected(true);
+
 				SetFilterDialog filterDialog = new SetFilterDialog();
-				Point location = new Point(100,351);
-				filterDialog.setLocation(location);;
+				filterDialog.setLocationRelativeTo(animeInformation.animeImage);
 				filterDialog.setVisible(true);
 			}
 		});
@@ -1132,6 +1137,8 @@ public class AnimeIndex extends JFrame
 			searchModel.clear();
 			for (int i = 0; i < mainArray.length; i++) {
 				String value = (String) mainArray[i];
+				value = value.toLowerCase();
+				searchedVal = searchedVal.toLowerCase();
 				if (value.contains(searchedVal))
 					searchModel.addElement(mainArray[i]);
 			}
