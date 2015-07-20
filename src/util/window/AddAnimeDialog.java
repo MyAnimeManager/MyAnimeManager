@@ -649,10 +649,6 @@ public class AddAnimeDialog extends JDialog
 								}
 							}
 						});
-						{
-							JProgressBar progressBar = new JProgressBar();
-							button2Panel.add(progressBar);
-						}
 						button2Panel.add(addAniButton);
 					}
 					{

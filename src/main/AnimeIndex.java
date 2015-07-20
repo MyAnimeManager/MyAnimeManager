@@ -64,6 +64,7 @@ import util.window.AnimeInformation;
 import util.window.ExitSaveDialog;
 import util.window.SetAnimeNameDialog;
 import util.window.SetFilterDialog;
+
 import javax.swing.JToggleButton;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 //kemomimi OP
@@ -165,7 +166,7 @@ public class AnimeIndex extends JFrame
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		//setBounds(100, 100, 700, 385);
-		setBounds((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() /5, (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() /8, 800, 520);
+		setBounds((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() /5, (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() /7, 800, 520);
 		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2));
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -207,12 +208,6 @@ public class AnimeIndex extends JFrame
 		});
 		mnMenu.add(mntmModificaNome);
 		
-		JSeparator separator = new JSeparator();
-		mnMenu.add(separator);
-		
-		JSeparator separator_1 = new JSeparator();
-		mnMenu.add(separator_1);
-		
 		JMenuItem mntmDeleteImage = new JMenuItem("Elimina tutti i dati");
 		mntmDeleteImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -251,6 +246,9 @@ public class AnimeIndex extends JFrame
 				}
 			}
 		});
+		
+		JSeparator separator = new JSeparator();
+		mnMenu.add(separator);
 		mnMenu.add(mntmDeleteImage);
 		
 		JSeparator separator_2 = new JSeparator();
@@ -479,6 +477,7 @@ public class AnimeIndex extends JFrame
 				    AnimeIndex.animeInformation.minusButton.setEnabled(false);
 				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
+				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
 					}
 				}
 				
@@ -577,6 +576,8 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
+				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
@@ -657,6 +658,8 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
+				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
@@ -737,6 +740,8 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
+				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
@@ -817,6 +822,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
+				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
