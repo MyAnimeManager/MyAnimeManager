@@ -77,7 +77,7 @@ public class AnimeIndex extends JFrame
 	public static JList completedToSeeList;
 	public static JList filmList;
 	public static JList airingList;
-	public static JList completedAnimeList;
+	public static JList completedList;
 	public static JList ovaList;
 	public static DefaultListModel completedModel = new DefaultListModel();
 	public static DefaultListModel airingModel = new DefaultListModel();
@@ -137,7 +137,7 @@ public class AnimeIndex extends JFrame
 				try {
 					AnimeIndex frame = new AnimeIndex();
 					frame.setVisible(true);
-					completedAnimeList.setSelectedIndex(0);
+					completedList.setSelectedIndex(0);
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -325,7 +325,7 @@ public class AnimeIndex extends JFrame
 		        	ovaList.clearSelection();
 		        	filmList.clearSelection();
 		        	airingList.clearSelection();
-		        	completedAnimeList.clearSelection();
+		        	completedList.clearSelection();
 		        	completedToSeeList.clearSelection();
 		        	dayExitList.clearSelection();
 		        	
@@ -334,7 +334,7 @@ public class AnimeIndex extends JFrame
 		        JList list = getJList();
 		        list.setSelectedIndex(0);
 		        String type = (String) animeTypeComboBox.getSelectedItem();
-//TODO disabilitazione pulsanti vari
+		        // disabilitazione pulsanti vari
 		        if(type.equalsIgnoreCase("uscite del giorno"))
 		        	addButton.setEnabled(false);
 		        else
@@ -367,28 +367,8 @@ public class AnimeIndex extends JFrame
 			{
 				String search = searchBar.getText();
 				String listName = getList();
-				DefaultListModel model = null;
+				DefaultListModel model = getModel();
 				
-				if (listName.equalsIgnoreCase("anime completati"))
-				{	
-					model = AnimeIndex.completedModel;						
-				}				
-				else if (listName.equalsIgnoreCase("anime in corso"))
-				{
-					model = AnimeIndex.airingModel;
-				}
-				else if (listName.equalsIgnoreCase("oav"))
-				{
-					model = AnimeIndex.ovaModel;
-				}
-				else if (listName.equalsIgnoreCase("film"))
-				{
-					model = AnimeIndex.filmModel;
-				}
-				else if (listName.equalsIgnoreCase("completi da vedere"))
-				{
-					model = AnimeIndex.completedToSeeModel;
-				}
 				CardLayout cl = (CardLayout)(cardContainer.getLayout());
 		        cl.show(cardContainer, "Ricerca");
 				SearchInList(search, model);
@@ -453,13 +433,13 @@ public class AnimeIndex extends JFrame
 		completedAnimeScroll.setMaximumSize(new Dimension(138, 233));
 		completedAnime.add(completedAnimeScroll, BorderLayout.CENTER);
 
-		completedAnimeList = new JList(completedModel);
-		completedAnimeList.setMaximumSize(new Dimension(157, 233));
-		completedAnimeList.setMinimumSize(new Dimension(138, 233));
-		completedAnimeList.setPreferredSize(new Dimension(138, 233));
-		completedAnimeList.setSize(new Dimension(138, 233));
-		completedAnimeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		completedAnimeList.addListSelectionListener(new ListSelectionListener() {
+		completedList = new JList(completedModel);
+		completedList.setMaximumSize(new Dimension(157, 233));
+		completedList.setMinimumSize(new Dimension(138, 233));
+		completedList.setPreferredSize(new Dimension(138, 233));
+		completedList.setSize(new Dimension(138, 233));
+		completedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		completedList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				try
 				{
@@ -468,7 +448,7 @@ public class AnimeIndex extends JFrame
 				catch (NullPointerException e1)
 				{
 					deleteButton.setEnabled(true);
-					String anime = (String) completedAnimeList.getSelectedValue();
+					String anime = (String) completedList.getSelectedValue();
 					if (anime != null)
 					{
 					AnimeData data = completedMap.get(anime);
@@ -501,7 +481,7 @@ public class AnimeIndex extends JFrame
 				}
 				
 				deleteButton.setEnabled(true);
-				String anime = (String) completedAnimeList.getSelectedValue();
+				String anime = (String) completedList.getSelectedValue();
 				if (anime != null)
 				{
 				AnimeData data = completedMap.get(anime);
@@ -537,7 +517,7 @@ public class AnimeIndex extends JFrame
 			}
 		});
 
-		completedAnimeScroll.setViewportView(completedAnimeList);
+		completedAnimeScroll.setViewportView(completedList);
 
 		
 		JPanel airingAnime = new JPanel();
@@ -988,13 +968,13 @@ public class AnimeIndex extends JFrame
 				if (type.equalsIgnoreCase("anime completati"))
 				{
 					model = completedModel;
-					list = completedAnimeList;
+					list = completedList;
 					map = completedMap;
 					int index = list.getSelectedIndex();
 					name = (String) model.getElementAt(index);
 					model.removeElementAt(index);
 					index -= 1;
-					completedAnimeList.setSelectedIndex(index);
+					completedList.setSelectedIndex(index);
 				}				
 				else if (type.equalsIgnoreCase("anime in corso"))
 				{
@@ -1165,7 +1145,7 @@ public class AnimeIndex extends JFrame
 		JList list= null;
 		if (listName.equalsIgnoreCase("anime completati"))
 		{	
-			list = AnimeIndex.completedAnimeList;						
+			list = AnimeIndex.completedList;						
 		}				
 		else if (listName.equalsIgnoreCase("anime in corso"))
 		{
@@ -1213,6 +1193,34 @@ public class AnimeIndex extends JFrame
 		}
 		
 		return map;
+	}
+	
+	public static DefaultListModel getModel()
+	{
+		String listName = getList();
+		DefaultListModel model= null;
+		if (listName.equalsIgnoreCase("anime completati"))
+		{	
+			model = AnimeIndex.completedModel;						
+		}				
+		else if (listName.equalsIgnoreCase("anime in corso"))
+		{
+			model = AnimeIndex.airingModel;
+		}
+		else if (listName.equalsIgnoreCase("oav"))
+		{
+			model = AnimeIndex.ovaModel;
+		}
+		else if (listName.equalsIgnoreCase("film"))
+		{
+			model = AnimeIndex.filmModel;
+		}
+		else if (listName.equalsIgnoreCase("completi da vedere"))
+		{
+			model = AnimeIndex.completedToSeeModel;
+		}
+		
+		return model;
 	}
 
 	public void saveModifiedInformation()
