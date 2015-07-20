@@ -50,8 +50,7 @@ public class AddImageDialog extends JDialog
 	private DefaultListModel filmAdd = new DefaultListModel();
 	private DefaultListModel ovaAdd = new DefaultListModel();
 	private DefaultListModel completedToSeeAdd = new DefaultListModel();
-	private final static String APPDATA_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator;
-	private final static String IMAGE_PATH = APPDATA_PATH + "Images" + File.separator;
+	private final static String IMAGE_PATH = FileManager.getImageFolderPath();
 	public static boolean shouldAdd;
 
 	/**
@@ -344,7 +343,7 @@ public class AddImageDialog extends JDialog
 						animeMap.put(name, newData);
 						AnimeIndex.animeInformation.setImage(IMAGE_PATH + imageName + ".png");
 						AnimeIndex.animeTypeComboBox.setSelectedItem(selectedList);
-						AnimeIndex.completedAnimeList.setSelectedValue(name, true);
+						AnimeIndex.completedList.setSelectedValue(name, true);
 						}
 						
 						JButton but = (JButton) e.getSource();

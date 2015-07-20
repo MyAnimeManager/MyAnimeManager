@@ -48,8 +48,7 @@ import javax.swing.JProgressBar;
 
 public class AddAnimeDialog extends JDialog
 {
-	private final static String APPDATA_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator;
-	private final static String IMAGE_PATH = APPDATA_PATH + "Images" + File.separator;
+	private final static String IMAGE_PATH = FileManager.getImageFolderPath();
 	private final JPanel contentPanel = new JPanel();
 	private JTextField nameField;
 	private JTextField episodeField;
@@ -260,7 +259,7 @@ public class AddAnimeDialog extends JDialog
 									AnimeIndex.completedMap.put(name, data);
 									AnimeIndex.completedModel.addElement(AnimeIndex.animeDialog.getName());						
 									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-									AnimeIndex.completedAnimeList.setSelectedValue(name, true);
+									AnimeIndex.completedList.setSelectedValue(name, true);
 									AnimeIndex.completedSessionAnime.add(name);
 									}
 								}				
@@ -548,7 +547,7 @@ public class AddAnimeDialog extends JDialog
 									
 									AnimeIndex.completedMap.put(name, data);
 									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-									AnimeIndex.completedAnimeList.setSelectedValue(name, true);
+									AnimeIndex.completedList.setSelectedValue(name, true);
 									AnimeIndex.completedSessionAnime.add(name);
 									}
 								}				

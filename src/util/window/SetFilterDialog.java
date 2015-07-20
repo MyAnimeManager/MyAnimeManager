@@ -29,6 +29,8 @@ import java.awt.Color;
 import java.awt.Window.Type;
 import java.awt.Toolkit;
 import java.awt.Dialog.ModalityType;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SetFilterDialog extends JDialog {
 
@@ -149,6 +151,10 @@ public class SetFilterDialog extends JDialog {
 			buttonPane.setLayout(new GridLayout(0, 2, 0, 0));
 			{
 				JButton okButton = new JButton("Applica");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

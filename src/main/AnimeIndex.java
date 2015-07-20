@@ -7,6 +7,7 @@ import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +27,6 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.TreeMap;
 
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -40,7 +40,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
@@ -77,9 +76,8 @@ public class AnimeIndex extends JFrame
 	public static JList completedToSeeList;
 	public static JList filmList;
 	public static JList airingList;
-	public static JList completedAnimeList;
+	public static JList completedList;
 	public static JList ovaList;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
 	public static DefaultListModel completedModel = new DefaultListModel();
 	public static DefaultListModel airingModel = new DefaultListModel();
 	public static DefaultListModel ovaModel = new DefaultListModel();
@@ -138,7 +136,7 @@ public class AnimeIndex extends JFrame
 				try {
 					AnimeIndex frame = new AnimeIndex();
 					frame.setVisible(true);
-					completedAnimeList.setSelectedIndex(0);
+					completedList.setSelectedIndex(0);
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -209,45 +207,6 @@ public class AnimeIndex extends JFrame
 		
 		JSeparator separator = new JSeparator();
 		mnMenu.add(separator);
-		
-		JRadioButtonMenuItem episodeType1Button = new JRadioButtonMenuItem("Mostra episodio da vedere");
-		episodeType1Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				appProp.setProperty("Show_episode_to_see", "true");
-				animeInformation.lblEpisode.setText("Episodio da vedere :\r\n");
-				if (!animeInformation.currentEpisodeField.getText().isEmpty())
-				{ 
-					int num = Integer.parseInt(animeInformation.currentEpisodeField.getText());
-					animeInformation.currentEpisodeField.setText(Integer.toString(num + 1));
-				}
-			}
-		});
-		buttonGroup.add(episodeType1Button);
-		mnMenu.add(episodeType1Button);
-		
-		JRadioButtonMenuItem episodeType2Button = new JRadioButtonMenuItem("Mostra ultimo episodio uscito");
-		episodeType2Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				appProp.setProperty("Show_episode_to_see", "false");
-				animeInformation.lblEpisode.setText("Ultimo episodio :\r\n");
-				if (!animeInformation.currentEpisodeField.getText().isEmpty())
-				{
-					int num = Integer.parseInt(animeInformation.currentEpisodeField.getText());
-					animeInformation.currentEpisodeField.setText(Integer.toString(num - 1));
-				}
-			}
-		});
-		buttonGroup.add(episodeType2Button);
-		mnMenu.add(episodeType2Button);
-		
-		if (appProp.getProperty("Show_episode_to_see").equals("true"))
-		{
-			episodeType1Button.setSelected(true);
-		}
-		else
-		{
-			episodeType2Button.setSelected(true);
-		}
 		
 		JSeparator separator_1 = new JSeparator();
 		mnMenu.add(separator_1);
@@ -365,7 +324,7 @@ public class AnimeIndex extends JFrame
 		        	ovaList.clearSelection();
 		        	filmList.clearSelection();
 		        	airingList.clearSelection();
-		        	completedAnimeList.clearSelection();
+		        	completedList.clearSelection();
 		        	completedToSeeList.clearSelection();
 		        	dayExitList.clearSelection();
 		        	
@@ -374,7 +333,7 @@ public class AnimeIndex extends JFrame
 		        JList list = getJList();
 		        list.setSelectedIndex(0);
 		        String type = (String) animeTypeComboBox.getSelectedItem();
-//TODO disabilitazione pulsanti vari
+		        // disabilitazione pulsanti vari
 		        if(type.equalsIgnoreCase("uscite del giorno"))
 		        	addButton.setEnabled(false);
 		        else
@@ -407,28 +366,8 @@ public class AnimeIndex extends JFrame
 			{
 				String search = searchBar.getText();
 				String listName = getList();
-				DefaultListModel model = null;
+				DefaultListModel model = getModel();
 				
-				if (listName.equalsIgnoreCase("anime completati"))
-				{	
-					model = AnimeIndex.completedModel;						
-				}				
-				else if (listName.equalsIgnoreCase("anime in corso"))
-				{
-					model = AnimeIndex.airingModel;
-				}
-				else if (listName.equalsIgnoreCase("oav"))
-				{
-					model = AnimeIndex.ovaModel;
-				}
-				else if (listName.equalsIgnoreCase("film"))
-				{
-					model = AnimeIndex.filmModel;
-				}
-				else if (listName.equalsIgnoreCase("completi da vedere"))
-				{
-					model = AnimeIndex.completedToSeeModel;
-				}
 				CardLayout cl = (CardLayout)(cardContainer.getLayout());
 		        cl.show(cardContainer, "Ricerca");
 				SearchInList(search, model);
@@ -493,13 +432,13 @@ public class AnimeIndex extends JFrame
 		completedAnimeScroll.setMaximumSize(new Dimension(138, 233));
 		completedAnime.add(completedAnimeScroll, BorderLayout.CENTER);
 
-		completedAnimeList = new JList(completedModel);
-		completedAnimeList.setMaximumSize(new Dimension(157, 233));
-		completedAnimeList.setMinimumSize(new Dimension(138, 233));
-		completedAnimeList.setPreferredSize(new Dimension(138, 233));
-		completedAnimeList.setSize(new Dimension(138, 233));
-		completedAnimeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		completedAnimeList.addListSelectionListener(new ListSelectionListener() {
+		completedList = new JList(completedModel);
+		completedList.setMaximumSize(new Dimension(157, 233));
+		completedList.setMinimumSize(new Dimension(138, 233));
+		completedList.setPreferredSize(new Dimension(138, 233));
+		completedList.setSize(new Dimension(138, 233));
+		completedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		completedList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				try
 				{
@@ -508,7 +447,7 @@ public class AnimeIndex extends JFrame
 				catch (NullPointerException e1)
 				{
 					deleteButton.setEnabled(true);
-					String anime = (String) completedAnimeList.getSelectedValue();
+					String anime = (String) completedList.getSelectedValue();
 					if (anime != null)
 					{
 					AnimeData data = completedMap.get(anime);
@@ -541,7 +480,7 @@ public class AnimeIndex extends JFrame
 				}
 				
 				deleteButton.setEnabled(true);
-				String anime = (String) completedAnimeList.getSelectedValue();
+				String anime = (String) completedList.getSelectedValue();
 				if (anime != null)
 				{
 				AnimeData data = completedMap.get(anime);
@@ -577,7 +516,7 @@ public class AnimeIndex extends JFrame
 			}
 		});
 
-		completedAnimeScroll.setViewportView(completedAnimeList);
+		completedAnimeScroll.setViewportView(completedList);
 
 		
 		JPanel airingAnime = new JPanel();
@@ -1028,13 +967,13 @@ public class AnimeIndex extends JFrame
 				if (type.equalsIgnoreCase("anime completati"))
 				{
 					model = completedModel;
-					list = completedAnimeList;
+					list = completedList;
 					map = completedMap;
 					int index = list.getSelectedIndex();
 					name = (String) model.getElementAt(index);
 					model.removeElementAt(index);
 					index -= 1;
-					completedAnimeList.setSelectedIndex(index);
+					completedList.setSelectedIndex(index);
 				}				
 				else if (type.equalsIgnoreCase("anime in corso"))
 				{
@@ -1117,7 +1056,8 @@ public class AnimeIndex extends JFrame
 		setFilterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SetFilterDialog filterDialog = new SetFilterDialog();
-				filterDialog.setLocationRelativeTo(mainFrame);
+				Point location = new Point(100,351);
+				filterDialog.setLocation(location);;
 				filterDialog.setVisible(true);
 			}
 		});
@@ -1205,7 +1145,7 @@ public class AnimeIndex extends JFrame
 		JList list= null;
 		if (listName.equalsIgnoreCase("anime completati"))
 		{	
-			list = AnimeIndex.completedAnimeList;						
+			list = AnimeIndex.completedList;						
 		}				
 		else if (listName.equalsIgnoreCase("anime in corso"))
 		{
@@ -1253,6 +1193,34 @@ public class AnimeIndex extends JFrame
 		}
 		
 		return map;
+	}
+	
+	public static DefaultListModel getModel()
+	{
+		String listName = getList();
+		DefaultListModel model= null;
+		if (listName.equalsIgnoreCase("anime completati"))
+		{	
+			model = AnimeIndex.completedModel;						
+		}				
+		else if (listName.equalsIgnoreCase("anime in corso"))
+		{
+			model = AnimeIndex.airingModel;
+		}
+		else if (listName.equalsIgnoreCase("oav"))
+		{
+			model = AnimeIndex.ovaModel;
+		}
+		else if (listName.equalsIgnoreCase("film"))
+		{
+			model = AnimeIndex.filmModel;
+		}
+		else if (listName.equalsIgnoreCase("completi da vedere"))
+		{
+			model = AnimeIndex.completedToSeeModel;
+		}
+		
+		return model;
 	}
 
 	public void saveModifiedInformation()

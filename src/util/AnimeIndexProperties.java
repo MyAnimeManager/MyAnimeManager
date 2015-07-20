@@ -10,8 +10,7 @@ import java.util.Properties;
 public class AnimeIndexProperties
 {
 	//private boolean prova = true;
-	private final static String APPDATA_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator;
-	private final static String PROPERTIES_PATH = APPDATA_PATH + "properties.properties";
+	private final static String PROPERTIES_PATH = FileManager.getAppDataPath() + "properties.properties";
 	private static Properties applicationProps;
 	public static Properties createProperties() 
 	{
@@ -21,7 +20,7 @@ public class AnimeIndexProperties
 		try {
 			in = new FileInputStream(PROPERTIES_PATH);
 			defaultProps.load(in);
-			defaultProps.setProperty("Show_episode_to_see", "true");
+			//defaultProps.setProperty("Show_episode_to_see", "true");
 			in.close();
 		} 
 		catch (FileNotFoundException fe)
@@ -30,7 +29,7 @@ public class AnimeIndexProperties
 			try {
 				prop.getParentFile().mkdirs();
 				prop.createNewFile();
-				defaultProps.setProperty("Show_episode_to_see", "true");
+				//defaultProps.setProperty("Show_episode_to_see", "true");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -58,7 +57,7 @@ public class AnimeIndexProperties
 		FileOutputStream out;
 		try {
 			out = new FileOutputStream(PROPERTIES_PATH);
-			prop.store(out, "---Boolean---");
+			//prop.store(out, "---Boolean---");
 			out.close();
 		} catch (Exception e) {
 		}

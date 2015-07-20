@@ -45,9 +45,6 @@ public class AddFansubDialog extends JDialog
 	/**
 	 * Create the dialog.
 	 */
-	/**
-	 * 
-	 */
 	public AddFansubDialog()
 	{
 		fansubMap.putAll(AnimeIndex.fansubMap);
