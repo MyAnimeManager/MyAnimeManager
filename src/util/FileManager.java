@@ -277,4 +277,21 @@ public class FileManager
 		    	else
 		    		file.delete();
     }
+	 
+	 public static String getAppDataPath()
+	 {
+		 return APPDATA_PATH;
+	 }
+	 
+	 public static String getAnimeFolderPath()
+	 {
+		 return ANIME_PATH;
+	 }
+	 
+	 public static String getImageFolderPath()
+	 {
+		 return IMAGE_PATH;
+	 }
+	 
+	 
 }

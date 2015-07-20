@@ -79,7 +79,6 @@ public class AnimeIndex extends JFrame
 	public static JList airingList;
 	public static JList completedAnimeList;
 	public static JList ovaList;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
 	public static DefaultListModel completedModel = new DefaultListModel();
 	public static DefaultListModel airingModel = new DefaultListModel();
 	public static DefaultListModel ovaModel = new DefaultListModel();
@@ -209,45 +208,6 @@ public class AnimeIndex extends JFrame
 		
 		JSeparator separator = new JSeparator();
 		mnMenu.add(separator);
-		
-		JRadioButtonMenuItem episodeType1Button = new JRadioButtonMenuItem("Mostra episodio da vedere");
-		episodeType1Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				appProp.setProperty("Show_episode_to_see", "true");
-				animeInformation.lblEpisode.setText("Episodio da vedere :\r\n");
-				if (!animeInformation.currentEpisodeField.getText().isEmpty())
-				{ 
-					int num = Integer.parseInt(animeInformation.currentEpisodeField.getText());
-					animeInformation.currentEpisodeField.setText(Integer.toString(num + 1));
-				}
-			}
-		});
-		buttonGroup.add(episodeType1Button);
-		mnMenu.add(episodeType1Button);
-		
-		JRadioButtonMenuItem episodeType2Button = new JRadioButtonMenuItem("Mostra ultimo episodio uscito");
-		episodeType2Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				appProp.setProperty("Show_episode_to_see", "false");
-				animeInformation.lblEpisode.setText("Ultimo episodio :\r\n");
-				if (!animeInformation.currentEpisodeField.getText().isEmpty())
-				{
-					int num = Integer.parseInt(animeInformation.currentEpisodeField.getText());
-					animeInformation.currentEpisodeField.setText(Integer.toString(num - 1));
-				}
-			}
-		});
-		buttonGroup.add(episodeType2Button);
-		mnMenu.add(episodeType2Button);
-		
-		if (appProp.getProperty("Show_episode_to_see").equals("true"))
-		{
-			episodeType1Button.setSelected(true);
-		}
-		else
-		{
-			episodeType2Button.setSelected(true);
-		}
 		
 		JSeparator separator_1 = new JSeparator();
 		mnMenu.add(separator_1);

@@ -47,8 +47,7 @@ import com.jgoodies.forms.layout.RowSpec;
 
 public class AddAnimeDialog extends JDialog
 {
-	private final static String APPDATA_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator;
-	private final static String IMAGE_PATH = APPDATA_PATH + "Images" + File.separator;
+	private final static String IMAGE_PATH = FileManager.getImageFolderPath();
 	private final JPanel contentPanel = new JPanel();
 	private JTextField nameField;
 	private JTextField episodeField;

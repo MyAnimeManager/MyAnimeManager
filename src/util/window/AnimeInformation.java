@@ -177,15 +177,7 @@ public class AnimeInformation extends JPanel
 			}
 		});
 		
-		lblEpisode = new JLabel();
-		if (AnimeIndex.appProp.getProperty("Show_episode_to_see").equals("true"))
-		{
-			lblEpisode.setText("Episodio da vedere :\r\n");
-		}
-		else
-		{
-			lblEpisode.setText("Ultimo episodio :\r\n");
-		}
+		lblEpisode = new JLabel("Episodio Corrente");
 		
 		rigidArea = Box.createRigidArea(new Dimension(5, 20));
 		GridBagConstraints gbc_rigidArea = new GridBagConstraints();
