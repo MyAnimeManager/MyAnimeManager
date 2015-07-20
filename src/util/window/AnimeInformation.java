@@ -332,7 +332,6 @@ public class AnimeInformation extends JPanel
 				
 			}
 		});
-		fansubComboBox.setModel(new DefaultComboBoxModel(AnimeIndex.getFansubList()));
 		GridBagConstraints gbc_fansubComboBox = new GridBagConstraints();
 		gbc_fansubComboBox.gridwidth = 2;
 		gbc_fansubComboBox.fill = GridBagConstraints.HORIZONTAL;

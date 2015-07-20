@@ -44,6 +44,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+import javax.swing.JProgressBar;
 
 public class AddAnimeDialog extends JDialog
 {
@@ -649,6 +650,10 @@ public class AddAnimeDialog extends JDialog
 								}
 							}
 						});
+						{
+							JProgressBar progressBar = new JProgressBar();
+							button2Panel.add(progressBar);
+						}
 						button2Panel.add(addAniButton);
 					}
 					{
