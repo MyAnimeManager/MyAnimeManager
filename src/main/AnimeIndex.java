@@ -63,6 +63,7 @@ import util.window.AddFansubDialog;
 import util.window.AddImageDialog;
 import util.window.AnimeInformation;
 import util.window.ExitSaveDialog;
+import util.window.SetAnimeNameDialog;
 import util.window.SetFilterDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 //kemomimi OP
@@ -197,7 +198,11 @@ public class AnimeIndex extends JFrame
 		mntmModificaNome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Si consiglia di lasciare invariato\n\ril nome dell'anime per una\n\rmaggiore compatibilita' coi dati\n\rdel server AniList.\n\rAlcune funzioni potrebbero\n\ressere disattivate. Continuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-//TODO collegare pannello di modifica				
+				if(shouldCancel==0){
+					SetAnimeNameDialog AnimeNameDialog = new SetAnimeNameDialog();
+				AnimeNameDialog.setLocationRelativeTo(mainFrame);
+				AnimeNameDialog.setVisible(true);}
+//TODO nome preventivamente nel campo di inserimento				
 			}
 		});
 		mnMenu.add(mntmModificaNome);

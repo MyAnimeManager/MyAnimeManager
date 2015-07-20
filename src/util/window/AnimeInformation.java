@@ -421,7 +421,7 @@ public class AnimeInformation extends JPanel
 				setLink = new SetLinkDialog();
 				setLink.setLocationRelativeTo(AnimeIndex.mainFrame);
 				setLink.setVisible(true);
-				
+//TODO far comparire il nome del sito sul pulsante se un url con relativo nome e' stato impostato				
 			}
 		});
 		GridBagConstraints gbc_btnScegliLink = new GridBagConstraints();
