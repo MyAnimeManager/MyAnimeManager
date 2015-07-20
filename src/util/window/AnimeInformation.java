@@ -177,7 +177,7 @@ public class AnimeInformation extends JPanel
 			}
 		});
 		
-		lblEpisode = new JLabel("Episodio Corrente");
+		lblEpisode = new JLabel("Episodio Corrente :");
 		
 		rigidArea = Box.createRigidArea(new Dimension(5, 20));
 		GridBagConstraints gbc_rigidArea = new GridBagConstraints();
