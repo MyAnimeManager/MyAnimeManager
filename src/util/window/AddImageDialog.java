@@ -343,7 +343,7 @@ public class AddImageDialog extends JDialog
 						animeMap.put(name, newData);
 						AnimeIndex.animeInformation.setImage(IMAGE_PATH + imageName + ".png");
 						AnimeIndex.animeTypeComboBox.setSelectedItem(selectedList);
-						AnimeIndex.completedAnimeList.setSelectedValue(name, true);
+						AnimeIndex.completedList.setSelectedValue(name, true);
 						}
 						
 						JButton but = (JButton) e.getSource();

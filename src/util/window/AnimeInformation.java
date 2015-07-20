@@ -652,7 +652,7 @@ public class AnimeInformation extends JPanel
 				else if (type.equalsIgnoreCase("anime completati"))
 				{
 					model = AnimeIndex.completedModel;
-					list = AnimeIndex.completedAnimeList;
+					list = AnimeIndex.completedList;
 					map = AnimeIndex.completedMap;
 				}
 				AnimeData oldData = map.get(name);
