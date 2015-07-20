@@ -7,6 +7,7 @@ import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +27,6 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.TreeMap;
 
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -40,7 +40,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
@@ -1057,7 +1056,8 @@ public class AnimeIndex extends JFrame
 		setFilterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SetFilterDialog filterDialog = new SetFilterDialog();
-				filterDialog.setLocationRelativeTo(mainFrame);
+				Point location = new Point(100,351);
+				filterDialog.setLocation(location);;
 				filterDialog.setVisible(true);
 			}
 		});
