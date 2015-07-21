@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -34,6 +35,7 @@ import java.awt.Toolkit;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JCheckBox;
 
 public class SetFilterDialog extends JDialog {
@@ -157,10 +159,13 @@ public class SetFilterDialog extends JDialog {
 				JButton okButton = new JButton("Applica");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(filterGroup.getSelection() != null)
+						if(filterGroup.getSelection() != null){
 							AnimeIndex.setFilterButton.setSelected(true);
-						else
+							AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon1.png")));}
+						else{
 							AnimeIndex.setFilterButton.setSelected(false);
+							AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon2.png")));
+							}
 //TODO memorizza e applica il filtro					
 						JButton but = (JButton) e.getSource();
 						JDialog dialog = (JDialog) but.getTopLevelAncestor();
@@ -177,6 +182,7 @@ public class SetFilterDialog extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						filterGroup.clearSelection();
 						AnimeIndex.setFilterButton.setSelected(false);
+						AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon2.png")));
 						String listName = AnimeIndex.getList();
 						CardLayout cl = (CardLayout)(AnimeIndex.cardContainer.getLayout());
 				        cl.show(AnimeIndex.cardContainer, listName);

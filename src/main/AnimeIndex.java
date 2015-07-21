@@ -216,7 +216,6 @@ public class AnimeIndex extends JFrame
 		mnMenu.add(separator_3);
 		
 		JCheckBoxMenuItem rdbtnmntmControlloDati = new JCheckBoxMenuItem("Controllo Dati");
-		//se mi fai un confrnto tra stringhe con == invece che con .equals però...
 		if(appProp.getProperty("Update_system").equals("true"))
 			rdbtnmntmControlloDati.setSelected(true);
 		else
@@ -309,7 +308,7 @@ public class AnimeIndex extends JFrame
 		JMenu mnHelp = new JMenu("Aiuto");
 		mnMenu.add(mnHelp);
 		
-		JMenuItem mntmAboutMyAnime = new JMenuItem("Versione");
+		JMenuItem mntmAboutMyAnime = new JMenuItem("Versione Programma");
 		mntmAboutMyAnime.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(mainFrame, "My Anime Manager             1.0", "Versione", JOptionPane.INFORMATION_MESSAGE);
@@ -1118,8 +1117,8 @@ public class AnimeIndex extends JFrame
 		setFilterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(SetFilterDialog.filterGroup.getSelection() != null)
-					setFilterButton.setSelected(true);
-
+				{	setFilterButton.setSelected(true);				    
+				}
 				SetFilterDialog filterDialog = new SetFilterDialog();
 				filterDialog.setLocationRelativeTo(animeInformation.animeImage);
 				filterDialog.setVisible(true);
