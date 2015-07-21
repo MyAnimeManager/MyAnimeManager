@@ -34,20 +34,21 @@ import java.awt.Toolkit;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
 
 public class SetFilterDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	public static final ButtonGroup filterGroup = new ButtonGroup();
-	private JRadioButton rdbtnBlueray;
-	private JRadioButton rdbtnSospese;
-	private JRadioButton rdbtnAcquistate;
-	private JRadioButton rdbtnOavRilasciati;
-	private JRadioButton rdbtnOavInUscita;
-	private JRadioButton rdbtnFilmRilasciati;
-	private JRadioButton rdbtnFilmInUscita;
-	private JRadioButton rdbtnUsciteDelGiorno;
-	private JRadioButton rdbtnIrregolari;
+	private JCheckBox rdbtnBlueray;
+	private JCheckBox rdbtnSospese;
+	private JCheckBox rdbtnAcquistate;
+	private JCheckBox rdbtnOavRilasciati;
+	private JCheckBox rdbtnOavInUscita;
+	private JCheckBox rdbtnFilmRilasciati;
+	private JCheckBox rdbtnFilmInUscita;
+	private JCheckBox rdbtnUsciteDelGiorno;
+	private JCheckBox rdbtnIrregolari;
 
 	/**
 	 * Create the dialog.
@@ -58,7 +59,7 @@ public class SetFilterDialog extends JDialog {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setType(Type.POPUP);
 		setTitle("Filtri");
-		setBounds(100, 100, 190, 189);
+		setBounds(100, 100, 202, 189);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -69,7 +70,7 @@ public class SetFilterDialog extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			rdbtnBlueray = new JRadioButton("Blu-Ray");
+			rdbtnBlueray = new JCheckBox("Blu-Ray");
 			GridBagConstraints gbc_rdbtnBlueray = new GridBagConstraints();
 			gbc_rdbtnBlueray.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnBlueray.insets = new Insets(0, 0, 5, 5);
@@ -78,7 +79,7 @@ public class SetFilterDialog extends JDialog {
 			contentPanel.add(rdbtnBlueray, gbc_rdbtnBlueray);
 		}
 		{
-			rdbtnOavRilasciati = new JRadioButton("OAV Rilasciati");
+			rdbtnOavRilasciati = new JCheckBox("OAV Rilasciati");
 			GridBagConstraints gbc_rdbtnOavRilasciati = new GridBagConstraints();
 			gbc_rdbtnOavRilasciati.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnOavRilasciati.insets = new Insets(0, 0, 5, 0);
@@ -87,7 +88,7 @@ public class SetFilterDialog extends JDialog {
 			contentPanel.add(rdbtnOavRilasciati, gbc_rdbtnOavRilasciati);
 		}
 		{
-			rdbtnSospese = new JRadioButton("Sospese");
+			rdbtnSospese = new JCheckBox("Sospese");
 			GridBagConstraints gbc_rdbtnSospese = new GridBagConstraints();
 			gbc_rdbtnSospese.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnSospese.insets = new Insets(0, 0, 5, 5);
@@ -96,7 +97,7 @@ public class SetFilterDialog extends JDialog {
 			contentPanel.add(rdbtnSospese, gbc_rdbtnSospese);
 		}
 		{
-			rdbtnOavInUscita = new JRadioButton("OAV in Uscita");
+			rdbtnOavInUscita = new JCheckBox("OAV in Uscita");
 			GridBagConstraints gbc_rdbtnOavInUscita = new GridBagConstraints();
 			gbc_rdbtnOavInUscita.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnOavInUscita.insets = new Insets(0, 0, 5, 0);
@@ -105,7 +106,7 @@ public class SetFilterDialog extends JDialog {
 			contentPanel.add(rdbtnOavInUscita, gbc_rdbtnOavInUscita);
 		}
 		{
-			rdbtnIrregolari = new JRadioButton("Irregolari");
+			rdbtnIrregolari = new JCheckBox("Irregolari");
 			GridBagConstraints gbc_rdbtnIrregolari = new GridBagConstraints();
 			gbc_rdbtnIrregolari.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnIrregolari.insets = new Insets(0, 0, 5, 5);
@@ -114,7 +115,7 @@ public class SetFilterDialog extends JDialog {
 			contentPanel.add(rdbtnIrregolari, gbc_rdbtnIrregolari);
 		}
 		{
-			rdbtnFilmRilasciati = new JRadioButton("Film Rilasciati");
+			rdbtnFilmRilasciati = new JCheckBox("Film Rilasciati");
 			GridBagConstraints gbc_rdbtnFilmRilasciati = new GridBagConstraints();
 			gbc_rdbtnFilmRilasciati.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnFilmRilasciati.insets = new Insets(0, 0, 5, 0);
@@ -123,7 +124,7 @@ public class SetFilterDialog extends JDialog {
 			contentPanel.add(rdbtnFilmRilasciati, gbc_rdbtnFilmRilasciati);
 		}
 		{
-			rdbtnAcquistate = new JRadioButton("Acquistate");
+			rdbtnAcquistate = new JCheckBox("Acquistate");
 			GridBagConstraints gbc_rdbtnAcquistate = new GridBagConstraints();
 			gbc_rdbtnAcquistate.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnAcquistate.insets = new Insets(0, 0, 5, 5);
@@ -132,7 +133,7 @@ public class SetFilterDialog extends JDialog {
 			contentPanel.add(rdbtnAcquistate, gbc_rdbtnAcquistate);
 		}
 		{
-			rdbtnFilmInUscita = new JRadioButton("Film in Uscita");
+			rdbtnFilmInUscita = new JCheckBox("Film in Uscita");
 			GridBagConstraints gbc_rdbtnFilmInUscita = new GridBagConstraints();
 			gbc_rdbtnFilmInUscita.insets = new Insets(0, 0, 5, 0);
 			gbc_rdbtnFilmInUscita.anchor = GridBagConstraints.WEST;
@@ -141,7 +142,7 @@ public class SetFilterDialog extends JDialog {
 			contentPanel.add(rdbtnFilmInUscita, gbc_rdbtnFilmInUscita);
 		}
 		{
-			rdbtnUsciteDelGiorno = new JRadioButton("Uscite del Giorno");
+			rdbtnUsciteDelGiorno = new JCheckBox("Uscite del Giorno");
 			GridBagConstraints gbc_rdbtnUsciteDelGiorno = new GridBagConstraints();
 			gbc_rdbtnUsciteDelGiorno.gridwidth = 2;
 			gbc_rdbtnUsciteDelGiorno.gridx = 0;

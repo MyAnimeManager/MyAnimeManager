@@ -67,6 +67,8 @@ import util.window.SetAnimeNameDialog;
 import util.window.SetFilterDialog;
 
 import javax.swing.JToggleButton;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JCheckBoxMenuItem;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 //kemomimi OP
 public class AnimeIndex extends JFrame
@@ -210,6 +212,40 @@ public class AnimeIndex extends JFrame
 		});
 		mnMenu.add(mntmModificaNome);
 		
+		JSeparator separator_3 = new JSeparator();
+		mnMenu.add(separator_3);
+		
+		JCheckBoxMenuItem rdbtnmntmControlloDati = new JCheckBoxMenuItem("Controllo Dati");
+		rdbtnmntmControlloDati.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int shouldCancel;
+				if(!rdbtnmntmControlloDati.isSelected())
+				{
+                 //se il marcatore e' acceso nn viene mostrato il warning e il sistema di update viene disattivato
+				}
+				else
+			        shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Il sistema utilizza Internet.\n\rAssicurarsi che la rete sia\n\rdisponibile al fine di evitare\n\ril blocco del programma.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					//attiva il sistema di update fino alla disattivazione da parte dell'utente
+			}
+		});
+		mnMenu.add(rdbtnmntmControlloDati);
+		
+		JSeparator separator = new JSeparator();
+		mnMenu.add(separator);
+		
+		JMenuItem mntmPreferenze = new JMenuItem("Preferenze");
+		mntmPreferenze.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PreferenceDialog preference = new PreferenceDialog();
+				preference.setLocationRelativeTo(mainFrame);
+				preference.setVisible(true);
+			}
+		});
+		mnMenu.add(mntmPreferenze);
+		
+		JSeparator separator_2 = new JSeparator();
+		mnMenu.add(separator_2);
+		
 		JMenuItem mntmDeleteImage = new JMenuItem("Elimina tutti i dati");
 		mntmDeleteImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -248,23 +284,7 @@ public class AnimeIndex extends JFrame
 				}
 			}
 		});
-		
-		JSeparator separator = new JSeparator();
-		mnMenu.add(separator);
 		mnMenu.add(mntmDeleteImage);
-		
-		JSeparator separator_2 = new JSeparator();
-		mnMenu.add(separator_2);
-		
-		JMenuItem mntmPreferenze = new JMenuItem("Preferenze");
-		mntmPreferenze.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				PreferenceDialog preference = new PreferenceDialog();
-				preference.setLocationRelativeTo(mainFrame);
-				preference.setVisible(true);
-			}
-		});
-		mnMenu.add(mntmPreferenze);
 		
 		JSeparator separator_1 = new JSeparator();
 		mnMenu.add(separator_1);
@@ -1299,6 +1319,5 @@ public class AnimeIndex extends JFrame
 	{
 		AnimeIndex.fansubMap.putAll(fansubMap);
 	}
-//TODO creare metodo update
 }
 
