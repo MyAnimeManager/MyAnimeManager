@@ -118,6 +118,7 @@ public class AnimeIndex extends JFrame
 	private SearchBar searchBar;
 	public static AddFansubDialog fansubDialog;
 	public static JButton setFilterButton;
+	public static boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
 	/**
 	 * Launch the application.
 	 */

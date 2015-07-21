@@ -42,16 +42,15 @@ public class SetFilterDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	public static final ButtonGroup filterGroup = new ButtonGroup();
-	private JCheckBox rdbtnBlueray;
-	private JCheckBox rdbtnSospese;
-	private JCheckBox rdbtnAcquistate;
-	private JCheckBox rdbtnOavRilasciati;
-	private JCheckBox rdbtnOavInUscita;
-	private JCheckBox rdbtnFilmRilasciati;
-	private JCheckBox rdbtnFilmInUscita;
-	private JCheckBox rdbtnUsciteDelGiorno;
-	private JCheckBox rdbtnIrregolari;
-	private boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
+	private JCheckBox blueray;
+	private JCheckBox sospese;
+	private JCheckBox acquistate;
+	private JCheckBox oavRilasciati;
+	private JCheckBox oavInUscita;
+	private JCheckBox filmRilasciati;
+	private JCheckBox filmInUscita;
+	private JCheckBox usciteDelGiorno;
+	private JCheckBox irregolari;
 
 	/**
 	 * Create the dialog.
@@ -73,12 +72,12 @@ public class SetFilterDialog extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			rdbtnBlueray = new JCheckBox("Blu-Ray");
-			rdbtnBlueray.addActionListener(new ActionListener() {
+			blueray = new JCheckBox("Blu-Ray");
+			blueray.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					for (int i = 0; i < filterArray.length; i++)
-						filterArray[i] = false;
-					filterArray[0] = true;
+					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
+						AnimeIndex.filterArray[i] = false;
+					AnimeIndex.filterArray[0] = true;
 				}
 			});
 			GridBagConstraints gbc_rdbtnBlueray = new GridBagConstraints();
@@ -86,15 +85,15 @@ public class SetFilterDialog extends JDialog {
 			gbc_rdbtnBlueray.insets = new Insets(0, 0, 5, 5);
 			gbc_rdbtnBlueray.gridx = 0;
 			gbc_rdbtnBlueray.gridy = 0;
-			contentPanel.add(rdbtnBlueray, gbc_rdbtnBlueray);
+			contentPanel.add(blueray, gbc_rdbtnBlueray);
 		}
 		{
-			rdbtnOavRilasciati = new JCheckBox("OAV Rilasciati");
-			rdbtnOavRilasciati.addActionListener(new ActionListener() {
+			oavRilasciati = new JCheckBox("OAV Rilasciati");
+			oavRilasciati.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					for (int i = 0; i < filterArray.length; i++)
-						filterArray[i] = false;
-					filterArray[4] = true;
+					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
+						AnimeIndex.filterArray[i] = false;
+					AnimeIndex.filterArray[4] = true;
 				}
 			});
 			GridBagConstraints gbc_rdbtnOavRilasciati = new GridBagConstraints();
@@ -102,15 +101,15 @@ public class SetFilterDialog extends JDialog {
 			gbc_rdbtnOavRilasciati.insets = new Insets(0, 0, 5, 0);
 			gbc_rdbtnOavRilasciati.gridx = 1;
 			gbc_rdbtnOavRilasciati.gridy = 0;
-			contentPanel.add(rdbtnOavRilasciati, gbc_rdbtnOavRilasciati);
+			contentPanel.add(oavRilasciati, gbc_rdbtnOavRilasciati);
 		}
 		{
-			rdbtnSospese = new JCheckBox("Sospese");
-			rdbtnSospese.addActionListener(new ActionListener() {
+			sospese = new JCheckBox("Sospese");
+			sospese.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					for (int i = 0; i < filterArray.length; i++)
-						filterArray[i] = false;
-					filterArray[1] = true;
+					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
+						AnimeIndex.filterArray[i] = false;
+					AnimeIndex.filterArray[1] = true;
 				}
 			});
 			GridBagConstraints gbc_rdbtnSospese = new GridBagConstraints();
@@ -118,15 +117,15 @@ public class SetFilterDialog extends JDialog {
 			gbc_rdbtnSospese.insets = new Insets(0, 0, 5, 5);
 			gbc_rdbtnSospese.gridx = 0;
 			gbc_rdbtnSospese.gridy = 1;
-			contentPanel.add(rdbtnSospese, gbc_rdbtnSospese);
+			contentPanel.add(sospese, gbc_rdbtnSospese);
 		}
 		{
-			rdbtnOavInUscita = new JCheckBox("OAV in Uscita");
-			rdbtnOavInUscita.addActionListener(new ActionListener() {
+			oavInUscita = new JCheckBox("OAV in Uscita");
+			oavInUscita.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					for (int i = 0; i < filterArray.length; i++)
-						filterArray[i] = false;
-					filterArray[5] = true;
+					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
+						AnimeIndex.filterArray[i] = false;
+					AnimeIndex.filterArray[5] = true;
 				}
 			});
 			GridBagConstraints gbc_rdbtnOavInUscita = new GridBagConstraints();
@@ -134,15 +133,15 @@ public class SetFilterDialog extends JDialog {
 			gbc_rdbtnOavInUscita.insets = new Insets(0, 0, 5, 0);
 			gbc_rdbtnOavInUscita.gridx = 1;
 			gbc_rdbtnOavInUscita.gridy = 1;
-			contentPanel.add(rdbtnOavInUscita, gbc_rdbtnOavInUscita);
+			contentPanel.add(oavInUscita, gbc_rdbtnOavInUscita);
 		}
 		{
-			rdbtnIrregolari = new JCheckBox("Irregolari");
-			rdbtnIrregolari.addActionListener(new ActionListener() {
+			irregolari = new JCheckBox("Irregolari");
+			irregolari.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					for (int i = 0; i < filterArray.length; i++)
-						filterArray[i] = false;
-					filterArray[2] = true;
+					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
+						AnimeIndex.filterArray[i] = false;
+					AnimeIndex.filterArray[2] = true;
 				}
 			});
 			GridBagConstraints gbc_rdbtnIrregolari = new GridBagConstraints();
@@ -150,15 +149,15 @@ public class SetFilterDialog extends JDialog {
 			gbc_rdbtnIrregolari.insets = new Insets(0, 0, 5, 5);
 			gbc_rdbtnIrregolari.gridx = 0;
 			gbc_rdbtnIrregolari.gridy = 2;
-			contentPanel.add(rdbtnIrregolari, gbc_rdbtnIrregolari);
+			contentPanel.add(irregolari, gbc_rdbtnIrregolari);
 		}
 		{
-			rdbtnFilmRilasciati = new JCheckBox("Film Rilasciati");
-			rdbtnFilmRilasciati.addActionListener(new ActionListener() {
+			filmRilasciati = new JCheckBox("Film Rilasciati");
+			filmRilasciati.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					for (int i = 0; i < filterArray.length; i++)
-						filterArray[i] = false;
-					filterArray[6] = true;
+					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
+						AnimeIndex.filterArray[i] = false;
+					AnimeIndex.filterArray[6] = true;
 				}
 			});
 			GridBagConstraints gbc_rdbtnFilmRilasciati = new GridBagConstraints();
@@ -166,15 +165,15 @@ public class SetFilterDialog extends JDialog {
 			gbc_rdbtnFilmRilasciati.insets = new Insets(0, 0, 5, 0);
 			gbc_rdbtnFilmRilasciati.gridx = 1;
 			gbc_rdbtnFilmRilasciati.gridy = 2;
-			contentPanel.add(rdbtnFilmRilasciati, gbc_rdbtnFilmRilasciati);
+			contentPanel.add(filmRilasciati, gbc_rdbtnFilmRilasciati);
 		}
 		{
-			rdbtnAcquistate = new JCheckBox("Acquistate");
-			rdbtnAcquistate.addActionListener(new ActionListener() {
+			acquistate = new JCheckBox("Acquistate");
+			acquistate.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					for (int i = 0; i < filterArray.length; i++)
-						filterArray[i] = false;
-					filterArray[3] = true;
+					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
+						AnimeIndex.filterArray[i] = false;
+					AnimeIndex.filterArray[3] = true;
 				}
 			});
 			GridBagConstraints gbc_rdbtnAcquistate = new GridBagConstraints();
@@ -182,15 +181,15 @@ public class SetFilterDialog extends JDialog {
 			gbc_rdbtnAcquistate.insets = new Insets(0, 0, 5, 5);
 			gbc_rdbtnAcquistate.gridx = 0;
 			gbc_rdbtnAcquistate.gridy = 3;
-			contentPanel.add(rdbtnAcquistate, gbc_rdbtnAcquistate);
+			contentPanel.add(acquistate, gbc_rdbtnAcquistate);
 		}
 		{
-			rdbtnFilmInUscita = new JCheckBox("Film in Uscita");
-			rdbtnFilmInUscita.addActionListener(new ActionListener() {
+			filmInUscita = new JCheckBox("Film in Uscita");
+			filmInUscita.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					for (int i = 0; i < filterArray.length; i++)
-						filterArray[i] = false;
-					filterArray[7] = true;
+					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
+						AnimeIndex.filterArray[i] = false;
+					AnimeIndex.filterArray[7] = true;
 				}
 			});
 			GridBagConstraints gbc_rdbtnFilmInUscita = new GridBagConstraints();
@@ -198,22 +197,22 @@ public class SetFilterDialog extends JDialog {
 			gbc_rdbtnFilmInUscita.anchor = GridBagConstraints.WEST;
 			gbc_rdbtnFilmInUscita.gridx = 1;
 			gbc_rdbtnFilmInUscita.gridy = 3;
-			contentPanel.add(rdbtnFilmInUscita, gbc_rdbtnFilmInUscita);
+			contentPanel.add(filmInUscita, gbc_rdbtnFilmInUscita);
 		}
 		{
-			rdbtnUsciteDelGiorno = new JCheckBox("Uscite del Giorno");
-			rdbtnUsciteDelGiorno.addActionListener(new ActionListener() {
+			usciteDelGiorno = new JCheckBox("Uscite del Giorno");
+			usciteDelGiorno.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					for (int i = 0; i < filterArray.length; i++)
-						filterArray[i] = false;
-					filterArray[7] = true;
+					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
+						AnimeIndex.filterArray[i] = false;
+					AnimeIndex.filterArray[7] = true;
 				}
 			});
 			GridBagConstraints gbc_rdbtnUsciteDelGiorno = new GridBagConstraints();
 			gbc_rdbtnUsciteDelGiorno.gridwidth = 2;
 			gbc_rdbtnUsciteDelGiorno.gridx = 0;
 			gbc_rdbtnUsciteDelGiorno.gridy = 4;
-			contentPanel.add(rdbtnUsciteDelGiorno, gbc_rdbtnUsciteDelGiorno);
+			contentPanel.add(usciteDelGiorno, gbc_rdbtnUsciteDelGiorno);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -225,7 +224,7 @@ public class SetFilterDialog extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						if(filterGroup.getSelection() != null){
 							AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon1.png")));}
-//TODO memorizza e applica il filtro					
+//TODO applica il filtro					
 						JButton but = (JButton) e.getSource();
 						JDialog dialog = (JDialog) but.getTopLevelAncestor();
 						dialog.dispose();
@@ -253,19 +252,23 @@ public class SetFilterDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		filterGroup.add(rdbtnBlueray);
-		filterGroup.add(rdbtnFilmInUscita);
-		filterGroup.add(rdbtnFilmRilasciati);
-		filterGroup.add(rdbtnOavInUscita);
-		filterGroup.add(rdbtnOavRilasciati);
-		filterGroup.add(rdbtnSospese);
-		filterGroup.add(rdbtnIrregolari);
-		filterGroup.add(rdbtnUsciteDelGiorno);
-		filterGroup.add(rdbtnAcquistate);
-	}
-
-	public boolean[] getFilterArray()
-	{
-		return filterArray;
+		filterGroup.add(blueray);
+		filterGroup.add(filmInUscita);
+		filterGroup.add(filmRilasciati);
+		filterGroup.add(oavInUscita);
+		filterGroup.add(oavRilasciati);
+		filterGroup.add(sospese);
+		filterGroup.add(irregolari);
+		filterGroup.add(usciteDelGiorno);
+		filterGroup.add(acquistate);
+		
+		JCheckBox[] buttonArray ={blueray, sospese, irregolari, acquistate, oavRilasciati, oavInUscita ,filmRilasciati, filmInUscita, usciteDelGiorno};
+		for (int i = 0; i < AnimeIndex.filterArray.length; i++)
+		{
+			if (AnimeIndex.filterArray[i])
+			{
+				buttonArray[i].setSelected(true);
+			}
+		}
 	}
 }
