@@ -218,16 +218,21 @@ public class AnimeIndex extends JFrame
 		JCheckBoxMenuItem rdbtnmntmControlloDati = new JCheckBoxMenuItem("Controllo Dati");
 		rdbtnmntmControlloDati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int shouldCancel;
 				if(!rdbtnmntmControlloDati.isSelected())
 				{
                  //se il marcatore e' acceso nn viene mostrato il warning e il sistema di update viene disattivato
 				}
 				else
-			        shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Il sistema utilizza Internet.\n\rAssicurarsi che la rete sia\n\rdisponibile al fine di evitare\n\ril blocco del programma.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-					if(shouldCancel==0){}
+				{
+					int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Il sistema utilizza Internet.\n\rAssicurarsi che la rete sia\n\rdisponibile al fine di evitare\n\ril blocco del programma.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if(shouldCancel==1)
+					{
+						rdbtnmntmControlloDati.setSelected(false);
+					}
+					else{}
 					//attiva il sistema di update fino alla disattivazione da parte dell'utente
-			}
+				}
+		}	
 		});
 		mnMenu.add(rdbtnmntmControlloDati);
 		
