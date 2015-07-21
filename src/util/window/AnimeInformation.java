@@ -46,6 +46,7 @@ import java.awt.Component;
 import javax.swing.Box;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.JFormattedTextField;
 
 public class AnimeInformation extends JPanel
 {
@@ -75,11 +76,11 @@ public class AnimeInformation extends JPanel
 	private JLabel lblTipo;
 	public JButton addToSeeButton;
 	private JComboBox typeComboBox;
-	private JTextField startDateField;
 	private JLabel lblInizio;
 	private JLabel lblFine;
 	private JTextField endDateField;
 	private JTextField textField;
+	private JTextField startDateField;
 
 	/**
 	 * Create the panel.
@@ -451,12 +452,7 @@ public class AnimeInformation extends JPanel
 		gbc_lblInizio.gridx = 10;
 		gbc_lblInizio.gridy = 7;
 		add(lblInizio, gbc_lblInizio);
-
-//TODO importare da anilist data di inizio e fine dell'anime
-//TODO se la data di inizio coincide con quella di fine impostarle uguali
-//TODO implementarne la disattivazione per anime completati e completi da vedere
-//TODO se le date sono sconosciute il metodo deve inserire ??/??/???? nel field (cio' servira' per gestire il sistema update)
-//TODO quando l'utente cerca di modificare i ??/??/???? viene lanciato un warning che lo avvisa della disattivazione del sistema di update per quel campo di quell'anime
+		
 		startDateField = new JTextField();
 		GridBagConstraints gbc_startDateField = new GridBagConstraints();
 		gbc_startDateField.insets = new Insets(0, 0, 5, 5);
