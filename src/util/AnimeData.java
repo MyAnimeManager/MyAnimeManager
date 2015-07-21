@@ -18,10 +18,6 @@ public class AnimeData
 	String releaseDate;
 	String finishDate;
 	//tipo anime, data di inizio e fine
-	public String getId()
-	{
-		return id;
-	}
 
 	private final static String IMAGE_PATH = FileManager.getImageFolderPath();
 		
@@ -107,42 +103,12 @@ public class AnimeData
 	{
 		return day;
 	}
-
-	public void setDay(String day)
-	{
-		this.day = day;
-	}
-
-	public void setImageName(String imageName)
-	{
-		this.imageName = imageName;
-	}
-
-	public void setCurrentEpisode(String string)
-	{
-		this.currentEpisode = string;
-	}
-
-	public void setTotalEpisode(String string)
-	{
-		this.totalEpisode = string;
-	}
-
-	public void setFansub(String fansub)
-	{
-		this.fansub = fansub;
-	}
-
-	public void setFansubLink(String fansubLink)
-	{
-		this.fansubLink = fansubLink;
-	}
-
-	public void setNote(String note)
-	{
-		this.note = note;
-	}
 	
+	public String getId()
+	{
+		return id;
+	}
+
 	public String toString()
 	{
 		String string = this.getCurrentEpisode() + "||" + this.getTotalEpisode() + "||" + this.getFansub() + "||" + this.getFansubLink() + "||" + this.getNote() + "||" + this.getImageName() + "||" + this.getDay() + "||" + this.getId() + "||" + this.linkName + "||" + this.link + "||" + this.animeType + "||" + this.releaseDate + "||" + this.finishDate;
