@@ -225,6 +225,7 @@ public class AnimeIndex extends JFrame
 				}
 				else
 			        shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Il sistema utilizza Internet.\n\rAssicurarsi che la rete sia\n\rdisponibile al fine di evitare\n\ril blocco del programma.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if(shouldCancel==0){}
 					//attiva il sistema di update fino alla disattivazione da parte dell'utente
 			}
 		});
