@@ -62,6 +62,7 @@ import util.window.AddFansubDialog;
 import util.window.AddImageDialog;
 import util.window.AnimeInformation;
 import util.window.ExitSaveDialog;
+import util.window.PreferenceDialog;
 import util.window.SetAnimeNameDialog;
 import util.window.SetFilterDialog;
 
@@ -254,6 +255,19 @@ public class AnimeIndex extends JFrame
 		
 		JSeparator separator_2 = new JSeparator();
 		mnMenu.add(separator_2);
+		
+		JMenuItem mntmPreferenze = new JMenuItem("Preferenze");
+		mntmPreferenze.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PreferenceDialog preference = new PreferenceDialog();
+				preference.setLocationRelativeTo(mainFrame);
+				preference.setVisible(true);
+			}
+		});
+		mnMenu.add(mntmPreferenze);
+		
+		JSeparator separator_1 = new JSeparator();
+		mnMenu.add(separator_1);
 		
 		JMenu mnHelp = new JMenu("Aiuto");
 		mnMenu.add(mnHelp);
