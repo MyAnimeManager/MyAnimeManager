@@ -216,7 +216,8 @@ public class AnimeIndex extends JFrame
 		mnMenu.add(separator_3);
 		
 		JCheckBoxMenuItem rdbtnmntmControlloDati = new JCheckBoxMenuItem("Controllo Dati");
-		if(appProp.getProperty("Update_system") == "true")
+		//se mi fai un confrnto tra stringhe con == invece che con .equals però...
+		if(appProp.getProperty("Update_system").equals("true"))
 			rdbtnmntmControlloDati.setSelected(true);
 		else
 			rdbtnmntmControlloDati.setSelected(false);
