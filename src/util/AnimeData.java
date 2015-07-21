@@ -24,27 +24,6 @@ public class AnimeData
 		this.day = day;
 	}
 	
-	public AnimeData(String currentEpisode, String totalEpisode, String fansub, String fansubLink, String image, String day)
-	{
-		this.currentEpisode = currentEpisode;
-		this.totalEpisode = totalEpisode;
-		this.fansub = fansub;
-		this.fansubLink = fansubLink;
-		this.imageName = image;
-		this.note = "";
-		this.day = day;
-	}
-	
-	public AnimeData(String currentEpisode, String totalEpisode, String fansub, String fansubLink, String image)
-	{
-		this.currentEpisode = currentEpisode;
-		this.totalEpisode = totalEpisode;
-		this.fansub = fansub;
-		this.fansubLink = fansubLink;
-		this.note = "";
-		this.imageName = image;
-	}
-
 	public String getCurrentEpisode()
 	{
 		return currentEpisode;

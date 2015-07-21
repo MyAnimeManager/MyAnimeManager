@@ -241,7 +241,7 @@ public class AddAnimeDialog extends JDialog
 								if (currentEp.equals(totEp))
 									AnimeIndex.animeInformation.plusButton.setEnabled(false);
 								
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, null, day);
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", null, day);
 								
 								
 								String listName = getListToAdd();
@@ -543,7 +543,7 @@ public class AddAnimeDialog extends JDialog
 									imageName = imageName.replaceAll(">", "_");
 									imageName = imageName.replaceAll("<", "_");
 									FileManager.saveImage(imageLink, imageName);
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, imageName + ".png");
+									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----");
 									
 									AnimeIndex.completedMap.put(name, data);
 									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
@@ -562,7 +562,7 @@ public class AddAnimeDialog extends JDialog
 									{
 									AnimeIndex.airingModel.addElement(name);
 									
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, name + ".png");
+									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", name + ".png", "-----");
 									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 									imageLink = imageLink.replaceAll("\\\\/", "/");
 									FileManager.saveImage(imageLink, name);
@@ -584,7 +584,7 @@ public class AddAnimeDialog extends JDialog
 									{
 									AnimeIndex.ovaModel.addElement(name);
 									
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, name + ".png");
+									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", name + ".png", "-----");
 									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 									imageLink = imageLink.replaceAll("\\\\/", "/");
 									FileManager.saveImage(imageLink, name);
@@ -606,7 +606,7 @@ public class AddAnimeDialog extends JDialog
 									{
 									AnimeIndex.filmModel.addElement(name);
 									
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, name + ".png");
+									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", name + ".png", "-----");
 									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 									imageLink = imageLink.replaceAll("\\\\/", "/");
 									FileManager.saveImage(imageLink, name);
@@ -629,7 +629,7 @@ public class AddAnimeDialog extends JDialog
 									{
 									AnimeIndex.completedToSeeModel.addElement(name);
 									
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, name + ".png");
+									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", name + ".png", "-----");
 									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 									imageLink = imageLink.replaceAll("\\\\/", "/");
 									FileManager.saveImage(imageLink, name);
