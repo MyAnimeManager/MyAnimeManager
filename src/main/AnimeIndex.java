@@ -112,7 +112,7 @@ public class AnimeIndex extends JFrame
 	public static ArrayList<String> comletedToSeeSessionAnime = new ArrayList();
 	private JList searchList;
 	public static AddFansubDialog fansubDialog;
-	public static JToggleButton setFilterButton;
+	public static JButton setFilterButton;
 
 	/**
 	 * Launch the application.
@@ -1113,17 +1113,15 @@ public class AnimeIndex extends JFrame
 		});
 		buttonPanel.add(addButton, BorderLayout.SOUTH);
 		
-	    setFilterButton = new JToggleButton("Filtro");
-		setFilterButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(SetFilterDialog.filterGroup.getSelection() != null)
-				{	setFilterButton.setSelected(true);				    
-				}
-				SetFilterDialog filterDialog = new SetFilterDialog();
+	    setFilterButton = new JButton("Filtro");
+	    setFilterButton.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		SetFilterDialog filterDialog = new SetFilterDialog();
 				filterDialog.setLocationRelativeTo(animeInformation.animeImage);
 				filterDialog.setVisible(true);
-			}
-		});
+	    	}
+	    });
+	    setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon3.png")));
 		buttonPanel.add(setFilterButton, BorderLayout.NORTH);
 		
 		fansubList = FileManager.loadFansubList();
