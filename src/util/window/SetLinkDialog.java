@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -32,7 +33,7 @@ public class SetLinkDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField linkField;
-	private JTextField textField;
+	private JTextField linkNameField;
 //TODO vedi note riportate in AnimeInformation sopra all'inizializzazione del pulsante "Imposta Link"
 	/**
 	 * Create the dialog.
@@ -82,13 +83,13 @@ public class SetLinkDialog extends JDialog {
 			contentPanel.add(lblNome, gbc_lblNome);
 		}
 		{
-			textField = new JTextField();
-			GridBagConstraints gbc_textField = new GridBagConstraints();
-			gbc_textField.fill = GridBagConstraints.BOTH;
-			gbc_textField.gridx = 1;
-			gbc_textField.gridy = 1;
-			contentPanel.add(textField, gbc_textField);
-			textField.setColumns(10);
+			linkNameField = new JTextField();
+			GridBagConstraints gbc_linkNameField = new GridBagConstraints();
+			gbc_linkNameField.fill = GridBagConstraints.BOTH;
+			gbc_linkNameField.gridx = 1;
+			gbc_linkNameField.gridy = 1;
+			contentPanel.add(linkNameField, gbc_linkNameField);
+			linkNameField.setColumns(10);
 		}
 		{
 			JPanel buttonPane = new JPanel();
