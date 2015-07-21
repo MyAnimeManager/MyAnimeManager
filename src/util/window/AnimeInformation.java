@@ -79,6 +79,7 @@ public class AnimeInformation extends JPanel
 	private JLabel lblInizio;
 	private JLabel lblFine;
 	private JTextField endDateField;
+	private JTextField textField;
 
 	/**
 	 * Create the panel.
@@ -202,7 +203,7 @@ public class AnimeInformation extends JPanel
 		
 		
 		//secondo numero = massimo numero a cui può arrivare
-		
+//TODO numero massimo permesso = numero massimo episodi se questo e' diverso da ??	
 		currentEpisodeField = new JTextField();
 		currentEpisodeField.setPreferredSize(new Dimension(43, 23));
 		currentEpisodeField.setMinimumSize(new Dimension(43, 23));
@@ -263,10 +264,12 @@ public class AnimeInformation extends JPanel
 		add(rigidArea_1, gbc_rigidArea_1);
 		
 		
-		
+//TODO se il numero di episodi totali e' sconosciuto il metodo deve inserire ?? nel field (cio' serivra' per gestire il sistema di update)	
+//TODO quando l'utente cerca di modificare i ?? viene lanciato un warning che lo avvisa della disattivazione del sistema di update per quel campo di quell'anime
 		// total episode label e text field
 		JLabel lblTotalEpisode = new JLabel("Episodi Totali :");
 		GridBagConstraints gbc_lblTotalEpisode = new GridBagConstraints();
+		gbc_lblTotalEpisode.anchor = GridBagConstraints.EAST;
 		gbc_lblTotalEpisode.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTotalEpisode.gridx = 10;
 		gbc_lblTotalEpisode.gridy = 4;
@@ -280,9 +283,19 @@ public class AnimeInformation extends JPanel
 		gbc_totalEpisodeText.insets = new Insets(0, 0, 5, 5);
 		gbc_totalEpisodeText.gridx = 11;
 		gbc_totalEpisodeText.gridy = 4;
+		
 		add(totalEpisodeText, gbc_totalEpisodeText);
 		totalEpisodeText.setColumns(3);
-		((AbstractDocument)totalEpisodeText.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,4}"));
+		((AbstractDocument)totalEpisodeText.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,4}||\\?{0,2}"));
+		
+		textField = new JTextField();
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.anchor = GridBagConstraints.WEST;
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.gridx = 11;
+		gbc_textField.gridy = 4;
+		add(textField, gbc_textField);
+		textField.setColumns(10);
 		
 		lblTipo = new JLabel("Tipo :");
 		GridBagConstraints gbc_lblTipo = new GridBagConstraints();
@@ -292,7 +305,7 @@ public class AnimeInformation extends JPanel
 		gbc_lblTipo.gridy = 4;
 		add(lblTipo, gbc_lblTipo);
 		
-//TODO importare tipo anime da anilist
+//TODO importare tipo anime da anilist; se sconosciuto lasciare -----
 		typeComboBox = new JComboBox();
 		typeComboBox.setModel(new DefaultComboBoxModel(new String[] {"-----", "Tv", "Movie", "Special", "OVA", "ONA", "Tv Short", "Blu-Ray"}));
 		GridBagConstraints gbc_typeComboBox = new GridBagConstraints();
@@ -412,7 +425,9 @@ public class AnimeInformation extends JPanel
 				setLink = new SetLinkDialog();
 				setLink.setLocationRelativeTo(AnimeIndex.mainFrame);
 				setLink.setVisible(true);
-//TODO far comparire il nome del sito sul pulsante se un url con relativo nome e' stato impostato				
+//TODO far comparire il nome del sito sul pulsante se un url con relativo nome e' stato impostato, altrimenti scrivere "Link" sul pulsante.
+//TODO di default il pulsante riporta scritto sopra "imposta link" finche' un link nn viene inserito. 
+//TODO se il link viene rimosso il nome che vi era stato associato viene cancellato e il pulsante riporta nuovamente la dicitura "Imposta Link"
 			}
 		});
 		GridBagConstraints gbc_btnScegliLink = new GridBagConstraints();
@@ -440,7 +455,8 @@ public class AnimeInformation extends JPanel
 //TODO importare da anilist data di inizio e fine dell'anime
 //TODO se la data di inizio coincide con quella di fine impostarle uguali
 //TODO implementarne la disattivazione per anime completati e completi da vedere
-		
+//TODO se le date sono sconosciute il metodo deve inserire ??/??/???? nel field (cio' servira' per gestire il sistema update)
+//TODO quando l'utente cerca di modificare i ??/??/???? viene lanciato un warning che lo avvisa della disattivazione del sistema di update per quel campo di quell'anime
 		startDateField = new JTextField();
 		GridBagConstraints gbc_startDateField = new GridBagConstraints();
 		gbc_startDateField.insets = new Insets(0, 0, 5, 5);
@@ -474,7 +490,7 @@ public class AnimeInformation extends JPanel
 		gbc_lblExitDay.gridx = 10;
 		gbc_lblExitDay.gridy = 8;
 		add(lblExitDay, gbc_lblExitDay);
-		
+//TODO per oav e film settare in automatico ----- ma se ne permetta la modifica da parte dell'utenete		
 		exitDaycomboBox = new JComboBox();
 		exitDaycomboBox.setModel(new DefaultComboBoxModel(dayWeek));
 		GridBagConstraints gbc_exitDaycomboBox = new GridBagConstraints();
@@ -561,7 +577,7 @@ public class AnimeInformation extends JPanel
 			    AnimeIndex.animeInformation.finishedButton.setEnabled(false);
 			}
 		});
-		
+//TODO ultimare la funzione di salvataggio automatico della sezione così da rimuovere questo inutile pulsante e sostituirlo con uno piu' utile		
 		btnSave = new JButton("Salva");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -1,3 +1,4 @@
+//TODO dubbia utilita' di tale funzione
 package util.window;
 
 import java.awt.BorderLayout;
@@ -7,15 +8,22 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.GridLayout;
+
 import javax.swing.JTextField;
+
+import main.AnimeIndex;
+
 import java.awt.Window.Type;
 import java.awt.Dialog.ModalityType;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SetAnimeNameDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
+	private JTextField animeNameField;
 	/**
 	 * Create the dialog.
 	 */
@@ -31,9 +39,10 @@ public class SetAnimeNameDialog extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		{
-			textField = new JTextField();
-			contentPanel.add(textField);
-			textField.setColumns(10);
+			animeNameField = new JTextField();
+			contentPanel.add(animeNameField);
+			animeNameField.setColumns(10);
+			animeNameField.setText(AnimeIndex.animeInformation.lblAnimeName.getText());
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -41,12 +50,27 @@ public class SetAnimeNameDialog extends JDialog {
 			buttonPane.setLayout(new GridLayout(0, 2, 0, 0));
 			{
 				JButton okButton = new JButton("Salva");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						AnimeIndex.animeInformation.lblAnimeName.setText(animeNameField.getText());
+						JButton but = (JButton) e.getSource();
+						JDialog dialog = (JDialog) but.getTopLevelAncestor();
+						dialog.dispose();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Annulla");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JButton but = (JButton) e.getSource();
+						JDialog dialog = (JDialog) but.getTopLevelAncestor();
+						dialog.dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

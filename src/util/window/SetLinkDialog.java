@@ -33,7 +33,7 @@ public class SetLinkDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField linkField;
 	private JTextField textField;
-
+//TODO vedi note riportate in AnimeInformation sopra all'inizializzazione del pulsante "Imposta Link"
 	/**
 	 * Create the dialog.
 	 */

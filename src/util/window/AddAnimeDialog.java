@@ -67,6 +67,8 @@ public class AddAnimeDialog extends JDialog
 	private JPanel anilistAddPanel;
 	private JPanel normalAddPanel;
 
+//TODO Inserire barra di caricamento
+//TODO l'aggiunta manuale e' completamente da rifare
 	/**
 	 * Create the dialog.
 	 */

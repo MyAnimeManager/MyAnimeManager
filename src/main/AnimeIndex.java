@@ -195,15 +195,16 @@ public class AnimeIndex extends JFrame
 		mnMenu.add(mntmAddImage);
 		mnMenu.add(mntmAggiungiFansub);
 		
-		JMenuItem mntmModificaNome = new JMenuItem("Modifica Nome");
+		JMenuItem mntmModificaNome = new JMenuItem("Modifica Nome Anime");
 		mntmModificaNome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Si consiglia di lasciare invariato\n\ril nome dell'anime per una\n\rmaggiore compatibilita' coi dati\n\rdel server AniList.\n\rAlcune funzioni potrebbero\n\ressere disattivate. Continuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if(shouldCancel==0){
-					SetAnimeNameDialog AnimeNameDialog = new SetAnimeNameDialog();
-				AnimeNameDialog.setLocationRelativeTo(mainFrame);
-				AnimeNameDialog.setVisible(true);}
-//TODO nome preventivamente nel campo di inserimento				
+					SetAnimeNameDialog animeNameDialog = new SetAnimeNameDialog();
+				animeNameDialog.setLocationRelativeTo(mainFrame);
+				animeNameDialog.setVisible(true);
+				}
+//TODO la modifica del nome si potrebbe applicare solo alla label e nn alla treeMap così da nn perdere le fuzioni di update. ma bisogna modificarlo anche nella lista della categoria				
 			}
 		});
 		mnMenu.add(mntmModificaNome);
@@ -962,6 +963,7 @@ public class AnimeIndex extends JFrame
 		JPanel buttonPanel = new JPanel();
 		panel.add(buttonPanel, BorderLayout.SOUTH);
 		buttonPanel.setLayout(new BorderLayout(0, 0));
+
 		deleteButton = new JButton("Elimina");
 		deleteButton.setPreferredSize(new Dimension(159, 21));
 		deleteButton.setMaximumSize(new Dimension(159, 21));
@@ -1283,5 +1285,6 @@ public class AnimeIndex extends JFrame
 	{
 		AnimeIndex.fansubMap.putAll(fansubMap);
 	}
+//TODO creare metodo update
 }
 
