@@ -20,7 +20,7 @@ public class AnimeIndexProperties
 		try {
 			in = new FileInputStream(PROPERTIES_PATH);
 			defaultProps.load(in);
-			//defaultProps.setProperty("Show_episode_to_see", "true");
+			defaultProps.setProperty("List_to_visualize_at_start", "Anime completati");
 			in.close();
 		} 
 		catch (FileNotFoundException fe)
@@ -29,7 +29,7 @@ public class AnimeIndexProperties
 			try {
 				prop.getParentFile().mkdirs();
 				prop.createNewFile();
-				//defaultProps.setProperty("Show_episode_to_see", "true");
+				defaultProps.setProperty("List_to_visualize_at_start", "Anime completati");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -57,7 +57,7 @@ public class AnimeIndexProperties
 		FileOutputStream out;
 		try {
 			out = new FileOutputStream(PROPERTIES_PATH);
-			//prop.store(out, "---Boolean---");
+			prop.store(out, "---Start Option---");
 			out.close();
 		} catch (Exception e) {
 		}
