@@ -216,11 +216,17 @@ public class AnimeIndex extends JFrame
 		mnMenu.add(separator_3);
 		
 		JCheckBoxMenuItem rdbtnmntmControlloDati = new JCheckBoxMenuItem("Controllo Dati");
+		if(appProp.getProperty("Update_system") == "true")
+			appProp.setProperty("Update_system", "true");
+		else
+			appProp.setProperty("Update_system", "false");
+		
 		rdbtnmntmControlloDati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!rdbtnmntmControlloDati.isSelected())
 				{
-                 //se il marcatore e' acceso nn viene mostrato il warning e il sistema di update viene disattivato
+					appProp.setProperty("Update_system", "false");
+					//se il marcatore e' acceso nn viene mostrato il warning e il sistema di update viene disattivato
 				}
 				else
 				{
@@ -229,8 +235,11 @@ public class AnimeIndex extends JFrame
 					{
 						rdbtnmntmControlloDati.setSelected(false);
 					}
-					else{}
-					//attiva il sistema di update fino alla disattivazione da parte dell'utente
+					else
+					{
+						appProp.setProperty("Update_system", "true");
+						//attiva il sistema di update fino alla disattivazione da parte dell'utente
+					}
 				}
 		}	
 		});
