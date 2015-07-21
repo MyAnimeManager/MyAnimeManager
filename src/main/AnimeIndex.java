@@ -227,7 +227,7 @@ public class AnimeIndex extends JFrame
 				{
 					appProp.setProperty("Update_system", "false");
 					JOptionPane.showMessageDialog(mainFrame, "Controllo Dati :      DISATTIVATO", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
-					//se il marcatore e' acceso nn viene mostrato il warning e il sistema di update viene disattivato
+					//se il marcatore e' acceso nn viene mostrato il warning e il sistema di update viene disattivato.
 				}
 				else
 				{
