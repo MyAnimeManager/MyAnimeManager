@@ -76,13 +76,17 @@ public class AnimeIndex extends JFrame
 
 	public static JPanel mainFrame;
 	public static JPanel cardContainer;
-	private JButton deleteButton;
 	public static AnimeInformation animeInformation;
+	
 	public static JList completedToSeeList;
 	public static JList filmList;
 	public static JList airingList;
 	public static JList completedList;
 	public static JList ovaList;
+	private JList dayExitList;
+	private JList searchList;
+	private JList filterList;
+	
 	public static DefaultListModel completedModel = new DefaultListModel();
 	public static DefaultListModel airingModel = new DefaultListModel();
 	public static DefaultListModel ovaModel = new DefaultListModel();
@@ -90,9 +94,7 @@ public class AnimeIndex extends JFrame
 	public static DefaultListModel completedToSeeModel = new DefaultListModel();
 	public static DefaultListModel dayExitModel = new DefaultListModel();
 	private static DefaultListModel searchModel = new DefaultListModel();
-	
-	public static JComboBox animeTypeComboBox;
-	public static AddAnimeDialog animeDialog;
+	private static DefaultListModel filterModel = new DefaultListModel();
 	
 	private static String[] fansubList = {};
 	public static TreeMap<String,String> fansubMap = new TreeMap<String,String>();
@@ -102,15 +104,18 @@ public class AnimeIndex extends JFrame
 	public static TreeMap<String,AnimeData> ovaMap = new TreeMap<String,AnimeData>();
 	public static TreeMap<String,AnimeData> filmMap = new TreeMap<String,AnimeData>();
 	public static TreeMap<String,AnimeData> completedToSeeMap = new TreeMap<String,AnimeData>();
-	private JButton addButton;
-	private JList dayExitList;
-	private SearchBar searchBar;
+	
 	public static ArrayList<String> completedSessionAnime = new ArrayList();
 	public static ArrayList<String> airingSessionAnime = new ArrayList();
 	public static ArrayList<String> ovaSessionAnime = new ArrayList();
 	public static ArrayList<String> filmSessionAnime = new ArrayList();
 	public static ArrayList<String> comletedToSeeSessionAnime = new ArrayList();
-	private JList searchList;
+	
+	private JButton addButton;
+	private JButton deleteButton;
+	public static JComboBox animeTypeComboBox;
+	public static AddAnimeDialog animeDialog;
+	private SearchBar searchBar;
 	public static AddFansubDialog fansubDialog;
 	public static JButton setFilterButton;
 
@@ -1003,12 +1008,98 @@ public class AnimeIndex extends JFrame
 		searchCard.add(searchScroll, BorderLayout.CENTER);
 		
 		searchList = new JList(searchModel);
+		searchList.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				try
+				{
+					saveModifiedInformation();
+				}
+				catch (NullPointerException e1)
+				{
+					deleteButton.setEnabled(true);
+					String anime = (String) searchList.getSelectedValue();
+					if (anime != null)
+					{
+					TreeMap<String,AnimeData> map = getMap();
+					AnimeData data = map.get(anime);
+					animeInformation.setAnimeName(anime);
+					animeInformation.setCurrentEp(data.getCurrentEpisode());
+					animeInformation.setTotalEp(data.getTotalEpisode());
+					animeInformation.setFansub(data.getFansub());
+					animeInformation.setLink(data.getFansubLink());
+					animeInformation.setNote(data.getNote());
+					animeInformation.setDay(data.getDay());
+					if (data.getDay().equalsIgnoreCase("concluso"))
+						animeInformation.exitDaycomboBox.setEnabled(false);
+					String path = data.getImagePath();
+					File file = new File(path);
+					if (file.exists())
+						animeInformation.setImage(data.getImagePath());
+					else
+					{
+						animeInformation.setImage("deafult");
+					}
+					
+					if(data.getCurrentEpisode().equals(data.getTotalEpisode()))
+						animeInformation.plusButton.setEnabled(false);
+					else
+						animeInformation.plusButton.setEnabled(true);
+					
+					if(data.getFansubLink() != null && !(data.getFansubLink().isEmpty()))
+	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+					else
+						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
+					
+					AnimeIndex.animeInformation.minusButton.setEnabled(true);
+				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
+				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
+					}
+				}
+				deleteButton.setEnabled(true);
+				String anime = (String) searchList.getSelectedValue();
+				if (anime != null)
+				{
+				TreeMap<String,AnimeData> map = getMap();
+				AnimeData data = map.get(anime);
+				animeInformation.setAnimeName(anime);
+				animeInformation.setCurrentEp(data.getCurrentEpisode());
+				animeInformation.setTotalEp(data.getTotalEpisode());
+				animeInformation.setFansub(data.getFansub());
+				animeInformation.setLink(data.getFansubLink());
+				animeInformation.setNote(data.getNote());
+				animeInformation.setImage(data.getImagePath());
+				animeInformation.setDay(data.getDay());
+				animeInformation.exitDaycomboBox.setEnabled(true);
+				if(data.getCurrentEpisode().equals(data.getTotalEpisode()))
+					animeInformation.plusButton.setEnabled(false);
+				else
+					animeInformation.plusButton.setEnabled(true);
+				}
+			}
+		});
 		searchList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		searchList.setSize(new Dimension(138, 233));
 		searchList.setPreferredSize(new Dimension(138, 233));
 		searchList.setMinimumSize(new Dimension(138, 233));
 		searchList.setMaximumSize(new Dimension(138, 233));
 		searchScroll.setViewportView(searchList);
+		
+		JPanel filterCard = new JPanel();
+		cardContainer.add(filterCard, "Filtri");
+		filterCard.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane filterScroll = new JScrollPane();
+		filterCard.add(filterScroll, BorderLayout.CENTER);
+		
+		filterList = new JList(filterModel);
+		filterList.setSize(new Dimension(138, 233));
+		filterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		filterList.setPreferredSize(new Dimension(138, 233));
+		filterList.setMinimumSize(new Dimension(138, 233));
+		filterList.setMaximumSize(new Dimension(138, 233));
+		filterScroll.setViewportView(filterList);
 		
 		JPanel buttonPanel = new JPanel();
 		panel.add(buttonPanel, BorderLayout.SOUTH);
