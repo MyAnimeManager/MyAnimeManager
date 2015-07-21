@@ -59,7 +59,7 @@ public class AnimeInformation extends JPanel
 	public JButton finishedButton;
 	public JButton btnOpen;
 	public JLabel lblEpisode;
-	private JButton btnSave;
+	private JButton btnAnilistInfo;
 	public JTextArea noteTextArea;
 	private JScrollPane scrollPane;
 	public JLabel animeImage;
@@ -346,7 +346,8 @@ public class AnimeInformation extends JPanel
 		gbc_fansubComboBox.gridy = 5;
 		add(fansubComboBox, gbc_fansubComboBox);
 		String[] dayWeek = {"-----","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica","Concluso","Irregolare","Sospesa"};
-		
+
+//TODO ultimare la funzione di salvataggio automatico della sezione così da rimuovere questo inutile pulsante e sostituirlo con uno piu' utile		
 		fansubButton = new JButton("Apri Fansub");
 		fansubButton.setEnabled(false);
 		fansubButton.addActionListener(new ActionListener() {
@@ -573,59 +574,17 @@ public class AnimeInformation extends JPanel
 			    AnimeIndex.animeInformation.finishedButton.setEnabled(false);
 			}
 		});
-//TODO ultimare la funzione di salvataggio automatico della sezione così da rimuovere questo inutile pulsante e sostituirlo con uno piu' utile		
-		btnSave = new JButton("Salva");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				String name = lblAnimeName.getText();
-				String currEp = currentEpisodeField.getText();
-				String totEp = totalEpisodeText.getText();
-				String fansub = (String) fansubComboBox.getSelectedItem();
-				String fansubLink = getLink();
-				String note = noteTextArea.getText();
-				String day = (String) exitDaycomboBox.getSelectedItem();
-				
-				String list = AnimeIndex.getList();
-				if (list.equalsIgnoreCase("Anime Completati"))
-					{
-					String image = AnimeIndex.completedMap.get(name).getImageName();
-					AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-					AnimeIndex.completedMap.put(name, data);
-					}
-				else if (list.equalsIgnoreCase("Anime in Corso"))
-					{
-					String image = AnimeIndex.airingMap.get(name).getImageName();
-					AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-					AnimeIndex.airingMap.put(name, data);
-					}
-				else if (list.equalsIgnoreCase("OAV"))
-					{
-					String image = AnimeIndex.ovaMap.get(name).getImageName();
-					AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-					AnimeIndex.ovaMap.put(name, data);
-					}
-				else if (list.equalsIgnoreCase("Film"))
-				{
-					String image = AnimeIndex.filmMap.get(name).getImageName();
-					AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-					AnimeIndex.filmMap.put(name, data);
-				}
-				else if (list.equalsIgnoreCase("Completi Da Vedere"))
-				{
-					String image = AnimeIndex.completedToSeeMap.get(name).getImageName();
-					AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-					AnimeIndex.completedToSeeMap.put(name, data);
-				}
-			}
-		});
-		GridBagConstraints gbc_btnSave = new GridBagConstraints();
-		gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnSave.gridwidth = 2;
-		gbc_btnSave.insets = new Insets(0, 0, 0, 5);
-		gbc_btnSave.gridx = 1;
-		gbc_btnSave.gridy = 11;
-		add(btnSave, gbc_btnSave);
+
+		btnAnilistInfo = new JButton("AniList Info");
+		
+		GridBagConstraints gbc_btnAnilistInfo = new GridBagConstraints();
+		gbc_btnAnilistInfo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnAnilistInfo.gridwidth = 2;
+		gbc_btnAnilistInfo.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAnilistInfo.gridx = 1;
+		gbc_btnAnilistInfo.gridy = 11;
+		add(btnAnilistInfo, gbc_btnAnilistInfo);
+		
 		GridBagConstraints gbc_finishedButton = new GridBagConstraints();
 		gbc_finishedButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_finishedButton.insets = new Insets(0, 0, 0, 5);
@@ -756,4 +715,56 @@ public class AnimeInformation extends JPanel
 	{
 		return link;
 	}
+//	btnSave = new JButton("Salva");
+//	btnSave.addActionListener(new ActionListener() {
+//		public void actionPerformed(ActionEvent e) {
+//			
+//			String name = lblAnimeName.getText();
+//			String currEp = currentEpisodeField.getText();
+//			String totEp = totalEpisodeText.getText();
+//			String fansub = (String) fansubComboBox.getSelectedItem();
+//			String fansubLink = getLink();
+//			String note = noteTextArea.getText();
+//			String day = (String) exitDaycomboBox.getSelectedItem();
+//			
+//			String list = AnimeIndex.getList();
+//			if (list.equalsIgnoreCase("Anime Completati"))
+//				{
+//				String image = AnimeIndex.completedMap.get(name).getImageName();
+//				AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+//				AnimeIndex.completedMap.put(name, data);
+//				}
+//			else if (list.equalsIgnoreCase("Anime in Corso"))
+//				{
+//				String image = AnimeIndex.airingMap.get(name).getImageName();
+//				AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+//				AnimeIndex.airingMap.put(name, data);
+//				}
+//			else if (list.equalsIgnoreCase("OAV"))
+//				{
+//				String image = AnimeIndex.ovaMap.get(name).getImageName();
+//				AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+//				AnimeIndex.ovaMap.put(name, data);
+//				}
+//			else if (list.equalsIgnoreCase("Film"))
+//			{
+//				String image = AnimeIndex.filmMap.get(name).getImageName();
+//				AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+//				AnimeIndex.filmMap.put(name, data);
+//			}
+//			else if (list.equalsIgnoreCase("Completi Da Vedere"))
+//			{
+//				String image = AnimeIndex.completedToSeeMap.get(name).getImageName();
+//				AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+//				AnimeIndex.completedToSeeMap.put(name, data);
+//			}
+//		}
+//	});
+//	GridBagConstraints gbc_btnSave = new GridBagConstraints();
+//	gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
+//	gbc_btnSave.gridwidth = 2;
+//	gbc_btnSave.insets = new Insets(0, 0, 0, 5);
+//	gbc_btnSave.gridx = 1;
+//	gbc_btnSave.gridy = 11;
+//	add(btnSave, gbc_btnSave);
 }
