@@ -217,9 +217,9 @@ public class AnimeIndex extends JFrame
 		
 		JCheckBoxMenuItem rdbtnmntmControlloDati = new JCheckBoxMenuItem("Controllo Dati");
 		if(appProp.getProperty("Update_system") == "true")
-			appProp.setProperty("Update_system", "true");
+			rdbtnmntmControlloDati.setSelected(true);
 		else
-			appProp.setProperty("Update_system", "false");
+			rdbtnmntmControlloDati.setSelected(false);
 		
 		rdbtnmntmControlloDati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
