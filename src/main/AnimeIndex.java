@@ -118,7 +118,6 @@ public class AnimeIndex extends JFrame
 	private SearchBar searchBar;
 	public static AddFansubDialog fansubDialog;
 	public static JButton setFilterButton;
-
 	/**
 	 * Launch the application.
 	 */
@@ -1424,5 +1423,6 @@ public class AnimeIndex extends JFrame
 	{
 		AnimeIndex.fansubMap.putAll(fansubMap);
 	}
+	
 }
 
