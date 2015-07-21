@@ -90,9 +90,10 @@ public class SetLinkDialog extends JDialog {
 			gbc_linkNameField.gridy = 1;
 			contentPanel.add(linkNameField, gbc_linkNameField);
 			linkNameField.setColumns(10);
-			if(!(AnimeIndex.animeInformation.setLinkButton.getText().equals("Imposta Link")) || !(AnimeIndex.animeInformation.setLinkButton.getText().equals("Link")))
-			{linkNameField.setText(AnimeIndex.animeInformation.setLinkButton.getText());}
+			if(!(AnimeIndex.animeInformation.setLinkButton.getText().equals("Imposta Link")));
+					linkNameField.setText(AnimeIndex.animeInformation.setLinkButton.getText());
 		}
+		
 		{
 			JPanel buttonPane = new JPanel();
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
