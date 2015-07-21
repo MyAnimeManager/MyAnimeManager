@@ -226,7 +226,7 @@ public class AnimeIndex extends JFrame
 				if(!rdbtnmntmControlloDati.isSelected())
 				{
 					appProp.setProperty("Update_system", "false");
-					JOptionPane.showMessageDialog(mainFrame, "Controllo Dati:      DISATTIVATO", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(mainFrame, "Controllo Dati :      DISATTIVATO", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 					//se il marcatore e' acceso nn viene mostrato il warning e il sistema di update viene disattivato
 				}
 				else
@@ -311,7 +311,7 @@ public class AnimeIndex extends JFrame
 		JMenuItem mntmAboutMyAnime = new JMenuItem("Versione");
 		mntmAboutMyAnime.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(mainFrame, "My Anime Manager    1.0", "Versione", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(mainFrame, "My Anime Manager             1.0", "Versione", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		mnHelp.add(mntmAboutMyAnime);
