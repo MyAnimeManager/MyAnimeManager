@@ -84,7 +84,6 @@ public class AddAnimeDialog extends JDialog
 			getContentPane().add(tabbedPane, BorderLayout.CENTER);
 			{
 				normalAddPanel = new JPanel();
-				//TODO tabbedPane.addTab("Aggiunta manuale\r\n", null, normalAddPanel, null);
 				normalAddPanel.setLayout(new BorderLayout(0, 0));
 				normalAddPanel.add(contentPanel, BorderLayout.CENTER);
 				contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -356,7 +355,6 @@ public class AddAnimeDialog extends JDialog
 			}
 			{
 				anilistAddPanel = new JPanel();
-//TODO				tabbedPane.addTab("Aggiunta da Anilist", null, anilistAddPanel, null);
 				anilistAddPanel.setLayout(new BorderLayout(0, 0));
 				{
 					JPanel searchPanel = new JPanel();

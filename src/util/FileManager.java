@@ -28,7 +28,6 @@ public class FileManager
 	private final static String ANIME_PATH = APPDATA_PATH + File.separator + "Anime" + File.separator;
 	private final static String IMAGE_PATH = APPDATA_PATH + "Images" + File.separator;
 	//fansub
-	//TODO salvare hashmap
 	public static void saveFansubList() throws IOException
 	{
 		File fansubFile = new File(FANSUB_PATH);
