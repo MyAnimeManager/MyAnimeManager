@@ -33,7 +33,7 @@ public class SetLinkDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField linkField;
-	private JTextField linkNameField;
+	public static JTextField linkNameField;
 //TODO vedi note riportate in AnimeInformation sopra all'inizializzazione del pulsante "Imposta Link"
 	/**
 	 * Create the dialog.
@@ -94,35 +94,57 @@ public class SetLinkDialog extends JDialog {
 		{
 			JPanel buttonPane = new JPanel();
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			buttonPane.setLayout(new GridLayout(0, 2, 0, 0));
 			{
-				JButton saveButton = new JButton("Salva");
-				saveButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						AnimeIndex.animeInformation.setLink(linkField.getText());
-						JButton but = (JButton) e.getSource();
-						JDialog dialog = (JDialog) but.getTopLevelAncestor();
-						dialog.dispose();
-						if (linkField.getText() != null && !(linkField.getText().isEmpty()))
-							AnimeIndex.animeInformation.btnOpen.setEnabled(true);
-						else
-							AnimeIndex.animeInformation.btnOpen.setEnabled(false);
+				{
+					JButton cancelButton = new JButton("Annulla");
+					cancelButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							JButton but = (JButton) e.getSource();
+							JDialog dialog = (JDialog) but.getTopLevelAncestor();
+							dialog.dispose();
+						}
+					});
+					JButton saveButton = new JButton("Salva");
+					saveButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							AnimeIndex.animeInformation.setLink(linkField.getText());
+							JButton but = (JButton) e.getSource();
+							JDialog dialog = (JDialog) but.getTopLevelAncestor();
+							dialog.dispose();
+							if (linkField.getText() != null && !(linkField.getText().isEmpty()))
+							{
+								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+								if (linkNameField.getText() != null && !(linkNameField.getText().isEmpty()))
+									AnimeIndex.animeInformation.setLinkButton.setText(linkNameField.getText());
+								else
+									AnimeIndex.animeInformation.setLinkButton.setText("Link");
+							}
+							else
+							{
+								if (linkNameField.getText() == null && linkNameField.getText().isEmpty())
+									AnimeIndex.animeInformation.btnOpen.setEnabled(false);
+								else
+									JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessun link impostato.", "Errore!", JOptionPane.ERROR_MESSAGE);								
+							}
+						}
+					});
+					buttonPane.setLayout(new GridLayout(0, 3, 0, 0));
+					{
+						JButton btnRimuovi = new JButton("Rimuovi");
+						btnRimuovi.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								AnimeIndex.animeInformation.setLinkButton.setText("Imposta Link");
+								linkNameField.setText("");
+								linkField.setText("");
+							}
+						});
+						buttonPane.add(btnRimuovi);
 					}
-				});
-				saveButton.setActionCommand("OK");
-				buttonPane.add(saveButton);
-				getRootPane().setDefaultButton(saveButton);
-			}
-			{
-				JButton cancelButton = new JButton("Annulla");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						JButton but = (JButton) e.getSource();
-						JDialog dialog = (JDialog) but.getTopLevelAncestor();
-						dialog.dispose();
-					}
-				});
-				buttonPane.add(cancelButton);
+					saveButton.setActionCommand("OK");
+					buttonPane.add(saveButton);
+					getRootPane().setDefaultButton(saveButton);
+					buttonPane.add(cancelButton);
+				}
 			}
 		}
 	}

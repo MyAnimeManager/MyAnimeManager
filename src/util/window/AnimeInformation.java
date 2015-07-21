@@ -70,7 +70,7 @@ public class AnimeInformation extends JPanel
 	private Component rigidArea;
 	private Component rigidArea_1;
 	public JButton fansubButton;
-	private JButton setLinkButton;
+	public static JButton setLinkButton;
 	private SetLinkDialog setLink;
 	public String link;
 	private JLabel lblTipo;
