@@ -237,7 +237,9 @@ public class SetFilterDialog extends JDialog {
 			{
 				JButton cancelButton = new JButton("Rimuovi");
 				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(ActionEvent e) {						
+						for (int i = 0; i < AnimeIndex.filterArray.length; i++)
+							AnimeIndex.filterArray[i] = false;
 						filterGroup.clearSelection();
 						AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon3.png")));
 						String listName = AnimeIndex.getList();
