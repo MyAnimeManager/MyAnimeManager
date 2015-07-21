@@ -205,7 +205,7 @@ public class SetFilterDialog extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
 						AnimeIndex.filterArray[i] = false;
-					AnimeIndex.filterArray[7] = true;
+					AnimeIndex.filterArray[8] = true;
 				}
 			});
 			GridBagConstraints gbc_rdbtnUsciteDelGiorno = new GridBagConstraints();
