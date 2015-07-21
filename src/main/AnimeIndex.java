@@ -1462,31 +1462,36 @@ public class AnimeIndex extends JFrame
 		if (list.equalsIgnoreCase("Anime Completati"))
 			{
 			String image = AnimeIndex.completedMap.get(name).getImageName();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+			String id = AnimeIndex.completedMap.get(name).getId();
+			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id);
 			AnimeIndex.completedMap.put(name, data);
 			}
 		else if (list.equalsIgnoreCase("Anime in Corso"))
 			{
 			String image = AnimeIndex.airingMap.get(name).getImageName();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+			String id = AnimeIndex.airingMap.get(name).getId();
+			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id);
 			AnimeIndex.airingMap.put(name, data);
 			}
 		else if (list.equalsIgnoreCase("OAV"))
 			{
 			String image = AnimeIndex.ovaMap.get(name).getImageName();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+			String id = AnimeIndex.ovaMap.get(name).getId();
+			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id);
 			AnimeIndex.ovaMap.put(name, data);
 			}
 		else if (list.equalsIgnoreCase("Film"))
 		{
 			String image = AnimeIndex.filmMap.get(name).getImageName();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+			String id = AnimeIndex.filmMap.get(name).getId();
+			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id);
 			AnimeIndex.filmMap.put(name, data);
 		}
 		else if (list.equalsIgnoreCase("Completi Da Vedere"))
 		{
 			String image = AnimeIndex.completedToSeeMap.get(name).getImageName();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+			String id = AnimeIndex.completedToSeeMap.get(name).getId();
+			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id);
 			AnimeIndex.completedToSeeMap.put(name, data);
 		}
 	}

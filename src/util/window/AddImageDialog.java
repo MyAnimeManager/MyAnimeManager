@@ -339,7 +339,7 @@ public class AddImageDialog extends JDialog
 							animeMap = AnimeIndex.completedToSeeMap;
 						}
 						AnimeData oldData = animeMap.get(name);
-						AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), oldData.getFansubLink(), oldData.getNote(), imageName +".png", oldData.getDay());
+						AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), oldData.getFansubLink(), oldData.getNote(), imageName +".png", oldData.getDay(), oldData.getId());
 						animeMap.put(name, newData);
 						AnimeIndex.animeInformation.setImage(IMAGE_PATH + imageName + ".png");
 						AnimeIndex.animeTypeComboBox.setSelectedItem(selectedList);

@@ -11,9 +11,15 @@ public class AnimeData
 	String note;
 	String imageName;
 	String day;
+	String id;
+	public String getId()
+	{
+		return id;
+	}
+
 	private final static String IMAGE_PATH = FileManager.getImageFolderPath();
 		
-	public AnimeData(String currentEpisode, String totalEpisode, String fansub, String fansubLink, String note, String image, String day)
+	public AnimeData(String currentEpisode, String totalEpisode, String fansub, String fansubLink, String note, String image, String day, String id)
 	{
 		this.currentEpisode = currentEpisode;
 		this.totalEpisode = totalEpisode;
@@ -22,6 +28,7 @@ public class AnimeData
 		this.note = note;
 		this.imageName = image;
 		this.day = day;
+		this.id = id;
 	}
 	
 	public String getCurrentEpisode()
@@ -101,7 +108,7 @@ public class AnimeData
 	
 	public String toString()
 	{
-		String string = this.getCurrentEpisode() + "||" + this.getTotalEpisode() + "||" + this.getFansub() + "||" + this.getFansubLink() + "||" + this.getNote() + "||" + this.getImageName() + "||" + this.getDay();
+		String string = this.getCurrentEpisode() + "||" + this.getTotalEpisode() + "||" + this.getFansub() + "||" + this.getFansubLink() + "||" + this.getNote() + "||" + this.getImageName() + "||" + this.getDay() + "||" + this.getId();
 		return string;
 	}
 }

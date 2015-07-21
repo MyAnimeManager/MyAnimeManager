@@ -241,7 +241,7 @@ public class AddAnimeDialog extends JDialog
 								if (currentEp.equals(totEp))
 									AnimeIndex.animeInformation.plusButton.setEnabled(false);
 								
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", null, day);
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", null, day, "");
 								
 								
 								String listName = getListToAdd();
@@ -495,7 +495,7 @@ public class AddAnimeDialog extends JDialog
 								String anime = (String) searchedList.getSelectedValue();
 								int id = animeSearched.get(anime);
 								String dataAni = ConnectionManager.parseAnimeData(id);
-								
+							
 								String name = ConnectionManager.getAnimeData("title_romaji", dataAni);
 								String totEp = ConnectionManager.getAnimeData("total_episodes", dataAni);
 								String currentEp = "1";
@@ -543,7 +543,7 @@ public class AddAnimeDialog extends JDialog
 									imageName = imageName.replaceAll(">", "_");
 									imageName = imageName.replaceAll("<", "_");
 									FileManager.saveImage(imageLink, imageName);
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----");
+									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id));
 									
 									AnimeIndex.completedMap.put(name, data);
 									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
@@ -562,10 +562,18 @@ public class AddAnimeDialog extends JDialog
 									{
 									AnimeIndex.airingModel.addElement(name);
 									
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", name + ".png", "-----");
 									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 									imageLink = imageLink.replaceAll("\\\\/", "/");
-									FileManager.saveImage(imageLink, name);
+									String imageName = name.replaceAll("\\\\", "_");
+									imageName = imageName.replaceAll("/", "_");
+									imageName = imageName.replaceAll(":", "_");
+									imageName = imageName.replaceAll("\\*", "_");
+									imageName = imageName.replaceAll("\\?", "_");
+									imageName = imageName.replaceAll("\"", "_");
+									imageName = imageName.replaceAll(">", "_");
+									imageName = imageName.replaceAll("<", "_");
+									FileManager.saveImage(imageLink, imageName);
+									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id));
 									
 									AnimeIndex.airingMap.put(name, data);
 									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
@@ -584,10 +592,18 @@ public class AddAnimeDialog extends JDialog
 									{
 									AnimeIndex.ovaModel.addElement(name);
 									
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", name + ".png", "-----");
 									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 									imageLink = imageLink.replaceAll("\\\\/", "/");
-									FileManager.saveImage(imageLink, name);
+									String imageName = name.replaceAll("\\\\", "_");
+									imageName = imageName.replaceAll("/", "_");
+									imageName = imageName.replaceAll(":", "_");
+									imageName = imageName.replaceAll("\\*", "_");
+									imageName = imageName.replaceAll("\\?", "_");
+									imageName = imageName.replaceAll("\"", "_");
+									imageName = imageName.replaceAll(">", "_");
+									imageName = imageName.replaceAll("<", "_");
+									FileManager.saveImage(imageLink, imageName);
+									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id));
 									
 									AnimeIndex.ovaMap.put(name, data);
 									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
@@ -606,10 +622,18 @@ public class AddAnimeDialog extends JDialog
 									{
 									AnimeIndex.filmModel.addElement(name);
 									
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", name + ".png", "-----");
 									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 									imageLink = imageLink.replaceAll("\\\\/", "/");
-									FileManager.saveImage(imageLink, name);
+									String imageName = name.replaceAll("\\\\", "_");
+									imageName = imageName.replaceAll("/", "_");
+									imageName = imageName.replaceAll(":", "_");
+									imageName = imageName.replaceAll("\\*", "_");
+									imageName = imageName.replaceAll("\\?", "_");
+									imageName = imageName.replaceAll("\"", "_");
+									imageName = imageName.replaceAll(">", "_");
+									imageName = imageName.replaceAll("<", "_");
+									FileManager.saveImage(imageLink, imageName);
+									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id));
 									
 									
 									AnimeIndex.filmMap.put(name, data);
@@ -629,10 +653,18 @@ public class AddAnimeDialog extends JDialog
 									{
 									AnimeIndex.completedToSeeModel.addElement(name);
 									
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", name + ".png", "-----");
 									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 									imageLink = imageLink.replaceAll("\\\\/", "/");
-									FileManager.saveImage(imageLink, name);
+									String imageName = name.replaceAll("\\\\", "_");
+									imageName = imageName.replaceAll("/", "_");
+									imageName = imageName.replaceAll(":", "_");
+									imageName = imageName.replaceAll("\\*", "_");
+									imageName = imageName.replaceAll("\\?", "_");
+									imageName = imageName.replaceAll("\"", "_");
+									imageName = imageName.replaceAll(">", "_");
+									imageName = imageName.replaceAll("<", "_");
+									FileManager.saveImage(imageLink, imageName);
+									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id));
 									
 									AnimeIndex.completedToSeeMap.put(name, data);
 									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
