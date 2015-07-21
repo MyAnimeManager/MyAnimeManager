@@ -1457,42 +1457,49 @@ public class AnimeIndex extends JFrame
 		String fansubLink = animeInformation.getLink();
 		String note = animeInformation.noteTextArea.getText();
 		String day = (String) animeInformation.exitDaycomboBox.getSelectedItem();
-		//TODO mettere che prende il link e il nome del linke li mette dentro all'oggetto data.
+		String linkName = animeInformation.setLinkButton.getText();
+		String link = animeInformation.setLink.getLinkField();
+		String animeType = (String)animeInformation.typeComboBox.getSelectedItem();
+		String releaseDate = animeInformation.startDateField.getText();
+		String finishDate = animeInformation.endDateField.getText();
+		
+		
+//TODO mettere che prende il link e il nome del link li mette dentro all'oggetto data;
 		
 		String list = AnimeIndex.getList();
 		if (list.equalsIgnoreCase("Anime Completati"))
 			{
 			String image = AnimeIndex.completedMap.get(name).getImageName();
 			String id = AnimeIndex.completedMap.get(name).getId();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id);
+			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate);
 			AnimeIndex.completedMap.put(name, data);
 			}
 		else if (list.equalsIgnoreCase("Anime in Corso"))
 			{
 			String image = AnimeIndex.airingMap.get(name).getImageName();
 			String id = AnimeIndex.airingMap.get(name).getId();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id);
+			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate);
 			AnimeIndex.airingMap.put(name, data);
 			}
 		else if (list.equalsIgnoreCase("OAV"))
 			{
 			String image = AnimeIndex.ovaMap.get(name).getImageName();
 			String id = AnimeIndex.ovaMap.get(name).getId();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id);
+			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate);
 			AnimeIndex.ovaMap.put(name, data);
 			}
 		else if (list.equalsIgnoreCase("Film"))
 		{
 			String image = AnimeIndex.filmMap.get(name).getImageName();
 			String id = AnimeIndex.filmMap.get(name).getId();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id);
+			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate);
 			AnimeIndex.filmMap.put(name, data);
 		}
 		else if (list.equalsIgnoreCase("Completi Da Vedere"))
 		{
 			String image = AnimeIndex.completedToSeeMap.get(name).getImageName();
 			String id = AnimeIndex.completedToSeeMap.get(name).getId();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id);
+			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate);
 			AnimeIndex.completedToSeeMap.put(name, data);
 		}
 	}

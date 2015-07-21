@@ -70,17 +70,17 @@ public class AnimeInformation extends JPanel
 	private Component rigidArea;
 	private Component rigidArea_1;
 	public JButton fansubButton;
-	public static JButton setLinkButton;
-	private SetLinkDialog setLink;
+	public JButton setLinkButton;
+	public SetLinkDialog setLink;
 	public String link;
 	private JLabel lblTipo;
 	public JButton addToSeeButton;
-	private JComboBox typeComboBox;
+	public JComboBox typeComboBox;
 	private JLabel lblInizio;
 	private JLabel lblFine;
-	private JTextField endDateField;
+	public JTextField endDateField;
 	private JTextField textField;
-	private JTextField startDateField;
+	public JTextField startDateField;
 
 	/**
 	 * Create the panel.

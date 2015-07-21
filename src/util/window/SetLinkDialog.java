@@ -154,5 +154,8 @@ public class SetLinkDialog extends JDialog {
 			}
 		}
 	}
-
+	public String getLinkField()
+	{
+		return linkField.getText();
+	}
 }
