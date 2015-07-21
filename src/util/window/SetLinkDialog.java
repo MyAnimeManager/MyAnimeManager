@@ -90,6 +90,8 @@ public class SetLinkDialog extends JDialog {
 			gbc_linkNameField.gridy = 1;
 			contentPanel.add(linkNameField, gbc_linkNameField);
 			linkNameField.setColumns(10);
+			if(!(AnimeIndex.animeInformation.setLinkButton.getText().equals("Imposta Link")) || !(AnimeIndex.animeInformation.setLinkButton.getText().equals("Link")))
+			{linkNameField.setText(AnimeIndex.animeInformation.setLinkButton.getText());}
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -136,6 +138,9 @@ public class SetLinkDialog extends JDialog {
 								AnimeIndex.animeInformation.setLinkButton.setText("Imposta Link");
 								linkNameField.setText("");
 								linkField.setText("");
+								JButton but = (JButton) e.getSource();
+								JDialog dialog = (JDialog) but.getTopLevelAncestor();
+								dialog.dispose();
 							}
 						});
 						buttonPane.add(btnRimuovi);
