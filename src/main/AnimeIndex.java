@@ -1093,6 +1093,77 @@ public class AnimeIndex extends JFrame
 		filterCard.add(filterScroll, BorderLayout.CENTER);
 		
 		filterList = new JList(filterModel);
+		filterList.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				try
+				{
+					saveModifiedInformation();
+				}
+				catch (NullPointerException e1)
+				{
+					deleteButton.setEnabled(true);
+					String anime = (String) searchList.getSelectedValue();
+					if (anime != null)
+					{
+					TreeMap<String,AnimeData> map = getMap();
+					AnimeData data = map.get(anime);
+					animeInformation.setAnimeName(anime);
+					animeInformation.setCurrentEp(data.getCurrentEpisode());
+					animeInformation.setTotalEp(data.getTotalEpisode());
+					animeInformation.setFansub(data.getFansub());
+					animeInformation.setLink(data.getFansubLink());
+					animeInformation.setNote(data.getNote());
+					animeInformation.setDay(data.getDay());
+					if (data.getDay().equalsIgnoreCase("concluso"))
+						animeInformation.exitDaycomboBox.setEnabled(false);
+					String path = data.getImagePath();
+					File file = new File(path);
+					if (file.exists())
+						animeInformation.setImage(data.getImagePath());
+					else
+					{
+						animeInformation.setImage("deafult");
+					}
+					
+					if(data.getCurrentEpisode().equals(data.getTotalEpisode()))
+						animeInformation.plusButton.setEnabled(false);
+					else
+						animeInformation.plusButton.setEnabled(true);
+					
+					if(data.getFansubLink() != null && !(data.getFansubLink().isEmpty()))
+	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+					else
+						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
+					
+					AnimeIndex.animeInformation.minusButton.setEnabled(true);
+				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
+				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
+					}
+				}
+				deleteButton.setEnabled(true);
+				String anime = (String) searchList.getSelectedValue();
+				if (anime != null)
+				{
+				TreeMap<String,AnimeData> map = getMap();
+				AnimeData data = map.get(anime);
+				animeInformation.setAnimeName(anime);
+				animeInformation.setCurrentEp(data.getCurrentEpisode());
+				animeInformation.setTotalEp(data.getTotalEpisode());
+				animeInformation.setFansub(data.getFansub());
+				animeInformation.setLink(data.getFansubLink());
+				animeInformation.setNote(data.getNote());
+				animeInformation.setImage(data.getImagePath());
+				animeInformation.setDay(data.getDay());
+				animeInformation.exitDaycomboBox.setEnabled(true);
+				if(data.getCurrentEpisode().equals(data.getTotalEpisode()))
+					animeInformation.plusButton.setEnabled(false);
+				else
+					animeInformation.plusButton.setEnabled(true);
+				}
+			}
+		});
 		filterList.setSize(new Dimension(138, 233));
 		filterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		filterList.setPreferredSize(new Dimension(138, 233));
