@@ -12,6 +12,12 @@ public class AnimeData
 	String imageName;
 	String day;
 	String id;
+	String linkName;
+	String link;
+	String animeType;
+	String releaseDate;
+	String finishDate;
+	//tipo anime, data di inizio e fine
 	public String getId()
 	{
 		return id;
@@ -19,7 +25,8 @@ public class AnimeData
 
 	private final static String IMAGE_PATH = FileManager.getImageFolderPath();
 		
-	public AnimeData(String currentEpisode, String totalEpisode, String fansub, String fansubLink, String note, String image, String day, String id)
+	public AnimeData(String currentEpisode, String totalEpisode, String fansub, String fansubLink, String note, String image, 
+					 String day, String id, String linkName, String link, String animeType, String releaseDate, String finishDate)
 	{
 		this.currentEpisode = currentEpisode;
 		this.totalEpisode = totalEpisode;
@@ -29,8 +36,38 @@ public class AnimeData
 		this.imageName = image;
 		this.day = day;
 		this.id = id;
+		this.linkName = linkName;
+		this.link = link;
+		this.animeType = animeType;
+		this.releaseDate = releaseDate;
+		this.finishDate = finishDate;
 	}
 	
+	public String getLinkName()
+	{
+		return linkName;
+	}
+
+	public String getLink()
+	{
+		return link;
+	}
+
+	public String getAnimeType()
+	{
+		return animeType;
+	}
+
+	public String getReleaseDate()
+	{
+		return releaseDate;
+	}
+
+	public String getFinishDate()
+	{
+		return finishDate;
+	}
+
 	public String getCurrentEpisode()
 	{
 		return currentEpisode;
@@ -108,7 +145,7 @@ public class AnimeData
 	
 	public String toString()
 	{
-		String string = this.getCurrentEpisode() + "||" + this.getTotalEpisode() + "||" + this.getFansub() + "||" + this.getFansubLink() + "||" + this.getNote() + "||" + this.getImageName() + "||" + this.getDay() + "||" + this.getId();
+		String string = this.getCurrentEpisode() + "||" + this.getTotalEpisode() + "||" + this.getFansub() + "||" + this.getFansubLink() + "||" + this.getNote() + "||" + this.getImageName() + "||" + this.getDay() + "||" + this.getId() + "||" + this.linkName + "||" + this.link + "||" + this.animeType + "||" + this.releaseDate + "||" + this.finishDate;
 		return string;
 	}
 }

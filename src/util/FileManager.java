@@ -145,8 +145,13 @@ public class FileManager
 						String image = line.next();
 						String day = line.next();
 						String id = line.next();
+						String linkName = line.next();
+						String link = line.next();
+						String animeType = line.next();
+						String releaseDate = line.next();
+						String finishDate = line.next();
 						
-						AnimeData data = new AnimeData(currentEp, totEp, fansub, fansublink, note, image, day, id);
+						AnimeData data = new AnimeData(currentEp, totEp, fansub, fansublink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate);
 				
 					map.put(anime, data);	
 				}

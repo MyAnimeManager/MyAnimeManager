@@ -561,7 +561,10 @@ public class AnimeInformation extends JPanel
 					map = AnimeIndex.completedToSeeMap;
 				}
 				AnimeData oldData = map.get(name);
-				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), oldData.getFansubLink(), oldData.getNote(), oldData.getImageName(), "Concluso", oldData.getId());
+				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
+									oldData.getFansubLink(), oldData.getNote(), oldData.getImageName(), "Concluso", oldData.getId(),
+									oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
+									oldData.getFinishDate());
 				map.remove(name);
 				AnimeIndex.completedMap.put(name, newData);
 				int index = list.getSelectedIndex();
@@ -627,7 +630,10 @@ public class AnimeInformation extends JPanel
 					map = AnimeIndex.completedMap;
 				}
 				AnimeData oldData = map.get(name);
-				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), oldData.getFansubLink(), oldData.getNote(), oldData.getImageName(), "Concluso da Vedere", oldData.getId());
+				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
+						oldData.getFansubLink(), oldData.getNote(), oldData.getImageName(), "Concluso da Vedere", oldData.getId(),
+						oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
+						oldData.getFinishDate());
 				map.remove(name);
 				AnimeIndex.completedToSeeMap.put(name, newData);
 				int index = list.getSelectedIndex();

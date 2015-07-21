@@ -1457,6 +1457,7 @@ public class AnimeIndex extends JFrame
 		String fansubLink = animeInformation.getLink();
 		String note = animeInformation.noteTextArea.getText();
 		String day = (String) animeInformation.exitDaycomboBox.getSelectedItem();
+		//TODO mettere che prende il link e il nome del linke li mette dentro all'oggetto data.
 		
 		String list = AnimeIndex.getList();
 		if (list.equalsIgnoreCase("Anime Completati"))
