@@ -35,6 +35,7 @@ public class SetLinkDialog extends JDialog {
 	private JTextField linkField;
 	public static JTextField linkNameField;
 //TODO vedi note riportate in AnimeInformation sopra all'inizializzazione del pulsante "Imposta Link"
+//TODO completare metodo remove
 	/**
 	 * Create the dialog.
 	 */
@@ -90,10 +91,11 @@ public class SetLinkDialog extends JDialog {
 			gbc_linkNameField.gridy = 1;
 			contentPanel.add(linkNameField, gbc_linkNameField);
 			linkNameField.setColumns(10);
-			if(!(AnimeIndex.animeInformation.setLinkButton.getText().equals("Imposta Link")));
-					linkNameField.setText(AnimeIndex.animeInformation.setLinkButton.getText());
 		}
-		
+		if(AnimeIndex.animeInformation.setLinkButton.getText().equals("Imposta Link")==false){
+			if(AnimeIndex.animeInformation.setLinkButton.getText().equals("Link")==false)
+				linkNameField.setText(AnimeIndex.animeInformation.setLinkButton.getText());
+		}
 		{
 			JPanel buttonPane = new JPanel();
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);

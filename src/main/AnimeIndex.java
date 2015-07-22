@@ -534,6 +534,8 @@ public class AnimeIndex extends JFrame
 				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
 				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+				    AnimeIndex.animeInformation.startDateField.setEnabled(false);
+				    AnimeIndex.animeInformation.endDateField.setEnabled(false);
 					}
 				}
 				
@@ -879,6 +881,8 @@ public class AnimeIndex extends JFrame
 				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
 				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
+				    AnimeIndex.animeInformation.startDateField.setEnabled(false);
+				    AnimeIndex.animeInformation.endDateField.setEnabled(false);
 					}
 				}
 				deleteButton.setEnabled(true);

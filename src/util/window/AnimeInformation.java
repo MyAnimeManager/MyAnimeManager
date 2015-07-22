@@ -578,7 +578,7 @@ public class AnimeInformation extends JPanel
 			}
 		});
 
-		btnAnilistInfo = new JButton("Pi\u00F9 Info");
+		btnAnilistInfo = new JButton("Pi\u00F9 Informazioni");
 		
 		GridBagConstraints gbc_btnAnilistInfo = new GridBagConstraints();
 		gbc_btnAnilistInfo.fill = GridBagConstraints.HORIZONTAL;
