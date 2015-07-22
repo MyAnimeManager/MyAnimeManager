@@ -154,8 +154,9 @@ public class FileManager
 						String animeType = line.next();
 						String releaseDate = line.next();
 						String finishDate = line.next();
+						String durationEp = line.next();
 						
-						AnimeData data = new AnimeData(currentEp, totEp, fansub, fansublink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate);
+						AnimeData data = new AnimeData(currentEp, totEp, fansub, fansublink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
 				
 					map.put(anime, data);	
 				}

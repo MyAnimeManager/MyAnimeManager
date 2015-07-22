@@ -50,6 +50,15 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
 import javax.swing.JFormattedTextField;
+import java.awt.GridLayout;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
+import javax.swing.SwingConstants;
 
 public class AnimeInformation extends JPanel
 {
@@ -84,6 +93,8 @@ public class AnimeInformation extends JPanel
 	public JTextField endDateField;
 	private JTextField textField;
 	public JTextField startDateField;
+	private JLabel lblDurata;
+	public JTextField durationFiled;
 
 	/**
 	 * Create the panel.
@@ -93,7 +104,7 @@ public class AnimeInformation extends JPanel
 	{
 		setSize(new Dimension(625, 441));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 93, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 45, 38, 57, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{60, 0, 0, 0, 0, 0, 0, 0, 43, -2, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
@@ -151,7 +162,8 @@ public class AnimeInformation extends JPanel
 //		gbc_lblEpisode.gridy = 2;
 //		add(lblEpisode, gbc_lblEpisode);
 		
-		plusButton = new JButton("+");		
+		plusButton = new JButton("");
+		plusButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/plus12.png")));
 		plusButton.setSize(new Dimension(30, 30));
 		plusButton.setMaximumSize(new Dimension(30, 30));
 		plusButton.setMinimumSize(new Dimension(30, 30));
@@ -232,7 +244,8 @@ public class AnimeInformation extends JPanel
 		add(plusButton, gbc_plusButton);
 		plusButton.setPreferredSize(new Dimension(30,30));
 		
-		minusButton = new JButton("-");
+		minusButton = new JButton("");
+		minusButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/minus12.png")));
 		minusButton.setMinimumSize(new Dimension(30, 30));
 		minusButton.setMaximumSize(new Dimension(30, 30));
 		minusButton.setSize(new Dimension(30, 30));
@@ -278,7 +291,6 @@ public class AnimeInformation extends JPanel
 		// total episode label e text field
 		JLabel lblTotalEpisode = new JLabel("Episodi Totali :");
 		GridBagConstraints gbc_lblTotalEpisode = new GridBagConstraints();
-		gbc_lblTotalEpisode.anchor = GridBagConstraints.EAST;
 		gbc_lblTotalEpisode.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTotalEpisode.gridx = 10;
 		gbc_lblTotalEpisode.gridy = 4;
@@ -306,24 +318,22 @@ public class AnimeInformation extends JPanel
 		add(textField, gbc_textField);
 		textField.setColumns(10);
 		
-		lblTipo = new JLabel("Tipo :");
-		GridBagConstraints gbc_lblTipo = new GridBagConstraints();
-		gbc_lblTipo.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTipo.anchor = GridBagConstraints.EAST;
-		gbc_lblTipo.gridx = 12;
-		gbc_lblTipo.gridy = 4;
-		add(lblTipo, gbc_lblTipo);
+		lblDurata = new JLabel("Durata :");
+		GridBagConstraints gbc_lblDurata = new GridBagConstraints();
+		gbc_lblDurata.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDurata.gridx = 12;
+		gbc_lblDurata.gridy = 4;
+		add(lblDurata, gbc_lblDurata);
 		
-//TODO importare tipo anime da anilist; se sconosciuto lasciare -----
-		typeComboBox = new JComboBox();
-		typeComboBox.setModel(new DefaultComboBoxModel(new String[] {"-----", "Tv", "Movie", "Special", "OVA", "ONA", "Tv Short", "Blu-Ray"}));
-		GridBagConstraints gbc_typeComboBox = new GridBagConstraints();
-		gbc_typeComboBox.gridwidth = 2;
-		gbc_typeComboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_typeComboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_typeComboBox.gridx = 13;
-		gbc_typeComboBox.gridy = 4;
-		add(typeComboBox, gbc_typeComboBox);
+		durationFiled = new JTextField();
+		GridBagConstraints gbc_durationFiled = new GridBagConstraints();
+		gbc_durationFiled.gridwidth = 2;
+		gbc_durationFiled.insets = new Insets(0, 0, 5, 5);
+		gbc_durationFiled.fill = GridBagConstraints.HORIZONTAL;
+		gbc_durationFiled.gridx = 13;
+		gbc_durationFiled.gridy = 4;
+		add(durationFiled, gbc_durationFiled);
+		durationFiled.setColumns(10);
 		
 		JLabel lblFansub = new JLabel("Fansub :");
 		GridBagConstraints gbc_lblFansub = new GridBagConstraints();
@@ -356,7 +366,7 @@ public class AnimeInformation extends JPanel
 		String[] dayWeek = {"-----","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica","Concluso","Irregolare","Sospesa"};
 
 //TODO ultimare la funzione di salvataggio automatico della sezione così da rimuovere questo inutile pulsante e sostituirlo con uno piu' utile		
-		fansubButton = new JButton("Apri Fansub");
+		fansubButton = new JButton("Apri");
 		fansubButton.setEnabled(false);
 		fansubButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -505,6 +515,25 @@ public class AnimeInformation extends JPanel
 		gbc_exitDaycomboBox.gridy = 8;
 		add(exitDaycomboBox, gbc_exitDaycomboBox);
 		
+		lblTipo = new JLabel("Tipo :");
+		GridBagConstraints gbc_lblTipo = new GridBagConstraints();
+		gbc_lblTipo.anchor = GridBagConstraints.EAST;
+		gbc_lblTipo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTipo.gridx = 12;
+		gbc_lblTipo.gridy = 8;
+		add(lblTipo, gbc_lblTipo);
+		
+//TODO importare tipo anime da anilist; se sconosciuto lasciare -----
+		typeComboBox = new JComboBox();
+		typeComboBox.setModel(new DefaultComboBoxModel(new String[] {"-----", "Tv", "Movie", "Special", "OVA", "ONA", "Tv Short", "Blu-Ray"}));
+		GridBagConstraints gbc_typeComboBox = new GridBagConstraints();
+		gbc_typeComboBox.gridwidth = 2;
+		gbc_typeComboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_typeComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_typeComboBox.gridx = 13;
+		gbc_typeComboBox.gridy = 8;
+		add(typeComboBox, gbc_typeComboBox);
+		
 		lblNote = new JLabel("Note:");
 		GridBagConstraints gbc_lblNote = new GridBagConstraints();
 		gbc_lblNote.anchor = GridBagConstraints.SOUTHWEST;
@@ -572,7 +601,7 @@ public class AnimeInformation extends JPanel
 				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
 									oldData.getFansubLink(), oldData.getNote(), oldData.getImageName(), "Concluso", oldData.getId(),
 									oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
-									oldData.getFinishDate());
+									oldData.getFinishDate(), oldData.getDurationEp());
 				map.remove(name);
 				AnimeIndex.completedMap.put(name, newData);
 				int index = list.getSelectedIndex();
@@ -671,7 +700,7 @@ public class AnimeInformation extends JPanel
 				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
 						oldData.getFansubLink(), oldData.getNote(), oldData.getImageName(), "Concluso da Vedere", oldData.getId(),
 						oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
-						oldData.getFinishDate());
+						oldData.getFinishDate(), oldData.getDurationEp());
 				map.remove(name);
 				AnimeIndex.completedToSeeMap.put(name, newData);
 				int index = list.getSelectedIndex();

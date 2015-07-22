@@ -242,7 +242,7 @@ public class AddAnimeDialog extends JDialog
 								if (currentEp.equals(totEp))
 									AnimeIndex.animeInformation.plusButton.setEnabled(false);
 								
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", null, day, "", "", "" , "", "", "");
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", null, day, "", "", "" , "", "", "", "");
 								
 								
 								String listName = getListToAdd();
@@ -512,6 +512,7 @@ public class AddAnimeDialog extends JDialog
 								String animeType = ConnectionManager.getAnimeData("type", dataAni);
 								String releaseDate = ConnectionManager.getAnimeData("start_date", dataAni);
 								String finishDate = ConnectionManager.getAnimeData("end_date", dataAni);
+								String durationEp = ConnectionManager.getAnimeData("duration", dataAni);
 								
 								
 															
@@ -549,7 +550,7 @@ public class AddAnimeDialog extends JDialog
 									imageName = imageName.replaceAll("<", "_");
 									FileManager.saveImage(imageLink, imageName);
 									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
-																	"", "", animeType, releaseDate, finishDate);
+																	"", "", animeType, releaseDate, finishDate, durationEp);
 									
 									AnimeIndex.completedMap.put(name, data);
 									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
@@ -580,7 +581,7 @@ public class AddAnimeDialog extends JDialog
 									imageName = imageName.replaceAll("<", "_");
 									FileManager.saveImage(imageLink, imageName);
 									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
-																	"", "", animeType, releaseDate, finishDate);
+																	"", "", animeType, releaseDate, finishDate, durationEp);
 									
 									AnimeIndex.airingMap.put(name, data);
 									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
@@ -611,7 +612,7 @@ public class AddAnimeDialog extends JDialog
 									imageName = imageName.replaceAll("<", "_");
 									FileManager.saveImage(imageLink, imageName);
 									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
-											"", "", animeType, releaseDate, finishDate);
+											"", "", animeType, releaseDate, finishDate, durationEp);
 									
 									AnimeIndex.ovaMap.put(name, data);
 									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
@@ -642,7 +643,7 @@ public class AddAnimeDialog extends JDialog
 									imageName = imageName.replaceAll("<", "_");
 									FileManager.saveImage(imageLink, imageName);
 									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
-											"", "", animeType, releaseDate, finishDate);
+											"", "", animeType, releaseDate, finishDate, durationEp);
 									
 									
 									AnimeIndex.filmMap.put(name, data);
@@ -674,7 +675,7 @@ public class AddAnimeDialog extends JDialog
 									imageName = imageName.replaceAll("<", "_");
 									FileManager.saveImage(imageLink, imageName);
 									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
-																	"", "", animeType, releaseDate, finishDate);
+																	"", "", animeType, releaseDate, finishDate, durationEp);
 									
 									AnimeIndex.completedToSeeMap.put(name, data);
 									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
