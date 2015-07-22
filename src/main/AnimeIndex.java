@@ -110,7 +110,13 @@ public class AnimeIndex extends JFrame
 	public static ArrayList<String> airingSessionAnime = new ArrayList();
 	public static ArrayList<String> ovaSessionAnime = new ArrayList();
 	public static ArrayList<String> filmSessionAnime = new ArrayList();
-	public static ArrayList<String> comletedToSeeSessionAnime = new ArrayList();
+	public static ArrayList<String> completedToSeeSessionAnime = new ArrayList();
+	
+	public static ArrayList<String> completedDeletedAnime = new ArrayList();
+	public static ArrayList<String> airingDeletedAnime = new ArrayList();
+	public static ArrayList<String> ovaDeletedAnime = new ArrayList();
+	public static ArrayList<String> filmDeletedAnime = new ArrayList();
+	public static ArrayList<String> completedToSeeDeletedAnime = new ArrayList();
 	
 	private JButton addButton;
 	private JButton deleteButton;
@@ -1191,80 +1197,28 @@ public class AnimeIndex extends JFrame
 			public void actionPerformed(ActionEvent arg0) {
 
 				String type = (String) animeTypeComboBox.getSelectedItem();
-				DefaultListModel model = null;
-				JList list = null;
-				TreeMap<String,AnimeData> map = null;
-				String name = null;
-				if (type.equalsIgnoreCase("anime completati"))
-				{
-					model = completedModel;
-					list = completedList;
-					map = completedMap;
-					int index = list.getSelectedIndex();
-					name = (String) model.getElementAt(index);
-					model.removeElementAt(index);
-					index -= 1;
-					completedList.setSelectedIndex(index);
-				}				
-				else if (type.equalsIgnoreCase("anime in corso"))
-				{
-					model = airingModel;
-					list = airingList;
-					map = airingMap;
-					int index = list.getSelectedIndex();
-					name = (String) model.getElementAt(index);
-					model.removeElementAt(index);
-					index -= 1;
-					airingList.setSelectedIndex(index);
-				}
-				else if (type.equalsIgnoreCase("oav"))
-				{
-					model = ovaModel;
-					list = ovaList;
-					map = ovaMap;
-					int index = list.getSelectedIndex();
-					name = (String) model.getElementAt(index);
-					model.removeElementAt(index);
-					index -= 1;
-					ovaList.setSelectedIndex(index);
-				}
-				else if (type.equalsIgnoreCase("film"))
-				{
-					model = filmModel;
-					list = filmList;
-					map = filmMap;
-					int index = list.getSelectedIndex();
-					name = (String) model.getElementAt(index);
-					model.removeElementAt(index);
-					index -= 1;
-					filmList.setSelectedIndex(index);
-				}
-				else if (type.equalsIgnoreCase("completi da vedere"))
-				{
-					model = completedToSeeModel;
-					list = completedToSeeList;
-					map = completedToSeeMap;
-					int index = list.getSelectedIndex();
-					name = (String) model.getElementAt(index);
-					model.removeElementAt(index);
-					index -= 1;
-					completedToSeeList.setSelectedIndex(index);
-				}
-//				int index = list.getSelectedIndex();
-//				String name = (String) model.getElementAt(index);
-				String path = map.get(name).getImagePath();
-				File image = new File(path);
-				try {
-					FileManager.deleteData(image);
-					animeInformation.setBlank();						
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+
+				DefaultListModel model = getModel();
+				JList list = getJList();
+				TreeMap<String,AnimeData> map = getMap();
+				ArrayList<String> arrayList = getDeletedAnimeArray();
+				int index = list.getSelectedIndex();
+				String name = (String) model.getElementAt(index);
+				model.removeElementAt(index);
+				index -= 1;
+				list.setSelectedIndex(index);
+				
+				String image = map.get(name).getImageName();
+				arrayList.add(image);
+								
 				map.remove(name);
 				if (!list.isSelectionEmpty())					
 					deleteButton.setEnabled(true);
 				else
+				{
 					deleteButton.setEnabled(false);
+					animeInformation.setBlank();
+				}
 			}
 		});
 		deleteButton.setEnabled(false);
@@ -1455,6 +1409,34 @@ public class AnimeIndex extends JFrame
 		}
 		
 		return model;
+	}
+	
+	public static ArrayList<String> getDeletedAnimeArray()
+	{
+		String listName = getList();
+		ArrayList<String> arrayList= null;
+		if (listName.equalsIgnoreCase("anime completati"))
+		{	
+			arrayList = AnimeIndex.completedDeletedAnime;						
+		}				
+		else if (listName.equalsIgnoreCase("anime in corso"))
+		{
+			arrayList = AnimeIndex.airingDeletedAnime;
+		}
+		else if (listName.equalsIgnoreCase("oav"))
+		{
+			arrayList = AnimeIndex.ovaDeletedAnime;
+		}
+		else if (listName.equalsIgnoreCase("film"))
+		{
+			arrayList = AnimeIndex.filmDeletedAnime;
+		}
+		else if (listName.equalsIgnoreCase("completi da vedere"))
+		{
+			arrayList = AnimeIndex.completedToSeeDeletedAnime;
+		}
+		
+		return arrayList;
 	}
 
 	public void saveModifiedInformation()

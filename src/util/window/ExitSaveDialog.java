@@ -65,6 +65,11 @@ public class ExitSaveDialog extends JDialog
 								FileManager.saveAnimeList("film.txt", AnimeIndex.filmModel, AnimeIndex.filmMap);
 								FileManager.saveAnimeList("toSee.txt", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
 							
+								deleteUselessImage(AnimeIndex.completedDeletedAnime, AnimeIndex.completedMap);
+								deleteUselessImage(AnimeIndex.airingDeletedAnime, AnimeIndex.airingMap);
+								deleteUselessImage(AnimeIndex.ovaDeletedAnime, AnimeIndex.ovaMap);
+								deleteUselessImage(AnimeIndex.filmDeletedAnime, AnimeIndex.filmMap);
+								deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime, AnimeIndex.completedToSeeMap);
 							AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
 							System.exit(0);
 						}
@@ -78,7 +83,7 @@ public class ExitSaveDialog extends JDialog
 							deleteUselessImage(AnimeIndex.airingSessionAnime, AnimeIndex.airingMap);
 							deleteUselessImage(AnimeIndex.ovaSessionAnime, AnimeIndex.ovaMap);
 							deleteUselessImage(AnimeIndex.filmSessionAnime, AnimeIndex.filmMap);
-							deleteUselessImage(AnimeIndex.comletedToSeeSessionAnime, AnimeIndex.completedToSeeMap);
+							deleteUselessImage(AnimeIndex.completedToSeeSessionAnime, AnimeIndex.completedToSeeMap);
 							System.exit(0);
 						}
 					});

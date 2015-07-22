@@ -326,7 +326,7 @@ public class AddAnimeDialog extends JDialog
 									AnimeIndex.completedToSeeModel.addElement(AnimeIndex.animeDialog.getName());
 									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 									AnimeIndex.completedToSeeList.setSelectedValue(name, true);
-									AnimeIndex.comletedToSeeSessionAnime.add(name);
+									AnimeIndex.completedToSeeSessionAnime.add(name);
 									}
 								}
 								
@@ -679,7 +679,7 @@ public class AddAnimeDialog extends JDialog
 									AnimeIndex.completedToSeeMap.put(name, data);
 									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 									AnimeIndex.completedToSeeList.setSelectedValue(name, true);
-									AnimeIndex.comletedToSeeSessionAnime.add(name);
+									AnimeIndex.completedToSeeSessionAnime.add(name);
 									}
 								}
 								
