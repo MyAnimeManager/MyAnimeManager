@@ -173,7 +173,8 @@ public class AnimeIndex extends JFrame
 		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosing(WindowEvent we) {			
+			public void windowClosing(WindowEvent we) {		
+				saveModifiedInformation();
 				ExitSaveDialog exitDialog = new ExitSaveDialog();
 				exitDialog.setLocationRelativeTo(mainFrame);
 				exitDialog.setVisible(true);
