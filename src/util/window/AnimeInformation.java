@@ -104,7 +104,7 @@ public class AnimeInformation extends JPanel
 	{
 		setSize(new Dimension(625, 441));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 59, 38, 20, 57, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 46, 23, 20, 57, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{60, 0, 0, 0, 0, 0, 0, 0, 43, -2, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
@@ -224,7 +224,7 @@ public class AnimeInformation extends JPanel
 		
 		
 		//secondo numero = massimo numero a cui può arrivare
-		//TODO numero massimo permesso = numero massimo episodi se questo e' diverso da ??	
+//TODO numero massimo permesso = numero massimo episodi se questo e' diverso da ??	
 		currentEpisodeField = new JTextField();
 		currentEpisodeField.setPreferredSize(new Dimension(43, 23));
 		currentEpisodeField.setMinimumSize(new Dimension(43, 23));
