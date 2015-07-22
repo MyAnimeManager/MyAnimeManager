@@ -171,14 +171,14 @@ public class AnimeInformation extends JPanel
 			public void actionPerformed(ActionEvent arg0) {
 				if ((currentEpisodeField.getText()) != null && (currentEpisodeField.getText().isEmpty()))
 				{
-					currentEpisodeField.setText("1");
+					currentEpisodeField.setText("0");
 					minusButton.setEnabled(false);
 				}
 				else 
 				{
 					int num = Integer.parseInt(currentEpisodeField.getText());
 					num++;
-					if (num == 2)
+					if (num == 1)
 					{
 						minusButton.setEnabled(true);
 					}
@@ -256,7 +256,7 @@ public class AnimeInformation extends JPanel
 				{
 				num--;
 				currentEpisodeField.setText(Integer.toString(num));
-					if (num == 1)
+					if (num == 0)
 					{
 						minusButton.setEnabled(false);
 					}
