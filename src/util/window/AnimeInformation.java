@@ -121,7 +121,7 @@ public class AnimeInformation extends JPanel
 				if(img.isFile())
 					image=ImageIO.read(img);
 				else
-					image = ImageIO.read( ClassLoader.getSystemResource("image/default_0.png" ));
+					image = ImageIO.read( ClassLoader.getSystemResource("image/default.png" ));
 		}
 			catch (IOException e1) {
 			e1.printStackTrace();
@@ -587,6 +587,36 @@ public class AnimeInformation extends JPanel
 		});
 
 		btnAnilistInfo = new JButton("Pi\u00F9 Informazioni");
+		btnAnilistInfo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String anime = (String) AnimeIndex.getJList().getSelectedValue();
+				AnimeData data = (AnimeData)AnimeIndex.getMap().get(anime);
+				String link = "https://anilist.co/anime/"+data.getId();
+				if (!link.isEmpty())
+				{
+					try {
+						URI uriLink = new URI(link);
+						Desktop.getDesktop().browse(uriLink);
+					} catch (URISyntaxException e1) {
+						JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
+							    "Link non valido",
+							    "Errore",
+							    JOptionPane.ERROR_MESSAGE);
+						btnOpen.setEnabled(false);
+					} catch (IOException e1) {
+						JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
+							    "Link non valido",
+							    "Errore",
+							    JOptionPane.ERROR_MESSAGE);
+					}
+				}
+				else
+					JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
+						    "Link non valido",
+						    "Errore",
+						    JOptionPane.ERROR_MESSAGE);
+			}
+		});
 		
 		GridBagConstraints gbc_btnAnilistInfo = new GridBagConstraints();
 		gbc_btnAnilistInfo.fill = GridBagConstraints.HORIZONTAL;
@@ -749,7 +779,7 @@ public class AnimeInformation extends JPanel
 					if(img.isFile())
 						image=ImageIO.read(img);
 					else
-						image = ImageIO.read( ClassLoader.getSystemResource("image/default_0.png" ));
+						image = ImageIO.read( ClassLoader.getSystemResource("image/default.png" ));
 			}
 				catch (IOException e1) {
 				e1.printStackTrace();
