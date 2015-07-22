@@ -429,6 +429,7 @@ public class AddAnimeDialog extends JDialog
 								gbc_listToAddAniComboBox.gridx = 3;
 								gbc_listToAddAniComboBox.gridy = 0;
 								searchPanel1.add(listToAddAniComboBox, gbc_listToAddAniComboBox);
+								listToAddAniComboBox.setSelectedItem(AnimeIndex.getList());
 							}
 							{
 								JScrollPane listPanel = new JScrollPane();
