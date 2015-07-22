@@ -107,7 +107,7 @@ public class AnimeInformation extends JPanel
 		gbc_scrollPane.gridy = 0;
 		add(scrollPane, gbc_scrollPane);
 		
-		lblAnimeName = new JLabel("Anime name");
+		lblAnimeName = new JLabel("Nome Anime");
 		scrollPane.setViewportView(lblAnimeName);
 		lblAnimeName.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		
