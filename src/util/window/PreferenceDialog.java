@@ -122,7 +122,6 @@ public class PreferenceDialog extends JDialog
 					public void actionPerformed(ActionEvent e) {
 						if (rdbtnLastList.isSelected())
 						{
-							String list = (String) choosedList.getSelectedItem();
 							AnimeIndex.appProp.setProperty("List_to_visualize_at_start", "Last list");
 							AnimeIndex.appProp.setProperty("Last_list", AnimeIndex.getList());
 						}
@@ -279,16 +278,6 @@ public class PreferenceDialog extends JDialog
 			gbc_removeDefaultImage.gridx = 1;
 			gbc_removeDefaultImage.gridy = 6;
 			contentPanel.add(removeDefaultImage, gbc_removeDefaultImage);
-		}
-		
-		String listProp = AnimeIndex.appProp.getProperty("List_to_visualize_at_start");
-		if (listProp.equalsIgnoreCase("last list"))
-			rdbtnLastList.setSelected(true);
-		else 
-		{
-			rdbtnChooseList.setSelected(true);
-			choosedList.setSelectedItem(listProp);
-			
 		}
 	}
 
