@@ -104,9 +104,9 @@ public class AnimeInformation extends JPanel
 	{
 		setSize(new Dimension(625, 441));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 45, 38, 57, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 59, 38, 20, 57, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{60, 0, 0, 0, 0, 0, 0, 0, 43, -2, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -114,7 +114,7 @@ public class AnimeInformation extends JPanel
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		scrollPane.setBorder(null);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.gridwidth = 14;
+		gbc_scrollPane.gridwidth = 15;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 2;
@@ -239,7 +239,7 @@ public class AnimeInformation extends JPanel
 		GridBagConstraints gbc_plusButton = new GridBagConstraints();
 		gbc_plusButton.anchor = GridBagConstraints.WEST;
 		gbc_plusButton.insets = new Insets(0, 0, 5, 5);
-		gbc_plusButton.gridx = 13;
+		gbc_plusButton.gridx = 14;
 		gbc_plusButton.gridy = 3;
 		add(plusButton, gbc_plusButton);
 		plusButton.setPreferredSize(new Dimension(30,30));
@@ -273,7 +273,7 @@ public class AnimeInformation extends JPanel
 		GridBagConstraints gbc_minusButton = new GridBagConstraints();
 		gbc_minusButton.anchor = GridBagConstraints.EAST;
 		gbc_minusButton.insets = new Insets(0, 0, 5, 5);
-		gbc_minusButton.gridx = 14;
+		gbc_minusButton.gridx = 15;
 		gbc_minusButton.gridy = 3;
 		add(minusButton, gbc_minusButton);
 		minusButton.setPreferredSize(new Dimension(30,30));
@@ -281,7 +281,7 @@ public class AnimeInformation extends JPanel
 		rigidArea_1 = Box.createRigidArea(new Dimension(5, 20));
 		GridBagConstraints gbc_rigidArea_1 = new GridBagConstraints();
 		gbc_rigidArea_1.gridheight = 11;
-		gbc_rigidArea_1.gridx = 15;
+		gbc_rigidArea_1.gridx = 16;
 		gbc_rigidArea_1.gridy = 1;
 		add(rigidArea_1, gbc_rigidArea_1);
 		
@@ -320,6 +320,8 @@ public class AnimeInformation extends JPanel
 		
 		lblDurata = new JLabel("Durata :");
 		GridBagConstraints gbc_lblDurata = new GridBagConstraints();
+		gbc_lblDurata.anchor = GridBagConstraints.EAST;
+		gbc_lblDurata.gridwidth = 2;
 		gbc_lblDurata.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDurata.gridx = 12;
 		gbc_lblDurata.gridy = 4;
@@ -330,7 +332,7 @@ public class AnimeInformation extends JPanel
 		gbc_durationFiled.gridwidth = 2;
 		gbc_durationFiled.insets = new Insets(0, 0, 5, 5);
 		gbc_durationFiled.fill = GridBagConstraints.HORIZONTAL;
-		gbc_durationFiled.gridx = 13;
+		gbc_durationFiled.gridx = 14;
 		gbc_durationFiled.gridy = 4;
 		add(durationFiled, gbc_durationFiled);
 		durationFiled.setColumns(10);
@@ -357,7 +359,7 @@ public class AnimeInformation extends JPanel
 			}
 		});
 		GridBagConstraints gbc_fansubComboBox = new GridBagConstraints();
-		gbc_fansubComboBox.gridwidth = 2;
+		gbc_fansubComboBox.gridwidth = 3;
 		gbc_fansubComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_fansubComboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_fansubComboBox.gridx = 11;
@@ -398,7 +400,7 @@ public class AnimeInformation extends JPanel
 		gbc_fansubButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_fansubButton.gridwidth = 2;
 		gbc_fansubButton.insets = new Insets(0, 0, 5, 5);
-		gbc_fansubButton.gridx = 13;
+		gbc_fansubButton.gridx = 14;
 		gbc_fansubButton.gridy = 5;
 		add(fansubButton, gbc_fansubButton);
 		
@@ -451,7 +453,7 @@ public class AnimeInformation extends JPanel
 			}
 		});
 		GridBagConstraints gbc_btnScegliLink = new GridBagConstraints();
-		gbc_btnScegliLink.gridwidth = 2;
+		gbc_btnScegliLink.gridwidth = 3;
 		gbc_btnScegliLink.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnScegliLink.insets = new Insets(0, 0, 5, 5);
 		gbc_btnScegliLink.gridx = 11;
@@ -461,7 +463,7 @@ public class AnimeInformation extends JPanel
 		gbc_btnOpen.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnOpen.gridwidth = 2;
 		gbc_btnOpen.insets = new Insets(0, 0, 5, 5);
-		gbc_btnOpen.gridx = 13;
+		gbc_btnOpen.gridx = 14;
 		gbc_btnOpen.gridy = 6;
 		add(btnOpen, gbc_btnOpen);
 		
@@ -474,6 +476,7 @@ public class AnimeInformation extends JPanel
 		
 		startDateField = new JTextField();
 		GridBagConstraints gbc_startDateField = new GridBagConstraints();
+		gbc_startDateField.gridwidth = 2;
 		gbc_startDateField.insets = new Insets(0, 0, 5, 5);
 		gbc_startDateField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_startDateField.gridx = 11;
@@ -485,7 +488,7 @@ public class AnimeInformation extends JPanel
 		GridBagConstraints gbc_lblFine = new GridBagConstraints();
 		gbc_lblFine.anchor = GridBagConstraints.EAST;
 		gbc_lblFine.insets = new Insets(0, 0, 5, 5);
-		gbc_lblFine.gridx = 12;
+		gbc_lblFine.gridx = 13;
 		gbc_lblFine.gridy = 7;
 		add(lblFine, gbc_lblFine);
 		
@@ -494,7 +497,7 @@ public class AnimeInformation extends JPanel
 		gbc_endDateField.gridwidth = 2;
 		gbc_endDateField.insets = new Insets(0, 0, 5, 5);
 		gbc_endDateField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_endDateField.gridx = 13;
+		gbc_endDateField.gridx = 14;
 		gbc_endDateField.gridy = 7;
 		add(endDateField, gbc_endDateField);
 		endDateField.setColumns(10);
@@ -509,6 +512,7 @@ public class AnimeInformation extends JPanel
 		exitDaycomboBox = new JComboBox();
 		exitDaycomboBox.setModel(new DefaultComboBoxModel(dayWeek));
 		GridBagConstraints gbc_exitDaycomboBox = new GridBagConstraints();
+		gbc_exitDaycomboBox.gridwidth = 2;
 		gbc_exitDaycomboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_exitDaycomboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_exitDaycomboBox.gridx = 11;
@@ -519,7 +523,7 @@ public class AnimeInformation extends JPanel
 		GridBagConstraints gbc_lblTipo = new GridBagConstraints();
 		gbc_lblTipo.anchor = GridBagConstraints.EAST;
 		gbc_lblTipo.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTipo.gridx = 12;
+		gbc_lblTipo.gridx = 13;
 		gbc_lblTipo.gridy = 8;
 		add(lblTipo, gbc_lblTipo);
 		
@@ -530,7 +534,7 @@ public class AnimeInformation extends JPanel
 		gbc_typeComboBox.gridwidth = 2;
 		gbc_typeComboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_typeComboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_typeComboBox.gridx = 13;
+		gbc_typeComboBox.gridx = 14;
 		gbc_typeComboBox.gridy = 8;
 		add(typeComboBox, gbc_typeComboBox);
 		
@@ -549,7 +553,7 @@ public class AnimeInformation extends JPanel
 		GridBagConstraints gbc_noteScrollPane = new GridBagConstraints();
 		gbc_noteScrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_noteScrollPane.anchor = GridBagConstraints.NORTHWEST;
-		gbc_noteScrollPane.gridwidth = 5;
+		gbc_noteScrollPane.gridwidth = 6;
 		gbc_noteScrollPane.gridx = 10;
 		gbc_noteScrollPane.gridy = 10;
 		add(noteScrollPane, gbc_noteScrollPane);
@@ -715,7 +719,7 @@ public class AnimeInformation extends JPanel
 		});
 		GridBagConstraints gbc_addToSeeButton = new GridBagConstraints();
 		gbc_addToSeeButton.anchor = GridBagConstraints.EAST;
-		gbc_addToSeeButton.gridwidth = 4;
+		gbc_addToSeeButton.gridwidth = 5;
 		gbc_addToSeeButton.insets = new Insets(0, 0, 0, 5);
 		gbc_addToSeeButton.gridx = 11;
 		gbc_addToSeeButton.gridy = 11;
