@@ -224,7 +224,7 @@ public class AnimeInformation extends JPanel
 		
 		
 		//secondo numero = massimo numero a cui può arrivare
-//TODO numero massimo permesso = numero massimo episodi se questo e' diverso da ??	
+		//TODO numero massimo permesso = numero massimo episodi se questo e' diverso da ??	
 		currentEpisodeField = new JTextField();
 		currentEpisodeField.setPreferredSize(new Dimension(43, 23));
 		currentEpisodeField.setMinimumSize(new Dimension(43, 23));

@@ -222,8 +222,7 @@ public class AnimeIndex extends JFrame
 					SetAnimeNameDialog animeNameDialog = new SetAnimeNameDialog();
 				animeNameDialog.setLocationRelativeTo(mainFrame);
 				animeNameDialog.setVisible(true);
-				}
-//TODO la modifica del nome si potrebbe applicare solo alla label e nn alla treeMap così da nn perdere le fuzioni di update. ma bisogna modificarlo anche nella lista della categoria				
+				}				
 			}
 		});
 		
