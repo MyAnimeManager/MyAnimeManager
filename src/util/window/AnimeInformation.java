@@ -256,7 +256,7 @@ public class AnimeInformation extends JPanel
 				{
 				num--;
 				currentEpisodeField.setText(Integer.toString(num));
-					if (num == 0)
+					if (num == 1)
 					{
 						minusButton.setEnabled(false);
 					}
