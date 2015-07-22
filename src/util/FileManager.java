@@ -30,7 +30,7 @@ public class FileManager
 	private final static String FANSUB_PATH = APPDATA_PATH + "Fansub.txt";
 	private final static String ANIME_PATH = APPDATA_PATH + File.separator + "Anime" + File.separator;
 	private final static String IMAGE_PATH = APPDATA_PATH + "Images" + File.separator;
-	private final static String DEFAULT_IMAGE_PATH = APPDATA_PATH + "Default Images" + File.separator;
+	private final static String DEFAULT_IMAGE_PATH = APPDATA_PATH + "Default Image" + File.separator;
 	//fansub
 	public static void saveFansubList() throws IOException
 	{

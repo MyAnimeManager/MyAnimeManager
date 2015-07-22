@@ -210,8 +210,7 @@ public class PreferenceDialog extends JDialog
 							if(width == 225 && height == 310){
 								FileManager.saveDefaultImage(dir, "default");
 								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
-								if(AnimeIndex.getJList().isSelectionEmpty())
-									AnimeIndex.animeInformation.animeImage.setIcon(new ImageIcon(ImageIO.read(image)));
+								AnimeIndex.animeInformation.setBlank();
 							}								
 							else
 								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Le dimensioni dell'immagine non sono corrette.", "Errore!", JOptionPane.ERROR_MESSAGE);

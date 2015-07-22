@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.TreeMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -1255,6 +1256,7 @@ public class AnimeIndex extends JFrame
 				File image = new File(path);
 				try {
 					FileManager.deleteData(image);
+					animeInformation.setBlank();						
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -1469,9 +1471,6 @@ public class AnimeIndex extends JFrame
 		String animeType = (String)animeInformation.typeComboBox.getSelectedItem();
 		String releaseDate = animeInformation.startDateField.getText();
 		String finishDate = animeInformation.endDateField.getText();
-		
-		
-//TODO mettere che prende il link e il nome del link li mette dentro all'oggetto data;
 		
 		String list = AnimeIndex.getList();
 		if (list.equalsIgnoreCase("Anime Completati"))

@@ -729,6 +729,34 @@ public class AnimeInformation extends JPanel
 	{
 		return link;
 	}
+	
+	public void setBlank()
+	{
+		if(AnimeIndex.getJList().isSelectionEmpty())
+		{
+			lblAnimeName.setText("Nome Anime");
+			currentEpisodeField.setText("");
+			totalEpisodeText.setText("");
+			noteTextArea.setText("");
+			exitDaycomboBox.setSelectedItem("-----");
+			setLinkButton.setText("Imposta Link");
+			typeComboBox.setSelectedItem("-----");
+			startDateField.setText("");
+			endDateField.setText("");
+			BufferedImage image = null;
+			try{
+				File img = new File(FileManager.getDefaultImageFolderPath()+File.separator+"default.png");
+					if(img.isFile())
+						image=ImageIO.read(img);
+					else
+						image = ImageIO.read( ClassLoader.getSystemResource("image/default_0.png" ));
+			}
+				catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			animeImage.setIcon(new ImageIcon(image));
+		}
+	}
 //	btnSave = new JButton("Salva");
 //	btnSave.addActionListener(new ActionListener() {
 //		public void actionPerformed(ActionEvent e) {
