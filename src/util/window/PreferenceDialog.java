@@ -279,6 +279,17 @@ public class PreferenceDialog extends JDialog
 			gbc_removeDefaultImage.gridy = 6;
 			contentPanel.add(removeDefaultImage, gbc_removeDefaultImage);
 		}
+		
+		String listProp = AnimeIndex.appProp.getProperty("List_to_visualize_at_start");
+		if (listProp.equalsIgnoreCase("last list"))
+			rdbtnLastList.setSelected(true);
+		else 
+		{
+			String choosedListProp = AnimeIndex.appProp.getProperty("Last_list");
+			rdbtnChooseList.setSelected(true);
+			choosedList.setSelectedItem(choosedListProp);
+			
+		}
 	}
 
 }
