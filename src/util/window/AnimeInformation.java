@@ -114,8 +114,12 @@ public class AnimeInformation extends JPanel
 		//label immagine
 		BufferedImage image = null;
 		try {
-			image = ImageIO.read( ClassLoader.getSystemResource("image/default.png" ));
-		} catch (IOException e1) {
+				//if(ClassLoader.getSystemResource("image/default.png") != null)
+					image = ImageIO.read( ClassLoader.getSystemResource("image/default.png" ));
+				//else
+					//image = ImageIO.read( ClassLoader.getSystemResource("image/default_0.png" ));
+		}
+			catch (IOException e1) {
 			e1.printStackTrace();
 		}
 		

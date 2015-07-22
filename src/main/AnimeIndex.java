@@ -232,7 +232,7 @@ public class AnimeIndex extends JFrame
 				{
 					appProp.setProperty("Update_system", "false");
 					JOptionPane.showMessageDialog(mainFrame, "Controllo Dati :      DISATTIVATO", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
-					//se il marcatore e' acceso nn viene mostrato il warning e il sistema di update viene disattivato.
+					//TODO se il marcatore e' acceso nn viene mostrato il warning e il sistema di update viene disattivato.
 				}
 				else
 				{
@@ -244,7 +244,7 @@ public class AnimeIndex extends JFrame
 					else
 					{
 						appProp.setProperty("Update_system", "true");
-						//attiva il sistema di update fino alla disattivazione da parte dell'utente
+						//TODO attiva il sistema di update fino alla disattivazione da parte dell'utente
 					}
 				}
 		}	
@@ -313,13 +313,13 @@ public class AnimeIndex extends JFrame
 		JMenu mnHelp = new JMenu("Aiuto");
 		mnMenu.add(mnHelp);
 		
-		JMenuItem mntmAboutMyAnime = new JMenuItem("Versione Programma");
-		mntmAboutMyAnime.addActionListener(new ActionListener() {
+		JMenuItem mntmAboutMyAnimeManager = new JMenuItem("Versione Programma");
+		mntmAboutMyAnimeManager.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(mainFrame, "My Anime Manager             1.0", "Versione", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
-		mnHelp.add(mntmAboutMyAnime);
+		mnHelp.add(mntmAboutMyAnimeManager);
 		
 		JMenuItem mntmCredit = new JMenuItem("Crediti");
 		mnHelp.add(mntmCredit);
