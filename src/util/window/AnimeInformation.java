@@ -116,9 +116,10 @@ public class AnimeInformation extends JPanel
 		
 		//label immagine
 		BufferedImage image = null;
-		try {
-				if(ClassLoader.getSystemResource("image/default_0.png") == null)
-					image = ImageIO.read( ClassLoader.getSystemResource(FileManager.getDefaultImageFolderPath()));
+		try{
+			File img = new File(FileManager.getDefaultImageFolderPath()+File.separator+"default.png");
+				if(img.isFile())
+					image=ImageIO.read(img);
 				else
 					image = ImageIO.read( ClassLoader.getSystemResource("image/default_0.png" ));
 		}

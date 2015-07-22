@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -52,16 +53,17 @@ public class PreferenceDialog extends JDialog
 	 */
 	public PreferenceDialog()
 	{
+		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 247);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 205, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblListToVisualize = new JLabel("Lista da visualizzare all'avvio :");
@@ -171,11 +173,21 @@ public class PreferenceDialog extends JDialog
 			contentPanel.add(lblImmagineIniziale, gbc_lblImmagineIniziale);
 		}
 		{
-			JLabel lblPercorsoFile = new JLabel("Percorso File :");
+			JLabel imgDimension = new JLabel("       L'immagine deve avere dimensioni :    225 x 310 pixel.");
+			GridBagConstraints gbc_imgDimension = new GridBagConstraints();
+			gbc_imgDimension.anchor = GridBagConstraints.WEST;
+			gbc_imgDimension.insets = new Insets(0, 0, 5, 0);
+			gbc_imgDimension.gridwidth = 3;
+			gbc_imgDimension.gridx = 0;
+			gbc_imgDimension.gridy = 4;
+			contentPanel.add(imgDimension, gbc_imgDimension);
+		}
+		{
+			JLabel lblPercorsoFile = new JLabel("Percorso Immagine :");
 			GridBagConstraints gbc_lblPercorsoFile = new GridBagConstraints();
 			gbc_lblPercorsoFile.insets = new Insets(0, 0, 5, 5);
 			gbc_lblPercorsoFile.gridx = 0;
-			gbc_lblPercorsoFile.gridy = 4;
+			gbc_lblPercorsoFile.gridy = 5;
 			contentPanel.add(lblPercorsoFile, gbc_lblPercorsoFile);
 		}
 		{
@@ -184,18 +196,23 @@ public class PreferenceDialog extends JDialog
 				public void actionPerformed(ActionEvent e) {
 					if(defaultImageDirectoryField.getText() != null && !(defaultImageDirectoryField.getText().isEmpty()))
 						{
-						if(defaultImageDirectoryField.getText().substring(defaultImageDirectoryField.getText().length()-4).equals(".png") || defaultImageDirectoryField.getText().substring(defaultImageDirectoryField.getText().length()-5).equals(".png\"")){
-							File image = new File(defaultImageDirectoryField.getText());
+						String dir =defaultImageDirectoryField.getText();
+						if(defaultImageDirectoryField.getText().substring(defaultImageDirectoryField.getText().length()-1).equals("\"") && defaultImageDirectoryField.getText().substring(0, 1).equals("\""))
+							dir = defaultImageDirectoryField.getText().substring(1, defaultImageDirectoryField.getText().length()-1);
+						if(dir.substring(dir.length()-4).equals(".png")){
+							File image = new File(dir);
 							try{
 							BufferedImage bufimg = ImageIO.read (image);
 
 							int width = bufimg.getWidth ();
 							int height = bufimg.getHeight ();
 					    
-							if(width < 225 && height < 310){
-								FileManager.saveDefaultImage(defaultImageDirectoryField.getText(), "default");
-								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);}
-								
+							if(width == 225 && height == 310){
+								FileManager.saveDefaultImage(dir, "default");
+								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+								if(AnimeIndex.getJList().isSelectionEmpty())
+									AnimeIndex.animeInformation.animeImage.setIcon(new ImageIcon(ImageIO.read(image)));
+							}								
 							else
 								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Le dimensioni dell'immagine non sono corrette.", "Errore!", JOptionPane.ERROR_MESSAGE);
 							}
@@ -203,9 +220,9 @@ public class PreferenceDialog extends JDialog
 							e2.printStackTrace();}
 						}
 						else
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il formato dell'immagine deve essere .png!\n\rSe si e' sicuri che il formato dell'immagine\n\rsia .png, assicurarsi che tale estensione\n\rsegua il nome dell'immagine nella dichiarazione\n\rdel percorso.", "Errore!", JOptionPane.ERROR_MESSAGE);}					
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il formato dell'immagine deve essere .png\n\rSe si e' sicuri che il formato dell'immagine\n\rsia .png, assicurarsi che tale estensione\n\rsegua il nome dell'immagine nella dichiarazione\n\rdel percorso.", "Errore!", JOptionPane.ERROR_MESSAGE);}					
 					else
-						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessuna immagine trovata.", "Errore!", JOptionPane.ERROR_MESSAGE);					
+						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessuna immagine trovata.\n\rIl percorso potrebbe non essere corretto.", "Errore!", JOptionPane.ERROR_MESSAGE);					
 				}
 			});
 			{
@@ -214,7 +231,7 @@ public class PreferenceDialog extends JDialog
 				gbc_defaultImageDirectoryScrollPane.insets = new Insets(0, 0, 5, 5);
 				gbc_defaultImageDirectoryScrollPane.fill = GridBagConstraints.BOTH;
 				gbc_defaultImageDirectoryScrollPane.gridx = 1;
-				gbc_defaultImageDirectoryScrollPane.gridy = 4;
+				gbc_defaultImageDirectoryScrollPane.gridy = 5;
 				contentPanel.add(defaultImageDirectoryScrollPane, gbc_defaultImageDirectoryScrollPane);
 				{
 					defaultImageDirectoryField = new JTextField();
@@ -225,7 +242,7 @@ public class PreferenceDialog extends JDialog
 			GridBagConstraints gbc_DefaultImageButton = new GridBagConstraints();
 			gbc_DefaultImageButton.insets = new Insets(0, 0, 5, 0);
 			gbc_DefaultImageButton.gridx = 2;
-			gbc_DefaultImageButton.gridy = 4;
+			gbc_DefaultImageButton.gridy = 5;
 			contentPanel.add(DefaultImageButton, gbc_DefaultImageButton);
 		}
 		{
@@ -233,16 +250,33 @@ public class PreferenceDialog extends JDialog
 			GridBagConstraints gbc_lblRimuoviAttuale = new GridBagConstraints();
 			gbc_lblRimuoviAttuale.insets = new Insets(0, 0, 0, 5);
 			gbc_lblRimuoviAttuale.gridx = 0;
-			gbc_lblRimuoviAttuale.gridy = 5;
+			gbc_lblRimuoviAttuale.gridy = 6;
 			contentPanel.add(lblRimuoviAttuale, gbc_lblRimuoviAttuale);
 		}
 		{
 			JButton removeDefaultImage = new JButton("Rimuovi");
+			removeDefaultImage.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					File img = new File(FileManager.getDefaultImageFolderPath());
+					if(!img.isFile())
+						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessuna immagine iniziale trovata.", "Errore!", JOptionPane.ERROR_MESSAGE);
+					else{
+					int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "L'immagine iniziale attuale sara' eliminata.\n\rL'operazione non potra' essere annullata.", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if(shouldCancel==0){
+					try{
+						FileManager.deleteData(img);
+						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Immagine iniziale rimossa.", "Eliminazione completata", JOptionPane.INFORMATION_MESSAGE);
+						if(AnimeIndex.getJList().isSelectionEmpty())
+							AnimeIndex.animeInformation.animeImage.setIcon(new ImageIcon(ImageIO.read(ClassLoader.getSystemResource("image/default.png"))));						
+					}catch(IOException e1)
+					{	e1.getStackTrace();}}}
+				}
+			});
 			GridBagConstraints gbc_removeDefaultImage = new GridBagConstraints();
 			gbc_removeDefaultImage.fill = GridBagConstraints.HORIZONTAL;
 			gbc_removeDefaultImage.insets = new Insets(0, 0, 0, 5);
 			gbc_removeDefaultImage.gridx = 1;
-			gbc_removeDefaultImage.gridy = 5;
+			gbc_removeDefaultImage.gridy = 6;
 			contentPanel.add(removeDefaultImage, gbc_removeDefaultImage);
 		}
 	}

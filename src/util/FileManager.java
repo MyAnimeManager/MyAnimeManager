@@ -16,6 +16,7 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.FileImageInputStream;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -261,11 +262,11 @@ public class FileManager
 		}
 	}
 	public static void saveDefaultImage(String imageUrl, String destinationFile) {
-	    URL url;
+	    File url;
 		try {
-			url = new URL(imageUrl);
-			URLConnection conn =url.openConnection();
-			InputStream is = conn.getInputStream();
+			url = new File(imageUrl);
+			
+			InputStream is = new FileInputStream(url);
 		    OutputStream os = new FileOutputStream(DEFAULT_IMAGE_PATH + destinationFile +".png");
 
 			    byte[] b = new byte[2048];
