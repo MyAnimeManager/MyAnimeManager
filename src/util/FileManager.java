@@ -1,5 +1,6 @@
 package util;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,13 +10,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
 import java.util.TreeMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 import main.AnimeIndex;
 
@@ -27,6 +29,7 @@ public class FileManager
 	private final static String FANSUB_PATH = APPDATA_PATH + "Fansub.txt";
 	private final static String ANIME_PATH = APPDATA_PATH + File.separator + "Anime" + File.separator;
 	private final static String IMAGE_PATH = APPDATA_PATH + "Images" + File.separator;
+	private final static String DEFAULT_IMAGE_PATH = APPDATA_PATH + "Default Images" + File.separator;
 	//fansub
 	public static void saveFansubList() throws IOException
 	{
@@ -257,7 +260,33 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	
+	public static void saveDefaultImage(String imageUrl, String destinationFile) {
+	    URL url;
+		try {
+			url = new URL(imageUrl);
+			URLConnection conn =url.openConnection();
+			InputStream is = conn.getInputStream();
+		    OutputStream os = new FileOutputStream(DEFAULT_IMAGE_PATH + destinationFile +".png");
+
+			    byte[] b = new byte[2048];
+			    int length;
+			    
+			    while ((length = is.read(b)) != -1) {
+			        os.write(b, 0, length);
+			    }
+
+			    is.close();
+			    os.close();
+			        
+		}catch (FileNotFoundException e) {
+			File file = new File(DEFAULT_IMAGE_PATH);
+			file.mkdirs();
+			saveDefaultImage(imageUrl ,destinationFile);
+		}
+			catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	 public static void deleteData(File file)	throws IOException
 	 {
 		 
@@ -298,5 +327,8 @@ public class FileManager
 		 return IMAGE_PATH;
 	 }
 	 
-	 
+	 public static String getDefaultImageFolderPath()
+	 {
+		 return DEFAULT_IMAGE_PATH;
+	 }
 }

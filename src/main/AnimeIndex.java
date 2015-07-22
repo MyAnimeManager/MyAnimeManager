@@ -183,7 +183,21 @@ public class AnimeIndex extends JFrame
 		JMenu mnMenu = new JMenu("Opzioni");
 		menuBar.add(mnMenu);
 		
-		JMenuItem mntmAggiungiFansub = new JMenuItem("Aggiungi Fansub");
+		JMenu mnAggiungi = new JMenu("Aggiungi");
+		mnMenu.add(mnAggiungi);
+		
+		JMenuItem mntmAggiungiFansub = new JMenuItem("Fansub");
+		mnAggiungi.add(mntmAggiungiFansub);
+		
+		JMenuItem mntmAddImage = new JMenuItem("Immagine");
+		mnAggiungi.add(mntmAddImage);
+		mntmAddImage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddImageDialog imageDialog = new AddImageDialog();
+				imageDialog.setLocationRelativeTo(mainFrame);
+				imageDialog.setVisible(true);
+			}
+		});
 		mntmAggiungiFansub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fansubDialog = new AddFansubDialog();
@@ -192,18 +206,8 @@ public class AnimeIndex extends JFrame
 			}
 		});
 		
-		JMenuItem mntmAddImage = new JMenuItem("Aggiungi Immagine");
-		mntmAddImage.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AddImageDialog imageDialog = new AddImageDialog();
-				imageDialog.setLocationRelativeTo(mainFrame);
-				imageDialog.setVisible(true);
-			}
-		});
-		mnMenu.add(mntmAddImage);
-		mnMenu.add(mntmAggiungiFansub);
-		
 		JMenuItem mntmModificaNome = new JMenuItem("Modifica Nome Anime");
+		mnMenu.add(mntmModificaNome);
 		mntmModificaNome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Si consiglia di lasciare invariato\n\ril nome dell'anime per una\n\rmaggiore compatibilita' coi dati\n\rdel server AniList.\n\rAlcune funzioni potrebbero\n\ressere disattivate. Continuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -215,7 +219,6 @@ public class AnimeIndex extends JFrame
 //TODO la modifica del nome si potrebbe applicare solo alla label e nn alla treeMap così da nn perdere le fuzioni di update. ma bisogna modificarlo anche nella lista della categoria				
 			}
 		});
-		mnMenu.add(mntmModificaNome);
 		
 		JSeparator separator_3 = new JSeparator();
 		mnMenu.add(separator_3);

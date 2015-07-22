@@ -35,6 +35,7 @@ import javax.swing.text.AbstractDocument;
 
 import main.AnimeIndex;
 import util.AnimeData;
+import util.FileManager;
 import util.PatternFilter;
 
 import javax.swing.ScrollPaneConstants;
@@ -44,8 +45,10 @@ import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.Box;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+
 import javax.swing.JFormattedTextField;
 
 public class AnimeInformation extends JPanel
@@ -114,10 +117,10 @@ public class AnimeInformation extends JPanel
 		//label immagine
 		BufferedImage image = null;
 		try {
-				//if(ClassLoader.getSystemResource("image/default.png") != null)
-					image = ImageIO.read( ClassLoader.getSystemResource("image/default.png" ));
-				//else
-					//image = ImageIO.read( ClassLoader.getSystemResource("image/default_0.png" ));
+				if(ClassLoader.getSystemResource("image/default_0.png") == null)
+					image = ImageIO.read( ClassLoader.getSystemResource(FileManager.getDefaultImageFolderPath()));
+				else
+					image = ImageIO.read( ClassLoader.getSystemResource("image/default_0.png" ));
 		}
 			catch (IOException e1) {
 			e1.printStackTrace();
