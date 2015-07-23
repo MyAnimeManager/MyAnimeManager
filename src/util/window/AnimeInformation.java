@@ -563,8 +563,8 @@ public class AnimeInformation extends JPanel
 						map = AnimeIndex.completedMap;
 					}
 					AnimeData oldData = map.get(name);
-					AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
-						    oldData.getNote(), oldData.getImageName(), "Irrgolare", oldData.getId(),
+					AnimeData newData = new AnimeData("1", oldData.getTotalEpisode(), oldData.getFansub(), 
+						    oldData.getNote(), oldData.getImageName(), "Irregolare", oldData.getId(),
 							oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), 
 							oldData.getFinishDate(), oldData.getDurationEp());
 					map.remove(name);
@@ -587,7 +587,7 @@ public class AnimeInformation extends JPanel
 				}
 			}
 		});
-		typeComboBox.setModel(new DefaultComboBoxModel(new String[] {"-----", "TV", "Movie", "Special", "OVA", "ONA", "Tv Short", "Blu-Ray"}));
+		typeComboBox.setModel(new DefaultComboBoxModel(new String[] {"-----", "TV", "Movie", "Special", "OVA", "ONA", "Tv Short", "Blu-ray"}));
 		GridBagConstraints gbc_typeComboBox = new GridBagConstraints();
 		gbc_typeComboBox.gridwidth = 2;
 		gbc_typeComboBox.insets = new Insets(0, 0, 5, 5);
@@ -661,7 +661,7 @@ public class AnimeInformation extends JPanel
 					map = AnimeIndex.completedToSeeMap;
 				}
 				AnimeData oldData = map.get(name);
-				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
+				AnimeData newData = new AnimeData(oldData.getTotalEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
 									oldData.getNote(), oldData.getImageName(), "Concluso", oldData.getId(),
 									oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
 									oldData.getFinishDate(), oldData.getDurationEp());
