@@ -265,10 +265,13 @@ public class AnimeInformation extends JPanel
 					}
 					
 					if ( (totalEpisodeText.getText()) != null && !(totalEpisodeText.getText().isEmpty()))
-					{
+					{	
+						if (!totalEpisodeText.getText().equals("??"))
+						{
 						int maxnum = Integer.parseInt(totalEpisodeText.getText());
 						if (num < maxnum)
-							plusButton.setEnabled(true);					
+							plusButton.setEnabled(true);
+						}
 					}
 				}
 			}
