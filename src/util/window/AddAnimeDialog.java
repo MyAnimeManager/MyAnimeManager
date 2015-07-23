@@ -554,6 +554,8 @@ public class AddAnimeDialog extends JDialog
 									String yearEnd = finishDate.substring(0, 4);
 									finishDate = dayEnd + "/" + monthEnd + "/" + yearEnd;
 								}
+								if (totEp.equals("1"))
+									finishDate = releaseDate;
 							}
 							
 							
