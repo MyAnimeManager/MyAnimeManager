@@ -50,7 +50,9 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
 import javax.swing.JFormattedTextField;
+
 import java.awt.GridLayout;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -90,11 +92,11 @@ public class AnimeInformation extends JPanel
 	public JComboBox typeComboBox;
 	private JLabel lblInizio;
 	private JLabel lblFine;
-	public JTextField endDateField;
+	public JTextField finishDateField;
 	private JTextField textField;
-	public JTextField startDateField;
+	public JTextField releaseDateField;
 	private JLabel lblDurata;
-	public JTextField durationFiled;
+	public JTextField durationField;
 
 	/**
 	 * Create the panel.
@@ -327,15 +329,15 @@ public class AnimeInformation extends JPanel
 		gbc_lblDurata.gridy = 4;
 		add(lblDurata, gbc_lblDurata);
 		
-		durationFiled = new JTextField();
+		durationField = new JTextField();
 		GridBagConstraints gbc_durationFiled = new GridBagConstraints();
 		gbc_durationFiled.gridwidth = 2;
 		gbc_durationFiled.insets = new Insets(0, 0, 5, 5);
 		gbc_durationFiled.fill = GridBagConstraints.HORIZONTAL;
 		gbc_durationFiled.gridx = 14;
 		gbc_durationFiled.gridy = 4;
-		add(durationFiled, gbc_durationFiled);
-		durationFiled.setColumns(10);
+		add(durationField, gbc_durationFiled);
+		durationField.setColumns(10);
 		
 		JLabel lblFansub = new JLabel("Fansub :");
 		GridBagConstraints gbc_lblFansub = new GridBagConstraints();
@@ -367,7 +369,7 @@ public class AnimeInformation extends JPanel
 		add(fansubComboBox, gbc_fansubComboBox);
 		String[] dayWeek = {"-----","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica","Concluso","Irregolare","Sospesa"};
 
-//TODO ultimare la funzione di salvataggio automatico della sezione così da rimuovere questo inutile pulsante e sostituirlo con uno piu' utile		
+		
 		fansubButton = new JButton("Apri");
 		fansubButton.setEnabled(false);
 		fansubButton.addActionListener(new ActionListener() {
@@ -474,15 +476,15 @@ public class AnimeInformation extends JPanel
 		gbc_lblInizio.gridy = 7;
 		add(lblInizio, gbc_lblInizio);
 		
-		startDateField = new JTextField();
-		GridBagConstraints gbc_startDateField = new GridBagConstraints();
-		gbc_startDateField.gridwidth = 2;
-		gbc_startDateField.insets = new Insets(0, 0, 5, 5);
-		gbc_startDateField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_startDateField.gridx = 11;
-		gbc_startDateField.gridy = 7;
-		add(startDateField, gbc_startDateField);
-		startDateField.setColumns(10);
+		releaseDateField = new JTextField();
+		GridBagConstraints gbc_releaseDateField = new GridBagConstraints();
+		gbc_releaseDateField.gridwidth = 2;
+		gbc_releaseDateField.insets = new Insets(0, 0, 5, 5);
+		gbc_releaseDateField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_releaseDateField.gridx = 11;
+		gbc_releaseDateField.gridy = 7;
+		add(releaseDateField, gbc_releaseDateField);
+		releaseDateField.setColumns(10);
 		
 		lblFine = new JLabel("Fine :");
 		GridBagConstraints gbc_lblFine = new GridBagConstraints();
@@ -492,15 +494,15 @@ public class AnimeInformation extends JPanel
 		gbc_lblFine.gridy = 7;
 		add(lblFine, gbc_lblFine);
 		
-		endDateField = new JTextField();
-		GridBagConstraints gbc_endDateField = new GridBagConstraints();
-		gbc_endDateField.gridwidth = 2;
-		gbc_endDateField.insets = new Insets(0, 0, 5, 5);
-		gbc_endDateField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_endDateField.gridx = 14;
-		gbc_endDateField.gridy = 7;
-		add(endDateField, gbc_endDateField);
-		endDateField.setColumns(10);
+		finishDateField = new JTextField();
+		GridBagConstraints gbc_finishDateField = new GridBagConstraints();
+		gbc_finishDateField.gridwidth = 2;
+		gbc_finishDateField.insets = new Insets(0, 0, 5, 5);
+		gbc_finishDateField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_finishDateField.gridx = 14;
+		gbc_finishDateField.gridy = 7;
+		add(finishDateField, gbc_finishDateField);
+		finishDateField.setColumns(10);
 		
 		lblExitDay = new JLabel("Giorno di Uscita :");
 		GridBagConstraints gbc_lblExitDay = new GridBagConstraints();
@@ -557,7 +559,7 @@ public class AnimeInformation extends JPanel
 					}
 					AnimeData oldData = map.get(name);
 					AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
-							oldData.getFansubLink(), oldData.getNote(), oldData.getImageName(), "Anime in Corso", oldData.getId(),
+						    oldData.getNote(), oldData.getImageName(), "Anime in Corso", oldData.getId(),
 							oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
 							oldData.getFinishDate(), oldData.getDurationEp());
 					map.remove(name);
@@ -580,7 +582,7 @@ public class AnimeInformation extends JPanel
 				}
 			}
 		});
-		typeComboBox.setModel(new DefaultComboBoxModel(new String[] {"-----", "Tv", "Movie", "Special", "OVA", "ONA", "Tv Short", "Blu-Ray"}));
+		typeComboBox.setModel(new DefaultComboBoxModel(new String[] {"-----", "TV", "Movie", "Special", "OVA", "ONA", "Tv Short", "Blu-Ray"}));
 		GridBagConstraints gbc_typeComboBox = new GridBagConstraints();
 		gbc_typeComboBox.gridwidth = 2;
 		gbc_typeComboBox.insets = new Insets(0, 0, 5, 5);
@@ -654,7 +656,7 @@ public class AnimeInformation extends JPanel
 				}
 				AnimeData oldData = map.get(name);
 				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
-									oldData.getFansubLink(), oldData.getNote(), oldData.getImageName(), "Concluso", oldData.getId(),
+									oldData.getNote(), oldData.getImageName(), "Concluso", oldData.getId(),
 									oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
 									oldData.getFinishDate(), oldData.getDurationEp());
 				map.remove(name);
@@ -757,7 +759,7 @@ public class AnimeInformation extends JPanel
 				}
 				AnimeData oldData = map.get(name);
 				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
-						oldData.getFansubLink(), oldData.getNote(), oldData.getImageName(), "Concluso da Vedere", oldData.getId(),
+						oldData.getNote(), oldData.getImageName(), "Concluso da Vedere", oldData.getId(),
 						oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
 						oldData.getFinishDate(), oldData.getDurationEp());
 				map.remove(name);
@@ -785,6 +787,35 @@ public class AnimeInformation extends JPanel
 		add(addToSeeButton, gbc_addToSeeButton);
 	}
 	
+	//TODO aggiungere fansub
+		public void setBlank()
+		{
+			if(AnimeIndex.getJList().isSelectionEmpty())
+			{
+				lblAnimeName.setText("Nome Anime");
+				currentEpisodeField.setText("");
+				totalEpisodeText.setText("");
+				noteTextArea.setText("");
+				exitDaycomboBox.setSelectedItem("-----");
+				setLinkButton.setText("Imposta Link");
+				typeComboBox.setSelectedItem("-----");
+				releaseDateField.setText("");
+				finishDateField.setText("");
+				BufferedImage image = null;
+				try{
+					File img = new File(FileManager.getDefaultImageFolderPath()+File.separator+"default.png");
+						if(img.isFile())
+							image=ImageIO.read(img);
+						else
+							image = ImageIO.read( ClassLoader.getSystemResource("image/default.png" ));
+				}
+					catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				animeImage.setIcon(new ImageIcon(image));
+			}
+		}
+		
 	public void setAnimeName(String name)
 	{
 		lblAnimeName.setText(name);
@@ -851,84 +882,86 @@ public class AnimeInformation extends JPanel
 	{
 		return link;
 	}
-//TODO aggiungere fansub
-	public void setBlank()
+	
+	public void setDurationEp(String durationEp)
 	{
-		if(AnimeIndex.getJList().isSelectionEmpty())
-		{
-			lblAnimeName.setText("Nome Anime");
-			currentEpisodeField.setText("");
-			totalEpisodeText.setText("");
-			noteTextArea.setText("");
-			exitDaycomboBox.setSelectedItem("-----");
-			setLinkButton.setText("Imposta Link");
-			typeComboBox.setSelectedItem("-----");
-			startDateField.setText("");
-			endDateField.setText("");
-			BufferedImage image = null;
-			try{
-				File img = new File(FileManager.getDefaultImageFolderPath()+File.separator+"default.png");
-					if(img.isFile())
-						image=ImageIO.read(img);
-					else
-						image = ImageIO.read( ClassLoader.getSystemResource("image/default.png" ));
-			}
-				catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			animeImage.setIcon(new ImageIcon(image));
-		}
+		durationField.setText(durationEp);
 	}
-//	btnSave = new JButton("Salva");
-//	btnSave.addActionListener(new ActionListener() {
-//		public void actionPerformed(ActionEvent e) {
-//			
-//			String name = lblAnimeName.getText();
-//			String currEp = currentEpisodeField.getText();
-//			String totEp = totalEpisodeText.getText();
-//			String fansub = (String) fansubComboBox.getSelectedItem();
-//			String fansubLink = getLink();
-//			String note = noteTextArea.getText();
-//			String day = (String) exitDaycomboBox.getSelectedItem();
-//			
-//			String list = AnimeIndex.getList();
-//			if (list.equalsIgnoreCase("Anime Completati"))
-//				{
-//				String image = AnimeIndex.completedMap.get(name).getImageName();
-//				AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-//				AnimeIndex.completedMap.put(name, data);
-//				}
-//			else if (list.equalsIgnoreCase("Anime in Corso"))
-//				{
-//				String image = AnimeIndex.airingMap.get(name).getImageName();
-//				AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-//				AnimeIndex.airingMap.put(name, data);
-//				}
-//			else if (list.equalsIgnoreCase("OAV"))
-//				{
-//				String image = AnimeIndex.ovaMap.get(name).getImageName();
-//				AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-//				AnimeIndex.ovaMap.put(name, data);
-//				}
-//			else if (list.equalsIgnoreCase("Film"))
-//			{
-//				String image = AnimeIndex.filmMap.get(name).getImageName();
-//				AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-//				AnimeIndex.filmMap.put(name, data);
-//			}
-//			else if (list.equalsIgnoreCase("Completi Da Vedere"))
-//			{
-//				String image = AnimeIndex.completedToSeeMap.get(name).getImageName();
-//				AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-//				AnimeIndex.completedToSeeMap.put(name, data);
-//			}
-//		}
-//	});
-//	GridBagConstraints gbc_btnSave = new GridBagConstraints();
-//	gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
-//	gbc_btnSave.gridwidth = 2;
-//	gbc_btnSave.insets = new Insets(0, 0, 0, 5);
-//	gbc_btnSave.gridx = 1;
-//	gbc_btnSave.gridy = 11;
-//	add(btnSave, gbc_btnSave);
+	
+	public void setReleaseDate(String releaseDate)
+	{
+		releaseDateField.setText(releaseDate);
+	}
+	
+	public void setFinishDate(String finishDate)
+	{
+		finishDateField.setText(finishDate);	
+	}
+
+	public void setType(String animeType)
+	{
+		typeComboBox.setSelectedItem(animeType);
+	}
+
+	public void setlinkName(String linkName)
+	{
+		//if (linkName != null && !linkName.isEmpty())
+			setLinkButton.setText(linkName);
+	}
+
+
 }
+
+//btnSave = new JButton("Salva");
+//btnSave.addActionListener(new ActionListener() {
+//	public void actionPerformed(ActionEvent e) {
+//		
+//		String name = lblAnimeName.getText();
+//		String currEp = currentEpisodeField.getText();
+//		String totEp = totalEpisodeText.getText();
+//		String fansub = (String) fansubComboBox.getSelectedItem();
+//		String fansubLink = getLink();
+//		String note = noteTextArea.getText();
+//		String day = (String) exitDaycomboBox.getSelectedItem();
+//		
+//		String list = AnimeIndex.getList();
+//		if (list.equalsIgnoreCase("Anime Completati"))
+//			{
+//			String image = AnimeIndex.completedMap.get(name).getImageName();
+//			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+//			AnimeIndex.completedMap.put(name, data);
+//			}
+//		else if (list.equalsIgnoreCase("Anime in Corso"))
+//			{
+//			String image = AnimeIndex.airingMap.get(name).getImageName();
+//			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+//			AnimeIndex.airingMap.put(name, data);
+//			}
+//		else if (list.equalsIgnoreCase("OAV"))
+//			{
+//			String image = AnimeIndex.ovaMap.get(name).getImageName();
+//			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+//			AnimeIndex.ovaMap.put(name, data);
+//			}
+//		else if (list.equalsIgnoreCase("Film"))
+//		{
+//			String image = AnimeIndex.filmMap.get(name).getImageName();
+//			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+//			AnimeIndex.filmMap.put(name, data);
+//		}
+//		else if (list.equalsIgnoreCase("Completi Da Vedere"))
+//		{
+//			String image = AnimeIndex.completedToSeeMap.get(name).getImageName();
+//			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
+//			AnimeIndex.completedToSeeMap.put(name, data);
+//		}
+//	}
+//});
+//GridBagConstraints gbc_btnSave = new GridBagConstraints();
+//gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
+//gbc_btnSave.gridwidth = 2;
+//gbc_btnSave.insets = new Insets(0, 0, 0, 5);
+//gbc_btnSave.gridx = 1;
+//gbc_btnSave.gridy = 11;
+//add(btnSave, gbc_btnSave);
+

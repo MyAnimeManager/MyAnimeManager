@@ -247,7 +247,7 @@ public class AddAnimeDialog extends JDialog
 								if (currentEp.equals(totEp))
 									AnimeIndex.animeInformation.plusButton.setEnabled(false);
 								
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", null, day, "", "", "", "", "", "", "");
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", null, day, "", "", "", "", "", "", "");
 								
 								
 								String listName = getListToAdd();
@@ -516,6 +516,33 @@ public class AddAnimeDialog extends JDialog
 							String finishDate = ConnectionManager.getAnimeData("end_date", dataAni);
 							String durationEp = ConnectionManager.getAnimeData("duration", dataAni);
 							
+							if (releaseDate != null && !releaseDate.isEmpty())
+							{
+								if (releaseDate.equals("null"))
+									releaseDate = "??";
+								else
+								{
+									String dayStart = releaseDate.substring(8, 10);
+									String monthStart = releaseDate.substring(5, 7);
+									String yearStart = releaseDate.substring(0, 4);
+									releaseDate = dayStart + "/" + monthStart + "/" + yearStart;
+								}
+							}
+							
+							if (finishDate != null && !finishDate.isEmpty())
+							{
+								if (finishDate.equals("null"))
+									finishDate = "??";
+								else
+								{
+									String dayEnd = finishDate.substring(8, 10);
+									String monthEnd= finishDate.substring(5, 7);
+									String yearEnd = finishDate.substring(0, 4);
+									finishDate = dayEnd + "/" + monthEnd + "/" + yearEnd;
+								}
+							}
+							
+							
 							
 														
 							if (currentEp.equals(totEp))
@@ -551,7 +578,7 @@ public class AddAnimeDialog extends JDialog
 								imageName = imageName.replaceAll(">", "_");
 								imageName = imageName.replaceAll("<", "_");
 								FileManager.saveImage(imageLink, imageName);
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , "-----", Integer.toString(id), 
 																"", "", animeType, releaseDate, finishDate, durationEp);
 								
 								AnimeIndex.completedMap.put(name, data);
@@ -582,7 +609,7 @@ public class AddAnimeDialog extends JDialog
 								imageName = imageName.replaceAll(">", "_");
 								imageName = imageName.replaceAll("<", "_");
 								FileManager.saveImage(imageLink, imageName);
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , "-----", Integer.toString(id), 
 																"", "", animeType, releaseDate, finishDate, durationEp);
 								
 								AnimeIndex.airingMap.put(name, data);
@@ -613,7 +640,7 @@ public class AddAnimeDialog extends JDialog
 								imageName = imageName.replaceAll(">", "_");
 								imageName = imageName.replaceAll("<", "_");
 								FileManager.saveImage(imageLink, imageName);
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , "-----", Integer.toString(id), 
 										"", "", animeType, releaseDate, finishDate, durationEp);
 								
 								AnimeIndex.ovaMap.put(name, data);
@@ -644,7 +671,7 @@ public class AddAnimeDialog extends JDialog
 								imageName = imageName.replaceAll(">", "_");
 								imageName = imageName.replaceAll("<", "_");
 								FileManager.saveImage(imageLink, imageName);
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , "-----", Integer.toString(id), 
 										"", "", animeType, releaseDate, finishDate, durationEp);
 								
 								
@@ -676,7 +703,7 @@ public class AddAnimeDialog extends JDialog
 								imageName = imageName.replaceAll(">", "_");
 								imageName = imageName.replaceAll("<", "_");
 								FileManager.saveImage(imageLink, imageName);
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , "-----", Integer.toString(id), 
 																"", "", animeType, releaseDate, finishDate, durationEp);
 								
 								AnimeIndex.completedToSeeMap.put(name, data);

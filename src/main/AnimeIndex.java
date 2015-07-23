@@ -530,11 +530,22 @@ public class AnimeIndex extends JFrame
 					animeInformation.setAnimeName(anime);
 					animeInformation.setCurrentEp(data.getCurrentEpisode());
 					animeInformation.setTotalEp(data.getTotalEpisode());
+					animeInformation.setDurationEp(data.getDurationEp());
 					animeInformation.setFansub(data.getFansub());
-					animeInformation.setLink(data.getFansubLink());
-					animeInformation.setNote(data.getNote());
-					animeInformation.setDay("Concluso");
-					animeInformation.exitDaycomboBox.setEnabled(false);
+					animeInformation.setLink(data.getLink());
+					if (data.getLink() != null && !(data.getLink().isEmpty()))
+					{
+						if (data.getLinkName() != null && !(data.getLinkName().isEmpty()))
+							animeInformation.setlinkName(data.getLinkName());
+						else
+							animeInformation.setlinkName("Link");
+					}
+					else
+						animeInformation.setlinkName("Imposta Link");
+					animeInformation.setReleaseDate(data.getReleaseDate());
+					animeInformation.setFinishDate(data.getFinishDate());
+					animeInformation.setDay(data.getDay());
+					animeInformation.setType(data.getAnimeType());
 					String path = data.getImagePath();
 					File file = new File(path);
 					if (file.exists())
@@ -553,9 +564,9 @@ public class AnimeIndex extends JFrame
 				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
 				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
-				    AnimeIndex.animeInformation.startDateField.setEnabled(false);
-				    AnimeIndex.animeInformation.endDateField.setEnabled(false);
-				    AnimeIndex.animeInformation.durationFiled.setEnabled(false);
+				    AnimeIndex.animeInformation.releaseDateField.setEnabled(false);
+				    AnimeIndex.animeInformation.finishDateField.setEnabled(false);
+				    AnimeIndex.animeInformation.durationField.setEnabled(false);
 					}
 				}
 				
@@ -563,30 +574,41 @@ public class AnimeIndex extends JFrame
 				String anime = (String) completedList.getSelectedValue();
 				if (anime != null)
 				{
-				AnimeData data = completedMap.get(anime);
-				animeInformation.setAnimeName(anime);
-				animeInformation.setCurrentEp(data.getCurrentEpisode());
-				animeInformation.setTotalEp(data.getTotalEpisode());
-				animeInformation.setFansub(data.getFansub());
-				animeInformation.setLink(data.getFansubLink());
-				animeInformation.setNote(data.getNote());
-				animeInformation.setDay("Concluso");
-				animeInformation.exitDaycomboBox.setEnabled(false);
-				String path = data.getImagePath();
-				File file = new File(path);
-				if (file.exists())
-					animeInformation.setImage(data.getImagePath());
-				else
-				{
-					animeInformation.setImage("deafult");
-				}
+					AnimeData data = completedMap.get(anime);
+					animeInformation.setAnimeName(anime);
+					animeInformation.setCurrentEp(data.getCurrentEpisode());
+					animeInformation.setTotalEp(data.getTotalEpisode());
+					animeInformation.setDurationEp(data.getDurationEp());
+					animeInformation.setFansub(data.getFansub());
+					animeInformation.setLink(data.getLink());
+					if (data.getLink() != null && !(data.getLink().isEmpty()))
+					{
+						if (data.getLinkName() != null && !(data.getLinkName().isEmpty()))
+							animeInformation.setlinkName(data.getLinkName());
+						else
+							animeInformation.setlinkName("Link");
+					}
+					else
+						animeInformation.setlinkName("Imposta Link");
+					animeInformation.setReleaseDate(data.getReleaseDate());
+					animeInformation.setFinishDate(data.getFinishDate());
+					animeInformation.setDay(data.getDay());
+					animeInformation.setType(data.getAnimeType());
+					String path = data.getImagePath();
+					File file = new File(path);
+					if (file.exists())
+						animeInformation.setImage(data.getImagePath());
+					else
+					{
+						animeInformation.setImage("deafult");
+					}
 				
 				if(data.getCurrentEpisode().equals(data.getTotalEpisode()))
 					animeInformation.plusButton.setEnabled(false);
 				else
 					animeInformation.plusButton.setEnabled(true);
 				
-				if(data.getFansubLink() != null && !(data.getFansubLink().isEmpty()))
+				if(fansubMap.get(data.getFansub()) != null && !(fansubMap.get(data.getFansub())).isEmpty())
                     AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 				else
 					 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
@@ -627,11 +649,22 @@ public class AnimeIndex extends JFrame
 					animeInformation.setAnimeName(anime);
 					animeInformation.setCurrentEp(data.getCurrentEpisode());
 					animeInformation.setTotalEp(data.getTotalEpisode());
+					animeInformation.setDurationEp(data.getDurationEp());
 					animeInformation.setFansub(data.getFansub());
-					animeInformation.setLink(data.getFansubLink());
-					animeInformation.setNote(data.getNote());
-					animeInformation.setDay("Concluso");
-					animeInformation.exitDaycomboBox.setEnabled(false);
+					animeInformation.setLink(data.getLink());
+					if (data.getLink() != null && !(data.getLink().isEmpty()))
+					{
+						if (data.getLinkName() != null && !(data.getLinkName().isEmpty()))
+							animeInformation.setlinkName(data.getLinkName());
+						else
+							animeInformation.setlinkName("Link");
+					}
+					else
+						animeInformation.setlinkName("Imposta Link");
+					animeInformation.setReleaseDate(data.getReleaseDate());
+					animeInformation.setFinishDate(data.getFinishDate());
+					animeInformation.setDay(data.getDay());
+					animeInformation.setType(data.getAnimeType());
 					String path = data.getImagePath();
 					File file = new File(path);
 					if (file.exists())
@@ -646,7 +679,7 @@ public class AnimeIndex extends JFrame
 					else
 						animeInformation.plusButton.setEnabled(true);
 					
-					if(data.getFansubLink() != null && !(data.getFansubLink().isEmpty()))
+					if(fansubMap.get(data.getFansub()) != null && !(fansubMap.get(data.getFansub())).isEmpty())
 	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 					else
 						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
@@ -656,9 +689,9 @@ public class AnimeIndex extends JFrame
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
 				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
 				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
-				    AnimeIndex.animeInformation.startDateField.setEnabled(true);
-				    AnimeIndex.animeInformation.endDateField.setEnabled(true);
-				    AnimeIndex.animeInformation.durationFiled.setEnabled(true);
+				    AnimeIndex.animeInformation.releaseDateField.setEnabled(true);
+				    AnimeIndex.animeInformation.finishDateField.setEnabled(true);
+				    AnimeIndex.animeInformation.durationField.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
@@ -669,12 +702,30 @@ public class AnimeIndex extends JFrame
 				animeInformation.setAnimeName(anime);
 				animeInformation.setCurrentEp(data.getCurrentEpisode());
 				animeInformation.setTotalEp(data.getTotalEpisode());
+				animeInformation.setDurationEp(data.getDurationEp());
 				animeInformation.setFansub(data.getFansub());
-				animeInformation.setLink(data.getFansubLink());
-				animeInformation.setNote(data.getNote());
-				animeInformation.setImage(data.getImagePath());
+				animeInformation.setLink(data.getLink());
+				if (data.getLink() != null && !(data.getLink().isEmpty()))
+				{
+					if (data.getLinkName() != null && !(data.getLinkName().isEmpty()))
+						animeInformation.setlinkName(data.getLinkName());
+					else
+						animeInformation.setlinkName("Link");
+				}
+				else
+					animeInformation.setlinkName("Imposta Link");
+				animeInformation.setReleaseDate(data.getReleaseDate());
+				animeInformation.setFinishDate(data.getFinishDate());
 				animeInformation.setDay(data.getDay());
-				animeInformation.exitDaycomboBox.setEnabled(true);
+				animeInformation.setType(data.getAnimeType());
+				String path = data.getImagePath();
+				File file = new File(path);
+				if (file.exists())
+					animeInformation.setImage(data.getImagePath());
+				else
+				{
+					animeInformation.setImage("deafult");
+				}
 				if(data.getCurrentEpisode().equals(data.getTotalEpisode()))
 					animeInformation.plusButton.setEnabled(false);
 				else
@@ -712,11 +763,22 @@ public class AnimeIndex extends JFrame
 					animeInformation.setAnimeName(anime);
 					animeInformation.setCurrentEp(data.getCurrentEpisode());
 					animeInformation.setTotalEp(data.getTotalEpisode());
+					animeInformation.setDurationEp(data.getDurationEp());
 					animeInformation.setFansub(data.getFansub());
-					animeInformation.setLink(data.getFansubLink());
-					animeInformation.setNote(data.getNote());
-					animeInformation.setDay("Concluso");
-					animeInformation.exitDaycomboBox.setEnabled(false);
+					animeInformation.setLink(data.getLink());
+					if (data.getLink() != null && !(data.getLink().isEmpty()))
+					{
+						if (data.getLinkName() != null && !(data.getLinkName().isEmpty()))
+							animeInformation.setlinkName(data.getLinkName());
+						else
+							animeInformation.setlinkName("Link");
+					}
+					else
+						animeInformation.setlinkName("Imposta Link");
+					animeInformation.setReleaseDate(data.getReleaseDate());
+					animeInformation.setFinishDate(data.getFinishDate());
+					animeInformation.setDay(data.getDay());
+					animeInformation.setType(data.getAnimeType());
 					String path = data.getImagePath();
 					File file = new File(path);
 					if (file.exists())
@@ -731,7 +793,7 @@ public class AnimeIndex extends JFrame
 					else
 						animeInformation.plusButton.setEnabled(true);
 					
-					if(data.getFansubLink() != null && !(data.getFansubLink().isEmpty()))
+					if(fansubMap.get(data.getFansub()) != null && !(fansubMap.get(data.getFansub())).isEmpty())
 	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 					else
 						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
@@ -741,9 +803,9 @@ public class AnimeIndex extends JFrame
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
 				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
 				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
-				    AnimeIndex.animeInformation.startDateField.setEnabled(true);
-				    AnimeIndex.animeInformation.endDateField.setEnabled(true);
-				    AnimeIndex.animeInformation.durationFiled.setEnabled(true);
+				    AnimeIndex.animeInformation.releaseDateField.setEnabled(true);
+				    AnimeIndex.animeInformation.finishDateField.setEnabled(true);
+				    AnimeIndex.animeInformation.durationField.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
@@ -754,11 +816,30 @@ public class AnimeIndex extends JFrame
 				animeInformation.setAnimeName(anime);
 				animeInformation.setCurrentEp(data.getCurrentEpisode());
 				animeInformation.setTotalEp(data.getTotalEpisode());
+				animeInformation.setDurationEp(data.getDurationEp());
 				animeInformation.setFansub(data.getFansub());
-				animeInformation.setLink(data.getFansubLink());
-				animeInformation.setNote(data.getNote());
-				animeInformation.setImage(data.getImagePath());
-				animeInformation.setDay("Concluso");
+				animeInformation.setLink(data.getLink());
+				if (data.getLink() != null && !(data.getLink().isEmpty()))
+				{
+					if (data.getLinkName() != null && !(data.getLinkName().isEmpty()))
+						animeInformation.setlinkName(data.getLinkName());
+					else
+						animeInformation.setlinkName("Link");
+				}
+				else
+					animeInformation.setlinkName("Imposta Link");
+				animeInformation.setReleaseDate(data.getReleaseDate());
+				animeInformation.setFinishDate(data.getFinishDate());
+				animeInformation.setDay(data.getDay());
+				animeInformation.setType(data.getAnimeType());
+				String path = data.getImagePath();
+				File file = new File(path);
+				if (file.exists())
+					animeInformation.setImage(data.getImagePath());
+				else
+				{
+					animeInformation.setImage("deafult");
+				}
 				animeInformation.exitDaycomboBox.setEnabled(false);
 				if(data.getCurrentEpisode().equals(data.getTotalEpisode()))
 					animeInformation.plusButton.setEnabled(false);
@@ -797,11 +878,22 @@ public class AnimeIndex extends JFrame
 					animeInformation.setAnimeName(anime);
 					animeInformation.setCurrentEp(data.getCurrentEpisode());
 					animeInformation.setTotalEp(data.getTotalEpisode());
+					animeInformation.setDurationEp(data.getDurationEp());
 					animeInformation.setFansub(data.getFansub());
-					animeInformation.setLink(data.getFansubLink());
-					animeInformation.setNote(data.getNote());
-					animeInformation.setDay("Concluso");
-					animeInformation.exitDaycomboBox.setEnabled(false);
+					animeInformation.setLink(data.getLink());
+					if (data.getLink() != null && !(data.getLink().isEmpty()))
+					{
+						if (data.getLinkName() != null && !(data.getLinkName().isEmpty()))
+							animeInformation.setlinkName(data.getLinkName());
+						else
+							animeInformation.setlinkName("Link");
+					}
+					else
+						animeInformation.setlinkName("Imposta Link");
+					animeInformation.setReleaseDate(data.getReleaseDate());
+					animeInformation.setFinishDate(data.getFinishDate());
+					animeInformation.setDay(data.getDay());
+					animeInformation.setType(data.getAnimeType());
 					String path = data.getImagePath();
 					File file = new File(path);
 					if (file.exists())
@@ -816,7 +908,7 @@ public class AnimeIndex extends JFrame
 					else
 						animeInformation.plusButton.setEnabled(true);
 					
-					if(data.getFansubLink() != null && !(data.getFansubLink().isEmpty()))
+					if(fansubMap.get(data.getFansub()) != null && !(fansubMap.get(data.getFansub())).isEmpty())
 	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 					else
 						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
@@ -826,9 +918,9 @@ public class AnimeIndex extends JFrame
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
 				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
 				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
-				    AnimeIndex.animeInformation.startDateField.setEnabled(true);
-				    AnimeIndex.animeInformation.endDateField.setEnabled(true);
-				    AnimeIndex.animeInformation.durationFiled.setEnabled(true);
+				    AnimeIndex.animeInformation.releaseDateField.setEnabled(true);
+				    AnimeIndex.animeInformation.finishDateField.setEnabled(true);
+				    AnimeIndex.animeInformation.durationField.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
@@ -839,11 +931,30 @@ public class AnimeIndex extends JFrame
 				animeInformation.setAnimeName(anime);
 				animeInformation.setCurrentEp(data.getCurrentEpisode());
 				animeInformation.setTotalEp(data.getTotalEpisode());
+				animeInformation.setDurationEp(data.getDurationEp());
 				animeInformation.setFansub(data.getFansub());
-				animeInformation.setLink(data.getFansubLink());
-				animeInformation.setNote(data.getNote());
-				animeInformation.setImage(data.getImagePath());
-				animeInformation.setDay("Concluso");
+				animeInformation.setLink(data.getLink());
+				if (data.getLink() != null && !(data.getLink().isEmpty()))
+				{
+					if (data.getLinkName() != null && !(data.getLinkName().isEmpty()))
+						animeInformation.setlinkName(data.getLinkName());
+					else
+						animeInformation.setlinkName("Link");
+				}
+				else
+					animeInformation.setlinkName("Imposta Link");
+				animeInformation.setReleaseDate(data.getReleaseDate());
+				animeInformation.setFinishDate(data.getFinishDate());
+				animeInformation.setDay(data.getDay());
+				animeInformation.setType(data.getAnimeType());
+				String path = data.getImagePath();
+				File file = new File(path);
+				if (file.exists())
+					animeInformation.setImage(data.getImagePath());
+				else
+				{
+					animeInformation.setImage("deafult");
+				}
 				animeInformation.exitDaycomboBox.setEnabled(false);
 				if(data.getCurrentEpisode().equals(data.getTotalEpisode()))
 					animeInformation.plusButton.setEnabled(false);
@@ -882,11 +993,22 @@ public class AnimeIndex extends JFrame
 					animeInformation.setAnimeName(anime);
 					animeInformation.setCurrentEp(data.getCurrentEpisode());
 					animeInformation.setTotalEp(data.getTotalEpisode());
+					animeInformation.setDurationEp(data.getDurationEp());
 					animeInformation.setFansub(data.getFansub());
-					animeInformation.setLink(data.getFansubLink());
-					animeInformation.setNote(data.getNote());
-					animeInformation.setDay("Concluso");
-					animeInformation.exitDaycomboBox.setEnabled(false);
+					animeInformation.setLink(data.getLink());
+					if (data.getLink() != null && !(data.getLink().isEmpty()))
+					{
+						if (data.getLinkName() != null && !(data.getLinkName().isEmpty()))
+							animeInformation.setlinkName(data.getLinkName());
+						else
+							animeInformation.setlinkName("Link");
+					}
+					else
+						animeInformation.setlinkName("Imposta Link");
+					animeInformation.setReleaseDate(data.getReleaseDate());
+					animeInformation.setFinishDate(data.getFinishDate());
+					animeInformation.setDay(data.getDay());
+					animeInformation.setType(data.getAnimeType());
 					String path = data.getImagePath();
 					File file = new File(path);
 					if (file.exists())
@@ -901,7 +1023,7 @@ public class AnimeIndex extends JFrame
 					else
 						animeInformation.plusButton.setEnabled(true);
 					
-					if(data.getFansubLink() != null && !(data.getFansubLink().isEmpty()))
+					if(fansubMap.get(data.getFansub()) != null && !(fansubMap.get(data.getFansub())).isEmpty())
 	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 					else
 						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
@@ -910,9 +1032,9 @@ public class AnimeIndex extends JFrame
 				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
 				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
-				    AnimeIndex.animeInformation.startDateField.setEnabled(true);
-				    AnimeIndex.animeInformation.endDateField.setEnabled(true);
-				    AnimeIndex.animeInformation.durationFiled.setEnabled(true);
+				    AnimeIndex.animeInformation.releaseDateField.setEnabled(true);
+				    AnimeIndex.animeInformation.finishDateField.setEnabled(true);
+				    AnimeIndex.animeInformation.durationField.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
@@ -923,11 +1045,30 @@ public class AnimeIndex extends JFrame
 				animeInformation.setAnimeName(anime);
 				animeInformation.setCurrentEp(data.getCurrentEpisode());
 				animeInformation.setTotalEp(data.getTotalEpisode());
+				animeInformation.setDurationEp(data.getDurationEp());
 				animeInformation.setFansub(data.getFansub());
-				animeInformation.setLink(data.getFansubLink());
-				animeInformation.setNote(data.getNote());
-				animeInformation.setImage(data.getImagePath());
-				animeInformation.setDay("Concluso");
+				animeInformation.setLink(data.getLink());
+				if (data.getLink() != null && !(data.getLink().isEmpty()))
+				{
+					if (data.getLinkName() != null && !(data.getLinkName().isEmpty()))
+						animeInformation.setlinkName(data.getLinkName());
+					else
+						animeInformation.setlinkName("Link");
+				}
+				else
+					animeInformation.setlinkName("Imposta Link");
+				animeInformation.setReleaseDate(data.getReleaseDate());
+				animeInformation.setFinishDate(data.getFinishDate());
+				animeInformation.setDay(data.getDay());
+				animeInformation.setType(data.getAnimeType());
+				String path = data.getImagePath();
+				File file = new File(path);
+				if (file.exists())
+					animeInformation.setImage(data.getImagePath());
+				else
+				{
+					animeInformation.setImage("deafult");
+				}
 				animeInformation.exitDaycomboBox.setEnabled(false);
 				if(data.getCurrentEpisode().equals(data.getTotalEpisode()))
 					animeInformation.plusButton.setEnabled(false);
@@ -978,7 +1119,7 @@ public class AnimeIndex extends JFrame
 					animeInformation.setCurrentEp(data.getCurrentEpisode());
 					animeInformation.setTotalEp(data.getTotalEpisode());
 					animeInformation.setFansub(data.getFansub());
-					animeInformation.setLink(data.getFansubLink());
+					animeInformation.setLink(fansubMap.get(data.getFansub()));
 					animeInformation.setNote(data.getNote());
 					animeInformation.setDay("Concluso");
 					animeInformation.exitDaycomboBox.setEnabled(false);
@@ -996,7 +1137,7 @@ public class AnimeIndex extends JFrame
 					else
 						animeInformation.plusButton.setEnabled(true);
 					
-					if(data.getFansubLink() != null && !(data.getFansubLink().isEmpty()))
+					if(fansubMap.get(data.getFansub()) != null && !(fansubMap.get(data.getFansub())).isEmpty())
 	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 					else
 						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
@@ -1015,7 +1156,7 @@ public class AnimeIndex extends JFrame
 				animeInformation.setCurrentEp(data.getCurrentEpisode());
 				animeInformation.setTotalEp(data.getTotalEpisode());
 				animeInformation.setFansub(data.getFansub());
-				animeInformation.setLink(data.getFansubLink());
+				animeInformation.setLink(fansubMap.get(data.getFansub()));
 				animeInformation.setNote(data.getNote());
 				animeInformation.setImage(data.getImagePath());
 				animeInformation.setDay(data.getDay());
@@ -1060,7 +1201,7 @@ public class AnimeIndex extends JFrame
 					animeInformation.setCurrentEp(data.getCurrentEpisode());
 					animeInformation.setTotalEp(data.getTotalEpisode());
 					animeInformation.setFansub(data.getFansub());
-					animeInformation.setLink(data.getFansubLink());
+					animeInformation.setLink(fansubMap.get(data.getFansub()));
 					animeInformation.setNote(data.getNote());
 					animeInformation.setDay(data.getDay());
 					if (data.getDay().equalsIgnoreCase("concluso"))
@@ -1079,7 +1220,7 @@ public class AnimeIndex extends JFrame
 					else
 						animeInformation.plusButton.setEnabled(true);
 					
-					if(data.getFansubLink() != null && !(data.getFansubLink().isEmpty()))
+					if(fansubMap.get(data.getFansub()) != null && !(fansubMap.get(data.getFansub())).isEmpty())
 	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 					else
 						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
@@ -1095,7 +1236,7 @@ public class AnimeIndex extends JFrame
 				animeInformation.setCurrentEp(data.getCurrentEpisode());
 				animeInformation.setTotalEp(data.getTotalEpisode());
 				animeInformation.setFansub(data.getFansub());
-				animeInformation.setLink(data.getFansubLink());
+				animeInformation.setLink(fansubMap.get(data.getFansub()));
 				animeInformation.setNote(data.getNote());
 				animeInformation.setImage(data.getImagePath());
 				animeInformation.setDay(data.getDay());
@@ -1140,7 +1281,7 @@ public class AnimeIndex extends JFrame
 					animeInformation.setCurrentEp(data.getCurrentEpisode());
 					animeInformation.setTotalEp(data.getTotalEpisode());
 					animeInformation.setFansub(data.getFansub());
-					animeInformation.setLink(data.getFansubLink());
+					animeInformation.setLink(fansubMap.get(data.getFansub()));
 					animeInformation.setNote(data.getNote());
 					animeInformation.setDay(data.getDay());
 					if (data.getDay().equalsIgnoreCase("concluso"))
@@ -1159,7 +1300,7 @@ public class AnimeIndex extends JFrame
 					else
 						animeInformation.plusButton.setEnabled(true);
 					
-					if(data.getFansubLink() != null && !(data.getFansubLink().isEmpty()))
+					if(fansubMap.get(data.getFansub()) != null && !(fansubMap.get(data.getFansub())).isEmpty())
 	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 					else
 						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
@@ -1181,7 +1322,7 @@ public class AnimeIndex extends JFrame
 				animeInformation.setCurrentEp(data.getCurrentEpisode());
 				animeInformation.setTotalEp(data.getTotalEpisode());
 				animeInformation.setFansub(data.getFansub());
-				animeInformation.setLink(data.getFansubLink());
+				animeInformation.setLink(fansubMap.get(data.getFansub()));
 				animeInformation.setNote(data.getNote());
 				animeInformation.setImage(data.getImagePath());
 				animeInformation.setDay(data.getDay());
@@ -1463,46 +1604,50 @@ public class AnimeIndex extends JFrame
 		String note = animeInformation.noteTextArea.getText();
 		String day = (String) animeInformation.exitDaycomboBox.getSelectedItem();
 		String linkName = animeInformation.setLinkButton.getText();
-		String link = animeInformation.setLink.getLinkField();
 		String animeType = (String)animeInformation.typeComboBox.getSelectedItem();
-		String releaseDate = animeInformation.startDateField.getText();
-		String finishDate = animeInformation.endDateField.getText();
-		String durationEp = animeInformation.durationFiled.getText();
+		String releaseDate = animeInformation.releaseDateField.getText();
+		String finishDate = animeInformation.finishDateField.getText();
+		String durationEp = animeInformation.durationField.getText();
 		
 		String list = AnimeIndex.getList();
 		if (list.equalsIgnoreCase("Anime Completati"))
 			{
 			String image = AnimeIndex.completedMap.get(name).getImageName();
 			String id = AnimeIndex.completedMap.get(name).getId();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
+			String link = AnimeIndex.completedMap.get(name).getLink();
+			AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
 			AnimeIndex.completedMap.put(name, data);
 			}
 		else if (list.equalsIgnoreCase("Anime in Corso"))
 			{
 			String image = AnimeIndex.airingMap.get(name).getImageName();
 			String id = AnimeIndex.airingMap.get(name).getId();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
+			String link = AnimeIndex.airingMap.get(name).getLink();
+			AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
 			AnimeIndex.airingMap.put(name, data);
 			}
 		else if (list.equalsIgnoreCase("OAV"))
 			{
 			String image = AnimeIndex.ovaMap.get(name).getImageName();
 			String id = AnimeIndex.ovaMap.get(name).getId();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
+			String link = AnimeIndex.ovaMap.get(name).getLink();
+			AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
 			AnimeIndex.ovaMap.put(name, data);
 			}
 		else if (list.equalsIgnoreCase("Film"))
 		{
 			String image = AnimeIndex.filmMap.get(name).getImageName();
 			String id = AnimeIndex.filmMap.get(name).getId();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
+			String link = AnimeIndex.filmMap.get(name).getLink();
+			AnimeData data = new AnimeData(currEp, totEp, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
 			AnimeIndex.filmMap.put(name, data);
 		}
 		else if (list.equalsIgnoreCase("Completi Da Vedere"))
 		{
 			String image = AnimeIndex.completedToSeeMap.get(name).getImageName();
 			String id = AnimeIndex.completedToSeeMap.get(name).getId();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
+			String link = AnimeIndex.completedToSeeMap.get(name).getLink();
+			AnimeData data = new AnimeData(currEp, totEp, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
 			AnimeIndex.completedToSeeMap.put(name, data);
 		}
 	}
