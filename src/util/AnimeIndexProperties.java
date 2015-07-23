@@ -22,6 +22,7 @@ public class AnimeIndexProperties
 			defaultProps.load(in);
 			defaultProps.setProperty("List_to_visualize_at_start", "Anime completati");
 			defaultProps.setProperty("Update_system", "false");
+			defaultProps.setProperty("categoryCheck", "false");
 			in.close();
 		} 
 		catch (FileNotFoundException fe)
@@ -31,6 +32,7 @@ public class AnimeIndexProperties
 				prop.getParentFile().mkdirs();
 				prop.createNewFile();
 				defaultProps.setProperty("Update_system", "false");
+				defaultProps.setProperty("categoryCheck", "false");
 				defaultProps.setProperty("List_to_visualize_at_start", "Anime completati");
 			} catch (IOException e) {
 				e.printStackTrace();

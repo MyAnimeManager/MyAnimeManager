@@ -176,6 +176,9 @@ public class AnimeIndex extends JFrame
 			public void windowClosing(WindowEvent we) {	
 				try{
 					saveModifiedInformation();
+					ExitSaveDialog exitDialog = new ExitSaveDialog();
+					exitDialog.setLocationRelativeTo(mainFrame);
+					exitDialog.setVisible(true);
 				}
 				catch (Exception e)
 				{
@@ -183,9 +186,7 @@ public class AnimeIndex extends JFrame
 					exitDialog.setLocationRelativeTo(mainFrame);
 					exitDialog.setVisible(true);
 				}
-				ExitSaveDialog exitDialog = new ExitSaveDialog();
-				exitDialog.setLocationRelativeTo(mainFrame);
-				exitDialog.setVisible(true);
+				
 			}
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

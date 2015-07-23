@@ -49,6 +49,8 @@ import javax.swing.JProgressBar;
 import java.awt.Component;
 import javax.swing.Box;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JCheckBox;
 
 public class AddAnimeDialog extends JDialog
 {
@@ -489,228 +491,234 @@ public class AddAnimeDialog extends JDialog
 					JPanel button2Panel = new JPanel();
 					anilistAddPanel.add(button2Panel, BorderLayout.SOUTH);
 					{
-						addAniButton = new JButton("Aggiungi");
-						addAniButton.setEnabled(false);
-						addAniButton.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								
-								String anime = (String) searchedList.getSelectedValue();
-								int id = animeSearched.get(anime);
-								String dataAni = ConnectionManager.parseAnimeData(id);
+						button2Panel.setLayout(new MigLayout("", "[292.00px,grow][160.00][151.00px,grow][70.00][143.00px,grow]", "[23px,grow]"));
+					}
+					addAniButton = new JButton("Aggiungi");
+					button2Panel.add(addAniButton, "cell 1 0,growx");
+					addAniButton.setEnabled(false);
+					addAniButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
 							
-								String name = ConnectionManager.getAnimeData("title_romaji", dataAni);
-								String totEp = ConnectionManager.getAnimeData("total_episodes", dataAni);
-								String currentEp = "1";
-								if (((String)listToAddAniComboBox.getSelectedItem()).equalsIgnoreCase("anime completati")){
-									currentEp = totEp;
-								    AnimeIndex.animeInformation.minusButton.setEnabled(false);
-								    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
-								    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
-								    }
-								String fansub = "";
-								String link = ""; 
-								String animeType = ConnectionManager.getAnimeData("type", dataAni);
-								String releaseDate = ConnectionManager.getAnimeData("start_date", dataAni);
-								String finishDate = ConnectionManager.getAnimeData("end_date", dataAni);
-								String durationEp = ConnectionManager.getAnimeData("duration", dataAni);
-								
-								
-															
-								if (currentEp.equals(totEp))
-									AnimeIndex.animeInformation.plusButton.setEnabled(false);
-								
-								
-								
-								
-								String listName = (String) listToAddAniComboBox.getSelectedItem();
-								JList list = null;
-								boolean contains = false;
-								
-								if (listName.equalsIgnoreCase("anime completati"))
+							String anime = (String) searchedList.getSelectedValue();
+							int id = animeSearched.get(anime);
+							String dataAni = ConnectionManager.parseAnimeData(id);
+						
+							String name = ConnectionManager.getAnimeData("title_romaji", dataAni);
+							String totEp = ConnectionManager.getAnimeData("total_episodes", dataAni);
+							String currentEp = "1";
+							if (((String)listToAddAniComboBox.getSelectedItem()).equalsIgnoreCase("anime completati")){
+								currentEp = totEp;
+							    }
+							String fansub = "";
+							String link = ""; 
+							String animeType = ConnectionManager.getAnimeData("type", dataAni);
+							String releaseDate = ConnectionManager.getAnimeData("start_date", dataAni);
+							String finishDate = ConnectionManager.getAnimeData("end_date", dataAni);
+							String durationEp = ConnectionManager.getAnimeData("duration", dataAni);
+							
+							
+														
+							if (currentEp.equals(totEp))
+								AnimeIndex.animeInformation.plusButton.setEnabled(false);
+							
+							
+							
+							
+							String listName = (String) listToAddAniComboBox.getSelectedItem();
+							JList list = null;
+							boolean contains = false;
+							
+							if (listName.equalsIgnoreCase("anime completati"))
+							{
+								if (AnimeIndex.completedMap.containsKey(name))
 								{
-									if (AnimeIndex.completedMap.containsKey(name))
-									{
-										JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
-										contains = true;
-									}
-									else
-									{
-									AnimeIndex.completedModel.addElement(name);
-									
-									
-									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
-									imageLink = imageLink.replaceAll("\\\\/", "/");
-									String imageName = name.replaceAll("\\\\", "_");
-									imageName = imageName.replaceAll("/", "_");
-									imageName = imageName.replaceAll(":", "_");
-									imageName = imageName.replaceAll("\\*", "_");
-									imageName = imageName.replaceAll("\\?", "_");
-									imageName = imageName.replaceAll("\"", "_");
-									imageName = imageName.replaceAll(">", "_");
-									imageName = imageName.replaceAll("<", "_");
-									FileManager.saveImage(imageLink, imageName);
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
-																	"", "", animeType, releaseDate, finishDate, durationEp);
-									
-									AnimeIndex.completedMap.put(name, data);
-									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-									AnimeIndex.completedList.setSelectedValue(name, true);
-									AnimeIndex.completedSessionAnime.add(name);
-									}
-								}				
-								else if (listName.equalsIgnoreCase("anime in corso"))
-								{
-									if (AnimeIndex.airingMap.containsKey(name))
-									{
-										JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
-										contains = true;
-									}
-									else
-									{
-									AnimeIndex.airingModel.addElement(name);
-									
-									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
-									imageLink = imageLink.replaceAll("\\\\/", "/");
-									String imageName = name.replaceAll("\\\\", "_");
-									imageName = imageName.replaceAll("/", "_");
-									imageName = imageName.replaceAll(":", "_");
-									imageName = imageName.replaceAll("\\*", "_");
-									imageName = imageName.replaceAll("\\?", "_");
-									imageName = imageName.replaceAll("\"", "_");
-									imageName = imageName.replaceAll(">", "_");
-									imageName = imageName.replaceAll("<", "_");
-									FileManager.saveImage(imageLink, imageName);
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
-																	"", "", animeType, releaseDate, finishDate, durationEp);
-									
-									AnimeIndex.airingMap.put(name, data);
-									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-									AnimeIndex.airingList.setSelectedValue(name, true);
-									AnimeIndex.airingSessionAnime.add(name);
-									}
+									JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
+									contains = true;
 								}
-								else if (listName.equalsIgnoreCase("oav"))
+								else
 								{
-									if (AnimeIndex.ovaMap.containsKey(name))
-									{
-										JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
-										contains = true;
-									}
-									else
-									{
-									AnimeIndex.ovaModel.addElement(name);
-									
-									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
-									imageLink = imageLink.replaceAll("\\\\/", "/");
-									String imageName = name.replaceAll("\\\\", "_");
-									imageName = imageName.replaceAll("/", "_");
-									imageName = imageName.replaceAll(":", "_");
-									imageName = imageName.replaceAll("\\*", "_");
-									imageName = imageName.replaceAll("\\?", "_");
-									imageName = imageName.replaceAll("\"", "_");
-									imageName = imageName.replaceAll(">", "_");
-									imageName = imageName.replaceAll("<", "_");
-									FileManager.saveImage(imageLink, imageName);
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
-											"", "", animeType, releaseDate, finishDate, durationEp);
-									
-									AnimeIndex.ovaMap.put(name, data);
-									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-									AnimeIndex.ovaList.setSelectedValue(name, true);
-									AnimeIndex.ovaSessionAnime.add(name);
-									}
-								}
-								else if (listName.equalsIgnoreCase("film"))
-								{
-									if (AnimeIndex.filmMap.containsKey(name))
-									{
-										JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
-										contains = true;
-									}
-									else
-									{
-									AnimeIndex.filmModel.addElement(name);
-									
-									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
-									imageLink = imageLink.replaceAll("\\\\/", "/");
-									String imageName = name.replaceAll("\\\\", "_");
-									imageName = imageName.replaceAll("/", "_");
-									imageName = imageName.replaceAll(":", "_");
-									imageName = imageName.replaceAll("\\*", "_");
-									imageName = imageName.replaceAll("\\?", "_");
-									imageName = imageName.replaceAll("\"", "_");
-									imageName = imageName.replaceAll(">", "_");
-									imageName = imageName.replaceAll("<", "_");
-									FileManager.saveImage(imageLink, imageName);
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
-											"", "", animeType, releaseDate, finishDate, durationEp);
-									
-									
-									AnimeIndex.filmMap.put(name, data);
-									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-									AnimeIndex.filmList.setSelectedValue(name, true);
-									AnimeIndex.filmSessionAnime.add(name);
-									}
-								}
-								else if (listName.equalsIgnoreCase("completi da vedere"))
-								{
-									if (AnimeIndex.completedToSeeMap.containsKey(name))
-									{
-										JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
-										contains = true;
-									}
-									else
-									{
-									AnimeIndex.completedToSeeModel.addElement(name);
-									
-									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
-									imageLink = imageLink.replaceAll("\\\\/", "/");
-									String imageName = name.replaceAll("\\\\", "_");
-									imageName = imageName.replaceAll("/", "_");
-									imageName = imageName.replaceAll(":", "_");
-									imageName = imageName.replaceAll("\\*", "_");
-									imageName = imageName.replaceAll("\\?", "_");
-									imageName = imageName.replaceAll("\"", "_");
-									imageName = imageName.replaceAll(">", "_");
-									imageName = imageName.replaceAll("<", "_");
-									FileManager.saveImage(imageLink, imageName);
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
-																	"", "", animeType, releaseDate, finishDate, durationEp);
-									
-									AnimeIndex.completedToSeeMap.put(name, data);
-									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-									AnimeIndex.completedToSeeList.setSelectedValue(name, true);
-									AnimeIndex.completedToSeeSessionAnime.add(name);
-									}
-								}
+								AnimeIndex.completedModel.addElement(name);
 								
-								if (!contains)
+								
+								String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+								imageLink = imageLink.replaceAll("\\\\/", "/");
+								String imageName = name.replaceAll("\\\\", "_");
+								imageName = imageName.replaceAll("/", "_");
+								imageName = imageName.replaceAll(":", "_");
+								imageName = imageName.replaceAll("\\*", "_");
+								imageName = imageName.replaceAll("\\?", "_");
+								imageName = imageName.replaceAll("\"", "_");
+								imageName = imageName.replaceAll(">", "_");
+								imageName = imageName.replaceAll("<", "_");
+								FileManager.saveImage(imageLink, imageName);
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
+																"", "", animeType, releaseDate, finishDate, durationEp);
+								
+								AnimeIndex.completedMap.put(name, data);
+								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+								AnimeIndex.completedList.setSelectedValue(name, true);
+								AnimeIndex.completedSessionAnime.add(name);
+								}
+							}				
+							else if (listName.equalsIgnoreCase("anime in corso"))
+							{
+								if (AnimeIndex.airingMap.containsKey(name))
 								{
-								JButton but = (JButton) e.getSource();
-								JDialog dialog = (JDialog) but.getTopLevelAncestor();
-								dialog.dispose();
+									JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
+									contains = true;
+								}
+								else
+								{
+								AnimeIndex.airingModel.addElement(name);
+								
+								String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+								imageLink = imageLink.replaceAll("\\\\/", "/");
+								String imageName = name.replaceAll("\\\\", "_");
+								imageName = imageName.replaceAll("/", "_");
+								imageName = imageName.replaceAll(":", "_");
+								imageName = imageName.replaceAll("\\*", "_");
+								imageName = imageName.replaceAll("\\?", "_");
+								imageName = imageName.replaceAll("\"", "_");
+								imageName = imageName.replaceAll(">", "_");
+								imageName = imageName.replaceAll("<", "_");
+								FileManager.saveImage(imageLink, imageName);
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
+																"", "", animeType, releaseDate, finishDate, durationEp);
+								
+								AnimeIndex.airingMap.put(name, data);
+								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+								AnimeIndex.airingList.setSelectedValue(name, true);
+								AnimeIndex.airingSessionAnime.add(name);
 								}
 							}
-						});
-						button2Panel.setLayout(new MigLayout("", "[349.00px][73px][143.00px]", "[23px]"));
-						{
-//TODO finire barra di caricamento							
-							JProgressBar progressBar = new JProgressBar();
-							button2Panel.add(progressBar, "cell 0 0,alignx left,aligny center");
+							else if (listName.equalsIgnoreCase("oav"))
+							{
+								if (AnimeIndex.ovaMap.containsKey(name))
+								{
+									JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
+									contains = true;
+								}
+								else
+								{
+								AnimeIndex.ovaModel.addElement(name);
+								
+								String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+								imageLink = imageLink.replaceAll("\\\\/", "/");
+								String imageName = name.replaceAll("\\\\", "_");
+								imageName = imageName.replaceAll("/", "_");
+								imageName = imageName.replaceAll(":", "_");
+								imageName = imageName.replaceAll("\\*", "_");
+								imageName = imageName.replaceAll("\\?", "_");
+								imageName = imageName.replaceAll("\"", "_");
+								imageName = imageName.replaceAll(">", "_");
+								imageName = imageName.replaceAll("<", "_");
+								FileManager.saveImage(imageLink, imageName);
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
+										"", "", animeType, releaseDate, finishDate, durationEp);
+								
+								AnimeIndex.ovaMap.put(name, data);
+								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+								AnimeIndex.ovaList.setSelectedValue(name, true);
+								AnimeIndex.ovaSessionAnime.add(name);
+								}
+							}
+							else if (listName.equalsIgnoreCase("film"))
+							{
+								if (AnimeIndex.filmMap.containsKey(name))
+								{
+									JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
+									contains = true;
+								}
+								else
+								{
+								AnimeIndex.filmModel.addElement(name);
+								
+								String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+								imageLink = imageLink.replaceAll("\\\\/", "/");
+								String imageName = name.replaceAll("\\\\", "_");
+								imageName = imageName.replaceAll("/", "_");
+								imageName = imageName.replaceAll(":", "_");
+								imageName = imageName.replaceAll("\\*", "_");
+								imageName = imageName.replaceAll("\\?", "_");
+								imageName = imageName.replaceAll("\"", "_");
+								imageName = imageName.replaceAll(">", "_");
+								imageName = imageName.replaceAll("<", "_");
+								FileManager.saveImage(imageLink, imageName);
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
+										"", "", animeType, releaseDate, finishDate, durationEp);
+								
+								
+								AnimeIndex.filmMap.put(name, data);
+								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+								AnimeIndex.filmList.setSelectedValue(name, true);
+								AnimeIndex.filmSessionAnime.add(name);
+								}
+							}
+							else if (listName.equalsIgnoreCase("completi da vedere"))
+							{
+								if (AnimeIndex.completedToSeeMap.containsKey(name))
+								{
+									JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
+									contains = true;
+								}
+								else
+								{
+								AnimeIndex.completedToSeeModel.addElement(name);
+								
+								String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+								imageLink = imageLink.replaceAll("\\\\/", "/");
+								String imageName = name.replaceAll("\\\\", "_");
+								imageName = imageName.replaceAll("/", "_");
+								imageName = imageName.replaceAll(":", "_");
+								imageName = imageName.replaceAll("\\*", "_");
+								imageName = imageName.replaceAll("\\?", "_");
+								imageName = imageName.replaceAll("\"", "_");
+								imageName = imageName.replaceAll(">", "_");
+								imageName = imageName.replaceAll("<", "_");
+								FileManager.saveImage(imageLink, imageName);
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", imageName + ".png" , "-----", Integer.toString(id), 
+																"", "", animeType, releaseDate, finishDate, durationEp);
+								
+								AnimeIndex.completedToSeeMap.put(name, data);
+								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+								AnimeIndex.completedToSeeList.setSelectedValue(name, true);
+								AnimeIndex.completedToSeeSessionAnime.add(name);
+								}
+							}
+							
+							if (!contains)
+							{
+							JButton but = (JButton) e.getSource();
+							JDialog dialog = (JDialog) but.getTopLevelAncestor();
+							dialog.dispose();
+							}
 						}
-						button2Panel.add(addAniButton, "cell 1 0,alignx left,aligny top");
-					}
+					});
 					{
-						JButton button = new JButton("Esci");
-						button.addActionListener(new ActionListener() {
+						JCheckBox categoryCheck = new JCheckBox("Controlla in tutte le liste");
+						categoryCheck.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								JButton but = (JButton) e.getSource();
-								JDialog dialog = (JDialog) but.getTopLevelAncestor();
-								dialog.dispose();
+								if(categoryCheck.isSelected())
+									AnimeIndex.appProp.getProperty("categoryCheck").equals("true");
+								else
+									AnimeIndex.appProp.getProperty("categoryCheck").equals("false");
 							}
 						});
-						button2Panel.add(button, "cell 2 0,alignx right,aligny top");
+						if(AnimeIndex.appProp.getProperty("categoryCheck").equals("true"))
+							categoryCheck.setSelected(true);
+						else
+							categoryCheck.setSelected(false);
+						button2Panel.add(categoryCheck, "cell 0 0");
 					}
+					JButton button = new JButton("Esci");
+					button2Panel.add(button, "cell 4 0");
+					button.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							JButton but = (JButton) e.getSource();
+							JDialog dialog = (JDialog) but.getTopLevelAncestor();
+							dialog.dispose();
+						}
+					});
 				}
 			}
 		}
