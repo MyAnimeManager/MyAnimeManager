@@ -516,10 +516,24 @@ public class AddAnimeDialog extends JDialog
 							String finishDate = ConnectionManager.getAnimeData("end_date", dataAni);
 							String durationEp = ConnectionManager.getAnimeData("duration", dataAni);
 							
+							if(totEp != null && !totEp.isEmpty())
+							{
+								if(totEp.equals("null")||totEp.equals("0"))
+									totEp = "??";
+							}
+							
+							if (durationEp != null && !durationEp.isEmpty())
+							{
+								if(durationEp.equals("null")||durationEp.equals("0"))
+									durationEp = "?? min";
+								else
+									durationEp += " min";
+							}
+							
 							if (releaseDate != null && !releaseDate.isEmpty())
 							{
 								if (releaseDate.equals("null"))
-									releaseDate = "??";
+									releaseDate = "??/??/????";
 								else if (releaseDate.length() > 4)
 								{
 									String dayStart = releaseDate.substring(8, 10);
@@ -532,7 +546,7 @@ public class AddAnimeDialog extends JDialog
 							if (finishDate != null && !finishDate.isEmpty())
 							{
 								if (finishDate.equals("null"))
-									finishDate = "??";
+									finishDate = "??/??/????";
 								else
 								{
 									String dayEnd = finishDate.substring(8, 10);
@@ -721,6 +735,7 @@ public class AddAnimeDialog extends JDialog
 							}
 						}
 					});
+//TODO da finire il categoryCheck
 					{
 						JCheckBox categoryCheck = new JCheckBox("Controlla in tutte le liste");
 						categoryCheck.addActionListener(new ActionListener() {

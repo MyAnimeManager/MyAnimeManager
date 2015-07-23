@@ -140,6 +140,7 @@ public class AnimeInformation extends JPanel
 			e1.printStackTrace();
 		}
 		
+		
 //		lblEpisode = new JLabel();
 //		if (AnimeIndex.appProp.getProperty("Show_episode_to_see").equals("true"))
 //		{
@@ -185,7 +186,7 @@ public class AnimeInformation extends JPanel
 						minusButton.setEnabled(true);
 					}
 					
-					if ( (totalEpisodeText.getText()) != null && !(totalEpisodeText.getText().isEmpty()))
+					if ( (totalEpisodeText.getText()) != null && (totalEpisodeText.getText().isEmpty()))
 					{
 						int maxnum = Integer.parseInt(totalEpisodeText.getText());
 						if (num == maxnum)
@@ -237,7 +238,7 @@ public class AnimeInformation extends JPanel
 		gbc_currentEpisodeField.gridy = 3;
 		add(currentEpisodeField, gbc_currentEpisodeField);
 		currentEpisodeField.setColumns(3);
-		((AbstractDocument)currentEpisodeField.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,4}"));
+		((AbstractDocument)currentEpisodeField.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,4}||\\?{0,2}"));
 		GridBagConstraints gbc_plusButton = new GridBagConstraints();
 		gbc_plusButton.anchor = GridBagConstraints.WEST;
 		gbc_plusButton.insets = new Insets(0, 0, 5, 5);
@@ -512,6 +513,7 @@ public class AnimeInformation extends JPanel
 		add(lblExitDay, gbc_lblExitDay);
 //TODO per oav e film settare in automatico ----- ma se ne permetta la modifica da parte dell'utenete		
 		exitDaycomboBox = new JComboBox();
+		exitDaycomboBox.setEnabled(false);
 		exitDaycomboBox.setModel(new DefaultComboBoxModel(dayWeek));
 		GridBagConstraints gbc_exitDaycomboBox = new GridBagConstraints();
 		gbc_exitDaycomboBox.gridwidth = 2;
@@ -622,6 +624,7 @@ public class AnimeInformation extends JPanel
 		noteTextArea.setWrapStyleWord(true);
 		
 		finishedButton = new JButton("Concluso");
+		finishedButton.setEnabled(false);
 		finishedButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String name = lblAnimeName.getText();
@@ -721,7 +724,6 @@ public class AnimeInformation extends JPanel
 		gbc_finishedButton.insets = new Insets(0, 0, 0, 5);
 		gbc_finishedButton.gridx = 10;
 		gbc_finishedButton.gridy = 11;
-		finishedButton.setEnabled(false);
 		add(finishedButton, gbc_finishedButton);
 		
 		addToSeeButton = new JButton("Concluso da Vedere");
@@ -793,14 +795,15 @@ public class AnimeInformation extends JPanel
 			if(AnimeIndex.getJList().isSelectionEmpty())
 			{
 				lblAnimeName.setText("Nome Anime");
-				currentEpisodeField.setText("");
-				totalEpisodeText.setText("");
+				currentEpisodeField.setText("??");
+				totalEpisodeText.setText("??");
 				noteTextArea.setText("");
 				exitDaycomboBox.setSelectedItem("-----");
 				setLinkButton.setText("Imposta Link");
 				typeComboBox.setSelectedItem("-----");
-				releaseDateField.setText("");
-				finishDateField.setText("");
+				releaseDateField.setText("??/??/????");
+				finishDateField.setText("??/??/????");
+				durationField.setText("?? min");
 				BufferedImage image = null;
 				try{
 					File img = new File(FileManager.getDefaultImageFolderPath()+File.separator+"default.png");

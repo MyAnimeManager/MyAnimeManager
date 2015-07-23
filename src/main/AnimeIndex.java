@@ -403,8 +403,7 @@ public class AnimeIndex extends JFrame
 		        	completedToSeeList.clearSelection();
 		        	dayExitList.clearSelection();
 		        	searchBar.setText("");
-		        	
-		        }
+		        	}
 		        
 		        JList list = getJList();
 		        list.setSelectedIndex(0);
@@ -414,6 +413,13 @@ public class AnimeIndex extends JFrame
 		        	addButton.setEnabled(false);
 		        else
 		        	addButton.setEnabled(true);
+		        
+		        if(type.equalsIgnoreCase("anime completati"))
+		        	{
+		        		AnimeIndex.animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+		        		AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+		        	}
+		        	
 		        
 		        if (type.equalsIgnoreCase("anime in corso") || type.equalsIgnoreCase("anime completati") || type.equalsIgnoreCase("oav") || type.equalsIgnoreCase("film"))
 		        	AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
@@ -569,7 +575,6 @@ public class AnimeIndex extends JFrame
 				    AnimeIndex.animeInformation.durationField.setEnabled(false);
 					}
 				}
-				
 				deleteButton.setEnabled(true);
 				String anime = (String) completedList.getSelectedValue();
 				if (anime != null)
@@ -1448,8 +1453,8 @@ public class AnimeIndex extends JFrame
 		fansubList = FileManager.loadFansubList();
 		animeInformation = new AnimeInformation();
 		mainFrame.add(animeInformation, BorderLayout.CENTER);
-		
-	}
+		}
+	
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
