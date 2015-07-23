@@ -97,7 +97,7 @@ public class ExitSaveDialog extends JDialog
 					public void actionPerformed(ActionEvent e) {
 						JButton but = (JButton) e.getSource();
 						JDialog dialog = (JDialog) but.getTopLevelAncestor();
-						dialog.dispose();;
+						dialog.dispose();
 					}
 				});
 				cancelButton.setActionCommand("Cancel");
