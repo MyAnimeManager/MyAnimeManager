@@ -699,9 +699,9 @@ public class AddAnimeDialog extends JDialog
 						categoryCheck.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								if(categoryCheck.isSelected())
-									AnimeIndex.appProp.getProperty("categoryCheck").equals("true");
+									AnimeIndex.appProp.setProperty("categoryCheck","true");
 								else
-									AnimeIndex.appProp.getProperty("categoryCheck").equals("false");
+									AnimeIndex.appProp.setProperty("categoryCheck","false");
 							}
 						});
 						if(AnimeIndex.appProp.getProperty("categoryCheck").equals("true"))
