@@ -46,6 +46,9 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
 import javax.swing.JProgressBar;
+import java.awt.Component;
+import javax.swing.Box;
+import net.miginfocom.swing.MigLayout;
 
 public class AddAnimeDialog extends JDialog
 {
@@ -242,7 +245,7 @@ public class AddAnimeDialog extends JDialog
 								if (currentEp.equals(totEp))
 									AnimeIndex.animeInformation.plusButton.setEnabled(false);
 								
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", null, day, "", "", "" , "", "", "", "");
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, link, "", null, day, "", "", "", "", "", "", "");
 								
 								
 								String listName = getListToAdd();
@@ -485,9 +488,6 @@ public class AddAnimeDialog extends JDialog
 				{
 					JPanel button2Panel = new JPanel();
 					anilistAddPanel.add(button2Panel, BorderLayout.SOUTH);
-					FlowLayout fl_button2Panel = new FlowLayout(FlowLayout.CENTER);
-					fl_button2Panel.setHgap(100);
-					button2Panel.setLayout(fl_button2Panel);
 					{
 						addAniButton = new JButton("Aggiungi");
 						addAniButton.setEnabled(false);
@@ -692,7 +692,12 @@ public class AddAnimeDialog extends JDialog
 								}
 							}
 						});
-						button2Panel.add(addAniButton);
+						button2Panel.setLayout(new MigLayout("", "[349.00px][73px][143.00px]", "[23px]"));
+						{
+							JProgressBar progressBar = new JProgressBar();
+							button2Panel.add(progressBar, "cell 0 0,alignx left,aligny center");
+						}
+						button2Panel.add(addAniButton, "cell 1 0,alignx left,aligny top");
 					}
 					{
 						JButton button = new JButton("Esci");
@@ -703,7 +708,7 @@ public class AddAnimeDialog extends JDialog
 								dialog.dispose();
 							}
 						});
-						button2Panel.add(button);
+						button2Panel.add(button, "cell 2 0,alignx right,aligny top");
 					}
 				}
 			}

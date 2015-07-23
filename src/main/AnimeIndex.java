@@ -554,6 +554,7 @@ public class AnimeIndex extends JFrame
 				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
 				    AnimeIndex.animeInformation.startDateField.setEnabled(false);
 				    AnimeIndex.animeInformation.endDateField.setEnabled(false);
+				    AnimeIndex.animeInformation.durationFiled.setEnabled(false);
 					}
 				}
 				
@@ -656,6 +657,7 @@ public class AnimeIndex extends JFrame
 				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
 				    AnimeIndex.animeInformation.startDateField.setEnabled(true);
 				    AnimeIndex.animeInformation.endDateField.setEnabled(true);
+				    AnimeIndex.animeInformation.durationFiled.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
@@ -740,6 +742,7 @@ public class AnimeIndex extends JFrame
 				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
 				    AnimeIndex.animeInformation.startDateField.setEnabled(true);
 				    AnimeIndex.animeInformation.endDateField.setEnabled(true);
+				    AnimeIndex.animeInformation.durationFiled.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
@@ -824,6 +827,7 @@ public class AnimeIndex extends JFrame
 				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
 				    AnimeIndex.animeInformation.startDateField.setEnabled(true);
 				    AnimeIndex.animeInformation.endDateField.setEnabled(true);
+				    AnimeIndex.animeInformation.durationFiled.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
@@ -903,10 +907,11 @@ public class AnimeIndex extends JFrame
 					
 					AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
-				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
+				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
 				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
-				    AnimeIndex.animeInformation.startDateField.setEnabled(false);
-				    AnimeIndex.animeInformation.endDateField.setEnabled(false);
+				    AnimeIndex.animeInformation.startDateField.setEnabled(true);
+				    AnimeIndex.animeInformation.endDateField.setEnabled(true);
+				    AnimeIndex.animeInformation.durationFiled.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
@@ -1034,7 +1039,7 @@ public class AnimeIndex extends JFrame
 		
 		JScrollPane searchScroll = new JScrollPane();
 		searchCard.add(searchScroll, BorderLayout.CENTER);
-		
+//TODO nn vengono salvate le modifiche apportate a  schede trovate tramita il pannello cerca, l'exitDayComboBox si attiva sempre		
 		searchList = new JList(searchModel);
 		searchList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -1077,12 +1082,6 @@ public class AnimeIndex extends JFrame
 	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 					else
 						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
-					
-					AnimeIndex.animeInformation.minusButton.setEnabled(true);
-				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
-				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
-				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
-				    AnimeIndex.animeInformation.finishedButton.setEnabled(true);
 					}
 				}
 				deleteButton.setEnabled(true);
