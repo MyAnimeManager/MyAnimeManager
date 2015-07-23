@@ -694,6 +694,7 @@ public class AddAnimeDialog extends JDialog
 						});
 						button2Panel.setLayout(new MigLayout("", "[349.00px][73px][143.00px]", "[23px]"));
 						{
+//TODO finire barra di caricamento							
 							JProgressBar progressBar = new JProgressBar();
 							button2Panel.add(progressBar, "cell 0 0,alignx left,aligny center");
 						}
