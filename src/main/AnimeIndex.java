@@ -607,13 +607,18 @@ public class AnimeIndex extends JFrame
 					animeInformation.plusButton.setEnabled(false);
 				else
 					animeInformation.plusButton.setEnabled(true);
-				
-				if(fansubMap.get(data.getFansub()) != null && !(fansubMap.get(data.getFansub())).isEmpty())
-                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+				if (data.getFansub() != null)
+				{
+					if(fansubMap.get(data.getFansub()) != null && !(fansubMap.get(data.getFansub())).isEmpty())
+	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+					else
+						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
+				} 
 				else
+				{
 					 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
-				    
 				}
+			}
 				
 			}
 		});
@@ -679,10 +684,17 @@ public class AnimeIndex extends JFrame
 					else
 						animeInformation.plusButton.setEnabled(true);
 					
-					if(fansubMap.get(data.getFansub()) != null && !(fansubMap.get(data.getFansub())).isEmpty())
-	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+					if (data.getFansub() != null)
+					{
+						if(fansubMap.get(data.getFansub()) != null && !(fansubMap.get(data.getFansub())).isEmpty())
+		                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+						else
+							 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
+					} 
 					else
+					{
 						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
+					}
 					
 					AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
@@ -1200,12 +1212,22 @@ public class AnimeIndex extends JFrame
 					animeInformation.setAnimeName(anime);
 					animeInformation.setCurrentEp(data.getCurrentEpisode());
 					animeInformation.setTotalEp(data.getTotalEpisode());
+					animeInformation.setDurationEp(data.getDurationEp());
 					animeInformation.setFansub(data.getFansub());
-					animeInformation.setLink(fansubMap.get(data.getFansub()));
-					animeInformation.setNote(data.getNote());
+					animeInformation.setLink(data.getLink());
+					if (data.getLink() != null && !(data.getLink().isEmpty()))
+					{
+						if (data.getLinkName() != null && !(data.getLinkName().isEmpty()))
+							animeInformation.setlinkName(data.getLinkName());
+						else
+							animeInformation.setlinkName("Link");
+					}
+					else
+						animeInformation.setlinkName("Imposta Link");
+					animeInformation.setReleaseDate(data.getReleaseDate());
+					animeInformation.setFinishDate(data.getFinishDate());
 					animeInformation.setDay(data.getDay());
-					if (data.getDay().equalsIgnoreCase("concluso"))
-						animeInformation.exitDaycomboBox.setEnabled(false);
+					animeInformation.setType(data.getAnimeType());
 					String path = data.getImagePath();
 					File file = new File(path);
 					if (file.exists())
@@ -1235,11 +1257,30 @@ public class AnimeIndex extends JFrame
 				animeInformation.setAnimeName(anime);
 				animeInformation.setCurrentEp(data.getCurrentEpisode());
 				animeInformation.setTotalEp(data.getTotalEpisode());
+				animeInformation.setDurationEp(data.getDurationEp());
 				animeInformation.setFansub(data.getFansub());
-				animeInformation.setLink(fansubMap.get(data.getFansub()));
-				animeInformation.setNote(data.getNote());
-				animeInformation.setImage(data.getImagePath());
+				animeInformation.setLink(data.getLink());
+				if (data.getLink() != null && !(data.getLink().isEmpty()))
+				{
+					if (data.getLinkName() != null && !(data.getLinkName().isEmpty()))
+						animeInformation.setlinkName(data.getLinkName());
+					else
+						animeInformation.setlinkName("Link");
+				}
+				else
+					animeInformation.setlinkName("Imposta Link");
+				animeInformation.setReleaseDate(data.getReleaseDate());
+				animeInformation.setFinishDate(data.getFinishDate());
 				animeInformation.setDay(data.getDay());
+				animeInformation.setType(data.getAnimeType());
+				String path = data.getImagePath();
+				File file = new File(path);
+				if (file.exists())
+					animeInformation.setImage(data.getImagePath());
+				else
+				{
+					animeInformation.setImage("deafult");
+				}
 				animeInformation.exitDaycomboBox.setEnabled(true);
 				if(data.getCurrentEpisode().equals(data.getTotalEpisode()))
 					animeInformation.plusButton.setEnabled(false);

@@ -520,7 +520,7 @@ public class AddAnimeDialog extends JDialog
 							{
 								if (releaseDate.equals("null"))
 									releaseDate = "??";
-								else
+								else if (releaseDate.length() > 4)
 								{
 									String dayStart = releaseDate.substring(8, 10);
 									String monthStart = releaseDate.substring(5, 7);
