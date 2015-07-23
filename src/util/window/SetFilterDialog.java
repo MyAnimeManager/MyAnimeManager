@@ -52,6 +52,7 @@ public class SetFilterDialog extends JDialog {
 	private JCheckBox usciteDelGiorno;
 	private JCheckBox irregolari;
 
+	//TODO Nel filtro di ricerca per irregolari, controllare type =\= blu ray
 	/**
 	 * Create the dialog.
 	 */
