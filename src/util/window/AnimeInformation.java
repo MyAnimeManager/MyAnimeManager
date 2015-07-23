@@ -564,8 +564,8 @@ public class AnimeInformation extends JPanel
 					}
 					AnimeData oldData = map.get(name);
 					AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
-						    oldData.getNote(), oldData.getImageName(), "Anime in Corso", oldData.getId(),
-							oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
+						    oldData.getNote(), oldData.getImageName(), "Irrgolare", oldData.getId(),
+							oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), 
 							oldData.getFinishDate(), oldData.getDurationEp());
 					map.remove(name);
 					AnimeIndex.airingMap.put(name, newData);
@@ -577,7 +577,7 @@ public class AnimeInformation extends JPanel
 				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
 				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
-//TODO nn funziona--> AnimeIndex.animeInformation.exitDaycomboBox.setSelectedItem("-----");
+
 				    if(index-1>=0)
 						list.setSelectedIndex(index-1);
 				    else
