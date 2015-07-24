@@ -84,7 +84,6 @@ public class AnimeIndex extends JFrame
 	public static JList airingList;
 	public static JList completedList;
 	public static JList ovaList;
-	private JList dayExitList;
 	private JList searchList;
 	private JList filterList;
 	
@@ -93,7 +92,6 @@ public class AnimeIndex extends JFrame
 	public static DefaultListModel ovaModel = new DefaultListModel();
 	public static DefaultListModel filmModel = new DefaultListModel();
 	public static DefaultListModel completedToSeeModel = new DefaultListModel();
-	public static DefaultListModel dayExitModel = new DefaultListModel();
 	private static DefaultListModel searchModel = new DefaultListModel();
 	private static DefaultListModel filterModel = new DefaultListModel();
 	
@@ -302,7 +300,6 @@ public class AnimeIndex extends JFrame
 				completedToSeeModel.clear();
 				filmModel.clear();
 				ovaModel.clear();
-				dayExitModel.clear();
 				
 				completedMap.clear();
 				airingModel.clear();
@@ -396,7 +393,6 @@ public class AnimeIndex extends JFrame
 		        	airingList.clearSelection();
 		        	completedList.clearSelection();
 		        	completedToSeeList.clearSelection();
-		        	dayExitList.clearSelection();
 		        	searchBar.setText("");
 		        	}
 		        
@@ -425,7 +421,7 @@ public class AnimeIndex extends JFrame
 		        	AnimeIndex.animeInformation.finishedButton.setEnabled(false);
 			}
 		});
-		animeTypeComboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere","Uscite del Giorno"}));
+		animeTypeComboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere"}));
 		animeSelectionPanel.add(animeTypeComboBox, BorderLayout.NORTH);
 		
 		searchBar = new SearchBar();
@@ -603,13 +599,6 @@ public class AnimeIndex extends JFrame
 		});
 		completedToSeeScroll.setViewportView(completedToSeeList);
 		
-		JPanel dayExitAnime = new JPanel();
-		cardContainer.add(dayExitAnime, "Uscite del Giorno");
-		dayExitAnime.setLayout(new BorderLayout(0, 0));
-		
-		JScrollPane dayExitScroll = new JScrollPane();
-		dayExitAnime.add(dayExitScroll, BorderLayout.CENTER);
-		
 		
 		Date now = new Date();
         SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week abbreviated
@@ -620,84 +609,7 @@ public class AnimeIndex extends JFrame
 		{
 			String anime = (String) airingArray[i];
 			AnimeData data = airingMap.get(anime);
-			if (data.getDay().equalsIgnoreCase(currentDay))
-			{
-				dayExitModel.addElement(anime);
-			}
 		}
-		dayExitList = new JList(dayExitModel);
-		dayExitList.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				try
-				{
-					saveModifiedInformation();
-				}
-				catch (NullPointerException e1)
-				{
-					deleteButton.setEnabled(true);
-					String anime = (String) dayExitList.getSelectedValue();
-					if (anime != null)
-					{
-					AnimeData data = airingMap.get(anime);
-					animeInformation.setAnimeName(anime);
-					animeInformation.setCurrentEp(data.getCurrentEpisode());
-					animeInformation.setTotalEp(data.getTotalEpisode());
-					animeInformation.setFansub(data.getFansub());
-					animeInformation.setLink(fansubMap.get(data.getFansub()));
-					animeInformation.setNote(data.getNote());
-					animeInformation.setDay("Concluso");
-					animeInformation.exitDaycomboBox.setEnabled(false);
-					String path = data.getImagePath();
-					File file = new File(path);
-					if (file.exists())
-						animeInformation.setImage(data.getImagePath());
-					else
-					{
-						animeInformation.setImage("deafult");
-					}
-					
-					if(data.getCurrentEpisode().equals(data.getTotalEpisode()))
-						animeInformation.plusButton.setEnabled(false);
-					else
-						animeInformation.plusButton.setEnabled(true);
-					
-					if(fansubMap.get(data.getFansub()) != null && !(fansubMap.get(data.getFansub())).isEmpty())
-	                    AnimeIndex.animeInformation.btnOpen.setEnabled(true);
-					else
-						 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
-					
-					AnimeIndex.animeInformation.minusButton.setEnabled(true);
-				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
-				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
-					}
-				}
-				deleteButton.setEnabled(true);
-				String anime = (String) dayExitList.getSelectedValue();
-				if (anime != null)
-				{
-				AnimeData data = airingMap.get(anime);
-				animeInformation.setAnimeName(anime);
-				animeInformation.setCurrentEp(data.getCurrentEpisode());
-				animeInformation.setTotalEp(data.getTotalEpisode());
-				animeInformation.setFansub(data.getFansub());
-				animeInformation.setLink(fansubMap.get(data.getFansub()));
-				animeInformation.setNote(data.getNote());
-				animeInformation.setImage(data.getImagePath());
-				animeInformation.setDay(data.getDay());
-				if (data.getDay().equalsIgnoreCase("concluso"))
-					animeInformation.exitDaycomboBox.setEnabled(false);
-				if(data.getCurrentEpisode().equals(data.getTotalEpisode()))
-					animeInformation.plusButton.setEnabled(false);
-				else
-					animeInformation.plusButton.setEnabled(true);
-				}
-			}
-		});
-		dayExitList.setSize(new Dimension(138, 233));
-		dayExitList.setPreferredSize(new Dimension(138, 233));
-		dayExitList.setMinimumSize(new Dimension(138, 233));
-		dayExitList.setMaximumSize(new Dimension(138, 233));
-		dayExitScroll.setViewportView(dayExitList);
 		
 		JPanel searchCard = new JPanel();
 		cardContainer.add(searchCard, "Ricerca");
@@ -997,64 +909,67 @@ public class AnimeIndex extends JFrame
 
 	public void saveModifiedInformation()
 	{
-		String name = animeInformation.lblAnimeName.getText();
-		String currEp = animeInformation.currentEpisodeField.getText();
-		String totEp = animeInformation.totalEpisodeText.getText();
-		String fansub = (String) animeInformation.fansubComboBox.getSelectedItem();
-		String fansubLink = animeInformation.getLink();
-		String note = animeInformation.noteTextArea.getText();
-		String day = (String) animeInformation.exitDaycomboBox.getSelectedItem();
-		String linkName = animeInformation.setLinkButton.getText();
-		String animeType = (String)animeInformation.typeComboBox.getSelectedItem();
-		String releaseDate = animeInformation.releaseDateField.getText();
-		String finishDate = animeInformation.finishDateField.getText();
-		String durationEp = animeInformation.durationField.getText();
-		
-		String list = AnimeIndex.getList();
-		if (list.equalsIgnoreCase("Anime Completati"))
-			{
-			String image = AnimeIndex.completedMap.get(name).getImageName();
-			String id = AnimeIndex.completedMap.get(name).getId();
-			String link = AnimeIndex.completedMap.get(name).getLink();
-			Boolean bd = AnimeIndex.completedMap.get(name).getBd();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
-			AnimeIndex.completedMap.put(name, data);
-			}
-		else if (list.equalsIgnoreCase("Anime in Corso"))
-			{
-			String image = AnimeIndex.airingMap.get(name).getImageName();
-			String id = AnimeIndex.airingMap.get(name).getId();
-			String link = AnimeIndex.airingMap.get(name).getLink();
-			Boolean bd = AnimeIndex.airingMap.get(name).getBd();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
-			AnimeIndex.airingMap.put(name, data);
-			}
-		else if (list.equalsIgnoreCase("OAV"))
-			{
-			String image = AnimeIndex.ovaMap.get(name).getImageName();
-			String id = AnimeIndex.ovaMap.get(name).getId();
-			String link = AnimeIndex.ovaMap.get(name).getLink();
-			Boolean bd = AnimeIndex.ovaMap.get(name).getBd();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
-			AnimeIndex.ovaMap.put(name, data);
-			}
-		else if (list.equalsIgnoreCase("Film"))
+		if(!animeInformation.lblAnimeName.getText().equalsIgnoreCase("Nome Anime"))
 		{
-			String image = AnimeIndex.filmMap.get(name).getImageName();
-			String id = AnimeIndex.filmMap.get(name).getId();
-			String link = AnimeIndex.filmMap.get(name).getLink();
-			Boolean bd = AnimeIndex.filmMap.get(name).getBd();
-			AnimeData data = new AnimeData(currEp, totEp, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
-			AnimeIndex.filmMap.put(name, data);
-		}
-		else if (list.equalsIgnoreCase("Completi Da Vedere"))
-		{
-			String image = AnimeIndex.completedToSeeMap.get(name).getImageName();
-			String id = AnimeIndex.completedToSeeMap.get(name).getId();
-			String link = AnimeIndex.completedToSeeMap.get(name).getLink();
-			Boolean bd = AnimeIndex.completedToSeeMap.get(name).getBd();
-			AnimeData data = new AnimeData(currEp, totEp, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
-			AnimeIndex.completedToSeeMap.put(name, data);
+			String name = animeInformation.lblAnimeName.getText();
+			String currEp = animeInformation.currentEpisodeField.getText();
+			String totEp = animeInformation.totalEpisodeText.getText();
+			String fansub = (String) animeInformation.fansubComboBox.getSelectedItem();
+			String fansubLink = animeInformation.getLink();
+			String note = animeInformation.noteTextArea.getText();
+			String day = (String) animeInformation.exitDaycomboBox.getSelectedItem();
+			String linkName = animeInformation.setLinkButton.getText();
+			String animeType = (String)animeInformation.typeComboBox.getSelectedItem();
+			String releaseDate = animeInformation.releaseDateField.getText();
+			String finishDate = animeInformation.finishDateField.getText();
+			String durationEp = animeInformation.durationField.getText();
+			
+			String list = AnimeIndex.getList();
+			if (list.equalsIgnoreCase("Anime Completati"))
+				{
+				String image = AnimeIndex.completedMap.get(name).getImageName();
+				String id = AnimeIndex.completedMap.get(name).getId();
+				String link = AnimeIndex.completedMap.get(name).getLink();
+				Boolean bd = AnimeIndex.completedMap.get(name).getBd();
+				AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
+				AnimeIndex.completedMap.put(name, data);
+				}
+			else if (list.equalsIgnoreCase("Anime in Corso"))
+				{
+				String image = AnimeIndex.airingMap.get(name).getImageName();
+				String id = AnimeIndex.airingMap.get(name).getId();
+				String link = AnimeIndex.airingMap.get(name).getLink();
+				Boolean bd = AnimeIndex.airingMap.get(name).getBd();
+				AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
+				AnimeIndex.airingMap.put(name, data);
+				}
+			else if (list.equalsIgnoreCase("OAV"))
+				{
+				String image = AnimeIndex.ovaMap.get(name).getImageName();
+				String id = AnimeIndex.ovaMap.get(name).getId();
+				String link = AnimeIndex.ovaMap.get(name).getLink();
+				Boolean bd = AnimeIndex.ovaMap.get(name).getBd();
+				AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
+				AnimeIndex.ovaMap.put(name, data);
+				}
+			else if (list.equalsIgnoreCase("Film"))
+			{
+				String image = AnimeIndex.filmMap.get(name).getImageName();
+				String id = AnimeIndex.filmMap.get(name).getId();
+				String link = AnimeIndex.filmMap.get(name).getLink();
+				Boolean bd = AnimeIndex.filmMap.get(name).getBd();
+				AnimeData data = new AnimeData(currEp, totEp, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
+				AnimeIndex.filmMap.put(name, data);
+			}
+			else if (list.equalsIgnoreCase("Completi Da Vedere"))
+			{
+				String image = AnimeIndex.completedToSeeMap.get(name).getImageName();
+				String id = AnimeIndex.completedToSeeMap.get(name).getId();
+				String link = AnimeIndex.completedToSeeMap.get(name).getLink();
+				Boolean bd = AnimeIndex.completedToSeeMap.get(name).getBd();
+				AnimeData data = new AnimeData(currEp, totEp, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
+				AnimeIndex.completedToSeeMap.put(name, data);
+			}
 		}
 	}
 
