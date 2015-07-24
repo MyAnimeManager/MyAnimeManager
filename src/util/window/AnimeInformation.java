@@ -553,7 +553,6 @@ public class AnimeInformation extends JPanel
 		gbc_lblTipo.gridy = 8;
 		add(lblTipo, gbc_lblTipo);
 		
-//TODO debuggare
 		typeComboBox = new JComboBox();
 		typeComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
