@@ -45,6 +45,8 @@ public class AddFansubDialog extends JDialog
 	private JTextField linkAddField;
 	private JTextField fansubAddField;
 	private TreeMap<String,String> fansubMap = new TreeMap<String,String>();
+	private JButton addButton;
+	private String oldName;
 
 	/**
 	 * Create the dialog.
@@ -72,23 +74,49 @@ public class AddFansubDialog extends JDialog
 					RowSpec.decode("89px"),
 					RowSpec.decode("117px"),}));
 			{
-				JButton addButton = new JButton("Aggiungi");
+				addButton = new JButton("Aggiungi");
 				addButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						String newFansub = fansubAddField.getText();
-						String newLink = linkAddField.getText();
-						if ((newFansub != null && !newFansub.isEmpty()))
-						{
-						fansubModel.addElement(fansubAddField.getText());
-						fansubMap.put(newFansub, newLink);
-					    fansubAddField.setText("");
-					    linkAddField.setText("");
-						}
+						String text = addButton.getText();
+						if (text.equalsIgnoreCase("aggiungi"))
+							{
+							String newFansub = fansubAddField.getText();
+							String newLink = linkAddField.getText();
+							if ((newFansub != null && !newFansub.isEmpty()))
+							{
+							fansubModel.addElement(fansubAddField.getText());
+							fansubMap.put(newFansub, newLink);
+						    fansubAddField.setText("");
+						    linkAddField.setText("");
+							}
+							else
+								JOptionPane.showMessageDialog(contentPanel, "Nome non inserito", "Errore!", JOptionPane.ERROR_MESSAGE);
+							}
+						
 						else
-							JOptionPane.showMessageDialog(contentPanel, "Nome non inserito", "Errore!", JOptionPane.ERROR_MESSAGE);
+						{
+							String newFansub = fansubAddField.getText();
+							String newLink = linkAddField.getText();
+							
+							if (newFansub.equalsIgnoreCase(oldName))
+							{
+								fansubMap.put(newFansub, newLink);
+								fansubModel.removeElement(newFansub);
+								fansubModel.addElement(newFansub);
+							}
+							else
+							{
+								fansubMap.remove(oldName);
+								fansubMap.put(newFansub, newLink);
+								fansubModel.removeElement(oldName);
+								fansubModel.addElement(newFansub);
+							}
+							fansubAddField.setText("");
+						    linkAddField.setText("");
+						    fansubList.clearSelection();
+						}
 					}
 				});
-				addButton.setHorizontalAlignment(SwingConstants.LEFT);
 				optionPanel.add(addButton, "1, 1");
 			}
 			{
@@ -126,11 +154,16 @@ public class AddFansubDialog extends JDialog
 				fansubList = new JList(fansubModel);
 				fansubList.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent arg0) {
+						if (!fansubList.isSelectionEmpty())
+						{
 						deleteButton.setEnabled(true);
+						addButton.setText("Salva");
 						String fansub = (String) fansubList.getSelectedValue();
 						String link = fansubMap.get(fansub);
 						fansubAddField.setText(fansub);
 						linkAddField.setText(link);
+						oldName = fansub;
+						}
 					}
 				});
 				fansubList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -200,12 +233,11 @@ public class AddFansubDialog extends JDialog
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//salva fansub
+						if (!fansubModel.isEmpty())
+						{
 						Object[] fansub = fansubModel.toArray();
 					    AnimeIndex.setFansubList(fansub);
 					    setFansubMap(fansubMap);
-						JButton but = (JButton) e.getSource();
-						JDialog dialog = (JDialog) but.getTopLevelAncestor();
-						dialog.dispose();
 						String link = AnimeIndex.fansubMap.get((String)AnimeIndex.animeInformation.fansubComboBox.getSelectedItem());
 						if (link != null && !link.isEmpty())
 						{
@@ -214,6 +246,10 @@ public class AddFansubDialog extends JDialog
 
 						else
 							AnimeIndex.animeInformation.fansubButton.setEnabled(false);
+						}
+						JButton but = (JButton) e.getSource();
+						JDialog dialog = (JDialog) but.getTopLevelAncestor();
+						dialog.dispose();
 					}
 				});
 				okButton.setActionCommand("OK");
