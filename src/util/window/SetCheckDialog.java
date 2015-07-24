@@ -42,11 +42,6 @@ public class SetCheckDialog extends JDialog {
 		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
-		
-		if(checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
-			allCheckButton.setEnabled(false);
-		if(!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
-			noneCheckButton.setEnabled(false);
 	
 		{
 			checkCompleted = new JCheckBox("Anime Completati");
@@ -187,6 +182,10 @@ public class SetCheckDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		if(checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
+			allCheckButton.setEnabled(false);
+		if(!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
+			noneCheckButton.setEnabled(false);
 	}
 
 }
