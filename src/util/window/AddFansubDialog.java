@@ -114,6 +114,7 @@ public class AddFansubDialog extends JDialog
 							fansubAddField.setText("");
 						    linkAddField.setText("");
 						    fansubList.clearSelection();
+						    deleteButton.setEnabled(false);
 						    addButton.setText("Aggiungi");
 						}
 					}
