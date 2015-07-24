@@ -165,7 +165,7 @@ public class PreferenceDialog extends JDialog
 			contentPanel.add(lblImmagineIniziale, gbc_lblImmagineIniziale);
 		}
 		{
-			JLabel imgDimension = new JLabel("       L'immagine deve avere dimensioni :    225 x 310 pixel.");
+			JLabel imgDimension = new JLabel("       L'immagine deve avere dimensioni :                225 x 310 pixel.");
 			GridBagConstraints gbc_imgDimension = new GridBagConstraints();
 			gbc_imgDimension.anchor = GridBagConstraints.WEST;
 			gbc_imgDimension.insets = new Insets(0, 0, 5, 0);
