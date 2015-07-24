@@ -25,8 +25,6 @@ public class SetLinkDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField linkField;
 	public static JTextField linkNameField;
-//TODO vedi note riportate in AnimeInformation sopra all'inizializzazione del pulsante "Imposta Link"
-//TODO completare metodo remove
 	
 	/**
 	 * Create the dialog.
