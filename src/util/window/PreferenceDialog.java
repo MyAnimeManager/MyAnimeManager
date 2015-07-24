@@ -175,7 +175,7 @@ public class PreferenceDialog extends JDialog
 			contentPanel.add(imgDimension, gbc_imgDimension);
 		}
 		{
-			JLabel lblPercorsoFile = new JLabel("Percorso Immagine :");
+			JLabel lblPercorsoFile = new JLabel(" Immagine :");
 			GridBagConstraints gbc_lblPercorsoFile = new GridBagConstraints();
 			gbc_lblPercorsoFile.insets = new Insets(0, 0, 5, 5);
 			gbc_lblPercorsoFile.gridx = 0;
@@ -183,7 +183,7 @@ public class PreferenceDialog extends JDialog
 			contentPanel.add(lblPercorsoFile, gbc_lblPercorsoFile);
 		}
 		{
-			JButton DefaultImageButton = new JButton("Imposta");
+			JButton DefaultImageButton = new JButton("Sfoglia");
 			DefaultImageButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
