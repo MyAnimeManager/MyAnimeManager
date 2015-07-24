@@ -616,8 +616,7 @@ public class AnimeIndex extends JFrame
 		searchCard.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane searchScroll = new JScrollPane();
-		searchCard.add(searchScroll, BorderLayout.CENTER);
-//TODO nn vengono salvate le modifiche apportate a  schede trovate tramita il pannello cerca, l'exitDayComboBox si attiva sempre		
+		searchCard.add(searchScroll, BorderLayout.CENTER);	
 		searchList = new JList(searchModel);
 		searchList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
