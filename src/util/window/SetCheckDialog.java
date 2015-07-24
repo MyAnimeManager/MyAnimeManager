@@ -15,6 +15,7 @@ import javax.swing.JSeparator;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Dialog.ModalityType;
 
 public class SetCheckDialog extends JDialog {
 
@@ -31,6 +32,8 @@ public class SetCheckDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public SetCheckDialog() {
+		setModalityType(ModalityType.APPLICATION_MODAL);
+		setModal(true);
 		setAlwaysOnTop(true);
 		setResizable(false);
 		setBounds(100, 100, 232, 198);
