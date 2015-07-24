@@ -812,6 +812,7 @@ public class AnimeIndex extends JFrame
 		fansubList = FileManager.loadFansubList();
 		animeInformation = new AnimeInformation();
 		mainFrame.add(animeInformation, BorderLayout.CENTER);
+		animeInformation.setBlank();
 		}
 	
 	private static void addPopup(Component component, final JPopupMenu popup) {

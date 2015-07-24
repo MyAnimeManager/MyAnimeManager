@@ -110,6 +110,7 @@ public class AnimeInformation extends JPanel
 	private JLabel lblDurata;
 	public JTextField durationField;
 	private ActionListener act;
+	private AnimeData newData;
 
 	/**
 	 * Create the panel.
@@ -548,6 +549,7 @@ public class AnimeInformation extends JPanel
 		
 //TODO debuggare
 		typeComboBox = new JComboBox();
+		
 		typeComboBox.setModel(new DefaultComboBoxModel(new String[] {"-----", "TV", "Movie", "Special", "OVA", "ONA", "TV Short", "Blu-ray"}));
 		GridBagConstraints gbc_typeComboBox = new GridBagConstraints();
 		gbc_typeComboBox.gridwidth = 2;
@@ -559,7 +561,7 @@ public class AnimeInformation extends JPanel
 		
 		String type = AnimeIndex.getList();
 		String bd = (String)typeComboBox.getSelectedItem();
-		if(!(type.equalsIgnoreCase("anime completati")) && !(type.equalsIgnoreCase("completi da vedere")))
+		if(newData==null)
         {
 				act = new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -587,7 +589,7 @@ public class AnimeInformation extends JPanel
 								map = AnimeIndex.completedMap;
 							}
 							AnimeData oldData = map.get(name);
-							AnimeData newData = new AnimeData("1", oldData.getTotalEpisode(), oldData.getFansub(), 
+							newData = new AnimeData("1", oldData.getTotalEpisode(), oldData.getFansub(), 
 								    oldData.getNote(), oldData.getImageName(), "Irregolare", oldData.getId(),
 									oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), 
 									oldData.getFinishDate(), oldData.getDurationEp());
@@ -613,6 +615,65 @@ public class AnimeInformation extends JPanel
 				};
 			typeComboBox.addActionListener(act);
         }
+		if(newData != null && newData.getAnimeType().equalsIgnoreCase("blu-ray"))
+		{
+			typeComboBox.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					act = new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							String section = (String)AnimeIndex.animeTypeComboBox.getSelectedItem();
+							if(section.equalsIgnoreCase("anime completati") || section.equalsIgnoreCase("Completi Da Vedere"))
+							{
+							if(bd.equalsIgnoreCase("blu-ray")){
+								int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "Inserire in \"Anime in Corso\" come tipo: Blu-ray?", "Richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+							if(shouldCancel==0)
+							{
+								String name = lblAnimeName.getText();
+								DefaultListModel model = null;
+								JList list = null;
+								TreeMap<String,AnimeData> map = null;								
+								if (section.equalsIgnoreCase("Completi Da Vedere"))
+								{
+									model = AnimeIndex.completedToSeeModel;
+									list = AnimeIndex.completedToSeeList;
+									map = AnimeIndex.completedToSeeMap;
+								}
+								else 
+								{
+									model = AnimeIndex.completedModel;
+									list = AnimeIndex.completedList;
+									map = AnimeIndex.completedMap;
+								}
+								AnimeData oldData = map.get(name);
+								newData = new AnimeData("1", oldData.getTotalEpisode(), oldData.getFansub(), 
+									    oldData.getNote(), oldData.getImageName(), "Irregolare", oldData.getId(),
+										oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), 
+										oldData.getFinishDate(), oldData.getDurationEp());
+								map.remove(name);
+								AnimeIndex.airingMap.put(name, newData);
+								int index = list.getSelectedIndex();
+								model.removeElementAt(index);
+								AnimeIndex.airingModel.addElement(name);
+								
+								AnimeIndex.animeInformation.minusButton.setEnabled(true);
+							    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+							    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
+							    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+
+							    if(index-1>=0)
+									list.setSelectedIndex(index-1);
+							    else
+							    AnimeIndex.animeInformation.setBlank();
+							}
+							}
+							}
+						}
+					};
+				typeComboBox.addActionListener(act);
+				}
+			});
+		}
 		
 		lblNote = new JLabel("Note:");
 		GridBagConstraints gbc_lblNote = new GridBagConstraints();
