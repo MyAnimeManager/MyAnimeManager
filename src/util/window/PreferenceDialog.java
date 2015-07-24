@@ -2,41 +2,34 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import java.awt.GridBagLayout;
-
-import javax.swing.JRadioButton;
-
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-
 import main.AnimeIndex;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.swing.JCheckBox;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
-
 import util.FileManager;
+import util.ImageChooserFilter;
 
 public class PreferenceDialog extends JDialog
 {
@@ -194,36 +187,61 @@ public class PreferenceDialog extends JDialog
 			JButton DefaultImageButton = new JButton("Imposta");
 			DefaultImageButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(defaultImageDirectoryField.getText() != null && !(defaultImageDirectoryField.getText().isEmpty()))
-						{
-						String dir =defaultImageDirectoryField.getText();
-						if(defaultImageDirectoryField.getText().substring(defaultImageDirectoryField.getText().length()-1).equals("\"") && defaultImageDirectoryField.getText().substring(0, 1).equals("\""))
-							dir = defaultImageDirectoryField.getText().substring(1, defaultImageDirectoryField.getText().length()-1);
-						if(dir.substring(dir.length()-4).equals(".png")){
-							File image = new File(dir);
-							try{
-							BufferedImage bufimg = ImageIO.read (image);
-
-							int width = bufimg.getWidth ();
-							int height = bufimg.getHeight ();
-					    
-							if(width == 225 && height == 310){
-								FileManager.saveDefaultImage(dir, "default");
-								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
-								AnimeIndex.animeInformation.setBlank();
-							}								
-							else
-								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Le dimensioni dell'immagine non sono corrette.", "Errore!", JOptionPane.ERROR_MESSAGE);
-							}
-						catch(IOException e2){
-							e2.printStackTrace();}
+					File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+					JFileChooser fc = new JFileChooser(chooserDir);
+					fc.setMultiSelectionEnabled(false);
+					fc.addChoosableFileFilter(new ImageChooserFilter());
+					fc.setAcceptAllFileFilterUsed(false);
+					int returnVal = fc.showOpenDialog(AnimeIndex.mainFrame);
+					
+					if (returnVal == JFileChooser.APPROVE_OPTION)
+					{
+						File file = fc.getSelectedFile();
+						String dir = defaultImageDirectoryField.getText();
+						try {
+							BufferedImage bufimg = ImageIO.read (file);
+							FileManager.saveDefaultImage(dir, "default");
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+							AnimeIndex.animeInformation.setBlank();
+						} catch (IOException e1) {
+							e1.printStackTrace();
 						}
-						else
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il formato dell'immagine deve essere .png\n\rSe si e' sicuri che il formato dell'immagine\n\rsia .png, assicurarsi che tale estensione\n\rsegua il nome dell'immagine nella dichiarazione\n\rdel percorso.", "Errore!", JOptionPane.ERROR_MESSAGE);}					
-					else
-						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessuna immagine trovata.\n\rIl percorso potrebbe non essere corretto.", "Errore!", JOptionPane.ERROR_MESSAGE);					
+						
+					}
 				}
 			});
+//			DefaultImageButton.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent e) {
+//					if(defaultImageDirectoryField.getText() != null && !(defaultImageDirectoryField.getText().isEmpty()))
+//						{
+//						String dir =defaultImageDirectoryField.getText();
+//						if(defaultImageDirectoryField.getText().substring(defaultImageDirectoryField.getText().length()-1).equals("\"") && defaultImageDirectoryField.getText().substring(0, 1).equals("\""))
+//							dir = defaultImageDirectoryField.getText().substring(1, defaultImageDirectoryField.getText().length()-1);
+//						if(dir.substring(dir.length()-4).equals(".png")){
+//							File image = new File(dir);
+//							try{
+//							BufferedImage bufimg = ImageIO.read (image);
+//
+//							int width = bufimg.getWidth ();
+//							int height = bufimg.getHeight ();
+//					    
+//							if(width == 225 && height == 310){
+//								FileManager.saveDefaultImage(dir, "default");
+//								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+//								AnimeIndex.animeInformation.setBlank();
+//							}								
+//							else
+//								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Le dimensioni dell'immagine non sono corrette.", "Errore!", JOptionPane.ERROR_MESSAGE);
+//							}
+//						catch(IOException e2){
+//							e2.printStackTrace();}
+//						}
+//						else
+//							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il formato dell'immagine deve essere .png\n\rSe si e' sicuri che il formato dell'immagine\n\rsia .png, assicurarsi che tale estensione\n\rsegua il nome dell'immagine nella dichiarazione\n\rdel percorso.", "Errore!", JOptionPane.ERROR_MESSAGE);}					
+//					else
+//						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessuna immagine trovata.\n\rIl percorso potrebbe non essere corretto.", "Errore!", JOptionPane.ERROR_MESSAGE);					
+//				}
+//			});
 			{
 				JScrollPane defaultImageDirectoryScrollPane = new JScrollPane();
 				GridBagConstraints gbc_defaultImageDirectoryScrollPane = new GridBagConstraints();
