@@ -46,11 +46,16 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
 import javax.swing.JProgressBar;
+
 import java.awt.Component;
+
 import javax.swing.Box;
+
 import net.miginfocom.swing.MigLayout;
+
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JCheckBox;
+import javax.swing.JToggleButton;
 
 public class AddAnimeDialog extends JDialog
 {
@@ -72,6 +77,8 @@ public class AddAnimeDialog extends JDialog
 	private JComboBox exitDayComboBox;
 	private JPanel anilistAddPanel;
 	private JPanel normalAddPanel;
+	public SetCheckDialog checkDialog;
+	public static JToggleButton checkToggleButton;
 
 //TODO Inserire barra di caricamento
 //TODO l'aggiunta manuale e' completamente da rifare
@@ -491,10 +498,25 @@ public class AddAnimeDialog extends JDialog
 					JPanel button2Panel = new JPanel();
 					anilistAddPanel.add(button2Panel, BorderLayout.SOUTH);
 					{
-						button2Panel.setLayout(new MigLayout("", "[292.00px,grow][160.00][151.00px,grow][70.00][143.00px,grow]", "[23px,grow]"));
+						button2Panel.setLayout(new MigLayout("", "[74.00px,grow][178.00px,grow][25.00px,grow][160.00][56.00px,grow][78.00][143.00px,grow]", "[23px,grow]"));
+					}
+					{
+						JLabel lblControllaIn = new JLabel("Controlla in :");
+						button2Panel.add(lblControllaIn, "cell 0 0");
+					}
+					{
+						checkToggleButton = new JToggleButton("Seleziona Lista");
+						checkToggleButton.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								checkDialog = new SetCheckDialog();
+								checkDialog.setLocationRelativeTo(searchedList);
+								checkDialog.setVisible(true);
+							}
+						});
+						button2Panel.add(checkToggleButton, "cell 1 0,alignx left,aligny center");
 					}
 					addAniButton = new JButton("Aggiungi");
-					button2Panel.add(addAniButton, "cell 1 0,growx");
+					button2Panel.add(addAniButton, "cell 3 0,growx");
 					addAniButton.setEnabled(false);
 					addAniButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -737,25 +759,9 @@ public class AddAnimeDialog extends JDialog
 							}
 						}
 					});
-//TODO da finire il categoryCheck
-					{
-						JCheckBox categoryCheck = new JCheckBox("Controlla in tutte le liste");
-						categoryCheck.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								if(categoryCheck.isSelected())
-									AnimeIndex.appProp.setProperty("categoryCheck","true");
-								else
-									AnimeIndex.appProp.setProperty("categoryCheck","false");
-							}
-						});
-						if(AnimeIndex.appProp.getProperty("categoryCheck").equals("true"))
-							categoryCheck.setSelected(true);
-						else
-							categoryCheck.setSelected(false);
-						button2Panel.add(categoryCheck, "cell 0 0");
-					}
+
 					JButton button = new JButton("Esci");
-					button2Panel.add(button, "cell 4 0");
+					button2Panel.add(button, "cell 6 0");
 					button.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							JButton but = (JButton) e.getSource();
