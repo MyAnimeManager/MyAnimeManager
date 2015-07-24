@@ -26,7 +26,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import main.AnimeIndex;
-import util.ChooserFileView;
 import util.FileManager;
 import util.ImageChooserFilter;
 
@@ -190,7 +189,7 @@ public class PreferenceDialog extends JDialog
 					fc.setMultiSelectionEnabled(false);
 					fc.addChoosableFileFilter(new ImageChooserFilter());
 					fc.setAcceptAllFileFilterUsed(false);
-					fc.setFileView(new ChooserFileView());
+
 					int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Imposta");
 					
 					if (returnVal == JFileChooser.APPROVE_OPTION)
