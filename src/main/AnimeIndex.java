@@ -284,7 +284,148 @@ public class AnimeIndex extends JFrame
 		JSeparator separator_2 = new JSeparator();
 		mnMenu.add(separator_2);
 		
+		JMenu mnElimina = new JMenu("Elimina Dati");
+		mnMenu.add(mnElimina);
+		
 		JMenuItem mntmDeleteImage = new JMenuItem("Elimina tutti i dati");
+		mnElimina.add(mntmDeleteImage);
+		
+		JMenuItem mntmEliminaFansub = new JMenuItem("Elimina Fansub");
+		mntmEliminaFansub.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti i Fansub?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (shouldCancel == 0)
+				{
+				try {
+					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Fansub.txt"));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				
+				String[] newFansub = {};
+				fansubList = newFansub;
+				fansubMap.clear();
+				animeInformation.fansubComboBox.removeAllItems();
+				
+				animeInformation.setBlank();
+				JOptionPane.showMessageDialog(mainFrame, "Fansub eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		mnElimina.add(mntmEliminaFansub);
+		
+		JMenu mnEliminaLista = new JMenu("Elimina Lista");
+		mnElimina.add(mnEliminaLista);
+		
+		JMenuItem mntmAnimeCompletati = new JMenuItem("Anime Completati");
+		mntmAnimeCompletati.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti gli Anime Completati?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (shouldCancel == 0)
+				{
+				try {
+					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "completed.txt"));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				completedModel.clear();
+				
+				completedMap.clear();
+				
+				animeInformation.setBlank();
+				JOptionPane.showMessageDialog(mainFrame, "Anime Completati eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		mnEliminaLista.add(mntmAnimeCompletati);
+		
+		JMenuItem mntmAnimeInCorso = new JMenuItem("Anime in Corso");
+		mntmAnimeInCorso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti gli Anime in Corso?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (shouldCancel == 0)
+				{
+				try {
+					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "airing.txt"));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				airingModel.clear();
+				
+				airingMap.clear();
+				
+				animeInformation.setBlank();
+				JOptionPane.showMessageDialog(mainFrame, "Anime in Corso eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		mnEliminaLista.add(mntmAnimeInCorso);
+		
+		JMenuItem mntmOav = new JMenuItem("OAV");
+		mntmOav.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti gli OAV?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (shouldCancel == 0)
+				{
+				try {
+					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "ova.txt"));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				ovaModel.clear();
+				
+				ovaMap.clear();
+				
+				animeInformation.setBlank();
+				JOptionPane.showMessageDialog(mainFrame, "OAV eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		mnEliminaLista.add(mntmOav);
+		
+		JMenuItem mntmFilm = new JMenuItem("Film");
+		mntmFilm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti i Film", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (shouldCancel == 0)
+				{
+				try {
+					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "film.txt"));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				filmModel.clear();
+				
+				filmMap.clear();
+				
+				animeInformation.setBlank();
+				JOptionPane.showMessageDialog(mainFrame, "Film eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		mnEliminaLista.add(mntmFilm);
+		
+		JMenuItem mntmCompletiDaVedere = new JMenuItem("Completi da Vedere");
+		mntmCompletiDaVedere.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti gli Anime Completi da Vedere", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (shouldCancel == 0)
+				{
+				try {
+					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "toSee.txt"));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				completedToSeeModel.clear();
+				
+				completedToSeeMap.clear();
+				
+				animeInformation.setBlank();
+				JOptionPane.showMessageDialog(mainFrame, "Completi da Vedere eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		mnEliminaLista.add(mntmCompletiDaVedere);
 		mntmDeleteImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti i dati?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -316,7 +457,6 @@ public class AnimeIndex extends JFrame
 				}
 			}
 		});
-		mnMenu.add(mntmDeleteImage);
 		
 		JSeparator separator_1 = new JSeparator();
 		mnMenu.add(separator_1);
