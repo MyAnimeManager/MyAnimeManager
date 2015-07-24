@@ -342,7 +342,7 @@ public class AddImageDialog extends JDialog
 						AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
 								oldData.getNote(), imageName + ".png", "Concluso", oldData.getId(),
 								oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
-								oldData.getFinishDate(), oldData.getDurationEp());
+								oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
 						animeMap.put(name, newData);
 						AnimeIndex.animeInformation.setImage(IMAGE_PATH + imageName + ".png");
 						AnimeIndex.animeTypeComboBox.setSelectedItem(selectedList);

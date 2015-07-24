@@ -17,12 +17,14 @@ public class AnimeData
 	String releaseDate;
 	String finishDate;
 	String durationEp;
+	Boolean bd;
 	//tipo anime, data di inizio e fine
 
 	private final static String IMAGE_PATH = FileManager.getImageFolderPath();
 		
 	public AnimeData(String currentEpisode, String totalEpisode, String fansub, String note, String image, 
-					 String day, String id, String linkName, String link, String animeType, String releaseDate, String finishDate, String durationEp)
+					 String day, String id, String linkName, String link, String animeType, String releaseDate, 
+					 String finishDate, String durationEp, Boolean bd)
 	{
 		this.currentEpisode = currentEpisode;
 		this.totalEpisode = totalEpisode;
@@ -37,6 +39,7 @@ public class AnimeData
 		this.releaseDate = releaseDate;
 		this.finishDate = finishDate;
 		this.durationEp = durationEp;
+		this.bd = bd;
 	}
 	
 	public String getLinkName()
@@ -108,9 +111,13 @@ public class AnimeData
 	{
 		return durationEp;
 	}
+	public boolean getBd()
+	{
+		return bd;
+	}
 	public String toString()
 	{
-		String string = this.getCurrentEpisode() + "||" + this.getTotalEpisode() + "||" + this.getFansub() + "||" + this.getNote() + "||" + this.getImageName() + "||" + this.getDay() + "||" + this.getId() + "||" + this.getLinkName() + "||" + this.getLink() + "||" + this.getAnimeType() + "||" + this.getReleaseDate() + "||" + this.getFinishDate() + "||" + this.getDurationEp();
+		String string = this.getCurrentEpisode() + "||" + this.getTotalEpisode() + "||" + this.getFansub() + "||" + this.getNote() + "||" + this.getImageName() + "||" + this.getDay() + "||" + this.getId() + "||" + this.getLinkName() + "||" + this.getLink() + "||" + this.getAnimeType() + "||" + this.getReleaseDate() + "||" + this.getFinishDate() + "||" + this.getDurationEp() + "||" + this.getBd();
 		return string;
 	}
 }

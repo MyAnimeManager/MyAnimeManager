@@ -118,7 +118,7 @@ public class SetLinkDialog extends JDialog {
 								AnimeData oldData = map.get(name);
 								AnimeData data = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
 												oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(), AnimeIndex.animeInformation.setLinkButton.getText(), 
-												linkField.getText(), oldData.getAnimeType(), oldData.getReleaseDate(), oldData.getFinishDate(), oldData.getDurationEp());
+												linkField.getText(), oldData.getAnimeType(), oldData.getReleaseDate(), oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
 								map.put(name, data);
 								
 								JButton but = (JButton) e.getSource();

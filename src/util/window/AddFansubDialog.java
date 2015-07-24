@@ -31,7 +31,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 //TODO ultimare la possibilita' di aggiornare il nome e/o il link di un fansub
-//TODO impedire l'impostazione automatica del primo fansub in lista su tutti gli anime, al piu' che venga inserito ----- (ma che nn venga mostrato nella lista dei fansub)
+//TODO impedire l'impostazione automatica del primo fansub in lista su tutti gli anime, al piu' che venga inserito ????? (ma che nn venga mostrato nella lista dei fansub)
 //TODO completare la funzione salva della sezione al fine di evitare il tilt del programma come accaduto
 //TODO indagare su un possibile bug del programma indotto dall'impostazione di un fansub ai vari anime
 //TODO inserire in lista e impedirne la rimozione di Dynit, Yamato Animation, Crunchyroll, (ci sarebeb anche Viewster ma nn so se e' il caso di metterla)

@@ -313,12 +313,7 @@ public class AnimeIndex extends JFrame
 				String[] newFansub = {};
 				fansubList = newFansub;
 				
-				animeInformation.setImage("deafult");
-				animeInformation.setAnimeName("Anime");
-				animeInformation.setCurrentEp("");
-				animeInformation.setTotalEp("");
-				animeInformation.setLink("");
-				animeInformation.setDay("-----");
+				animeInformation.setBlank();
 				animeInformation.fansubComboBox.removeAllItems();
 				JOptionPane.showMessageDialog(mainFrame, "Dati eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				}
@@ -1021,7 +1016,8 @@ public class AnimeIndex extends JFrame
 			String image = AnimeIndex.completedMap.get(name).getImageName();
 			String id = AnimeIndex.completedMap.get(name).getId();
 			String link = AnimeIndex.completedMap.get(name).getLink();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
+			Boolean bd = AnimeIndex.completedMap.get(name).getBd();
+			AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
 			AnimeIndex.completedMap.put(name, data);
 			}
 		else if (list.equalsIgnoreCase("Anime in Corso"))
@@ -1029,7 +1025,8 @@ public class AnimeIndex extends JFrame
 			String image = AnimeIndex.airingMap.get(name).getImageName();
 			String id = AnimeIndex.airingMap.get(name).getId();
 			String link = AnimeIndex.airingMap.get(name).getLink();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
+			Boolean bd = AnimeIndex.airingMap.get(name).getBd();
+			AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
 			AnimeIndex.airingMap.put(name, data);
 			}
 		else if (list.equalsIgnoreCase("OAV"))
@@ -1037,7 +1034,8 @@ public class AnimeIndex extends JFrame
 			String image = AnimeIndex.ovaMap.get(name).getImageName();
 			String id = AnimeIndex.ovaMap.get(name).getId();
 			String link = AnimeIndex.ovaMap.get(name).getLink();
-			AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
+			Boolean bd = AnimeIndex.ovaMap.get(name).getBd();
+			AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
 			AnimeIndex.ovaMap.put(name, data);
 			}
 		else if (list.equalsIgnoreCase("Film"))
@@ -1045,7 +1043,8 @@ public class AnimeIndex extends JFrame
 			String image = AnimeIndex.filmMap.get(name).getImageName();
 			String id = AnimeIndex.filmMap.get(name).getId();
 			String link = AnimeIndex.filmMap.get(name).getLink();
-			AnimeData data = new AnimeData(currEp, totEp, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
+			Boolean bd = AnimeIndex.filmMap.get(name).getBd();
+			AnimeData data = new AnimeData(currEp, totEp, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
 			AnimeIndex.filmMap.put(name, data);
 		}
 		else if (list.equalsIgnoreCase("Completi Da Vedere"))
@@ -1053,7 +1052,8 @@ public class AnimeIndex extends JFrame
 			String image = AnimeIndex.completedToSeeMap.get(name).getImageName();
 			String id = AnimeIndex.completedToSeeMap.get(name).getId();
 			String link = AnimeIndex.completedToSeeMap.get(name).getLink();
-			AnimeData data = new AnimeData(currEp, totEp, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp);
+			Boolean bd = AnimeIndex.completedToSeeMap.get(name).getBd();
+			AnimeData data = new AnimeData(currEp, totEp, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
 			AnimeIndex.completedToSeeMap.put(name, data);
 		}
 	}
