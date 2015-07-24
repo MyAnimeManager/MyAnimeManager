@@ -31,8 +31,9 @@ public class SetCheckDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public SetCheckDialog() {
+		setAlwaysOnTop(true);
 		setResizable(false);
-		setBounds(100, 100, 221, 198);
+		setBounds(100, 100, 232, 198);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
