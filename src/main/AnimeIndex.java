@@ -396,8 +396,7 @@ public class AnimeIndex extends JFrame
 		        	searchBar.setText("");
 		        	}
 		        
-		        JList list = getJList();
-		        list.setSelectedIndex(0);
+		       AnimeIndex.animeInformation.setBlank();
 		        String type = getList();
 		        // disabilitazione pulsanti vari
 		        if(type.equalsIgnoreCase("uscite del giorno"))
