@@ -39,7 +39,6 @@ public class PreferenceDialog extends JDialog
 	private JCheckBox rdbtnLastList;
 	private JCheckBox rdbtnChooseList;
 	private JComboBox choosedList;
-	private JTextField defaultImageDirectoryField;
 
 	/**
 	 * Create the dialog.
@@ -210,55 +209,10 @@ public class PreferenceDialog extends JDialog
 					}
 				}
 			});
-//			DefaultImageButton.addActionListener(new ActionListener() {
-//				public void actionPerformed(ActionEvent e) {
-//					if(defaultImageDirectoryField.getText() != null && !(defaultImageDirectoryField.getText().isEmpty()))
-//						{
-//						String dir =defaultImageDirectoryField.getText();
-//						if(defaultImageDirectoryField.getText().substring(defaultImageDirectoryField.getText().length()-1).equals("\"") && defaultImageDirectoryField.getText().substring(0, 1).equals("\""))
-//							dir = defaultImageDirectoryField.getText().substring(1, defaultImageDirectoryField.getText().length()-1);
-//						if(dir.substring(dir.length()-4).equals(".png")){
-//							File image = new File(dir);
-//							try{
-//							BufferedImage bufimg = ImageIO.read (image);
-//
-//							int width = bufimg.getWidth ();
-//							int height = bufimg.getHeight ();
-//					    
-//							if(width == 225 && height == 310){
-//								FileManager.saveDefaultImage(dir, "default");
-//								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
-//								AnimeIndex.animeInformation.setBlank();
-//							}								
-//							else
-//								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Le dimensioni dell'immagine non sono corrette.", "Errore!", JOptionPane.ERROR_MESSAGE);
-//							}
-//						catch(IOException e2){
-//							e2.printStackTrace();}
-//						}
-//						else
-//							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il formato dell'immagine deve essere .png\n\rSe si e' sicuri che il formato dell'immagine\n\rsia .png, assicurarsi che tale estensione\n\rsegua il nome dell'immagine nella dichiarazione\n\rdel percorso.", "Errore!", JOptionPane.ERROR_MESSAGE);}					
-//					else
-//						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessuna immagine trovata.\n\rIl percorso potrebbe non essere corretto.", "Errore!", JOptionPane.ERROR_MESSAGE);					
-//				}
-//			});
-			{
-				JScrollPane defaultImageDirectoryScrollPane = new JScrollPane();
-				GridBagConstraints gbc_defaultImageDirectoryScrollPane = new GridBagConstraints();
-				gbc_defaultImageDirectoryScrollPane.insets = new Insets(0, 0, 5, 5);
-				gbc_defaultImageDirectoryScrollPane.fill = GridBagConstraints.BOTH;
-				gbc_defaultImageDirectoryScrollPane.gridx = 1;
-				gbc_defaultImageDirectoryScrollPane.gridy = 5;
-				contentPanel.add(defaultImageDirectoryScrollPane, gbc_defaultImageDirectoryScrollPane);
-				{
-					defaultImageDirectoryField = new JTextField();
-					defaultImageDirectoryScrollPane.setViewportView(defaultImageDirectoryField);
-					defaultImageDirectoryField.setColumns(10);
-				}
-			}
 			GridBagConstraints gbc_DefaultImageButton = new GridBagConstraints();
-			gbc_DefaultImageButton.insets = new Insets(0, 0, 5, 0);
-			gbc_DefaultImageButton.gridx = 2;
+			gbc_DefaultImageButton.fill = GridBagConstraints.HORIZONTAL;
+			gbc_DefaultImageButton.insets = new Insets(0, 0, 5, 5);
+			gbc_DefaultImageButton.gridx = 1;
 			gbc_DefaultImageButton.gridy = 5;
 			contentPanel.add(DefaultImageButton, gbc_DefaultImageButton);
 		}
