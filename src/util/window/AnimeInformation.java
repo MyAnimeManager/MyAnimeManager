@@ -31,6 +31,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.text.AbstractDocument;
 
 import main.AnimeIndex;
@@ -61,6 +62,17 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.SwingConstants;
+
+import org.pushingpixels.lafwidget.contrib.blogofbug.swing.SwingBugUtilities;
+
+import java.awt.event.HierarchyListener;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class AnimeInformation extends JPanel
 {
@@ -97,6 +109,7 @@ public class AnimeInformation extends JPanel
 	public JTextField releaseDateField;
 	private JLabel lblDurata;
 	public JTextField durationField;
+	private ActionListener act;
 
 	/**
 	 * Create the panel.
@@ -360,8 +373,7 @@ public class AnimeInformation extends JPanel
 				}
 
 				else
-					fansubButton.setEnabled(false);
-				
+					fansubButton.setEnabled(false);	
 			}
 		});
 		GridBagConstraints gbc_fansubComboBox = new GridBagConstraints();
@@ -534,59 +546,8 @@ public class AnimeInformation extends JPanel
 		gbc_lblTipo.gridy = 8;
 		add(lblTipo, gbc_lblTipo);
 		
-//TODO importare tipo anime da anilist; se sconosciuto lasciare -----
+//TODO debuggare
 		typeComboBox = new JComboBox();
-		typeComboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String bd = (String)typeComboBox.getSelectedItem();
-				String section = (String)AnimeIndex.animeTypeComboBox.getSelectedItem();
-				if(section.equalsIgnoreCase("anime completati") || section.equalsIgnoreCase("Completi Da Vedere"))
-				{
-				if(bd.equalsIgnoreCase("blu-ray")){
-					int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "Inserire in \"Anime in Corso\" come tipo: Blu-ray?", "Richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-				if(shouldCancel==0)
-				{
-					String name = lblAnimeName.getText();
-					DefaultListModel model = null;
-					JList list = null;
-					TreeMap<String,AnimeData> map = null;								
-					if (section.equalsIgnoreCase("Completi Da Vedere"))
-					{
-						model = AnimeIndex.completedToSeeModel;
-						list = AnimeIndex.completedToSeeList;
-						map = AnimeIndex.completedToSeeMap;
-					}
-					else 
-					{
-						model = AnimeIndex.completedModel;
-						list = AnimeIndex.completedList;
-						map = AnimeIndex.completedMap;
-					}
-					AnimeData oldData = map.get(name);
-					AnimeData newData = new AnimeData("1", oldData.getTotalEpisode(), oldData.getFansub(), 
-						    oldData.getNote(), oldData.getImageName(), "Irregolare", oldData.getId(),
-							oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), 
-							oldData.getFinishDate(), oldData.getDurationEp());
-					map.remove(name);
-					AnimeIndex.airingMap.put(name, newData);
-					int index = list.getSelectedIndex();
-					model.removeElementAt(index);
-					AnimeIndex.airingModel.addElement(name);
-					
-					AnimeIndex.animeInformation.minusButton.setEnabled(true);
-				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
-				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
-				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
-
-				    if(index-1>=0)
-						list.setSelectedIndex(index-1);
-				    else
-				    AnimeIndex.animeInformation.setBlank();
-				}
-				}
-				}
-			}
-		});
 		typeComboBox.setModel(new DefaultComboBoxModel(new String[] {"-----", "TV", "Movie", "Special", "OVA", "ONA", "TV Short", "Blu-ray"}));
 		GridBagConstraints gbc_typeComboBox = new GridBagConstraints();
 		gbc_typeComboBox.gridwidth = 2;
@@ -595,6 +556,63 @@ public class AnimeInformation extends JPanel
 		gbc_typeComboBox.gridx = 14;
 		gbc_typeComboBox.gridy = 8;
 		add(typeComboBox, gbc_typeComboBox);
+		
+		String type = AnimeIndex.getList();
+		String bd = (String)typeComboBox.getSelectedItem();
+		if(!(type.equalsIgnoreCase("anime completati")) && !(type.equalsIgnoreCase("completi da vedere")))
+        {
+				act = new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String section = (String)AnimeIndex.animeTypeComboBox.getSelectedItem();
+						if(section.equalsIgnoreCase("anime completati") || section.equalsIgnoreCase("Completi Da Vedere"))
+						{
+						if(bd.equalsIgnoreCase("blu-ray")){
+							int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "Inserire in \"Anime in Corso\" come tipo: Blu-ray?", "Richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+						if(shouldCancel==0)
+						{
+							String name = lblAnimeName.getText();
+							DefaultListModel model = null;
+							JList list = null;
+							TreeMap<String,AnimeData> map = null;								
+							if (section.equalsIgnoreCase("Completi Da Vedere"))
+							{
+								model = AnimeIndex.completedToSeeModel;
+								list = AnimeIndex.completedToSeeList;
+								map = AnimeIndex.completedToSeeMap;
+							}
+							else 
+							{
+								model = AnimeIndex.completedModel;
+								list = AnimeIndex.completedList;
+								map = AnimeIndex.completedMap;
+							}
+							AnimeData oldData = map.get(name);
+							AnimeData newData = new AnimeData("1", oldData.getTotalEpisode(), oldData.getFansub(), 
+								    oldData.getNote(), oldData.getImageName(), "Irregolare", oldData.getId(),
+									oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), 
+									oldData.getFinishDate(), oldData.getDurationEp());
+							map.remove(name);
+							AnimeIndex.airingMap.put(name, newData);
+							int index = list.getSelectedIndex();
+							model.removeElementAt(index);
+							AnimeIndex.airingModel.addElement(name);
+							
+							AnimeIndex.animeInformation.minusButton.setEnabled(true);
+						    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+						    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
+						    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+
+						    if(index-1>=0)
+								list.setSelectedIndex(index-1);
+						    else
+						    AnimeIndex.animeInformation.setBlank();
+						}
+						}
+						}
+					}
+				};
+			typeComboBox.addActionListener(act);
+        }
 		
 		lblNote = new JLabel("Note:");
 		GridBagConstraints gbc_lblNote = new GridBagConstraints();
@@ -661,10 +679,12 @@ public class AnimeInformation extends JPanel
 					map = AnimeIndex.completedToSeeMap;
 				}
 				AnimeData oldData = map.get(name);
+				String oldType = oldData.getAnimeType();
+			
 				AnimeData newData = new AnimeData(oldData.getTotalEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
-									oldData.getNote(), oldData.getImageName(), "Concluso", oldData.getId(),
-									oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
-									oldData.getFinishDate(), oldData.getDurationEp());
+							oldData.getNote(), oldData.getImageName(), "Concluso", oldData.getId(),
+							oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
+							oldData.getFinishDate(), oldData.getDurationEp());
 				map.remove(name);
 				AnimeIndex.completedMap.put(name, newData);
 				int index = list.getSelectedIndex();

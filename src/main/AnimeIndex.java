@@ -407,7 +407,7 @@ public class AnimeIndex extends JFrame
 		        
 		        JList list = getJList();
 		        list.setSelectedIndex(0);
-		        String type = (String) animeTypeComboBox.getSelectedItem();
+		        String type = getList();
 		        // disabilitazione pulsanti vari
 		        if(type.equalsIgnoreCase("uscite del giorno"))
 		        	addButton.setEnabled(false);
@@ -419,8 +419,6 @@ public class AnimeIndex extends JFrame
 		        		AnimeIndex.animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
 		        		AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
 		        	}
-		        	
-		        
 		        if (type.equalsIgnoreCase("anime in corso") || type.equalsIgnoreCase("anime completati") || type.equalsIgnoreCase("oav") || type.equalsIgnoreCase("film"))
 		        	AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
 		        else
@@ -522,7 +520,7 @@ public class AnimeIndex extends JFrame
 		completedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		completedList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				applyListSelectionChange();
+			applyListSelectionChange();
 				//TODO disabilitazione/abilitazione pulsanti
 			}
 		});
