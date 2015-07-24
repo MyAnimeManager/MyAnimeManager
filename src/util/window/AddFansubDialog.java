@@ -133,7 +133,9 @@ public class AddFansubDialog extends JDialog
 							    fansubMap.remove(element);
 							    deleteButton.setEnabled(false);
 							    Object[] fansub = fansubModel.toArray();
-							    AnimeIndex.setFansubList(fansub);   
+							    AnimeIndex.setFansubList(fansub); 
+							    fansubAddField.setText("");
+							    linkAddField.setText("");
 							}
 							
 						}						
