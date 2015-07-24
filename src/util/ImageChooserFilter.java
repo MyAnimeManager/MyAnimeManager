@@ -45,7 +45,7 @@ public class ImageChooserFilter extends FileFilter {
  
     //The description of this filter
     public String getDescription() {
-        return "Immagini adatte";
+        return "Adatte";
     }
     
     public static String getExtension(File f) {
