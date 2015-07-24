@@ -197,7 +197,7 @@ public class PreferenceDialog extends JDialog
 					if (returnVal == JFileChooser.APPROVE_OPTION)
 					{
 						File file = fc.getSelectedFile();
-						String dir = defaultImageDirectoryField.getText();
+						String dir = file.getPath();
 						try {
 							BufferedImage bufimg = ImageIO.read (file);
 							FileManager.saveDefaultImage(dir, "default");
