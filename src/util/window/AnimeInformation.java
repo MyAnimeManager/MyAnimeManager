@@ -43,6 +43,7 @@ import util.AnimeData;
 import util.FileManager;
 import util.PatternFilter;
 import util.SortedListModel;
+import java.awt.Cursor;
 
 public class AnimeInformation extends JPanel
 {
@@ -283,6 +284,7 @@ public class AnimeInformation extends JPanel
 		add(lblTotalEpisode, gbc_lblTotalEpisode);
 		
 		totalEpisodeText = new JTextField();
+		totalEpisodeText.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 		totalEpisodeText.setMinimumSize(new Dimension(43, 23));
 		totalEpisodeText.setPreferredSize(new Dimension(43, 23));
 		GridBagConstraints gbc_totalEpisodeText = new GridBagConstraints();
