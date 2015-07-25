@@ -7,10 +7,10 @@ import javax.swing.*;
 import java.util.*;
 //TODO mettere che lettere minuscole o maiuscole non cambia un cazzo
 public class SortedListModel extends AbstractListModel {
-  SortedSet<Object> model;
+  SortedSet<String> model;
 
   public SortedListModel() {
-    model = new TreeSet<Object>();
+    model = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
   }
 
   public int getSize() {
@@ -21,13 +21,13 @@ public class SortedListModel extends AbstractListModel {
     return model.toArray()[index];
   }
 
-  public void addElement(Object element) {
+  public void addElement(String element) {
     if (model.add(element)) {
       fireContentsChanged(this, 0, getSize());
   }
 }
-  public void addAll(Object elements[]) {
-    Collection<Object> c = Arrays.asList(elements);
+  public void addAll(String elements[]) {
+    Collection<String> c = Arrays.asList(elements);
     model.addAll(c);
     fireContentsChanged(this, 0, getSize());
   }
