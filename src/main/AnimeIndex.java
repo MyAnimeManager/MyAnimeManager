@@ -927,8 +927,7 @@ public class AnimeIndex extends JFrame
 				applyListSelectionChange();
 				AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
-				AnimeIndex.animeInformation.totalEpisodeText.setEditable(false);//TODO piccolo bug grafico a ep = totep
-				AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
+				AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);//TODO piccolo bug grafico a ep = totep
 				AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
 				AnimeIndex.animeInformation.releaseDateField.setEnabled(false);
 				AnimeIndex.animeInformation.finishDateField.setEnabled(false);
