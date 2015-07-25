@@ -740,7 +740,7 @@ public class AnimeIndex extends JFrame
 			AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 			AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 			AnimeInformation.fansubComboBox.setEnabled(true);
-			if(SetLinkDialog.linkField.getText()!=null && !SetLinkDialog.linkField.getText().isEmpty())
+			if(completedMap.get((String)completedList.getSelectedValue()).getLink()!=null && !completedMap.get((String)completedList.getSelectedValue()).getLink().isEmpty())
 				AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 			}
 		});
