@@ -32,6 +32,7 @@ public class SetCheckDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public SetCheckDialog() {
+		setTitle("Liste da Controllare");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);
 		setAlwaysOnTop(true);

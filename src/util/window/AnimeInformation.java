@@ -205,10 +205,10 @@ public class AnimeInformation extends JPanel
 					{
 						minusButton.setEnabled(true);
 					}
-					
-					if ( (totalEpisodeText.getText()) != null && (totalEpisodeText.getText().isEmpty()))
+			
+					if ((totalEpisodeText.getText()) != null && !(totalEpisodeText.getText().isEmpty()) && !totalEpisodeText.getText().equalsIgnoreCase("??"))
 					{
-						int maxnum = Integer.parseInt(totalEpisodeText.getText());
+						int maxnum = Integer.parseInt(totalEpisodeText.getText());		
 						if (num == maxnum)
 						{
 							plusButton.setEnabled(false);
@@ -247,7 +247,7 @@ public class AnimeInformation extends JPanel
 		
 		
 		//secondo numero = massimo numero a cui può arrivare
-//TODO numero massimo permesso = numero massimo episodi se questo e' diverso da ??	
+	
 		currentEpisodeField = new JTextField();
 		currentEpisodeField.setPreferredSize(new Dimension(43, 23));
 		currentEpisodeField.setMinimumSize(new Dimension(43, 23));
@@ -838,14 +838,31 @@ public class AnimeInformation extends JPanel
 			{
 				lblAnimeName.setText("Nome Anime");
 				currentEpisodeField.setText("??");
+				currentEpisodeField.setEnabled(false);
 				totalEpisodeText.setText("??");
+				totalEpisodeText.setEnabled(false);
 				noteTextArea.setText("");
+				noteTextArea.setEnabled(false);
 				exitDaycomboBox.setSelectedItem("?????");
+				exitDaycomboBox.setEnabled(false);
 				setLinkButton.setText("Imposta Link");
+				setLinkButton.setEnabled(false);
 				typeComboBox.setSelectedItem("?????");
+				typeComboBox.setEnabled(false);
 				releaseDateField.setText("??/??/????");
+				releaseDateField.setEnabled(false);
 				finishDateField.setText("??/??/????");
+				finishDateField.setEnabled(false);
 				durationField.setText("?? min");
+				durationField.setEnabled(false);
+				minusButton.setEnabled(false);
+				plusButton.setEnabled(false);
+				addToSeeButton.setEnabled(false);
+				btnAnilistInfo.setEnabled(false);
+				fansubButton.setEnabled(false);
+				fansubComboBox.setEnabled(false);
+				btnOpen.setEnabled(false);
+				
 				BufferedImage image = null;
 				try{
 					File img = new File(FileManager.getDefaultImageFolderPath()+File.separator+"default.png");

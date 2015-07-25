@@ -482,6 +482,7 @@ public class AnimeIndex extends JFrame
 		menuBar.add(mnAnichart);
 		
 		JMenuItem mntmAnichart = new JMenuItem("AniChart");
+		mntmAnichart.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/AniC.png")));
 		mnAnichart.add(mntmAnichart);
 		mntmAnichart.setHorizontalAlignment(SwingConstants.LEFT);
 		
@@ -489,6 +490,7 @@ public class AnimeIndex extends JFrame
 		mnAnichart.add(separator_4);
 		
 		JMenuItem mntmAnilist = new JMenuItem("AniList");
+		mntmAnilist.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/anilist.png")));
 		mntmAnilist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String link = "https://anilist.co/";
@@ -506,6 +508,7 @@ public class AnimeIndex extends JFrame
 		mnAnichart.add(separator_5);
 		
 		JMenuItem mntmMyAnimeList = new JMenuItem("MyAnimeList");
+		mntmMyAnimeList.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/MAL.png")));
 		mntmMyAnimeList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String link = "http://myanimelist.net/";
@@ -523,6 +526,7 @@ public class AnimeIndex extends JFrame
 		mnAnichart.add(separator_6);
 		
 		JMenuItem mntmAnimeclick = new JMenuItem("AnimeClick");
+		mntmAnimeclick.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/AC.png")));
 		mntmAnimeclick.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String link = "http://www.animeclick.it/";
@@ -540,6 +544,7 @@ public class AnimeIndex extends JFrame
 		mnAnichart.add(separator_8);
 		
 		JMenuItem mntmHummingbird = new JMenuItem("Hummingbird");
+		mntmHummingbird.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/hummingbird.me.png")));
 		mntmHummingbird.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String link = "https://hummingbird.me/";

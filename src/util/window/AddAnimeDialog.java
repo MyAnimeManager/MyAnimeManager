@@ -80,7 +80,6 @@ public class AddAnimeDialog extends JDialog
 	public SetCheckDialog checkDialog;
 	public static JToggleButton checkToggleButton;
 
-//TODO Inserire barra di caricamento
 //TODO l'aggiunta manuale e' completamente da rifare
 	/**
 	 * Create the dialog.
@@ -528,9 +527,6 @@ public class AddAnimeDialog extends JDialog
 							String name = ConnectionManager.getAnimeData("title_romaji", dataAni);
 							String totEp = ConnectionManager.getAnimeData("total_episodes", dataAni);
 							String currentEp = "1";
-							if (((String)listToAddAniComboBox.getSelectedItem()).equalsIgnoreCase("anime completati")){
-								currentEp = totEp;
-							    }
 							String fansub = "";
 							String link = ""; 
 							String animeType = ConnectionManager.getAnimeData("type", dataAni);
@@ -579,8 +575,13 @@ public class AddAnimeDialog extends JDialog
 								if (totEp.equals("1"))
 									finishDate = releaseDate;
 							}
-							
-							
+//TODO viene messo concluso nn l'anime inserito ma quello precedente in lista, nn so perche'....							
+							if (((String)listToAddAniComboBox.getSelectedItem()).equalsIgnoreCase("anime completati")){
+								currentEp = totEp;
+								AnimeIndex.animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+							    }
+							if (((String)listToAddAniComboBox.getSelectedItem()).equalsIgnoreCase("completi da vedere"))
+								AnimeIndex.animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
 							
 														
 							if (currentEp.equals(totEp))
