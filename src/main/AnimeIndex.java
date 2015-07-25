@@ -1149,7 +1149,7 @@ public class AnimeIndex extends JFrame
 				value = value.toLowerCase();
 				searchedVal = searchedVal.toLowerCase();
 				if (value.contains(searchedVal))
-					searchModel.addElement(mainArray[i]);
+					searchModel.addElement((String)mainArray[i]);
 			}
 		if (searchModel.isEmpty())
 			searchModel.addElement("Nessun Anime Corrispondente");

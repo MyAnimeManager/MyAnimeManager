@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.*;
 
 import java.util.*;
-
+//TODO mettere che lettere minuscole o maiuscole non cambia un cazzo
 public class SortedListModel extends AbstractListModel {
   SortedSet<Object> model;
 
