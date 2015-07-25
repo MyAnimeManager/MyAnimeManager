@@ -575,20 +575,18 @@ public class AddAnimeDialog extends JDialog
 								if (totEp.equals("1"))
 									finishDate = releaseDate;
 							}
-//TODO viene messo concluso nn l'anime inserito ma quello precedente in lista, nn so perche'.....							
+						
+							String exitDay = "?????";
 							if (((String)listToAddAniComboBox.getSelectedItem()).equalsIgnoreCase("anime completati")){
 								currentEp = totEp;
-								AnimeIndex.animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+								exitDay = "Concluso";
 							    }
 							if (((String)listToAddAniComboBox.getSelectedItem()).equalsIgnoreCase("completi da vedere"))
-								AnimeIndex.animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+								exitDay = "Concluso";
 							
 														
 							if (currentEp.equals(totEp))
 								AnimeIndex.animeInformation.plusButton.setEnabled(false);
-							
-							
-							
 							
 							String listName = (String) listToAddAniComboBox.getSelectedItem();
 							JList list = null;
@@ -617,7 +615,7 @@ public class AddAnimeDialog extends JDialog
 								imageName = imageName.replaceAll(">", "_");
 								imageName = imageName.replaceAll("<", "_");
 								FileManager.saveImage(imageLink, imageName);
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , "?????", Integer.toString(id), 
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
 																"", "", animeType, releaseDate, finishDate, durationEp, false);
 								
 								AnimeIndex.completedMap.put(name, data);
@@ -648,7 +646,7 @@ public class AddAnimeDialog extends JDialog
 								imageName = imageName.replaceAll(">", "_");
 								imageName = imageName.replaceAll("<", "_");
 								FileManager.saveImage(imageLink, imageName);
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , "?????", Integer.toString(id), 
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
 																"", "", animeType, releaseDate, finishDate, durationEp, false);
 								
 								AnimeIndex.airingMap.put(name, data);
@@ -679,7 +677,7 @@ public class AddAnimeDialog extends JDialog
 								imageName = imageName.replaceAll(">", "_");
 								imageName = imageName.replaceAll("<", "_");
 								FileManager.saveImage(imageLink, imageName);
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , "?????", Integer.toString(id), 
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
 										"", "", animeType, releaseDate, finishDate, durationEp, false);
 								
 								AnimeIndex.ovaMap.put(name, data);
@@ -710,7 +708,7 @@ public class AddAnimeDialog extends JDialog
 								imageName = imageName.replaceAll(">", "_");
 								imageName = imageName.replaceAll("<", "_");
 								FileManager.saveImage(imageLink, imageName);
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , "?????", Integer.toString(id), 
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
 										"", "", animeType, releaseDate, finishDate, durationEp, false);
 								
 								
@@ -742,7 +740,7 @@ public class AddAnimeDialog extends JDialog
 								imageName = imageName.replaceAll(">", "_");
 								imageName = imageName.replaceAll("<", "_");
 								FileManager.saveImage(imageLink, imageName);
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , "?????", Integer.toString(id), 
+								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
 																"", "", animeType, releaseDate, finishDate, durationEp,false);
 								
 								AnimeIndex.completedToSeeMap.put(name, data);
