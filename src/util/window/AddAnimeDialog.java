@@ -575,7 +575,7 @@ public class AddAnimeDialog extends JDialog
 								if (totEp.equals("1"))
 									finishDate = releaseDate;
 							}
-//TODO viene messo concluso nn l'anime inserito ma quello precedente in lista, nn so perche'....							
+//TODO viene messo concluso nn l'anime inserito ma quello precedente in lista, nn so perche'.....							
 							if (((String)listToAddAniComboBox.getSelectedItem()).equalsIgnoreCase("anime completati")){
 								currentEp = totEp;
 								AnimeIndex.animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
