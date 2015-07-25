@@ -259,6 +259,7 @@ public class AnimeInformation extends JPanel
 		add(currentEpisodeField, gbc_currentEpisodeField);
 		currentEpisodeField.setColumns(3);
 		((AbstractDocument)currentEpisodeField.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,4}||\\?{0,2}"));
+		
 		GridBagConstraints gbc_plusButton = new GridBagConstraints();
 		gbc_plusButton.anchor = GridBagConstraints.WEST;
 		gbc_plusButton.insets = new Insets(0, 0, 5, 5);
