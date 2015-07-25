@@ -153,7 +153,6 @@ public class AnimeIndex extends JFrame
 				try {
 					AnimeIndex frame = new AnimeIndex();
 					frame.setVisible(true);
-					completedList.setSelectedIndex(0);
 					
 				} catch (Exception e) {
 					e.printStackTrace();
