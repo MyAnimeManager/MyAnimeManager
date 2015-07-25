@@ -90,11 +90,11 @@ public class AnimeInformation extends JPanel
 	public JButton minusButton;
 	public JButton plusButton;
 	public JLabel lblAnimeName;
-	public static JComboBox fansubComboBox;
+	public static  JComboBox fansubComboBox;
 	public JButton finishedButton;
 	public JButton btnOpen;
 	public JLabel lblEpisode;
-	private JButton btnAnilistInfo;
+	public JButton btnAnilistInfo;
 	public JTextArea noteTextArea;
 	private JScrollPane scrollPane;
 	public JLabel animeImage;

@@ -23,7 +23,7 @@ import util.AnimeData;
 public class SetLinkDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField linkField;
+	public static JTextField linkField;
 	public static JTextField linkNameField;
 	
 	/**

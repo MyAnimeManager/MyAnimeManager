@@ -66,6 +66,7 @@ import util.window.ExitSaveDialog;
 import util.window.PreferenceDialog;
 import util.window.SetAnimeNameDialog;
 import util.window.SetFilterDialog;
+import util.window.SetLinkDialog;
 
 import javax.swing.JToggleButton;
 import javax.swing.JRadioButtonMenuItem;
@@ -727,7 +728,20 @@ public class AnimeIndex extends JFrame
 		completedList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 			applyListSelectionChange();
-				//TODO disabilitazione/abilitazione pulsanti
+			AnimeIndex.animeInformation.minusButton.setEnabled(false);
+			AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
+			AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
+			AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+			AnimeIndex.animeInformation.releaseDateField.setEnabled(false);
+			AnimeIndex.animeInformation.finishDateField.setEnabled(false);
+			AnimeIndex.animeInformation.durationField.setEnabled(false);
+			AnimeIndex.animeInformation.noteTextArea.setEnabled(true);
+			AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
+			AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
+			AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
+			AnimeInformation.fansubComboBox.setEnabled(true);
+			if(SetLinkDialog.linkField.getText()!=null && !SetLinkDialog.linkField.getText().isEmpty())
+				AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 			}
 		});
 
