@@ -597,6 +597,7 @@ public class AnimeIndex extends JFrame
 		animeTypeComboBox.setMaximumRowCount(2139120439);
 		animeTypeComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent evt) {
+				//TODO mettere che salva anche quando cambia lista( basta fare uan variabile che tiene conto della ultima lsita selezionata e mettere un try catch nel metodo saveModifiedInformation() che salvi usando la lista precedente.
 				CardLayout cl = (CardLayout)(cardContainer.getLayout());
 		        cl.show(cardContainer, (String)evt.getItem());
 		        if (deleteButton.isEnabled())
@@ -609,7 +610,6 @@ public class AnimeIndex extends JFrame
 		        	completedToSeeList.clearSelection();
 		        	searchBar.setText("");
 		        	}
-		        
 		       AnimeIndex.animeInformation.setBlank();
 		        String type = getList();
 		        // disabilitazione pulsanti vari
