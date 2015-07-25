@@ -123,6 +123,7 @@ public class AnimeIndex extends JFrame
 	private SearchBar searchBar;
 	public static AddFansubDialog fansubDialog;
 	public static JButton setFilterButton;
+	private JList list;
 	public static boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
 	/**
 	 * Launch the application.
@@ -880,7 +881,7 @@ public class AnimeIndex extends JFrame
 				String type = (String) animeTypeComboBox.getSelectedItem();
 
 				DefaultListModel model = getModel();
-				JList list = getJList();
+				list = getJList();
 				TreeMap<String,AnimeData> map = getMap();
 				ArrayList<String> arrayList = getDeletedAnimeArray();
 				int index = list.getSelectedIndex();

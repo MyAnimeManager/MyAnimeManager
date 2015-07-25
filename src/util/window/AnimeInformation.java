@@ -65,6 +65,8 @@ import javax.swing.SwingConstants;
 
 import org.pushingpixels.lafwidget.contrib.blogofbug.swing.SwingBugUtilities;
 
+import com.sun.xml.internal.ws.util.CompletedFuture;
+
 import java.awt.event.HierarchyListener;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.InputMethodListener;
@@ -862,6 +864,7 @@ public class AnimeInformation extends JPanel
 				fansubButton.setEnabled(false);
 				fansubComboBox.setEnabled(false);
 				btnOpen.setEnabled(false);
+				finishedButton.setEnabled(false);
 				
 				BufferedImage image = null;
 				try{
