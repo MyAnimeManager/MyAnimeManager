@@ -118,8 +118,6 @@ public class AnimeInformation extends JPanel
 	public JTextField releaseDateField;
 	private JLabel lblDurata;
 	public JTextField durationField;
-	private AnimeData newData;
-
 	/**
 	 * Create the panel.
 	 * 
@@ -293,6 +291,7 @@ public class AnimeInformation extends JPanel
 						int maxnum = Integer.parseInt(totalEpisodeText.getText());
 						if (num < maxnum)
 							plusButton.setEnabled(true);
+							finishedButton.setEnabled(false);
 						}
 					}
 				}
@@ -471,8 +470,6 @@ public class AnimeInformation extends JPanel
 				setLink = new SetLinkDialog();
 				setLink.setLocationRelativeTo(AnimeIndex.mainFrame);
 				setLink.setVisible(true);
-//TODO il pulsante apri link si attiva anche se nn ce nessun link inserito se sul fansub selezionato ce un link inserito
-//TODO (possibilita' di salvare piu' link)(?)
 			}
 		});
 		GridBagConstraints gbc_btnScegliLink = new GridBagConstraints();
@@ -568,7 +565,7 @@ public class AnimeInformation extends JPanel
 				{
 				if(bdType.equalsIgnoreCase("blu-ray"))
 				{
-				int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "Inserire in \"Anime in Corso\" come tipo: Blu-ray?", "Richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "Spostare l'Anime in \"Anime in Corso\" come tipo: Blu-ray?", "Richiesta", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if(shouldCancel==0)
 				{
 					String name = lblAnimeName.getText();
@@ -588,7 +585,7 @@ public class AnimeInformation extends JPanel
 						map = AnimeIndex.completedMap;
 					}
 					AnimeData oldData = map.get(name);
-					newData = new AnimeData("1", oldData.getTotalEpisode(), oldData.getFansub(), 
+					AnimeData newData = new AnimeData("1", oldData.getTotalEpisode(), oldData.getFansub(), 
 						    oldData.getNote(), oldData.getImageName(), "Irregolare", oldData.getId(),
 							oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), 
 							oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
@@ -608,6 +605,40 @@ public class AnimeInformation extends JPanel
 						list.setSelectedIndex(index-1);
 				    else
 				    setBlank();
+				}
+				if(shouldCancel==1)
+				{	
+					String name = lblAnimeName.getText();
+					TreeMap<String,AnimeData> map = null;								
+					if (section.equalsIgnoreCase("Completi Da Vedere"))
+					{
+						map = AnimeIndex.completedToSeeMap;
+					}
+					else 
+					{
+						map = AnimeIndex.completedMap;
+					}
+					AnimeData oldData = map.get(name);
+					AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
+						    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
+							oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), 
+							oldData.getFinishDate(), oldData.getDurationEp(), true);
+					map.put(name, newData);
+				}
+				else
+				{
+					String name = lblAnimeName.getText();
+					TreeMap<String,AnimeData> map = null;								
+					if (section.equalsIgnoreCase("Completi Da Vedere"))
+					{
+						map = AnimeIndex.completedToSeeMap;
+					}
+					else 
+					{
+						map = AnimeIndex.completedMap;
+					}
+					AnimeData oldData = map.get(name);
+					typeComboBox.setSelectedItem(oldData.getAnimeType());
 				}
 				}
 				}
