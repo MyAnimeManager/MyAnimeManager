@@ -620,6 +620,7 @@ public class AddAnimeDialog extends JDialog
 								
 								AnimeIndex.completedMap.put(name, data);
 								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+								AnimeIndex.completedList.clearSelection();
 								AnimeIndex.completedList.setSelectedValue(name, true);
 								AnimeIndex.completedSessionAnime.add(name);
 								}
@@ -651,6 +652,7 @@ public class AddAnimeDialog extends JDialog
 								
 								AnimeIndex.airingMap.put(name, data);
 								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+								AnimeIndex.completedList.clearSelection();
 								AnimeIndex.airingList.setSelectedValue(name, true);
 								AnimeIndex.airingSessionAnime.add(name);
 								}
@@ -682,6 +684,7 @@ public class AddAnimeDialog extends JDialog
 								
 								AnimeIndex.ovaMap.put(name, data);
 								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+								AnimeIndex.completedList.clearSelection();
 								AnimeIndex.ovaList.setSelectedValue(name, true);
 								AnimeIndex.ovaSessionAnime.add(name);
 								}
@@ -714,6 +717,7 @@ public class AddAnimeDialog extends JDialog
 								
 								AnimeIndex.filmMap.put(name, data);
 								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+								AnimeIndex.completedList.clearSelection();
 								AnimeIndex.filmList.setSelectedValue(name, true);
 								AnimeIndex.filmSessionAnime.add(name);
 								}
@@ -745,6 +749,7 @@ public class AddAnimeDialog extends JDialog
 								
 								AnimeIndex.completedToSeeMap.put(name, data);
 								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+								AnimeIndex.completedList.clearSelection();
 								AnimeIndex.completedToSeeList.setSelectedValue(name, true);
 								AnimeIndex.completedToSeeSessionAnime.add(name);
 								}
