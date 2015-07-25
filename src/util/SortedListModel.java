@@ -2,11 +2,8 @@ package util;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-
 import javax.swing.*;
+
 import java.util.*;
 
 public class SortedListModel extends AbstractListModel {
@@ -24,7 +21,7 @@ public class SortedListModel extends AbstractListModel {
     return model.toArray()[index];
   }
 
-  public void add(Object element) {
+  public void addElement(Object element) {
     if (model.add(element)) {
       fireContentsChanged(this, 0, getSize());
   }
@@ -63,4 +60,29 @@ public class SortedListModel extends AbstractListModel {
     }
     return removed;
   }
+
+public boolean isEmpty()
+{
+	if (this.getSize() == 0)
+		return true;
+	else
+		return false;
+}
+
+public Object[] toArray()
+{
+	Object[] array = model.toArray();
+	return array;
+}
+
+public boolean removeElementAt(int index)
+{
+	Object object = getElementAt(index); 
+	boolean removed = model.remove(object);
+	    if (removed) {
+	      fireContentsChanged(this, 0, getSize());
+	    }
+	    return removed;	
+}
+
 }

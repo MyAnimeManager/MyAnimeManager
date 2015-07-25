@@ -121,7 +121,7 @@ public class FileManager
 	
 	//anime
 	
-	public static void loadAnime(String listName, DefaultListModel list, TreeMap<String,AnimeData> map)
+	public static void loadAnime(String listName, SortedListModel list, TreeMap<String,AnimeData> map)
 	{
 		File fansubFile = new File(ANIME_PATH + listName);
 		if (fansubFile.isFile()) 
@@ -185,7 +185,7 @@ public class FileManager
 			}
 	}
 	
-	public static void saveAnimeList(String file, DefaultListModel category, TreeMap<String,AnimeData> map)
+	public static void saveAnimeList(String file, SortedListModel category, TreeMap<String,AnimeData> map)
 	{
 		File animeFile = new File(ANIME_PATH + file);
 		animeFile.delete();

@@ -1,5 +1,7 @@
 package util.window;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -8,8 +10,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +21,7 @@ import java.util.TreeMap;
 
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
+import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -31,57 +34,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.LineBorder;
 import javax.swing.text.AbstractDocument;
 
 import main.AnimeIndex;
 import util.AnimeData;
 import util.FileManager;
 import util.PatternFilter;
-
-import javax.swing.ScrollPaneConstants;
-import javax.swing.border.LineBorder;
-
-import java.awt.Color;
-import java.awt.Component;
-
-import javax.swing.Box;
-
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-
-import javax.swing.JFormattedTextField;
-
-import java.awt.GridLayout;
-
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.MatteBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.UIManager;
-import javax.swing.SwingConstants;
-
-import org.pushingpixels.lafwidget.contrib.blogofbug.swing.SwingBugUtilities;
-
-import com.sun.xml.internal.ws.util.CompletedFuture;
-
-import java.awt.event.HierarchyListener;
-import java.awt.event.HierarchyEvent;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import java.awt.event.ContainerAdapter;
-import java.awt.event.ContainerEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import util.SortedListModel;
 
 public class AnimeInformation extends JPanel
 {
@@ -570,7 +531,7 @@ public class AnimeInformation extends JPanel
 				if(shouldCancel==0)
 				{
 					String name = lblAnimeName.getText();
-					DefaultListModel model = null;
+					SortedListModel model = null;
 					JList list = null;
 					TreeMap<String,AnimeData> map = null;								
 					if (section.equalsIgnoreCase("Completi Da Vedere"))
@@ -694,7 +655,7 @@ public class AnimeInformation extends JPanel
 				String name = lblAnimeName.getText();
 				String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
 				
-				DefaultListModel model = null;
+				SortedListModel model = null;
 				JList list = null;
 				TreeMap<String,AnimeData> map = null;								
 				if (type.equalsIgnoreCase("anime in corso"))
@@ -803,7 +764,7 @@ public class AnimeInformation extends JPanel
 				String name = lblAnimeName.getText();
 				String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
 				
-				DefaultListModel model = null;
+				SortedListModel model = null;
 				JList list = null;
 				TreeMap<String,AnimeData> map = null;								
 				if (type.equalsIgnoreCase("anime in corso"))

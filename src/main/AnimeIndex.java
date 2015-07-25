@@ -7,7 +7,6 @@ import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,11 +26,11 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.TreeMap;
 
-import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -58,6 +57,7 @@ import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.FileManager;
 import util.SearchBar;
+import util.SortedListModel;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
 import util.window.AddImageDialog;
@@ -66,11 +66,6 @@ import util.window.ExitSaveDialog;
 import util.window.PreferenceDialog;
 import util.window.SetAnimeNameDialog;
 import util.window.SetFilterDialog;
-import util.window.SetLinkDialog;
-
-import javax.swing.JToggleButton;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JCheckBoxMenuItem;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 //kemomimi OP
 public class AnimeIndex extends JFrame
@@ -88,13 +83,13 @@ public class AnimeIndex extends JFrame
 	private JList searchList;
 	private JList filterList;
 	
-	public static DefaultListModel completedModel = new DefaultListModel();
-	public static DefaultListModel airingModel = new DefaultListModel();
-	public static DefaultListModel ovaModel = new DefaultListModel();
-	public static DefaultListModel filmModel = new DefaultListModel();
-	public static DefaultListModel completedToSeeModel = new DefaultListModel();
-	private static DefaultListModel searchModel = new DefaultListModel();
-	private static DefaultListModel filterModel = new DefaultListModel();
+	public static SortedListModel completedModel = new SortedListModel();
+	public static SortedListModel airingModel = new SortedListModel();
+	public static SortedListModel ovaModel = new SortedListModel();
+	public static SortedListModel filmModel = new SortedListModel();
+	public static SortedListModel completedToSeeModel = new SortedListModel();
+	private static SortedListModel searchModel = new SortedListModel();
+	private static SortedListModel filterModel = new SortedListModel();
 	
 	private static String[] fansubList = {};
 	public static TreeMap<String,String> fansubMap = new TreeMap<String,String>();
@@ -653,7 +648,7 @@ public class AnimeIndex extends JFrame
 			{
 				String search = searchBar.getText();
 				String listName = getList();
-				DefaultListModel model = getModel();
+				SortedListModel model = getModel();
 				
 				CardLayout cl = (CardLayout)(cardContainer.getLayout());
 		        cl.show(cardContainer, "Ricerca");
@@ -665,7 +660,7 @@ public class AnimeIndex extends JFrame
 			{
 				String search = searchBar.getText();
 				String listName = getList();
-				DefaultListModel model = null;
+				SortedListModel model = null;
 				
 				if (listName.equalsIgnoreCase("anime completati"))
 				{	
@@ -1030,7 +1025,7 @@ public class AnimeIndex extends JFrame
 
 				String type = (String) animeTypeComboBox.getSelectedItem();
 
-				DefaultListModel model = getModel();
+				SortedListModel model = getModel();
 				list = getJList();
 				TreeMap<String,AnimeData> map = getMap();
 				ArrayList<String> arrayList = getDeletedAnimeArray();
@@ -1145,7 +1140,7 @@ public class AnimeIndex extends JFrame
 		return (String) animeTypeComboBox.getSelectedItem();
 	}
 	
-	public void SearchInList(String searchedVal, DefaultListModel modelToSearch) 
+	public void SearchInList(String searchedVal, SortedListModel modelToSearch) 
 	{
 		Object[] mainArray = modelToSearch.toArray();			
 			searchModel.clear();
@@ -1216,10 +1211,10 @@ public class AnimeIndex extends JFrame
 		return map;
 	}
 	
-	public static DefaultListModel getModel()
+	public static SortedListModel getModel()
 	{
 		String listName = getList();
-		DefaultListModel model= null;
+		SortedListModel model= null;
 		if (listName.equalsIgnoreCase("anime completati"))
 		{	
 			model = AnimeIndex.completedModel;						
