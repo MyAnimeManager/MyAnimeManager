@@ -201,7 +201,7 @@ public class AnimeIndex extends JFrame
 		JMenu mnAggiungi = new JMenu("Aggiungi");
 		mnMenu.add(mnAggiungi);
 		
-		JMenuItem mntmAggiungiFansub = new JMenuItem("Fansub");
+		JMenuItem mntmAggiungiFansub = new JMenuItem("Nuovo Fansub");
 		mnAggiungi.add(mntmAggiungiFansub);
 		
 		JMenuItem mntmAddImage = new JMenuItem("Immagine");
@@ -220,6 +220,9 @@ public class AnimeIndex extends JFrame
 				fansubDialog.setVisible(true);
 			}
 		});
+		
+		JSeparator separator_7 = new JSeparator();
+		mnMenu.add(separator_7);
 		
 		JMenuItem mntmModificaNome = new JMenuItem("Modifica Nome Anime");
 		mnMenu.add(mntmModificaNome);
@@ -475,12 +478,63 @@ public class AnimeIndex extends JFrame
 		JMenuItem mntmCredit = new JMenuItem("Crediti");
 		mnHelp.add(mntmCredit);
 		
-		JMenu mnAnichart = new JMenu("AniChart");
+		JMenu mnAnichart = new JMenu("Apri");
 		menuBar.add(mnAnichart);
 		
-		JMenuItem mntmAnichart = new JMenuItem("Apri AniChart");
+		JMenuItem mntmAnichart = new JMenuItem("AniChart");
 		mnAnichart.add(mntmAnichart);
 		mntmAnichart.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		JSeparator separator_4 = new JSeparator();
+		mnAnichart.add(separator_4);
+		
+		JMenuItem mntmAnilist = new JMenuItem("AniList");
+		mntmAnilist.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String link = "https://anilist.co/";
+				try {
+					URI uriLink = new URI(link);
+					Desktop.getDesktop().browse(uriLink);
+				} catch (URISyntaxException a) {
+				} catch (IOException a) {
+			}
+			}
+		});
+		mnAnichart.add(mntmAnilist);
+		
+		JSeparator separator_5 = new JSeparator();
+		mnAnichart.add(separator_5);
+		
+		JMenuItem mntmMyAnimeList = new JMenuItem("MyAnimeList");
+		mntmMyAnimeList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String link = "http://myanimelist.net/";
+				try {
+					URI uriLink = new URI(link);
+					Desktop.getDesktop().browse(uriLink);
+				} catch (URISyntaxException a) {
+				} catch (IOException a) {
+			}
+			}
+		});
+		mnAnichart.add(mntmMyAnimeList);
+		
+		JSeparator separator_6 = new JSeparator();
+		mnAnichart.add(separator_6);
+		
+		JMenuItem mntmAnimeclick = new JMenuItem("AnimeClick");
+		mntmAnimeclick.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String link = "http://www.animeclick.it/";
+				try {
+					URI uriLink = new URI(link);
+					Desktop.getDesktop().browse(uriLink);
+				} catch (URISyntaxException a) {
+				} catch (IOException a) {
+			}
+			}
+		});
+		mnAnichart.add(mntmAnimeclick);
 		mntmAnichart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String link = "http://anichart.net/";

@@ -46,7 +46,6 @@ public class AddFansubDialog extends JDialog
 	private JTextField fansubAddField;
 	private TreeMap<String,String> fansubMap = new TreeMap<String,String>();
 	private JButton addButton;
-	private String oldName;
 
 	/**
 	 * Create the dialog.
@@ -97,20 +96,10 @@ public class AddFansubDialog extends JDialog
 						{
 							String newFansub = fansubAddField.getText();
 							String newLink = linkAddField.getText();
-							
-							if (newFansub.equalsIgnoreCase(oldName))
-							{
+					
+								fansubMap.remove(newFansub);
 								fansubMap.put(newFansub, newLink);
-								fansubModel.removeElement(newFansub);
-								fansubModel.addElement(newFansub);
-							}
-							else
-							{
-								fansubMap.remove(oldName);
-								fansubMap.put(newFansub, newLink);
-								fansubModel.removeElement(oldName);
-								fansubModel.addElement(newFansub);
-							}
+								
 							fansubAddField.setText("");
 						    linkAddField.setText("");
 						    fansubList.clearSelection();
@@ -166,7 +155,7 @@ public class AddFansubDialog extends JDialog
 						String link = fansubMap.get(fansub);
 						fansubAddField.setText(fansub);
 						linkAddField.setText(link);
-						oldName = fansub;
+						fansubAddField.setEnabled(false);
 						}
 					}
 				});

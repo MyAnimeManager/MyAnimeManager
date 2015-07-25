@@ -310,10 +310,7 @@ public class AnimeInformation extends JPanel
 		gbc_rigidArea_1.gridx = 16;
 		gbc_rigidArea_1.gridy = 1;
 		add(rigidArea_1, gbc_rigidArea_1);
-		
-		
-//TODO se il numero di episodi totali e' sconosciuto il metodo deve inserire ?? nel field (cio' serivra' per gestire il sistema di update)	
-//TODO quando l'utente cerca di modificare i ?? viene lanciato un warning che lo avvisa della disattivazione del sistema di update per quel campo di quell'anime
+			
 		// total episode label e text field
 		JLabel lblTotalEpisode = new JLabel("Episodi Totali :");
 		GridBagConstraints gbc_lblTotalEpisode = new GridBagConstraints();
@@ -472,9 +469,8 @@ public class AnimeInformation extends JPanel
 				setLink = new SetLinkDialog();
 				setLink.setLocationRelativeTo(AnimeIndex.mainFrame);
 				setLink.setVisible(true);
-//TODO far comparire il nome del sito sul pulsante se un url con relativo nome e' stato impostato, altrimenti scrivere "Link" sul pulsante.
-//TODO di default il pulsante riporta scritto sopra "imposta link" finche' un link nn viene inserito. 
-//TODO se il link viene rimosso il nome che vi era stato associato viene cancellato e il pulsante riporta nuovamente la dicitura "Imposta Link"
+//TODO il pulsante apri link si attiva anche se nn ce nessun link inserito se sul fansub selezionato ce un link inserito
+//TODO (possibilita' di salvare piu' link)(?)
 			}
 		});
 		GridBagConstraints gbc_btnScegliLink = new GridBagConstraints();
@@ -533,7 +529,7 @@ public class AnimeInformation extends JPanel
 		gbc_lblExitDay.gridx = 10;
 		gbc_lblExitDay.gridy = 8;
 		add(lblExitDay, gbc_lblExitDay);
-//TODO per oav e film settare in automatico ????? ma se ne permetta la modifica da parte dell'utenete		
+		
 		exitDaycomboBox = new JComboBox();
 		exitDaycomboBox.setEnabled(false);
 		exitDaycomboBox.setModel(new DefaultComboBoxModel(new String[] {"?????", "Luned\u00EC", "Marted\u00EC", "Mercoled\u00EC", "Gioved\u00EC", "Venerd\u00EC", "Sabato", "Domenica", "Concluso", "Irregolare", "Sospesa"}));

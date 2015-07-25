@@ -159,6 +159,31 @@ public class SetCheckDialog extends JDialog {
 							AddAnimeDialog.checkToggleButton.setText("Nessuna Lista");
 							AddAnimeDialog.checkToggleButton.setSelected(false);
 						}
+						else if(checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
+						{
+							AddAnimeDialog.checkToggleButton.setText("Anime Completati");
+							AddAnimeDialog.checkToggleButton.setSelected(true);
+						}
+						else if(!checkCompleted.isSelected() && checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
+						{
+							AddAnimeDialog.checkToggleButton.setText("Anime in Corso");
+							AddAnimeDialog.checkToggleButton.setSelected(true);
+						}
+						else if(!checkCompleted.isSelected() && !checkAiring.isSelected() && checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
+						{
+							AddAnimeDialog.checkToggleButton.setText("OAV");
+							AddAnimeDialog.checkToggleButton.setSelected(true);
+						}
+						else if(!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && checkFilm.isSelected() && !checkToSee.isSelected())
+						{
+							AddAnimeDialog.checkToggleButton.setText("Film");
+							AddAnimeDialog.checkToggleButton.setSelected(true);
+						}
+						else if(!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && checkToSee.isSelected())
+						{
+							AddAnimeDialog.checkToggleButton.setText("Completi da Vedere");
+							AddAnimeDialog.checkToggleButton.setSelected(true);
+						}
 						else
 						{
 							AddAnimeDialog.checkToggleButton.setText("Più Liste");
