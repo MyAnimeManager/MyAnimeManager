@@ -9,7 +9,6 @@ import java.util.Properties;
 
 public class AnimeIndexProperties
 {
-	//private boolean prova = true;
 	private final static String PROPERTIES_PATH = FileManager.getAppDataPath() + "properties.properties";
 	private static Properties applicationProps;
 	public static Properties createProperties() 
@@ -22,6 +21,7 @@ public class AnimeIndexProperties
 			defaultProps.load(in);
 			defaultProps.setProperty("List_to_visualize_at_start", "Anime completati");
 			defaultProps.setProperty("Update_system", "false");
+			defaultProps.setProperty("List_to_Check", "None");
 			in.close();
 		} 
 		catch (FileNotFoundException fe)
@@ -32,6 +32,7 @@ public class AnimeIndexProperties
 				prop.createNewFile();
 				defaultProps.setProperty("Update_system", "false");
 				defaultProps.setProperty("List_to_visualize_at_start", "Anime completati");
+				defaultProps.setProperty("List_to_Check", "None");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

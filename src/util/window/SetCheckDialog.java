@@ -7,11 +7,18 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JCheckBox;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.JSeparator;
+
+import main.AnimeIndex;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -154,11 +161,13 @@ public class SetCheckDialog extends JDialog {
 						{	
 							AddAnimeDialog.checkToggleButton.setText("Tutte le Liste");
 							AddAnimeDialog.checkToggleButton.setSelected(true);
+							AnimeIndex.appProp.setProperty("List_to_Check", "All");
 					    }
 						else if(!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
 						{
 							AddAnimeDialog.checkToggleButton.setText("Nessuna Lista");
 							AddAnimeDialog.checkToggleButton.setSelected(false);
+							AnimeIndex.appProp.setProperty("List_to_Check", "None");
 						}
 						else if(checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
 						{
@@ -212,10 +221,29 @@ public class SetCheckDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		if(checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
+//		if(checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
+//			allCheckButton.setEnabled(false);
+//		if(!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
+//			noneCheckButton.setEnabled(false);
+		
+		if (AnimeIndex.appProp.getProperty("List_to_Check").equalsIgnoreCase("all"))
+		{
+			checkCompleted.setSelected(true); 
+			checkAiring.setSelected(true);
+			checkOAV.setSelected(true);
+			checkFilm.setSelected(true); 
+			checkToSee.setSelected(true);
 			allCheckButton.setEnabled(false);
-		if(!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
+		}
+		else
+		{
+			checkCompleted.setSelected(false); 
+			checkAiring.setSelected(false);
+			checkOAV.setSelected(false);
+			checkFilm.setSelected(false); 
+			checkToSee.setSelected(false);
 			noneCheckButton.setEnabled(false);
+		}
 	}
 
 }
