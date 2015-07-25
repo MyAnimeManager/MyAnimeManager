@@ -450,6 +450,8 @@ public class AnimeIndex extends JFrame
 				String[] newFansub = {};
 				fansubList = newFansub;
 				
+				JList list = getJList();
+				list.clearSelection();
 				animeInformation.setBlank();
 				animeInformation.fansubComboBox.removeAllItems();
 				JOptionPane.showMessageDialog(mainFrame, "Dati eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
