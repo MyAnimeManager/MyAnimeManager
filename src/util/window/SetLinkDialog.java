@@ -152,6 +152,7 @@ public class SetLinkDialog extends JDialog {
 										oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
 								map.put(name, newData);
 								AnimeIndex.animeInformation.link = "";
+								AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 								JButton but = (JButton) e.getSource();
 								JDialog dialog = (JDialog) but.getTopLevelAncestor();
 								dialog.dispose();
