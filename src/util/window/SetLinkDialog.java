@@ -12,6 +12,7 @@ import java.util.TreeMap;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -141,6 +142,15 @@ public class SetLinkDialog extends JDialog {
 								AnimeIndex.animeInformation.setLinkButton.setText("Imposta Link");
 								linkNameField.setText("");
 								linkField.setText("");
+								JList list = AnimeIndex.getJList();
+								TreeMap<String,AnimeData> map = AnimeIndex.getMap();
+								String name = (String) list.getSelectedValue();
+								AnimeData oldData = map.get(name);
+								AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
+									    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
+										"", "", oldData.getAnimeType(), oldData.getReleaseDate(), 
+										oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
+								map.put(name, newData);
 								JButton but = (JButton) e.getSource();
 								JDialog dialog = (JDialog) but.getTopLevelAncestor();
 								dialog.dispose();
