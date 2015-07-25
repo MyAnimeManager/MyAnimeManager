@@ -771,6 +771,15 @@ public class AddAnimeDialog extends JDialog
 				}
 			}
 		}
+		//TODO
+		if (AnimeIndex.appProp.getProperty("List_to_Check").equalsIgnoreCase("all"))
+		{
+			checkToggleButton.setText("Tutte le liste");
+		}
+		else
+		{
+			checkToggleButton.setText("Nessuna Lista");
+		}
 	}
 	
 	public String getName()
