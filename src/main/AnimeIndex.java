@@ -535,6 +535,23 @@ public class AnimeIndex extends JFrame
 			}
 		});
 		mnAnichart.add(mntmAnimeclick);
+		
+		JSeparator separator_8 = new JSeparator();
+		mnAnichart.add(separator_8);
+		
+		JMenuItem mntmHummingbird = new JMenuItem("Hummingbird");
+		mntmHummingbird.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String link = "https://hummingbird.me/";
+				try {
+					URI uriLink = new URI(link);
+					Desktop.getDesktop().browse(uriLink);
+				} catch (URISyntaxException a) {
+				} catch (IOException a) {
+			}
+			}
+		});
+		mnAnichart.add(mntmHummingbird);
 		mntmAnichart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String link = "http://anichart.net/";
@@ -849,7 +866,7 @@ public class AnimeIndex extends JFrame
 		panel.add(buttonPanel, BorderLayout.SOUTH);
 		buttonPanel.setLayout(new BorderLayout(0, 0));
 
-		deleteButton = new JButton("Elimina");
+		deleteButton = new JButton("Elimina Anime");
 		deleteButton.setPreferredSize(new Dimension(159, 21));
 		deleteButton.setMaximumSize(new Dimension(159, 21));
 		deleteButton.addActionListener(new ActionListener() {
@@ -884,7 +901,7 @@ public class AnimeIndex extends JFrame
 		buttonPanel.add(deleteButton, BorderLayout.CENTER);
 		
 		
-		addButton = new JButton("Aggiungi");
+		addButton = new JButton("Aggiungi Anime");
 		addButton.setPreferredSize(new Dimension(159, 21));
 		addButton.setMaximumSize(new Dimension(159, 21));
 		addButton.addActionListener(new ActionListener() {
