@@ -7,6 +7,8 @@ import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +20,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
@@ -27,7 +30,6 @@ import java.util.Properties;
 import java.util.TreeMap;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
@@ -53,6 +55,7 @@ import javax.swing.event.ListSelectionListener;
 
 import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
+import sun.font.CreatedFontTracker;
 import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.FileManager;
@@ -66,7 +69,6 @@ import util.window.ExitSaveDialog;
 import util.window.PreferenceDialog;
 import util.window.SetAnimeNameDialog;
 import util.window.SetFilterDialog;
-import java.awt.Font;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 //kemomimi OP
 public class AnimeIndex extends JFrame
@@ -122,6 +124,7 @@ public class AnimeIndex extends JFrame
 	public static JButton setFilterButton;
 	private String list;
 	public static boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
+	public static Font code2000;
 	/**
 	 * Launch the application.
 	 */
@@ -148,6 +151,7 @@ public class AnimeIndex extends JFrame
 			          System.out.println("Substance Graphite failed to initialize");
 			        }
 				try {
+					code2000 = createCode2000();
 					AnimeIndex frame = new AnimeIndex();
 					frame.setVisible(true);
 					
@@ -1695,8 +1699,20 @@ public class AnimeIndex extends JFrame
 		}
 		
 	}
+	
+	private static Font createCode2000()
+	{
+		InputStream is = AnimeIndex.class.getResourceAsStream("/font/CODE2000.TTF");
+		Font font = null;
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT,is);
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
+		font = font.deriveFont(24f);
+		return font;
 }
-
+}
 //AnimeIndex.animeInformation.minusButton.setEnabled(false);
 //AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
 //AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
