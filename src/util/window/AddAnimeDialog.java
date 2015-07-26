@@ -384,6 +384,7 @@ public class AddAnimeDialog extends JDialog
 						searchPanel1.setLayout(gbl_searchPanel1);
 						{
 							searchBar = new SearchBar();
+							searchBar.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
 							searchBar.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									animeModel.clear();

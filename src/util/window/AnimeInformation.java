@@ -644,7 +644,7 @@ public class AnimeInformation extends JPanel
 		noteTextArea.setMinimumSize(new Dimension(350, 50));
 		noteTextArea.setMaximumSize(new Dimension(350, 50));
 		noteTextArea.setPreferredSize(new Dimension(350, 50));
-		noteTextArea.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		noteTextArea.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 13));
 		noteScrollPane.setViewportView(noteTextArea);
 		noteTextArea.setLineWrap(true);
 		noteTextArea.setWrapStyleWord(true);

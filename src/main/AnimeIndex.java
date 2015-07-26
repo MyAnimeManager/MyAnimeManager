@@ -66,6 +66,7 @@ import util.window.ExitSaveDialog;
 import util.window.PreferenceDialog;
 import util.window.SetAnimeNameDialog;
 import util.window.SetFilterDialog;
+import java.awt.Font;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 //kemomimi OP
 public class AnimeIndex extends JFrame
@@ -635,6 +636,7 @@ public class AnimeIndex extends JFrame
 		animeSelectionPanel.add(animeTypeComboBox, BorderLayout.NORTH);
 		
 		searchBar = new SearchBar();
+		searchBar.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
 		ImageIcon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(AnimeIndex.class.getResource("/image/search.png")));
         searchBar.setIcon(icon);
 		searchBar.getDocument().addDocumentListener(new DocumentListener() {
@@ -714,6 +716,7 @@ public class AnimeIndex extends JFrame
 		completedAnime.add(completedAnimeScroll, BorderLayout.CENTER);
 
 		completedList = new JList(completedModel);
+		completedList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
 		completedList.setMaximumSize(new Dimension(157, 233));
 		completedList.setMinimumSize(new Dimension(138, 233));
 		completedList.setPreferredSize(new Dimension(138, 233));
@@ -762,6 +765,7 @@ public class AnimeIndex extends JFrame
 		airingAnime.add(airingAnimeScroll, BorderLayout.CENTER);
 		
 		airingList = new JList(airingModel);
+		airingList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
 		airingList.setMaximumSize(new Dimension(157, 233));
 		airingList.setMinimumSize(new Dimension(138, 233));
 		airingList.setPreferredSize(new Dimension(138, 233));
@@ -813,6 +817,7 @@ public class AnimeIndex extends JFrame
 		ova.add(ovaScroll, BorderLayout.CENTER);
 		
 		ovaList = new JList(ovaModel);
+		ovaList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
 		ovaList.setMaximumSize(new Dimension(138, 233));
 		ovaList.setMinimumSize(new Dimension(138, 233));
 		ovaList.setPreferredSize(new Dimension(138, 233));
@@ -864,6 +869,7 @@ public class AnimeIndex extends JFrame
 		film.add(filmScroll, BorderLayout.CENTER);
 		
 		filmList = new JList(filmModel);
+		filmList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
 		filmList.setMaximumSize(new Dimension(138, 233));
 		filmList.setMinimumSize(new Dimension(138, 233));
 		filmList.setPreferredSize(new Dimension(138, 233));
@@ -915,6 +921,7 @@ public class AnimeIndex extends JFrame
 		completedToSeeAnime.add(completedToSeeScroll, BorderLayout.CENTER);
 		
 		completedToSeeList = new JList(completedToSeeModel);
+		completedToSeeList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
 		completedToSeeList.setMaximumSize(new Dimension(138, 233));
 		completedToSeeList.setMinimumSize(new Dimension(138, 233));
 		completedToSeeList.setPreferredSize(new Dimension(138, 233));
@@ -977,6 +984,7 @@ public class AnimeIndex extends JFrame
 		JScrollPane searchScroll = new JScrollPane();
 		searchCard.add(searchScroll, BorderLayout.CENTER);	
 		searchList = new JList(searchModel);
+		searchList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
 		searchList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				applyListSelectionChange();
@@ -998,6 +1006,7 @@ public class AnimeIndex extends JFrame
 		filterCard.add(filterScroll, BorderLayout.CENTER);
 		
 		filterList = new JList(filterModel);
+		filterList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
 		filterList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				applyListSelectionChange();
