@@ -568,7 +568,7 @@ public class AnimeInformation extends JPanel
 				    else
 				    setBlank();
 				}
-				if(shouldCancel==1)
+				else if(shouldCancel==1)
 				{	
 					String name = lblAnimeName.getText();
 					TreeMap<String,AnimeData> map = null;								
@@ -590,6 +590,7 @@ public class AnimeInformation extends JPanel
 				else
 				{
 					String name = lblAnimeName.getText();
+					System.out.println(name);
 					TreeMap<String,AnimeData> map = null;								
 					if (section.equalsIgnoreCase("Completi Da Vedere"))
 					{
@@ -707,7 +708,7 @@ public class AnimeInformation extends JPanel
 			    if(index-1 >=0)
 					list.setSelectedIndex(index-1);
 			    else
-			    AnimeIndex.animeInformation.setBlank();
+			    	AnimeIndex.animeInformation.setBlank();
 			}
 		});
 
@@ -828,7 +829,7 @@ public class AnimeInformation extends JPanel
 	
 	//TODO aggiungere fansub
 		public void setBlank()
-		{
+		{  
 			if(AnimeIndex.getJList().isSelectionEmpty())
 			{
 				lblAnimeName.setText("Nome Anime");
