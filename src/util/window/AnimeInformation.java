@@ -107,7 +107,7 @@ public class AnimeInformation extends JPanel
 		lblAnimeName = new JLabel("Nome Anime");
 		scrollPane.setViewportView(lblAnimeName);
 //		lblAnimeName.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 25));
-		lblAnimeName.setFont(AnimeIndex.code2000);
+		lblAnimeName.setFont(AnimeIndex.segui.deriveFont(29f));
 		//label immagine
 		BufferedImage image = null;
 		try{
@@ -648,7 +648,7 @@ public class AnimeInformation extends JPanel
 		noteTextArea.setMinimumSize(new Dimension(350, 50));
 		noteTextArea.setMaximumSize(new Dimension(350, 50));
 		noteTextArea.setPreferredSize(new Dimension(350, 50));
-		noteTextArea.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 13));
+		noteTextArea.setFont(AnimeIndex.segui.deriveFont(13f));
 		noteScrollPane.setViewportView(noteTextArea);
 		noteTextArea.setLineWrap(true);
 		noteTextArea.setWrapStyleWord(true);

@@ -124,7 +124,7 @@ public class AnimeIndex extends JFrame
 	public static JButton setFilterButton;
 	private String list;
 	public static boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
-	public static Font code2000;
+	public static Font segui;
 	/**
 	 * Launch the application.
 	 */
@@ -151,7 +151,7 @@ public class AnimeIndex extends JFrame
 			          System.out.println("Substance Graphite failed to initialize");
 			        }
 				try {
-					code2000 = createCode2000();
+					segui = segui();
 					AnimeIndex frame = new AnimeIndex();
 					frame.setVisible(true);
 					
@@ -640,7 +640,7 @@ public class AnimeIndex extends JFrame
 		animeSelectionPanel.add(animeTypeComboBox, BorderLayout.NORTH);
 		
 		searchBar = new SearchBar();
-		searchBar.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
+		searchBar.setFont(segui.deriveFont(11f));
 		ImageIcon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(AnimeIndex.class.getResource("/image/search.png")));
         searchBar.setIcon(icon);
 		searchBar.getDocument().addDocumentListener(new DocumentListener() {
@@ -720,7 +720,7 @@ public class AnimeIndex extends JFrame
 		completedAnime.add(completedAnimeScroll, BorderLayout.CENTER);
 
 		completedList = new JList(completedModel);
-		completedList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
+		completedList.setFont(segui.deriveFont(12f));
 		completedList.setMaximumSize(new Dimension(157, 233));
 		completedList.setMinimumSize(new Dimension(138, 233));
 		completedList.setPreferredSize(new Dimension(138, 233));
@@ -748,11 +748,11 @@ public class AnimeIndex extends JFrame
 				if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 					AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 			}
-//TODO		String link = (String)animeInformation.fansubComboBox.getSelectedItem();
-//TODO		if(link!=null && !link.isEmpty())
+			String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+			if(link!=null && !link.isEmpty())
 			{
-//TODO          if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
-//TODO          	AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+				if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+					AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 			}
 			
 			}
@@ -769,7 +769,7 @@ public class AnimeIndex extends JFrame
 		airingAnime.add(airingAnimeScroll, BorderLayout.CENTER);
 		
 		airingList = new JList(airingModel);
-		airingList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
+		airingList.setFont(segui.deriveFont(12f));
 		airingList.setMaximumSize(new Dimension(157, 233));
 		airingList.setMinimumSize(new Dimension(138, 233));
 		airingList.setPreferredSize(new Dimension(138, 233));
@@ -803,11 +803,11 @@ public class AnimeIndex extends JFrame
 					if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 						AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 				}
-	//TODO		String link = (String)animeInformation.fansubComboBox.getSelectedItem();
-	//TODO		if(link!=null && !link.isEmpty())
+				String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+				if(link!=null && !link.isEmpty())
 				{
-	//TODO          if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
-	//TODO          	AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+					if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 				}
 			}
 		});
@@ -821,7 +821,7 @@ public class AnimeIndex extends JFrame
 		ova.add(ovaScroll, BorderLayout.CENTER);
 		
 		ovaList = new JList(ovaModel);
-		ovaList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
+		ovaList.setFont(segui.deriveFont(13f));
 		ovaList.setMaximumSize(new Dimension(138, 233));
 		ovaList.setMinimumSize(new Dimension(138, 233));
 		ovaList.setPreferredSize(new Dimension(138, 233));
@@ -855,11 +855,11 @@ public class AnimeIndex extends JFrame
 					if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 						AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 				}
-	//TODO		String link = (String)animeInformation.fansubComboBox.getSelectedItem();
-	//TODO		if(link!=null && !link.isEmpty())
+				String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+				if(link!=null && !link.isEmpty())
 				{
-	//TODO          if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
-	//TODO          	AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+					if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 				}
 			}
 		});
@@ -873,7 +873,7 @@ public class AnimeIndex extends JFrame
 		film.add(filmScroll, BorderLayout.CENTER);
 		
 		filmList = new JList(filmModel);
-		filmList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
+		filmList.setFont(segui.deriveFont(12f));
 		filmList.setMaximumSize(new Dimension(138, 233));
 		filmList.setMinimumSize(new Dimension(138, 233));
 		filmList.setPreferredSize(new Dimension(138, 233));
@@ -907,11 +907,11 @@ public class AnimeIndex extends JFrame
 					if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 						AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 				}
-	//TODO		String link = (String)animeInformation.fansubComboBox.getSelectedItem();
-	//TODO		if(link!=null && !link.isEmpty())
+				String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+				if(link!=null && !link.isEmpty())
 				{
-	//TODO          if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
-	//TODO          	AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+					if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 				}
 			}
 		});
@@ -925,7 +925,7 @@ public class AnimeIndex extends JFrame
 		completedToSeeAnime.add(completedToSeeScroll, BorderLayout.CENTER);
 		
 		completedToSeeList = new JList(completedToSeeModel);
-		completedToSeeList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
+		completedToSeeList.setFont(segui.deriveFont(12f));
 		completedToSeeList.setMaximumSize(new Dimension(138, 233));
 		completedToSeeList.setMinimumSize(new Dimension(138, 233));
 		completedToSeeList.setPreferredSize(new Dimension(138, 233));
@@ -959,11 +959,11 @@ public class AnimeIndex extends JFrame
 					if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 						AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 				}
-	//TODO		String link = (String)animeInformation.fansubComboBox.getSelectedItem();
-	//TODO		if(link!=null && !link.isEmpty())
+				String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+				if(link!=null && !link.isEmpty())
 				{
-	//TODO          if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
-	//TODO          	AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+					if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 				}
 			}
 		});
@@ -988,30 +988,8 @@ public class AnimeIndex extends JFrame
 		JScrollPane searchScroll = new JScrollPane();
 		searchCard.add(searchScroll, BorderLayout.CENTER);	
 		searchList = new JList(searchModel);
-		searchList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
+		searchList.setFont(segui.deriveFont(12f));
 		searchList.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				applyListSelectionChange();
-				//TODO disabilitazione/abilitazione pulsanti(forse su questa non serve)
-			}
-		});
-		searchList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		searchList.setSize(new Dimension(138, 233));
-		searchList.setPreferredSize(new Dimension(138, 233));
-		searchList.setMinimumSize(new Dimension(138, 233));
-		searchList.setMaximumSize(new Dimension(138, 233));
-		searchScroll.setViewportView(searchList);
-		
-		JPanel filterCard = new JPanel();
-		cardContainer.add(filterCard, "Filtri");
-		filterCard.setLayout(new BorderLayout(0, 0));
-		
-		JScrollPane filterScroll = new JScrollPane();
-		filterCard.add(filterScroll, BorderLayout.CENTER);
-		
-		filterList = new JList(filterModel);
-		filterList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
-		filterList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				applyListSelectionChange();
 				String cBox = (String)animeTypeComboBox.getSelectedItem();
@@ -1036,11 +1014,11 @@ public class AnimeIndex extends JFrame
 						if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 							AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 					}
-		//TODO		String link = (String)animeInformation.fansubComboBox.getSelectedItem();
-		//TODO		if(link!=null && !link.isEmpty())
+						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+						if(link!=null && !link.isEmpty())
 					{
-		//TODO          if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
-		//TODO          	AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+						if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+							AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 					}
 				}
 					else if(cBox.equalsIgnoreCase("Anime in Corso"))
@@ -1071,11 +1049,11 @@ public class AnimeIndex extends JFrame
 							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 						}
-			//TODO		String link = (String)animeInformation.fansubComboBox.getSelectedItem();
-			//TODO		if(link!=null && !link.isEmpty())
+						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+						if(link!=null && !link.isEmpty())
 						{
-			//TODO          if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
-			//TODO          	AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+							if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+								AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 						}
 						
 					}
@@ -1107,11 +1085,11 @@ public class AnimeIndex extends JFrame
 							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 						}
-			//TODO		String link = (String)animeInformation.fansubComboBox.getSelectedItem();
-			//TODO		if(link!=null && !link.isEmpty())
+						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+						if(link!=null && !link.isEmpty())
 						{
-			//TODO          if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
-			//TODO          	AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+							if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+								AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 						}
 					}
 					else if(cBox.equalsIgnoreCase("Film"))
@@ -1142,11 +1120,11 @@ public class AnimeIndex extends JFrame
 							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 						}
-			//TODO		String link = (String)animeInformation.fansubComboBox.getSelectedItem();
-			//TODO		if(link!=null && !link.isEmpty())
+						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+						if(link!=null && !link.isEmpty())
 						{
-			//TODO          if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
-			//TODO          	AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+							if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+								AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 						}
 					}
 					else
@@ -1177,11 +1155,202 @@ public class AnimeIndex extends JFrame
 							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
 						}
-			//TODO		String link = (String)animeInformation.fansubComboBox.getSelectedItem();
-			//TODO		if(link!=null && !link.isEmpty())
+						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+						if(link!=null && !link.isEmpty())
 						{
-			//TODO          if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
-			//TODO          	AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+							if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+								AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+						}
+					}
+			}
+		});
+		searchList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		searchList.setSize(new Dimension(138, 233));
+		searchList.setPreferredSize(new Dimension(138, 233));
+		searchList.setMinimumSize(new Dimension(138, 233));
+		searchList.setMaximumSize(new Dimension(138, 233));
+		searchScroll.setViewportView(searchList);
+		
+		JPanel filterCard = new JPanel();
+		cardContainer.add(filterCard, "Filtri");
+		filterCard.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane filterScroll = new JScrollPane();
+		filterCard.add(filterScroll, BorderLayout.CENTER);
+		
+		filterList = new JList(filterModel);
+		filterList.setFont(segui.deriveFont(12f));
+		filterList.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				applyListSelectionChange();
+				String cBox = (String)animeTypeComboBox.getSelectedItem();
+				if(cBox.equalsIgnoreCase("Anime Completati"))
+				{
+					AnimeIndex.animeInformation.minusButton.setEnabled(false);
+					AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
+					AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
+					AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+					AnimeIndex.animeInformation.releaseDateField.setEnabled(false);
+					AnimeIndex.animeInformation.finishDateField.setEnabled(false);
+					AnimeIndex.animeInformation.durationField.setEnabled(false);
+					AnimeIndex.animeInformation.noteTextArea.setEnabled(true);
+					AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
+					AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
+					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
+					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+					AnimeInformation.fansubComboBox.setEnabled(true);
+					String name = (String) completedList.getSelectedValue();
+					if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+					{
+						if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
+							AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+					}
+						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+						if(link!=null && !link.isEmpty())
+					{
+						if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+							AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+					}
+				}
+					else if(cBox.equalsIgnoreCase("Anime in Corso"))
+					{
+						AnimeIndex.animeInformation.minusButton.setEnabled(true);
+						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
+						AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+						AnimeIndex.animeInformation.releaseDateField.setEnabled(true);
+						AnimeIndex.animeInformation.finishDateField.setEnabled(true);
+						AnimeIndex.animeInformation.durationField.setEnabled(true);
+						AnimeIndex.animeInformation.noteTextArea.setEnabled(true);
+						AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
+						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
+						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
+						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+						String ep = animeInformation.currentEpisodeField.getText();
+						String fep = animeInformation.totalEpisodeText.getText();
+						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
+							AnimeIndex.animeInformation.finishedButton.setEnabled(true);
+						else
+							AnimeIndex.animeInformation.finishedButton.setEnabled(false);
+			//TODO controllore con java.clock per attivazione addToSeeButton 
+						AnimeInformation.fansubComboBox.setEnabled(true);
+						String name = (String) completedList.getSelectedValue();
+						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						{
+							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
+								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+						}
+						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+						if(link!=null && !link.isEmpty())
+						{
+							if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+								AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+						}
+						
+					}
+					else if(cBox.equalsIgnoreCase("OAV"))
+					{
+						AnimeIndex.animeInformation.minusButton.setEnabled(true);
+						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
+						AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+						AnimeIndex.animeInformation.releaseDateField.setEnabled(true);
+						AnimeIndex.animeInformation.finishDateField.setEnabled(true);
+						AnimeIndex.animeInformation.durationField.setEnabled(true);
+						AnimeIndex.animeInformation.noteTextArea.setEnabled(true);
+						AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
+						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
+						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
+						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+						String ep = animeInformation.currentEpisodeField.getText();
+						String fep = animeInformation.totalEpisodeText.getText();
+						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
+							AnimeIndex.animeInformation.finishedButton.setEnabled(true);
+						else
+							AnimeIndex.animeInformation.finishedButton.setEnabled(false);
+			//TODO controllore con java.clock per attivazione addToSeeButton 
+						AnimeInformation.fansubComboBox.setEnabled(true);
+						String name = (String) completedList.getSelectedValue();
+						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						{
+							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
+								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+						}
+						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+						if(link!=null && !link.isEmpty())
+						{
+							if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+								AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+						}
+					}
+					else if(cBox.equalsIgnoreCase("Film"))
+					{
+						AnimeIndex.animeInformation.minusButton.setEnabled(true);
+						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
+						AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+						AnimeIndex.animeInformation.releaseDateField.setEnabled(true);
+						AnimeIndex.animeInformation.finishDateField.setEnabled(true);
+						AnimeIndex.animeInformation.durationField.setEnabled(true);
+						AnimeIndex.animeInformation.noteTextArea.setEnabled(true);
+						AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
+						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
+						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
+						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+						String ep = animeInformation.currentEpisodeField.getText();
+						String fep = animeInformation.totalEpisodeText.getText();
+						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
+							AnimeIndex.animeInformation.finishedButton.setEnabled(true);
+						else
+							AnimeIndex.animeInformation.finishedButton.setEnabled(false);
+			//TODO controllore con java.clock per attivazione addToSeeButton 
+						AnimeInformation.fansubComboBox.setEnabled(true);
+						String name = (String) completedList.getSelectedValue();
+						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						{
+							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
+								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+						}
+						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+						if(link!=null && !link.isEmpty())
+						{
+							if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+								AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+						}
+					}
+					else
+					{
+						AnimeIndex.animeInformation.minusButton.setEnabled(true);
+						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);//TODO piccolo bug grafico a ep = totep
+						AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
+						AnimeIndex.animeInformation.releaseDateField.setEnabled(false);
+						AnimeIndex.animeInformation.finishDateField.setEnabled(false);
+						AnimeIndex.animeInformation.durationField.setEnabled(true);
+						AnimeIndex.animeInformation.noteTextArea.setEnabled(true);
+						AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
+						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
+						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
+						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+						String ep = animeInformation.currentEpisodeField.getText();
+						String fep = animeInformation.totalEpisodeText.getText();
+						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
+							AnimeIndex.animeInformation.finishedButton.setEnabled(true);
+						else
+							AnimeIndex.animeInformation.finishedButton.setEnabled(false);
+			//TODO controllore con java.clock per attivazione addToSeeButton 
+						AnimeInformation.fansubComboBox.setEnabled(true);
+						String name = (String) completedList.getSelectedValue();
+						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						{
+							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
+								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+						}
+						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+						if(link!=null && !link.isEmpty())
+						{
+							if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+								AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 						}
 					}
 			}
@@ -1700,7 +1869,7 @@ public class AnimeIndex extends JFrame
 		
 	}
 	
-	private static Font createCode2000()
+	private static Font segui()
 	{
 		InputStream is = AnimeIndex.class.getResourceAsStream("/font/seguisym.ttf");
 		Font font = null;
@@ -1709,7 +1878,6 @@ public class AnimeIndex extends JFrame
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
-		font = font.deriveFont(29f);
 		return font;
 }
 }
