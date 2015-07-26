@@ -405,7 +405,7 @@ public class AddAnimeDialog extends JDialog
 									}
 									else
 									{	searchedList.setEnabled(true);
-										addAniButton.setEnabled(true);
+										addAniButton.setEnabled(false);
 										Object[] animeArray = animeSearched.keySet().toArray();
 										
 										for (int i = 0; i < animeArray.length; i++)
@@ -483,7 +483,7 @@ public class AddAnimeDialog extends JDialog
 									}
 									else
 									{	searchedList.setEnabled(true);
-										addAniButton.setEnabled(true);
+										addAniButton.setEnabled(false);
 										Object[] animeArray = animeSearched.keySet().toArray();
 										
 										for (int i = 0; i < animeArray.length; i++)
