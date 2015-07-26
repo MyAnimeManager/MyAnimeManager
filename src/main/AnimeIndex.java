@@ -998,7 +998,176 @@ public class AnimeIndex extends JFrame
 		filterList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				applyListSelectionChange();
-				//TODO disabilitazione/abilitazione pulsanti
+				String cBox = (String)animeTypeComboBox.getSelectedItem();
+				if(cBox.equalsIgnoreCase("Anime Completati"))
+				{
+					AnimeIndex.animeInformation.minusButton.setEnabled(false);
+					AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
+					AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
+					AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+					AnimeIndex.animeInformation.releaseDateField.setEnabled(false);
+					AnimeIndex.animeInformation.finishDateField.setEnabled(false);
+					AnimeIndex.animeInformation.durationField.setEnabled(false);
+					AnimeIndex.animeInformation.noteTextArea.setEnabled(true);
+					AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
+					AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
+					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
+					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+					AnimeInformation.fansubComboBox.setEnabled(true);
+					String name = (String) completedList.getSelectedValue();
+					if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+					{
+						if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
+							AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+					}
+		//TODO		String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+		//TODO		if(link!=null && !link.isEmpty())
+					{
+		//TODO          if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+		//TODO          	AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+					}
+				}
+					else if(cBox.equalsIgnoreCase("Anime in Corso"))
+					{
+						AnimeIndex.animeInformation.minusButton.setEnabled(true);
+						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
+						AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+						AnimeIndex.animeInformation.releaseDateField.setEnabled(true);
+						AnimeIndex.animeInformation.finishDateField.setEnabled(true);
+						AnimeIndex.animeInformation.durationField.setEnabled(true);
+						AnimeIndex.animeInformation.noteTextArea.setEnabled(true);
+						AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
+						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
+						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
+						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+						String ep = animeInformation.currentEpisodeField.getText();
+						String fep = animeInformation.totalEpisodeText.getText();
+						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
+							AnimeIndex.animeInformation.finishedButton.setEnabled(true);
+						else
+							AnimeIndex.animeInformation.finishedButton.setEnabled(false);
+			//TODO controllore con java.clock per attivazione addToSeeButton 
+						AnimeInformation.fansubComboBox.setEnabled(true);
+						String name = (String) completedList.getSelectedValue();
+						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						{
+							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
+								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+						}
+			//TODO		String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+			//TODO		if(link!=null && !link.isEmpty())
+						{
+			//TODO          if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+			//TODO          	AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+						}
+						
+					}
+					else if(cBox.equalsIgnoreCase("OAV"))
+					{
+						AnimeIndex.animeInformation.minusButton.setEnabled(true);
+						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
+						AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+						AnimeIndex.animeInformation.releaseDateField.setEnabled(true);
+						AnimeIndex.animeInformation.finishDateField.setEnabled(true);
+						AnimeIndex.animeInformation.durationField.setEnabled(true);
+						AnimeIndex.animeInformation.noteTextArea.setEnabled(true);
+						AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
+						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
+						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
+						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+						String ep = animeInformation.currentEpisodeField.getText();
+						String fep = animeInformation.totalEpisodeText.getText();
+						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
+							AnimeIndex.animeInformation.finishedButton.setEnabled(true);
+						else
+							AnimeIndex.animeInformation.finishedButton.setEnabled(false);
+			//TODO controllore con java.clock per attivazione addToSeeButton 
+						AnimeInformation.fansubComboBox.setEnabled(true);
+						String name = (String) completedList.getSelectedValue();
+						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						{
+							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
+								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+						}
+			//TODO		String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+			//TODO		if(link!=null && !link.isEmpty())
+						{
+			//TODO          if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+			//TODO          	AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+						}
+					}
+					else if(cBox.equalsIgnoreCase("Film"))
+					{
+						AnimeIndex.animeInformation.minusButton.setEnabled(true);
+						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
+						AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
+						AnimeIndex.animeInformation.releaseDateField.setEnabled(true);
+						AnimeIndex.animeInformation.finishDateField.setEnabled(true);
+						AnimeIndex.animeInformation.durationField.setEnabled(true);
+						AnimeIndex.animeInformation.noteTextArea.setEnabled(true);
+						AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
+						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
+						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
+						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+						String ep = animeInformation.currentEpisodeField.getText();
+						String fep = animeInformation.totalEpisodeText.getText();
+						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
+							AnimeIndex.animeInformation.finishedButton.setEnabled(true);
+						else
+							AnimeIndex.animeInformation.finishedButton.setEnabled(false);
+			//TODO controllore con java.clock per attivazione addToSeeButton 
+						AnimeInformation.fansubComboBox.setEnabled(true);
+						String name = (String) completedList.getSelectedValue();
+						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						{
+							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
+								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+						}
+			//TODO		String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+			//TODO		if(link!=null && !link.isEmpty())
+						{
+			//TODO          if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+			//TODO          	AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+						}
+					}
+					else
+					{
+						AnimeIndex.animeInformation.minusButton.setEnabled(true);
+						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
+						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);//TODO piccolo bug grafico a ep = totep
+						AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
+						AnimeIndex.animeInformation.releaseDateField.setEnabled(false);
+						AnimeIndex.animeInformation.finishDateField.setEnabled(false);
+						AnimeIndex.animeInformation.durationField.setEnabled(true);
+						AnimeIndex.animeInformation.noteTextArea.setEnabled(true);
+						AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
+						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
+						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
+						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+						String ep = animeInformation.currentEpisodeField.getText();
+						String fep = animeInformation.totalEpisodeText.getText();
+						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
+							AnimeIndex.animeInformation.finishedButton.setEnabled(true);
+						else
+							AnimeIndex.animeInformation.finishedButton.setEnabled(false);
+			//TODO controllore con java.clock per attivazione addToSeeButton 
+						AnimeInformation.fansubComboBox.setEnabled(true);
+						String name = (String) completedList.getSelectedValue();
+						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						{
+							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
+								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+						}
+			//TODO		String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+			//TODO		if(link!=null && !link.isEmpty())
+						{
+			//TODO          if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
+			//TODO          	AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+						}
+					}
 			}
 		});
 		filterList.setSize(new Dimension(138, 233));
