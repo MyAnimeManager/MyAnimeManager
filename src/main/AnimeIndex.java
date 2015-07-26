@@ -211,11 +211,11 @@ public class AnimeIndex extends JFrame
 		JSeparator separator_2 = new JSeparator();
 		mnMenu.add(separator_2);
 		
-		JCheckBoxMenuItem rdbtnmntmControlloDati = new JCheckBoxMenuItem("Controllo Dati");
+		JCheckBoxMenuItem dataCheckButton = new JCheckBoxMenuItem("Controllo Dati");
 		
-		rdbtnmntmControlloDati.addActionListener(new ActionListener() {
+		dataCheckButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!rdbtnmntmControlloDati.isSelected())
+				if(!dataCheckButton.isSelected())
 				{
 					appProp.setProperty("Update_system", "false");
 					JOptionPane.showMessageDialog(mainFrame, "Controllo Dati :      DISATTIVATO", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
@@ -226,7 +226,7 @@ public class AnimeIndex extends JFrame
 					int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Il sistema utilizza Internet.\n\rAssicurarsi che la rete sia\n\rdisponibile al fine di evitare\n\ril blocco del programma.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if(shouldCancel==1)
 					{
-						rdbtnmntmControlloDati.setSelected(false);
+						dataCheckButton.setSelected(false);
 					}
 					else
 					{
@@ -236,7 +236,7 @@ public class AnimeIndex extends JFrame
 				}
 		}	
 		});
-		mnMenu.add(rdbtnmntmControlloDati);
+		mnMenu.add(dataCheckButton);
 		
 		JSeparator separator = new JSeparator();
 		mnMenu.add(separator);
@@ -257,9 +257,9 @@ public class AnimeIndex extends JFrame
 		JSeparator separator_3 = new JSeparator();
 		mnMenu.add(separator_3);
 		if(appProp.getProperty("Update_system").equals("true"))
-			rdbtnmntmControlloDati.setSelected(true);
+			dataCheckButton.setSelected(true);
 		else
-			rdbtnmntmControlloDati.setSelected(false);
+			dataCheckButton.setSelected(false);
 		
 		JMenu mnModifica = new JMenu("Modifica");
 		mnMenu.add(mnModifica);

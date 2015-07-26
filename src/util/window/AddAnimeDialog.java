@@ -784,6 +784,7 @@ public class AddAnimeDialog extends JDialog
 		if (AnimeIndex.appProp.getProperty("List_to_Check").equalsIgnoreCase("all"))
 		{
 			checkToggleButton.setText("Tutte le liste");
+			checkToggleButton.setSelected(true);
 		}
 		else
 		{
