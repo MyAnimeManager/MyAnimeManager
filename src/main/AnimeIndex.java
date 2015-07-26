@@ -1709,7 +1709,7 @@ public class AnimeIndex extends JFrame
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
-		font = font.deriveFont(28f);
+		font = font.deriveFont(29f);
 		return font;
 }
 }
