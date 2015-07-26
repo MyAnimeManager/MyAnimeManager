@@ -104,7 +104,7 @@ public class AnimeInformation extends JPanel
 		gbc_scrollPane.gridy = 0;
 		add(scrollPane, gbc_scrollPane);
 		
-		lblAnimeName = new JLabel("Nome Anime");
+		lblAnimeName = new JLabel("Anime");
 		scrollPane.setViewportView(lblAnimeName);
 //		lblAnimeName.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 25));
 		lblAnimeName.setFont(AnimeIndex.segui.deriveFont(29f));
@@ -334,7 +334,7 @@ public class AnimeInformation extends JPanel
 		fansubComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				String fansubName = (String)fansubComboBox.getSelectedItem();
-				if (fansubName != null && fansubName.isEmpty())
+				if (fansubName != null && !fansubName.isEmpty())
 				{
 				String link = AnimeIndex.fansubMap.get(fansubName);
 				if (link != null && !link.isEmpty())
@@ -523,7 +523,7 @@ public class AnimeInformation extends JPanel
 				if(section.equalsIgnoreCase("anime completati") || section.equalsIgnoreCase("Completi Da Vedere"))
 				{
 				String nome = lblAnimeName.getText();
-				if(!nome.equalsIgnoreCase("Nome Anime"))
+				if(!nome.equalsIgnoreCase("Anime"))
 				{
 				TreeMap<String,AnimeData> map1 = AnimeIndex.getMap();
 				AnimeData old1 = map1.get(nome);
@@ -623,7 +623,7 @@ public class AnimeInformation extends JPanel
 		gbc_typeComboBox.gridy = 8;
 		add(typeComboBox, gbc_typeComboBox);
 
-		lblNote = new JLabel("Note:");
+		lblNote = new JLabel("Note :");
 		GridBagConstraints gbc_lblNote = new GridBagConstraints();
 		gbc_lblNote.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblNote.insets = new Insets(0, 0, 5, 5);
@@ -836,7 +836,7 @@ public class AnimeInformation extends JPanel
 			AnimeIndex.getJList().clearSelection();
 			if(AnimeIndex.getJList().isSelectionEmpty())
 			{
-				lblAnimeName.setText("Nome Anime");
+				lblAnimeName.setText("Anime");
 				currentEpisodeField.setText("??");
 				currentEpisodeField.setEnabled(false);
 				totalEpisodeText.setText("??");

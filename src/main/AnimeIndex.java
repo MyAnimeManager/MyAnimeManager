@@ -291,10 +291,10 @@ public class AnimeIndex extends JFrame
 		JMenu mnElimina = new JMenu("Elimina Dati");
 		mnMenu.add(mnElimina);
 		
-		JMenuItem mntmDeleteImage = new JMenuItem("Elimina tutti i dati");
+		JMenuItem mntmDeleteImage = new JMenuItem("Elimina tutti i Dati");
 		mnElimina.add(mntmDeleteImage);
 		
-		JMenuItem mntmEliminaFansub = new JMenuItem("Elimina Fansub");
+		JMenuItem mntmEliminaFansub = new JMenuItem("Elimina tutti i Fansub");
 		mntmEliminaFansub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti i Fansub?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -318,7 +318,7 @@ public class AnimeIndex extends JFrame
 		});
 		mnElimina.add(mntmEliminaFansub);
 		
-		JMenu mnEliminaLista = new JMenu("Elimina Lista");
+		JMenu mnEliminaLista = new JMenu("Elimina tutta la Lista");
 		mnElimina.add(mnEliminaLista);
 		
 		JMenuItem mntmAnimeCompletati = new JMenuItem("Anime Completati");
@@ -625,6 +625,13 @@ public class AnimeIndex extends JFrame
 		        		AnimeIndex.animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
 		        		AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
 		        	}
+		        if(animeInformation.lblAnimeName.getText().equals("Anime"))
+		        {
+		        	AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
+		        	AnimeIndex.animeInformation.finishedButton.setEnabled(false);
+		        }
+		        else
+		        {
 		        if (type.equalsIgnoreCase("anime in corso") || type.equalsIgnoreCase("anime completati") || type.equalsIgnoreCase("oav") || type.equalsIgnoreCase("film"))
 		        	AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
 		        else
@@ -634,7 +641,8 @@ public class AnimeIndex extends JFrame
 		        	AnimeIndex.animeInformation.finishedButton.setEnabled(true);
 		        else
 		        	AnimeIndex.animeInformation.finishedButton.setEnabled(false);
-			}
+		         }
+		     }
 		});
 		animeTypeComboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere"}));
 		animeSelectionPanel.add(animeTypeComboBox, BorderLayout.NORTH);
@@ -743,7 +751,7 @@ public class AnimeIndex extends JFrame
 			AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
 			AnimeInformation.fansubComboBox.setEnabled(true);
 			String name = (String) completedList.getSelectedValue();
-			if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+			if(name!=null && !name.equalsIgnoreCase("Anime"))
 			{
 				if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 					AnimeIndex.animeInformation.btnOpen.setEnabled(true);
@@ -798,7 +806,7 @@ public class AnimeIndex extends JFrame
 	//TODO controllore con java.clock per attivazione addToSeeButton 
 				AnimeInformation.fansubComboBox.setEnabled(true);
 				String name = (String) completedList.getSelectedValue();
-				if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+				if(name!=null && !name.equalsIgnoreCase("Anime"))
 				{
 					if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 						AnimeIndex.animeInformation.btnOpen.setEnabled(true);
@@ -821,7 +829,7 @@ public class AnimeIndex extends JFrame
 		ova.add(ovaScroll, BorderLayout.CENTER);
 		
 		ovaList = new JList(ovaModel);
-		ovaList.setFont(segui.deriveFont(13f));
+		ovaList.setFont(segui.deriveFont(12f));
 		ovaList.setMaximumSize(new Dimension(138, 233));
 		ovaList.setMinimumSize(new Dimension(138, 233));
 		ovaList.setPreferredSize(new Dimension(138, 233));
@@ -850,7 +858,7 @@ public class AnimeIndex extends JFrame
 	//TODO controllore con java.clock per attivazione addToSeeButton 
 				AnimeInformation.fansubComboBox.setEnabled(true);
 				String name = (String) completedList.getSelectedValue();
-				if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+				if(name!=null && !name.equalsIgnoreCase("Anime"))
 				{
 					if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 						AnimeIndex.animeInformation.btnOpen.setEnabled(true);
@@ -902,7 +910,7 @@ public class AnimeIndex extends JFrame
 	//TODO controllore con java.clock per attivazione addToSeeButton 
 				AnimeInformation.fansubComboBox.setEnabled(true);
 				String name = (String) completedList.getSelectedValue();
-				if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+				if(name!=null && !name.equalsIgnoreCase("Anime"))
 				{
 					if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 						AnimeIndex.animeInformation.btnOpen.setEnabled(true);
@@ -954,7 +962,7 @@ public class AnimeIndex extends JFrame
 	//TODO controllore con java.clock per attivazione addToSeeButton 
 				AnimeInformation.fansubComboBox.setEnabled(true);
 				String name = (String) completedList.getSelectedValue();
-				if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+				if(name!=null && !name.equalsIgnoreCase("Anime"))
 				{
 					if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 						AnimeIndex.animeInformation.btnOpen.setEnabled(true);
@@ -1009,7 +1017,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
 					AnimeInformation.fansubComboBox.setEnabled(true);
 					String name = (String) completedList.getSelectedValue();
-					if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+					if(name!=null && !name.equalsIgnoreCase("Anime"))
 					{
 						if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 							AnimeIndex.animeInformation.btnOpen.setEnabled(true);
@@ -1044,7 +1052,7 @@ public class AnimeIndex extends JFrame
 			//TODO controllore con java.clock per attivazione addToSeeButton 
 						AnimeInformation.fansubComboBox.setEnabled(true);
 						String name = (String) completedList.getSelectedValue();
-						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						if(name!=null && !name.equalsIgnoreCase("Anime"))
 						{
 							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
@@ -1080,7 +1088,7 @@ public class AnimeIndex extends JFrame
 			//TODO controllore con java.clock per attivazione addToSeeButton 
 						AnimeInformation.fansubComboBox.setEnabled(true);
 						String name = (String) completedList.getSelectedValue();
-						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						if(name!=null && !name.equalsIgnoreCase("Anime"))
 						{
 							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
@@ -1115,7 +1123,7 @@ public class AnimeIndex extends JFrame
 			//TODO controllore con java.clock per attivazione addToSeeButton 
 						AnimeInformation.fansubComboBox.setEnabled(true);
 						String name = (String) completedList.getSelectedValue();
-						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						if(name!=null && !name.equalsIgnoreCase("Anime"))
 						{
 							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
@@ -1150,7 +1158,7 @@ public class AnimeIndex extends JFrame
 			//TODO controllore con java.clock per attivazione addToSeeButton 
 						AnimeInformation.fansubComboBox.setEnabled(true);
 						String name = (String) completedList.getSelectedValue();
-						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						if(name!=null && !name.equalsIgnoreCase("Anime"))
 						{
 							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
@@ -1200,7 +1208,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
 					AnimeInformation.fansubComboBox.setEnabled(true);
 					String name = (String) completedList.getSelectedValue();
-					if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+					if(name!=null && !name.equalsIgnoreCase("Anime"))
 					{
 						if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 							AnimeIndex.animeInformation.btnOpen.setEnabled(true);
@@ -1235,7 +1243,7 @@ public class AnimeIndex extends JFrame
 			//TODO controllore con java.clock per attivazione addToSeeButton 
 						AnimeInformation.fansubComboBox.setEnabled(true);
 						String name = (String) completedList.getSelectedValue();
-						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						if(name!=null && !name.equalsIgnoreCase("Anime"))
 						{
 							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
@@ -1271,7 +1279,7 @@ public class AnimeIndex extends JFrame
 			//TODO controllore con java.clock per attivazione addToSeeButton 
 						AnimeInformation.fansubComboBox.setEnabled(true);
 						String name = (String) completedList.getSelectedValue();
-						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						if(name!=null && !name.equalsIgnoreCase("Anime"))
 						{
 							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
@@ -1306,7 +1314,7 @@ public class AnimeIndex extends JFrame
 			//TODO controllore con java.clock per attivazione addToSeeButton 
 						AnimeInformation.fansubComboBox.setEnabled(true);
 						String name = (String) completedList.getSelectedValue();
-						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						if(name!=null && !name.equalsIgnoreCase("Anime"))
 						{
 							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
@@ -1341,7 +1349,7 @@ public class AnimeIndex extends JFrame
 			//TODO controllore con java.clock per attivazione addToSeeButton 
 						AnimeInformation.fansubComboBox.setEnabled(true);
 						String name = (String) completedList.getSelectedValue();
-						if(name!=null && !name.equalsIgnoreCase("Nome Anime"))
+						if(name!=null && !name.equalsIgnoreCase("Anime"))
 						{
 							if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
@@ -1630,7 +1638,7 @@ public class AnimeIndex extends JFrame
 
 	public void saveModifiedInformation()
 	{
-		if(!animeInformation.lblAnimeName.getText().equalsIgnoreCase("Nome Anime"))
+		if(!animeInformation.lblAnimeName.getText().equalsIgnoreCase("Anime"))
 		{
 			String name = animeInformation.lblAnimeName.getText();
 			String currEp = animeInformation.currentEpisodeField.getText();
@@ -1696,7 +1704,7 @@ public class AnimeIndex extends JFrame
 
 	public void saveModifiedInformation(String list)
 	{
-		if(!animeInformation.lblAnimeName.getText().equalsIgnoreCase("Nome Anime"))
+		if(!animeInformation.lblAnimeName.getText().equalsIgnoreCase("Anime"))
 		{
 			String name = animeInformation.lblAnimeName.getText();
 			String currEp = animeInformation.currentEpisodeField.getText();
