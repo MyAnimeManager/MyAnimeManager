@@ -56,6 +56,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JCheckBox;
 import javax.swing.JToggleButton;
+import java.awt.Font;
 
 public class AddAnimeDialog extends JDialog
 {
@@ -448,6 +449,7 @@ public class AddAnimeDialog extends JDialog
 								{
 									animeModel = new DefaultListModel();									
 									searchedList = new JList(animeModel);
+									searchedList.setFont(new Font("Arial Unicode MS", Font.PLAIN, 11));
 									searchedList.addListSelectionListener(new ListSelectionListener() {
 										public void valueChanged(ListSelectionEvent e) {
 											addAniButton.setEnabled(true);

@@ -3,6 +3,7 @@ package util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -119,7 +120,7 @@ public class ConnectionManager
 	        conn.setRequestMethod("GET");
 	        conn.setRequestProperty("User-Agent", "My Anime Index/1.0");
 	        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-	        rr = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	        rr = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
 	        while ((line = rr.readLine()) != null) {
 	        	result += line + "\r\n";	      
 	        }
