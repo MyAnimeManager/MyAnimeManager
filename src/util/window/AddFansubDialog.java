@@ -86,7 +86,9 @@ public class AddFansubDialog extends JDialog
 							fansubModel.addElement(fansubAddField.getText());
 							fansubMap.put(newFansub, newLink);
 						    fansubAddField.setText("");
+						    fansubAddField.setEnabled(true);
 						    linkAddField.setText("");
+						    linkAddField.setEnabled(true);
 							}
 							else
 								JOptionPane.showMessageDialog(contentPanel, "Nome non inserito", "Errore!", JOptionPane.ERROR_MESSAGE);
@@ -105,6 +107,8 @@ public class AddFansubDialog extends JDialog
 						    fansubList.clearSelection();
 						    deleteButton.setEnabled(false);
 						    addButton.setText("Aggiungi");
+						    fansubAddField.setEnabled(true);
+						    linkAddField.setEnabled(true);
 						}
 					}
 				});
@@ -125,7 +129,10 @@ public class AddFansubDialog extends JDialog
 							    Object[] fansub = fansubModel.toArray();
 							    AnimeIndex.setFansubList(fansub); 
 							    fansubAddField.setText("");
+							    fansubAddField.setEnabled(true);
 							    linkAddField.setText("");
+							    linkAddField.setEnabled(true);
+							    addButton.setText("Aggiungi");
 							}
 							
 						}						
@@ -147,8 +154,9 @@ public class AddFansubDialog extends JDialog
 				fansubList = new JList(fansubModel);
 				fansubList.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent arg0) {
-						if (!fansubList.isSelectionEmpty())
+						if (!fansubList.isSelectionEmpty() && !fansubList.getSelectedValue().equals("?????"))
 						{
+						linkAddField.setEnabled(true);
 						deleteButton.setEnabled(true);
 						addButton.setText("Salva");
 						String fansub = (String) fansubList.getSelectedValue();
@@ -156,6 +164,13 @@ public class AddFansubDialog extends JDialog
 						fansubAddField.setText(fansub);
 						linkAddField.setText(link);
 						fansubAddField.setEnabled(false);
+						}
+						if(!fansubList.isSelectionEmpty() && fansubList.getSelectedValue().equals("?????") && fansubList.getSelectedValue()!=null)
+						{
+							deleteButton.setEnabled(false);
+							linkAddField.setEnabled(false);
+							addButton.setText("Salva");
+							fansubAddField.setEnabled(false);
 						}
 					}
 				});

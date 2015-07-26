@@ -827,7 +827,6 @@ public class AnimeInformation extends JPanel
 		add(addToSeeButton, gbc_addToSeeButton);
 	}
 	
-	//TODO aggiungere fansub
 		public void setBlank()
 		{  
 			AnimeIndex.getJList().clearSelection();
@@ -860,6 +859,7 @@ public class AnimeInformation extends JPanel
 				fansubComboBox.setEnabled(false);
 				btnOpen.setEnabled(false);
 				finishedButton.setEnabled(false);
+				fansubComboBox.setSelectedItem("?????");
 				
 				BufferedImage image = null;
 				try{

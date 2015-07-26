@@ -415,8 +415,9 @@ public class AddAnimeDialog extends JDialog
 								}
 							});
 							GridBagConstraints gbc_searchBar = new GridBagConstraints();
+							gbc_searchBar.fill = GridBagConstraints.HORIZONTAL;
 							gbc_searchBar.gridwidth = 2;
-							gbc_searchBar.anchor = GridBagConstraints.NORTHWEST;
+							gbc_searchBar.anchor = GridBagConstraints.NORTH;
 							gbc_searchBar.insets = new Insets(0, 0, 0, 5);
 							gbc_searchBar.gridx = 0;
 							gbc_searchBar.gridy = 0;
