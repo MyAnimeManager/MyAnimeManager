@@ -1257,6 +1257,8 @@ public class AnimeIndex extends JFrame
 		fansubList = FileManager.loadFansubList();
 		animeInformation = new AnimeInformation();
 		mainFrame.add(animeInformation, BorderLayout.CENTER);
+		addToFansub("?????");
+		AnimeIndex.animeInformation.setFansubComboBox();
 		animeInformation.setBlank();
 		if (appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Last list"))
 		{
