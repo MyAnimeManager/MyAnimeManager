@@ -1,6 +1,5 @@
 package util;
 
-import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,15 +9,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
 import java.util.TreeMap;
-
-import javax.imageio.ImageIO;
-import javax.imageio.stream.FileImageInputStream;
-import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 
 import main.AnimeIndex;
 
@@ -131,7 +126,7 @@ public class FileManager
 			
 			try 
 			{
-				sc = new Scanner(fansubFile);
+				sc = new Scanner(fansubFile,"UTF-8");
 				while (sc.hasNextLine())
 				{
 					String all = sc.nextLine();
@@ -193,7 +188,8 @@ public class FileManager
 		BufferedWriter output;
 		try 
 		{
-			output = new BufferedWriter(new FileWriter(animeFile));
+			output = new BufferedWriter(new OutputStreamWriter(
+				    new FileOutputStream(animeFile), "UTF-8"));
 			
 			Object[] animeNameArray = category.toArray();
 			for (int i = 0; i < animeNameArray.length; i++)
