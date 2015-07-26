@@ -449,7 +449,7 @@ public class AddAnimeDialog extends JDialog
 								{
 									animeModel = new DefaultListModel();									
 									searchedList = new JList(animeModel);
-									searchedList.setFont(new Font("Arial Unicode MS", Font.PLAIN, 11));
+									searchedList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
 									searchedList.addListSelectionListener(new ListSelectionListener() {
 										public void valueChanged(ListSelectionEvent e) {
 											addAniButton.setEnabled(true);

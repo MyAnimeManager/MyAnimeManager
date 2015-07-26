@@ -106,7 +106,7 @@ public class AnimeInformation extends JPanel
 		
 		lblAnimeName = new JLabel("Nome Anime");
 		scrollPane.setViewportView(lblAnimeName);
-		lblAnimeName.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblAnimeName.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 25));
 		
 		//label immagine
 		BufferedImage image = null;
