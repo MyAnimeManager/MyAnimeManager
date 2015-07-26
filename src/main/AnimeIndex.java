@@ -67,7 +67,6 @@ import util.window.AddImageDialog;
 import util.window.AnimeInformation;
 import util.window.ExitSaveDialog;
 import util.window.PreferenceDialog;
-import util.window.SetAnimeNameDialog;
 import util.window.SetFilterDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 //kemomimi OP
@@ -199,53 +198,20 @@ public class AnimeIndex extends JFrame
 		JMenu mnMenu = new JMenu("Opzioni");
 		menuBar.add(mnMenu);
 		
-		JMenu mnAggiungi = new JMenu("Aggiungi");
-		mnMenu.add(mnAggiungi);
-		
-		JMenuItem mntmAggiungiFansub = new JMenuItem("Nuovo Fansub");
-		mnAggiungi.add(mntmAggiungiFansub);
-		
-		JMenuItem mntmAddImage = new JMenuItem("Immagine");
-		mnAggiungi.add(mntmAddImage);
-		mntmAddImage.addActionListener(new ActionListener() {
+		JMenuItem mntmPreferenze = new JMenuItem("Preferenze");
+		mntmPreferenze.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddImageDialog imageDialog = new AddImageDialog();
-				imageDialog.setLocationRelativeTo(mainFrame);
-				imageDialog.setVisible(true);
+				PreferenceDialog preference = new PreferenceDialog();
+				preference.setLocationRelativeTo(mainFrame);
+				preference.setVisible(true);
 			}
 		});
-		mntmAggiungiFansub.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				fansubDialog = new AddFansubDialog();
-				fansubDialog.setLocationRelativeTo(mainFrame);
-				fansubDialog.setVisible(true);
-			}
-		});
+		mnMenu.add(mntmPreferenze);
 		
-		JSeparator separator_7 = new JSeparator();
-		mnMenu.add(separator_7);
-		
-		JMenuItem mntmModificaNome = new JMenuItem("Modifica Nome Anime");
-		mnMenu.add(mntmModificaNome);
-		mntmModificaNome.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Si consiglia di lasciare invariato\n\ril nome dell'anime per una\n\rmaggiore compatibilita' coi dati\n\rdel server AniList.\n\rAlcune funzioni potrebbero\n\ressere disattivate. Continuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-				if(shouldCancel==0){
-					SetAnimeNameDialog animeNameDialog = new SetAnimeNameDialog();
-				animeNameDialog.setLocationRelativeTo(mainFrame);
-				animeNameDialog.setVisible(true);
-				}				
-			}
-		});
-		
-		JSeparator separator_3 = new JSeparator();
-		mnMenu.add(separator_3);
+		JSeparator separator_2 = new JSeparator();
+		mnMenu.add(separator_2);
 		
 		JCheckBoxMenuItem rdbtnmntmControlloDati = new JCheckBoxMenuItem("Controllo Dati");
-		if(appProp.getProperty("Update_system").equals("true"))
-			rdbtnmntmControlloDati.setSelected(true);
-		else
-			rdbtnmntmControlloDati.setSelected(false);
 		
 		rdbtnmntmControlloDati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -275,18 +241,41 @@ public class AnimeIndex extends JFrame
 		JSeparator separator = new JSeparator();
 		mnMenu.add(separator);
 		
-		JMenuItem mntmPreferenze = new JMenuItem("Preferenze");
-		mntmPreferenze.addActionListener(new ActionListener() {
+		JMenu mnAggiungi = new JMenu("Aggiungi");
+		mnMenu.add(mnAggiungi);
+		
+		JMenuItem mntmAggiungiFansub = new JMenuItem("Aggiungi Fansub");
+		mnAggiungi.add(mntmAggiungiFansub);
+		mntmAggiungiFansub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PreferenceDialog preference = new PreferenceDialog();
-				preference.setLocationRelativeTo(mainFrame);
-				preference.setVisible(true);
+				fansubDialog = new AddFansubDialog();
+				fansubDialog.setLocationRelativeTo(mainFrame);
+				fansubDialog.setVisible(true);
 			}
 		});
-		mnMenu.add(mntmPreferenze);
 		
-		JSeparator separator_2 = new JSeparator();
-		mnMenu.add(separator_2);
+		JSeparator separator_3 = new JSeparator();
+		mnMenu.add(separator_3);
+		if(appProp.getProperty("Update_system").equals("true"))
+			rdbtnmntmControlloDati.setSelected(true);
+		else
+			rdbtnmntmControlloDati.setSelected(false);
+		
+		JMenu mnModifica = new JMenu("Modifica");
+		mnMenu.add(mnModifica);
+		
+		JMenuItem mntmAddImage = new JMenuItem("Immagine Anime");
+		mnModifica.add(mntmAddImage);
+		mntmAddImage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddImageDialog imageDialog = new AddImageDialog();
+				imageDialog.setLocationRelativeTo(mainFrame);
+				imageDialog.setVisible(true);
+			}
+		});
+		
+		JSeparator separator_7 = new JSeparator();
+		mnMenu.add(separator_7);
 		
 		JMenu mnElimina = new JMenu("Elimina Dati");
 		mnMenu.add(mnElimina);
