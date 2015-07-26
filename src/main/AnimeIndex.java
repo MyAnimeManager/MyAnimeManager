@@ -1702,14 +1702,14 @@ public class AnimeIndex extends JFrame
 	
 	private static Font createCode2000()
 	{
-		InputStream is = AnimeIndex.class.getResourceAsStream("/font/Calibri.TTF");
+		InputStream is = AnimeIndex.class.getResourceAsStream("/font/CODE2000.TTF");
 		Font font = null;
 		try {
 			font = Font.createFont(Font.TRUETYPE_FONT,is);
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
-		font = font.deriveFont(28f);
+		font = font.deriveFont(29f);
 		return font;
 }
 }
