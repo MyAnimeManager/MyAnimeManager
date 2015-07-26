@@ -285,6 +285,33 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
+	public static void saveNewImage(String imageUrl, String destinationFile) {
+	    File url;
+		try {
+			url = new File(imageUrl);
+			
+			InputStream is = new FileInputStream(url);
+		    OutputStream os = new FileOutputStream(IMAGE_PATH + destinationFile +".png");
+
+			    byte[] b = new byte[2048];
+			    int length;
+			    
+			    while ((length = is.read(b)) != -1) {
+			        os.write(b, 0, length);
+			    }
+
+			    is.close();
+			    os.close();
+			        
+		}catch (FileNotFoundException e) {
+			File file = new File(IMAGE_PATH);
+			file.mkdirs();
+			saveNewImage(imageUrl ,destinationFile);
+		}
+			catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	 public static void deleteData(File file)	throws IOException
 	 {
 		 
