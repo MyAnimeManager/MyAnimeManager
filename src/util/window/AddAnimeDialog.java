@@ -780,7 +780,7 @@ public class AddAnimeDialog extends JDialog
 				}
 			}
 		}
-		//TODO
+		//TODO finire sistema di controllo
 		if (AnimeIndex.appProp.getProperty("List_to_Check").equalsIgnoreCase("all"))
 		{
 			checkToggleButton.setText("Tutte le liste");
