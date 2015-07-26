@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="lib/laf-widget-7.3.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/substance-7.3.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/trident-7.3.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.4.jar" sourcepath="lib/commons-lang3-3.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

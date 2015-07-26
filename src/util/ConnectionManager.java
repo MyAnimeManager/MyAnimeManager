@@ -12,6 +12,8 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 public class ConnectionManager
 {
 	private static final String BASEURL = "https://anilist.co/api/";
@@ -139,7 +141,7 @@ public class ConnectionManager
 				e1.printStackTrace();
 			} 
 	    }
-	    
+	    result = StringEscapeUtils.unescapeJava(result);
 	    return result;
 	}
 	/*
@@ -199,7 +201,7 @@ public class ConnectionManager
 				e1.printStackTrace();
 			} 
 	    }
-	    
+		result = StringEscapeUtils.unescapeJava(result);
 		return result;
 	}
 	/*
