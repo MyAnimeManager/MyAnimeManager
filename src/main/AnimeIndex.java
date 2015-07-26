@@ -1045,6 +1045,7 @@ public class AnimeIndex extends JFrame
 					deleteButton.setEnabled(true);
 				else
 				{
+					System.out.println("nnn va");
 					deleteButton.setEnabled(false);
 					animeInformation.setBlank();
 				}
