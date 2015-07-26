@@ -567,7 +567,7 @@ public class AddAnimeDialog extends JDialog
 							{
 								if (finishDate.equals("null"))
 									finishDate = "??/??/????";
-								else if (releaseDate.length() > 4)
+								else if (finishDate.length() > 4)
 								{
 									String dayEnd = finishDate.substring(8, 10);
 									String monthEnd= finishDate.substring(5, 7);
