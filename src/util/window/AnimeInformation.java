@@ -830,6 +830,7 @@ public class AnimeInformation extends JPanel
 	//TODO aggiungere fansub
 		public void setBlank()
 		{  
+			AnimeIndex.getJList().clearSelection();
 			if(AnimeIndex.getJList().isSelectionEmpty())
 			{
 				lblAnimeName.setText("Nome Anime");
