@@ -333,7 +333,10 @@ public class AnimeInformation extends JPanel
 		fansubComboBox = new JComboBox();
 		fansubComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				String link = AnimeIndex.fansubMap.get((String)fansubComboBox.getSelectedItem());
+				String fansubName = (String)fansubComboBox.getSelectedItem();
+				if (fansubName != null && fansubName.isEmpty())
+				{
+				String link = AnimeIndex.fansubMap.get(fansubName);
 				if (link != null && !link.isEmpty())
 				{
 					fansubButton.setEnabled(true);
@@ -341,6 +344,7 @@ public class AnimeInformation extends JPanel
 
 				else
 					fansubButton.setEnabled(false);	
+				}
 			}
 		});
 		GridBagConstraints gbc_fansubComboBox = new GridBagConstraints();
