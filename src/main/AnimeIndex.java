@@ -119,7 +119,7 @@ public class AnimeIndex extends JFrame
 	private SearchBar searchBar;
 	public static AddFansubDialog fansubDialog;
 	public static JButton setFilterButton;
-	private JList list;
+	private String list;
 	public static boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
 	/**
 	 * Launch the application.
@@ -600,6 +600,7 @@ public class AnimeIndex extends JFrame
 				//TODO mettere che salva anche quando cambia lista( basta fare uan variabile che tiene conto della ultima lsita selezionata e mettere un try catch nel metodo saveModifiedInformation() che salvi usando la lista precedente.
 				CardLayout cl = (CardLayout)(cardContainer.getLayout());
 		        cl.show(cardContainer, (String)evt.getItem());
+		        saveModifiedInformation(list);
 		        if (deleteButton.isEnabled())
 		        { 
 		        	deleteButton.setEnabled(false);	
@@ -612,6 +613,8 @@ public class AnimeIndex extends JFrame
 		        	}
 		        AnimeIndex.animeInformation.setBlank();
 		        String type = getList();
+		        list = type;
+		        appProp.setProperty("Last_list", type);
 		        if(type.equalsIgnoreCase("anime completati"))
 		        	{
 		        		AnimeIndex.animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
@@ -1246,6 +1249,14 @@ public class AnimeIndex extends JFrame
 		animeInformation = new AnimeInformation();
 		mainFrame.add(animeInformation, BorderLayout.CENTER);
 		animeInformation.setBlank();
+		if (appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Last list"))
+		{
+			list = appProp.getProperty("Last_list");
+			animeTypeComboBox.setSelectedItem(list);
+		}
+		else
+			list = appProp.getProperty("List_to_visualize_at_start");
+			animeTypeComboBox.setSelectedItem(list);
 		}
 	
 	private static void addPopup(Component component, final JPopupMenu popup) {
@@ -1499,6 +1510,71 @@ public class AnimeIndex extends JFrame
 		}
 	}
 
+	public void saveModifiedInformation(String list)
+	{
+		if(!animeInformation.lblAnimeName.getText().equalsIgnoreCase("Nome Anime"))
+		{
+			String name = animeInformation.lblAnimeName.getText();
+			String currEp = animeInformation.currentEpisodeField.getText();
+			String totEp = animeInformation.totalEpisodeText.getText();
+			String fansub = (String) animeInformation.fansubComboBox.getSelectedItem();
+			String fansubLink = animeInformation.getLink();
+			String note = animeInformation.noteTextArea.getText();
+			String day = (String) animeInformation.exitDaycomboBox.getSelectedItem();
+			String linkName = animeInformation.setLinkButton.getText();
+			String animeType = (String)animeInformation.typeComboBox.getSelectedItem();
+			String releaseDate = animeInformation.releaseDateField.getText();
+			String finishDate = animeInformation.finishDateField.getText();
+			String durationEp = animeInformation.durationField.getText();
+			
+			if (list.equalsIgnoreCase("Anime Completati"))
+				{
+				String image = AnimeIndex.completedMap.get(name).getImageName();
+				String id = AnimeIndex.completedMap.get(name).getId();
+				String link = AnimeIndex.completedMap.get(name).getLink();
+				Boolean bd = AnimeIndex.completedMap.get(name).getBd();
+				AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
+				AnimeIndex.completedMap.put(name, data);
+				}
+			else if (list.equalsIgnoreCase("Anime in Corso"))
+				{
+				String image = AnimeIndex.airingMap.get(name).getImageName();
+				String id = AnimeIndex.airingMap.get(name).getId();
+				String link = AnimeIndex.airingMap.get(name).getLink();
+				Boolean bd = AnimeIndex.airingMap.get(name).getBd();
+				AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
+				AnimeIndex.airingMap.put(name, data);
+				}
+			else if (list.equalsIgnoreCase("OAV"))
+				{
+				String image = AnimeIndex.ovaMap.get(name).getImageName();
+				String id = AnimeIndex.ovaMap.get(name).getId();
+				String link = AnimeIndex.ovaMap.get(name).getLink();
+				Boolean bd = AnimeIndex.ovaMap.get(name).getBd();
+				AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
+				AnimeIndex.ovaMap.put(name, data);
+				}
+			else if (list.equalsIgnoreCase("Film"))
+			{
+				String image = AnimeIndex.filmMap.get(name).getImageName();
+				String id = AnimeIndex.filmMap.get(name).getId();
+				String link = AnimeIndex.filmMap.get(name).getLink();
+				Boolean bd = AnimeIndex.filmMap.get(name).getBd();
+				AnimeData data = new AnimeData(currEp, totEp, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
+				AnimeIndex.filmMap.put(name, data);
+			}
+			else if (list.equalsIgnoreCase("Completi Da Vedere"))
+			{
+				String image = AnimeIndex.completedToSeeMap.get(name).getImageName();
+				String id = AnimeIndex.completedToSeeMap.get(name).getId();
+				String link = AnimeIndex.completedToSeeMap.get(name).getLink();
+				Boolean bd = AnimeIndex.completedToSeeMap.get(name).getBd();
+				AnimeData data = new AnimeData(currEp, totEp, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
+				AnimeIndex.completedToSeeMap.put(name, data);
+			}
+		}
+	}
+	
 	public void setFansubMap(TreeMap<String, String> fansubMap) 
 	{
 		AnimeIndex.fansubMap.putAll(fansubMap);
