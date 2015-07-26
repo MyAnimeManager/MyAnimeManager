@@ -1027,13 +1027,14 @@ public class AnimeIndex extends JFrame
 				String type = (String) animeTypeComboBox.getSelectedItem();
 
 				SortedListModel model = getModel();
-				list = getJList();
+				JList list = getJList();
 				TreeMap<String,AnimeData> map = getMap();
 				ArrayList<String> arrayList = getDeletedAnimeArray();
 				int index = list.getSelectedIndex();
 				String name = (String) model.getElementAt(index);
 				model.removeElementAt(index);
 				index -= 1;
+				list.clearSelection();
 				list.setSelectedIndex(index);
 				
 				String image = map.get(name).getImageName();
