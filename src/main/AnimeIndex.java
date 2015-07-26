@@ -610,14 +610,8 @@ public class AnimeIndex extends JFrame
 		        	completedToSeeList.clearSelection();
 		        	searchBar.setText("");
 		        	}
-		       AnimeIndex.animeInformation.setBlank();
+		        AnimeIndex.animeInformation.setBlank();
 		        String type = getList();
-		        // disabilitazione pulsanti vari
-		        if(type.equalsIgnoreCase("uscite del giorno"))//TODO rimovibile?
-		        	addButton.setEnabled(false);
-		        else
-		        	addButton.setEnabled(true);
-		        
 		        if(type.equalsIgnoreCase("anime completati"))
 		        	{
 		        		AnimeIndex.animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
