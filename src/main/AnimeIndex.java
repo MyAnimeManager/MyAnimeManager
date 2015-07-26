@@ -1865,13 +1865,13 @@ public class AnimeIndex extends JFrame
 			if (data.getFansub() != null)
 			{
 				if(fansubMap.get(data.getFansub()) != null && !(fansubMap.get(data.getFansub())).isEmpty())
-	                AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+	                AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 				else
-					 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
+					 AnimeIndex.animeInformation.fansubButton.setEnabled(false);
 			} 
 			else
 			{
-				 AnimeIndex.animeInformation.btnOpen.setEnabled(false);
+				 AnimeIndex.animeInformation.fansubButton.setEnabled(false);
 			}
 		}
 		
