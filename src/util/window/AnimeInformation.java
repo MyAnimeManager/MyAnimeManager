@@ -594,7 +594,6 @@ public class AnimeInformation extends JPanel
 				else
 				{
 					String name = lblAnimeName.getText();
-					System.out.println(name);
 					TreeMap<String,AnimeData> map = null;								
 					if (section.equalsIgnoreCase("Completi Da Vedere"))
 					{

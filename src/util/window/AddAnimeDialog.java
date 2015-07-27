@@ -56,6 +56,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JCheckBox;
 import javax.swing.JToggleButton;
+
 import java.awt.Font;
 
 public class AddAnimeDialog extends JDialog
@@ -80,6 +81,11 @@ public class AddAnimeDialog extends JDialog
 	private JPanel normalAddPanel;
 	public SetCheckDialog checkDialog;
 	public static JToggleButton checkToggleButton;
+	public static boolean checkCompletedList;
+	public static boolean checkAiringList;
+	public static boolean checkOAVList;
+	public static boolean checkFilmList;
+	public static boolean checkToSeeList;
 
 //TODO l'aggiunta manuale e' completamente da rifare
 	/**
@@ -437,6 +443,69 @@ public class AddAnimeDialog extends JDialog
 							searchPanel1.add(btnCerca, gbc_btnCerca);
 							{
 								listToAddAniComboBox = new JComboBox();
+//								listToAddAniComboBox.addItemListener(new ItemListener() {
+//									public void itemStateChanged(ItemEvent e) {
+//										if (AnimeIndex.appProp.getProperty("List_to_Check").equalsIgnoreCase("all"))
+//										{
+//											checkToggleButton.setText("Tutte le liste");
+//											checkToggleButton.setSelected(true);
+//										}
+//										else if (AnimeIndex.appProp.getProperty("List_to_Check").equalsIgnoreCase("none"))
+//										{
+//											checkToggleButton.setText("Nessuna Lista");
+//										}
+//										else if (listToAddAniComboBox.getSelectedItem().equals("Anime Completati"))
+//										{
+//											checkCompletedList = true;
+//											checkAiringList = false;
+//											checkOAVList = false;
+//											checkFilmList = false;
+//											checkToSeeList = false;
+//											checkToggleButton.setText("Anime Completati");
+//											checkToggleButton.setSelected(true);
+//										}
+//										else if (listToAddAniComboBox.getSelectedItem().equals("Anime in Corso"))
+//										{
+//											checkCompletedList = false;
+//											checkAiringList = true;
+//											checkOAVList = false;
+//											checkFilmList = false;
+//											checkToSeeList = false;
+//											checkToggleButton.setText("Anime in Corso");
+//											checkToggleButton.setSelected(true);
+//										}
+//										else if (listToAddAniComboBox.getSelectedItem().equals("OAV"))
+//										{
+//											checkCompletedList = false;
+//											checkAiringList = false;
+//											checkOAVList = true;
+//											checkFilmList = false;
+//											checkToSeeList = false;
+//											checkToggleButton.setText("OAV");
+//											checkToggleButton.setSelected(true);
+//										}
+//										else if (listToAddAniComboBox.getSelectedItem().equals("Film"))
+//										{
+//											checkCompletedList = false;
+//											checkAiringList = false;
+//											checkOAVList = false;
+//											checkFilmList = true;
+//											checkToSeeList = false;
+//											checkToggleButton.setText("Film");
+//											checkToggleButton.setSelected(true);
+//										}
+//										else
+//										{
+//											checkCompletedList = false;
+//											checkAiringList = false;
+//											checkOAVList = false;
+//											checkFilmList = false;
+//											checkToSeeList = true;
+//											checkToggleButton.setText("Completi Da Vedere");
+//											checkToggleButton.setSelected(true);
+//										}	
+//									}
+//								});
 								listToAddAniComboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere"}));
 								GridBagConstraints gbc_listToAddAniComboBox = new GridBagConstraints();
 								gbc_listToAddAniComboBox.anchor = GridBagConstraints.WEST;
@@ -524,6 +593,7 @@ public class AddAnimeDialog extends JDialog
 					addAniButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							
+							AnimeIndex.addToPreviousList = (String)listToAddAniComboBox.getSelectedItem();
 							String anime = (String) searchedList.getSelectedValue();
 							int id = animeSearched.get(anime);
 							String dataAni = ConnectionManager.parseAnimeData(id);
@@ -783,12 +853,70 @@ public class AddAnimeDialog extends JDialog
 		//TODO finire sistema di controllo
 		if (AnimeIndex.appProp.getProperty("List_to_Check").equalsIgnoreCase("all"))
 		{
+			checkCompletedList = true;
+			checkAiringList = true;
+			checkOAVList = true;
+			checkFilmList = true;
+			checkToSeeList = true;
 			checkToggleButton.setText("Tutte le liste");
 			checkToggleButton.setSelected(true);
 		}
 		else
 		{
+		if (AnimeIndex.addToPreviousList != null && AnimeIndex.addToPreviousList.equalsIgnoreCase((String)listToAddAniComboBox.getSelectedItem()) && AddAnimeDialog.checkCompletedList == AddAnimeDialog.checkAiringList == AddAnimeDialog.checkOAVList == AddAnimeDialog.checkFilmList ==AddAnimeDialog.checkToSeeList == false)
+		{
 			checkToggleButton.setText("Nessuna Lista");
+		}
+		else if (listToAddAniComboBox.getSelectedItem().equals("Anime Completati"))
+		{
+			checkCompletedList = true;
+			checkAiringList = false;
+			checkOAVList = false;
+			checkFilmList = false;
+			checkToSeeList = false;
+			checkToggleButton.setText("Anime Completati");
+			checkToggleButton.setSelected(true);
+		}
+		else if (listToAddAniComboBox.getSelectedItem().equals("Anime in Corso"))
+		{
+			checkCompletedList = false;
+			checkAiringList = true;
+			checkOAVList = false;
+			checkFilmList = false;
+			checkToSeeList = false;
+			checkToggleButton.setText("Anime in Corso");
+			checkToggleButton.setSelected(true);
+		}
+		else if (listToAddAniComboBox.getSelectedItem().equals("OAV"))
+		{
+			checkCompletedList = false;
+			checkAiringList = false;
+			checkOAVList = true;
+			checkFilmList = false;
+			checkToSeeList = false;
+			checkToggleButton.setText("OAV");
+			checkToggleButton.setSelected(true);
+		}
+		else if (listToAddAniComboBox.getSelectedItem().equals("Film"))
+		{
+			checkCompletedList = false;
+			checkAiringList = false;
+			checkOAVList = false;
+			checkFilmList = true;
+			checkToSeeList = false;
+			checkToggleButton.setText("Film");
+			checkToggleButton.setSelected(true);
+		}
+		else
+		{
+			checkCompletedList = false;
+			checkAiringList = false;
+			checkOAVList = false;
+			checkFilmList = false;
+			checkToSeeList = true;
+			checkToggleButton.setText("Completi Da Vedere");
+			checkToggleButton.setSelected(true);
+		}
 		}
 	}
 	

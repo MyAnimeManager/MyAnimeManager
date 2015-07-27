@@ -128,6 +128,7 @@ public class AnimeIndex extends JFrame
 	private String list;
 	public static boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
 	public static Font segui;
+	public static String addToPreviousList;
 	/**
 	 * Launch the application.
 	 */
@@ -327,13 +328,13 @@ public class AnimeIndex extends JFrame
 		JSeparator separator_7 = new JSeparator();
 		mnMenu.add(separator_7);
 		
-		JMenu mnElimina = new JMenu("Elimina Dati");
+		JMenu mnElimina = new JMenu("Elimina");
 		mnMenu.add(mnElimina);
 		
-		JMenuItem mntmDeleteImage = new JMenuItem("Elimina tutti i Dati");
+		JMenuItem mntmDeleteImage = new JMenuItem("Tutti i Dati");
 		mnElimina.add(mntmDeleteImage);
 		
-		JMenuItem mntmEliminaFansub = new JMenuItem("Elimina tutti i Fansub");
+		JMenuItem mntmEliminaFansub = new JMenuItem("Tutti i Fansub");
 		mntmEliminaFansub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti i Fansub?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -357,7 +358,7 @@ public class AnimeIndex extends JFrame
 		});
 		mnElimina.add(mntmEliminaFansub);
 		
-		JMenu mnEliminaLista = new JMenu("Elimina tutta la Lista");
+		JMenu mnEliminaLista = new JMenu("Tutta la Lista");
 		mnElimina.add(mnEliminaLista);
 		
 		JMenuItem mntmAnimeCompletati = new JMenuItem("Anime Completati");
