@@ -237,7 +237,6 @@ public class AnimeInformation extends JPanel
 		minusButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int num = Integer.parseInt(currentEpisodeField.getText());
-				
 				if (num != 0)
 				{
 				num--;
