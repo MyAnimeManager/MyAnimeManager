@@ -289,6 +289,7 @@ public class AnimeIndex extends JFrame
 				fansubMap.clear();
 				animeInformation.fansubComboBox.removeAllItems();
 				addToFansub("?????");
+				animeInformation.setFansubComboBox();
 				animeInformation.setBlank();
 				JOptionPane.showMessageDialog(mainFrame, "Fansub eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				}
