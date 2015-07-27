@@ -245,26 +245,10 @@ public class AnimeIndex extends JFrame
 		
 		JSeparator separator = new JSeparator();
 		mnMenu.add(separator);
-		
-		JMenu mnAggiungi = new JMenu("Aggiungi");
-		mnMenu.add(mnAggiungi);
-		
-		JMenuItem mntmAggiungiFansub = new JMenuItem("Aggiungi Fansub");
-		mnAggiungi.add(mntmAggiungiFansub);
-		mntmAggiungiFansub.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				fansubDialog = new AddFansubDialog();
-				fansubDialog.setLocationRelativeTo(mainFrame);
-				fansubDialog.setVisible(true);
-			}
-		});
 		if(appProp.getProperty("Update_system").equals("true"))
 			dataCheckButton.setSelected(true);
 		else
 			dataCheckButton.setSelected(false);
-		
-		JSeparator separator_7 = new JSeparator();
-		mnMenu.add(separator_7);
 		
 		JMenu mnElimina = new JMenu("Elimina");
 		mnMenu.add(mnElimina);
@@ -296,7 +280,7 @@ public class AnimeIndex extends JFrame
 			}
 		});
 		mnElimina.add(mntmEliminaFansub);
-		
+//TODO nn elimina le immagini!!!		
 		JMenu mnEliminaLista = new JMenu("Tutta la Lista");
 		mnElimina.add(mnEliminaLista);
 		
@@ -459,6 +443,19 @@ public class AnimeIndex extends JFrame
 		
 		JMenuItem mntmCredit = new JMenuItem("Crediti");
 		mnHelp.add(mntmCredit);
+		
+		JMenu mnAggiungi = new JMenu("Aggiungi");
+		menuBar.add(mnAggiungi);
+		
+		JMenuItem mntmAggiungiFansub = new JMenuItem("Nuovo Fansub");
+		mnAggiungi.add(mntmAggiungiFansub);
+		mntmAggiungiFansub.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fansubDialog = new AddFansubDialog();
+				fansubDialog.setLocationRelativeTo(mainFrame);
+				fansubDialog.setVisible(true);
+			}
+		});
 		
 		JMenu mnAnichart = new JMenu("Apri");
 		menuBar.add(mnAnichart);
@@ -1602,7 +1599,7 @@ public class AnimeIndex extends JFrame
 		return arrayList;
 	}
 
-	public void saveModifiedInformation()
+	public static void saveModifiedInformation()
 	{
 		if(!animeInformation.lblAnimeName.getText().equalsIgnoreCase("Anime"))
 		{
@@ -1663,7 +1660,7 @@ public class AnimeIndex extends JFrame
 				String link = AnimeIndex.completedToSeeMap.get(name).getLink();
 				Boolean bd = AnimeIndex.completedToSeeMap.get(name).getBd();
 				AnimeData data = new AnimeData(currEp, totEp, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
-				AnimeIndex.completedToSeeMap.put(name, data);
+				AnimeIndex.completedToSeeMap.put(name, data);				
 			}
 		}
 	}
@@ -1778,7 +1775,7 @@ public class AnimeIndex extends JFrame
 				animeInformation.setImage(data.getImagePath());
 			else
 			{
-				animeInformation.setImage("deafult");
+				animeInformation.setImage("default");
 			}
 			
 			if(data.getCurrentEpisode().equals(data.getTotalEpisode()))

@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Savepoint;
 import java.util.TreeMap;
 
 import javax.imageio.IIOException;
@@ -236,6 +237,7 @@ public class AnimeInformation extends JPanel
 		minusButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int num = Integer.parseInt(currentEpisodeField.getText());
+				
 				if (num != 0)
 				{
 				num--;
@@ -561,6 +563,10 @@ public class AnimeInformation extends JPanel
 						list.setSelectedIndex(index-1);
 				    else
 				    setBlank();
+				    
+				    AnimeIndex.animeTypeComboBox.setSelectedItem("Anime in Corso");
+					AnimeIndex.airingList.clearSelection();
+					AnimeIndex.airingList.setSelectedValue(name, true);
 				}
 				else if(shouldCancel==1)
 				{	
@@ -646,6 +652,7 @@ public class AnimeInformation extends JPanel
 		finishedButton.setEnabled(false);
 		finishedButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				AnimeIndex.saveModifiedInformation();
 				String name = lblAnimeName.getText();
 				String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
 				
@@ -755,6 +762,7 @@ public class AnimeInformation extends JPanel
 		addToSeeButton = new JButton("Concluso da Vedere");
 		addToSeeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				AnimeIndex.saveModifiedInformation();
 				String name = lblAnimeName.getText();
 				String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
 				
