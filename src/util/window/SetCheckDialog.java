@@ -313,13 +313,6 @@ public class SetCheckDialog extends JDialog {
 							else
 								AddAnimeDialog.checkToSeeList = false;
 							
-							System.out.println(checkCompleted.isSelected());
-							System.out.println(checkAiring.isSelected());
-							System.out.println(checkOAV.isSelected());
-							System.out.println(checkFilm.isSelected());
-							System.out.println(checkToSee.isSelected());
-							System.out.println("---|");
-							
 							AnimeIndex.appProp.setProperty("List_to_Check", "Multi Check");
 						}
 						JButton but = (JButton) e.getSource();
@@ -348,8 +341,6 @@ public class SetCheckDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		System.out.println(AddAnimeDialog.checkCompletedList == AddAnimeDialog.checkAiringList == AddAnimeDialog.checkOAVList == AddAnimeDialog.checkFilmList == AddAnimeDialog.checkToSeeList == false);
-		System.out.println("---;");
 		
 		if (AnimeIndex.appProp.getProperty("List_to_Check").equalsIgnoreCase("all"))
 		{
@@ -395,13 +386,6 @@ public class SetCheckDialog extends JDialog {
 				checkToSee.setSelected(true);
 			else
 				checkToSee.setSelected(false);
-			
-			System.out.println(AddAnimeDialog.checkCompletedList);
-			System.out.println(AddAnimeDialog.checkAiringList);
-			System.out.println(AddAnimeDialog.checkOAVList);
-			System.out.println(AddAnimeDialog.checkFilmList);
-			System.out.println(AddAnimeDialog.checkToSeeList);
-			System.out.println("---,");
 		}
 	}
 
