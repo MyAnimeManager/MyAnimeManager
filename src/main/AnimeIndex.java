@@ -18,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,11 +30,13 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.TreeMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenu;
@@ -53,15 +56,18 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.pushingpixels.substance.api.skin.SubstanceEmeraldDuskLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
+import sun.font.CreatedFontTracker;
 import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.FileManager;
+import util.ImageChooserFilter;
 import util.SearchBar;
 import util.SortedListModel;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
+import util.window.AddImageDialog;
 import util.window.AnimeInformation;
 import util.window.ExitSaveDialog;
 import util.window.PreferenceDialog;
@@ -139,14 +145,12 @@ public class AnimeIndex extends JFrame
 			public void run()
 			{
 				try {
-//			         UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel());
-					UIManager.setLookAndFeel(new SubstanceEmeraldDuskLookAndFeel());
+			         UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel());
 			        } catch (Exception e) {
 			          System.out.println("Substance Graphite failed to initialize");
 			        }
 				try {
-//			          UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel());
-			          UIManager.setLookAndFeel(new SubstanceEmeraldDuskLookAndFeel());
+			          UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel());
 			        } catch (Exception e) {
 			          System.out.println("Substance Graphite failed to initialize");
 			        }
