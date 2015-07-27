@@ -1769,10 +1769,11 @@ public class AnimeIndex extends JFrame
 			animeInformation.setFinishDate(data.getFinishDate());
 			animeInformation.setDay(data.getDay());
 			animeInformation.setType(data.getAnimeType());
-			String path = data.getImagePath();
+			String listName = getList();
+			String path = data.getImagePath(listName);
 			File file = new File(path);
 			if (file.exists())
-				animeInformation.setImage(data.getImagePath());
+				animeInformation.setImage(data.getImagePath(listName));
 			else
 			{
 				animeInformation.setImage("default");
@@ -1811,10 +1812,11 @@ public class AnimeIndex extends JFrame
 			animeInformation.setFinishDate(data.getFinishDate());
 			animeInformation.setDay(data.getDay());
 			animeInformation.setType(data.getAnimeType());
-			String path = data.getImagePath();
+			String listName = getList();
+			String path = data.getImagePath(listName);
 			File file = new File(path);
 			if (file.exists())
-				animeInformation.setImage(data.getImagePath());
+				animeInformation.setImage(data.getImagePath(listName));
 			else
 			{
 				animeInformation.setImage("deafult");

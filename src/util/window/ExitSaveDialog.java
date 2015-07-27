@@ -65,11 +65,11 @@ public class ExitSaveDialog extends JDialog
 								FileManager.saveAnimeList("film.txt", AnimeIndex.filmModel, AnimeIndex.filmMap);
 								FileManager.saveAnimeList("toSee.txt", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
 							
-								deleteUselessImage(AnimeIndex.completedDeletedAnime, AnimeIndex.completedMap);
-								deleteUselessImage(AnimeIndex.airingDeletedAnime, AnimeIndex.airingMap);
-								deleteUselessImage(AnimeIndex.ovaDeletedAnime, AnimeIndex.ovaMap);
-								deleteUselessImage(AnimeIndex.filmDeletedAnime, AnimeIndex.filmMap);
-								deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime, AnimeIndex.completedToSeeMap);
+								deleteUselessImage(AnimeIndex.completedDeletedAnime, AnimeIndex.completedMap, "Completed");
+								deleteUselessImage(AnimeIndex.airingDeletedAnime, AnimeIndex.airingMap, "Airing");
+								deleteUselessImage(AnimeIndex.ovaDeletedAnime, AnimeIndex.ovaMap, "Oav");
+								deleteUselessImage(AnimeIndex.filmDeletedAnime, AnimeIndex.filmMap, "Film");
+								deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime, AnimeIndex.completedToSeeMap, "Completed to See");
 							AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
 							System.exit(0);
 						}
@@ -79,11 +79,11 @@ public class ExitSaveDialog extends JDialog
 						public void actionPerformed(ActionEvent arg0) {
 							AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
 							
-							deleteUselessImage(AnimeIndex.completedSessionAnime, AnimeIndex.completedMap);
-							deleteUselessImage(AnimeIndex.airingSessionAnime, AnimeIndex.airingMap);
-							deleteUselessImage(AnimeIndex.ovaSessionAnime, AnimeIndex.ovaMap);
-							deleteUselessImage(AnimeIndex.filmSessionAnime, AnimeIndex.filmMap);
-							deleteUselessImage(AnimeIndex.completedToSeeSessionAnime, AnimeIndex.completedToSeeMap);
+							deleteUselessImage(AnimeIndex.completedSessionAnime, AnimeIndex.completedMap, "Completed");
+							deleteUselessImage(AnimeIndex.airingSessionAnime, AnimeIndex.airingMap, "Airing");
+							deleteUselessImage(AnimeIndex.ovaSessionAnime, AnimeIndex.ovaMap, "Oav");
+							deleteUselessImage(AnimeIndex.filmSessionAnime, AnimeIndex.filmMap, "Film");
+							deleteUselessImage(AnimeIndex.completedToSeeSessionAnime, AnimeIndex.completedToSeeMap, "Completed to See");
 							System.exit(0);
 						}
 					});
@@ -106,14 +106,14 @@ public class ExitSaveDialog extends JDialog
 		}
 	}
 
-	private void deleteUselessImage(ArrayList<String> arrayList, TreeMap<String, AnimeData> map)
+	private void deleteUselessImage(ArrayList<String> arrayList, TreeMap<String, AnimeData> map, String listName)
 	{
 		for (int i = 0; i < arrayList.size(); i++)
 		{
 			String anime = arrayList.get(i);
 			if (map.get(anime) != null)
 			{
-			String imagePath = map.get(anime).getImagePath();
+			String imagePath = map.get(anime).getImagePath(listName);
 			File image = new File(imagePath);
 			try {
 				FileManager.deleteData(image);

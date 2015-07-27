@@ -231,14 +231,14 @@ public class FileManager
 	    return lines;
 	}
 
-	public static void saveImage(String imageUrl, String destinationFile) {
+	public static void saveImage(String imageUrl, String destinationFile, String folderName) {
 	    URL url;
 		try {
 			url = new URL(imageUrl);
 			URLConnection conn =url.openConnection();
 			conn.setRequestProperty("User-Agent", "My Anime Index");
 			InputStream is = conn.getInputStream();
-		    OutputStream os = new FileOutputStream(IMAGE_PATH + destinationFile +".png");
+		    OutputStream os = new FileOutputStream(IMAGE_PATH + folderName + File.separator + destinationFile +".png");
 
 			    byte[] b = new byte[2048];
 			    int length;
@@ -250,9 +250,9 @@ public class FileManager
 			    is.close();
 			    os.close();
 		}catch (FileNotFoundException e) {
-			File file = new File(IMAGE_PATH);
+			File file = new File(IMAGE_PATH + folderName + File.separator);
 			file.mkdirs();
-			saveImage(imageUrl ,destinationFile);
+			saveImage(imageUrl ,destinationFile, folderName);
 		}
 			catch (Exception e) {
 			e.printStackTrace();

@@ -316,27 +316,31 @@ public class AddImageDialog extends JDialog
 						imageName = imageName.replaceAll(">", "_");
 						imageName = imageName.replaceAll("<", "_");
 						
-						FileManager.saveImage(imageLink, name);
 						TreeMap<String, AnimeData> animeMap = null;
 						if (selectedList.equalsIgnoreCase("Anime Completati"))
 						{
 							animeMap = AnimeIndex.completedMap;
+							FileManager.saveImage(imageLink, name, "Completed");
 						}
 						else if (selectedList.equalsIgnoreCase("Anime in Corso"))
 						{
 							animeMap = AnimeIndex.airingMap;
+							FileManager.saveImage(imageLink, name, "Airing");
 						}
 						else if (selectedList.equalsIgnoreCase("OAV"))
 						{
 							animeMap = AnimeIndex.ovaMap;
+							FileManager.saveImage(imageLink, name, "Ova");
 						}
 						else if (selectedList.equalsIgnoreCase("Film"))
 						{
 							animeMap = AnimeIndex.filmMap;
+							FileManager.saveImage(imageLink, name,"Film");
 						}
 						else if (selectedList.equalsIgnoreCase("Completi Da Vedere"))
 						{
 							animeMap = AnimeIndex.completedToSeeMap;
+							FileManager.saveImage(imageLink, name,"Completed to See");
 						}
 						AnimeData oldData = animeMap.get(name);
 						AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 

@@ -306,8 +306,9 @@ public class PreferenceDialog extends JDialog
 							FileManager.saveNewImage(dir, imageName);
 							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
 							TreeMap<String,AnimeData> map = AnimeIndex.getMap();
+							String list = AnimeIndex.getList();
 							AnimeData data = map.get(name);
-							String path = data.getImagePath();
+							String path = data.getImagePath(list);
 							File imgFile = new File(path);
 							if(imgFile.exists())
 								AnimeIndex.animeInformation.setImage(path);
