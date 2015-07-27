@@ -287,6 +287,7 @@ public class SetCheckDialog extends JDialog {
 						{
 							AddAnimeDialog.checkToggleButton.setText("Più Liste");
 							AddAnimeDialog.checkToggleButton.setSelected(true);
+							
 							if(checkCompleted.isSelected())
 								AddAnimeDialog.checkCompletedList = true;
 							else
@@ -311,6 +312,13 @@ public class SetCheckDialog extends JDialog {
 								AddAnimeDialog.checkToSeeList = true;
 							else
 								AddAnimeDialog.checkToSeeList = false;
+							
+							System.out.println(checkCompleted.isSelected());
+							System.out.println(checkAiring.isSelected());
+							System.out.println(checkOAV.isSelected());
+							System.out.println(checkFilm.isSelected());
+							System.out.println(checkToSee.isSelected());
+							System.out.println("---|");
 							
 							AnimeIndex.appProp.setProperty("List_to_Check", "Multi Check");
 						}
@@ -340,6 +348,8 @@ public class SetCheckDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		System.out.println(AddAnimeDialog.checkCompletedList == AddAnimeDialog.checkAiringList == AddAnimeDialog.checkOAVList == AddAnimeDialog.checkFilmList == AddAnimeDialog.checkToSeeList == false);
+		System.out.println("---;");
 		
 		if (AnimeIndex.appProp.getProperty("List_to_Check").equalsIgnoreCase("all"))
 		{
@@ -350,7 +360,7 @@ public class SetCheckDialog extends JDialog {
 			checkToSee.setSelected(true);
 			allCheckButton.setEnabled(false);
 		}
-		else if (AddAnimeDialog.checkCompletedList == AddAnimeDialog.checkAiringList == AddAnimeDialog.checkOAVList == AddAnimeDialog.checkFilmList ==AddAnimeDialog.checkToSeeList == false)
+		else if (AddAnimeDialog.checkCompletedList == AddAnimeDialog.checkAiringList == AddAnimeDialog.checkOAVList == AddAnimeDialog.checkFilmList == AddAnimeDialog.checkToSeeList == false)
 		{
 			checkCompleted.setSelected(false); 
 			checkAiring.setSelected(false);
@@ -359,23 +369,39 @@ public class SetCheckDialog extends JDialog {
 			checkToSee.setSelected(false);
 			noneCheckButton.setEnabled(false);
 		}
-//TODO sistemare check multiplo all'apertura della finestra
 		else
 		{
-			if (AddAnimeDialog.checkCompletedList == true)
+			if (AddAnimeDialog.checkCompletedList)
 				checkCompleted.setSelected(true);
+			else
+				checkCompleted.setSelected(false);
 			
-			if (AddAnimeDialog.checkAiringList == true)
+			if (AddAnimeDialog.checkAiringList)
 				checkAiring.setSelected(true);
+			else
+				checkAiring.setSelected(false);
 			
-			if (AddAnimeDialog.checkOAVList == true)
+			if (AddAnimeDialog.checkOAVList)
 				checkOAV.setSelected(true);
+			else
+				checkOAV.setSelected(false);
 			
-			if (AddAnimeDialog.checkFilmList == true)
+			if (AddAnimeDialog.checkFilmList)
 				checkFilm.setSelected(true);
+			else
+				checkFilm.setSelected(false);
 			
-			if (AddAnimeDialog.checkToSeeList == true)
+			if (AddAnimeDialog.checkToSeeList)
 				checkToSee.setSelected(true);
+			else
+				checkToSee.setSelected(false);
+			
+			System.out.println(AddAnimeDialog.checkCompletedList);
+			System.out.println(AddAnimeDialog.checkAiringList);
+			System.out.println(AddAnimeDialog.checkOAVList);
+			System.out.println(AddAnimeDialog.checkFilmList);
+			System.out.println(AddAnimeDialog.checkToSeeList);
+			System.out.println("---,");
 		}
 	}
 
