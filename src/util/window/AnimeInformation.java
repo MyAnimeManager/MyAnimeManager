@@ -75,7 +75,6 @@ public class AnimeInformation extends JPanel
 	private JLabel lblInizio;
 	private JLabel lblFine;
 	public JTextField finishDateField;
-	private JTextField textField;
 	public JTextField releaseDateField;
 	private JLabel lblDurata;
 	public JTextField durationField;
@@ -294,15 +293,6 @@ public class AnimeInformation extends JPanel
 		add(totalEpisodeText, gbc_totalEpisodeText);
 		totalEpisodeText.setColumns(3);
 		((AbstractDocument)totalEpisodeText.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,4}||\\?{0,2}"));
-		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.anchor = GridBagConstraints.WEST;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.gridx = 11;
-		gbc_textField.gridy = 4;
-		add(textField, gbc_textField);
-		textField.setColumns(10);
 		
 		lblDurata = new JLabel("Durata :");
 		GridBagConstraints gbc_lblDurata = new GridBagConstraints();
