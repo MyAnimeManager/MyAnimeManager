@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
@@ -26,8 +27,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import main.AnimeIndex;
+import util.AnimeData;
 import util.FileManager;
 import util.ImageChooserFilter;
+
+import java.awt.Component;
+
+import javax.swing.Box;
 
 public class PreferenceDialog extends JDialog
 {
@@ -45,15 +51,15 @@ public class PreferenceDialog extends JDialog
 	{
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 450, 247);
+		setBounds(100, 100, 450, 313);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 205, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblListToVisualize = new JLabel("Lista da visualizzare all'avvio :");
@@ -154,23 +160,29 @@ public class PreferenceDialog extends JDialog
 		listGroup.add(rdbtnChooseList);
 		listGroup.add(rdbtnLastList);
 		{
+			Component verticalStrut = Box.createVerticalStrut(20);
+			GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+			gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+			gbc_verticalStrut.gridx = 0;
+			gbc_verticalStrut.gridy = 3;
+			contentPanel.add(verticalStrut, gbc_verticalStrut);
+		}
+		{
+			Component verticalStrut = Box.createVerticalStrut(20);
+			GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+			gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+			gbc_verticalStrut.gridx = 1;
+			gbc_verticalStrut.gridy = 3;
+			contentPanel.add(verticalStrut, gbc_verticalStrut);
+		}
+		{
 			JLabel lblImmagineIniziale = new JLabel("Immagine Iniziale :");
 			GridBagConstraints gbc_lblImmagineIniziale = new GridBagConstraints();
 			gbc_lblImmagineIniziale.anchor = GridBagConstraints.WEST;
 			gbc_lblImmagineIniziale.insets = new Insets(0, 0, 5, 5);
 			gbc_lblImmagineIniziale.gridx = 0;
-			gbc_lblImmagineIniziale.gridy = 3;
+			gbc_lblImmagineIniziale.gridy = 4;
 			contentPanel.add(lblImmagineIniziale, gbc_lblImmagineIniziale);
-		}
-		{
-			JLabel imgDimension = new JLabel("       L'immagine deve avere dimensioni :                225 x 310 pixel.");
-			GridBagConstraints gbc_imgDimension = new GridBagConstraints();
-			gbc_imgDimension.anchor = GridBagConstraints.WEST;
-			gbc_imgDimension.insets = new Insets(0, 0, 5, 0);
-			gbc_imgDimension.gridwidth = 3;
-			gbc_imgDimension.gridx = 0;
-			gbc_imgDimension.gridy = 4;
-			contentPanel.add(imgDimension, gbc_imgDimension);
 		}
 		{
 			JLabel lblPercorsoFile = new JLabel(" Immagine :");
@@ -218,7 +230,7 @@ public class PreferenceDialog extends JDialog
 		{
 			JLabel lblRimuoviAttuale = new JLabel("Rimuovi Attuale :");
 			GridBagConstraints gbc_lblRimuoviAttuale = new GridBagConstraints();
-			gbc_lblRimuoviAttuale.insets = new Insets(0, 0, 0, 5);
+			gbc_lblRimuoviAttuale.insets = new Insets(0, 0, 5, 5);
 			gbc_lblRimuoviAttuale.gridx = 0;
 			gbc_lblRimuoviAttuale.gridy = 6;
 			contentPanel.add(lblRimuoviAttuale, gbc_lblRimuoviAttuale);
@@ -244,10 +256,97 @@ public class PreferenceDialog extends JDialog
 			});
 			GridBagConstraints gbc_removeDefaultImage = new GridBagConstraints();
 			gbc_removeDefaultImage.fill = GridBagConstraints.HORIZONTAL;
-			gbc_removeDefaultImage.insets = new Insets(0, 0, 0, 5);
+			gbc_removeDefaultImage.insets = new Insets(0, 0, 5, 5);
 			gbc_removeDefaultImage.gridx = 1;
 			gbc_removeDefaultImage.gridy = 6;
 			contentPanel.add(removeDefaultImage, gbc_removeDefaultImage);
+		}
+		{
+			Component verticalStrut = Box.createVerticalStrut(20);
+			GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+			gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+			gbc_verticalStrut.gridx = 0;
+			gbc_verticalStrut.gridy = 7;
+			contentPanel.add(verticalStrut, gbc_verticalStrut);
+		}
+		{
+			Component verticalStrut = Box.createVerticalStrut(20);
+			GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+			gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+			gbc_verticalStrut.gridx = 1;
+			gbc_verticalStrut.gridy = 7;
+			contentPanel.add(verticalStrut, gbc_verticalStrut);
+		}
+		{
+			JLabel lblImmagineAnime = new JLabel("Immagine Anime :");
+			GridBagConstraints gbc_lblImmagineAnime = new GridBagConstraints();
+			gbc_lblImmagineAnime.anchor = GridBagConstraints.WEST;
+			gbc_lblImmagineAnime.insets = new Insets(0, 0, 0, 5);
+			gbc_lblImmagineAnime.gridx = 0;
+			gbc_lblImmagineAnime.gridy = 8;
+			contentPanel.add(lblImmagineAnime, gbc_lblImmagineAnime);
+		}
+		{
+			JButton btnSeleziona = new JButton("Seleziona");
+			btnSeleziona.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					String name = AnimeIndex.animeInformation.lblAnimeName.getText();
+					if(name!=null && !name.isEmpty() && !name.equalsIgnoreCase("Anime"))
+					{
+					int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "La modifica sarà applicata all'anime attualmente visualizzato.\n\rL'operazione non potrà essere annullata.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if(shouldCancel==0)	
+					{
+					File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+					JFileChooser fc = new JFileChooser(chooserDir);
+					fc.setMultiSelectionEnabled(false);
+					fc.addChoosableFileFilter(new ImageChooserFilter());
+					fc.setAcceptAllFileFilterUsed(false);
+
+					int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Imposta");
+					
+					if (returnVal == JFileChooser.APPROVE_OPTION)
+					{
+						File file = fc.getSelectedFile();
+						String dir = file.getPath();
+						try {
+							BufferedImage bufimg = ImageIO.read (file);
+							String imageName = name.replaceAll("\\\\", "_");
+							imageName = imageName.replaceAll("/", "_");
+							imageName = imageName.replaceAll(":", "_");
+							imageName = imageName.replaceAll("\\*", "_");
+							imageName = imageName.replaceAll("\\?", "_");
+							imageName = imageName.replaceAll("\"", "_");
+							imageName = imageName.replaceAll(">", "_");
+							imageName = imageName.replaceAll("<", "_");
+							FileManager.saveNewImage(dir, imageName);
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+							TreeMap<String,AnimeData> map = AnimeIndex.getMap();
+							AnimeData data = map.get(name);
+							String path = data.getImagePath();
+							File imgFile = new File(path);
+							if (imgFile.exists())
+								AnimeIndex.animeInformation.setImage(path);
+							else
+							{
+								AnimeIndex.animeInformation.setImage("deafult");
+							}
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						
+					}
+					}
+					}
+					else
+						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessun anime selezionato.\n\rSelezionarne uno da una delle liste e riprovare.", "Errore!", JOptionPane.ERROR_MESSAGE);
+				}
+			});
+			GridBagConstraints gbc_btnSeleziona = new GridBagConstraints();
+			gbc_btnSeleziona.fill = GridBagConstraints.HORIZONTAL;
+			gbc_btnSeleziona.insets = new Insets(0, 0, 0, 5);
+			gbc_btnSeleziona.gridx = 1;
+			gbc_btnSeleziona.gridy = 8;
+			contentPanel.add(btnSeleziona, gbc_btnSeleziona);
 		}
 	}
 

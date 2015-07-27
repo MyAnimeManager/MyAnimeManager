@@ -258,72 +258,10 @@ public class AnimeIndex extends JFrame
 				fansubDialog.setVisible(true);
 			}
 		});
-		
-		JSeparator separator_3 = new JSeparator();
-		mnMenu.add(separator_3);
 		if(appProp.getProperty("Update_system").equals("true"))
 			dataCheckButton.setSelected(true);
 		else
 			dataCheckButton.setSelected(false);
-		
-		JMenu mnModifica = new JMenu("Modifica");
-		mnMenu.add(mnModifica);
-		
-		JMenuItem mntmAddImage = new JMenuItem("Immagine Anime");
-		mnModifica.add(mntmAddImage);
-		mntmAddImage.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String name = animeInformation.lblAnimeName.getText();
-				if(name!=null && !name.isEmpty() && !name.equalsIgnoreCase("Anime"))
-				{
-				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "La modifica sarà applicata all'anime attualmente selezionato.\n\rL'operazione non potrà essere annullata.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-				if(shouldCancel==0)	
-				{
-				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
-				JFileChooser fc = new JFileChooser(chooserDir);
-				fc.setMultiSelectionEnabled(false);
-				fc.addChoosableFileFilter(new ImageChooserFilter());
-				fc.setAcceptAllFileFilterUsed(false);
-
-				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Imposta");
-				
-				if (returnVal == JFileChooser.APPROVE_OPTION)
-				{
-					File file = fc.getSelectedFile();
-					String dir = file.getPath();
-					try {
-						BufferedImage bufimg = ImageIO.read (file);
-						String imageName = name.replaceAll("\\\\", "_");
-						imageName = imageName.replaceAll("/", "_");
-						imageName = imageName.replaceAll(":", "_");
-						imageName = imageName.replaceAll("\\*", "_");
-						imageName = imageName.replaceAll("\\?", "_");
-						imageName = imageName.replaceAll("\"", "_");
-						imageName = imageName.replaceAll(">", "_");
-						imageName = imageName.replaceAll("<", "_");
-						FileManager.saveNewImage(dir, imageName);
-						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
-						TreeMap<String,AnimeData> map = getMap();
-						AnimeData data = map.get(name);
-						String path = data.getImagePath();
-						File imgFile = new File(path);
-						if (imgFile.exists())
-							animeInformation.setImage(path);
-						else
-						{
-							animeInformation.setImage("deafult");
-						}
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-					
-				}
-				}
-				}
-				else
-					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessun anime selezionato", "Errore!", JOptionPane.ERROR_MESSAGE);
-			}
-		});
 		
 		JSeparator separator_7 = new JSeparator();
 		mnMenu.add(separator_7);
