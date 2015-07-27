@@ -459,7 +459,7 @@ public class AddAnimeDialog extends JDialog
 										}
 										else
 										{
-										if (AnimeIndex.addToPreviousList != null && AnimeIndex.addToPreviousList.equalsIgnoreCase((String)listToAddAniComboBox.getSelectedItem()) && AddAnimeDialog.checkCompletedList == AddAnimeDialog.checkAiringList == AddAnimeDialog.checkOAVList == AddAnimeDialog.checkFilmList == AddAnimeDialog.checkToSeeList == false)
+										if (AnimeIndex.addToPreviousList != null && AnimeIndex.addToPreviousList.equalsIgnoreCase((String)listToAddAniComboBox.getSelectedItem()) && AddAnimeDialog.checkCompletedList == false && AddAnimeDialog.checkAiringList == false && AddAnimeDialog.checkOAVList == false && AddAnimeDialog.checkFilmList == false && AddAnimeDialog.checkToSeeList == false)
 										{
 											checkToggleButton.setText("Nessuna Lista");
 										}
@@ -874,7 +874,7 @@ public class AddAnimeDialog extends JDialog
 		}
 		else
 		{
-		if (AnimeIndex.addToPreviousList != null && AnimeIndex.addToPreviousList.equalsIgnoreCase((String)listToAddAniComboBox.getSelectedItem()) && AddAnimeDialog.checkCompletedList == AddAnimeDialog.checkAiringList == AddAnimeDialog.checkOAVList == AddAnimeDialog.checkFilmList == AddAnimeDialog.checkToSeeList == false)
+		if (AnimeIndex.addToPreviousList != null && AnimeIndex.addToPreviousList.equalsIgnoreCase((String)listToAddAniComboBox.getSelectedItem()) && AddAnimeDialog.checkCompletedList == false && AddAnimeDialog.checkAiringList == false && AddAnimeDialog.checkOAVList == false && AddAnimeDialog.checkFilmList == false && AddAnimeDialog.checkToSeeList == false)
 		{
 			checkToggleButton.setText("Nessuna Lista");
 		}

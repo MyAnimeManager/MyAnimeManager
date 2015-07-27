@@ -360,7 +360,7 @@ public class SetCheckDialog extends JDialog {
 			checkToSee.setSelected(true);
 			allCheckButton.setEnabled(false);
 		}
-		else if (AddAnimeDialog.checkCompletedList == AddAnimeDialog.checkAiringList == AddAnimeDialog.checkOAVList == AddAnimeDialog.checkFilmList == AddAnimeDialog.checkToSeeList == false)
+		else if (AddAnimeDialog.checkCompletedList == false && AddAnimeDialog.checkAiringList == false && AddAnimeDialog.checkOAVList == false && AddAnimeDialog.checkFilmList == false && AddAnimeDialog.checkToSeeList == false)
 		{
 			checkCompleted.setSelected(false); 
 			checkAiring.setSelected(false);
