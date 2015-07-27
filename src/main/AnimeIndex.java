@@ -128,7 +128,7 @@ public class AnimeIndex extends JFrame
 	private String list;
 	public static boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
 	public static Font segui;
-	public static String addToPreviousList;
+	public static String addToPreviousList ;
 	/**
 	 * Launch the application.
 	 */
