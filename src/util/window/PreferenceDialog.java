@@ -51,7 +51,7 @@ public class PreferenceDialog extends JDialog
 	{
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 450, 340);
+		setBounds(100, 100, 450, 304);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
