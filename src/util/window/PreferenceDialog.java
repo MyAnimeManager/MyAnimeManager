@@ -247,11 +247,12 @@ public class PreferenceDialog extends JDialog
 		{
 			rdbtnLastList.setSelected(true);
 			choosedList.setEnabled(false);
+			choosedList.setSelectedItem(AnimeIndex.appProp.getProperty("Last_list"));
 		}
 		else
 		{
-			rdbtnChooseList.setSelected(true);	
-			choosedList.setSelectedItem(AnimeIndex.appProp.getProperty("List_to_visualize_at_start"));
+			rdbtnChooseList.setSelected(true);
+			
 		}
 	}
 
