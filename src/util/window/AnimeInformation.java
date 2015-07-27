@@ -558,13 +558,9 @@ public class AnimeInformation extends JPanel
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
 				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
 
-				    if(index-1>=0)
-						list.setSelectedIndex(index-1);
-				    else
 				    setBlank();
 				    
 				    AnimeIndex.animeTypeComboBox.setSelectedItem("Anime in Corso");
-					AnimeIndex.airingList.clearSelection();
 					AnimeIndex.airingList.setSelectedValue(name, true);
 				}
 				else if(shouldCancel==1)
