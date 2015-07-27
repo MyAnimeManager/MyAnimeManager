@@ -34,6 +34,7 @@ import util.ImageChooserFilter;
 import java.awt.Component;
 
 import javax.swing.Box;
+import javax.swing.JSeparator;
 
 public class PreferenceDialog extends JDialog
 {
@@ -49,16 +50,17 @@ public class PreferenceDialog extends JDialog
 	 */
 	public PreferenceDialog()
 	{
+		setTitle("Preferenze");
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 450, 304);
+		setBounds(100, 100, 450, 270);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 205, 0, 0};
+		gbl_contentPanel.columnWidths = new int[]{0, 205, 0};
 		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
@@ -98,7 +100,6 @@ public class PreferenceDialog extends JDialog
 		{
 			choosedList = new JComboBox();
 			GridBagConstraints gbc_choosedList = new GridBagConstraints();
-			gbc_choosedList.gridwidth = 2;
 			gbc_choosedList.insets = new Insets(0, 0, 5, 0);
 			gbc_choosedList.fill = GridBagConstraints.HORIZONTAL;
 			gbc_choosedList.gridx = 1;
@@ -152,12 +153,14 @@ public class PreferenceDialog extends JDialog
 		listGroup.add(rdbtnChooseList);
 		listGroup.add(rdbtnLastList);
 		{
-			Component verticalStrut = Box.createVerticalStrut(20);
-			GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
-			gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
-			gbc_verticalStrut.gridx = 0;
-			gbc_verticalStrut.gridy = 3;
-			contentPanel.add(verticalStrut, gbc_verticalStrut);
+			JSeparator separator = new JSeparator();
+			GridBagConstraints gbc_separator = new GridBagConstraints();
+			gbc_separator.gridwidth = 2;
+			gbc_separator.fill = GridBagConstraints.HORIZONTAL;
+			gbc_separator.insets = new Insets(0, 0, 5, 0);
+			gbc_separator.gridx = 0;
+			gbc_separator.gridy = 3;
+			contentPanel.add(separator, gbc_separator);
 		}
 		{
 			JLabel lblImmagineIniziale = new JLabel("Immagine Iniziale :");
@@ -206,7 +209,7 @@ public class PreferenceDialog extends JDialog
 			});
 			GridBagConstraints gbc_DefaultImageButton = new GridBagConstraints();
 			gbc_DefaultImageButton.fill = GridBagConstraints.HORIZONTAL;
-			gbc_DefaultImageButton.insets = new Insets(0, 0, 5, 5);
+			gbc_DefaultImageButton.insets = new Insets(0, 0, 5, 0);
 			gbc_DefaultImageButton.gridx = 1;
 			gbc_DefaultImageButton.gridy = 5;
 			contentPanel.add(DefaultImageButton, gbc_DefaultImageButton);
@@ -240,18 +243,20 @@ public class PreferenceDialog extends JDialog
 			});
 			GridBagConstraints gbc_removeDefaultImage = new GridBagConstraints();
 			gbc_removeDefaultImage.fill = GridBagConstraints.HORIZONTAL;
-			gbc_removeDefaultImage.insets = new Insets(0, 0, 5, 5);
+			gbc_removeDefaultImage.insets = new Insets(0, 0, 5, 0);
 			gbc_removeDefaultImage.gridx = 1;
 			gbc_removeDefaultImage.gridy = 6;
 			contentPanel.add(removeDefaultImage, gbc_removeDefaultImage);
 		}
 		{
-			Component verticalStrut = Box.createVerticalStrut(20);
-			GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
-			gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
-			gbc_verticalStrut.gridx = 0;
-			gbc_verticalStrut.gridy = 7;
-			contentPanel.add(verticalStrut, gbc_verticalStrut);
+			JSeparator separator = new JSeparator();
+			GridBagConstraints gbc_separator = new GridBagConstraints();
+			gbc_separator.fill = GridBagConstraints.HORIZONTAL;
+			gbc_separator.gridwidth = 2;
+			gbc_separator.insets = new Insets(0, 0, 5, 0);
+			gbc_separator.gridx = 0;
+			gbc_separator.gridy = 7;
+			contentPanel.add(separator, gbc_separator);
 		}
 		{
 			JLabel lblImmagineAnime = new JLabel("Immagine Anime :");
@@ -315,7 +320,6 @@ public class PreferenceDialog extends JDialog
 			});
 			GridBagConstraints gbc_btnSeleziona = new GridBagConstraints();
 			gbc_btnSeleziona.fill = GridBagConstraints.HORIZONTAL;
-			gbc_btnSeleziona.insets = new Insets(0, 0, 0, 5);
 			gbc_btnSeleziona.gridx = 1;
 			gbc_btnSeleziona.gridy = 8;
 			contentPanel.add(btnSeleziona, gbc_btnSeleziona);
