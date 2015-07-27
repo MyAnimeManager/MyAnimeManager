@@ -142,15 +142,7 @@ public class PreferenceDialog extends JDialog
 				buttonPane.add(cancelButton);
 			}
 		}
-		
-		String listPreference = AnimeIndex.appProp.getProperty("List_to_visualize_at_start");
-		if (listPreference.equalsIgnoreCase("last list"))
-		{
-			rdbtnLastList.setSelected(true);
-			choosedList.setEnabled(false);
-		}
-		else
-			rdbtnChooseList.setSelected(true);
+		//TODO controllare perchè non salva
 		listGroup.add(rdbtnChooseList);
 		listGroup.add(rdbtnLastList);
 		{
@@ -248,6 +240,18 @@ public class PreferenceDialog extends JDialog
 			gbc_removeDefaultImage.gridx = 1;
 			gbc_removeDefaultImage.gridy = 6;
 			contentPanel.add(removeDefaultImage, gbc_removeDefaultImage);
+		}
+		
+		String listPreference = AnimeIndex.appProp.getProperty("List_to_visualize_at_start");
+		if (listPreference.equalsIgnoreCase("last list"))
+		{
+			rdbtnLastList.setSelected(true);
+			choosedList.setEnabled(false);
+		}
+		else
+		{
+			rdbtnChooseList.setSelected(true);	
+			choosedList.setSelectedItem(AnimeIndex.appProp.getProperty("List_to_visualize_at_start"));
 		}
 	}
 
