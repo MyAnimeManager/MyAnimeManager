@@ -31,8 +31,8 @@ public class ReleaseNotifierDialog extends JDialog {
 		setTitle("Uscite del giorno");
 		setType(Type.POPUP);
 		setResizable(false);
-		setBounds(100, 100, 629, 289);
-		getContentPane().setLayout(new MigLayout("", "[346.00px][-19.00,grow][339px]", "[16.00][grow][332.00px][][][][]"));
+		setBounds(100, 100, 629, 227);
+		getContentPane().setLayout(new MigLayout("", "[346.00px][-19.00,grow][339px]", "[16.00][grow][332.00px][]"));
 		{
 			JLabel lblOggiEStato = new JLabel("OGGI E' STATO RILASCIATO :");
 			getContentPane().add(lblOggiEStato, "cell 0 0 3 1,alignx center,aligny center");
@@ -69,12 +69,8 @@ public class ReleaseNotifierDialog extends JDialog {
 			}
 		}
 		{
-			JButton btnApriSelezionato = new JButton("Apri Selezionato");
-			getContentPane().add(btnApriSelezionato, "cell 0 4 3 1,growx,aligny center");
-		}
-		{
 			JButton btnOk = new JButton("OK");
-			getContentPane().add(btnOk, "cell 0 5 3 1,growx,aligny center");
+			getContentPane().add(btnOk, "cell 0 3 3 1,growx,aligny center");
 		}
 	}
 
