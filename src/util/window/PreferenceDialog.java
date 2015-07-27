@@ -53,10 +53,10 @@ public class PreferenceDialog extends JDialog
 		setTitle("Preferenze");
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 450, 270);
+		setBounds(100, 100, 380, 270);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		getContentPane().add(contentPanel, BorderLayout.NORTH);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 205, 0};
 		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -66,6 +66,7 @@ public class PreferenceDialog extends JDialog
 		{
 			JLabel lblListToVisualize = new JLabel("Lista da visualizzare all'avvio :");
 			GridBagConstraints gbc_lblListToVisualize = new GridBagConstraints();
+			gbc_lblListToVisualize.anchor = GridBagConstraints.WEST;
 			gbc_lblListToVisualize.insets = new Insets(0, 0, 5, 5);
 			gbc_lblListToVisualize.gridx = 0;
 			gbc_lblListToVisualize.gridy = 0;
@@ -106,6 +107,10 @@ public class PreferenceDialog extends JDialog
 			gbc_choosedList.gridy = 2;
 			contentPanel.add(choosedList, gbc_choosedList);
 			choosedList.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere","Uscite del Giorno"}));
+		}
+		{
+			JSeparator separator = new JSeparator();
+			getContentPane().add(separator, BorderLayout.CENTER);
 		}
 		{
 			JPanel buttonPane = new JPanel();
