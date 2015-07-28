@@ -739,7 +739,7 @@ public class AddAnimeDialog extends JDialog
 								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 								AnimeIndex.airingList.clearSelection();
 								AnimeIndex.airingList.setSelectedValue(name, true);
-								AnimeIndex.completedSessionAnime.add(AnimeIndex.completedMap.get(name).getImagePath("anime in corso"));
+								AnimeIndex.airingSessionAnime.add(AnimeIndex.airingMap.get(name).getImagePath("anime in corso"));
 								}
 							}
 							else if (listName.equalsIgnoreCase("oav"))
@@ -771,7 +771,7 @@ public class AddAnimeDialog extends JDialog
 								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 								AnimeIndex.ovaList.clearSelection();
 								AnimeIndex.ovaList.setSelectedValue(name, true);
-								AnimeIndex.completedSessionAnime.add(AnimeIndex.completedMap.get(name).getImagePath("oav"));
+								AnimeIndex.ovaSessionAnime.add(AnimeIndex.ovaMap.get(name).getImagePath("oav"));
 								}
 							}
 							else if (listName.equalsIgnoreCase("film"))
@@ -804,7 +804,7 @@ public class AddAnimeDialog extends JDialog
 								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 								AnimeIndex.filmList.clearSelection();
 								AnimeIndex.filmList.setSelectedValue(name, true);
-								AnimeIndex.completedSessionAnime.add(AnimeIndex.completedMap.get(name).getImagePath("film"));
+								AnimeIndex.filmSessionAnime.add(AnimeIndex.filmMap.get(name).getImagePath("film"));
 								}
 							}
 							else if (listName.equalsIgnoreCase("completi da vedere"))
@@ -836,7 +836,7 @@ public class AddAnimeDialog extends JDialog
 								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 								AnimeIndex.completedToSeeList.clearSelection();
 								AnimeIndex.completedToSeeList.setSelectedValue(name, true);
-								AnimeIndex.completedSessionAnime.add(AnimeIndex.completedMap.get(name).getImagePath("completi da vedere"));
+								AnimeIndex.completedToSeeSessionAnime.add(AnimeIndex.completedToSeeMap.get(name).getImagePath("completi da vedere"));
 								}
 							}
 							

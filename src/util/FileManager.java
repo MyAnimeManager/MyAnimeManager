@@ -340,12 +340,12 @@ public class FileManager
 	 
 	 public static void moveImage(String imgPathFrom, String folderTo, String imgName)
 	 {
-		 File url;
+		 File url = new File(imgPathFrom);
 		 InputStream is = null;
 		 OutputStream os =null;
+		 try{
+		 try{
 			try {
-				url = new File(imgPathFrom);
-				
 				is = new FileInputStream(url);
 			    os = new FileOutputStream(IMAGE_PATH + folderTo + File.separator + imgName);
 
@@ -355,9 +355,7 @@ public class FileManager
 				    while ((length = is.read(b)) != -1) {
 				        os.write(b, 0, length);
 				    }
-				    is.close();
-				    os.close();
-				    deleteData(url);
+				   
 			}catch (FileNotFoundException e) {
 				File file = new File(IMAGE_PATH + folderTo + File.separator);
 				file.mkdirs();
@@ -366,7 +364,22 @@ public class FileManager
 				catch (Exception e) {
 				e.printStackTrace();
 			}
-				
+		 }finally 
+		 {
+			 try{
+			    is.close();
+			    os.close();}
+			 catch(Exception e1){
+			 e1.printStackTrace();}
+		 }
+		 }finally
+		 {
+			 try {
+				deleteData(url);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		 }
 	 }
 	 
 	 public static String getAppDataPath()
