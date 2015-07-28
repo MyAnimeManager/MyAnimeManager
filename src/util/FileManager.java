@@ -15,6 +15,8 @@ import java.net.URLConnection;
 import java.util.Scanner;
 import java.util.TreeMap;
 
+import javax.imageio.stream.FileImageInputStream;
+
 import main.AnimeIndex;
 
 public class FileManager
@@ -285,28 +287,27 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	public static void saveNewImage(String imageUrl, String destinationFile) {
+	public static void saveNewImage(String imageUrl, String destinationFile, String folderName) {
 	    File url;
 		try {
 			url = new File(imageUrl);
 			
 			InputStream is = new FileInputStream(url);
-		    OutputStream os = new FileOutputStream(IMAGE_PATH + destinationFile +".png");
+		    OutputStream os = new FileOutputStream(IMAGE_PATH + folderName + File.separator + destinationFile +".png");
 
 			    byte[] b = new byte[2048];
 			    int length;
-			    
+
 			    while ((length = is.read(b)) != -1) {
 			        os.write(b, 0, length);
 			    }
 
 			    is.close();
 			    os.close();
-			        
 		}catch (FileNotFoundException e) {
-			File file = new File(IMAGE_PATH);
+			File file = new File(IMAGE_PATH + folderName + File.separator);
 			file.mkdirs();
-			saveNewImage(imageUrl ,destinationFile);
+			saveNewImage(imageUrl ,destinationFile, folderName);
 		}
 			catch (Exception e) {
 			e.printStackTrace();
@@ -336,6 +337,34 @@ public class FileManager
 		    	else
 		    		file.delete();
     }
+	 
+	 public static void moveImage(String imgPathFrom, String folderTo, String imgName)
+	 {
+		 File url;
+			try {
+				url = new File(imgPathFrom);
+				
+				InputStream is = new FileInputStream(url);
+			    OutputStream os = new FileOutputStream(IMAGE_PATH + folderTo + File.separator + imgName +".png");
+
+				    byte[] b = new byte[2048];
+				    int length;
+
+				    while ((length = is.read(b)) != -1) {
+				        os.write(b, 0, length);
+				    }
+				    deleteData(url);
+				    is.close();
+				    os.close();
+			}catch (FileNotFoundException e) {
+				File file = new File(IMAGE_PATH + folderTo + File.separator);
+				file.mkdirs();
+				moveImage(imgPathFrom , folderTo, imgName);
+			}
+				catch (Exception e) {
+				e.printStackTrace();
+			}
+	 }
 	 
 	 public static String getAppDataPath()
 	 {
