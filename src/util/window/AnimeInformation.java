@@ -555,7 +555,6 @@ public class AnimeInformation extends JPanel
 					AnimeIndex.airingModel.addElement(name);
 					AnimeIndex.airingSessionAnime.add(AnimeIndex.airingMap.get(name).getImagePath("anime in corso"));
 					
-					
 					AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
