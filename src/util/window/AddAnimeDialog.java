@@ -744,7 +744,12 @@ public class AddAnimeDialog extends JDialog
 								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 								AnimeIndex.airingList.clearSelection();
 								AnimeIndex.airingList.setSelectedValue(name, true);
-								AnimeIndex.airingSessionAnime.add(AnimeIndex.airingMap.get(name).getImagePath("anime in corso"));
+								String imagePath = AnimeIndex.airingMap.get(name).getImagePath("anime in corso");
+								AnimeIndex.airingSessionAnime.add(imagePath);
+								if (AnimeIndex.airingDeletedAnime.contains(imagePath))
+								{
+									AnimeIndex.airingDeletedAnime.remove(imagePath);
+								}
 								}
 							}
 							else if (listName.equalsIgnoreCase("oav"))
@@ -776,7 +781,12 @@ public class AddAnimeDialog extends JDialog
 								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 								AnimeIndex.ovaList.clearSelection();
 								AnimeIndex.ovaList.setSelectedValue(name, true);
-								AnimeIndex.ovaSessionAnime.add(AnimeIndex.ovaMap.get(name).getImagePath("oav"));
+								String imagePath = AnimeIndex.ovaMap.get(name).getImagePath("oav");
+								AnimeIndex.ovaSessionAnime.add(imagePath);
+								if (AnimeIndex.ovaDeletedAnime.contains(imagePath))
+								{
+									AnimeIndex.ovaDeletedAnime.remove(imagePath);
+								}
 								}
 							}
 							else if (listName.equalsIgnoreCase("film"))
@@ -809,7 +819,12 @@ public class AddAnimeDialog extends JDialog
 								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 								AnimeIndex.filmList.clearSelection();
 								AnimeIndex.filmList.setSelectedValue(name, true);
-								AnimeIndex.filmSessionAnime.add(AnimeIndex.filmMap.get(name).getImagePath("film"));
+								String imagePath = AnimeIndex.filmMap.get(name).getImagePath("film");
+								AnimeIndex.filmSessionAnime.add(imagePath);
+								if (AnimeIndex.filmDeletedAnime.contains(imagePath))
+								{
+									AnimeIndex.filmDeletedAnime.remove(imagePath);
+								}
 								}
 							}
 							else if (listName.equalsIgnoreCase("completi da vedere"))
@@ -841,7 +856,12 @@ public class AddAnimeDialog extends JDialog
 								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 								AnimeIndex.completedToSeeList.clearSelection();
 								AnimeIndex.completedToSeeList.setSelectedValue(name, true);
-								AnimeIndex.completedToSeeSessionAnime.add(AnimeIndex.completedToSeeMap.get(name).getImagePath("completi da vedere"));
+								String imagePath = AnimeIndex.completedToSeeMap.get(name).getImagePath("completi da vedere");
+								AnimeIndex.completedToSeeSessionAnime.add(imagePath);
+								if (AnimeIndex.completedToSeeDeletedAnime.contains(imagePath))
+								{
+									AnimeIndex.completedToSeeDeletedAnime.remove(imagePath);
+								}
 								}
 							}
 							
