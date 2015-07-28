@@ -707,7 +707,12 @@ public class AddAnimeDialog extends JDialog
 								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 								AnimeIndex.completedList.clearSelection();
 								AnimeIndex.completedList.setSelectedValue(name, true);
-								AnimeIndex.completedSessionAnime.add(AnimeIndex.completedMap.get(name).getImagePath("anime completati"));
+								String imagePath = AnimeIndex.completedMap.get(name).getImagePath("anime completati");
+								AnimeIndex.completedSessionAnime.add(imagePath);
+								if (AnimeIndex.completedDeletedAnime.contains(imagePath))
+								{
+									AnimeIndex.completedDeletedAnime.remove(imagePath);
+								}
 								}
 							}				
 							else if (listName.equalsIgnoreCase("anime in corso"))
