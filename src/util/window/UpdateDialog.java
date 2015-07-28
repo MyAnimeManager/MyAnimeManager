@@ -24,7 +24,7 @@ import java.awt.Toolkit;
 	    private JPanel pan2;
 
 	    public UpdateDialog(String info) {
-	    	setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateDialog.class.getResource("/image/icon.png")));
+	    	setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateDialog.class.getResource("/image/Update.png")));
 	    	setAlwaysOnTop(true);
 	    	setResizable(false);
 	    	setType(Type.POPUP);

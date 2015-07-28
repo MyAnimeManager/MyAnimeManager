@@ -57,6 +57,7 @@ public class SetFilterDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public SetFilterDialog() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SetFilterDialog.class.getResource("/image/ellipse_icon1.png")));
 		setResizable(false);
 		setModal(true);
 		setModalityType(ModalityType.APPLICATION_MODAL);

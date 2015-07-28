@@ -30,6 +30,7 @@ import main.AnimeIndex;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+import java.awt.Toolkit;
 public class AddFansubDialog extends JDialog
 {
 
@@ -47,6 +48,7 @@ public class AddFansubDialog extends JDialog
 	 */
 	public AddFansubDialog()
 	{
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AddFansubDialog.class.getResource("/image/Aegisub.png")));
 		fansubMap.putAll(AnimeIndex.fansubMap);
 		
 		setResizable(false);

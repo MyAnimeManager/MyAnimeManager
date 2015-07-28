@@ -35,6 +35,7 @@ import java.awt.Component;
 
 import javax.swing.Box;
 import javax.swing.JSeparator;
+import java.awt.Toolkit;
 
 public class PreferenceDialog extends JDialog
 {
@@ -50,6 +51,7 @@ public class PreferenceDialog extends JDialog
 	 */
 	public PreferenceDialog()
 	{
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PreferenceDialog.class.getResource("/image/System-Preferences-icon.png")));
 		setTitle("Preferenze");
 		setResizable(false);
 		setModal(true);

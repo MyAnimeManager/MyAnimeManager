@@ -21,6 +21,7 @@ import java.awt.GridLayout;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.SwingConstants;
 import java.awt.Window.Type;
+import java.awt.Toolkit;
 
 public class ReleaseNotifierDialog extends JDialog {
 
@@ -28,6 +29,7 @@ public class ReleaseNotifierDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public ReleaseNotifierDialog() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ReleaseNotifierDialog.class.getResource("/image/icon.png")));
 		setTitle("Uscite del giorno");
 		setType(Type.POPUP);
 		setResizable(false);
