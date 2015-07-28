@@ -453,6 +453,7 @@ public class AnimeIndex extends JFrame
 		menuBar.add(mnAggiungi);
 		
 		JMenuItem mntmAggiungiFansub = new JMenuItem("Nuovo Fansub");
+		mntmAggiungiFansub.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/Aegisub.png")));
 		mnAggiungi.add(mntmAggiungiFansub);
 		mntmAggiungiFansub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -541,6 +542,24 @@ public class AnimeIndex extends JFrame
 			}
 		});
 		mnAnichart.add(mntmHummingbird);
+		
+		JMenuItem mntmAnidb = new JMenuItem("AniDB");
+		mntmAnidb.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/anidb_icon.png")));
+		mntmAnidb.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String link = "http://anidb.net/";
+				try {
+					URI uriLink = new URI(link);
+					Desktop.getDesktop().browse(uriLink);
+				} catch (URISyntaxException a) {
+				} catch (IOException a) {
+			}
+			}
+		});
+		
+		JSeparator separator_3 = new JSeparator();
+		mnAnichart.add(separator_3);
+		mnAnichart.add(mntmAnidb);
 		mntmAnichart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String link = "http://anichart.net/";
