@@ -354,8 +354,7 @@ public class FileManager
 
 				    while ((length = is.read(b)) != -1) {
 				        os.write(b, 0, length);
-				    }
-				   
+				    }			   
 			}catch (FileNotFoundException e) {
 				File file = new File(IMAGE_PATH + folderTo + File.separator);
 				file.mkdirs();

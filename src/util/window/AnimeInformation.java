@@ -553,6 +553,7 @@ public class AnimeInformation extends JPanel
 					int index = list.getSelectedIndex();
 					model.removeElementAt(index);
 					AnimeIndex.airingModel.addElement(name);
+					AnimeIndex.airingSessionAnime.add(AnimeIndex.airingMap.get(name).getImagePath("anime in corso"));
 					
 					
 					AnimeIndex.animeInformation.minusButton.setEnabled(true);
