@@ -688,7 +688,6 @@ public class AnimeInformation extends JPanel
 					bd = true;
 				else
 					bd = false;
-			
 				AnimeData newData = new AnimeData(oldData.getTotalEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
 							oldData.getNote(), oldData.getImageName(), "Concluso", oldData.getId(),
 							oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 

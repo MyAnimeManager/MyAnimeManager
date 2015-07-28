@@ -1674,7 +1674,7 @@ public class AnimeIndex extends JFrame
 				String id = AnimeIndex.filmMap.get(name).getId();
 				String link = AnimeIndex.filmMap.get(name).getLink();
 				Boolean bd = AnimeIndex.filmMap.get(name).getBd();
-				AnimeData data = new AnimeData(currEp, totEp, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
+				AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
 				AnimeIndex.filmMap.put(name, data);
 			}
 			else if (list.equalsIgnoreCase("Completi Da Vedere"))
@@ -1683,7 +1683,7 @@ public class AnimeIndex extends JFrame
 				String id = AnimeIndex.completedToSeeMap.get(name).getId();
 				String link = AnimeIndex.completedToSeeMap.get(name).getLink();
 				Boolean bd = AnimeIndex.completedToSeeMap.get(name).getBd();
-				AnimeData data = new AnimeData(currEp, totEp, fansubLink, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
+				AnimeData data = new AnimeData(currEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
 				AnimeIndex.completedToSeeMap.put(name, data);				
 			}
 		}
