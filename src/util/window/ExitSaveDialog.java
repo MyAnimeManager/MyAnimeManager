@@ -79,11 +79,11 @@ public class ExitSaveDialog extends JDialog
 						public void actionPerformed(ActionEvent arg0) {
 							AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
 							
-							deleteUselessImage(AnimeIndex.completedSessionAnime, AnimeIndex.completedMap, "Completed");
-							deleteUselessImage(AnimeIndex.airingSessionAnime, AnimeIndex.airingMap, "Airing");
+							deleteUselessImage(AnimeIndex.completedSessionAnime, AnimeIndex.completedMap, "Completati");
+							deleteUselessImage(AnimeIndex.airingSessionAnime, AnimeIndex.airingMap, "Anime in Corso");
 							deleteUselessImage(AnimeIndex.ovaSessionAnime, AnimeIndex.ovaMap, "Oav");
 							deleteUselessImage(AnimeIndex.filmSessionAnime, AnimeIndex.filmMap, "Film");
-							deleteUselessImage(AnimeIndex.completedToSeeSessionAnime, AnimeIndex.completedToSeeMap, "Completed to See");
+							deleteUselessImage(AnimeIndex.completedToSeeSessionAnime, AnimeIndex.completedToSeeMap, "Completati da Vedere");
 							System.exit(0);
 						}
 					});
@@ -110,16 +110,12 @@ public class ExitSaveDialog extends JDialog
 	{
 		for (int i = 0; i < arrayList.size(); i++)
 		{
-			String anime = arrayList.get(i);
-			if (map.get(anime) != null)
-			{
-			String imagePath = map.get(anime).getImagePath(listName);
-			File image = new File(imagePath);
+			String animeImagePath = arrayList.get(i);
+			File image = new File(animeImagePath);
 			try {
 				FileManager.deleteData(image);
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
 			}
 		}
 	}

@@ -292,6 +292,7 @@ public class AnimeIndex extends JFrame
 				{
 				try {
 					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "completed.txt"));
+					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Completed"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -314,6 +315,7 @@ public class AnimeIndex extends JFrame
 				{
 				try {
 					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "airing.txt"));
+					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Airing"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -336,6 +338,7 @@ public class AnimeIndex extends JFrame
 				{
 				try {
 					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "ova.txt"));
+					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Ova"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -358,6 +361,7 @@ public class AnimeIndex extends JFrame
 				{
 				try {
 					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "film.txt"));
+					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Film"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -380,6 +384,7 @@ public class AnimeIndex extends JFrame
 				{
 				try {
 					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "toSee.txt"));
+					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Completed to See"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -1347,6 +1352,7 @@ public class AnimeIndex extends JFrame
 
 				SortedListModel model = getModel();
 				JList list = getJList();
+				String listName = getList();
 				TreeMap<String,AnimeData> map = getMap();
 				ArrayList<String> arrayList = getDeletedAnimeArray();
 				int index = list.getSelectedIndex();
@@ -1356,7 +1362,7 @@ public class AnimeIndex extends JFrame
 				list.clearSelection();
 				list.setSelectedIndex(index);
 				
-				String image = map.get(name).getImageName();
+				String image = map.get(name).getImagePath(listName);
 				arrayList.add(image);
 								
 				map.remove(name);
@@ -1364,7 +1370,6 @@ public class AnimeIndex extends JFrame
 					deleteButton.setEnabled(true);
 				else
 				{
-					System.out.println("nnn va");
 					deleteButton.setEnabled(false);
 					animeInformation.setBlank();
 				}
