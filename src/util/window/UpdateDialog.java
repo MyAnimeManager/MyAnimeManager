@@ -10,6 +10,9 @@ import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import java.awt.GridLayout;
+import java.awt.Window.Type;
+import java.awt.Toolkit;
 
 	public class UpdateDialog extends JFrame{
 
@@ -21,6 +24,10 @@ import javax.swing.JScrollPane;
 	    private JPanel pan2;
 
 	    public UpdateDialog(String info) {
+	    	setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateDialog.class.getResource("/image/icon.png")));
+	    	setAlwaysOnTop(true);
+	    	setResizable(false);
+	    	setType(Type.POPUP);
 	        initComponents();
 	        infoPane.setText(info);
 	    }
@@ -33,7 +40,6 @@ import javax.swing.JScrollPane;
 	        pan1.setLayout(new BorderLayout());
 
 	        pan2 = new JPanel();
-	        pan2.setLayout(new FlowLayout());
 
 	        infoPane = new JEditorPane();
 	        infoPane.setContentType("text/html");
@@ -56,6 +62,7 @@ import javax.swing.JScrollPane;
 	                UpdateDialog.this.dispose();
 	            }
 	        });
+	        pan2.setLayout(new GridLayout(0, 2, 0, 0));
 	        pan2.add(ok);
 	        pan2.add(cancel);
 	        pan1.add(pan2, BorderLayout.SOUTH);

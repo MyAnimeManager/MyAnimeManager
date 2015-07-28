@@ -383,7 +383,7 @@ public class AddAnimeDialog extends JDialog
 						JPanel searchPanel1 = new JPanel();
 						searchPanel.add(searchPanel1, BorderLayout.NORTH);
 						GridBagLayout gbl_searchPanel1 = new GridBagLayout();
-						gbl_searchPanel1.columnWidths = new int[]{63, 246, 61, 0, 0};
+						gbl_searchPanel1.columnWidths = new int[]{63, 246, 61, 179, 0};
 						gbl_searchPanel1.rowHeights = new int[]{27, 0};
 						gbl_searchPanel1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 						gbl_searchPanel1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
@@ -519,7 +519,7 @@ public class AddAnimeDialog extends JDialog
 								});
 								listToAddAniComboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere"}));
 								GridBagConstraints gbc_listToAddAniComboBox = new GridBagConstraints();
-								gbc_listToAddAniComboBox.anchor = GridBagConstraints.WEST;
+								gbc_listToAddAniComboBox.fill = GridBagConstraints.HORIZONTAL;
 								gbc_listToAddAniComboBox.gridx = 3;
 								gbc_listToAddAniComboBox.gridy = 0;
 								searchPanel1.add(listToAddAniComboBox, gbc_listToAddAniComboBox);
@@ -581,7 +581,7 @@ public class AddAnimeDialog extends JDialog
 					JPanel button2Panel = new JPanel();
 					anilistAddPanel.add(button2Panel, BorderLayout.SOUTH);
 					{
-						button2Panel.setLayout(new MigLayout("", "[74.00px,grow][159.00px,grow][83.00px,grow][160.00][56.00px,grow][78.00][143.00px,grow]", "[23px,grow]"));
+						button2Panel.setLayout(new MigLayout("", "[74.00px,grow][159.00px,grow][83.00px,grow][160.00][15.00px,grow][78.00][143.00px,grow]", "[23px,grow]"));
 					}
 					{
 						JLabel lblControllaIn = new JLabel("Controlla in :");
@@ -875,7 +875,7 @@ public class AddAnimeDialog extends JDialog
 					});
 
 					JButton button = new JButton("Esci");
-					button2Panel.add(button, "cell 6 0");
+					button2Panel.add(button, "cell 6 0,growx");
 					button.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							JButton but = (JButton) e.getSource();

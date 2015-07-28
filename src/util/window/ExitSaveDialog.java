@@ -19,6 +19,7 @@ import main.AnimeIndex;
 import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.FileManager;
+import java.awt.Toolkit;
 
 public class ExitSaveDialog extends JDialog
 {
@@ -30,7 +31,8 @@ public class ExitSaveDialog extends JDialog
 	 */
 	public ExitSaveDialog()
 	{
-		setTitle("Attenzione");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ExitSaveDialog.class.getResource("/image/icon.png")));
+		setTitle("Conferma Uscita");
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setResizable(false);

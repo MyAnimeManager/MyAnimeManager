@@ -275,8 +275,7 @@ public class AnimeIndex extends JFrame
 				}
 			}
 		});
-		mnElimina.add(mntmEliminaFansub);
-//TODO nn elimina le immagini!!!		
+		mnElimina.add(mntmEliminaFansub);		
 		JMenu mnEliminaLista = new JMenu("Tutta la Lista");
 		mnElimina.add(mnEliminaLista);
 		
@@ -428,34 +427,6 @@ public class AnimeIndex extends JFrame
 			}
 		});
 		
-		JSeparator separator_1 = new JSeparator();
-		mnMenu.add(separator_1);
-		
-		JMenu mnHelp = new JMenu("Aiuto");
-		mnMenu.add(mnHelp);
-		
-		JMenuItem mntmAboutMyAnimeManager = new JMenuItem("Versione Programma");
-		mntmAboutMyAnimeManager.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(mainFrame, "My Anime Manager             1.0", "Versione", JOptionPane.INFORMATION_MESSAGE);
-			}
-		});
-		mnHelp.add(mntmAboutMyAnimeManager);
-		
-		JMenuItem mntmCredit = new JMenuItem("Crediti");
-		mnHelp.add(mntmCredit);
-		
-		JMenuItem mntmControlloAggiornamenti = new JMenuItem("Controllo aggiornamenti");
-		mntmControlloAggiornamenti.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-					UpdateDialog update = new UpdateDialog(Updater.getWhatsNew());
-					update.setLocationRelativeTo(AnimeIndex.mainFrame);
-					update.setVisible(true);
-
-			}
-		});
-		mnMenu.add(mntmControlloAggiornamenti);
-		
 		JMenu mnAggiungi = new JMenu("Aggiungi");
 		menuBar.add(mnAggiungi);
 		
@@ -567,6 +538,49 @@ public class AnimeIndex extends JFrame
 		JSeparator separator_3 = new JSeparator();
 		mnAnichart.add(separator_3);
 		mnAnichart.add(mntmAnidb);
+		
+		JMenu mnInfo = new JMenu("Info");
+		menuBar.add(mnInfo);
+		
+		JMenuItem mntmControlloAggiornamenti = new JMenuItem("Controllo aggiornamenti");
+		mntmControlloAggiornamenti.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/Update.png")));
+		mnInfo.add(mntmControlloAggiornamenti);
+		
+		JSeparator separator_1 = new JSeparator();
+		mnInfo.add(separator_1);
+		
+		JMenu mnHelp = new JMenu("Aiuto");
+		mnHelp.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/icon2.png")));
+		mnInfo.add(mnHelp);
+		
+		JMenuItem mntmAboutMyAnimeManager = new JMenuItem("Versione Programma");
+		mntmAboutMyAnimeManager.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(mainFrame, "My Anime Manager             1.0", "Versione", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		mnHelp.add(mntmAboutMyAnimeManager);
+		
+		JMenuItem mntmCredit = new JMenuItem("Crediti");
+		mnHelp.add(mntmCredit);
+		mntmCredit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name = System.getProperty("user.home");
+				if (name.equalsIgnoreCase("C:\\Users\\Denis"))
+					JOptionPane.showMessageDialog(mainFrame, "Creato da tu sai chi, merdina che non fa i dizionari", "Crediti", JOptionPane.INFORMATION_MESSAGE);
+				else
+					JOptionPane.showMessageDialog(mainFrame, "Creato da Yesod30", "Crediti", JOptionPane.INFORMATION_MESSAGE);
+				
+			}
+		});
+		mntmControlloAggiornamenti.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					UpdateDialog update = new UpdateDialog(Updater.getWhatsNew());
+					update.setLocationRelativeTo(AnimeIndex.mainFrame);
+					update.setVisible(true);
+
+			}
+		});
 		mntmAnichart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String link = "http://anichart.net/";
@@ -577,16 +591,6 @@ public class AnimeIndex extends JFrame
 				} catch (IOException a) {
 			}
 		  }
-		});
-		mntmCredit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String name = System.getProperty("user.home");
-				if (name.equalsIgnoreCase("C:\\Users\\Denis"))
-					JOptionPane.showMessageDialog(mainFrame, "Creato da tu sai chi, merdina che non fa i dizionari", "Crediti", JOptionPane.INFORMATION_MESSAGE);
-				else
-					JOptionPane.showMessageDialog(mainFrame, "Creato da Yesod30", "Crediti", JOptionPane.INFORMATION_MESSAGE);
-				
-			}
 		});
 				
 		mainFrame = new JPanel();
@@ -946,7 +950,7 @@ public class AnimeIndex extends JFrame
 				applyListSelectionChange();
 				AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
-				AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);//TODO piccolo bug grafico a ep = totep
+				AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
 				AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
 				AnimeIndex.animeInformation.releaseDateField.setEnabled(false);
 				AnimeIndex.animeInformation.finishDateField.setEnabled(false);
@@ -1138,7 +1142,7 @@ public class AnimeIndex extends JFrame
 					{
 						AnimeIndex.animeInformation.minusButton.setEnabled(true);
 						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
-						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);//TODO piccolo bug grafico a ep = totep
+						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
 						AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
 						AnimeIndex.animeInformation.releaseDateField.setEnabled(false);
 						AnimeIndex.animeInformation.finishDateField.setEnabled(false);
@@ -1325,7 +1329,7 @@ public class AnimeIndex extends JFrame
 					{
 						AnimeIndex.animeInformation.minusButton.setEnabled(true);
 						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
-						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);//TODO piccolo bug grafico a ep = totep
+						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
 						AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
 						AnimeIndex.animeInformation.releaseDateField.setEnabled(false);
 						AnimeIndex.animeInformation.finishDateField.setEnabled(false);
