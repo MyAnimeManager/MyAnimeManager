@@ -341,6 +341,8 @@ public class FileManager
 	 public static void moveImage(String imgPathFrom, String folderTo, String imgName)
 	 {
 		 File url = new File(imgPathFrom);
+		 if(url.isFile())
+		 {
 		 InputStream is = null;
 		 OutputStream os =null;
 		 try{
@@ -378,6 +380,7 @@ public class FileManager
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		 }
 		 }
 	 }
 	 

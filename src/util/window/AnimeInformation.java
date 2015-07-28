@@ -508,6 +508,7 @@ public class AnimeInformation extends JPanel
 		typeComboBox = new JComboBox();
 		typeComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				AnimeIndex.saveModifiedInformation();
 				String type = AnimeIndex.getList();
 				String bdType = (String)typeComboBox.getSelectedItem();
 				String section = (String)AnimeIndex.animeTypeComboBox.getSelectedItem();
@@ -692,11 +693,13 @@ public class AnimeInformation extends JPanel
 							oldData.getNote(), oldData.getImageName(), "Concluso", oldData.getId(),
 							oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
 							oldData.getFinishDate(), oldData.getDurationEp(), bd);
+				FileManager.moveImage(oldData.getImagePath(type), "Completed", oldData.getImageName());
 				map.remove(name);
 				AnimeIndex.completedMap.put(name, newData);
 				int index = list.getSelectedIndex();
 				model.removeElementAt(index);
 				AnimeIndex.completedModel.addElement(name);
+				AnimeIndex.completedSessionAnime.add(AnimeIndex.completedMap.get(name).getImagePath("anime completati"));
 				
 				AnimeIndex.animeInformation.minusButton.setEnabled(false);
 			    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
@@ -800,11 +803,13 @@ public class AnimeInformation extends JPanel
 						oldData.getNote(), oldData.getImageName(), "Concluso da Vedere", oldData.getId(),
 						oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
 						oldData.getFinishDate(), oldData.getDurationEp(), bd);
+				FileManager.moveImage(oldData.getImagePath(type), "Completed to See", oldData.getImageName());
 				map.remove(name);
 				AnimeIndex.completedToSeeMap.put(name, newData);
 				int index = list.getSelectedIndex();
 				model.removeElementAt(index);
 				AnimeIndex.completedToSeeModel.addElement(name);
+				AnimeIndex.completedToSeeSessionAnime.add(AnimeIndex.completedToSeeMap.get(name).getImagePath("completi da vedere"));
 				
 				AnimeIndex.animeInformation.minusButton.setEnabled(true);
 			    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
