@@ -546,6 +546,8 @@ public class AnimeInformation extends JPanel
 						    oldData.getNote(), oldData.getImageName(), "Irregolare", oldData.getId(),
 							oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), 
 							oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
+					
+					FileManager.moveImage(oldData.getImagePath(section), "Airing", oldData.getImageName());
 					map.remove(name);
 					AnimeIndex.airingMap.put(name, newData);
 					int index = list.getSelectedIndex();

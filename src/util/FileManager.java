@@ -345,7 +345,7 @@ public class FileManager
 				url = new File(imgPathFrom);
 				
 				InputStream is = new FileInputStream(url);
-			    OutputStream os = new FileOutputStream(IMAGE_PATH + folderTo + File.separator + imgName +".png");
+			    OutputStream os = new FileOutputStream(IMAGE_PATH + folderTo + File.separator + imgName);
 
 				    byte[] b = new byte[2048];
 				    int length;
