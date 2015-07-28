@@ -302,8 +302,20 @@ public class PreferenceDialog extends JDialog
 							imageName = imageName.replaceAll("\\?", "_");
 							imageName = imageName.replaceAll("\"", "_");
 							imageName = imageName.replaceAll(">", "_");
-							imageName = imageName.replaceAll("<", "_");							
-							FileManager.saveNewImage(dir, imageName);
+							imageName = imageName.replaceAll("<", "_");
+							String listName = AnimeIndex.getList();
+							String folder = "";
+							if (listName.equalsIgnoreCase("anime completati"))
+								folder = "Completed";
+							else if (listName.equalsIgnoreCase("anime in corso"))
+								folder = "Airing";
+							else if (listName.equalsIgnoreCase("oav"))
+								folder = "Ova";
+							else if (listName.equalsIgnoreCase("film"))
+								folder = "Film";
+							else if (listName.equalsIgnoreCase("completi da vedere"))
+								folder = "Completed to See";
+							FileManager.saveNewImage(dir, imageName, folder);
 							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
 							TreeMap<String,AnimeData> map = AnimeIndex.getMap();
 							String list = AnimeIndex.getList();
