@@ -341,11 +341,13 @@ public class FileManager
 	 public static void moveImage(String imgPathFrom, String folderTo, String imgName)
 	 {
 		 File url;
+		 InputStream is = null;
+		 OutputStream os =null;
 			try {
 				url = new File(imgPathFrom);
 				
-				InputStream is = new FileInputStream(url);
-			    OutputStream os = new FileOutputStream(IMAGE_PATH + folderTo + File.separator + imgName);
+				is = new FileInputStream(url);
+			    os = new FileOutputStream(IMAGE_PATH + folderTo + File.separator + imgName);
 
 				    byte[] b = new byte[2048];
 				    int length;
@@ -364,6 +366,7 @@ public class FileManager
 				catch (Exception e) {
 				e.printStackTrace();
 			}
+				
 	 }
 	 
 	 public static String getAppDataPath()
