@@ -99,7 +99,7 @@ import util.Updater;
 		       System.out.println(url.toString());
 		       File file = new File(FileManager.getAppDataPath() + "Update" + File.separator + "My Anime Manager Updated.exe");
 		       FileUtils.copyURLToFile(url, file);
-		       System.out.println("Download completato");
+//		       System.out.println("Download completato");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
