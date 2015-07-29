@@ -1,18 +1,30 @@
 package util.window;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.URL;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
-import java.awt.GridLayout;
-import java.awt.Window.Type;
-import java.awt.Toolkit;
+import javax.swing.SwingConstants;
+
+import main.AnimeIndex;
+
+import org.apache.commons.io.FileUtils;
+
+import util.FileManager;
+import util.Updater;
 
 	public class UpdateDialog extends JFrame{
 
@@ -22,6 +34,8 @@ import java.awt.Toolkit;
 	    private JButton cancel;
 	    private JPanel pan1;
 	    private JPanel pan2;
+	    private JLabel lblNewLabel;
+	    private JLabel lblNovit;
 
 	    public UpdateDialog(String info) {
 	    	setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateDialog.class.getResource("/image/Update.png")));
@@ -29,7 +43,12 @@ import java.awt.Toolkit;
 	    	setResizable(false);
 	    	setType(Type.POPUP);
 	        initComponents();
-	        infoPane.setText(info);
+	        lblNewLabel.setText(info);
+	        
+	        lblNovit = new JLabel("Novit\u00E0");
+	        lblNovit.setFont(new Font("Tahoma", Font.PLAIN, 15));
+	        lblNovit.setHorizontalAlignment(SwingConstants.CENTER);
+	        scp.setColumnHeaderView(lblNovit);
 	    }
 
 	    private void initComponents() {
@@ -40,9 +59,6 @@ import java.awt.Toolkit;
 	        pan1.setLayout(new BorderLayout());
 
 	        pan2 = new JPanel();
-
-	        infoPane = new JEditorPane();
-	        infoPane.setContentType("text/html");
 
 	        scp = new JScrollPane();
 	        scp.setViewportView(infoPane);
@@ -67,14 +83,28 @@ import java.awt.Toolkit;
 	        pan2.add(cancel);
 	        pan1.add(pan2, BorderLayout.SOUTH);
 	        pan1.add(scp, BorderLayout.CENTER);
+	        
+	        lblNewLabel = new JLabel();
+	        scp.setViewportView(lblNewLabel);
 	        getContentPane().add(pan1);
 //	        pack();
 	        this.setSize(293, 200);
 	    }
 	    private void update()
 	    {
-	        // TODO: Add my Code!
+	       try 
+	       {
+	    	   String urlString = Updater.getDownloadLink();
+		       URL url = new URL(urlString);
+		       System.out.println(url.toString());
+		       File file = new File(FileManager.getAppDataPath() + "Update" + File.separator + "My Anime Manager Updated.jar");
+		       FileUtils.copyURLToFile(url, file);
+		       System.out.println("Download completato");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	    }
-
-	}
+	    
+}
 

@@ -12,13 +12,14 @@ import org.apache.commons.lang3.StringEscapeUtils;
 public class Updater
 {    
 	   
-	private final static String versionURL = "http://myanimemanagerupdate.webstarts.com/version.html";
-    private final static String historyURL = "http://myanimemanagerupdate.webstarts.com/history.html";
+	private final static String VERSION_URL = "http://myanimemanagerupdate.webstarts.com/version.html";
+    private final static String HISTORY_URL = "http://myanimemanagerupdate.webstarts.com/history.html";
+    private final static String DOWNLOAD_URL = "http://myanimemanagerupdate.webstarts.com/downloadUrl.html";
     
     
     public static String getLatestVersion() throws Exception
     {
-        String data = getData(versionURL);
+        String data = getData(VERSION_URL);
         String latestVer = data.substring(data.indexOf("[version]")+9,data.indexOf("[/version]"));
         return latestVer;
     }
@@ -26,10 +27,17 @@ public class Updater
     
     public static String getWhatsNew()
     {
-        String data = getData(historyURL);
+        String data = getData(HISTORY_URL);
         String whatsNew = data.substring(data.indexOf("[history]")+9,data.indexOf("[/history]"));
         whatsNew = StringEscapeUtils.unescapeHtml4(whatsNew);
         return whatsNew;
+    }
+    
+    public static String getDownloadLink()
+    {
+    	String data = getData(DOWNLOAD_URL);
+    	String downloadUrl = data.substring(data.indexOf("[url]")+5,data.indexOf("[/url]"));
+    	return downloadUrl;
     }
     
     private static String getData(String address)
