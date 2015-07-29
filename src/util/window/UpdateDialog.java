@@ -97,7 +97,7 @@ import util.Updater;
 	    	   String urlString = Updater.getDownloadLink();
 		       URL url = new URL(urlString);
 		       System.out.println(url.toString());
-		       File file = new File(FileManager.getAppDataPath() + "Update" + File.separator + "My Anime Manager Updated.jar");
+		       File file = new File(FileManager.getAppDataPath() + "Update" + File.separator + "My Anime Manager Updated.exe");
 		       FileUtils.copyURLToFile(url, file);
 		       System.out.println("Download completato");
 			} catch (Exception e) {
