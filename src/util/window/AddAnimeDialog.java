@@ -1,8 +1,10 @@
 package util.window;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -10,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.File;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
@@ -27,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -34,6 +36,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.text.AbstractDocument;
 
 import main.AnimeIndex;
+import net.miginfocom.swing.MigLayout;
 import util.AnimeData;
 import util.ConnectionManager;
 import util.FileManager;
@@ -44,20 +47,6 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
-
-import javax.swing.JProgressBar;
-
-import java.awt.Component;
-
-import javax.swing.Box;
-
-import net.miginfocom.swing.MigLayout;
-
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JCheckBox;
-import javax.swing.JToggleButton;
-
-import java.awt.Font;
 
 public class AddAnimeDialog extends JDialog
 {
@@ -393,6 +382,7 @@ public class AddAnimeDialog extends JDialog
 							searchBar.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
 							searchBar.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
+									AddAnimeDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 									animeModel.clear();
 									try {
 										ConnectionManager.ConnectAndGetToken();
@@ -417,7 +407,7 @@ public class AddAnimeDialog extends JDialog
 										for (int i = 0; i < animeArray.length; i++)
 											animeModel.addElement(animeArray[i]);											
 									}
-									
+									AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 								}
 							});
 							GridBagConstraints gbc_searchBar = new GridBagConstraints();
@@ -445,6 +435,7 @@ public class AddAnimeDialog extends JDialog
 								listToAddAniComboBox = new JComboBox();
 								listToAddAniComboBox.addItemListener(new ItemListener() {
 									public void itemStateChanged(ItemEvent e) {
+										AddAnimeDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 										if(checkToggleButton!=null)
 										{
 										if (AnimeIndex.appProp.getProperty("List_to_Check").equalsIgnoreCase("all"))
@@ -515,7 +506,9 @@ public class AddAnimeDialog extends JDialog
 										}
 										else{}
 										}
-									}}
+									}
+									AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+									}
 								});
 								listToAddAniComboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere"}));
 								GridBagConstraints gbc_listToAddAniComboBox = new GridBagConstraints();
@@ -603,7 +596,7 @@ public class AddAnimeDialog extends JDialog
 					addAniButton.setEnabled(false);
 					addAniButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							
+							AddAnimeDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 							AnimeIndex.addToPreviousList = (String)listToAddAniComboBox.getSelectedItem();
 							String anime = (String) searchedList.getSelectedValue();
 							int id = animeSearched.get(anime);
@@ -871,6 +864,7 @@ public class AddAnimeDialog extends JDialog
 							JDialog dialog = (JDialog) but.getTopLevelAncestor();
 							dialog.dispose();
 							}
+							AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 						}
 					});
 
