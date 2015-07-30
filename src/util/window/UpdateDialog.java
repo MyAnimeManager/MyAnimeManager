@@ -112,11 +112,13 @@ import util.Updater;
 	    	   setCursor(new Cursor(Cursor.WAIT_CURSOR));
 	    	   String urlString = Updater.getDownloadLink();
 		       URL url = new URL(urlString);
-		       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-	    	   int bytes = conn.getContentLength();
-		       DownloadingDialog download = new DownloadingDialog(bytes, url);
-		       setCursor(Cursor.getDefaultCursor());
-		       
+	    	   File file = new File(FileManager.getAppDataPath() + "Update" + File.separator + "My Anime Manager Updated.exe");
+			    try {
+					FileUtils.copyURLToFile(url, file);
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+		       setCursor(Cursor.getDefaultCursor());		       
 //		       System.out.println("Download completato");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
