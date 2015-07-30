@@ -1,6 +1,7 @@
 package util.window;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -109,11 +110,18 @@ import util.Updater;
 	    {
 	       try 
 	       {
+	    	   setCursor(new Cursor(Cursor.WAIT_CURSOR));
 	    	   String urlString = Updater.getDownloadLink();
 		       URL url = new URL(urlString);
-		       System.out.println(url.toString());
+	    	   int bytes = url.openConnection().getContentLength();
+		       DownloadingDialog download = new DownloadingDialog(bytes);
+		       download.setLocationRelativeTo(UpdateDialog.this);
+		       download.setVisible(true);
 		       File file = new File(FileManager.getAppDataPath() + "Update" + File.separator + "My Anime Manager Updated.exe");
 		       FileUtils.copyURLToFile(url, file);
+		       download.dispose();
+		       setCursor(Cursor.getDefaultCursor());
+		       
 //		       System.out.println("Download completato");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
