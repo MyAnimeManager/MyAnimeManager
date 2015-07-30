@@ -7,15 +7,16 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
@@ -23,6 +24,7 @@ import main.AnimeIndex;
 
 import org.apache.commons.io.FileUtils;
 
+import util.ExternalProgram;
 import util.FileManager;
 import util.Updater;
 
@@ -36,6 +38,7 @@ import util.Updater;
 	    private JPanel pan2;
 	    private JLabel lblNewLabel;
 	    private JLabel lblNovit;
+	    private static final String NEW_VERSION = "My Anime Manager Updated.exe";
 
 	    public UpdateDialog(String info) {
 	    	setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateDialog.class.getResource("/image/Update.png")));
@@ -54,7 +57,7 @@ import util.Updater;
 	    private void initComponents() {
 
 	        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-	        this.setTitle("Nuovo aggiornamento!");
+	        this.setTitle("Ricerca aggiornamenti");
 	        pan1 = new JPanel();
 	        pan1.setLayout(new BorderLayout());
 
@@ -68,6 +71,13 @@ import util.Updater;
 
 	            public void actionPerformed(ActionEvent e) {
 	                update();
+	                UpdateDialog.this.dispose();
+	                int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "Installare ora l'aggiornamento?", "Installare ?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if(shouldCancel==0)
+					{
+						ExternalProgram ext = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Update" + File.separator + NEW_VERSION);
+						ext.run();
+					}
 	            }
 	        });
 
@@ -105,6 +115,5 @@ import util.Updater;
 				e.printStackTrace();
 			}
 	    }
-	    
 }
 
