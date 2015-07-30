@@ -12,7 +12,7 @@ public class ExternalProgram extends Thread{
 	
 	public void run(){
         try{
-            Process pr = Runtime.getRuntime().exec(new String[] {"cmd.exe", "/C", "start", arguments});
+            Process pr = Runtime.getRuntime().exec(new String[] {"cmd.exe", "/C", arguments});
             InputStream in = pr.getInputStream();
             OutputStream out = pr.getOutputStream();
             InputStream err = pr.getErrorStream();
