@@ -2,24 +2,24 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
-import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
-import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.border.EmptyBorder;
 
-import java.awt.GridBagLayout;
+import main.AnimeIndex;
 
-import javax.swing.JTextField;
+import org.apache.commons.io.FileUtils;
 
-import java.awt.GridBagConstraints;
-
-import javax.swing.SwingConstants;
-import javax.swing.JProgressBar;
-
-import java.awt.Insets;
-import javax.swing.JLabel;
+import util.FileManager;
 
 public class DownloadingDialog extends JDialog
 {
@@ -30,7 +30,7 @@ public class DownloadingDialog extends JDialog
 	/**
 	 * Create the dialog.
 	 */
-	public DownloadingDialog(int bytes)
+	public DownloadingDialog(int bytes, URL url)
 	{
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setTitle("Downloading...");
@@ -65,6 +65,17 @@ public class DownloadingDialog extends JDialog
 			gbc_progressBar.gridy = 1;
 			contentPanel.add(progressBar, gbc_progressBar);
 		}
+		
+		this.setLocationRelativeTo(AnimeIndex.mainFrame);
+	    this.setVisible(true);
+		File file = new File(FileManager.getAppDataPath() + "Update" + File.separator + "My Anime Manager Updated.exe");
+	    try {
+			FileUtils.copyURLToFile(url, file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	    System.out.println("Finito");
+	    this.dispose();
 	}
 
 }
