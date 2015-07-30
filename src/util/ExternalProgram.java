@@ -1,5 +1,6 @@
 package util;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -12,7 +13,7 @@ public class ExternalProgram extends Thread{
 	
 	public void run(){
         try{
-            Process pr = Runtime.getRuntime().exec(arguments,null, new File(argument[3]));
+            Process pr = Runtime.getRuntime().exec(arguments,null, new File(arguments[3]));
             InputStream in = pr.getInputStream();
             OutputStream out = pr.getOutputStream();
             InputStream err = pr.getErrorStream();
