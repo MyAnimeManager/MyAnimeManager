@@ -7,9 +7,12 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.TreeMap;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
@@ -24,6 +27,8 @@ import main.AnimeIndex;
 
 import org.apache.commons.io.FileUtils;
 
+import util.AnimeData;
+import util.AnimeIndexProperties;
 import util.ExternalProgram;
 import util.FileManager;
 import util.Updater;
@@ -42,7 +47,6 @@ import util.Updater;
 
 	    public UpdateDialog(String info) {
 	    	setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateDialog.class.getResource("/image/Update.png")));
-	    	setAlwaysOnTop(true);
 	    	setResizable(false);
 	    	setType(Type.POPUP);
 	        initComponents();
@@ -75,6 +79,7 @@ import util.Updater;
 	                int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "Installare ora l'aggiornamento?", "Installare ?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if(shouldCancel==0)
 					{
+						save();
 						ExternalProgram ext = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Update" + File.separator + NEW_VERSION);
 						ext.run();
 					}
@@ -115,5 +120,39 @@ import util.Updater;
 				e.printStackTrace();
 			}
 	    }
+	    private void save()
+	    {
+	    	try {
+				FileManager.saveFansubList();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+				FileManager.saveAnimeList("completed.txt", AnimeIndex.completedModel, AnimeIndex.completedMap);
+				FileManager.saveAnimeList("airing.txt", AnimeIndex.airingModel, AnimeIndex.airingMap);
+				FileManager.saveAnimeList("ova.txt", AnimeIndex.ovaModel, AnimeIndex.ovaMap);
+				FileManager.saveAnimeList("film.txt", AnimeIndex.filmModel, AnimeIndex.filmMap);
+				FileManager.saveAnimeList("toSee.txt", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
+			
+				deleteUselessImage(AnimeIndex.completedDeletedAnime, AnimeIndex.completedMap, "Completed");
+				deleteUselessImage(AnimeIndex.airingDeletedAnime, AnimeIndex.airingMap, "Airing");
+				deleteUselessImage(AnimeIndex.ovaDeletedAnime, AnimeIndex.ovaMap, "Oav");
+				deleteUselessImage(AnimeIndex.filmDeletedAnime, AnimeIndex.filmMap, "Film");
+				deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime, AnimeIndex.completedToSeeMap, "Completed to See");
+				AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
+		}
+	    
+	private void deleteUselessImage(ArrayList<String> arrayList, TreeMap<String, AnimeData> map, String listName)
+	{
+		for (int i = 0; i < arrayList.size(); i++)
+		{
+			String animeImagePath = arrayList.get(i);
+			File image = new File(animeImagePath);
+			try {
+				FileManager.deleteData(image);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
 
