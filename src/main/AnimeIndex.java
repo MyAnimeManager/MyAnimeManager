@@ -576,10 +576,21 @@ public class AnimeIndex extends JFrame
 		});
 		mntmControlloAggiornamenti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+					String updatedVersion = null;
+					try {
+						updatedVersion = Updater.getLatestVersion();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					if (updatedVersion.equalsIgnoreCase(VERSION))
+						JOptionPane.showMessageDialog(mainFrame, "Nessun Aggiornamento Trovato", "Aggiornamento", JOptionPane.INFORMATION_MESSAGE);
+					else
+					{
 					UpdateDialog update = new UpdateDialog(Updater.getWhatsNew());
 					update.setLocationRelativeTo(AnimeIndex.mainFrame);
 					update.setVisible(true);
-
+					}
 			}
 		});
 		mntmAnichart.addActionListener(new ActionListener() {
