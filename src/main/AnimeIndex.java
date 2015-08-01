@@ -219,6 +219,7 @@ public class AnimeIndex extends JFrame
 		menuBar.add(mnMenu);
 		
 		JMenuItem mntmPreferenze = new JMenuItem("Preferenze");
+		mntmPreferenze.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/System-Preferences-icon.png")));
 		mntmPreferenze.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PreferenceDialog preference = new PreferenceDialog();
@@ -232,6 +233,7 @@ public class AnimeIndex extends JFrame
 		mnMenu.add(separator);
 		
 		JMenu mnElimina = new JMenu("Elimina");
+		mnElimina.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/DeleteRed.png")));
 		mnMenu.add(mnElimina);
 		
 		JMenuItem mntmDeleteImage = new JMenuItem("Tutti i Dati");
