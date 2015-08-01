@@ -630,6 +630,10 @@ public class AnimeInformation extends JPanel
 			public void actionPerformed(ActionEvent arg0) {
 				if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true"))
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il Controllo Dati Automatico è già attivo.", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+				else
+				{
+					//TODO completare controllo dati	
+				} 
 			}
 		});
 		if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true"))
