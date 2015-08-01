@@ -16,6 +16,9 @@ public class ExternalProgram extends Thread{
             InputStream in = pr.getInputStream();
             OutputStream out = pr.getOutputStream();
             InputStream err = pr.getErrorStream();
+            in.close();
+            out.close();
+            err.close();
             System.exit(0);
         }catch(Exception e){
             e.printStackTrace();

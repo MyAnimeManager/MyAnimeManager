@@ -1,6 +1,8 @@
 package util.window;
 
+
 import java.awt.BorderLayout;
+import javax.swing.JDialog;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -32,8 +34,9 @@ import util.AnimeIndexProperties;
 import util.ExternalProgram;
 import util.FileManager;
 import util.Updater;
+import java.awt.Dialog.ModalExclusionType;
 
-	public class UpdateDialog extends JFrame{
+	public class UpdateDialog extends JDialog{
 
 	    private JEditorPane infoPane;
 	    private JScrollPane scp;
@@ -43,11 +46,12 @@ import util.Updater;
 	    private JPanel pan2;
 	    private JLabel lblNewLabel;
 	    private JLabel lblNovit;
-	    private static final String NEW_VERSION = "MyAnimeManager_Setup.exe";
+	    public static final String NEW_VERSION = "MyAnimeManager_v1.0.0_Setup.exe";
 
 	    public UpdateDialog(String info) {
+	    	setModal(true);
 	    	setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateDialog.class.getResource("/image/Update.png")));
-	    	setResizable(false);
+	    	setResizable(false);	
 	    	setType(Type.POPUP);
 	        initComponents();
 	        lblNewLabel.setText(info);
@@ -76,13 +80,9 @@ import util.Updater;
 	            public void actionPerformed(ActionEvent e) {
 	                update();
 	                UpdateDialog.this.dispose();
-	                int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "Installare ora l'aggiornamento?", "Installare ?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-					if(shouldCancel==0)
-					{
 						save();
-						ExternalProgram ext = new ExternalProgram(System.getProperty("user.home") + File.separator + "Downloads" + File.separator + NEW_VERSION);
+						ExternalProgram ext = new ExternalProgram(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
 						ext.run();
-					}
 	            }
 	        });
 
@@ -113,7 +113,7 @@ import util.Updater;
 	    	   String urlString = Updater.getDownloadLink();
 		       URL url = new URL(urlString);
 		       						
-	    	   File file = new File(System.getProperty("user.home") + File.separator + "Downloads" + File.separator + NEW_VERSION);
+	    	   File file = new File(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
 			    try {
 					FileUtils.copyURLToFile(url, file);
 				} catch (IOException ex) {

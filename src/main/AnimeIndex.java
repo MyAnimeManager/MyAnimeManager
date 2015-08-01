@@ -188,6 +188,24 @@ public class AnimeIndex extends JFrame
 				}
 				
 			}
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				File file = new File(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + UpdateDialog.NEW_VERSION);
+				if(file.isFile())
+					file.delete();
+				String updatedVersion = null;
+				try {
+					updatedVersion = Updater.getLatestVersion();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				if (!updatedVersion.equalsIgnoreCase(VERSION))
+				{
+				UpdateDialog update = new UpdateDialog(Updater.getWhatsNew());
+				update.setLocationRelativeTo(AnimeIndex.mainFrame);
+				update.setVisible(true);
+				}
+			}
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		//setBounds(100, 100, 700, 385);
@@ -1457,7 +1475,9 @@ public class AnimeIndex extends JFrame
 		}
 		else
 			list = appProp.getProperty("List_to_visualize_at_start");
-			animeTypeComboBox.setSelectedItem(list);
+		animeTypeComboBox.setSelectedItem(list);
+		
+		
 		}
 	
 	private static void addPopup(Component component, final JPopupMenu popup) {
