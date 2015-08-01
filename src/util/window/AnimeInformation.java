@@ -626,6 +626,12 @@ public class AnimeInformation extends JPanel
 		add(lblNote, gbc_lblNote);
 		
 		checkDataButton = new JButton("");
+		checkDataButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true"))
+					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il Controllo Dati Automatico è già attivo.", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true"))
 			checkDataButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/autorefresh-icon15.png")));
 		else
