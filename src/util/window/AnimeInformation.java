@@ -879,6 +879,7 @@ public class AnimeInformation extends JPanel
 				btnOpen.setEnabled(false);
 				finishedButton.setEnabled(false);
 				fansubComboBox.setSelectedItem("?????");
+				checkDataButton.setEnabled(false);
 				
 				BufferedImage image = null;
 				try{

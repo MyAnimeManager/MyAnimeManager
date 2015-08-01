@@ -756,6 +756,7 @@ public class AnimeIndex extends JFrame
 			AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 			AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 			AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+			AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 			AnimeInformation.fansubComboBox.setEnabled(true);
 			String name = (String) completedList.getSelectedValue();
 			if(name!=null && !name.equalsIgnoreCase("Anime"))
@@ -804,6 +805,7 @@ public class AnimeIndex extends JFrame
 				AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 				AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 				AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+				AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 				String ep = animeInformation.currentEpisodeField.getText();
 				String fep = animeInformation.totalEpisodeText.getText();
 				if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -855,6 +857,7 @@ public class AnimeIndex extends JFrame
 				AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 				AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 				AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+				AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 				String ep = animeInformation.currentEpisodeField.getText();
 				String fep = animeInformation.totalEpisodeText.getText();
 				if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -906,6 +909,7 @@ public class AnimeIndex extends JFrame
 				AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 				AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 				AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+				AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 				String ep = animeInformation.currentEpisodeField.getText();
 				String fep = animeInformation.totalEpisodeText.getText();
 				if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -957,6 +961,7 @@ public class AnimeIndex extends JFrame
 				AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 				AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 				AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+				AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 				String ep = animeInformation.currentEpisodeField.getText();
 				String fep = animeInformation.totalEpisodeText.getText();
 				if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -1018,6 +1023,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+					AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 					AnimeInformation.fansubComboBox.setEnabled(true);
 					String name = (String) completedList.getSelectedValue();
 					if(name!=null && !name.equalsIgnoreCase("Anime"))
@@ -1046,6 +1052,7 @@ public class AnimeIndex extends JFrame
 						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+						AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						String ep = animeInformation.currentEpisodeField.getText();
 						String fep = animeInformation.totalEpisodeText.getText();
 						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -1081,6 +1088,7 @@ public class AnimeIndex extends JFrame
 						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+						AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						String ep = animeInformation.currentEpisodeField.getText();
 						String fep = animeInformation.totalEpisodeText.getText();
 						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -1115,6 +1123,7 @@ public class AnimeIndex extends JFrame
 						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+						AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						String ep = animeInformation.currentEpisodeField.getText();
 						String fep = animeInformation.totalEpisodeText.getText();
 						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -1149,6 +1158,7 @@ public class AnimeIndex extends JFrame
 						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+						AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 						String ep = animeInformation.currentEpisodeField.getText();
 						String fep = animeInformation.totalEpisodeText.getText();
 						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -1205,6 +1215,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+					AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 					AnimeInformation.fansubComboBox.setEnabled(true);
 					String name = (String) completedList.getSelectedValue();
 					if(name!=null && !name.equalsIgnoreCase("Anime"))
@@ -1233,6 +1244,7 @@ public class AnimeIndex extends JFrame
 						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+						AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						String ep = animeInformation.currentEpisodeField.getText();
 						String fep = animeInformation.totalEpisodeText.getText();
 						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -1268,6 +1280,7 @@ public class AnimeIndex extends JFrame
 						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+						AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						String ep = animeInformation.currentEpisodeField.getText();
 						String fep = animeInformation.totalEpisodeText.getText();
 						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -1302,6 +1315,7 @@ public class AnimeIndex extends JFrame
 						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+						AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						String ep = animeInformation.currentEpisodeField.getText();
 						String fep = animeInformation.totalEpisodeText.getText();
 						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -1336,6 +1350,7 @@ public class AnimeIndex extends JFrame
 						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 						AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 						AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+						AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 						String ep = animeInformation.currentEpisodeField.getText();
 						String fep = animeInformation.totalEpisodeText.getText();
 						if(ep!=null && fep!=null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))

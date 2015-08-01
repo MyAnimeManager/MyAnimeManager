@@ -47,8 +47,12 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+import com.sun.xml.internal.fastinfoset.stax.events.StartDocumentEvent;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class AddAnimeDialog extends JDialog
 {
@@ -875,7 +879,6 @@ public class AddAnimeDialog extends JDialog
 							AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 						}
 					});
-
 					JButton button = new JButton("Esci");
 					button2Panel.add(button, "cell 6 0,growx");
 					button.addActionListener(new ActionListener() {
