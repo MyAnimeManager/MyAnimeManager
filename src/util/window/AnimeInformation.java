@@ -79,6 +79,7 @@ public class AnimeInformation extends JPanel
 	public JTextField releaseDateField;
 	private JLabel lblDurata;
 	public JTextField durationField;
+	private JButton button;
 	/**
 	 * Create the panel.
 	 * 
@@ -90,7 +91,7 @@ public class AnimeInformation extends JPanel
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 46, 23, 20, 57, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{60, 0, 0, 0, 0, 0, 0, 0, 43, -2, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		scrollPane = new JScrollPane();
@@ -623,6 +624,19 @@ public class AnimeInformation extends JPanel
 		gbc_lblNote.gridx = 10;
 		gbc_lblNote.gridy = 9;
 		add(lblNote, gbc_lblNote);
+		
+		button = new JButton("");
+		button.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/autorefresh-icon15.png")));
+		button.setSize(new Dimension(30, 30));
+		button.setPreferredSize(new Dimension(30, 30));
+		button.setMinimumSize(new Dimension(30, 30));
+		button.setMaximumSize(new Dimension(30, 30));
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.anchor = GridBagConstraints.NORTH;
+		gbc_button.insets = new Insets(0, 0, 5, 5);
+		gbc_button.gridx = 15;
+		gbc_button.gridy = 9;
+		add(button, gbc_button);
 		
 		JScrollPane noteScrollPane = new JScrollPane();
 		noteScrollPane.setSize(new Dimension(350, 50));

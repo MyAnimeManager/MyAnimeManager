@@ -47,6 +47,8 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AddAnimeDialog extends JDialog
 {
@@ -82,6 +84,12 @@ public class AddAnimeDialog extends JDialog
 	 */
 	public AddAnimeDialog()
 	{
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				searchBar.requestFocus();
+			}
+		});
 		setTitle("Aggiungi anime");
 		setResizable(false);
 		setBounds(100, 100, 580, 300);

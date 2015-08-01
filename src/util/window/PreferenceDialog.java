@@ -55,15 +55,15 @@ public class PreferenceDialog extends JDialog
 		setTitle("Preferenze");
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 380, 270);
+		setBounds(100, 100, 380, 304);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.NORTH);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 205, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 14, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblListToVisualize = new JLabel("Lista da visualizzare all'avvio :");
@@ -162,11 +162,39 @@ public class PreferenceDialog extends JDialog
 		{
 			JSeparator separator = new JSeparator();
 			GridBagConstraints gbc_separator = new GridBagConstraints();
+			gbc_separator.fill = GridBagConstraints.BOTH;
+			gbc_separator.gridwidth = 2;
+			gbc_separator.insets = new Insets(0, 0, 5, 5);
+			gbc_separator.gridx = 0;
+			gbc_separator.gridy = 3;
+			contentPanel.add(separator, gbc_separator);
+		}
+		{
+			JLabel lblControlloDatiAutomatico = new JLabel("Controllo Dati Automatico :");
+			GridBagConstraints gbc_lblControlloDatiAutomatico = new GridBagConstraints();
+			gbc_lblControlloDatiAutomatico.anchor = GridBagConstraints.WEST;
+			gbc_lblControlloDatiAutomatico.insets = new Insets(0, 0, 5, 5);
+			gbc_lblControlloDatiAutomatico.gridx = 0;
+			gbc_lblControlloDatiAutomatico.gridy = 4;
+			contentPanel.add(lblControlloDatiAutomatico, gbc_lblControlloDatiAutomatico);
+		}
+		{
+			JButton btnAttiva = new JButton("Attiva");
+			GridBagConstraints gbc_btnAttiva = new GridBagConstraints();
+			gbc_btnAttiva.fill = GridBagConstraints.HORIZONTAL;
+			gbc_btnAttiva.insets = new Insets(0, 0, 5, 0);
+			gbc_btnAttiva.gridx = 1;
+			gbc_btnAttiva.gridy = 4;
+			contentPanel.add(btnAttiva, gbc_btnAttiva);
+		}
+		{
+			JSeparator separator = new JSeparator();
+			GridBagConstraints gbc_separator = new GridBagConstraints();
 			gbc_separator.gridwidth = 2;
 			gbc_separator.fill = GridBagConstraints.HORIZONTAL;
 			gbc_separator.insets = new Insets(0, 0, 5, 0);
 			gbc_separator.gridx = 0;
-			gbc_separator.gridy = 3;
+			gbc_separator.gridy = 5;
 			contentPanel.add(separator, gbc_separator);
 		}
 		{
@@ -175,7 +203,7 @@ public class PreferenceDialog extends JDialog
 			gbc_lblImmagineIniziale.anchor = GridBagConstraints.WEST;
 			gbc_lblImmagineIniziale.insets = new Insets(0, 0, 5, 5);
 			gbc_lblImmagineIniziale.gridx = 0;
-			gbc_lblImmagineIniziale.gridy = 4;
+			gbc_lblImmagineIniziale.gridy = 6;
 			contentPanel.add(lblImmagineIniziale, gbc_lblImmagineIniziale);
 		}
 		{
@@ -183,7 +211,7 @@ public class PreferenceDialog extends JDialog
 			GridBagConstraints gbc_lblPercorsoFile = new GridBagConstraints();
 			gbc_lblPercorsoFile.insets = new Insets(0, 0, 5, 5);
 			gbc_lblPercorsoFile.gridx = 0;
-			gbc_lblPercorsoFile.gridy = 5;
+			gbc_lblPercorsoFile.gridy = 7;
 			contentPanel.add(lblPercorsoFile, gbc_lblPercorsoFile);
 		}
 		{
@@ -218,7 +246,7 @@ public class PreferenceDialog extends JDialog
 			gbc_DefaultImageButton.fill = GridBagConstraints.HORIZONTAL;
 			gbc_DefaultImageButton.insets = new Insets(0, 0, 5, 0);
 			gbc_DefaultImageButton.gridx = 1;
-			gbc_DefaultImageButton.gridy = 5;
+			gbc_DefaultImageButton.gridy = 7;
 			contentPanel.add(DefaultImageButton, gbc_DefaultImageButton);
 		}
 		{
@@ -226,7 +254,7 @@ public class PreferenceDialog extends JDialog
 			GridBagConstraints gbc_lblRimuoviAttuale = new GridBagConstraints();
 			gbc_lblRimuoviAttuale.insets = new Insets(0, 0, 5, 5);
 			gbc_lblRimuoviAttuale.gridx = 0;
-			gbc_lblRimuoviAttuale.gridy = 6;
+			gbc_lblRimuoviAttuale.gridy = 8;
 			contentPanel.add(lblRimuoviAttuale, gbc_lblRimuoviAttuale);
 		}
 		{
@@ -252,7 +280,7 @@ public class PreferenceDialog extends JDialog
 			gbc_removeDefaultImage.fill = GridBagConstraints.HORIZONTAL;
 			gbc_removeDefaultImage.insets = new Insets(0, 0, 5, 0);
 			gbc_removeDefaultImage.gridx = 1;
-			gbc_removeDefaultImage.gridy = 6;
+			gbc_removeDefaultImage.gridy = 8;
 			contentPanel.add(removeDefaultImage, gbc_removeDefaultImage);
 		}
 		{
@@ -262,7 +290,7 @@ public class PreferenceDialog extends JDialog
 			gbc_separator.gridwidth = 2;
 			gbc_separator.insets = new Insets(0, 0, 5, 0);
 			gbc_separator.gridx = 0;
-			gbc_separator.gridy = 7;
+			gbc_separator.gridy = 9;
 			contentPanel.add(separator, gbc_separator);
 		}
 		{
@@ -271,7 +299,7 @@ public class PreferenceDialog extends JDialog
 			gbc_lblImmagineAnime.anchor = GridBagConstraints.WEST;
 			gbc_lblImmagineAnime.insets = new Insets(0, 0, 0, 5);
 			gbc_lblImmagineAnime.gridx = 0;
-			gbc_lblImmagineAnime.gridy = 8;
+			gbc_lblImmagineAnime.gridy = 10;
 			contentPanel.add(lblImmagineAnime, gbc_lblImmagineAnime);
 		}
 		{
@@ -341,7 +369,7 @@ public class PreferenceDialog extends JDialog
 			GridBagConstraints gbc_btnSeleziona = new GridBagConstraints();
 			gbc_btnSeleziona.fill = GridBagConstraints.HORIZONTAL;
 			gbc_btnSeleziona.gridx = 1;
-			gbc_btnSeleziona.gridy = 8;
+			gbc_btnSeleziona.gridy = 10;
 			contentPanel.add(btnSeleziona, gbc_btnSeleziona);
 		}
 		
