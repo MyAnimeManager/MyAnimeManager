@@ -83,8 +83,8 @@ public class AnimeIndex extends JFrame
 	public static JList airingList;
 	public static JList completedList;
 	public static JList ovaList;
-	private JList searchList;
-	private JList filterList;
+	private static JList searchList;
+	private static JList filterList;
 	
 	public static SortedListModel completedModel = new SortedListModel();
 	public static SortedListModel airingModel = new SortedListModel();
@@ -775,7 +775,7 @@ public class AnimeIndex extends JFrame
 		completedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		completedList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-			applyListSelectionChange();
+			applyListSelectionChange(AnimeIndex.completedList);
 			AnimeIndex.animeInformation.minusButton.setEnabled(false);
 			AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
 			AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
@@ -823,7 +823,7 @@ public class AnimeIndex extends JFrame
 		airingList.setSize(new Dimension(138, 233));
 		airingList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				applyListSelectionChange();
+				applyListSelectionChange(AnimeIndex.airingList);
 				AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 				AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
@@ -874,7 +874,7 @@ public class AnimeIndex extends JFrame
 		ovaList.setSize(new Dimension(138, 233));
 		ovaList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				applyListSelectionChange();
+				applyListSelectionChange(AnimeIndex.ovaList);
 				AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 				AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
@@ -925,7 +925,7 @@ public class AnimeIndex extends JFrame
 		filmList.setSize(new Dimension(138, 233));
 		filmList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				applyListSelectionChange();
+				applyListSelectionChange(AnimeIndex.filmList);
 				AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 				AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
@@ -976,7 +976,7 @@ public class AnimeIndex extends JFrame
 		completedToSeeList.setSize(new Dimension(138, 233));
 		completedToSeeList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				applyListSelectionChange();
+				applyListSelectionChange(AnimeIndex.completedToSeeList);
 				AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 				AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
@@ -1034,7 +1034,7 @@ public class AnimeIndex extends JFrame
 		searchList.setFont(segui.deriveFont(12f));
 		searchList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				applyListSelectionChange();
+				applyListSelectionChange(AnimeIndex.searchList);
 				String cBox = (String)animeTypeComboBox.getSelectedItem();
 				if(cBox.equalsIgnoreCase("Anime Completati"))
 				{
@@ -1221,7 +1221,7 @@ public class AnimeIndex extends JFrame
 		filterList.setFont(segui.deriveFont(12f));
 		filterList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				applyListSelectionChange();
+				applyListSelectionChange(AnimeIndex.filterList);
 				String cBox = (String)animeTypeComboBox.getSelectedItem();
 				if(cBox.equalsIgnoreCase("Anime Completati"))
 				{
@@ -1801,7 +1801,7 @@ public class AnimeIndex extends JFrame
 		AnimeIndex.fansubMap.putAll(fansubMap);
 	}
 	
-	private void applyListSelectionChange()
+	private void applyListSelectionChange(JList jList)
 	{
 		try
 		{
@@ -1810,7 +1810,7 @@ public class AnimeIndex extends JFrame
 		catch (NullPointerException e1)
 		{
 			deleteButton.setEnabled(true);
-			JList list = getJList();
+			JList list = jList;
 			String anime = (String) list.getSelectedValue();
 			if (anime != null)
 			{
@@ -1853,7 +1853,7 @@ public class AnimeIndex extends JFrame
 		}
 		
 		deleteButton.setEnabled(true);
-		JList list = getJList();
+		JList list = jList;
 		String anime = (String) list.getSelectedValue();
 		if (anime != null)
 		{	
