@@ -43,7 +43,7 @@ import util.Updater;
 	    private JPanel pan2;
 	    private JLabel lblNewLabel;
 	    private JLabel lblNovit;
-	    private static final String NEW_VERSION = "My Anime Manager Updated.exe";
+	    private static final String NEW_VERSION = "MyAnimeManager_Setup.exe";
 
 	    public UpdateDialog(String info) {
 	    	setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateDialog.class.getResource("/image/Update.png")));
@@ -80,7 +80,7 @@ import util.Updater;
 					if(shouldCancel==0)
 					{
 						save();
-						ExternalProgram ext = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Update" + File.separator + NEW_VERSION);
+						ExternalProgram ext = new ExternalProgram(System.getProperty("user.home") + File.separator + "Downloads" + File.separator + NEW_VERSION);
 						ext.run();
 					}
 	            }
@@ -102,7 +102,7 @@ import util.Updater;
 	        lblNewLabel = new JLabel();
 	        scp.setViewportView(lblNewLabel);
 	        getContentPane().add(pan1);
-//	        pack();
+
 	        this.setSize(293, 200);
 	    }
 	    private void update()
@@ -112,15 +112,15 @@ import util.Updater;
 	    	   setCursor(new Cursor(Cursor.WAIT_CURSOR));
 	    	   String urlString = Updater.getDownloadLink();
 		       URL url = new URL(urlString);
-		       						//System.getProperty("user.home");
-	    	   File file = new File(FileManager.getAppDataPath() + "Update" + File.separator + "My Anime Manager Updated.exe");
+		       						
+	    	   File file = new File(System.getProperty("user.home") + File.separator + "Downloads" + File.separator + NEW_VERSION);
 			    try {
 					FileUtils.copyURLToFile(url, file);
 				} catch (IOException ex) {
 					ex.printStackTrace();
 				}
 		       setCursor(Cursor.getDefaultCursor());		       
-//System.out.println("Download completato");
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
