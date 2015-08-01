@@ -79,7 +79,7 @@ public class AnimeInformation extends JPanel
 	public JTextField releaseDateField;
 	private JLabel lblDurata;
 	public JTextField durationField;
-	private JButton button;
+	public JButton checkDataButton;
 	/**
 	 * Create the panel.
 	 * 
@@ -625,18 +625,21 @@ public class AnimeInformation extends JPanel
 		gbc_lblNote.gridy = 9;
 		add(lblNote, gbc_lblNote);
 		
-		button = new JButton("");
-		button.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/autorefresh-icon15.png")));
-		button.setSize(new Dimension(30, 30));
-		button.setPreferredSize(new Dimension(30, 30));
-		button.setMinimumSize(new Dimension(30, 30));
-		button.setMaximumSize(new Dimension(30, 30));
-		GridBagConstraints gbc_button = new GridBagConstraints();
-		gbc_button.anchor = GridBagConstraints.NORTH;
-		gbc_button.insets = new Insets(0, 0, 5, 5);
-		gbc_button.gridx = 15;
-		gbc_button.gridy = 9;
-		add(button, gbc_button);
+		checkDataButton = new JButton("");
+		if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true"))
+			checkDataButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/autorefresh-icon15.png")));
+		else
+			checkDataButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/refresh-icon15.png")));
+		checkDataButton.setSize(new Dimension(30, 30));
+		checkDataButton.setPreferredSize(new Dimension(30, 30));
+		checkDataButton.setMinimumSize(new Dimension(30, 30));
+		checkDataButton.setMaximumSize(new Dimension(30, 30));
+		GridBagConstraints gbc_checkDataButton = new GridBagConstraints();
+		gbc_checkDataButton.anchor = GridBagConstraints.NORTH;
+		gbc_checkDataButton.insets = new Insets(0, 0, 5, 5);
+		gbc_checkDataButton.gridx = 15;
+		gbc_checkDataButton.gridy = 9;
+		add(checkDataButton, gbc_checkDataButton);
 		
 		JScrollPane noteScrollPane = new JScrollPane();
 		noteScrollPane.setSize(new Dimension(350, 50));

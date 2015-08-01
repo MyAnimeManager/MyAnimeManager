@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -24,18 +25,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.border.EmptyBorder;
 
 import main.AnimeIndex;
 import util.AnimeData;
 import util.FileManager;
 import util.ImageChooserFilter;
-
-import java.awt.Component;
-
-import javax.swing.Box;
-import javax.swing.JSeparator;
-import java.awt.Toolkit;
 
 public class PreferenceDialog extends JDialog
 {
@@ -45,6 +41,7 @@ public class PreferenceDialog extends JDialog
 	private JCheckBox rdbtnLastList;
 	private JCheckBox rdbtnChooseList;
 	private JComboBox choosedList;
+	public static JButton dataCheckButton;
 
 	/**
 	 * Create the dialog.
@@ -55,20 +52,20 @@ public class PreferenceDialog extends JDialog
 		setTitle("Preferenze");
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 380, 304);
+		setBounds(100, 100, 380, 258);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.NORTH);
+		getContentPane().add(contentPanel, BorderLayout.EAST);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 205, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWidths = new int[]{197, 90, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0};
+		gbl_contentPanel.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblListToVisualize = new JLabel("Lista da visualizzare all'avvio :");
 			GridBagConstraints gbc_lblListToVisualize = new GridBagConstraints();
-			gbc_lblListToVisualize.anchor = GridBagConstraints.WEST;
+			gbc_lblListToVisualize.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblListToVisualize.insets = new Insets(0, 0, 5, 5);
 			gbc_lblListToVisualize.gridx = 0;
 			gbc_lblListToVisualize.gridy = 0;
@@ -82,6 +79,7 @@ public class PreferenceDialog extends JDialog
 				}
 			});
 			GridBagConstraints gbc_rdbtnLastList = new GridBagConstraints();
+			gbc_rdbtnLastList.fill = GridBagConstraints.HORIZONTAL;
 			gbc_rdbtnLastList.insets = new Insets(0, 0, 5, 5);
 			gbc_rdbtnLastList.gridx = 0;
 			gbc_rdbtnLastList.gridy = 1;
@@ -95,6 +93,7 @@ public class PreferenceDialog extends JDialog
 				}
 			});
 			GridBagConstraints gbc_rdbtnChooseList = new GridBagConstraints();
+			gbc_rdbtnChooseList.fill = GridBagConstraints.HORIZONTAL;
 			gbc_rdbtnChooseList.insets = new Insets(0, 0, 5, 5);
 			gbc_rdbtnChooseList.gridx = 0;
 			gbc_rdbtnChooseList.gridy = 2;
@@ -103,16 +102,13 @@ public class PreferenceDialog extends JDialog
 		{
 			choosedList = new JComboBox();
 			GridBagConstraints gbc_choosedList = new GridBagConstraints();
+			gbc_choosedList.gridwidth = 2;
 			gbc_choosedList.insets = new Insets(0, 0, 5, 0);
 			gbc_choosedList.fill = GridBagConstraints.HORIZONTAL;
 			gbc_choosedList.gridx = 1;
 			gbc_choosedList.gridy = 2;
 			contentPanel.add(choosedList, gbc_choosedList);
 			choosedList.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere","Uscite del Giorno"}));
-		}
-		{
-			JSeparator separator = new JSeparator();
-			getContentPane().add(separator, BorderLayout.CENTER);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -163,8 +159,8 @@ public class PreferenceDialog extends JDialog
 			JSeparator separator = new JSeparator();
 			GridBagConstraints gbc_separator = new GridBagConstraints();
 			gbc_separator.fill = GridBagConstraints.BOTH;
-			gbc_separator.gridwidth = 2;
-			gbc_separator.insets = new Insets(0, 0, 5, 5);
+			gbc_separator.gridwidth = 3;
+			gbc_separator.insets = new Insets(0, 0, 5, 0);
 			gbc_separator.gridx = 0;
 			gbc_separator.gridy = 3;
 			contentPanel.add(separator, gbc_separator);
@@ -172,26 +168,57 @@ public class PreferenceDialog extends JDialog
 		{
 			JLabel lblControlloDatiAutomatico = new JLabel("Controllo Dati Automatico :");
 			GridBagConstraints gbc_lblControlloDatiAutomatico = new GridBagConstraints();
-			gbc_lblControlloDatiAutomatico.anchor = GridBagConstraints.WEST;
+			gbc_lblControlloDatiAutomatico.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblControlloDatiAutomatico.insets = new Insets(0, 0, 5, 5);
 			gbc_lblControlloDatiAutomatico.gridx = 0;
 			gbc_lblControlloDatiAutomatico.gridy = 4;
 			contentPanel.add(lblControlloDatiAutomatico, gbc_lblControlloDatiAutomatico);
 		}
 		{
-			JButton btnAttiva = new JButton("Attiva");
-			GridBagConstraints gbc_btnAttiva = new GridBagConstraints();
-			gbc_btnAttiva.fill = GridBagConstraints.HORIZONTAL;
-			gbc_btnAttiva.insets = new Insets(0, 0, 5, 0);
-			gbc_btnAttiva.gridx = 1;
-			gbc_btnAttiva.gridy = 4;
-			contentPanel.add(btnAttiva, gbc_btnAttiva);
+			dataCheckButton = new JButton("Disattiva");
+			dataCheckButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true"))
+					{
+						AnimeIndex.appProp.setProperty("Update_system", "false");
+						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Controllo Dati :      DISATTIVATO", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+						dataCheckButton.setText("Attiva");
+						AnimeIndex.animeInformation.checkDataButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/refresh-icon15.png")));
+						//TODO se il marcatore e' acceso nn viene mostrato il warning e il sistema di update viene disattivato.
+					}
+					else
+					{
+						int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "Il sistema utilizza Internet.\n\rAssicurarsi che la rete sia\n\rdisponibile al fine di evitare\n\ril blocco del programma.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						if(shouldCancel==0)
+						{
+							AnimeIndex.appProp.setProperty("Update_system", "true");
+							dataCheckButton.setText("Disattiva");
+							AnimeIndex.animeInformation.checkDataButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/autorefresh-icon15.png")));
+							//TODO attiva il sistema di update fino alla disattivazione da parte dell'utente
+						}
+					}
+				}
+			});
+			GridBagConstraints gbc_dataCheckButton = new GridBagConstraints();
+			gbc_dataCheckButton.fill = GridBagConstraints.HORIZONTAL;
+			gbc_dataCheckButton.insets = new Insets(0, 0, 5, 5);
+			gbc_dataCheckButton.gridx = 1;
+			gbc_dataCheckButton.gridy = 4;
+			contentPanel.add(dataCheckButton, gbc_dataCheckButton);
+		}
+		{
+			JButton btnEsclusioni = new JButton("Esclusioni");
+			GridBagConstraints gbc_btnEsclusioni = new GridBagConstraints();
+			gbc_btnEsclusioni.insets = new Insets(0, 0, 5, 0);
+			gbc_btnEsclusioni.gridx = 2;
+			gbc_btnEsclusioni.gridy = 4;
+			contentPanel.add(btnEsclusioni, gbc_btnEsclusioni);
 		}
 		{
 			JSeparator separator = new JSeparator();
 			GridBagConstraints gbc_separator = new GridBagConstraints();
-			gbc_separator.gridwidth = 2;
-			gbc_separator.fill = GridBagConstraints.HORIZONTAL;
+			gbc_separator.gridwidth = 3;
+			gbc_separator.fill = GridBagConstraints.BOTH;
 			gbc_separator.insets = new Insets(0, 0, 5, 0);
 			gbc_separator.gridx = 0;
 			gbc_separator.gridy = 5;
@@ -200,19 +227,11 @@ public class PreferenceDialog extends JDialog
 		{
 			JLabel lblImmagineIniziale = new JLabel("Immagine Iniziale :");
 			GridBagConstraints gbc_lblImmagineIniziale = new GridBagConstraints();
-			gbc_lblImmagineIniziale.anchor = GridBagConstraints.WEST;
+			gbc_lblImmagineIniziale.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblImmagineIniziale.insets = new Insets(0, 0, 5, 5);
 			gbc_lblImmagineIniziale.gridx = 0;
 			gbc_lblImmagineIniziale.gridy = 6;
 			contentPanel.add(lblImmagineIniziale, gbc_lblImmagineIniziale);
-		}
-		{
-			JLabel lblPercorsoFile = new JLabel(" Immagine :");
-			GridBagConstraints gbc_lblPercorsoFile = new GridBagConstraints();
-			gbc_lblPercorsoFile.insets = new Insets(0, 0, 5, 5);
-			gbc_lblPercorsoFile.gridx = 0;
-			gbc_lblPercorsoFile.gridy = 7;
-			contentPanel.add(lblPercorsoFile, gbc_lblPercorsoFile);
 		}
 		{
 			JButton DefaultImageButton = new JButton("Sfoglia");
@@ -244,18 +263,10 @@ public class PreferenceDialog extends JDialog
 			});
 			GridBagConstraints gbc_DefaultImageButton = new GridBagConstraints();
 			gbc_DefaultImageButton.fill = GridBagConstraints.HORIZONTAL;
-			gbc_DefaultImageButton.insets = new Insets(0, 0, 5, 0);
+			gbc_DefaultImageButton.insets = new Insets(0, 0, 5, 5);
 			gbc_DefaultImageButton.gridx = 1;
-			gbc_DefaultImageButton.gridy = 7;
+			gbc_DefaultImageButton.gridy = 6;
 			contentPanel.add(DefaultImageButton, gbc_DefaultImageButton);
-		}
-		{
-			JLabel lblRimuoviAttuale = new JLabel("Rimuovi Attuale :");
-			GridBagConstraints gbc_lblRimuoviAttuale = new GridBagConstraints();
-			gbc_lblRimuoviAttuale.insets = new Insets(0, 0, 5, 5);
-			gbc_lblRimuoviAttuale.gridx = 0;
-			gbc_lblRimuoviAttuale.gridy = 8;
-			contentPanel.add(lblRimuoviAttuale, gbc_lblRimuoviAttuale);
 		}
 		{
 			JButton removeDefaultImage = new JButton("Rimuovi");
@@ -279,27 +290,27 @@ public class PreferenceDialog extends JDialog
 			GridBagConstraints gbc_removeDefaultImage = new GridBagConstraints();
 			gbc_removeDefaultImage.fill = GridBagConstraints.HORIZONTAL;
 			gbc_removeDefaultImage.insets = new Insets(0, 0, 5, 0);
-			gbc_removeDefaultImage.gridx = 1;
-			gbc_removeDefaultImage.gridy = 8;
+			gbc_removeDefaultImage.gridx = 2;
+			gbc_removeDefaultImage.gridy = 6;
 			contentPanel.add(removeDefaultImage, gbc_removeDefaultImage);
 		}
 		{
 			JSeparator separator = new JSeparator();
 			GridBagConstraints gbc_separator = new GridBagConstraints();
-			gbc_separator.fill = GridBagConstraints.HORIZONTAL;
-			gbc_separator.gridwidth = 2;
+			gbc_separator.fill = GridBagConstraints.BOTH;
+			gbc_separator.gridwidth = 3;
 			gbc_separator.insets = new Insets(0, 0, 5, 0);
 			gbc_separator.gridx = 0;
-			gbc_separator.gridy = 9;
+			gbc_separator.gridy = 7;
 			contentPanel.add(separator, gbc_separator);
 		}
 		{
 			JLabel lblImmagineAnime = new JLabel("Immagine Anime :");
 			GridBagConstraints gbc_lblImmagineAnime = new GridBagConstraints();
-			gbc_lblImmagineAnime.anchor = GridBagConstraints.WEST;
-			gbc_lblImmagineAnime.insets = new Insets(0, 0, 0, 5);
+			gbc_lblImmagineAnime.fill = GridBagConstraints.HORIZONTAL;
+			gbc_lblImmagineAnime.insets = new Insets(0, 0, 5, 5);
 			gbc_lblImmagineAnime.gridx = 0;
-			gbc_lblImmagineAnime.gridy = 10;
+			gbc_lblImmagineAnime.gridy = 8;
 			contentPanel.add(lblImmagineAnime, gbc_lblImmagineAnime);
 		}
 		{
@@ -367,10 +378,22 @@ public class PreferenceDialog extends JDialog
 				}
 			});
 			GridBagConstraints gbc_btnSeleziona = new GridBagConstraints();
+			gbc_btnSeleziona.insets = new Insets(0, 0, 5, 0);
+			gbc_btnSeleziona.gridwidth = 2;
 			gbc_btnSeleziona.fill = GridBagConstraints.HORIZONTAL;
 			gbc_btnSeleziona.gridx = 1;
-			gbc_btnSeleziona.gridy = 10;
+			gbc_btnSeleziona.gridy = 8;
 			contentPanel.add(btnSeleziona, gbc_btnSeleziona);
+		}
+		{
+			JSeparator separator = new JSeparator();
+			GridBagConstraints gbc_separator = new GridBagConstraints();
+			gbc_separator.fill = GridBagConstraints.BOTH;
+			gbc_separator.gridwidth = 3;
+			gbc_separator.insets = new Insets(0, 0, 0, 5);
+			gbc_separator.gridx = 0;
+			gbc_separator.gridy = 9;
+			contentPanel.add(separator, gbc_separator);
 		}
 		
 		String listPreference = AnimeIndex.appProp.getProperty("List_to_visualize_at_start");
@@ -385,6 +408,11 @@ public class PreferenceDialog extends JDialog
 			rdbtnChooseList.setSelected(true);
 			
 		}
+		
+		if(AnimeIndex.appProp.getProperty("Update_system").equals("true"))
+			dataCheckButton.setText("Disattiva");
+		else
+			dataCheckButton.setText("Attiva");
 	}
 
 }
