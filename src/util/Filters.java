@@ -322,6 +322,8 @@ public class Filters {
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
 						}
+						if(dato.equalsIgnoreCase(giorno))
+							AnimeIndex.filterModel.addElement((String)modelArray[i]);
 					}
 					else if (!data.getFinishDate().equalsIgnoreCase("??/??/????") && !data.getFinishDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getFinishDate().substring(0, 3).equalsIgnoreCase("??/"))
 					{
@@ -342,9 +344,9 @@ public class Filters {
 							e.printStackTrace();
 						}
 					}
+					if(c.equals(calendar))
+						AnimeIndex.filterModel.addElement((String)modelArray[i]);
 				}
-				if(dato.equalsIgnoreCase(giorno) || c.equals(calendar))
-					AnimeIndex.filterModel.addElement((String)modelArray[i]);
 			}
 		}
 		if (AnimeIndex.filterModel.isEmpty())
