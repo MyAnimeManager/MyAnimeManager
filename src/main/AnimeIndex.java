@@ -61,6 +61,7 @@ import util.FileManager;
 import util.SearchBar;
 import util.SortedListModel;
 import util.Updater;
+import util.Filters;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
 import util.window.AnimeInformation;
