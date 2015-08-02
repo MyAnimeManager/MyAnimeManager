@@ -38,6 +38,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JCheckBox;
 
+import util.Filters;
+
 public class SetFilterDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -225,8 +227,9 @@ public class SetFilterDialog extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(filterGroup.getSelection() != null){
-							AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon1.png")));}
-//TODO applica il filtro					
+							AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon1.png")));
+							Filters.toFileteredList();
+							}				
 						JButton but = (JButton) e.getSource();
 						JDialog dialog = (JDialog) but.getTopLevelAncestor();
 						dialog.dispose();

@@ -12,16 +12,12 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 public class Filters {
 	
-	private Object[] modelArray;
-	//perchè un costruttore per una classe che ti conveniva fare con tutti metodi statici? per il model alla fine ti bastava fare il getModel() ed eri a posto.
-	public Filters(SortedListModel model)
+	private static Object[] modelArray;
+	
+	public static void toFileteredList()
 	{
-		modelArray = model.toArray();
+		modelArray = AnimeIndex.getModel().toArray();
 		AnimeIndex.filterModel.clear();
-	}
-	public void toFileteredList()
-	{
-		//non mi è chiaro cosa faccia sta parte O.o
 		int filtro=9;
 		for(int j = 0; j<9; j++)
 		{
@@ -30,7 +26,6 @@ public class Filters {
 		}
 		if(filtro!=9)
 		{
-			// qui non devi aggiungere all'array, ma al filteredArray
 		String dato="";
 		TreeMap<String,AnimeData> map = AnimeIndex.getMap();
 		for(int i=0; i<modelArray.length; i++)
@@ -164,7 +159,7 @@ public class Filters {
 						AnimeIndex.filterModel.addElement((String)modelArray[i]);
 				}
 			}
-			else if(filtro==8)
+			else 
 			{
 				dato=data.getDay();
 				String giorno = "";
@@ -189,8 +184,6 @@ public class Filters {
 				if(dato.equalsIgnoreCase(giorno))
 					AnimeIndex.filterModel.addElement((String)modelArray[i]);
 			}
-			// sto else mi sembra inutile lol
-			else{}
 		}
 		if (AnimeIndex.filterModel.isEmpty())
 			AnimeIndex.filterModel.addElement("Nessun Anime Corrispondente");
