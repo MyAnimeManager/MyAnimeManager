@@ -12,11 +12,9 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 public class Filters {
 	
-	private static Object[] modelArray;
-	
 	public static void toFileteredList()
 	{
-		modelArray = AnimeIndex.getModel().toArray();
+		Object[] modelArray = AnimeIndex.getModel().toArray();
 		AnimeIndex.filterModel.clear();
 		int filtro=9;
 		for(int j = 0; j<9; j++)
