@@ -92,7 +92,7 @@ public class AnimeIndex extends JFrame
 	public static SortedListModel filmModel = new SortedListModel();
 	public static SortedListModel completedToSeeModel = new SortedListModel();
 	private static SortedListModel searchModel = new SortedListModel();
-	private static SortedListModel filterModel = new SortedListModel();
+	public static SortedListModel filterModel = new SortedListModel();
 	
 	private static String[] fansubList = {};
 	public static TreeMap<String,String> fansubMap = new TreeMap<String,String>();
