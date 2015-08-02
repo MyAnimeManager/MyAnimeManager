@@ -69,7 +69,7 @@ public class Filters {
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getReleaseDate();
-					String currentData = currentData = currentDay + "/" + currentMonth + "/" + currentYear;;
+					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;;
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
 					try {
 						calendar.setTime(sdf.parse(currentData));
@@ -94,7 +94,7 @@ public class Filters {
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getFinishDate();
-					String currentData = currentData = currentDay + "/" + currentMonth + "/" + currentYear;;
+					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
 					try {
 						calendar.setTime(sdf.parse(currentData));
@@ -123,7 +123,7 @@ public class Filters {
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getReleaseDate();
-					String currentData = currentData = currentDay + "/" + currentMonth + "/" + currentYear;;
+					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
 					try {
 						calendar.setTime(sdf.parse(currentData));
@@ -148,7 +148,7 @@ public class Filters {
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getFinishDate();
-					String currentData = currentData = currentDay + "/" + currentMonth + "/" + currentYear;;
+					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
 					try {
 						calendar.setTime(sdf.parse(currentData));
@@ -179,7 +179,7 @@ public class Filters {
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getReleaseDate();
-					String currentData = currentData = currentDay + "/" + currentMonth + "/" + currentYear;;
+					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
 					try {
 						calendar.setTime(sdf.parse(currentData));
@@ -204,7 +204,7 @@ public class Filters {
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getFinishDate();
-					String currentData = currentData = currentDay + "/" + currentMonth + "/" + currentYear;;
+					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
 					try {
 						calendar.setTime(sdf.parse(currentData));
@@ -233,7 +233,7 @@ public class Filters {
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getReleaseDate();
-					String currentData = currentData = currentDay + "/" + currentMonth + "/" + currentYear;;
+					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
 					try {
 						calendar.setTime(sdf.parse(currentData));
@@ -258,7 +258,7 @@ public class Filters {
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getFinishDate();
-					String currentData = currentData = currentDay + "/" + currentMonth + "/" + currentYear;;
+					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
 					try {
 						calendar.setTime(sdf.parse(currentData));
