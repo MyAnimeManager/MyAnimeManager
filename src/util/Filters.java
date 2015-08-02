@@ -10,7 +10,6 @@ import main.AnimeIndex;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
-
 public class Filters {
 	
 	public static int filtro;
