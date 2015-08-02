@@ -167,19 +167,19 @@ public class Filters {
 				String giorno = "";
 				GregorianCalendar calendar = new GregorianCalendar();
 				int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
-				if (currentDay==1)
+				if (currentDay == Calendar.SUNDAY)
 					giorno = "Domenica";
-				else if (currentDay==2)
+				else if (currentDay == Calendar.MONDAY)
 					giorno = "Lunedì";
-				else if (currentDay==3)
+				else if (currentDay == Calendar.TUESDAY)
 					giorno = "Martedì";
-				else if (currentDay==4)
+				else if (currentDay == Calendar.WEDNESDAY)
 					giorno = "Mercoledì";
-				else if (currentDay==5)
+				else if (currentDay == Calendar.THURSDAY)
 					giorno = "Giovedì";
-				else if (currentDay==6)
+				else if (currentDay == Calendar.FRIDAY)
 					giorno = "Venerdì";
-				else if (currentDay==7)
+				else if (currentDay == Calendar.SATURDAY)
 					giorno = "Sabato";
 				else{}
 				
