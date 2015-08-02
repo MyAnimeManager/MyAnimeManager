@@ -85,7 +85,7 @@ public class AnimeIndex extends JFrame
 	public static JList completedList;
 	public static JList ovaList;
 	private static JList searchList;
-	private static JList filterList;
+	public static JList filterList;
 	
 	public static SortedListModel completedModel = new SortedListModel();
 	public static SortedListModel airingModel = new SortedListModel();
@@ -661,9 +661,7 @@ public class AnimeIndex extends JFrame
         searchBar.setIcon(icon);
 		searchBar.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent documentEvent) {
-				
-			}
-
+				}
 			@Override
 			public void insertUpdate(DocumentEvent e)
 			{
@@ -986,18 +984,6 @@ public class AnimeIndex extends JFrame
 		});
 		completedToSeeScroll.setViewportView(completedToSeeList);
 		
-		
-		Date now = new Date();
-        SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week abbreviated
-		String currentDay = simpleDateformat.format(now);
-		
-		Object[] airingArray = airingModel.toArray();
-		for (int i = 0; i < airingArray.length; i++)
-		{
-			String anime = (String) airingArray[i];
-			AnimeData data = airingMap.get(anime);
-		}
-//TODO nn mostra i dati degli anime
 		JPanel searchCard = new JPanel();
 		cardContainer.add(searchCard, "Ricerca");
 		searchCard.setLayout(new BorderLayout(0, 0));

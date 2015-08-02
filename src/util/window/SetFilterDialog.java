@@ -229,6 +229,8 @@ public class SetFilterDialog extends JDialog {
 						if(filterGroup.getSelection() != null){
 							AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon1.png")));
 							Filters.toFileteredList();
+							CardLayout cl = (CardLayout)(AnimeIndex.cardContainer.getLayout());
+					        cl.show(AnimeIndex.cardContainer, "Filtri");
 							}				
 						JButton but = (JButton) e.getSource();
 						JDialog dialog = (JDialog) but.getTopLevelAncestor();

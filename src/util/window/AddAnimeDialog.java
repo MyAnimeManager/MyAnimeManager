@@ -921,7 +921,15 @@ public class AddAnimeDialog extends JDialog
 							{
 								if (releaseDate.equals("null"))
 									releaseDate = "??/??/????";
-								else if (releaseDate.length() > 4)
+								else if(releaseDate.length()==4)
+									releaseDate = "??/??/" + releaseDate;
+								else if(releaseDate.length()==7)
+								{
+									String monthStart = releaseDate.substring(5, 7);
+									String yearStart = releaseDate.substring(0, 4);
+									releaseDate = "??/" + monthStart + "/" + yearStart;
+								}
+								else if (releaseDate.length() > 7)
 								{
 									String dayStart = releaseDate.substring(8, 10);
 									String monthStart = releaseDate.substring(5, 7);
@@ -934,7 +942,15 @@ public class AddAnimeDialog extends JDialog
 							{
 								if (finishDate.equals("null"))
 									finishDate = "??/??/????";
-								else if (finishDate.length() > 4)
+								else if(finishDate.length()==4)
+									finishDate = "??/??/" + finishDate;
+								else if(finishDate.length()==7)
+								{
+									String monthEnd = finishDate.substring(5, 7);
+									String yearEnd = finishDate.substring(0, 4);
+									finishDate = "??/" + monthEnd + "/" + yearEnd;
+								}
+								else if (finishDate.length() > 7)
 								{
 									String dayEnd = finishDate.substring(8, 10);
 									String monthEnd= finishDate.substring(5, 7);
