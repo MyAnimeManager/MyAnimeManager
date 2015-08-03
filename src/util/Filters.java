@@ -11,7 +11,7 @@ import main.AnimeIndex;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 public class Filters {
-	
+//TODO finire applicazione filtro per cambio lista
 	public static int filtro;
 	public static void toFileteredList()
 	{
