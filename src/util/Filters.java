@@ -49,7 +49,7 @@ public class Filters {
 			else if(filtro==2)
 			{
 				dato = data.getDay();
-				if(dato.equalsIgnoreCase("Irregolare"))
+				if(dato.equalsIgnoreCase("Irregolare") && !data.getAnimeType().equalsIgnoreCase("Blu-ray"))
 					AnimeIndex.filterModel.addElement((String)modelArray[i]);
 			}
 			else if(filtro==3)
