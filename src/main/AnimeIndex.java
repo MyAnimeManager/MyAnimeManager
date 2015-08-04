@@ -55,6 +55,7 @@ import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.FileManager;
+import util.Filters;
 import util.SearchBar;
 import util.SortedListModel;
 import util.Updater;
@@ -122,6 +123,7 @@ public class AnimeIndex extends JFrame
 	public static JButton setFilterButton;
 	private String list;
 	public static boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
+	public static int filtro = 9;
 	public static Font segui;
 	public static String addToPreviousList;
 	/**
@@ -195,7 +197,6 @@ public class AnimeIndex extends JFrame
 				try {
 					updateTask.execute();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -643,6 +644,7 @@ public class AnimeIndex extends JFrame
 		        else
 		        	AnimeIndex.animeInformation.finishedButton.setEnabled(false);
 		         }
+		        Filters.toFileteredList();
 		     }
 		});
 		animeTypeComboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere"}));
@@ -1881,7 +1883,7 @@ public class AnimeIndex extends JFrame
 			e.printStackTrace();
 		}
 		return font;
-}
+	}
 }
 //AnimeIndex.animeInformation.minusButton.setEnabled(false);
 //AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);

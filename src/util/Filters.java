@@ -11,54 +11,53 @@ import main.AnimeIndex;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 public class Filters {
-//TODO finire applicazione filtro per cambio lista
-	public static int filtro;
+
 	public static void toFileteredList()
 	{
 		AnimeIndex.saveModifiedInformation();
 		AnimeIndex.filterList.clearSelection();
 		AnimeIndex.animeInformation.setBlank();
 		AnimeIndex.filterList.setEnabled(true);
-		Object[] modelArray = AnimeIndex.getModel().toArray();
-		AnimeIndex.filterModel.clear();
-		filtro=9;
+		AnimeIndex.filtro = 9;
 		for(int j = 0; j<9; j++)
 		{
 			if(AnimeIndex.filterArray[j]==true)
-				filtro = j;
+				AnimeIndex.filtro = j;
 		}
-		if(filtro!=9)
+		if(AnimeIndex.filtro!=9)
 		{
+		Object[] modelArray = AnimeIndex.getModel().toArray();
+		AnimeIndex.filterModel.clear();
 		String dato="";
 		TreeMap<String,AnimeData> map = AnimeIndex.getMap();
 		for(int i=0; i<modelArray.length; i++)
 		{
 			AnimeData data = map.get((String)modelArray[i]);
-			if(filtro==0)
+			if(AnimeIndex.filtro==0)
 			{
 				dato = data.getAnimeType();
 				if(dato.equalsIgnoreCase("Blu-ray"))
 					AnimeIndex.filterModel.addElement((String)modelArray[i]);
 			}
-			else if(filtro==1)
+			else if(AnimeIndex.filtro==1)
 			{
 				dato = data.getDay();
 				if(dato.equalsIgnoreCase("Sospesa"))
 					AnimeIndex.filterModel.addElement((String)modelArray[i]);
 			}
-			else if(filtro==2)
+			else if(AnimeIndex.filtro==2)
 			{
 				dato = data.getDay();
 				if(dato.equalsIgnoreCase("Irregolare") && !data.getAnimeType().equalsIgnoreCase("Blu-ray"))
 					AnimeIndex.filterModel.addElement((String)modelArray[i]);
 			}
-			else if(filtro==3)
+			else if(AnimeIndex.filtro==3)
 			{
 				dato = data.getFansub();
 				if(dato.equalsIgnoreCase("Dynit")||dato.equalsIgnoreCase("Yamato")||dato.equalsIgnoreCase("Yamato Video")||dato.equalsIgnoreCase("Yamato Animation")||dato.equalsIgnoreCase("YV")||dato.equalsIgnoreCase("YA")||dato.equalsIgnoreCase("YamatoVideo")||dato.equalsIgnoreCase("YamatoAnimation")||dato.equalsIgnoreCase("Crunchyroll")||dato.equalsIgnoreCase("CR")||dato.equalsIgnoreCase("Viewster"))
 					AnimeIndex.filterModel.addElement((String)modelArray[i]);
 			}
-			else if(filtro==4)
+			else if(AnimeIndex.filtro==4)
 			{
 				dato=data.getAnimeType();
 				if(!data.getReleaseDate().equalsIgnoreCase("??/??/????") && !data.getReleaseDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getReleaseDate().substring(0, 3).equalsIgnoreCase("??/") && (data.getCurrentEpisode().equalsIgnoreCase("??") || data.getCurrentEpisode().equalsIgnoreCase("0") || data.getCurrentEpisode().equalsIgnoreCase("1")))
@@ -112,7 +111,7 @@ public class Filters {
 					}
 				}					
 			}
-			else if(filtro==5)
+			else if(AnimeIndex.filtro==5)
 			{
 				dato=data.getAnimeType();
 				if(!data.getReleaseDate().equalsIgnoreCase("??/??/????") && !data.getReleaseDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getReleaseDate().substring(0, 3).equalsIgnoreCase("??/") && (data.getCurrentEpisode().equalsIgnoreCase("??") || data.getCurrentEpisode().equalsIgnoreCase("0") || data.getCurrentEpisode().equalsIgnoreCase("1")))
@@ -168,7 +167,7 @@ public class Filters {
 				else
 					AnimeIndex.filterModel.addElement((String)modelArray[i]);
 			}
-			else if(filtro==6)
+			else if(AnimeIndex.filtro==6)
 			{
 				dato=data.getAnimeType();
 				if(!data.getReleaseDate().equalsIgnoreCase("??/??/????") && !data.getReleaseDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getReleaseDate().substring(0, 3).equalsIgnoreCase("??/") && (data.getCurrentEpisode().equalsIgnoreCase("??") || data.getCurrentEpisode().equalsIgnoreCase("0") || data.getCurrentEpisode().equalsIgnoreCase("1")))
@@ -222,7 +221,7 @@ public class Filters {
 					}
 				}
 			}
-			else if(filtro==7)
+			else if(AnimeIndex.filtro==7)
 			{
 				dato=data.getAnimeType();
 				if(!data.getReleaseDate().equalsIgnoreCase("??/??/????") && !data.getReleaseDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getReleaseDate().substring(0, 3).equalsIgnoreCase("??/") && (data.getCurrentEpisode().equalsIgnoreCase("??") || data.getCurrentEpisode().equalsIgnoreCase("0") || data.getCurrentEpisode().equalsIgnoreCase("1")))
@@ -355,6 +354,8 @@ public class Filters {
 			AnimeIndex.animeInformation.setBlank();
 			AnimeIndex.filterList.setEnabled(false);
 		}
+		CardLayout cl = (CardLayout)(AnimeIndex.cardContainer.getLayout());
+        cl.show(AnimeIndex.cardContainer, "Filtri");
 		}
 	}
 }
