@@ -58,7 +58,7 @@ import util.FileManager;
 import util.SearchBar;
 import util.SortedListModel;
 import util.Updater;
-import util.task.UpdateTask;
+import util.task.CheckUpdateTask;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
 import util.window.AnimeInformation;
@@ -191,7 +191,7 @@ public class AnimeIndex extends JFrame
 				File file = new File(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + UpdateDialog.NEW_VERSION);
 				if(file.isFile())
 					file.delete();
-				UpdateTask updateTask = new UpdateTask();
+				CheckUpdateTask updateTask = new CheckUpdateTask();
 				try {
 					updateTask.execute();
 				} catch (Exception e) {

@@ -8,7 +8,7 @@ import main.AnimeIndex;
 import util.Updater;
 import util.window.UpdateDialog;
 
-public class UpdateTask extends SwingWorker
+public class CheckUpdateTask extends SwingWorker
 {
 //	String updatedVersion;
 	@Override
