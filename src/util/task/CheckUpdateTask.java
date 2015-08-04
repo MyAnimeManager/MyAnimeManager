@@ -29,7 +29,6 @@ public class CheckUpdateTask extends SwingWorker
 		String updatedVersion = null;
 		try {
 			updatedVersion = (String) get();
-			System.out.println(updatedVersion);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
