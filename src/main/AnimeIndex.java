@@ -23,16 +23,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Properties;
 import java.util.TreeMap;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -61,7 +58,7 @@ import util.FileManager;
 import util.SearchBar;
 import util.SortedListModel;
 import util.Updater;
-import util.Filters;
+import util.task.UpdateTask;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
 import util.window.AnimeInformation;
@@ -194,18 +191,14 @@ public class AnimeIndex extends JFrame
 				File file = new File(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + UpdateDialog.NEW_VERSION);
 				if(file.isFile())
 					file.delete();
-				String updatedVersion = null;
+				UpdateTask updateTask = new UpdateTask();
 				try {
-					updatedVersion = Updater.getLatestVersion();
-				} catch (Exception e1) {
-					e1.printStackTrace();
+					updateTask.execute();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				if (!updatedVersion.equalsIgnoreCase(VERSION))
-				{
-				UpdateDialog update = new UpdateDialog(Updater.getWhatsNew());
-				update.setLocationRelativeTo(AnimeIndex.mainFrame);
-				update.setVisible(true);
-				}
+				
 			}
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
