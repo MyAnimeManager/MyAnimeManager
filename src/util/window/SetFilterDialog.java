@@ -54,7 +54,6 @@ public class SetFilterDialog extends JDialog {
 	private JCheckBox usciteDelGiorno;
 	private JCheckBox irregolari;
 
-	//TODO Nel filtro di ricerca per irregolari, controllare type =\= blu ray
 	/**
 	 * Create the dialog.
 	 */
@@ -247,6 +246,7 @@ public class SetFilterDialog extends JDialog {
 					public void actionPerformed(ActionEvent e) {						
 						for (int i = 0; i < AnimeIndex.filterArray.length; i++)
 							AnimeIndex.filterArray[i] = false;
+						AnimeIndex.filtro=9;
 						filterGroup.clearSelection();
 						AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon3.png")));
 						String listName = AnimeIndex.getList();

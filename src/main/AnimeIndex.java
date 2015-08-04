@@ -660,10 +660,15 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void insertUpdate(DocumentEvent e)
 			{
+				saveModifiedInformation();
+				getJList().clearSelection();
+				searchList.clearSelection();
 				String search = searchBar.getText();
-				String listName = getList();
-				SortedListModel model = getModel();
-				
+				SortedListModel model=null;
+				if(filtro==9)
+					model = getModel();
+				else
+					model = filterModel;
 				CardLayout cl = (CardLayout)(cardContainer.getLayout());
 		        cl.show(cardContainer, "Ricerca");
 				SearchInList(search, model);
@@ -672,43 +677,71 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void removeUpdate(DocumentEvent e)
 			{
-				String search = searchBar.getText();
-				String listName = getList();
+				saveModifiedInformation();
+				searchList.clearSelection();
 				SortedListModel model = null;
-				
-				if (listName.equalsIgnoreCase("anime completati"))
-				{	
-					model = AnimeIndex.completedModel;						
-				}				
-				else if (listName.equalsIgnoreCase("anime in corso"))
+				String search = searchBar.getText();
+				JList list = new JList();
+				list=getJList();
+				list.clearSelection();
+				if(filtro==9)
 				{
-					model = AnimeIndex.airingModel;
-				}
-				else if (listName.equalsIgnoreCase("oav"))
-				{
-					model = AnimeIndex.ovaModel;
-				}
-				else if (listName.equalsIgnoreCase("film"))
-				{
-					model = AnimeIndex.filmModel;
-				}
-				else if (listName.equalsIgnoreCase("completi da vedere"))
-				{
-					model = AnimeIndex.completedToSeeModel;
-				}
-				if (!search.isEmpty())
-				{	
-				CardLayout cl = (CardLayout)(cardContainer.getLayout());
-		        cl.show(cardContainer, "Ricerca");
-				SearchInList(search, model);
+					String listName = getList();
+					
+					if (listName.equalsIgnoreCase("anime completati"))
+					{	
+						model = AnimeIndex.completedModel;						
+					}				
+					else if (listName.equalsIgnoreCase("anime in corso"))
+					{
+						model = AnimeIndex.airingModel;
+					}
+					else if (listName.equalsIgnoreCase("oav"))
+					{
+						model = AnimeIndex.ovaModel;
+					}
+					else if (listName.equalsIgnoreCase("film"))
+					{
+						model = AnimeIndex.filmModel;
+					}
+					else if (listName.equalsIgnoreCase("completi da vedere"))
+					{
+						model = AnimeIndex.completedToSeeModel;
+					}
+					if (!search.isEmpty())
+					{	
+					CardLayout cl = (CardLayout)(cardContainer.getLayout());
+			        cl.show(cardContainer, "Ricerca");
+					SearchInList(search, model);
+					}
+					else
+					{
+						CardLayout cl = (CardLayout)(cardContainer.getLayout());
+				        cl.show(cardContainer, listName);
+				        if(!animeInformation.lblAnimeName.equals("Anime"))
+				        	list.setSelectedValue(animeInformation.lblAnimeName.getText(), true);
+					}
 				}
 				else
 				{
+					filterList.clearSelection();
+					model = filterModel;
+					if (!search.isEmpty())
+					{	
 					CardLayout cl = (CardLayout)(cardContainer.getLayout());
-			        cl.show(cardContainer, listName);
+			        cl.show(cardContainer, "Ricerca");
+					SearchInList(search, model);
+					}
+					else
+					{
+						CardLayout cl = (CardLayout)(cardContainer.getLayout());
+				        cl.show(cardContainer, "Filtri");
+				        if(!animeInformation.lblAnimeName.equals("Anime"))
+				        	filterList.setSelectedValue(animeInformation.lblAnimeName.getText(), true);
+					}
 				}
 			}
-			});
+		});
 		searchBar.setDisabledTextColor(Color.LIGHT_GRAY);
 		searchBar.setBackground(Color.BLACK);
 		searchBar.setForeground(Color.LIGHT_GRAY);
@@ -1422,6 +1455,8 @@ public class AnimeIndex extends JFrame
 	    		SetFilterDialog filterDialog = new SetFilterDialog();
 				filterDialog.setLocationRelativeTo(animeInformation.animeImage);
 				filterDialog.setVisible(true);
+				if(!searchBar.getText().isEmpty())
+					searchBar.setText("");
 	    	}
 	    });
 	    setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon3.png")));
@@ -1440,9 +1475,8 @@ public class AnimeIndex extends JFrame
 		}
 		else
 			list = appProp.getProperty("List_to_visualize_at_start");
+		
 		animeTypeComboBox.setSelectedItem(list);
-		
-		
 		}
 	
 	private static void addPopup(Component component, final JPopupMenu popup) {
@@ -1520,29 +1554,29 @@ public class AnimeIndex extends JFrame
 
 	public static JList getJList()
 	{
-		String listName = getList();
 		JList list= null;
-		if (listName.equalsIgnoreCase("anime completati"))
-		{	
-			list = AnimeIndex.completedList;						
-		}				
-		else if (listName.equalsIgnoreCase("anime in corso"))
-		{
-			list = AnimeIndex.airingList;
-		}
-		else if (listName.equalsIgnoreCase("oav"))
-		{
-			list = AnimeIndex.ovaList;
-		}
-		else if (listName.equalsIgnoreCase("film"))
-		{
-			list = AnimeIndex.filmList;
-		}
-		else if (listName.equalsIgnoreCase("completi da vedere"))
-		{
-			list = AnimeIndex.completedToSeeList;
-		}
-		
+			String listName = getList();
+			if (listName.equalsIgnoreCase("anime completati"))
+			{	
+				list = AnimeIndex.completedList;						
+			}				
+			else if (listName.equalsIgnoreCase("anime in corso"))
+			{
+				list = AnimeIndex.airingList;
+			}
+			else if (listName.equalsIgnoreCase("oav"))
+			{
+				list = AnimeIndex.ovaList;
+			}
+			else if (listName.equalsIgnoreCase("film"))
+			{
+				list = AnimeIndex.filmList;
+			}
+			else if (listName.equalsIgnoreCase("completi da vedere"))
+			{
+				list = AnimeIndex.completedToSeeList;
+			}
+			
 		return list;
 	}
 	
@@ -1570,35 +1604,34 @@ public class AnimeIndex extends JFrame
 		{
 			map = AnimeIndex.completedToSeeMap;
 		}
-		
 		return map;
 	}
 	
 	public static SortedListModel getModel()
 	{
-		String listName = getList();
 		SortedListModel model= null;
-		if (listName.equalsIgnoreCase("anime completati"))
-		{	
-			model = AnimeIndex.completedModel;						
-		}				
-		else if (listName.equalsIgnoreCase("anime in corso"))
-		{
-			model = AnimeIndex.airingModel;
-		}
-		else if (listName.equalsIgnoreCase("oav"))
-		{
-			model = AnimeIndex.ovaModel;
-		}
-		else if (listName.equalsIgnoreCase("film"))
-		{
-			model = AnimeIndex.filmModel;
-		}
-		else if (listName.equalsIgnoreCase("completi da vedere"))
-		{
-			model = AnimeIndex.completedToSeeModel;
-		}
-		
+			String listName = getList();
+			if (listName.equalsIgnoreCase("anime completati"))
+			{	
+				model = AnimeIndex.completedModel;						
+			}				
+			else if (listName.equalsIgnoreCase("anime in corso"))
+			{
+				model = AnimeIndex.airingModel;
+			}
+			else if (listName.equalsIgnoreCase("oav"))
+			{
+				model = AnimeIndex.ovaModel;
+			}
+			else if (listName.equalsIgnoreCase("film"))
+			{
+				model = AnimeIndex.filmModel;
+			}
+			else if (listName.equalsIgnoreCase("completi da vedere"))
+			{
+				model = AnimeIndex.completedToSeeModel;
+			}
+			
 		return model;
 	}
 	
@@ -1870,7 +1903,6 @@ public class AnimeIndex extends JFrame
 				 AnimeIndex.animeInformation.fansubButton.setEnabled(false);
 			}
 		}
-		
 	}
 	
 	private static Font segui()
@@ -1885,10 +1917,3 @@ public class AnimeIndex extends JFrame
 		return font;
 	}
 }
-//AnimeIndex.animeInformation.minusButton.setEnabled(false);
-//AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
-//AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
-//AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
-//AnimeIndex.animeInformation.releaseDateField.setEnabled(false);
-//AnimeIndex.animeInformation.finishDateField.setEnabled(false);
-//AnimeIndex.animeInformation.durationField.setEnabled(false);
