@@ -2,7 +2,9 @@ package util.window;
 
 
 import java.awt.BorderLayout;
+
 import javax.swing.JDialog;
+
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -34,6 +36,8 @@ import util.AnimeIndexProperties;
 import util.ExternalProgram;
 import util.FileManager;
 import util.Updater;
+import util.task.DownloadUpdateTask;
+
 import java.awt.Dialog.ModalExclusionType;
 
 	public class UpdateDialog extends JDialog{
@@ -47,6 +51,7 @@ import java.awt.Dialog.ModalExclusionType;
 	    private JLabel lblNewLabel;
 	    private JLabel lblNovit;
 	    public static final String NEW_VERSION = "MyAnimeManager_v1.0.0_Setup.exe";
+	    public static DownloadingDialog dial; 
 
 	    public UpdateDialog(String info) {
 	    	setModal(true);
@@ -64,7 +69,6 @@ import java.awt.Dialog.ModalExclusionType;
 
 	    private void initComponents() {
 
-	        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 	        this.setTitle("Ricerca aggiornamenti");
 	        pan1 = new JPanel();
 	        pan1.setLayout(new BorderLayout());
@@ -78,7 +82,9 @@ import java.awt.Dialog.ModalExclusionType;
 	        ok.addActionListener( new ActionListener(){
 
 	            public void actionPerformed(ActionEvent e) {
-	                update();
+	            	dial = new DownloadingDialog(Updater.getDownloadLink());
+	            	dial.setLocationRelativeTo(AnimeIndex.mainFrame);
+	            	dial.setVisible(true);
 	                UpdateDialog.this.dispose();
 						save();
 						ExternalProgram ext = new ExternalProgram(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
