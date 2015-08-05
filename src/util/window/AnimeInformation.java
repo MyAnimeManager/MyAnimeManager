@@ -680,6 +680,10 @@ public class AnimeInformation extends JPanel
 			public void actionPerformed(ActionEvent e) {
 				AnimeIndex.saveModifiedInformation();
 				String name = lblAnimeName.getText();
+				
+				if(AnimeIndex.filtro!=9 && !AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
+					AnimeIndex.filterList.setSelectedValue(name, true);
+				
 				if(AnimeIndex.filtro!=9 && !name.equals("Anime"))
 				{
 					AnimeIndex.getJList().setSelectedValue(name, true);
@@ -753,6 +757,9 @@ public class AnimeInformation extends JPanel
 				index = list.getSelectedIndex();
 				model.removeElementAt(index);
 				list.clearSelection();
+				if(AnimeIndex.filtro!=9 && !AnimeIndex.searchBar.getText().isEmpty())
+					AnimeIndex.filterList.clearSelection();
+				
 				AnimeIndex.completedModel.addElement(name);
 				AnimeIndex.completedSessionAnime.add(AnimeIndex.completedMap.get(name).getImagePath("anime completati"));
 				AnimeIndex.animeInformation.minusButton.setEnabled(false);
