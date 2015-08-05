@@ -511,7 +511,6 @@ public class AnimeInformation extends JPanel
 		typeComboBox = new JComboBox();
 		typeComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AnimeIndex.saveModifiedInformation();
 				String bdType = (String)typeComboBox.getSelectedItem();
 				String section = (String)AnimeIndex.animeTypeComboBox.getSelectedItem();
 				if(section.equalsIgnoreCase("anime completati") || section.equalsIgnoreCase("Completi Da Vedere"))
@@ -528,6 +527,7 @@ public class AnimeInformation extends JPanel
 				int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "Spostare l'Anime in \"Anime in Corso\" come tipo: Blu-ray?", "Richiesta", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if(shouldCancel==0)
 				{
+					AnimeIndex.saveModifiedInformation();
 					String name = lblAnimeName.getText();
 					if(AnimeIndex.filtro!=9 && !AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
 						AnimeIndex.filterList.setSelectedValue(name, true);
@@ -598,21 +598,18 @@ public class AnimeInformation extends JPanel
 				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
 
 				    setBlank();
+				    
 				    if(AnimeIndex.filtro != 9)
 				    {
-					    Filters.setFilter(0);
-					    AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon1.png")));
-					    AnimeIndex.animeTypeComboBox.setSelectedItem("Anime in Corso");
-						AnimeIndex.filterList.setSelectedValue(name, true);
+					    Filters.removeFilters();
+					    AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon3.png")));
 				    }
-				    else
-				    {
-				    	AnimeIndex.animeTypeComboBox.setSelectedItem("Anime in Corso");
-						AnimeIndex.airingList.setSelectedValue(name, true);
-				    }
+			    	AnimeIndex.animeTypeComboBox.setSelectedItem("Anime in Corso");
+					AnimeIndex.airingList.setSelectedValue(name, true);
 				}
 				else if(shouldCancel==1)
 				{	
+					AnimeIndex.saveModifiedInformation();
 					String name = lblAnimeName.getText();
 					TreeMap<String,AnimeData> map = null;								
 					if (section.equalsIgnoreCase("Completi Da Vedere"))
@@ -629,6 +626,20 @@ public class AnimeInformation extends JPanel
 							oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), 
 							oldData.getFinishDate(), oldData.getDurationEp(), true);
 					map.put(name, newData);
+					
+					if(AnimeIndex.filtro != 9)
+				    {
+					    Filters.removeFilters();
+					    String lbl = AnimeIndex.animeInformation.lblAnimeName.getText();
+					    if (section.equalsIgnoreCase("Completi Da Vedere") && !lbl.equals("Anime"))
+						{
+							AnimeIndex.completedToSeeList.setSelectedValue(lbl, true);
+						}
+						else if(!lbl.equals("Anime")) 
+						{
+							AnimeIndex.completedList.setSelectedValue(lbl, true);
+						}
+				    }
 				}
 				else
 				{

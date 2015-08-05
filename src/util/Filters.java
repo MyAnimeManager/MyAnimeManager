@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TreeMap;
 
+import javax.swing.ImageIcon;
+
 import main.AnimeIndex;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
@@ -368,5 +370,16 @@ public class Filters {
 			 else
 				AnimeIndex.filterArray[j]=false;
 		}
+		toFileteredList();
+	}
+	public static void removeFilters()
+	{
+		AnimeIndex.filtro = 9;
+		for(int j = 0; j<9; j++)
+			AnimeIndex.filterArray[j]=false;
+		AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon3.png")));
+		String listName = AnimeIndex.getList();
+		CardLayout cl = (CardLayout)(AnimeIndex.cardContainer.getLayout());
+        cl.show(AnimeIndex.cardContainer, listName);
 	}
 }
