@@ -358,4 +358,15 @@ public class Filters {
         cl.show(AnimeIndex.cardContainer, "Filtri");
 		}
 	}
+	public static void setFilter(int i)
+	{
+		AnimeIndex.filtro = i;
+		for(int j = 0; j<9; j++)
+		{
+			if(j == i)
+				AnimeIndex.filterArray[j]=true;
+			 else
+				AnimeIndex.filterArray[j]=false;
+		}
+	}
 }
