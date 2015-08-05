@@ -41,6 +41,7 @@ import net.miginfocom.swing.MigLayout;
 import util.AnimeData;
 import util.ConnectionManager;
 import util.FileManager;
+import util.Filters;
 import util.PatternFilter;
 import util.SearchBar;
 
@@ -1171,6 +1172,10 @@ public class AddAnimeDialog extends JDialog
 							JDialog dialog = (JDialog) but.getTopLevelAncestor();
 							dialog.dispose();
 							}
+							if(AnimeIndex.filtro != 9)
+						    {
+							    Filters.removeFilters();
+						    }
 							AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 						}
 					});
