@@ -40,6 +40,7 @@ public class PreferenceDialog extends JDialog
 	public static final ButtonGroup listGroup = new ButtonGroup();
 	private JCheckBox rdbtnLastList;
 	private JCheckBox rdbtnChooseList;
+	private JCheckBox chckbxDailyRelease;
 	private JComboBox choosedList;
 	public static JButton dataCheckButton;
 
@@ -52,15 +53,15 @@ public class PreferenceDialog extends JDialog
 		setTitle("Preferenze");
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 380, 251);
+		setBounds(100, 100, 380, 280);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.EAST);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{197, 90, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblListToVisualize = new JLabel("Lista da visualizzare all'avvio :");
@@ -72,31 +73,47 @@ public class PreferenceDialog extends JDialog
 			contentPanel.add(lblListToVisualize, gbc_lblListToVisualize);
 		}
 		{
-			rdbtnLastList = new JCheckBox("Ultima Lista");
-			rdbtnLastList.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					choosedList.setEnabled(false);
-				}
-			});
-			GridBagConstraints gbc_rdbtnLastList = new GridBagConstraints();
-			gbc_rdbtnLastList.fill = GridBagConstraints.HORIZONTAL;
-			gbc_rdbtnLastList.insets = new Insets(0, 0, 5, 5);
-			gbc_rdbtnLastList.gridx = 0;
-			gbc_rdbtnLastList.gridy = 1;
-			contentPanel.add(rdbtnLastList, gbc_rdbtnLastList);
-		}
-		{
 			rdbtnChooseList = new JCheckBox("Scegli Lista :");
 			rdbtnChooseList.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					choosedList.setEnabled(true);
 				}
 			});
+			{
+				rdbtnLastList = new JCheckBox("Ultima Lista");
+				rdbtnLastList.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						choosedList.setEnabled(false);
+					}
+				});
+				{
+					chckbxDailyRelease = new JCheckBox("Uscite del Giorno");
+					chckbxDailyRelease.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							choosedList.setEnabled(false);
+						}
+					});
+					GridBagConstraints gbc_chckbxDailyRelease = new GridBagConstraints();
+					gbc_chckbxDailyRelease.anchor = GridBagConstraints.WEST;
+					gbc_chckbxDailyRelease.insets = new Insets(0, 0, 5, 5);
+					gbc_chckbxDailyRelease.gridx = 0;
+					gbc_chckbxDailyRelease.gridy = 1;
+					contentPanel.add(chckbxDailyRelease, gbc_chckbxDailyRelease);
+				}
+				listGroup.add(chckbxDailyRelease);
+				GridBagConstraints gbc_rdbtnLastList = new GridBagConstraints();
+				gbc_rdbtnLastList.fill = GridBagConstraints.HORIZONTAL;
+				gbc_rdbtnLastList.insets = new Insets(0, 0, 5, 5);
+				gbc_rdbtnLastList.gridx = 0;
+				gbc_rdbtnLastList.gridy = 2;
+				contentPanel.add(rdbtnLastList, gbc_rdbtnLastList);
+			}
+			listGroup.add(rdbtnLastList);
 			GridBagConstraints gbc_rdbtnChooseList = new GridBagConstraints();
 			gbc_rdbtnChooseList.fill = GridBagConstraints.HORIZONTAL;
 			gbc_rdbtnChooseList.insets = new Insets(0, 0, 5, 5);
 			gbc_rdbtnChooseList.gridx = 0;
-			gbc_rdbtnChooseList.gridy = 2;
+			gbc_rdbtnChooseList.gridy = 3;
 			contentPanel.add(rdbtnChooseList, gbc_rdbtnChooseList);
 		}
 		{
@@ -106,7 +123,7 @@ public class PreferenceDialog extends JDialog
 			gbc_choosedList.insets = new Insets(0, 0, 5, 0);
 			gbc_choosedList.fill = GridBagConstraints.HORIZONTAL;
 			gbc_choosedList.gridx = 1;
-			gbc_choosedList.gridy = 2;
+			gbc_choosedList.gridy = 3;
 			contentPanel.add(choosedList, gbc_choosedList);
 			choosedList.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere","Uscite del Giorno"}));
 		}
@@ -125,10 +142,15 @@ public class PreferenceDialog extends JDialog
 							AnimeIndex.appProp.setProperty("List_to_visualize_at_start", "Last list");
 							AnimeIndex.appProp.setProperty("Last_list", AnimeIndex.getList());
 						}
-						else
+						else if (rdbtnChooseList.isSelected())
 						{
 							String list = (String) choosedList.getSelectedItem();
 							AnimeIndex.appProp.setProperty("List_to_visualize_at_start", list);
+							AnimeIndex.appProp.setProperty("Last_list", "---");
+						}
+						else
+						{
+							AnimeIndex.appProp.setProperty("List_to_visualize_at_start", "Daily");
 							AnimeIndex.appProp.setProperty("Last_list", "---");
 						}
 						
@@ -152,9 +174,7 @@ public class PreferenceDialog extends JDialog
 				buttonPane.add(cancelButton);
 			}
 		}
-		//TODO controllare perchè non salva
 		listGroup.add(rdbtnChooseList);
-		listGroup.add(rdbtnLastList);
 		{
 			JSeparator separator = new JSeparator();
 			GridBagConstraints gbc_separator = new GridBagConstraints();
@@ -162,7 +182,7 @@ public class PreferenceDialog extends JDialog
 			gbc_separator.gridwidth = 3;
 			gbc_separator.insets = new Insets(0, 0, 5, 0);
 			gbc_separator.gridx = 0;
-			gbc_separator.gridy = 3;
+			gbc_separator.gridy = 4;
 			contentPanel.add(separator, gbc_separator);
 		}
 		{
@@ -171,7 +191,7 @@ public class PreferenceDialog extends JDialog
 			gbc_lblControlloDatiAutomatico.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblControlloDatiAutomatico.insets = new Insets(0, 0, 5, 5);
 			gbc_lblControlloDatiAutomatico.gridx = 0;
-			gbc_lblControlloDatiAutomatico.gridy = 4;
+			gbc_lblControlloDatiAutomatico.gridy = 5;
 			contentPanel.add(lblControlloDatiAutomatico, gbc_lblControlloDatiAutomatico);
 		}
 		{
@@ -203,7 +223,7 @@ public class PreferenceDialog extends JDialog
 			gbc_dataCheckButton.fill = GridBagConstraints.HORIZONTAL;
 			gbc_dataCheckButton.insets = new Insets(0, 0, 5, 5);
 			gbc_dataCheckButton.gridx = 1;
-			gbc_dataCheckButton.gridy = 4;
+			gbc_dataCheckButton.gridy = 5;
 			contentPanel.add(dataCheckButton, gbc_dataCheckButton);
 		}
 		{
@@ -211,7 +231,7 @@ public class PreferenceDialog extends JDialog
 			GridBagConstraints gbc_btnEsclusioni = new GridBagConstraints();
 			gbc_btnEsclusioni.insets = new Insets(0, 0, 5, 0);
 			gbc_btnEsclusioni.gridx = 2;
-			gbc_btnEsclusioni.gridy = 4;
+			gbc_btnEsclusioni.gridy = 5;
 			contentPanel.add(btnEsclusioni, gbc_btnEsclusioni);
 		}
 		{
@@ -221,7 +241,7 @@ public class PreferenceDialog extends JDialog
 			gbc_separator.fill = GridBagConstraints.BOTH;
 			gbc_separator.insets = new Insets(0, 0, 5, 0);
 			gbc_separator.gridx = 0;
-			gbc_separator.gridy = 5;
+			gbc_separator.gridy = 6;
 			contentPanel.add(separator, gbc_separator);
 		}
 		{
@@ -230,7 +250,7 @@ public class PreferenceDialog extends JDialog
 			gbc_lblImmagineIniziale.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblImmagineIniziale.insets = new Insets(0, 0, 5, 5);
 			gbc_lblImmagineIniziale.gridx = 0;
-			gbc_lblImmagineIniziale.gridy = 6;
+			gbc_lblImmagineIniziale.gridy = 7;
 			contentPanel.add(lblImmagineIniziale, gbc_lblImmagineIniziale);
 		}
 		{
@@ -265,7 +285,7 @@ public class PreferenceDialog extends JDialog
 			gbc_DefaultImageButton.fill = GridBagConstraints.HORIZONTAL;
 			gbc_DefaultImageButton.insets = new Insets(0, 0, 5, 5);
 			gbc_DefaultImageButton.gridx = 1;
-			gbc_DefaultImageButton.gridy = 6;
+			gbc_DefaultImageButton.gridy = 7;
 			contentPanel.add(DefaultImageButton, gbc_DefaultImageButton);
 		}
 		{
@@ -291,7 +311,7 @@ public class PreferenceDialog extends JDialog
 			gbc_removeDefaultImage.fill = GridBagConstraints.HORIZONTAL;
 			gbc_removeDefaultImage.insets = new Insets(0, 0, 5, 0);
 			gbc_removeDefaultImage.gridx = 2;
-			gbc_removeDefaultImage.gridy = 6;
+			gbc_removeDefaultImage.gridy = 7;
 			contentPanel.add(removeDefaultImage, gbc_removeDefaultImage);
 		}
 		{
@@ -301,7 +321,7 @@ public class PreferenceDialog extends JDialog
 			gbc_separator.gridwidth = 3;
 			gbc_separator.insets = new Insets(0, 0, 5, 0);
 			gbc_separator.gridx = 0;
-			gbc_separator.gridy = 7;
+			gbc_separator.gridy = 8;
 			contentPanel.add(separator, gbc_separator);
 		}
 		{
@@ -310,7 +330,7 @@ public class PreferenceDialog extends JDialog
 			gbc_lblImmagineAnime.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblImmagineAnime.insets = new Insets(0, 0, 5, 5);
 			gbc_lblImmagineAnime.gridx = 0;
-			gbc_lblImmagineAnime.gridy = 8;
+			gbc_lblImmagineAnime.gridy = 9;
 			contentPanel.add(lblImmagineAnime, gbc_lblImmagineAnime);
 		}
 		{
@@ -382,7 +402,7 @@ public class PreferenceDialog extends JDialog
 			gbc_btnSeleziona.gridwidth = 2;
 			gbc_btnSeleziona.fill = GridBagConstraints.HORIZONTAL;
 			gbc_btnSeleziona.gridx = 1;
-			gbc_btnSeleziona.gridy = 8;
+			gbc_btnSeleziona.gridy = 9;
 			contentPanel.add(btnSeleziona, gbc_btnSeleziona);
 		}
 		{
@@ -390,9 +410,8 @@ public class PreferenceDialog extends JDialog
 			GridBagConstraints gbc_separator = new GridBagConstraints();
 			gbc_separator.fill = GridBagConstraints.BOTH;
 			gbc_separator.gridwidth = 3;
-			gbc_separator.insets = new Insets(0, 0, 0, 5);
 			gbc_separator.gridx = 0;
-			gbc_separator.gridy = 9;
+			gbc_separator.gridy = 10;
 			contentPanel.add(separator, gbc_separator);
 		}
 		
@@ -403,12 +422,16 @@ public class PreferenceDialog extends JDialog
 			choosedList.setEnabled(false);
 			choosedList.setSelectedItem(AnimeIndex.appProp.getProperty("Last_list"));
 		}
+		else if (listPreference.equalsIgnoreCase("Daily"))
+		{
+			chckbxDailyRelease.setSelected(true);
+			choosedList.setEnabled(false);
+			choosedList.setSelectedItem("Anime in Corso");
+		}
 		else
 		{
 			rdbtnChooseList.setSelected(true);
-			
 		}
-		
 		if(AnimeIndex.appProp.getProperty("Update_system").equals("true"))
 			dataCheckButton.setText("Disattiva");
 		else

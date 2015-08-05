@@ -69,6 +69,11 @@ import util.window.SetFilterDialog;
 import util.window.UpdateDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 //kemomimi OP
+//TODO finire il release notifier dialog
+//TODO fixate bug foto uscita senza salvare dopo aver spostato l'anime
+//TODO fare sistema di controllo
+//TODO fare lista esclusioni sistema di controllo
+//TODO fare wishlist
 public class AnimeIndex extends JFrame
 {
 
@@ -1472,6 +1477,11 @@ public class AnimeIndex extends JFrame
 		{
 			list = appProp.getProperty("Last_list");
 			animeTypeComboBox.setSelectedItem(list);
+		}
+		else if (appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Daily"))
+		{
+			animeTypeComboBox.setSelectedItem("Anime in Corso");
+			Filters.setFilter(8);
 		}
 		else
 			list = appProp.getProperty("List_to_visualize_at_start");

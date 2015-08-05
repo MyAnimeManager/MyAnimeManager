@@ -362,6 +362,7 @@ public class Filters {
 	}
 	public static void setFilter(int i)
 	{
+		AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon1.png")));
 		AnimeIndex.filtro = i;
 		for(int j = 0; j<9; j++)
 		{
