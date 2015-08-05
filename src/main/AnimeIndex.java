@@ -82,7 +82,7 @@ public class AnimeIndex extends JFrame
 	public static JList airingList;
 	public static JList completedList;
 	public static JList ovaList;
-	private static JList searchList;
+	public static JList searchList;
 	public static JList filterList;
 	
 	public static SortedListModel completedModel = new SortedListModel();
@@ -90,7 +90,7 @@ public class AnimeIndex extends JFrame
 	public static SortedListModel ovaModel = new SortedListModel();
 	public static SortedListModel filmModel = new SortedListModel();
 	public static SortedListModel completedToSeeModel = new SortedListModel();
-	private static SortedListModel searchModel = new SortedListModel();
+	public static SortedListModel searchModel = new SortedListModel();
 	public static SortedListModel filterModel = new SortedListModel();
 	
 	private static String[] fansubList = {};
@@ -118,7 +118,7 @@ public class AnimeIndex extends JFrame
 	private JButton deleteButton;
 	public static JComboBox animeTypeComboBox;
 	public static AddAnimeDialog animeDialog;
-	private SearchBar searchBar;
+	public static SearchBar searchBar;
 	public static AddFansubDialog fansubDialog;
 	public static JButton setFilterButton;
 	private String list;

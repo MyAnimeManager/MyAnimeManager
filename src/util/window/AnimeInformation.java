@@ -680,6 +680,14 @@ public class AnimeInformation extends JPanel
 			public void actionPerformed(ActionEvent e) {
 				AnimeIndex.saveModifiedInformation();
 				String name = lblAnimeName.getText();
+				if(AnimeIndex.filtro!=9 && !name.equals("Anime"))
+				{
+					AnimeIndex.getJList().setSelectedValue(name, true);
+				}
+				if(!AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
+				{
+					AnimeIndex.getJList().setSelectedValue(name, true);
+				}
 				String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
 				
 				SortedListModel model = null;
@@ -723,19 +731,49 @@ public class AnimeInformation extends JPanel
 				FileManager.moveImage(oldData.getImagePath(type), "Completed", oldData.getImageName());
 				map.remove(name);
 				AnimeIndex.completedMap.put(name, newData);
-				int index = list.getSelectedIndex();
+				int index;
+				int filterIndex;
+				int searchIndex;
+				if(AnimeIndex.filtro!=9)
+				{
+					filterIndex = AnimeIndex.filterList.getSelectedIndex();
+					AnimeIndex.filterModel.removeElementAt(filterIndex);
+				}
+				else
+					filterIndex=-1;
+				
+				if(!AnimeIndex.searchBar.getText().isEmpty())
+				{
+					searchIndex = AnimeIndex.searchList.getSelectedIndex();
+					AnimeIndex.searchModel.removeElementAt(searchIndex);
+				}
+				else
+					searchIndex=-1;
+				
+				index = list.getSelectedIndex();
 				model.removeElementAt(index);
+				list.clearSelection();
 				AnimeIndex.completedModel.addElement(name);
 				AnimeIndex.completedSessionAnime.add(AnimeIndex.completedMap.get(name).getImagePath("anime completati"));
-				
 				AnimeIndex.animeInformation.minusButton.setEnabled(false);
 			    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
 			    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
 			    AnimeIndex.animeInformation.finishedButton.setEnabled(false);
-			    if(index-1 >=0)
-					list.setSelectedIndex(index-1);
-			    else
-			    	AnimeIndex.animeInformation.setBlank();
+
+		    	if(AnimeIndex.filtro!=9 && filterIndex-1 >= 0)
+		    		AnimeIndex.filterList.setSelectedIndex(filterIndex-1);
+		    	else if (AnimeIndex.filtro!=9 && filterIndex-1 < 0)
+		    		AnimeIndex.animeInformation.setBlank();
+		    	
+		    	if(!AnimeIndex.searchBar.getText().isEmpty() && searchIndex-1 >= 0)
+		    		AnimeIndex.searchList.setSelectedIndex(searchIndex-1);
+		    	else if (!AnimeIndex.searchBar.getText().isEmpty() && searchIndex-1 < 0)
+		    		AnimeIndex.animeInformation.setBlank();
+		    	
+		    	if(AnimeIndex.filtro==9 && AnimeIndex.searchBar.getText().isEmpty() && index-1 >= 0)
+		    		list.setSelectedIndex(index-1);
+		    	else if (AnimeIndex.filtro==9 && AnimeIndex.searchBar.getText().isEmpty() && index-1 < 0)
+		    		AnimeIndex.animeInformation.setBlank();
 			}
 		});
 
