@@ -75,7 +75,7 @@ public class SetExclusionDialog extends JDialog {
 			contentPanel.add(lblNewLabel, gbc_lblNewLabel);
 		}
 		{
-			Component rigidArea = Box.createRigidArea(new Dimension(20, 20));
+			Component rigidArea = Box.createRigidArea(new Dimension(20, 90));
 			GridBagConstraints gbc_rigidArea = new GridBagConstraints();
 			gbc_rigidArea.gridheight = 3;
 			gbc_rigidArea.insets = new Insets(0, 0, 5, 5);
