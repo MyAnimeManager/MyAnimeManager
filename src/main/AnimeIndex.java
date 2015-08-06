@@ -70,7 +70,7 @@ import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
 import util.window.UpdateDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
-//kemomimi OP
+
 //TODO finire il release notifier dialog
 //TODO fixate bug foto uscita senza salvare dopo aver spostato l'anime
 //TODO fare sistema di controllo
@@ -139,8 +139,7 @@ public class AnimeIndex extends JFrame
 	 */
 	public static void main(String[] args)
 	{
-		appProp = AnimeIndexProperties.createProperties();
-		
+		appProp = AnimeIndexProperties.createProperties();		
 		EventQueue.invokeLater(new Runnable() {
 			public void run()
 			{
