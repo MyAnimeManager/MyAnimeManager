@@ -84,8 +84,7 @@ public class SetLinkDialog extends JDialog {
 			gbc_linkNameField.gridy = 1;
 			contentPanel.add(linkNameField, gbc_linkNameField);
 			linkNameField.setColumns(10);
-			//TODO cambia la lunghezza della stringa come vuoi
-			((AbstractDocument)linkNameField.getDocument()).setDocumentFilter( new PatternFilter("[\\p{IsAlphabetic}\\p{IsDigit}\\p{IsWhite_Space}]{0,4}"));
+			((AbstractDocument)linkNameField.getDocument()).setDocumentFilter( new PatternFilter("[\\p{IsAlphabetic}\\p{IsDigit}\\p{IsWhite_Space}]{0,16}"));
 		}
 		if(AnimeIndex.animeInformation.setLinkButton.getText().equals("Imposta Link")==false){
 			if(AnimeIndex.animeInformation.setLinkButton.getText().equals("Link")==false)

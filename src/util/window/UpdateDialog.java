@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import javax.swing.JDialog;
 
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -76,6 +77,8 @@ import java.awt.Dialog.ModalExclusionType;
 	        pan2 = new JPanel();
 
 	        scp = new JScrollPane();
+	        scp.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+	        scp.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 	        scp.setViewportView(infoPane);
 
 	        ok = new JButton("Aggiorna");

@@ -71,11 +71,14 @@ import util.window.SetFilterDialog;
 import util.window.UpdateDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
+//TODO fixare bug che resetta il fansub selezionato dopo aver chiuso la finestra per l'aggiunda di fansub
+//TODO fare in modo che se nella finestra dei fansub l'utente preme ok e il campo del nome nn e' vuoto tale fansub venga aggiunto automaticamente
 //TODO finire il release notifier dialog
 //TODO fixate bug foto uscita senza salvare dopo aver spostato l'anime
 //TODO fare sistema di controllo
 //TODO fare lista esclusioni sistema di controllo
 //TODO fare wishlist
+//TODO sistemare aggiunta anime manuale
 //TODO sistemare crediti
 public class AnimeIndex extends JFrame
 {
@@ -762,9 +765,10 @@ public class AnimeIndex extends JFrame
 		completedAnime.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane completedAnimeScroll = new JScrollPane();
-		completedAnimeScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 //		completedAnimeScroll.setMaximumSize(new Dimension(138, 233));
 		completedAnime.add(completedAnimeScroll, BorderLayout.CENTER);
+		completedAnimeScroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		completedAnimeScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 
 		completedList = new JList(completedModel);
 		completedList.setFont(segui.deriveFont(12f));
@@ -814,6 +818,8 @@ public class AnimeIndex extends JFrame
 		
 		JScrollPane airingAnimeScroll = new JScrollPane();
 		airingAnime.add(airingAnimeScroll, BorderLayout.CENTER);
+		airingAnimeScroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		airingAnimeScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		
 		airingList = new JList(airingModel);
 		airingList.setFont(segui.deriveFont(12f));
@@ -865,6 +871,9 @@ public class AnimeIndex extends JFrame
 		
 		JScrollPane ovaScroll = new JScrollPane();
 		ova.add(ovaScroll, BorderLayout.CENTER);
+		ovaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		ovaScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
+		
 		
 		ovaList = new JList(ovaModel);
 		ovaList.setFont(segui.deriveFont(12f));
@@ -916,6 +925,8 @@ public class AnimeIndex extends JFrame
 		
 		JScrollPane filmScroll = new JScrollPane();
 		film.add(filmScroll, BorderLayout.CENTER);
+		filmScroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		filmScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		
 		filmList = new JList(filmModel);
 		filmList.setFont(segui.deriveFont(12f));
@@ -967,6 +978,8 @@ public class AnimeIndex extends JFrame
 		
 		JScrollPane completedToSeeScroll = new JScrollPane();
 		completedToSeeAnime.add(completedToSeeScroll, BorderLayout.CENTER);
+		completedToSeeScroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		completedToSeeScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		
 		completedToSeeList = new JList(completedToSeeModel);
 		completedToSeeList.setFont(segui.deriveFont(12f));
@@ -1018,6 +1031,8 @@ public class AnimeIndex extends JFrame
 		
 		JScrollPane searchScroll = new JScrollPane();
 		searchCard.add(searchScroll, BorderLayout.CENTER);	
+		searchScroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		searchScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		searchList = new JList(searchModel);
 		searchList.setFont(segui.deriveFont(12f));
 		searchList.addListSelectionListener(new ListSelectionListener() {
@@ -1208,6 +1223,8 @@ public class AnimeIndex extends JFrame
 		
 		JScrollPane filterScroll = new JScrollPane();
 		filterCard.add(filterScroll, BorderLayout.CENTER);
+		filterScroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		filterScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		
 		filterList = new JList(filterModel);
 		filterList.setFont(segui.deriveFont(12f));

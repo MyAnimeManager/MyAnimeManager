@@ -127,6 +127,8 @@ public class SetExclusionDialog extends JDialog {
 		}
 		{
 			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+			scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 			GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 			gbc_scrollPane.gridwidth = 2;
 			gbc_scrollPane.gridheight = 6;
@@ -151,6 +153,8 @@ public class SetExclusionDialog extends JDialog {
 		}
 		{
 			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+			scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 			GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 			gbc_scrollPane.gridwidth = 2;
 			gbc_scrollPane.gridheight = 6;

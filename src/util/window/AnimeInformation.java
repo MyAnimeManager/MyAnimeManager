@@ -98,6 +98,7 @@ public class AnimeInformation extends JPanel
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		scrollPane.setBorder(null);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridwidth = 15;
@@ -710,6 +711,7 @@ public class AnimeInformation extends JPanel
 		noteScrollPane.setSize(new Dimension(350, 50));
 		noteScrollPane.setMinimumSize(new Dimension(350, 50));
 		noteScrollPane.setMaximumSize(new Dimension(350, 50));
+		noteScrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		GridBagConstraints gbc_noteScrollPane = new GridBagConstraints();
 		gbc_noteScrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_noteScrollPane.anchor = GridBagConstraints.NORTHWEST;

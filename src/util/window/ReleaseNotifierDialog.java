@@ -68,6 +68,8 @@ public class ReleaseNotifierDialog extends JDialog {
 		}
 		{
 			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+			scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 			getContentPane().add(scrollPane, "cell 0 2,grow");
 			{
 				JList ovaReleasedList = new JList();
@@ -77,6 +79,8 @@ public class ReleaseNotifierDialog extends JDialog {
 		}
 		{
 			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+			scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 			getContentPane().add(scrollPane, "cell 2 2,grow");
 			{
 				JList filmReleasedList = new JList();

@@ -24,13 +24,20 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.AbstractDocument;
 
+import util.AnimeData;
+import util.PatternFilter;
+import util.SortedListModel;
 import main.AnimeIndex;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 public class AddFansubDialog extends JDialog
 {
 
@@ -42,6 +49,7 @@ public class AddFansubDialog extends JDialog
 	private JTextField fansubAddField;
 	private TreeMap<String,String> fansubMap = new TreeMap<String,String>();
 	private JButton addButton;
+	private String settedFansub;
 
 	/**
 	 * Create the dialog.
@@ -142,6 +150,8 @@ public class AddFansubDialog extends JDialog
 		{
 			JScrollPane scrollPane = new JScrollPane();
 			contentPanel.add(scrollPane, BorderLayout.CENTER);
+			scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+			scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 			{
 				fansubModel = new DefaultListModel();
 				String[] fansub = AnimeIndex.getFansubList();
@@ -199,6 +209,7 @@ public class AddFansubDialog extends JDialog
 				fansubAddField.setPreferredSize(new Dimension(120, 23));
 				fansubAddField.setMinimumSize(new Dimension(120, 23));
 				fansubAddField.setColumns(20);
+				((AbstractDocument)fansubAddField.getDocument()).setDocumentFilter( new PatternFilter("[\\p{IsAlphabetic}\\p{IsDigit}\\p{IsWhite_Space}]{0,17}"));
 				GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 				gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
 				gbc_textField_1.insets = new Insets(0, 0, 5, 0);
@@ -252,6 +263,7 @@ public class AddFansubDialog extends JDialog
 						else
 							AnimeIndex.animeInformation.fansubButton.setEnabled(false);
 						}
+						
 						JButton but = (JButton) e.getSource();
 						JDialog dialog = (JDialog) but.getTopLevelAncestor();
 						dialog.dispose();

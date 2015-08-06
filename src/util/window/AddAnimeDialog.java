@@ -535,6 +535,8 @@ public class AddAnimeDialog extends JDialog
 							{
 								JScrollPane listPanel = new JScrollPane();
 								searchPanel.add(listPanel, BorderLayout.CENTER);
+								listPanel.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+								listPanel.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 								{
 									animeModel = new DefaultListModel();									
 									searchedList = new JList(animeModel);
