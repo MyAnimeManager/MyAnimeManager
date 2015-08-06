@@ -67,6 +67,7 @@ import util.window.ExitSaveDialog;
 import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
 import util.window.UpdateDialog;
+import javax.swing.ScrollPaneConstants;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 //kemomimi OP
 //TODO finire il release notifier dialog
@@ -764,14 +765,14 @@ public class AnimeIndex extends JFrame
 		completedAnime.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane completedAnimeScroll = new JScrollPane();
-		completedAnimeScroll.setMaximumSize(new Dimension(138, 233));
+		completedAnimeScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//		completedAnimeScroll.setMaximumSize(new Dimension(138, 233));
 		completedAnime.add(completedAnimeScroll, BorderLayout.CENTER);
 
 		completedList = new JList(completedModel);
 		completedList.setFont(segui.deriveFont(12f));
 		completedList.setMaximumSize(new Dimension(157, 233));
 		completedList.setMinimumSize(new Dimension(138, 233));
-		completedList.setPreferredSize(new Dimension(138, 233));
 		completedList.setSize(new Dimension(138, 233));
 		completedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		completedList.addListSelectionListener(new ListSelectionListener() {
@@ -821,7 +822,6 @@ public class AnimeIndex extends JFrame
 		airingList.setFont(segui.deriveFont(12f));
 		airingList.setMaximumSize(new Dimension(157, 233));
 		airingList.setMinimumSize(new Dimension(138, 233));
-		airingList.setPreferredSize(new Dimension(138, 233));
 		airingList.setSize(new Dimension(138, 233));
 		airingList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -873,7 +873,6 @@ public class AnimeIndex extends JFrame
 		ovaList.setFont(segui.deriveFont(12f));
 		ovaList.setMaximumSize(new Dimension(138, 233));
 		ovaList.setMinimumSize(new Dimension(138, 233));
-		ovaList.setPreferredSize(new Dimension(138, 233));
 		ovaList.setSize(new Dimension(138, 233));
 		ovaList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -925,7 +924,6 @@ public class AnimeIndex extends JFrame
 		filmList.setFont(segui.deriveFont(12f));
 		filmList.setMaximumSize(new Dimension(138, 233));
 		filmList.setMinimumSize(new Dimension(138, 233));
-		filmList.setPreferredSize(new Dimension(138, 233));
 		filmList.setSize(new Dimension(138, 233));
 		filmList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -977,7 +975,6 @@ public class AnimeIndex extends JFrame
 		completedToSeeList.setFont(segui.deriveFont(12f));
 		completedToSeeList.setMaximumSize(new Dimension(138, 233));
 		completedToSeeList.setMinimumSize(new Dimension(138, 233));
-		completedToSeeList.setPreferredSize(new Dimension(138, 233));
 		completedToSeeList.setSize(new Dimension(138, 233));
 		completedToSeeList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -1204,7 +1201,6 @@ public class AnimeIndex extends JFrame
 		});
 		searchList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		searchList.setSize(new Dimension(138, 233));
-		searchList.setPreferredSize(new Dimension(138, 233));
 		searchList.setMinimumSize(new Dimension(138, 233));
 		searchList.setMaximumSize(new Dimension(138, 233));
 		searchScroll.setViewportView(searchList);
@@ -1396,7 +1392,6 @@ public class AnimeIndex extends JFrame
 		});
 		filterList.setSize(new Dimension(138, 233));
 		filterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		filterList.setPreferredSize(new Dimension(138, 233));
 		filterList.setMinimumSize(new Dimension(138, 233));
 		filterList.setMaximumSize(new Dimension(138, 233));
 		filterScroll.setViewportView(filterList);
