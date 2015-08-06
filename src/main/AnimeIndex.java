@@ -42,6 +42,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -60,6 +61,7 @@ import util.SearchBar;
 import util.SortedListModel;
 import util.Updater;
 import util.task.CheckUpdateTask;
+import util.task.LoadingTask;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
 import util.window.AnimeInformation;
@@ -67,7 +69,6 @@ import util.window.ExitSaveDialog;
 import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
 import util.window.UpdateDialog;
-import javax.swing.ScrollPaneConstants;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 //kemomimi OP
 //TODO finire il release notifier dialog
@@ -139,11 +140,6 @@ public class AnimeIndex extends JFrame
 	public static void main(String[] args)
 	{
 		appProp = AnimeIndexProperties.createProperties();
-		FileManager.loadAnime("completed.txt" , completedModel, completedMap);
-		FileManager.loadAnime("airing.txt", airingModel, AnimeIndex.airingMap);
-		FileManager.loadAnime("ova.txt", ovaModel, AnimeIndex.ovaMap);
-		FileManager.loadAnime("film.txt", filmModel, AnimeIndex.filmMap);
-		FileManager.loadAnime("toSee.txt", completedToSeeModel, AnimeIndex.completedToSeeMap);
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run()
@@ -197,6 +193,8 @@ public class AnimeIndex extends JFrame
 			}
 			@Override
 			public void windowOpened(WindowEvent arg0) {
+				LoadingTask loadTask = new LoadingTask();
+				loadTask.execute();
 				File file = new File(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + UpdateDialog.NEW_VERSION);
 				if(file.isFile())
 					file.delete();
