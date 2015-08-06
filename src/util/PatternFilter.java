@@ -14,7 +14,7 @@ public class PatternFilter extends DocumentFilter {
     // The pattern must contain all subpatterns so we can enter characters into a text component !
     private Pattern pattern;
 
-    public PatternFilter(String pat) { //new PatternFilters(\\carattere{numMin, numMax} || \\d{0,4} && \\?{0,2}) \\d = digit
+    public PatternFilter(String pat) { //new PatternFilters(\\carattere{numMin, numMax} || \\d{0,4} && \\?{0,2}) \\d = digit (per altri guarda la classe patter riga 629
         pattern = Pattern.compile(pat);
     }
 

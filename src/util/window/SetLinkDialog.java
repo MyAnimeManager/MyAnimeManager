@@ -17,9 +17,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.AbstractDocument;
 
 import main.AnimeIndex;
 import util.AnimeData;
+import util.PatternFilter;
 
 public class SetLinkDialog extends JDialog {
 
@@ -82,6 +84,8 @@ public class SetLinkDialog extends JDialog {
 			gbc_linkNameField.gridy = 1;
 			contentPanel.add(linkNameField, gbc_linkNameField);
 			linkNameField.setColumns(10);
+			//TODO cambia la lunghezza della stringa come vuoi
+			((AbstractDocument)linkNameField.getDocument()).setDocumentFilter( new PatternFilter("[\\p{IsAlphabetic}\\p{IsDigit}\\p{IsWhite_Space}]{0,4}"));
 		}
 		if(AnimeIndex.animeInformation.setLinkButton.getText().equals("Imposta Link")==false){
 			if(AnimeIndex.animeInformation.setLinkButton.getText().equals("Link")==false)
