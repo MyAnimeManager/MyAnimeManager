@@ -28,6 +28,8 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.border.EmptyBorder;
 
+import org.pushingpixels.substance.api.colorscheme.SteelBlueColorScheme;
+
 import main.AnimeIndex;
 import util.AnimeData;
 import util.FileManager;
@@ -43,6 +45,7 @@ public class PreferenceDialog extends JDialog
 	private JCheckBox chckbxDailyRelease;
 	private JComboBox choosedList;
 	public static JButton dataCheckButton;
+	private SetExclusionDialog exclusionDialog;
 
 	/**
 	 * Create the dialog.
@@ -228,6 +231,13 @@ public class PreferenceDialog extends JDialog
 		}
 		{
 			JButton btnEsclusioni = new JButton("Esclusioni");
+			btnEsclusioni.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					exclusionDialog = new SetExclusionDialog();
+					exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
+					exclusionDialog.setVisible(true);
+				}
+			});
 			GridBagConstraints gbc_btnEsclusioni = new GridBagConstraints();
 			gbc_btnEsclusioni.insets = new Insets(0, 0, 5, 0);
 			gbc_btnEsclusioni.gridx = 2;

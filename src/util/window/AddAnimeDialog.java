@@ -393,7 +393,7 @@ public class AddAnimeDialog extends JDialog
 						searchPanel1.setLayout(gbl_searchPanel1);
 						{
 							searchBar = new SearchBar();
-							searchBar.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
+							searchBar.setFont(AnimeIndex.segui.deriveFont(11f));
 							searchBar.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									AddAnimeDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
@@ -816,7 +816,7 @@ public class AddAnimeDialog extends JDialog
 											}
 										}
 									});
-									searchedList.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 11));
+									searchedList.setFont(AnimeIndex.segui.deriveFont(12f));
 									searchedList.addListSelectionListener(new ListSelectionListener() {
 										public void valueChanged(ListSelectionEvent e) {
 											addAniButton.setEnabled(true);

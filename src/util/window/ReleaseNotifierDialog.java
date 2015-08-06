@@ -8,20 +8,32 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JSplitPane;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+
 import javax.swing.JScrollPane;
+
 import java.awt.Insets;
+
 import javax.swing.JLabel;
 import javax.swing.JList;
+
 import java.awt.Component;
+
 import javax.swing.Box;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
+
+import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
+
 import javax.swing.SwingConstants;
+
 import java.awt.Window.Type;
 import java.awt.Toolkit;
+import java.awt.Font;
 
 public class ReleaseNotifierDialog extends JDialog {
 
@@ -59,6 +71,7 @@ public class ReleaseNotifierDialog extends JDialog {
 			getContentPane().add(scrollPane, "cell 0 2,grow");
 			{
 				JList ovaReleasedList = new JList();
+				ovaReleasedList.setFont(AnimeIndex.segui.deriveFont(12f));
 				scrollPane.setViewportView(ovaReleasedList);
 			}
 		}
@@ -67,6 +80,7 @@ public class ReleaseNotifierDialog extends JDialog {
 			getContentPane().add(scrollPane, "cell 2 2,grow");
 			{
 				JList filmReleasedList = new JList();
+				filmReleasedList.setFont(AnimeIndex.segui.deriveFont(12f));
 				scrollPane.setViewportView(filmReleasedList);
 			}
 		}
