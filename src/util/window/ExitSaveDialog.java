@@ -127,79 +127,81 @@ public class ExitSaveDialog extends JDialog
 	private void imageShifter()
 	{
 		Object[] arrayName = AnimeIndex.shiftsRegister.keySet().toArray();
-		for (int i=0; i<arrayName.length; i++)
+		for (int i=0; i<AnimeIndex.shiftsRegister.size(); i++)
 		{
 			String name = (String)arrayName[i];
-			if(AnimeIndex.completedMap.containsKey(name))
+			String listName = (String)AnimeIndex.shiftsRegister.get(name);
+			String folder = "";
+			if (listName.equalsIgnoreCase("anime completati"))
+				folder = "Completed";
+			else if (listName.equalsIgnoreCase("anime in corso"))
+				folder = "Airing";
+			else if (listName.equalsIgnoreCase("oav"))
+				folder = "Ova";
+			else if (listName.equalsIgnoreCase("film"))
+				folder = "Film";
+			else if (listName.equalsIgnoreCase("completi da vedere"))
+				folder = "Completed to See";
+			if(!AnimeIndex.sessionAddedAnime.contains(name))
 			{
-				String type = "Anime Completati";
-				TreeMap<String,AnimeData> map = AnimeIndex.completedMap;
-				ArrayList<String> list = AnimeIndex.completedSessionAnime;
-				if(!AnimeIndex.sessionAddedAnime.contains(name))
+				if(AnimeIndex.completedMap.containsKey(name))
 				{
+					String type = "Anime Completati";
+					TreeMap<String,AnimeData> map = AnimeIndex.completedMap;
+					ArrayList<String> list = AnimeIndex.completedSessionAnime;
+					
 					String imgPathFrom = map.get(name).getImagePath(type);
-					String imgPathTo = map.get(name).getImagePath(AnimeIndex.shiftsRegister.get(name));
 					String nomeImg = map.get(name).getImageName();
-					System.out.println(imgPathFrom + "\n" + imgPathTo + "\n" + nomeImg);
-					FileManager.moveImage(imgPathFrom, imgPathTo, nomeImg);
-					list.remove(imgPathFrom);
+					
+					FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					list.remove(imgPathFrom);				
 				}
-			}
-			else if(AnimeIndex.airingMap.containsKey(name))
-			{
-				String type = "Anime in Corso";
-				TreeMap<String,AnimeData> map = AnimeIndex.airingMap;
-				ArrayList<String> list = AnimeIndex.airingSessionAnime;
-				if(!AnimeIndex.sessionAddedAnime.contains(name))
+				else if(AnimeIndex.airingMap.containsKey(name))
 				{
-					String imgPathFrom = map.get(name).getImagePath(type);
-					String imgPathTo = map.get(name).getImagePath(AnimeIndex.shiftsRegister.get(name));
-					String nomeImg = map.get(name).getImageName();
-					FileManager.moveImage(imgPathFrom, imgPathTo, nomeImg);
-					list.remove(imgPathFrom);
+					String type = "Anime in Corso";
+					TreeMap<String,AnimeData> map = AnimeIndex.airingMap;
+					ArrayList<String> list = AnimeIndex.airingSessionAnime;
+				
+						String imgPathFrom = map.get(name).getImagePath(type);
+						String nomeImg = map.get(name).getImageName();
+						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+						list.remove(imgPathFrom);
+				
 				}
-			}
-			else if(AnimeIndex.ovaMap.containsKey(name))
-			{
-				String type = "OAV";
-				TreeMap<String,AnimeData> map = AnimeIndex.ovaMap;
-				ArrayList<String> list = AnimeIndex.ovaSessionAnime;
-				if(!AnimeIndex.sessionAddedAnime.contains(name))
+				else if(AnimeIndex.ovaMap.containsKey(name))
 				{
-					String imgPathFrom = map.get(name).getImagePath(type);
-					String imgPathTo = map.get(name).getImagePath(AnimeIndex.shiftsRegister.get(name));
-					String nomeImg = map.get(name).getImageName();
-					FileManager.moveImage(imgPathFrom, imgPathTo, nomeImg);
-					list.remove(imgPathFrom);
+					String type = "OAV";
+					TreeMap<String,AnimeData> map = AnimeIndex.ovaMap;
+					ArrayList<String> list = AnimeIndex.ovaSessionAnime;
+					
+						String imgPathFrom = map.get(name).getImagePath(type);
+						String nomeImg = map.get(name).getImageName();
+						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+						list.remove(imgPathFrom);
+					
 				}
-			}
-			else if(AnimeIndex.filmMap.containsKey(name))
-			{
-				String type = "Film";
-				TreeMap<String,AnimeData> map = AnimeIndex.filmMap;
-				ArrayList<String> list = AnimeIndex.filmSessionAnime;
-				if(!AnimeIndex.sessionAddedAnime.contains(name))
+				else if(AnimeIndex.filmMap.containsKey(name))
 				{
-					String imgPathFrom = map.get(name).getImagePath(type);
-					String imgPathTo = map.get(name).getImagePath(AnimeIndex.shiftsRegister.get(name));
-					String nomeImg = map.get(name).getImageName();
-					FileManager.moveImage(imgPathFrom, imgPathTo, nomeImg);
-					list.remove(imgPathFrom);
+					String type = "Film";
+					TreeMap<String,AnimeData> map = AnimeIndex.filmMap;
+					ArrayList<String> list = AnimeIndex.filmSessionAnime;
+						String imgPathFrom = map.get(name).getImagePath(type);
+						String nomeImg = map.get(name).getImageName();
+						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+						list.remove(imgPathFrom);
+					
 				}
-			}
-			else if(AnimeIndex.completedToSeeMap.containsKey(name))
-			{
-				String type = "Completi Da Vedere";
-				TreeMap<String,AnimeData> map = AnimeIndex.completedToSeeMap;
-				ArrayList<String> list = AnimeIndex.completedToSeeSessionAnime;
-				if(!AnimeIndex.sessionAddedAnime.contains(name))
+				else if(AnimeIndex.completedToSeeMap.containsKey(name))
 				{
-					String imgPathFrom = map.get(name).getImagePath(type);
-					String imgPathTo = map.get(name).getImagePath(AnimeIndex.shiftsRegister.get(name));
-					String nomeImg = map.get(name).getImageName();
-					FileManager.moveImage(imgPathFrom, imgPathTo, nomeImg);
-					list.remove(imgPathFrom);
-				}
+					String type = "Completi Da Vedere";
+					TreeMap<String,AnimeData> map = AnimeIndex.completedToSeeMap;
+					ArrayList<String> list = AnimeIndex.completedToSeeSessionAnime;
+					
+						String imgPathFrom = map.get(name).getImagePath(type);
+						String nomeImg = map.get(name).getImageName();
+						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+						list.remove(imgPathFrom);
+				}			
 			}
 		}
 	}
