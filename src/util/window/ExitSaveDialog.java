@@ -83,7 +83,9 @@ public class ExitSaveDialog extends JDialog
 					btnExit.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
+							
 							imageShifter();
+							
 							deleteUselessImage(AnimeIndex.completedSessionAnime);
 							deleteUselessImage(AnimeIndex.airingSessionAnime);
 							deleteUselessImage(AnimeIndex.ovaSessionAnime);
@@ -154,7 +156,7 @@ public class ExitSaveDialog extends JDialog
 					String nomeImg = map.get(name).getImageName();
 					
 					FileManager.moveImage(imgPathFrom, folder, nomeImg);
-					list.remove(imgPathFrom);				
+					list.remove(imgPathFrom);
 				}
 				else if(AnimeIndex.airingMap.containsKey(name))
 				{
@@ -166,7 +168,6 @@ public class ExitSaveDialog extends JDialog
 						String nomeImg = map.get(name).getImageName();
 						FileManager.moveImage(imgPathFrom, folder, nomeImg);
 						list.remove(imgPathFrom);
-				
 				}
 				else if(AnimeIndex.ovaMap.containsKey(name))
 				{
