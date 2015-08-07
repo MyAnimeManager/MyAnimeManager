@@ -248,6 +248,39 @@ public class AddFansubDialog extends JDialog
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						//aggiunta fansub se è presente un fansub su ok
+						String text = addButton.getText();
+						if (text.equalsIgnoreCase("aggiungi"))
+							{
+							String newFansub = fansubAddField.getText();
+							String newLink = linkAddField.getText();
+							if ((newFansub != null && !newFansub.isEmpty()))
+							{
+							fansubModel.addElement(fansubAddField.getText());
+							fansubMap.put(newFansub, newLink);
+						    fansubAddField.setText("");
+						    fansubAddField.setEnabled(true);
+						    linkAddField.setText("");
+						    linkAddField.setEnabled(true);
+							}
+							}
+						else
+						{
+							String newFansub = fansubAddField.getText();
+							String newLink = linkAddField.getText();
+					
+								fansubMap.remove(newFansub);
+								fansubMap.put(newFansub, newLink);
+								
+							fansubAddField.setText("");
+						    linkAddField.setText("");
+						    fansubList.clearSelection();
+						    deleteButton.setEnabled(false);
+						    addButton.setText("Aggiungi");
+						    fansubAddField.setEnabled(true);
+						    linkAddField.setEnabled(true);
+						}
+						
 						//salva fansub
 						if (!fansubModel.isEmpty())
 						{
