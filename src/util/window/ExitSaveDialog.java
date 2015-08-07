@@ -15,10 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.sun.xml.internal.ws.util.CompletedFuture;
+
 import main.AnimeIndex;
 import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.FileManager;
+
 import java.awt.Toolkit;
 
 public class ExitSaveDialog extends JDialog
@@ -67,11 +70,11 @@ public class ExitSaveDialog extends JDialog
 								FileManager.saveAnimeList("film.txt", AnimeIndex.filmModel, AnimeIndex.filmMap);
 								FileManager.saveAnimeList("toSee.txt", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
 							
-								deleteUselessImage(AnimeIndex.completedDeletedAnime, AnimeIndex.completedMap, "Completed");
-								deleteUselessImage(AnimeIndex.airingDeletedAnime, AnimeIndex.airingMap, "Airing");
-								deleteUselessImage(AnimeIndex.ovaDeletedAnime, AnimeIndex.ovaMap, "Oav");
-								deleteUselessImage(AnimeIndex.filmDeletedAnime, AnimeIndex.filmMap, "Film");
-								deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime, AnimeIndex.completedToSeeMap, "Completed to See");
+								deleteUselessImage(AnimeIndex.completedDeletedAnime);
+								deleteUselessImage(AnimeIndex.airingDeletedAnime);
+								deleteUselessImage(AnimeIndex.ovaDeletedAnime);
+								deleteUselessImage(AnimeIndex.filmDeletedAnime);
+								deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime);
 							AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
 							System.exit(0);
 						}
@@ -80,12 +83,12 @@ public class ExitSaveDialog extends JDialog
 					btnExit.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
-							
-							deleteUselessImage(AnimeIndex.completedSessionAnime, AnimeIndex.completedMap, "Completati");
-							deleteUselessImage(AnimeIndex.airingSessionAnime, AnimeIndex.airingMap, "Anime in Corso");
-							deleteUselessImage(AnimeIndex.ovaSessionAnime, AnimeIndex.ovaMap, "Oav");
-							deleteUselessImage(AnimeIndex.filmSessionAnime, AnimeIndex.filmMap, "Film");
-							deleteUselessImage(AnimeIndex.completedToSeeSessionAnime, AnimeIndex.completedToSeeMap, "Completati da Vedere");
+							imageShifter();
+							deleteUselessImage(AnimeIndex.completedSessionAnime);
+							deleteUselessImage(AnimeIndex.airingSessionAnime);
+							deleteUselessImage(AnimeIndex.ovaSessionAnime);
+							deleteUselessImage(AnimeIndex.filmSessionAnime);
+							deleteUselessImage(AnimeIndex.completedToSeeSessionAnime);
 							System.exit(0);
 						}
 					});
@@ -108,7 +111,7 @@ public class ExitSaveDialog extends JDialog
 		}
 	}
 
-	private void deleteUselessImage(ArrayList<String> arrayList, TreeMap<String, AnimeData> map, String listName)
+	private void deleteUselessImage(ArrayList<String> arrayList)
 	{
 		for (int i = 0; i < arrayList.size(); i++)
 		{
@@ -118,6 +121,85 @@ public class ExitSaveDialog extends JDialog
 				FileManager.deleteData(image);
 			} catch (IOException e) {
 				e.printStackTrace();
+			}
+		}
+	}
+	private void imageShifter()
+	{
+		Object[] arrayName = AnimeIndex.shiftsRegister.keySet().toArray();
+		for (int i=0; i<arrayName.length; i++)
+		{
+			String name = (String)arrayName[i];
+			if(AnimeIndex.completedMap.containsKey(name))
+			{
+				String type = "Anime Completati";
+				TreeMap<String,AnimeData> map = AnimeIndex.completedMap;
+				ArrayList<String> list = AnimeIndex.completedSessionAnime;
+				if(!AnimeIndex.sessionAddedAnime.contains(name))
+				{
+					String imgPathFrom = map.get(name).getImagePath(type);
+					String imgPathTo = map.get(name).getImagePath(AnimeIndex.shiftsRegister.get(name));
+					String nomeImg = map.get(name).getImageName();
+					System.out.println(imgPathFrom + "\n" + imgPathTo + "\n" + nomeImg);
+					FileManager.moveImage(imgPathFrom, imgPathTo, nomeImg);
+					list.remove(imgPathFrom);
+				}
+			}
+			else if(AnimeIndex.airingMap.containsKey(name))
+			{
+				String type = "Anime in Corso";
+				TreeMap<String,AnimeData> map = AnimeIndex.airingMap;
+				ArrayList<String> list = AnimeIndex.airingSessionAnime;
+				if(!AnimeIndex.sessionAddedAnime.contains(name))
+				{
+					String imgPathFrom = map.get(name).getImagePath(type);
+					String imgPathTo = map.get(name).getImagePath(AnimeIndex.shiftsRegister.get(name));
+					String nomeImg = map.get(name).getImageName();
+					FileManager.moveImage(imgPathFrom, imgPathTo, nomeImg);
+					list.remove(imgPathFrom);
+				}
+			}
+			else if(AnimeIndex.ovaMap.containsKey(name))
+			{
+				String type = "OAV";
+				TreeMap<String,AnimeData> map = AnimeIndex.ovaMap;
+				ArrayList<String> list = AnimeIndex.ovaSessionAnime;
+				if(!AnimeIndex.sessionAddedAnime.contains(name))
+				{
+					String imgPathFrom = map.get(name).getImagePath(type);
+					String imgPathTo = map.get(name).getImagePath(AnimeIndex.shiftsRegister.get(name));
+					String nomeImg = map.get(name).getImageName();
+					FileManager.moveImage(imgPathFrom, imgPathTo, nomeImg);
+					list.remove(imgPathFrom);
+				}
+			}
+			else if(AnimeIndex.filmMap.containsKey(name))
+			{
+				String type = "Film";
+				TreeMap<String,AnimeData> map = AnimeIndex.filmMap;
+				ArrayList<String> list = AnimeIndex.filmSessionAnime;
+				if(!AnimeIndex.sessionAddedAnime.contains(name))
+				{
+					String imgPathFrom = map.get(name).getImagePath(type);
+					String imgPathTo = map.get(name).getImagePath(AnimeIndex.shiftsRegister.get(name));
+					String nomeImg = map.get(name).getImageName();
+					FileManager.moveImage(imgPathFrom, imgPathTo, nomeImg);
+					list.remove(imgPathFrom);
+				}
+			}
+			else if(AnimeIndex.completedToSeeMap.containsKey(name))
+			{
+				String type = "Completi Da Vedere";
+				TreeMap<String,AnimeData> map = AnimeIndex.completedToSeeMap;
+				ArrayList<String> list = AnimeIndex.completedToSeeSessionAnime;
+				if(!AnimeIndex.sessionAddedAnime.contains(name))
+				{
+					String imgPathFrom = map.get(name).getImagePath(type);
+					String imgPathTo = map.get(name).getImagePath(AnimeIndex.shiftsRegister.get(name));
+					String nomeImg = map.get(name).getImageName();
+					FileManager.moveImage(imgPathFrom, imgPathTo, nomeImg);
+					list.remove(imgPathFrom);
+				}
 			}
 		}
 	}

@@ -1178,6 +1178,7 @@ public class AddAnimeDialog extends JDialog
 						    {
 							    Filters.removeFilters();
 						    }
+							AnimeIndex.sessionAddedAnime.add(name);
 							AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 						}
 					});

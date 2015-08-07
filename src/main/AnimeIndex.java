@@ -71,8 +71,6 @@ import util.window.SetFilterDialog;
 import util.window.UpdateDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
-//TODO fixare bug che resetta il fansub selezionato dopo aver chiuso la finestra per l'aggiunda di fansub
-//TODO fare in modo che se nella finestra dei fansub l'utente preme ok e il campo del nome nn e' vuoto tale fansub venga aggiunto automaticamente
 //TODO finire il release notifier dialog
 //TODO fixate bug foto uscita senza salvare dopo aver spostato l'anime
 //TODO fare sistema di controllo
@@ -112,12 +110,14 @@ public class AnimeIndex extends JFrame
 	public static TreeMap<String,AnimeData> ovaMap = new TreeMap<String,AnimeData>();
 	public static TreeMap<String,AnimeData> filmMap = new TreeMap<String,AnimeData>();
 	public static TreeMap<String,AnimeData> completedToSeeMap = new TreeMap<String,AnimeData>();
+	public static TreeMap<String,String> shiftsRegister = new TreeMap<String,String>();
 	
 	public static ArrayList<String> completedSessionAnime = new ArrayList();
 	public static ArrayList<String> airingSessionAnime = new ArrayList();
 	public static ArrayList<String> ovaSessionAnime = new ArrayList();
 	public static ArrayList<String> filmSessionAnime = new ArrayList();
 	public static ArrayList<String> completedToSeeSessionAnime = new ArrayList();
+	public static ArrayList<String> sessionAddedAnime = new ArrayList();
 	
 	public static ArrayList<String> completedDeletedAnime = new ArrayList();
 	public static ArrayList<String> airingDeletedAnime = new ArrayList();
@@ -1438,6 +1438,9 @@ public class AnimeIndex extends JFrame
 				arrayList.add(image);
 								
 				map.remove(name);
+				if(sessionAddedAnime.contains(name))
+					sessionAddedAnime.remove(name);
+				
 				if (!list.isSelectionEmpty())					
 					deleteButton.setEnabled(true);
 				else

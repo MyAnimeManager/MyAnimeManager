@@ -593,6 +593,8 @@ public class AnimeInformation extends JPanel
 					
 					AnimeIndex.airingModel.addElement(name);
 					AnimeIndex.airingSessionAnime.add(AnimeIndex.airingMap.get(name).getImagePath("anime in corso"));
+					if(!AnimeIndex.shiftsRegister.containsKey(name))
+						AnimeIndex.shiftsRegister.put(name,section);
 					AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
@@ -818,6 +820,8 @@ public class AnimeInformation extends JPanel
 				
 				AnimeIndex.completedModel.addElement(name);
 				AnimeIndex.completedSessionAnime.add(AnimeIndex.completedMap.get(name).getImagePath("anime completati"));
+				if(!AnimeIndex.shiftsRegister.containsKey(name))
+					AnimeIndex.shiftsRegister.put(name,type);
 				AnimeIndex.animeInformation.minusButton.setEnabled(false);
 			    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
 			    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
@@ -974,6 +978,8 @@ public class AnimeInformation extends JPanel
 				
 				AnimeIndex.completedToSeeModel.addElement(name);
 				AnimeIndex.completedToSeeSessionAnime.add(AnimeIndex.completedToSeeMap.get(name).getImagePath("completi da vedere"));	
+				if(!AnimeIndex.shiftsRegister.containsKey(name))
+					AnimeIndex.shiftsRegister.put(name,type);
 				AnimeIndex.animeInformation.minusButton.setEnabled(true);
 			    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 			    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
