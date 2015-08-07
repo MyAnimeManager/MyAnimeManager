@@ -252,8 +252,10 @@ public class AddFansubDialog extends JDialog
 						if (!fansubModel.isEmpty())
 						{
 						Object[] fansub = fansubModel.toArray();
+						String previousFansub = (String) AnimeIndex.animeInformation.fansubComboBox.getSelectedItem();
 					    AnimeIndex.setFansubList(fansub);
 					    setFansubMap(fansubMap);
+					    AnimeIndex.animeInformation.fansubComboBox.setSelectedItem(previousFansub);
 						String link = AnimeIndex.fansubMap.get((String)AnimeIndex.animeInformation.fansubComboBox.getSelectedItem());
 						if (link != null && !link.isEmpty())
 						{
