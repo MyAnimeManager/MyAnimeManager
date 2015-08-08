@@ -58,6 +58,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JCheckBox;
+import java.awt.TextField;
 
 public class AddAnimeDialog extends JDialog
 {
@@ -148,11 +149,11 @@ public class AddAnimeDialog extends JDialog
 				}
 				{
 					String[] dayWeek = {"?????","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica", "Concluso"};
-					if (!((String)AnimeIndex.animeTypeComboBox.getSelectedItem()).equalsIgnoreCase("anime in corso"))
-					{
-						exitDayComboBox.setSelectedItem("Concluso");
-						exitDayComboBox.setEnabled(false);
-					}
+//					if (!((String)AnimeIndex.animeTypeComboBox.getSelectedItem()).equalsIgnoreCase("anime in corso"))
+//					{
+//						exitDayComboBox.setSelectedItem("Concluso");
+//						exitDayComboBox.setEnabled(false);
+//					}
 
 				}
 				{
@@ -212,8 +213,8 @@ public class AddAnimeDialog extends JDialog
 					contentPanel.add(lblFansubLink, "2, 12, left, default");
 				}
 				{
-					JButton button = new JButton("Imposta Link");
-					contentPanel.add(button, "4, 12, fill, default");
+					TextField fansubLinkField = new TextField("Imposta Link");
+					contentPanel.add(fansubLinkField, "4, 12, fill, default");
 				}
 				{
 					JLabel lblDataDiInizio = new JLabel("Data di Inizio e di Fine");
@@ -224,7 +225,6 @@ public class AddAnimeDialog extends JDialog
 					contentPanel.add(lblExitDay, "2, 16, left, default");
 				}
 				exitDayComboBox = new JComboBox();
-				exitDayComboBox.setModel(new DefaultComboBoxModel(dayWeek));
 				contentPanel.add(exitDayComboBox, "4, 16, fill, default");
 				{
 					JPanel buttonPane = new JPanel();
@@ -270,7 +270,6 @@ public class AddAnimeDialog extends JDialog
 								String currentEp = AnimeIndex.animeDialog.getCurrentEp();
 								String totEp = AnimeIndex.animeDialog.getTotatEp();
 								String fansub = AnimeIndex.animeDialog.getFansub();
-								String link = AnimeIndex.animeDialog.getFansubLink();
 								String day = AnimeIndex.animeDialog.getDay();
 
 								if (currentEp.equals(totEp))
@@ -465,73 +464,72 @@ public class AddAnimeDialog extends JDialog
 										AddAnimeDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 										if(checkToggleButton!=null)
 										{
-										if (AnimeIndex.appProp.getProperty("List_to_Check").equalsIgnoreCase("all"))
-										{
-											checkCompletedList = true;
-											checkAiringList = true;
-											checkOAVList = true;
-											checkFilmList = true;
-											checkToSeeList = true;
-											checkToggleButton.setText("Tutte le liste");
-											checkToggleButton.setSelected(true);
-										}
+											if (AnimeIndex.appProp.getProperty("List_to_Check").equalsIgnoreCase("all"))
+											{
+												checkCompletedList = true;
+												checkAiringList = true;
+												checkOAVList = true;
+												checkFilmList = true;
+												checkToSeeList = true;
+												checkToggleButton.setText("Tutte le liste");
+												checkToggleButton.setSelected(true);
+											}
 										else
 										{
-										if (AnimeIndex.addToPreviousList != null && AnimeIndex.addToPreviousList.equalsIgnoreCase((String)listToAddAniComboBox.getSelectedItem()) && AddAnimeDialog.checkCompletedList == false && AddAnimeDialog.checkAiringList == false && AddAnimeDialog.checkOAVList == false && AddAnimeDialog.checkFilmList == false && AddAnimeDialog.checkToSeeList == false)
-										{
-											checkToggleButton.setText("Nessuna Lista");
-										}
-										else if (listToAddAniComboBox.getSelectedItem().equals("Anime Completati"))
-										{
-											checkCompletedList = true;
-											checkAiringList = false;
-											checkOAVList = false;
-											checkFilmList = false;
-											checkToSeeList = false;
-											checkToggleButton.setText("Anime Completati");
-											checkToggleButton.setSelected(true);
-										}
-										else if (listToAddAniComboBox.getSelectedItem().equals("Anime in Corso"))
-										{
-											checkCompletedList = false;
-											checkAiringList = true;
-											checkOAVList = false;
-											checkFilmList = false;
-											checkToSeeList = false;
-											checkToggleButton.setText("Anime in Corso");
-											checkToggleButton.setSelected(true);
-										}
-										else if (listToAddAniComboBox.getSelectedItem().equals("OAV"))
-										{
-											checkCompletedList = false;
-											checkAiringList = false;
-											checkOAVList = true;
-											checkFilmList = false;
-											checkToSeeList = false;
-											checkToggleButton.setText("OAV");
-											checkToggleButton.setSelected(true);
-										}
-										else if (listToAddAniComboBox.getSelectedItem().equals("Film"))
-										{
-											checkCompletedList = false;
-											checkAiringList = false;
-											checkOAVList = false;
-											checkFilmList = true;
-											checkToSeeList = false;
-											checkToggleButton.setText("Film");
-											checkToggleButton.setSelected(true);
-										}
-										else if (listToAddAniComboBox.getSelectedItem().equals("Completi Da Vedere"))
-										{
-											checkCompletedList = false;
-											checkAiringList = false;
-											checkOAVList = false;
-											checkFilmList = false;
-											checkToSeeList = true;
-											checkToggleButton.setText("Completi Da Vedere");
-											checkToggleButton.setSelected(true);
-										}
-										else{}
+											if (AnimeIndex.addToPreviousList != null && AnimeIndex.addToPreviousList.equalsIgnoreCase((String)listToAddAniComboBox.getSelectedItem()) && AddAnimeDialog.checkCompletedList == false && AddAnimeDialog.checkAiringList == false && AddAnimeDialog.checkOAVList == false && AddAnimeDialog.checkFilmList == false && AddAnimeDialog.checkToSeeList == false)
+											{
+												checkToggleButton.setText("Nessuna Lista");
+											}
+											else if (listToAddAniComboBox.getSelectedItem().equals("Anime Completati"))
+											{
+												checkCompletedList = true;
+												checkAiringList = false;
+												checkOAVList = false;
+												checkFilmList = false;
+												checkToSeeList = false;
+												checkToggleButton.setText("Anime Completati");
+												checkToggleButton.setSelected(true);
+											}
+											else if (listToAddAniComboBox.getSelectedItem().equals("Anime in Corso"))
+											{
+												checkCompletedList = false;
+												checkAiringList = true;
+												checkOAVList = false;
+												checkFilmList = false;
+												checkToSeeList = false;
+												checkToggleButton.setText("Anime in Corso");
+												checkToggleButton.setSelected(true);
+											}
+											else if (listToAddAniComboBox.getSelectedItem().equals("OAV"))
+											{
+												checkCompletedList = false;
+												checkAiringList = false;
+												checkOAVList = true;
+												checkFilmList = false;
+												checkToSeeList = false;
+												checkToggleButton.setText("OAV");
+												checkToggleButton.setSelected(true);
+											}
+											else if (listToAddAniComboBox.getSelectedItem().equals("Film"))
+											{
+												checkCompletedList = false;
+												checkAiringList = false;
+												checkOAVList = false;
+												checkFilmList = true;
+												checkToSeeList = false;
+												checkToggleButton.setText("Film");
+												checkToggleButton.setSelected(true);
+											}
+											else if (listToAddAniComboBox.getSelectedItem().equals("Completi Da Vedere"))
+											{
+												checkCompletedList = false;
+												checkAiringList = false;
+												checkOAVList = false;
+												checkFilmList = false;
+												checkToSeeList = true;
+												checkToggleButton.setText("Completi Da Vedere");
+												checkToggleButton.setSelected(true);
+											}
 										}
 									}
 									AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -653,7 +651,6 @@ public class AddAnimeDialog extends JDialog
 													else
 													{
 													AnimeIndex.completedModel.addElement(name);
-													
 													
 													String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 													imageLink = imageLink.replaceAll("\\\\/", "/");
@@ -779,8 +776,7 @@ public class AddAnimeDialog extends JDialog
 													FileManager.saveImage(imageLink, imageName, "film");
 													AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
 															"", "", animeType, releaseDate, finishDate, durationEp, false);
-													
-													
+																										
 													AnimeIndex.filmMap.put(name, data);
 													AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 													AnimeIndex.filmList.clearSelection();
@@ -1003,197 +999,359 @@ public class AddAnimeDialog extends JDialog
 							String listName = (String) listToAddAniComboBox.getSelectedItem();
 							JList list = null;
 							boolean contains = false;
-							
-							if (listName.equalsIgnoreCase("anime completati"))
+							if(checkCompletedList==false && checkAiringList==false && checkOAVList==false && checkFilmList==false && checkToSeeList==false)
 							{
-								if (AnimeIndex.completedMap.containsKey(name))
+								if (listName.equalsIgnoreCase("anime completati"))
 								{
-									JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
-									contains = true;
+									AnimeIndex.completedModel.addElement(name);
+	
+									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+									imageLink = imageLink.replaceAll("\\\\/", "/");
+									String imageName = name.replaceAll("\\\\", "_");
+									imageName = imageName.replaceAll("/", "_");
+									imageName = imageName.replaceAll(":", "_");
+									imageName = imageName.replaceAll("\\*", "_");
+									imageName = imageName.replaceAll("\\?", "_");
+									imageName = imageName.replaceAll("\"", "_");
+									imageName = imageName.replaceAll(">", "_");
+									imageName = imageName.replaceAll("<", "_");
+									FileManager.saveImage(imageLink, imageName, "Completed");
+									AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
+																	"", "", animeType, releaseDate, finishDate, durationEp, false);
+									
+									AnimeIndex.completedMap.put(name, data);
+									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+									AnimeIndex.completedList.clearSelection();
+									AnimeIndex.completedList.setSelectedValue(name, true);
+									String imagePath = AnimeIndex.completedMap.get(name).getImagePath("anime completati");
+									AnimeIndex.completedSessionAnime.add(imagePath);
+									if (AnimeIndex.completedDeletedAnime.contains(imagePath))
+									{
+										AnimeIndex.completedSessionAnime.remove(imagePath);
+										AnimeIndex.completedDeletedAnime.remove(imagePath);
+									}
+								}				
+								else if (listName.equalsIgnoreCase("anime in corso"))
+								{
+									AnimeIndex.airingModel.addElement(name);
+									
+									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+									imageLink = imageLink.replaceAll("\\\\/", "/");
+									String imageName = name.replaceAll("\\\\", "_");
+									imageName = imageName.replaceAll("/", "_");
+									imageName = imageName.replaceAll(":", "_");
+									imageName = imageName.replaceAll("\\*", "_");
+									imageName = imageName.replaceAll("\\?", "_");
+									imageName = imageName.replaceAll("\"", "_");
+									imageName = imageName.replaceAll(">", "_");
+									imageName = imageName.replaceAll("<", "_");
+									FileManager.saveImage(imageLink, imageName, "Airing");
+									AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
+																	"", "", animeType, releaseDate, finishDate, durationEp, false);
+									
+									AnimeIndex.airingMap.put(name, data);
+									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+									AnimeIndex.airingList.clearSelection();
+									AnimeIndex.airingList.setSelectedValue(name, true);
+									String imagePath = AnimeIndex.airingMap.get(name).getImagePath("anime in corso");
+									AnimeIndex.airingSessionAnime.add(imagePath);
+									if (AnimeIndex.airingDeletedAnime.contains(imagePath))
+									{
+										AnimeIndex.airingDeletedAnime.remove(imagePath);
+										AnimeIndex.airingDeletedAnime.remove(imagePath);
+									}
 								}
-								else
+								else if (listName.equalsIgnoreCase("oav"))
 								{
-								AnimeIndex.completedModel.addElement(name);
-								
-								
-								String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
-								imageLink = imageLink.replaceAll("\\\\/", "/");
-								String imageName = name.replaceAll("\\\\", "_");
-								imageName = imageName.replaceAll("/", "_");
-								imageName = imageName.replaceAll(":", "_");
-								imageName = imageName.replaceAll("\\*", "_");
-								imageName = imageName.replaceAll("\\?", "_");
-								imageName = imageName.replaceAll("\"", "_");
-								imageName = imageName.replaceAll(">", "_");
-								imageName = imageName.replaceAll("<", "_");
-								FileManager.saveImage(imageLink, imageName, "Completed");
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
-																"", "", animeType, releaseDate, finishDate, durationEp, false);
-								
-								AnimeIndex.completedMap.put(name, data);
-								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-								AnimeIndex.completedList.clearSelection();
-								AnimeIndex.completedList.setSelectedValue(name, true);
-								String imagePath = AnimeIndex.completedMap.get(name).getImagePath("anime completati");
-								AnimeIndex.completedSessionAnime.add(imagePath);
-								if (AnimeIndex.completedDeletedAnime.contains(imagePath))
-								{
-									AnimeIndex.completedSessionAnime.remove(imagePath);
-									AnimeIndex.completedDeletedAnime.remove(imagePath);
+									AnimeIndex.ovaModel.addElement(name);
+									
+									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+									imageLink = imageLink.replaceAll("\\\\/", "/");
+									String imageName = name.replaceAll("\\\\", "_");
+									imageName = imageName.replaceAll("/", "_");
+									imageName = imageName.replaceAll(":", "_");
+									imageName = imageName.replaceAll("\\*", "_");
+									imageName = imageName.replaceAll("\\?", "_");
+									imageName = imageName.replaceAll("\"", "_");
+									imageName = imageName.replaceAll(">", "_");
+									imageName = imageName.replaceAll("<", "_");
+									FileManager.saveImage(imageLink, imageName, "Ova");
+									AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
+											"", "", animeType, releaseDate, finishDate, durationEp, false);
+									
+									AnimeIndex.ovaMap.put(name, data);
+									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+									AnimeIndex.ovaList.clearSelection();
+									AnimeIndex.ovaList.setSelectedValue(name, true);
+									String imagePath = AnimeIndex.ovaMap.get(name).getImagePath("oav");
+									AnimeIndex.ovaSessionAnime.add(imagePath);
+									if (AnimeIndex.ovaDeletedAnime.contains(imagePath))
+									{
+										AnimeIndex.ovaSessionAnime.remove(imagePath);
+										AnimeIndex.ovaDeletedAnime.remove(imagePath);
+									}
 								}
-								}
-							}				
-							else if (listName.equalsIgnoreCase("anime in corso"))
-							{
-								if (AnimeIndex.airingMap.containsKey(name))
+								else if (listName.equalsIgnoreCase("film"))
 								{
-									JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
-									contains = true;
+									AnimeIndex.filmModel.addElement(name);
+									
+									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+									imageLink = imageLink.replaceAll("\\\\/", "/");
+									String imageName = name.replaceAll("\\\\", "_");
+									imageName = imageName.replaceAll("/", "_");
+									imageName = imageName.replaceAll(":", "_");
+									imageName = imageName.replaceAll("\\*", "_");
+									imageName = imageName.replaceAll("\\?", "_");
+									imageName = imageName.replaceAll("\"", "_");
+									imageName = imageName.replaceAll(">", "_");
+									imageName = imageName.replaceAll("<", "_");
+									FileManager.saveImage(imageLink, imageName, "film");
+									AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
+											"", "", animeType, releaseDate, finishDate, durationEp, false);
+	
+									AnimeIndex.filmMap.put(name, data);
+									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+									AnimeIndex.filmList.clearSelection();
+									AnimeIndex.filmList.setSelectedValue(name, true);
+									String imagePath = AnimeIndex.filmMap.get(name).getImagePath("film");
+									AnimeIndex.filmSessionAnime.add(imagePath);
+									if (AnimeIndex.filmDeletedAnime.contains(imagePath))
+									{
+										AnimeIndex.filmSessionAnime.remove(imagePath);
+										AnimeIndex.filmDeletedAnime.remove(imagePath);
+									}
 								}
-								else
+								else if (listName.equalsIgnoreCase("completi da vedere"))
 								{
-								AnimeIndex.airingModel.addElement(name);
-								
-								String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
-								imageLink = imageLink.replaceAll("\\\\/", "/");
-								String imageName = name.replaceAll("\\\\", "_");
-								imageName = imageName.replaceAll("/", "_");
-								imageName = imageName.replaceAll(":", "_");
-								imageName = imageName.replaceAll("\\*", "_");
-								imageName = imageName.replaceAll("\\?", "_");
-								imageName = imageName.replaceAll("\"", "_");
-								imageName = imageName.replaceAll(">", "_");
-								imageName = imageName.replaceAll("<", "_");
-								FileManager.saveImage(imageLink, imageName, "Airing");
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
-																"", "", animeType, releaseDate, finishDate, durationEp, false);
-								
-								AnimeIndex.airingMap.put(name, data);
-								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-								AnimeIndex.airingList.clearSelection();
-								AnimeIndex.airingList.setSelectedValue(name, true);
-								String imagePath = AnimeIndex.airingMap.get(name).getImagePath("anime in corso");
-								AnimeIndex.airingSessionAnime.add(imagePath);
-								if (AnimeIndex.airingDeletedAnime.contains(imagePath))
-								{
-									AnimeIndex.airingDeletedAnime.remove(imagePath);
-									AnimeIndex.airingDeletedAnime.remove(imagePath);
-								}
+									AnimeIndex.completedToSeeModel.addElement(name);
+									
+									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+									imageLink = imageLink.replaceAll("\\\\/", "/");
+									String imageName = name.replaceAll("\\\\", "_");
+									imageName = imageName.replaceAll("/", "_");
+									imageName = imageName.replaceAll(":", "_");
+									imageName = imageName.replaceAll("\\*", "_");
+									imageName = imageName.replaceAll("\\?", "_");
+									imageName = imageName.replaceAll("\"", "_");
+									imageName = imageName.replaceAll(">", "_");
+									imageName = imageName.replaceAll("<", "_");
+									FileManager.saveImage(imageLink, imageName, "Completed to See");
+									AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
+																	"", "", animeType, releaseDate, finishDate, durationEp,false);
+									
+									AnimeIndex.completedToSeeMap.put(name, data);
+									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+									AnimeIndex.completedToSeeList.clearSelection();
+									AnimeIndex.completedToSeeList.setSelectedValue(name, true);
+									String imagePath = AnimeIndex.completedToSeeMap.get(name).getImagePath("completi da vedere");
+									AnimeIndex.completedToSeeSessionAnime.add(imagePath);
+									if (AnimeIndex.completedToSeeDeletedAnime.contains(imagePath))
+									{
+										AnimeIndex.completedToSeeSessionAnime.remove(imagePath);
+										AnimeIndex.completedToSeeDeletedAnime.remove(imagePath);
+									}
 								}
 							}
-							else if (listName.equalsIgnoreCase("oav"))
+							else
 							{
-								if (AnimeIndex.ovaMap.containsKey(name))
+								boolean ok = true;
+								if (checkCompletedList==true)
 								{
-									JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
-									contains = true;
+									if (AnimeIndex.completedMap.containsKey(name))
+									{
+										JOptionPane.showMessageDialog(contentPanel, "Anime già presente in \"Anime Completati\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+										contains = true;
+										ok = false;
+									}
 								}
-								else
+								if (checkAiringList==true)
 								{
-								AnimeIndex.ovaModel.addElement(name);
-								
-								String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
-								imageLink = imageLink.replaceAll("\\\\/", "/");
-								String imageName = name.replaceAll("\\\\", "_");
-								imageName = imageName.replaceAll("/", "_");
-								imageName = imageName.replaceAll(":", "_");
-								imageName = imageName.replaceAll("\\*", "_");
-								imageName = imageName.replaceAll("\\?", "_");
-								imageName = imageName.replaceAll("\"", "_");
-								imageName = imageName.replaceAll(">", "_");
-								imageName = imageName.replaceAll("<", "_");
-								FileManager.saveImage(imageLink, imageName, "Ova");
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
-										"", "", animeType, releaseDate, finishDate, durationEp, false);
-								
-								AnimeIndex.ovaMap.put(name, data);
-								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-								AnimeIndex.ovaList.clearSelection();
-								AnimeIndex.ovaList.setSelectedValue(name, true);
-								String imagePath = AnimeIndex.ovaMap.get(name).getImagePath("oav");
-								AnimeIndex.ovaSessionAnime.add(imagePath);
-								if (AnimeIndex.ovaDeletedAnime.contains(imagePath))
-								{
-									AnimeIndex.ovaSessionAnime.remove(imagePath);
-									AnimeIndex.ovaDeletedAnime.remove(imagePath);
+									if (AnimeIndex.airingMap.containsKey(name))
+									{
+										JOptionPane.showMessageDialog(contentPanel, "Anime già presente in \"Anime in Corso\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+										contains = true;
+										ok = false;
+									}
 								}
-								}
-							}
-							else if (listName.equalsIgnoreCase("film"))
-							{
-								if (AnimeIndex.filmMap.containsKey(name))
+								if (checkOAVList==true)
 								{
-									JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
-									contains = true;
+									if (AnimeIndex.ovaMap.containsKey(name))
+									{
+										JOptionPane.showMessageDialog(contentPanel, "Anime già presente in \"OAV\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+										contains = true;
+										ok = false;
+									}
 								}
-								else
+								if (checkFilmList==true)
 								{
-								AnimeIndex.filmModel.addElement(name);
-								
-								String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
-								imageLink = imageLink.replaceAll("\\\\/", "/");
-								String imageName = name.replaceAll("\\\\", "_");
-								imageName = imageName.replaceAll("/", "_");
-								imageName = imageName.replaceAll(":", "_");
-								imageName = imageName.replaceAll("\\*", "_");
-								imageName = imageName.replaceAll("\\?", "_");
-								imageName = imageName.replaceAll("\"", "_");
-								imageName = imageName.replaceAll(">", "_");
-								imageName = imageName.replaceAll("<", "_");
-								FileManager.saveImage(imageLink, imageName, "film");
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
-										"", "", animeType, releaseDate, finishDate, durationEp, false);
-								
-								
-								AnimeIndex.filmMap.put(name, data);
-								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-								AnimeIndex.filmList.clearSelection();
-								AnimeIndex.filmList.setSelectedValue(name, true);
-								String imagePath = AnimeIndex.filmMap.get(name).getImagePath("film");
-								AnimeIndex.filmSessionAnime.add(imagePath);
-								if (AnimeIndex.filmDeletedAnime.contains(imagePath))
-								{
-									AnimeIndex.filmSessionAnime.remove(imagePath);
-									AnimeIndex.filmDeletedAnime.remove(imagePath);
+									if (AnimeIndex.filmMap.containsKey(name))
+									{
+										JOptionPane.showMessageDialog(contentPanel, "Anime già presente in \"Film\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+										contains = true;
+										ok = false;
+									}
 								}
-								}
-							}
-							else if (listName.equalsIgnoreCase("completi da vedere"))
-							{
-								if (AnimeIndex.completedToSeeMap.containsKey(name))
+								if (checkToSeeList==true)
 								{
-									JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
-									contains = true;
+									if (AnimeIndex.completedToSeeMap.containsKey(name))
+									{
+										JOptionPane.showMessageDialog(contentPanel, "Anime già presente in \"Completi da Vedere\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+										contains = true;
+										ok = false;
+									}
 								}
-								else
+								if(ok==true)
 								{
-								AnimeIndex.completedToSeeModel.addElement(name);
-								
-								String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
-								imageLink = imageLink.replaceAll("\\\\/", "/");
-								String imageName = name.replaceAll("\\\\", "_");
-								imageName = imageName.replaceAll("/", "_");
-								imageName = imageName.replaceAll(":", "_");
-								imageName = imageName.replaceAll("\\*", "_");
-								imageName = imageName.replaceAll("\\?", "_");
-								imageName = imageName.replaceAll("\"", "_");
-								imageName = imageName.replaceAll(">", "_");
-								imageName = imageName.replaceAll("<", "_");
-								FileManager.saveImage(imageLink, imageName, "Completed to See");
-								AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
-																"", "", animeType, releaseDate, finishDate, durationEp,false);
-								
-								AnimeIndex.completedToSeeMap.put(name, data);
-								AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-								AnimeIndex.completedToSeeList.clearSelection();
-								AnimeIndex.completedToSeeList.setSelectedValue(name, true);
-								String imagePath = AnimeIndex.completedToSeeMap.get(name).getImagePath("completi da vedere");
-								AnimeIndex.completedToSeeSessionAnime.add(imagePath);
-								if (AnimeIndex.completedToSeeDeletedAnime.contains(imagePath))
-								{
-									AnimeIndex.completedToSeeSessionAnime.remove(imagePath);
-									AnimeIndex.completedToSeeDeletedAnime.remove(imagePath);
-								}
+									if (listName.equalsIgnoreCase("anime completati"))
+									{
+										AnimeIndex.completedModel.addElement(name);
+		
+										String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+										imageLink = imageLink.replaceAll("\\\\/", "/");
+										String imageName = name.replaceAll("\\\\", "_");
+										imageName = imageName.replaceAll("/", "_");
+										imageName = imageName.replaceAll(":", "_");
+										imageName = imageName.replaceAll("\\*", "_");
+										imageName = imageName.replaceAll("\\?", "_");
+										imageName = imageName.replaceAll("\"", "_");
+										imageName = imageName.replaceAll(">", "_");
+										imageName = imageName.replaceAll("<", "_");
+										FileManager.saveImage(imageLink, imageName, "Completed");
+										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
+																		"", "", animeType, releaseDate, finishDate, durationEp, false);
+										
+										AnimeIndex.completedMap.put(name, data);
+										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+										AnimeIndex.completedList.clearSelection();
+										AnimeIndex.completedList.setSelectedValue(name, true);
+										String imagePath = AnimeIndex.completedMap.get(name).getImagePath("anime completati");
+										AnimeIndex.completedSessionAnime.add(imagePath);
+										if (AnimeIndex.completedDeletedAnime.contains(imagePath))
+										{
+											AnimeIndex.completedSessionAnime.remove(imagePath);
+											AnimeIndex.completedDeletedAnime.remove(imagePath);
+										}
+									}
+									else if (listName.equalsIgnoreCase("anime in corso"))
+									{
+										AnimeIndex.airingModel.addElement(name);
+										
+										String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+										imageLink = imageLink.replaceAll("\\\\/", "/");
+										String imageName = name.replaceAll("\\\\", "_");
+										imageName = imageName.replaceAll("/", "_");
+										imageName = imageName.replaceAll(":", "_");
+										imageName = imageName.replaceAll("\\*", "_");
+										imageName = imageName.replaceAll("\\?", "_");
+										imageName = imageName.replaceAll("\"", "_");
+										imageName = imageName.replaceAll(">", "_");
+										imageName = imageName.replaceAll("<", "_");
+										FileManager.saveImage(imageLink, imageName, "Airing");
+										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
+																		"", "", animeType, releaseDate, finishDate, durationEp, false);
+										
+										AnimeIndex.airingMap.put(name, data);
+										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+										AnimeIndex.airingList.clearSelection();
+										AnimeIndex.airingList.setSelectedValue(name, true);
+										String imagePath = AnimeIndex.airingMap.get(name).getImagePath("anime in corso");
+										AnimeIndex.airingSessionAnime.add(imagePath);
+										if (AnimeIndex.airingDeletedAnime.contains(imagePath))
+										{
+											AnimeIndex.airingDeletedAnime.remove(imagePath);
+											AnimeIndex.airingDeletedAnime.remove(imagePath);
+										}
+									}
+									else if (listName.equalsIgnoreCase("oav"))
+									{
+										AnimeIndex.ovaModel.addElement(name);
+										
+										String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+										imageLink = imageLink.replaceAll("\\\\/", "/");
+										String imageName = name.replaceAll("\\\\", "_");
+										imageName = imageName.replaceAll("/", "_");
+										imageName = imageName.replaceAll(":", "_");
+										imageName = imageName.replaceAll("\\*", "_");
+										imageName = imageName.replaceAll("\\?", "_");
+										imageName = imageName.replaceAll("\"", "_");
+										imageName = imageName.replaceAll(">", "_");
+										imageName = imageName.replaceAll("<", "_");
+										FileManager.saveImage(imageLink, imageName, "Ova");
+										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
+												"", "", animeType, releaseDate, finishDate, durationEp, false);
+										
+										AnimeIndex.ovaMap.put(name, data);
+										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+										AnimeIndex.ovaList.clearSelection();
+										AnimeIndex.ovaList.setSelectedValue(name, true);
+										String imagePath = AnimeIndex.ovaMap.get(name).getImagePath("oav");
+										AnimeIndex.ovaSessionAnime.add(imagePath);
+										if (AnimeIndex.ovaDeletedAnime.contains(imagePath))
+										{
+											AnimeIndex.ovaSessionAnime.remove(imagePath);
+											AnimeIndex.ovaDeletedAnime.remove(imagePath);
+										}
+									}
+									else if (listName.equalsIgnoreCase("film"))
+									{
+										AnimeIndex.filmModel.addElement(name);
+										
+										String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+										imageLink = imageLink.replaceAll("\\\\/", "/");
+										String imageName = name.replaceAll("\\\\", "_");
+										imageName = imageName.replaceAll("/", "_");
+										imageName = imageName.replaceAll(":", "_");
+										imageName = imageName.replaceAll("\\*", "_");
+										imageName = imageName.replaceAll("\\?", "_");
+										imageName = imageName.replaceAll("\"", "_");
+										imageName = imageName.replaceAll(">", "_");
+										imageName = imageName.replaceAll("<", "_");
+										FileManager.saveImage(imageLink, imageName, "film");
+										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
+												"", "", animeType, releaseDate, finishDate, durationEp, false);
+		
+										AnimeIndex.filmMap.put(name, data);
+										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+										AnimeIndex.filmList.clearSelection();
+										AnimeIndex.filmList.setSelectedValue(name, true);
+										String imagePath = AnimeIndex.filmMap.get(name).getImagePath("film");
+										AnimeIndex.filmSessionAnime.add(imagePath);
+										if (AnimeIndex.filmDeletedAnime.contains(imagePath))
+										{
+											AnimeIndex.filmSessionAnime.remove(imagePath);
+											AnimeIndex.filmDeletedAnime.remove(imagePath);
+										}
+									}
+									else if (listName.equalsIgnoreCase("completi da vedere"))
+									{
+										AnimeIndex.completedToSeeModel.addElement(name);
+										
+										String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+										imageLink = imageLink.replaceAll("\\\\/", "/");
+										String imageName = name.replaceAll("\\\\", "_");
+										imageName = imageName.replaceAll("/", "_");
+										imageName = imageName.replaceAll(":", "_");
+										imageName = imageName.replaceAll("\\*", "_");
+										imageName = imageName.replaceAll("\\?", "_");
+										imageName = imageName.replaceAll("\"", "_");
+										imageName = imageName.replaceAll(">", "_");
+										imageName = imageName.replaceAll("<", "_");
+										FileManager.saveImage(imageLink, imageName, "Completed to See");
+										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
+																		"", "", animeType, releaseDate, finishDate, durationEp,false);
+										
+										AnimeIndex.completedToSeeMap.put(name, data);
+										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+										AnimeIndex.completedToSeeList.clearSelection();
+										AnimeIndex.completedToSeeList.setSelectedValue(name, true);
+										String imagePath = AnimeIndex.completedToSeeMap.get(name).getImagePath("completi da vedere");
+										AnimeIndex.completedToSeeSessionAnime.add(imagePath);
+										if (AnimeIndex.completedToSeeDeletedAnime.contains(imagePath))
+										{
+											AnimeIndex.completedToSeeSessionAnime.remove(imagePath);
+											AnimeIndex.completedToSeeDeletedAnime.remove(imagePath);
+										}
+									}
 								}
 							}
 							if(AnimeIndex.filtro != 9)
@@ -1223,7 +1381,6 @@ public class AddAnimeDialog extends JDialog
 				}
 			}
 		}
-		//TODO finire sistema di controllo
 		if (AnimeIndex.appProp.getProperty("List_to_Check").equalsIgnoreCase("all"))
 		{
 			checkCompletedList = true;
@@ -1290,7 +1447,6 @@ public class AddAnimeDialog extends JDialog
 			checkToggleButton.setText("Completi Da Vedere");
 			checkToggleButton.setSelected(true);
 		}
-		else{}
 		}
 	}
 	
@@ -1312,11 +1468,6 @@ public class AddAnimeDialog extends JDialog
 	public String getFansub()
 	{
 		return (String) fansubComboBox.getSelectedItem();
-	}
-	
-	public String getFansubLink()
-	{
-		return fansubLinkField.getText();
 	}
 	
 	public String getListToAdd()

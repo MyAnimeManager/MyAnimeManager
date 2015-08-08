@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 
 import util.task.DownloadUpdateTask;
 import net.miginfocom.swing.MigLayout;
+import java.awt.Toolkit;
 
 public class DownloadingDialog extends JDialog
 {
@@ -29,6 +30,7 @@ public class DownloadingDialog extends JDialog
 	 */
 	public DownloadingDialog(String link)
 	{
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DownloadingDialog.class.getResource("/image/Update.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
