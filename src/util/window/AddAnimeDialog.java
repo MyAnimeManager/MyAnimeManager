@@ -115,7 +115,7 @@ public class AddAnimeDialog extends JDialog
 				contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 				contentPanel.setLayout(new FormLayout(new ColumnSpec[] {
 						FormFactory.RELATED_GAP_COLSPEC,
-						ColumnSpec.decode("left:default"),
+						ColumnSpec.decode("left:default:grow"),
 						FormFactory.RELATED_GAP_COLSPEC,
 						ColumnSpec.decode("left:default:grow"),
 						FormFactory.RELATED_GAP_COLSPEC,
@@ -123,6 +123,10 @@ public class AddAnimeDialog extends JDialog
 						FormFactory.RELATED_GAP_COLSPEC,
 						ColumnSpec.decode("default:grow"),},
 					new RowSpec[] {
+						FormFactory.RELATED_GAP_ROWSPEC,
+						FormFactory.DEFAULT_ROWSPEC,
+						FormFactory.RELATED_GAP_ROWSPEC,
+						FormFactory.DEFAULT_ROWSPEC,
 						FormFactory.RELATED_GAP_ROWSPEC,
 						FormFactory.DEFAULT_ROWSPEC,
 						FormFactory.RELATED_GAP_ROWSPEC,
@@ -216,6 +220,10 @@ public class AddAnimeDialog extends JDialog
 				{
 					JLabel lblExitDay = new JLabel("Giorno di Uscita");
 					contentPanel.add(lblExitDay, "2, 12, right, default");
+				}
+				{
+					JComboBox comboBox = new JComboBox();
+					contentPanel.add(comboBox, "2, 16, fill, default");
 				}
 				{
 					JPanel buttonPane = new JPanel();
