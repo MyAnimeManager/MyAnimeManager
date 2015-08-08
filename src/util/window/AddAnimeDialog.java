@@ -59,7 +59,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JCheckBox;
 import java.awt.TextField;
-
+//
 public class AddAnimeDialog extends JDialog
 {
 	private final static String IMAGE_PATH = FileManager.getImageFolderPath();
