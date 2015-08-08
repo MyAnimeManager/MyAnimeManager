@@ -1,6 +1,7 @@
 package util.window;
 
 import java.awt.BorderLayout;
+import java.awt.Checkbox;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -56,6 +57,8 @@ import java.awt.event.WindowEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JCheckBox;
+
 public class AddAnimeDialog extends JDialog
 {
 	private final static String IMAGE_PATH = FileManager.getImageFolderPath();
@@ -76,6 +79,7 @@ public class AddAnimeDialog extends JDialog
 	private JComboBox exitDayComboBox;
 	private JPanel anilistAddPanel;
 	private JPanel normalAddPanel;
+	private JCheckBox keepOpen;
 	public SetCheckDialog checkDialog;
 	public static JToggleButton checkToggleButton;
 	public static boolean checkCompletedList;
@@ -386,9 +390,9 @@ public class AddAnimeDialog extends JDialog
 						JPanel searchPanel1 = new JPanel();
 						searchPanel.add(searchPanel1, BorderLayout.NORTH);
 						GridBagLayout gbl_searchPanel1 = new GridBagLayout();
-						gbl_searchPanel1.columnWidths = new int[]{63, 246, 61, 179, 0};
+						gbl_searchPanel1.columnWidths = new int[]{63, 246, 61, 109, 46, 25, 0};
 						gbl_searchPanel1.rowHeights = new int[]{27, 0};
-						gbl_searchPanel1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+						gbl_searchPanel1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 						gbl_searchPanel1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 						searchPanel1.setLayout(gbl_searchPanel1);
 						{
@@ -527,10 +531,21 @@ public class AddAnimeDialog extends JDialog
 								listToAddAniComboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere"}));
 								GridBagConstraints gbc_listToAddAniComboBox = new GridBagConstraints();
 								gbc_listToAddAniComboBox.fill = GridBagConstraints.HORIZONTAL;
+								gbc_listToAddAniComboBox.gridwidth = 2;
+								gbc_listToAddAniComboBox.insets = new Insets(0, 0, 0, 5);
 								gbc_listToAddAniComboBox.gridx = 3;
 								gbc_listToAddAniComboBox.gridy = 0;
 								searchPanel1.add(listToAddAniComboBox, gbc_listToAddAniComboBox);
 								listToAddAniComboBox.setSelectedItem(AnimeIndex.getList());
+							}
+							{
+								keepOpen = new JCheckBox("");
+								keepOpen.setToolTipText("Mantieni questa finestra aperta dopo ogni aggiunta");
+								GridBagConstraints gbc_keepOpen = new GridBagConstraints();
+								gbc_keepOpen.anchor = GridBagConstraints.EAST;
+								gbc_keepOpen.gridx = 5;
+								gbc_keepOpen.gridy = 0;
+								searchPanel1.add(keepOpen, gbc_keepOpen);
 							}
 							{
 								JScrollPane listPanel = new JScrollPane();
@@ -807,7 +822,7 @@ public class AddAnimeDialog extends JDialog
 													}
 												}
 												
-												if (!contains)
+												if (!contains && !keepOpen.isSelected())
 												{
 												JList but = (JList) arg0.getSource();
 												JDialog dialog = (JDialog) but.getTopLevelAncestor();
@@ -1167,18 +1182,17 @@ public class AddAnimeDialog extends JDialog
 								}
 								}
 							}
-							
-							if (!contains)
-							{
-							JButton but = (JButton) e.getSource();
-							JDialog dialog = (JDialog) but.getTopLevelAncestor();
-							dialog.dispose();
-							}
 							if(AnimeIndex.filtro != 9)
 						    {
 							    Filters.removeFilters();
 						    }
 							AnimeIndex.sessionAddedAnime.add(name);
+							if (!contains && !keepOpen.isSelected())
+							{
+							JButton but = (JButton) e.getSource();
+							JDialog dialog = (JDialog) but.getTopLevelAncestor();
+							dialog.dispose();
+							}
 							AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 						}
 					});
@@ -1186,6 +1200,7 @@ public class AddAnimeDialog extends JDialog
 					button2Panel.add(button, "cell 6 0,growx");
 					button.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
+							keepOpen.setSelected(false);
 							JButton but = (JButton) e.getSource();
 							JDialog dialog = (JDialog) but.getTopLevelAncestor();
 							dialog.dispose();
