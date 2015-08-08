@@ -153,7 +153,8 @@ public class ExitSaveDialog extends JDialog
 					ArrayList<String> list = AnimeIndex.completedSessionAnime;					
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
+					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
+					if (!imgPathFrom.equals(imgPathTo))
 						FileManager.moveImage(imgPathFrom, folder, nomeImg);
 					list.remove(imgPathFrom);
 				}
