@@ -77,6 +77,7 @@ import util.window.UpdateDialog;
 //TODO fare wishlist
 //TODO sistemare aggiunta anime manuale
 //TODO sistemare crediti
+//TODO sistemare variabile per la versione successiva
 public class AnimeIndex extends JFrame
 {
 
