@@ -132,7 +132,7 @@ public class ExitSaveDialog extends JDialog
 		for (int i=0; i<AnimeIndex.shiftsRegister.size(); i++)
 		{
 			String name = (String)arrayName[i];
-			String listName = (String)AnimeIndex.shiftsRegister.get(name);
+			String listName = AnimeIndex.shiftsRegister.get(name);
 			String folder = "";
 			if (listName.equalsIgnoreCase("anime completati"))
 				folder = "Completed";
@@ -155,7 +155,8 @@ public class ExitSaveDialog extends JDialog
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
 					
-					FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
+						FileManager.moveImage(imgPathFrom, folder, nomeImg);
 					list.remove(imgPathFrom);
 				}
 				else if(AnimeIndex.airingMap.containsKey(name))
