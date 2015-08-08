@@ -167,7 +167,8 @@ public class ExitSaveDialog extends JDialog
 				
 						String imgPathFrom = map.get(name).getImagePath(type);
 						String nomeImg = map.get(name).getImageName();
-						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+						if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
+							FileManager.moveImage(imgPathFrom, folder, nomeImg);
 						list.remove(imgPathFrom);
 				}
 				else if(AnimeIndex.ovaMap.containsKey(name))
@@ -178,7 +179,8 @@ public class ExitSaveDialog extends JDialog
 					
 						String imgPathFrom = map.get(name).getImagePath(type);
 						String nomeImg = map.get(name).getImageName();
-						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+						if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
+							FileManager.moveImage(imgPathFrom, folder, nomeImg);
 						list.remove(imgPathFrom);
 					
 				}
@@ -189,7 +191,8 @@ public class ExitSaveDialog extends JDialog
 					ArrayList<String> list = AnimeIndex.filmSessionAnime;
 						String imgPathFrom = map.get(name).getImagePath(type);
 						String nomeImg = map.get(name).getImageName();
-						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+						if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
+							FileManager.moveImage(imgPathFrom, folder, nomeImg);
 						list.remove(imgPathFrom);
 					
 				}
@@ -201,7 +204,8 @@ public class ExitSaveDialog extends JDialog
 					
 						String imgPathFrom = map.get(name).getImagePath(type);
 						String nomeImg = map.get(name).getImageName();
-						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+						if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
+							FileManager.moveImage(imgPathFrom, folder, nomeImg);
 						list.remove(imgPathFrom);
 				}			
 			}
