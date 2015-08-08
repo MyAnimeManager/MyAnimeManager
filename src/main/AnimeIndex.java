@@ -72,7 +72,6 @@ import util.window.UpdateDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO finire il release notifier dialog
-//TODO fixate bug foto uscita senza salvare dopo aver spostato l'anime
 //TODO fare sistema di controllo
 //TODO fare lista esclusioni sistema di controllo
 //TODO fare wishlist
