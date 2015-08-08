@@ -88,7 +88,6 @@ public class AddAnimeDialog extends JDialog
 	public static boolean checkFilmList;
 	public static boolean checkToSeeList;
 
-//TODO l'aggiunta manuale e' completamente da rifare
 	/**
 	 * Create the dialog.
 	 */
