@@ -150,11 +150,9 @@ public class ExitSaveDialog extends JDialog
 				{
 					String type = "Anime Completati";
 					TreeMap<String,AnimeData> map = AnimeIndex.completedMap;
-					ArrayList<String> list = AnimeIndex.completedSessionAnime;
-					
+					ArrayList<String> list = AnimeIndex.completedSessionAnime;					
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					
 					if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
 						FileManager.moveImage(imgPathFrom, folder, nomeImg);
 					list.remove(imgPathFrom);
@@ -164,49 +162,44 @@ public class ExitSaveDialog extends JDialog
 					String type = "Anime in Corso";
 					TreeMap<String,AnimeData> map = AnimeIndex.airingMap;
 					ArrayList<String> list = AnimeIndex.airingSessionAnime;
-				
-						String imgPathFrom = map.get(name).getImagePath(type);
-						String nomeImg = map.get(name).getImageName();
-						if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
-							FileManager.moveImage(imgPathFrom, folder, nomeImg);
-						list.remove(imgPathFrom);
+					String imgPathFrom = map.get(name).getImagePath(type);
+					String nomeImg = map.get(name).getImageName();
+					if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
+						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					list.remove(imgPathFrom);
 				}
 				else if(AnimeIndex.ovaMap.containsKey(name))
 				{
 					String type = "OAV";
 					TreeMap<String,AnimeData> map = AnimeIndex.ovaMap;
 					ArrayList<String> list = AnimeIndex.ovaSessionAnime;
-					
-						String imgPathFrom = map.get(name).getImagePath(type);
-						String nomeImg = map.get(name).getImageName();
-						if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
-							FileManager.moveImage(imgPathFrom, folder, nomeImg);
-						list.remove(imgPathFrom);
-					
+					String imgPathFrom = map.get(name).getImagePath(type);
+					String nomeImg = map.get(name).getImageName();
+					if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
+						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					list.remove(imgPathFrom);
 				}
 				else if(AnimeIndex.filmMap.containsKey(name))
 				{
 					String type = "Film";
 					TreeMap<String,AnimeData> map = AnimeIndex.filmMap;
 					ArrayList<String> list = AnimeIndex.filmSessionAnime;
-						String imgPathFrom = map.get(name).getImagePath(type);
-						String nomeImg = map.get(name).getImageName();
-						if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
-							FileManager.moveImage(imgPathFrom, folder, nomeImg);
-						list.remove(imgPathFrom);
-					
+					String imgPathFrom = map.get(name).getImagePath(type);
+					String nomeImg = map.get(name).getImageName();
+					if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
+						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					list.remove(imgPathFrom);
 				}
 				else if(AnimeIndex.completedToSeeMap.containsKey(name))
 				{
 					String type = "Completi Da Vedere";
 					TreeMap<String,AnimeData> map = AnimeIndex.completedToSeeMap;
 					ArrayList<String> list = AnimeIndex.completedToSeeSessionAnime;
-					
-						String imgPathFrom = map.get(name).getImagePath(type);
-						String nomeImg = map.get(name).getImageName();
-						if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
-							FileManager.moveImage(imgPathFrom, folder, nomeImg);
-						list.remove(imgPathFrom);
+					String imgPathFrom = map.get(name).getImagePath(type);
+					String nomeImg = map.get(name).getImageName();
+					if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
+						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					list.remove(imgPathFrom);
 				}			
 			}
 		}
