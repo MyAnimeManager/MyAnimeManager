@@ -39,6 +39,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLayeredPane;
 
 public class SetExclusionDialog extends JDialog {
 
@@ -138,9 +139,16 @@ public class SetExclusionDialog extends JDialog {
 			gbc_scrollPane.gridy = 2;
 			contentPanel.add(scrollPane, gbc_scrollPane);
 			{
+				JLayeredPane layeredPane = new JLayeredPane();
+				scrollPane.setViewportView(layeredPane);
+				
 				JList listToCheck = new JList();
-				listToCheck.setFont(AnimeIndex.segui.deriveFont(12f));
-				scrollPane.setViewportView(listToCheck);
+				listToCheck.setBounds(0, 0, 196, 159);
+				layeredPane.add(listToCheck);
+				
+				JList searchListToCheck = new JList();
+				searchListToCheck.setBounds(0, 0, 196, 159);
+				layeredPane.add(searchListToCheck);
 			}
 		}
 		{
@@ -163,11 +171,19 @@ public class SetExclusionDialog extends JDialog {
 			gbc_scrollPane.gridx = 3;
 			gbc_scrollPane.gridy = 2;
 			contentPanel.add(scrollPane, gbc_scrollPane);
-			{
-				JList listToExclude = new JList();
-				listToExclude.setFont(AnimeIndex.segui.deriveFont(12f));
-				scrollPane.setViewportView(listToExclude);
-			}
+			
+			JLayeredPane layeredPane = new JLayeredPane();
+			scrollPane.setViewportView(layeredPane);
+			
+			JList listToExclude = new JList();
+			listToExclude.setFont(null);
+			listToExclude.setBounds(0, 0, 176, 159);
+			layeredPane.add(listToExclude);
+			
+			JList searchListToExclude = new JList();
+			searchListToExclude.setFont(null);
+			searchListToExclude.setBounds(0, 0, 176, 159);
+			layeredPane.add(searchListToExclude);
 		}
 		{
 			JButton button = new JButton("<<");
@@ -232,5 +248,4 @@ public class SetExclusionDialog extends JDialog {
 			cancelButton.setActionCommand("Cancel");
 		}
 	}
-
 }
