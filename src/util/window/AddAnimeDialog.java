@@ -66,7 +66,6 @@ public class AddAnimeDialog extends JDialog
 	private JTextField nameField;
 	private JTextField episodeField;
 	private JTextField totalEpisodeField;
-	private JTextField fansubLinkField;
 	private JComboBox fansubComboBox;
 	private JComboBox listToAddComboBox;
 	private SearchBar searchBar;
@@ -101,7 +100,7 @@ public class AddAnimeDialog extends JDialog
 		});
 		setTitle("Aggiungi anime");
 		setResizable(false);
-		setBounds(100, 100, 580, 300);
+		setBounds(100, 100, 580, 318);
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
 		{
@@ -144,19 +143,16 @@ public class AddAnimeDialog extends JDialog
 				}
 				{
 					nameField = new JTextField();
-					contentPanel.add(nameField, "4, 2, left, default");
+					contentPanel.add(nameField, "4, 2, fill, default");
 					nameField.setColumns(20);
 				}
 				{
-					exitDayComboBox = new JComboBox();
 					String[] dayWeek = {"?????","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica", "Concluso"};
-					exitDayComboBox.setModel(new DefaultComboBoxModel(dayWeek));
 					if (!((String)AnimeIndex.animeTypeComboBox.getSelectedItem()).equalsIgnoreCase("anime in corso"))
 					{
 						exitDayComboBox.setSelectedItem("Concluso");
 						exitDayComboBox.setEnabled(false);
 					}
-					contentPanel.add(exitDayComboBox, "4, 12, left, default");
 
 				}
 				{
@@ -179,8 +175,8 @@ public class AddAnimeDialog extends JDialog
 					contentPanel.add(listToAddComboBox, "8, 2, right, default");
 				}
 				{
-					JLabel lblCurrentEpisode = new JLabel("Current Episode:");
-					contentPanel.add(lblCurrentEpisode, "2, 4, right, default");
+					JLabel lblCurrentEpisode = new JLabel("Episodio Corrente :");
+					contentPanel.add(lblCurrentEpisode, "2, 4, left, default");
 				}
 				{
 					episodeField = new JTextField();
@@ -189,7 +185,7 @@ public class AddAnimeDialog extends JDialog
 					((AbstractDocument)episodeField.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,4}"));
 				}
 				{
-					JLabel lblTotalEpisode = new JLabel("Total Episode:");
+					JLabel lblTotalEpisode = new JLabel("Episodi Totali :");
 					contentPanel.add(lblTotalEpisode, "2, 6, left, default");
 				}
 				{
@@ -199,31 +195,37 @@ public class AddAnimeDialog extends JDialog
 					((AbstractDocument)totalEpisodeField.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,4}"));
 				}
 				{
-					JLabel lblFansub = new JLabel("Fansub");
-					contentPanel.add(lblFansub, "2, 8, left, default");
+					JLabel lblDurataEpisodio = new JLabel("Durata Episodio :");
+					contentPanel.add(lblDurataEpisodio, "2, 8");
+				}
+				{
+					JLabel lblFansub = new JLabel("Fansub :");
+					contentPanel.add(lblFansub, "2, 10, left, default");
 				}
 				{
 					fansubComboBox = new JComboBox();
 					fansubComboBox.setModel(new DefaultComboBoxModel(AnimeIndex.getFansubList()));
-					contentPanel.add(fansubComboBox, "4, 8, left, default");
+					contentPanel.add(fansubComboBox, "4, 10, fill, default");
 				}
 				{
-					JLabel lblFansubLink = new JLabel("Fansub Link");
-					contentPanel.add(lblFansubLink, "2, 10, left, default");
+					JLabel lblFansubLink = new JLabel("Link :");
+					contentPanel.add(lblFansubLink, "2, 12, left, default");
 				}
 				{
-					fansubLinkField = new JTextField();
-					contentPanel.add(fansubLinkField, "4, 10, left, default");
-					fansubLinkField.setColumns(20);
+					JButton button = new JButton("Imposta Link");
+					contentPanel.add(button, "4, 12, fill, default");
 				}
 				{
-					JLabel lblExitDay = new JLabel("Giorno di Uscita");
-					contentPanel.add(lblExitDay, "2, 12, right, default");
+					JLabel lblDataDiInizio = new JLabel("Data di Inizio e di Fine");
+					contentPanel.add(lblDataDiInizio, "2, 14");
 				}
 				{
-					JComboBox comboBox = new JComboBox();
-					contentPanel.add(comboBox, "2, 16, fill, default");
+					JLabel lblExitDay = new JLabel("Giorno di Uscita :");
+					contentPanel.add(lblExitDay, "2, 16, left, default");
 				}
+				exitDayComboBox = new JComboBox();
+				exitDayComboBox.setModel(new DefaultComboBoxModel(dayWeek));
+				contentPanel.add(exitDayComboBox, "4, 16, fill, default");
 				{
 					JPanel buttonPane = new JPanel();
 					normalAddPanel.add(buttonPane, BorderLayout.SOUTH);

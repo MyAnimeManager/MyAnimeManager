@@ -16,13 +16,14 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
 import util.task.DownloadUpdateTask;
+import net.miginfocom.swing.MigLayout;
 
 public class DownloadingDialog extends JDialog
 {
 
 	DownloadUpdateTask task = new DownloadUpdateTask();
 	private JProgressBar progressBar;
-	private JLabel label;
+	private JLabel lblDownloadInCorso;
 	/**
 	 * Create the dialog.
 	 */
@@ -38,35 +39,18 @@ public class DownloadingDialog extends JDialog
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setModal(true);
 		setResizable(false);
-		setTitle("Scaricando Aggiornamento...");
+		setTitle("Download Aggiornamento...");
 		setBounds(100, 100, 328, 76);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		getContentPane().setLayout(gridBagLayout);
 		
 		String labelString = "Scaricando...";
-		label = new JLabel(labelString);
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.insets = new Insets(0, 0, 5, 0);
-		gbc_label.gridwidth = 5;
-		gbc_label.fill = GridBagConstraints.HORIZONTAL;
-		gbc_label.gridx = 0;
-		gbc_label.gridy = 0;
-		getContentPane().add(label, gbc_label);
+		getContentPane().setLayout(new MigLayout("", "[320.00px]", "[14px][14px]"));
+		lblDownloadInCorso = new JLabel("Download in corso...");
+		lblDownloadInCorso.setHorizontalAlignment(SwingConstants.CENTER);
+		getContentPane().add(lblDownloadInCorso, "cell 0 0,growx,aligny center");
 		
 		progressBar = new JProgressBar();
 		progressBar.setIndeterminate(true);
-		GridBagConstraints gbc_progressBar = new GridBagConstraints();
-		gbc_progressBar.gridwidth = 5;
-		gbc_progressBar.fill = GridBagConstraints.HORIZONTAL;
-		gbc_progressBar.insets = new Insets(0, 0, 0, 5);
-		gbc_progressBar.gridx = 0;
-		gbc_progressBar.gridy = 1;
-		getContentPane().add(progressBar, gbc_progressBar);
+		getContentPane().add(progressBar, "cell 0 1,growx,aligny center");
 
 		
 		

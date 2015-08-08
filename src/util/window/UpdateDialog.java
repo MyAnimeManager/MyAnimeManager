@@ -2,9 +2,6 @@ package util.window;
 
 
 import java.awt.BorderLayout;
-
-import javax.swing.JDialog;
-
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -14,16 +11,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JEditorPane;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -37,9 +32,6 @@ import util.AnimeIndexProperties;
 import util.ExternalProgram;
 import util.FileManager;
 import util.Updater;
-import util.task.DownloadUpdateTask;
-
-import java.awt.Dialog.ModalExclusionType;
 
 	public class UpdateDialog extends JDialog{
 
@@ -86,12 +78,12 @@ import java.awt.Dialog.ModalExclusionType;
 
 	            public void actionPerformed(ActionEvent e) {
 	            	dial = new DownloadingDialog(Updater.getDownloadLink());
+	            	UpdateDialog.this.dispose();
 	            	dial.setLocationRelativeTo(AnimeIndex.mainFrame);
 	            	dial.setVisible(true);
-	                UpdateDialog.this.dispose();
-						save();
-						ExternalProgram ext = new ExternalProgram(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
-						ext.run();
+					save();
+					ExternalProgram ext = new ExternalProgram(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
+					ext.run();
 	            }
 	        });
 
