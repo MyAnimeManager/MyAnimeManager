@@ -154,7 +154,8 @@ public class ExitSaveDialog extends JDialog
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
 					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
-					if (!imgPathFrom.equals(imgPathTo))
+					File img = new File(imgPathTo);
+					if (!imgPathFrom.equals(imgPathTo) && !img.isFile())
 						FileManager.moveImage(imgPathFrom, folder, nomeImg);
 					list.remove(imgPathFrom);
 				}
@@ -165,7 +166,9 @@ public class ExitSaveDialog extends JDialog
 					ArrayList<String> list = AnimeIndex.airingSessionAnime;
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
+					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
+					File img = new File(imgPathTo);
+					if (!imgPathFrom.equals(imgPathTo) && !img.isFile())
 						FileManager.moveImage(imgPathFrom, folder, nomeImg);
 					list.remove(imgPathFrom);
 				}
@@ -176,7 +179,9 @@ public class ExitSaveDialog extends JDialog
 					ArrayList<String> list = AnimeIndex.ovaSessionAnime;
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
+					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
+					File img = new File(imgPathTo);
+					if (!imgPathFrom.equals(imgPathTo) && !img.isFile())
 						FileManager.moveImage(imgPathFrom, folder, nomeImg);
 					list.remove(imgPathFrom);
 				}
@@ -187,7 +192,9 @@ public class ExitSaveDialog extends JDialog
 					ArrayList<String> list = AnimeIndex.filmSessionAnime;
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
+					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
+					File img = new File(imgPathTo);
+					if (!imgPathFrom.equals(imgPathTo) && !img.isFile())
 						FileManager.moveImage(imgPathFrom, folder, nomeImg);
 					list.remove(imgPathFrom);
 				}
@@ -198,7 +205,9 @@ public class ExitSaveDialog extends JDialog
 					ArrayList<String> list = AnimeIndex.completedToSeeSessionAnime;
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					if (!imgPathFrom.equals(FileManager.getImageFolderPath() + folder + File.separator + nomeImg))
+					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
+					File img = new File(imgPathTo);
+					if (!imgPathFrom.equals(imgPathTo) && !img.isFile())
 						FileManager.moveImage(imgPathFrom, folder, nomeImg);
 					list.remove(imgPathFrom);
 				}			

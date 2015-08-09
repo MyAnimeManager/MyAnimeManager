@@ -753,10 +753,11 @@ public class AddAnimeDialog extends JDialog
 							boolean contains = false;
 							if(checkCompletedList==false && checkAiringList==false && checkOAVList==false && checkFilmList==false && checkToSeeList==false)
 							{
+								
 								if (listName.equalsIgnoreCase("anime completati"))
 								{
 									AnimeIndex.completedModel.addElement(name);
-	
+									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 									imageLink = imageLink.replaceAll("\\\\/", "/");
 									String imageName = name.replaceAll("\\\\", "_");
@@ -772,7 +773,7 @@ public class AddAnimeDialog extends JDialog
 																	"", "", animeType, releaseDate, finishDate, durationEp, false);
 									
 									AnimeIndex.completedMap.put(name, data);
-									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+									
 									AnimeIndex.completedList.clearSelection();
 									AnimeIndex.completedList.setSelectedValue(name, true);
 									String imagePath = AnimeIndex.completedMap.get(name).getImagePath("anime completati");
@@ -786,7 +787,7 @@ public class AddAnimeDialog extends JDialog
 								else if (listName.equalsIgnoreCase("anime in corso"))
 								{
 									AnimeIndex.airingModel.addElement(name);
-									
+									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 									imageLink = imageLink.replaceAll("\\\\/", "/");
 									String imageName = name.replaceAll("\\\\", "_");
@@ -802,7 +803,7 @@ public class AddAnimeDialog extends JDialog
 																	"", "", animeType, releaseDate, finishDate, durationEp, false);
 									
 									AnimeIndex.airingMap.put(name, data);
-									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+									
 									AnimeIndex.airingList.clearSelection();
 									AnimeIndex.airingList.setSelectedValue(name, true);
 									String imagePath = AnimeIndex.airingMap.get(name).getImagePath("anime in corso");
@@ -816,7 +817,7 @@ public class AddAnimeDialog extends JDialog
 								else if (listName.equalsIgnoreCase("oav"))
 								{
 									AnimeIndex.ovaModel.addElement(name);
-									
+									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 									imageLink = imageLink.replaceAll("\\\\/", "/");
 									String imageName = name.replaceAll("\\\\", "_");
@@ -832,7 +833,7 @@ public class AddAnimeDialog extends JDialog
 											"", "", animeType, releaseDate, finishDate, durationEp, false);
 									
 									AnimeIndex.ovaMap.put(name, data);
-									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+									
 									AnimeIndex.ovaList.clearSelection();
 									AnimeIndex.ovaList.setSelectedValue(name, true);
 									String imagePath = AnimeIndex.ovaMap.get(name).getImagePath("oav");
@@ -846,7 +847,7 @@ public class AddAnimeDialog extends JDialog
 								else if (listName.equalsIgnoreCase("film"))
 								{
 									AnimeIndex.filmModel.addElement(name);
-									
+									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 									imageLink = imageLink.replaceAll("\\\\/", "/");
 									String imageName = name.replaceAll("\\\\", "_");
@@ -862,7 +863,7 @@ public class AddAnimeDialog extends JDialog
 											"", "", animeType, releaseDate, finishDate, durationEp, false);
 	
 									AnimeIndex.filmMap.put(name, data);
-									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+									
 									AnimeIndex.filmList.clearSelection();
 									AnimeIndex.filmList.setSelectedValue(name, true);
 									String imagePath = AnimeIndex.filmMap.get(name).getImagePath("film");
@@ -876,7 +877,7 @@ public class AddAnimeDialog extends JDialog
 								else if (listName.equalsIgnoreCase("completi da vedere"))
 								{
 									AnimeIndex.completedToSeeModel.addElement(name);
-									
+									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 									imageLink = imageLink.replaceAll("\\\\/", "/");
 									String imageName = name.replaceAll("\\\\", "_");
@@ -892,7 +893,7 @@ public class AddAnimeDialog extends JDialog
 																	"", "", animeType, releaseDate, finishDate, durationEp,false);
 									
 									AnimeIndex.completedToSeeMap.put(name, data);
-									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+									
 									AnimeIndex.completedToSeeList.clearSelection();
 									AnimeIndex.completedToSeeList.setSelectedValue(name, true);
 									String imagePath = AnimeIndex.completedToSeeMap.get(name).getImagePath("completi da vedere");
@@ -903,6 +904,8 @@ public class AddAnimeDialog extends JDialog
 										AnimeIndex.completedToSeeDeletedAnime.remove(imagePath);
 									}
 								}
+								if(!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !AnimeIndex.ovaMap.containsKey(name) && !AnimeIndex.filmMap.containsKey(name) && !AnimeIndex.completedToSeeMap.containsKey(name))
+									AnimeIndex.sessionAddedAnime.add(name);
 							}
 							else
 							{
@@ -953,11 +956,12 @@ public class AddAnimeDialog extends JDialog
 									}
 								}
 								if(ok==true)
-								{
+								{	
+									String imagePath="";
 									if (listName.equalsIgnoreCase("anime completati"))
 									{
 										AnimeIndex.completedModel.addElement(name);
-		
+										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 										String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 										imageLink = imageLink.replaceAll("\\\\/", "/");
 										String imageName = name.replaceAll("\\\\", "_");
@@ -973,10 +977,10 @@ public class AddAnimeDialog extends JDialog
 																		"", "", animeType, releaseDate, finishDate, durationEp, false);
 										
 										AnimeIndex.completedMap.put(name, data);
-										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+										
 										AnimeIndex.completedList.clearSelection();
 										AnimeIndex.completedList.setSelectedValue(name, true);
-										String imagePath = AnimeIndex.completedMap.get(name).getImagePath("anime completati");
+										imagePath = AnimeIndex.completedMap.get(name).getImagePath("anime completati");
 										AnimeIndex.completedSessionAnime.add(imagePath);
 										if (AnimeIndex.completedDeletedAnime.contains(imagePath))
 										{
@@ -987,7 +991,7 @@ public class AddAnimeDialog extends JDialog
 									else if (listName.equalsIgnoreCase("anime in corso"))
 									{
 										AnimeIndex.airingModel.addElement(name);
-										
+										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 										String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 										imageLink = imageLink.replaceAll("\\\\/", "/");
 										String imageName = name.replaceAll("\\\\", "_");
@@ -1003,10 +1007,10 @@ public class AddAnimeDialog extends JDialog
 																		"", "", animeType, releaseDate, finishDate, durationEp, false);
 										
 										AnimeIndex.airingMap.put(name, data);
-										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+										
 										AnimeIndex.airingList.clearSelection();
 										AnimeIndex.airingList.setSelectedValue(name, true);
-										String imagePath = AnimeIndex.airingMap.get(name).getImagePath("anime in corso");
+										imagePath = AnimeIndex.airingMap.get(name).getImagePath("anime in corso");
 										AnimeIndex.airingSessionAnime.add(imagePath);
 										if (AnimeIndex.airingDeletedAnime.contains(imagePath))
 										{
@@ -1017,7 +1021,7 @@ public class AddAnimeDialog extends JDialog
 									else if (listName.equalsIgnoreCase("oav"))
 									{
 										AnimeIndex.ovaModel.addElement(name);
-										
+										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 										String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 										imageLink = imageLink.replaceAll("\\\\/", "/");
 										String imageName = name.replaceAll("\\\\", "_");
@@ -1033,10 +1037,10 @@ public class AddAnimeDialog extends JDialog
 												"", "", animeType, releaseDate, finishDate, durationEp, false);
 										
 										AnimeIndex.ovaMap.put(name, data);
-										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+										
 										AnimeIndex.ovaList.clearSelection();
 										AnimeIndex.ovaList.setSelectedValue(name, true);
-										String imagePath = AnimeIndex.ovaMap.get(name).getImagePath("oav");
+										imagePath = AnimeIndex.ovaMap.get(name).getImagePath("oav");
 										AnimeIndex.ovaSessionAnime.add(imagePath);
 										if (AnimeIndex.ovaDeletedAnime.contains(imagePath))
 										{
@@ -1047,7 +1051,7 @@ public class AddAnimeDialog extends JDialog
 									else if (listName.equalsIgnoreCase("film"))
 									{
 										AnimeIndex.filmModel.addElement(name);
-										
+										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 										String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 										imageLink = imageLink.replaceAll("\\\\/", "/");
 										String imageName = name.replaceAll("\\\\", "_");
@@ -1063,10 +1067,10 @@ public class AddAnimeDialog extends JDialog
 												"", "", animeType, releaseDate, finishDate, durationEp, false);
 		
 										AnimeIndex.filmMap.put(name, data);
-										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+										
 										AnimeIndex.filmList.clearSelection();
 										AnimeIndex.filmList.setSelectedValue(name, true);
-										String imagePath = AnimeIndex.filmMap.get(name).getImagePath("film");
+										imagePath = AnimeIndex.filmMap.get(name).getImagePath("film");
 										AnimeIndex.filmSessionAnime.add(imagePath);
 										if (AnimeIndex.filmDeletedAnime.contains(imagePath))
 										{
@@ -1077,7 +1081,7 @@ public class AddAnimeDialog extends JDialog
 									else if (listName.equalsIgnoreCase("completi da vedere"))
 									{
 										AnimeIndex.completedToSeeModel.addElement(name);
-										
+										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 										String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 										imageLink = imageLink.replaceAll("\\\\/", "/");
 										String imageName = name.replaceAll("\\\\", "_");
@@ -1093,10 +1097,10 @@ public class AddAnimeDialog extends JDialog
 																		"", "", animeType, releaseDate, finishDate, durationEp,false);
 										
 										AnimeIndex.completedToSeeMap.put(name, data);
-										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+										
 										AnimeIndex.completedToSeeList.clearSelection();
 										AnimeIndex.completedToSeeList.setSelectedValue(name, true);
-										String imagePath = AnimeIndex.completedToSeeMap.get(name).getImagePath("completi da vedere");
+										imagePath = AnimeIndex.completedToSeeMap.get(name).getImagePath("completi da vedere");
 										AnimeIndex.completedToSeeSessionAnime.add(imagePath);
 										if (AnimeIndex.completedToSeeDeletedAnime.contains(imagePath))
 										{
@@ -1104,13 +1108,14 @@ public class AddAnimeDialog extends JDialog
 											AnimeIndex.completedToSeeDeletedAnime.remove(imagePath);
 										}
 									}
+									if(!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !AnimeIndex.ovaMap.containsKey(name) && !AnimeIndex.filmMap.containsKey(name) && !AnimeIndex.completedToSeeMap.containsKey(name))
+										AnimeIndex.sessionAddedAnime.add(name);
 								}
 							}
 							if(AnimeIndex.filtro != 9)
 						    {
 							    Filters.removeFilters();
 						    }
-							AnimeIndex.sessionAddedAnime.add(name);
 							if (!contains && !keepOpen.isSelected())
 							{
 							JButton but = (JButton) e.getSource();
