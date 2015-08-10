@@ -612,6 +612,7 @@ public class AnimeIndex extends JFrame
 		animeTypeComboBox.setMaximumRowCount(2139120439);
 		animeTypeComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent evt) {
+				//TODO al 99% il problema è qui o nei metodi all'interno
 				CardLayout cl = (CardLayout)(cardContainer.getLayout());
 		        cl.show(cardContainer, (String)evt.getItem());
 		        saveModifiedInformation(list);
@@ -651,6 +652,7 @@ public class AnimeIndex extends JFrame
 		        else
 		        	AnimeIndex.animeInformation.finishedButton.setEnabled(false);
 		         }
+		        //TODO controlla che usi la lista giusta sto metodo. il saveModifiedInformation senza argomenti lo fa sulla lista che è visualizzata dalla combo box. se vuoi farlo sulla lista precedente devi usare quella con un argomento
 		        Filters.toFileteredList();
 		     }
 		});
@@ -1037,7 +1039,7 @@ public class AnimeIndex extends JFrame
 		searchList.setFont(segui.deriveFont(12f));
 		searchList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				applyListSelectionChange(AnimeIndex.searchList);
+//				applyListSelectionChange(AnimeIndex.searchList);
 				String cBox = (String)animeTypeComboBox.getSelectedItem();
 				if(cBox.equalsIgnoreCase("Anime Completati"))
 				{
@@ -1230,7 +1232,7 @@ public class AnimeIndex extends JFrame
 		filterList.setFont(segui.deriveFont(12f));
 		filterList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				applyListSelectionChange(AnimeIndex.filterList);
+//				applyListSelectionChange(AnimeIndex.filterList);
 				String cBox = (String)animeTypeComboBox.getSelectedItem();
 				if(cBox.equalsIgnoreCase("Anime Completati"))
 				{
@@ -1754,6 +1756,7 @@ public class AnimeIndex extends JFrame
 
 	public void saveModifiedInformation(String list)
 	{
+		//TODO probabilmente è qui
 		if(!animeInformation.lblAnimeName.getText().equalsIgnoreCase("Anime"))
 		{
 			String name = animeInformation.lblAnimeName.getText();
@@ -1833,9 +1836,9 @@ public class AnimeIndex extends JFrame
 			deleteButton.setEnabled(true);
 			JList list = jList;
 			String anime = (String) list.getSelectedValue();
-			if (anime != null)
+			if (anime != null || !jList.isSelectionEmpty())
 			{
-			TreeMap<String,AnimeData> map = getMap();
+			TreeMap<String,AnimeData> map = getMap();			
 			AnimeData data = map.get(anime);
 			animeInformation.setAnimeName(anime);
 			animeInformation.setCurrentEp(data.getCurrentEpisode());

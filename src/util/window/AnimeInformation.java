@@ -1030,7 +1030,7 @@ public class AnimeInformation extends JPanel
 		    		AnimeIndex.animeInformation.setBlank();
 				}
 			}
-		});
+	});
 		GridBagConstraints gbc_addToSeeButton = new GridBagConstraints();
 		gbc_addToSeeButton.anchor = GridBagConstraints.EAST;
 		gbc_addToSeeButton.gridwidth = 5;
