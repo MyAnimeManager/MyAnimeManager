@@ -44,6 +44,7 @@ import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
@@ -773,6 +774,27 @@ public class AnimeIndex extends JFrame
 		completedAnimeScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 
 		completedList = new JList(completedModel);
+		//TODO da rivedere se implementare
+//		completedList.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mousePressed(MouseEvent e) {
+//				if (SwingUtilities.isRightMouseButton(e))
+//				{
+//					JPopupMenu menu = new JPopupMenu();
+//	                JMenuItem item = new JMenuItem("Elimina");
+//	                item.addActionListener(new ActionListener() {
+//	                    public void actionPerformed(ActionEvent e) {
+//	                        JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Hello "
+//	                                + completedList.getSelectedValue());
+//	                    }
+//	                });
+//	                menu.add(item);
+//	                menu.show(completedList, 
+//	                		e.getX(),e.getY()
+//	                		);
+//				}
+//			}
+//		});
 		completedList.setFont(segui.deriveFont(12f));
 		completedList.setMaximumSize(new Dimension(157, 233));
 		completedList.setMinimumSize(new Dimension(138, 233));

@@ -16,6 +16,11 @@ public class LoadingTask extends SwingWorker
 		FileManager.loadAnime("ova.txt", AnimeIndex.ovaModel, AnimeIndex.ovaMap);
 		FileManager.loadAnime("film.txt", AnimeIndex.filmModel, AnimeIndex.filmMap);
 		FileManager.loadAnime("toSee.txt", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
+		AnimeIndex.completedList.repaint();
+		AnimeIndex.airingList.repaint();
+		AnimeIndex.ovaList.repaint();
+		AnimeIndex.filmList.repaint();
+		AnimeIndex.completedToSeeList.repaint();
 		return null;
 	}
 
