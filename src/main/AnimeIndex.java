@@ -133,7 +133,7 @@ public class AnimeIndex extends JFrame
 	public static SearchBar searchBar;
 	public static AddFansubDialog fansubDialog;
 	public static JButton setFilterButton;
-	private String list;
+	public static String list;
 	public static boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
 	public static int filtro = 9;
 	public static Font segui;
@@ -614,9 +614,9 @@ public class AnimeIndex extends JFrame
 		animeTypeComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent evt) {
 				//TODO al 99% il problema è qui o nei metodi all'interno
+				saveModifiedInformation(list);
 				CardLayout cl = (CardLayout)(cardContainer.getLayout());
 		        cl.show(cardContainer, (String)evt.getItem());
-		        saveModifiedInformation(list);
 		        if (deleteButton.isEnabled())
 		        { 
 		        	deleteButton.setEnabled(false);	
