@@ -59,6 +59,8 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JCheckBox;
 import java.awt.TextField;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 
 public class AddAnimeDialog extends JDialog
 {
@@ -80,6 +82,15 @@ public class AddAnimeDialog extends JDialog
 	public static boolean checkOAVList;
 	public static boolean checkFilmList;
 	public static boolean checkToSeeList;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTextField textField_8;
 
 	/**
 	 * Create the dialog.
@@ -94,7 +105,7 @@ public class AddAnimeDialog extends JDialog
 		});
 		setTitle("Aggiungi anime");
 		setResizable(false);
-		setBounds(100, 100, 580, 318);
+		setBounds(100, 100, 580, 345);
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
 		{
@@ -102,7 +113,6 @@ public class AddAnimeDialog extends JDialog
 			getContentPane().add(tabbedPane, BorderLayout.CENTER);
 			{
 				normalAddPanel = new JPanel();
-				normalAddPanel.setLayout(new BorderLayout(0, 0));
 				{
 					String[] dayWeek = {"?????","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica", "Concluso"};
 //					if (!((String)AnimeIndex.animeTypeComboBox.getSelectedItem()).equalsIgnoreCase("anime in corso"))
@@ -115,29 +125,12 @@ public class AddAnimeDialog extends JDialog
 				{
 					String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
 				}
-				{
-					JPanel buttonPane = new JPanel();
-					normalAddPanel.add(buttonPane, BorderLayout.SOUTH);
-					FlowLayout fl_buttonPane = new FlowLayout(FlowLayout.CENTER);
-					fl_buttonPane.setHgap(100);
-					buttonPane.setLayout(fl_buttonPane);
-					{
-						JButton addButton = new JButton("Aggiungi");
-
-						buttonPane.add(addButton);
-					}
-					{
-						JButton cancelButton = new JButton("Esci");
-						cancelButton.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								JButton but = (JButton) e.getSource();
-								JDialog dialog = (JDialog) but.getTopLevelAncestor();
-								dialog.dispose();
-							}
-						});
-						buttonPane.add(cancelButton);
-					}
-				}
+				GridBagLayout gbl_normalAddPanel = new GridBagLayout();
+				gbl_normalAddPanel.columnWidths = new int[]{263, 569, 0};
+				gbl_normalAddPanel.rowHeights = new int[]{229, 33, 0};
+				gbl_normalAddPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+				gbl_normalAddPanel.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+				normalAddPanel.setLayout(gbl_normalAddPanel);
 			}
 			{
 				anilistAddPanel = new JPanel();
@@ -636,6 +629,337 @@ public class AddAnimeDialog extends JDialog
 				}
 				tabbedPane.addTab("Aggiunta da Anilist", null, anilistAddPanel, null);
 				tabbedPane.addTab("Aggiunta manuale", null, normalAddPanel, null);
+				{
+					JPanel dataPanel = new JPanel();
+					GridBagConstraints gbc_dataPanel = new GridBagConstraints();
+					gbc_dataPanel.gridwidth = 2;
+					gbc_dataPanel.insets = new Insets(0, 0, 5, 0);
+					gbc_dataPanel.fill = GridBagConstraints.BOTH;
+					gbc_dataPanel.gridx = 0;
+					gbc_dataPanel.gridy = 0;
+					normalAddPanel.add(dataPanel, gbc_dataPanel);
+					GridBagLayout gbl_dataPanel = new GridBagLayout();
+					gbl_dataPanel.columnWidths = new int[]{90, 34, -3, 34, -1, 56, 64, 24, 4, 26, 4, 52, 0, 51, 50, 0};
+					gbl_dataPanel.rowHeights = new int[]{20, 20, 20, 20, 20, 23, 20, 0, 20, 0, 0};
+					gbl_dataPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+					gbl_dataPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+					dataPanel.setLayout(gbl_dataPanel);
+					{
+						JLabel lblNome = new JLabel("Nome :");
+						GridBagConstraints gbc_lblNome = new GridBagConstraints();
+						gbc_lblNome.insets = new Insets(0, 0, 5, 5);
+						gbc_lblNome.gridx = 0;
+						gbc_lblNome.gridy = 0;
+						dataPanel.add(lblNome, gbc_lblNome);
+					}
+					{
+						textField = new JTextField();
+						GridBagConstraints gbc_textField = new GridBagConstraints();
+						gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+						gbc_textField.insets = new Insets(0, 0, 5, 5);
+						gbc_textField.gridwidth = 10;
+						gbc_textField.gridx = 1;
+						gbc_textField.gridy = 0;
+						dataPanel.add(textField, gbc_textField);
+						textField.setColumns(10);
+					}
+					{
+						JComboBox comboBox = new JComboBox();
+						GridBagConstraints gbc_comboBox = new GridBagConstraints();
+						gbc_comboBox.gridwidth = 3;
+						gbc_comboBox.insets = new Insets(0, 0, 5, 0);
+						gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+						gbc_comboBox.gridx = 12;
+						gbc_comboBox.gridy = 0;
+						dataPanel.add(comboBox, gbc_comboBox);
+					}
+					{
+						JLabel lblTipo = new JLabel("Tipo :");
+						GridBagConstraints gbc_lblTipo = new GridBagConstraints();
+						gbc_lblTipo.insets = new Insets(0, 0, 5, 5);
+						gbc_lblTipo.gridx = 0;
+						gbc_lblTipo.gridy = 1;
+						dataPanel.add(lblTipo, gbc_lblTipo);
+					}
+					{
+						JComboBox comboBox = new JComboBox();
+						GridBagConstraints gbc_comboBox = new GridBagConstraints();
+						gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+						gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+						gbc_comboBox.gridwidth = 3;
+						gbc_comboBox.gridx = 1;
+						gbc_comboBox.gridy = 1;
+						dataPanel.add(comboBox, gbc_comboBox);
+					}
+					{
+						JLabel lblEpisodiTotali = new JLabel("Episodi Totali :");
+						GridBagConstraints gbc_lblEpisodiTotali = new GridBagConstraints();
+						gbc_lblEpisodiTotali.insets = new Insets(0, 0, 5, 5);
+						gbc_lblEpisodiTotali.gridx = 0;
+						gbc_lblEpisodiTotali.gridy = 2;
+						dataPanel.add(lblEpisodiTotali, gbc_lblEpisodiTotali);
+					}
+					{
+						textField_1 = new JTextField();
+						GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+						gbc_textField_1.gridwidth = 2;
+						gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+						gbc_textField_1.insets = new Insets(0, 0, 5, 5);
+						gbc_textField_1.gridx = 1;
+						gbc_textField_1.gridy = 2;
+						dataPanel.add(textField_1, gbc_textField_1);
+						textField_1.setColumns(10);
+					}
+					{
+						JLabel lblControllaIn_1 = new JLabel("Controlla in :");
+						GridBagConstraints gbc_lblControllaIn_1 = new GridBagConstraints();
+						gbc_lblControllaIn_1.anchor = GridBagConstraints.SOUTH;
+						gbc_lblControllaIn_1.gridwidth = 3;
+						gbc_lblControllaIn_1.insets = new Insets(0, 0, 5, 0);
+						gbc_lblControllaIn_1.gridx = 12;
+						gbc_lblControllaIn_1.gridy = 2;
+						dataPanel.add(lblControllaIn_1, gbc_lblControllaIn_1);
+					}
+					{
+						JLabel lblDurataEpisodio = new JLabel("Durata Episodio :");
+						GridBagConstraints gbc_lblDurataEpisodio = new GridBagConstraints();
+						gbc_lblDurataEpisodio.insets = new Insets(0, 0, 5, 5);
+						gbc_lblDurataEpisodio.gridx = 0;
+						gbc_lblDurataEpisodio.gridy = 3;
+						dataPanel.add(lblDurataEpisodio, gbc_lblDurataEpisodio);
+					}
+					{
+						textField_2 = new JTextField();
+						GridBagConstraints gbc_textField_2 = new GridBagConstraints();
+						gbc_textField_2.gridwidth = 3;
+						gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
+						gbc_textField_2.insets = new Insets(0, 0, 5, 5);
+						gbc_textField_2.gridx = 1;
+						gbc_textField_2.gridy = 3;
+						dataPanel.add(textField_2, gbc_textField_2);
+						textField_2.setColumns(10);
+					}
+					{
+						JToggleButton tglbtnNewToggleButton = new JToggleButton("Seleziona Lista");
+						GridBagConstraints gbc_tglbtnNewToggleButton = new GridBagConstraints();
+						gbc_tglbtnNewToggleButton.fill = GridBagConstraints.HORIZONTAL;
+						gbc_tglbtnNewToggleButton.gridwidth = 3;
+						gbc_tglbtnNewToggleButton.insets = new Insets(0, 0, 5, 0);
+						gbc_tglbtnNewToggleButton.gridx = 12;
+						gbc_tglbtnNewToggleButton.gridy = 3;
+						dataPanel.add(tglbtnNewToggleButton, gbc_tglbtnNewToggleButton);
+					}
+					{
+						JLabel lblFansub = new JLabel("Fansub :");
+						GridBagConstraints gbc_lblFansub = new GridBagConstraints();
+						gbc_lblFansub.insets = new Insets(0, 0, 5, 5);
+						gbc_lblFansub.gridx = 0;
+						gbc_lblFansub.gridy = 4;
+						dataPanel.add(lblFansub, gbc_lblFansub);
+					}
+					{
+						JComboBox comboBox = new JComboBox();
+						GridBagConstraints gbc_comboBox = new GridBagConstraints();
+						gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+						gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+						gbc_comboBox.gridwidth = 5;
+						gbc_comboBox.gridx = 1;
+						gbc_comboBox.gridy = 4;
+						dataPanel.add(comboBox, gbc_comboBox);
+					}
+					{
+						JLabel lblLink = new JLabel("Link :");
+						GridBagConstraints gbc_lblLink = new GridBagConstraints();
+						gbc_lblLink.insets = new Insets(0, 0, 5, 5);
+						gbc_lblLink.gridx = 0;
+						gbc_lblLink.gridy = 5;
+						dataPanel.add(lblLink, gbc_lblLink);
+					}
+					{
+						JButton btnImpostaLink = new JButton("Imposta Link");
+						GridBagConstraints gbc_btnImpostaLink = new GridBagConstraints();
+						gbc_btnImpostaLink.fill = GridBagConstraints.HORIZONTAL;
+						gbc_btnImpostaLink.insets = new Insets(0, 0, 5, 5);
+						gbc_btnImpostaLink.gridwidth = 5;
+						gbc_btnImpostaLink.gridx = 1;
+						gbc_btnImpostaLink.gridy = 5;
+						dataPanel.add(btnImpostaLink, gbc_btnImpostaLink);
+					}
+					{
+						JLabel lblDataDiInizio = new JLabel("Data di Inizio :");
+						GridBagConstraints gbc_lblDataDiInizio = new GridBagConstraints();
+						gbc_lblDataDiInizio.insets = new Insets(0, 0, 5, 5);
+						gbc_lblDataDiInizio.gridx = 0;
+						gbc_lblDataDiInizio.gridy = 6;
+						dataPanel.add(lblDataDiInizio, gbc_lblDataDiInizio);
+					}
+					{
+						textField_3 = new JTextField();
+						GridBagConstraints gbc_textField_3 = new GridBagConstraints();
+						gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
+						gbc_textField_3.insets = new Insets(0, 0, 5, 5);
+						gbc_textField_3.gridx = 1;
+						gbc_textField_3.gridy = 6;
+						dataPanel.add(textField_3, gbc_textField_3);
+						textField_3.setColumns(10);
+					}
+					{
+						JLabel label = new JLabel("/");
+						GridBagConstraints gbc_label = new GridBagConstraints();
+						gbc_label.anchor = GridBagConstraints.EAST;
+						gbc_label.insets = new Insets(0, 0, 5, 5);
+						gbc_label.gridx = 2;
+						gbc_label.gridy = 6;
+						dataPanel.add(label, gbc_label);
+					}
+					{
+						textField_4 = new JTextField();
+						GridBagConstraints gbc_textField_4 = new GridBagConstraints();
+						gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
+						gbc_textField_4.insets = new Insets(0, 0, 5, 5);
+						gbc_textField_4.gridx = 3;
+						gbc_textField_4.gridy = 6;
+						dataPanel.add(textField_4, gbc_textField_4);
+						textField_4.setColumns(10);
+					}
+					{
+						JLabel label = new JLabel("/");
+						GridBagConstraints gbc_label = new GridBagConstraints();
+						gbc_label.anchor = GridBagConstraints.WEST;
+						gbc_label.insets = new Insets(0, 0, 5, 5);
+						gbc_label.gridx = 4;
+						gbc_label.gridy = 6;
+						dataPanel.add(label, gbc_label);
+					}
+					{
+						textField_5 = new JTextField();
+						GridBagConstraints gbc_textField_5 = new GridBagConstraints();
+						gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
+						gbc_textField_5.insets = new Insets(0, 0, 5, 5);
+						gbc_textField_5.gridx = 5;
+						gbc_textField_5.gridy = 6;
+						dataPanel.add(textField_5, gbc_textField_5);
+						textField_5.setColumns(10);
+					}
+					{
+						JTextPane txtpnConLaggiuntaManuale = new JTextPane();
+						txtpnConLaggiuntaManuale.setFont(new Font("Tahoma", Font.PLAIN, 10));
+						txtpnConLaggiuntaManuale.setEnabled(false);
+						txtpnConLaggiuntaManuale.setText("Con l'aggiunta manuale la funzione di controllo e aggiornamento dati sar\u00E0 disattivata. Anche il collegamento alla pagina AniList dell'anime non sar\u00E0 disponibile.");
+						GridBagConstraints gbc_txtpnConLaggiuntaManuale = new GridBagConstraints();
+						gbc_txtpnConLaggiuntaManuale.fill = GridBagConstraints.HORIZONTAL;
+						gbc_txtpnConLaggiuntaManuale.gridheight = 4;
+						gbc_txtpnConLaggiuntaManuale.gridwidth = 7;
+						gbc_txtpnConLaggiuntaManuale.gridx = 8;
+						gbc_txtpnConLaggiuntaManuale.gridy = 6;
+						dataPanel.add(txtpnConLaggiuntaManuale, gbc_txtpnConLaggiuntaManuale);
+					}
+					{
+						JLabel lblDataDiFine = new JLabel("Data di Fine :");
+						GridBagConstraints gbc_lblDataDiFine = new GridBagConstraints();
+						gbc_lblDataDiFine.insets = new Insets(0, 0, 5, 5);
+						gbc_lblDataDiFine.gridx = 0;
+						gbc_lblDataDiFine.gridy = 7;
+						dataPanel.add(lblDataDiFine, gbc_lblDataDiFine);
+					}
+					{
+						textField_6 = new JTextField();
+						GridBagConstraints gbc_textField_6 = new GridBagConstraints();
+						gbc_textField_6.anchor = GridBagConstraints.NORTH;
+						gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
+						gbc_textField_6.insets = new Insets(0, 0, 5, 5);
+						gbc_textField_6.gridx = 1;
+						gbc_textField_6.gridy = 7;
+						dataPanel.add(textField_6, gbc_textField_6);
+						textField_6.setColumns(10);
+					}
+					{
+						JLabel label = new JLabel("/");
+						GridBagConstraints gbc_label = new GridBagConstraints();
+						gbc_label.anchor = GridBagConstraints.EAST;
+						gbc_label.insets = new Insets(0, 0, 5, 5);
+						gbc_label.gridx = 2;
+						gbc_label.gridy = 7;
+						dataPanel.add(label, gbc_label);
+					}
+					{
+						textField_7 = new JTextField();
+						GridBagConstraints gbc_textField_7 = new GridBagConstraints();
+						gbc_textField_7.anchor = GridBagConstraints.NORTH;
+						gbc_textField_7.fill = GridBagConstraints.HORIZONTAL;
+						gbc_textField_7.insets = new Insets(0, 0, 5, 5);
+						gbc_textField_7.gridx = 3;
+						gbc_textField_7.gridy = 7;
+						dataPanel.add(textField_7, gbc_textField_7);
+						textField_7.setColumns(10);
+					}
+					{
+						JLabel label = new JLabel("/");
+						GridBagConstraints gbc_label = new GridBagConstraints();
+						gbc_label.anchor = GridBagConstraints.WEST;
+						gbc_label.insets = new Insets(0, 0, 5, 5);
+						gbc_label.gridx = 4;
+						gbc_label.gridy = 7;
+						dataPanel.add(label, gbc_label);
+					}
+					{
+						textField_8 = new JTextField();
+						GridBagConstraints gbc_textField_8 = new GridBagConstraints();
+						gbc_textField_8.fill = GridBagConstraints.HORIZONTAL;
+						gbc_textField_8.insets = new Insets(0, 0, 5, 5);
+						gbc_textField_8.gridx = 5;
+						gbc_textField_8.gridy = 7;
+						dataPanel.add(textField_8, gbc_textField_8);
+						textField_8.setColumns(10);
+					}
+					{
+						JLabel lblGiornoDiUscita = new JLabel("Giorno di Uscita :");
+						GridBagConstraints gbc_lblGiornoDiUscita = new GridBagConstraints();
+						gbc_lblGiornoDiUscita.insets = new Insets(0, 0, 5, 5);
+						gbc_lblGiornoDiUscita.gridx = 0;
+						gbc_lblGiornoDiUscita.gridy = 8;
+						dataPanel.add(lblGiornoDiUscita, gbc_lblGiornoDiUscita);
+					}
+					{
+						JComboBox comboBox = new JComboBox();
+						GridBagConstraints gbc_comboBox = new GridBagConstraints();
+						gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+						gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+						gbc_comboBox.gridwidth = 5;
+						gbc_comboBox.gridx = 1;
+						gbc_comboBox.gridy = 8;
+						dataPanel.add(comboBox, gbc_comboBox);
+					}
+				}
+				{
+					JPanel buttonPane = new JPanel();
+					GridBagConstraints gbc_buttonPane = new GridBagConstraints();
+					gbc_buttonPane.gridwidth = 2;
+					gbc_buttonPane.anchor = GridBagConstraints.NORTH;
+					gbc_buttonPane.fill = GridBagConstraints.HORIZONTAL;
+					gbc_buttonPane.gridx = 0;
+					gbc_buttonPane.gridy = 1;
+					normalAddPanel.add(buttonPane, gbc_buttonPane);
+					FlowLayout fl_buttonPane = new FlowLayout(FlowLayout.CENTER);
+					fl_buttonPane.setHgap(100);
+					buttonPane.setLayout(fl_buttonPane);
+					{
+						JButton addButton = new JButton("Aggiungi");
+
+						buttonPane.add(addButton);
+					}
+					{
+						JButton cancelButton = new JButton("Esci");
+						cancelButton.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								JButton but = (JButton) e.getSource();
+								JDialog dialog = (JDialog) but.getTopLevelAncestor();
+								dialog.dispose();
+							}
+						});
+						buttonPane.add(cancelButton);
+					}
+				}
 				{
 					JPanel button2Panel = new JPanel();
 					anilistAddPanel.add(button2Panel, BorderLayout.SOUTH);
