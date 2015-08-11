@@ -15,6 +15,7 @@ public class UpdateAnimeDataTask extends SwingWorker
 	@Override
 	protected Object doInBackground() throws Exception
 	{
+		AnimeIndex.saveModifiedInformation();
 		ConnectionManager.ConnectAndGetToken();
 		String name = (String) AnimeIndex.getJList().getSelectedValue();
 		TreeMap<String,AnimeData> map = AnimeIndex.getMap();
@@ -29,14 +30,14 @@ public class UpdateAnimeDataTask extends SwingWorker
 		int id = Integer.parseInt(oldData.getId());
 		String data = ConnectionManager.parseAnimeData(id);
 		
-		if (totalEp.contains("?"))
+		if (totalEp.contains("??"))
 		{
 			totalEp = ConnectionManager.getAnimeData("total_episodes", data);
 			if(totalEp.equals("null")||totalEp.equals("0"))
 				totalEp = "??";
 		}
 		
-		if (duration.contains("?"))
+		if (duration.contains("?? min"))
 		{
 			duration = ConnectionManager.getAnimeData("duration", data);
 			
@@ -46,7 +47,7 @@ public class UpdateAnimeDataTask extends SwingWorker
 				duration += " min";
 		}
 		
-		if (startDate.contains("?"))
+		if (startDate.contains("??/??/????") && startDate.contains("??/??"))
 		{
 			startDate = ConnectionManager.getAnimeData("start_date", data);
 			
@@ -98,7 +99,6 @@ public class UpdateAnimeDataTask extends SwingWorker
 		{
 			type = ConnectionManager.getAnimeData("type", data);
 		}
-		
 				
 		AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), totalEp, oldData.getFansub(), 
 			    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
