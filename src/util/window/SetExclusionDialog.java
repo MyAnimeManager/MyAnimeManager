@@ -40,17 +40,26 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLayeredPane;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class SetExclusionDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private SearchBar searchBarCheck;
 	private SearchBar searchBarExlusions;
-
+	private JComboBox comboBox;
+	private JButton cancelButton;
 	/**
 	 * Create the dialog.
 	 */
 	public SetExclusionDialog() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				cancelButton.requestFocusInWindow();
+			}
+		});
 		setTitle("Esclusioni");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);
@@ -203,7 +212,7 @@ public class SetExclusionDialog extends JDialog {
 			contentPanel.add(rigidArea, gbc_rigidArea);
 		}
 		{
-			JComboBox comboBox = new JComboBox();
+			comboBox = new JComboBox();
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere"}));
 			GridBagConstraints gbc_comboBox = new GridBagConstraints();
 			gbc_comboBox.gridwidth = 2;
@@ -232,7 +241,7 @@ public class SetExclusionDialog extends JDialog {
 			getRootPane().setDefaultButton(okButton);
 		}
 		{
-			JButton cancelButton = new JButton("Annulla");
+			cancelButton = new JButton("Annulla");
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					JButton but = (JButton) arg0.getSource();

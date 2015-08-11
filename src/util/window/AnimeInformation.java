@@ -293,6 +293,7 @@ public class AnimeInformation extends JPanel
 					if (num == 0)
 					{
 						minusButton.setEnabled(false);
+						plusButton.requestFocusInWindow();
 					}
 					
 					if ( (totalEpisodeText.getText()) != null && !(totalEpisodeText.getText().isEmpty()))
