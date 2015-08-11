@@ -1,11 +1,9 @@
 package util.window;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -18,14 +16,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.Savepoint;
 import java.util.TreeMap;
 
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -46,6 +42,7 @@ import util.FileManager;
 import util.Filters;
 import util.PatternFilter;
 import util.SortedListModel;
+import util.task.UpdateAnimeDataTask;
 
 public class AnimeInformation extends JPanel
 {
@@ -708,7 +705,8 @@ public class AnimeInformation extends JPanel
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il Controllo Dati Automatico è già attivo.", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				else
 				{
-					//TODO completare controllo dati	
+					UpdateAnimeDataTask task = new UpdateAnimeDataTask();
+					task.execute();				
 				} 
 			}
 		});

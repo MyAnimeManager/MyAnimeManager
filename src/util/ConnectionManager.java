@@ -145,7 +145,7 @@ public class ConnectionManager
 	    result = StringEscapeUtils.unescapeJava(result);
 	    return result;
 	}
-	/*
+	/**
 	 * ottiene la risposta contentente tutte le informazioni
 	 * @param id l'id dell'anime di cui si vogliono le informazioni
 	 */
@@ -205,7 +205,7 @@ public class ConnectionManager
 		result = StringEscapeUtils.unescapeJava(result);
 		return result;
 	}
-	/*
+	/**
 	 * Prende i dati richiesti da una stringa contenente la risposta di anilist ottenuta con il metodo parseAnimeData di questa stessa classe
 	 * @param dataToGet il dato richiesto
 	 * @param animeData la stringa contenente la rispsota di anilist
