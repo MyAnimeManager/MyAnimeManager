@@ -784,6 +784,7 @@ public class AddAnimeDialog extends JDialog
 									{
 										AnimeIndex.completedSessionAnime.remove(imagePath);
 										AnimeIndex.completedDeletedAnime.remove(imagePath);
+										AnimeIndex.sessionAddedAnime.remove(name);
 									}
 								}				
 								else if (listName.equalsIgnoreCase("anime in corso"))
@@ -814,6 +815,7 @@ public class AddAnimeDialog extends JDialog
 									{
 										AnimeIndex.airingDeletedAnime.remove(imagePath);
 										AnimeIndex.airingDeletedAnime.remove(imagePath);
+										AnimeIndex.sessionAddedAnime.remove(name);
 									}
 								}
 								else if (listName.equalsIgnoreCase("oav"))
@@ -844,6 +846,7 @@ public class AddAnimeDialog extends JDialog
 									{
 										AnimeIndex.ovaSessionAnime.remove(imagePath);
 										AnimeIndex.ovaDeletedAnime.remove(imagePath);
+										AnimeIndex.sessionAddedAnime.remove(name);
 									}
 								}
 								else if (listName.equalsIgnoreCase("film"))
@@ -874,6 +877,7 @@ public class AddAnimeDialog extends JDialog
 									{
 										AnimeIndex.filmSessionAnime.remove(imagePath);
 										AnimeIndex.filmDeletedAnime.remove(imagePath);
+										AnimeIndex.sessionAddedAnime.remove(name);
 									}
 								}
 								else if (listName.equalsIgnoreCase("completi da vedere"))
@@ -990,6 +994,7 @@ public class AddAnimeDialog extends JDialog
 										{
 											AnimeIndex.completedSessionAnime.remove(imagePath);
 											AnimeIndex.completedDeletedAnime.remove(imagePath);
+											AnimeIndex.sessionAddedAnime.remove(name);
 										}
 									}
 									else if (listName.equalsIgnoreCase("anime in corso"))
@@ -1020,6 +1025,7 @@ public class AddAnimeDialog extends JDialog
 										{
 											AnimeIndex.airingDeletedAnime.remove(imagePath);
 											AnimeIndex.airingDeletedAnime.remove(imagePath);
+											AnimeIndex.sessionAddedAnime.remove(name);
 										}
 									}
 									else if (listName.equalsIgnoreCase("oav"))
@@ -1050,6 +1056,7 @@ public class AddAnimeDialog extends JDialog
 										{
 											AnimeIndex.ovaSessionAnime.remove(imagePath);
 											AnimeIndex.ovaDeletedAnime.remove(imagePath);
+											AnimeIndex.sessionAddedAnime.remove(name);
 										}
 									}
 									else if (listName.equalsIgnoreCase("film"))
@@ -1080,6 +1087,7 @@ public class AddAnimeDialog extends JDialog
 										{
 											AnimeIndex.filmSessionAnime.remove(imagePath);
 											AnimeIndex.filmDeletedAnime.remove(imagePath);
+											AnimeIndex.sessionAddedAnime.remove(name);
 										}
 									}
 									else if (listName.equalsIgnoreCase("completi da vedere"))
