@@ -232,7 +232,7 @@ public class AnimeInformation extends JPanel
 						currEp = Integer.parseInt(key + "");
 
 //					System.out.println(currEp);
-					System.out.println(key);
+//					System.out.println(key);
 					int totEp = Integer.parseInt(totalEpisodeText.getText());
 					if (currEp > totEp)
 					{
@@ -240,14 +240,21 @@ public class AnimeInformation extends JPanel
 					}
 					
 					if (currEp == totEp)
+					{
 						plusButton.setEnabled(false);
+						finishedButton.setEnabled(true);
+					}
 					if (currEp < totEp)
-						{
+					{
 						minusButton.setEnabled(true);
 						plusButton.setEnabled(true);
-						}
+						finishedButton.setEnabled(false);
+					}
 					if (currEp == 0)
+					{
 						minusButton.setEnabled(false);
+						finishedButton.setEnabled(false);
+					}
 				}
 			}
 		});
