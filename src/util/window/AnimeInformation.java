@@ -220,18 +220,34 @@ public class AnimeInformation extends JPanel
 		currentEpisodeField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if (!currentEpisodeField.getText().contains("?") && !totalEpisodeText.getText().contains("?") && !currentEpisodeField.getText().isEmpty() )
+				if (!currentEpisodeField.getText().contains("?") && !totalEpisodeText.getText().contains("?") )
 				{
 					char key = e.getKeyChar();
-					if (Character.isDigit(key))
+					int currEp = 0;
+					if (Character.isDigit(key) && !currentEpisodeField.getText().isEmpty())
+						currEp = Integer.parseInt(currentEpisodeField.getText() + key);
+					else if (!currentEpisodeField.getText().isEmpty())
+						currEp = Integer.parseInt(currentEpisodeField.getText());
+					else if (Character.isDigit(key) && currentEpisodeField.getText().isEmpty())
+						currEp = Integer.parseInt(key + "");
+
+//					System.out.println(currEp);
+					System.out.println(key);
+					int totEp = Integer.parseInt(totalEpisodeText.getText());
+					if (currEp > totEp)
 					{
-						int currEp = Integer.parseInt(currentEpisodeField.getText() + key);
-						int totEp = Integer.parseInt(totalEpisodeText.getText());
-						if (currEp > totEp)
-						{
-							e.consume();
-						}
+						e.consume();
 					}
+					
+					if (currEp == totEp)
+						plusButton.setEnabled(false);
+					if (currEp < totEp)
+						{
+						minusButton.setEnabled(true);
+						plusButton.setEnabled(true);
+						}
+					if (currEp == 0)
+						minusButton.setEnabled(false);
 				}
 			}
 		});
