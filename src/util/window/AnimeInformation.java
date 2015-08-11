@@ -227,7 +227,6 @@ public class AnimeInformation extends JPanel
 					{
 						int currEp = Integer.parseInt(currentEpisodeField.getText() + key);
 						int totEp = Integer.parseInt(totalEpisodeText.getText());
-						System.out.println(currEp);
 						if (currEp > totEp)
 						{
 							e.consume();
