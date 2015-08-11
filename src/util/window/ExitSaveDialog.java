@@ -144,6 +144,7 @@ public class ExitSaveDialog extends JDialog
 				folder = "Film";
 			else if (listName.equalsIgnoreCase("completi da vedere"))
 				folder = "Completed to See";
+			System.out.println(!AnimeIndex.sessionAddedAnime.contains(name));
 			if(!AnimeIndex.sessionAddedAnime.contains(name))
 			{
 				if(AnimeIndex.completedMap.containsKey(name))
@@ -155,8 +156,11 @@ public class ExitSaveDialog extends JDialog
 					String nomeImg = map.get(name).getImageName();
 					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
 					File img = new File(imgPathTo);
-					if (!imgPathFrom.equals(imgPathTo) && !img.isFile())
-						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					if (!imgPathFrom.equals(imgPathTo))
+					{
+						if(img.isFile()==false)
+							FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					}
 					list.remove(imgPathFrom);
 				}
 				else if(AnimeIndex.airingMap.containsKey(name))
@@ -168,8 +172,11 @@ public class ExitSaveDialog extends JDialog
 					String nomeImg = map.get(name).getImageName();
 					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
 					File img = new File(imgPathTo);
-					if (!imgPathFrom.equals(imgPathTo) && !img.isFile())
-						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					if (!imgPathFrom.equals(imgPathTo))
+					{
+						if(img.isFile()==false)
+							FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					}
 					list.remove(imgPathFrom);
 				}
 				else if(AnimeIndex.ovaMap.containsKey(name))
@@ -181,8 +188,11 @@ public class ExitSaveDialog extends JDialog
 					String nomeImg = map.get(name).getImageName();
 					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
 					File img = new File(imgPathTo);
-					if (!imgPathFrom.equals(imgPathTo) && !img.isFile())
-						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					if (!imgPathFrom.equals(imgPathTo))
+					{
+						if(img.isFile()==false)
+							FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					}
 					list.remove(imgPathFrom);
 				}
 				else if(AnimeIndex.filmMap.containsKey(name))
@@ -194,8 +204,11 @@ public class ExitSaveDialog extends JDialog
 					String nomeImg = map.get(name).getImageName();
 					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
 					File img = new File(imgPathTo);
-					if (!imgPathFrom.equals(imgPathTo) && !img.isFile())
-						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					if (!imgPathFrom.equals(imgPathTo))
+					{
+						if(img.isFile()==false)
+							FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					}
 					list.remove(imgPathFrom);
 				}
 				else if(AnimeIndex.completedToSeeMap.containsKey(name))
@@ -207,8 +220,11 @@ public class ExitSaveDialog extends JDialog
 					String nomeImg = map.get(name).getImageName();
 					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
 					File img = new File(imgPathTo);
-					if (!imgPathFrom.equals(imgPathTo) && !img.isFile())
-						FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					if (!imgPathFrom.equals(imgPathTo))
+					{
+						if(img.isFile()==false)
+							FileManager.moveImage(imgPathFrom, folder, nomeImg);
+					}
 					list.remove(imgPathFrom);
 				}			
 			}

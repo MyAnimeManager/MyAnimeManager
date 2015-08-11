@@ -133,7 +133,7 @@ public class AnimeIndex extends JFrame
 	public static SearchBar searchBar;
 	public static AddFansubDialog fansubDialog;
 	public static JButton setFilterButton;
-	public static String list;
+	private String list;
 	public static boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
 	public static int filtro = 9;
 	public static Font segui;
@@ -1521,7 +1521,9 @@ public class AnimeIndex extends JFrame
 			Filters.setFilter(8);
 		}
 		else
+		{
 			list = appProp.getProperty("List_to_visualize_at_start");
+		}
 		
 		animeTypeComboBox.setSelectedItem(list);
 		}

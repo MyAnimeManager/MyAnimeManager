@@ -753,6 +753,8 @@ public class AddAnimeDialog extends JDialog
 							boolean contains = false;
 							if(checkCompletedList==false && checkAiringList==false && checkOAVList==false && checkFilmList==false && checkToSeeList==false)
 							{
+								if(!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !AnimeIndex.ovaMap.containsKey(name) && !AnimeIndex.filmMap.containsKey(name) && !AnimeIndex.completedToSeeMap.containsKey(name))
+									AnimeIndex.sessionAddedAnime.add(name);
 								
 								if (listName.equalsIgnoreCase("anime completati"))
 								{
@@ -786,8 +788,8 @@ public class AddAnimeDialog extends JDialog
 								}				
 								else if (listName.equalsIgnoreCase("anime in corso"))
 								{
-									AnimeIndex.airingModel.addElement(name);
 									AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+									AnimeIndex.airingModel.addElement(name);
 									String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 									imageLink = imageLink.replaceAll("\\\\/", "/");
 									String imageName = name.replaceAll("\\\\", "_");
@@ -902,10 +904,9 @@ public class AddAnimeDialog extends JDialog
 									{
 										AnimeIndex.completedToSeeSessionAnime.remove(imagePath);
 										AnimeIndex.completedToSeeDeletedAnime.remove(imagePath);
+										AnimeIndex.sessionAddedAnime.remove(name);
 									}
 								}
-								if(!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !AnimeIndex.ovaMap.containsKey(name) && !AnimeIndex.filmMap.containsKey(name) && !AnimeIndex.completedToSeeMap.containsKey(name))
-									AnimeIndex.sessionAddedAnime.add(name);
 							}
 							else
 							{
@@ -958,6 +959,9 @@ public class AddAnimeDialog extends JDialog
 								if(ok==true)
 								{	
 									String imagePath="";
+									if(!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !AnimeIndex.ovaMap.containsKey(name) && !AnimeIndex.filmMap.containsKey(name) && !AnimeIndex.completedToSeeMap.containsKey(name))
+										AnimeIndex.sessionAddedAnime.add(name);
+									
 									if (listName.equalsIgnoreCase("anime completati"))
 									{
 										AnimeIndex.completedModel.addElement(name);
@@ -1106,10 +1110,9 @@ public class AddAnimeDialog extends JDialog
 										{
 											AnimeIndex.completedToSeeSessionAnime.remove(imagePath);
 											AnimeIndex.completedToSeeDeletedAnime.remove(imagePath);
+											AnimeIndex.sessionAddedAnime.remove(name);
 										}
 									}
-									if(!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !AnimeIndex.ovaMap.containsKey(name) && !AnimeIndex.filmMap.containsKey(name) && !AnimeIndex.completedToSeeMap.containsKey(name))
-										AnimeIndex.sessionAddedAnime.add(name);
 								}
 							}
 							if(AnimeIndex.filtro != 9)
