@@ -606,7 +606,6 @@ public class AnimeInformation extends JPanel
 						AnimeIndex.filterList.clearSelection();
 					
 					AnimeIndex.airingModel.addElement(name);
-					AnimeIndex.airingSessionAnime.add(AnimeIndex.airingMap.get(name).getImagePath("anime in corso"));
 					if(!AnimeIndex.shiftsRegister.containsKey(name))
 						AnimeIndex.shiftsRegister.put(name,section);
 					AnimeIndex.animeInformation.minusButton.setEnabled(true);
@@ -840,7 +839,6 @@ public class AnimeInformation extends JPanel
 						AnimeIndex.filterList.clearSelection();
 					
 					AnimeIndex.completedModel.addElement(name);
-					AnimeIndex.completedSessionAnime.add(AnimeIndex.completedMap.get(name).getImagePath("anime completati"));
 					if(!AnimeIndex.shiftsRegister.containsKey(name))
 						AnimeIndex.shiftsRegister.put(name,type);
 					AnimeIndex.animeInformation.minusButton.setEnabled(false);
@@ -1003,8 +1001,7 @@ public class AnimeInformation extends JPanel
 				if(AnimeIndex.filtro!=9 && !AnimeIndex.searchBar.getText().isEmpty())
 					AnimeIndex.filterList.clearSelection();
 				
-				AnimeIndex.completedToSeeModel.addElement(name);
-				AnimeIndex.completedToSeeSessionAnime.add(AnimeIndex.completedToSeeMap.get(name).getImagePath("completi da vedere"));	
+				AnimeIndex.completedToSeeModel.addElement(name);	
 				if(!AnimeIndex.shiftsRegister.containsKey(name))
 					AnimeIndex.shiftsRegister.put(name,type);
 				AnimeIndex.animeInformation.minusButton.setEnabled(true);
@@ -1072,6 +1069,7 @@ public class AnimeInformation extends JPanel
 				finishedButton.setEnabled(false);
 				fansubComboBox.setSelectedItem("?????");
 				checkDataButton.setEnabled(false);
+				AnimeIndex.deleteButton.setEnabled(false);
 				
 				BufferedImage image = null;
 				try{

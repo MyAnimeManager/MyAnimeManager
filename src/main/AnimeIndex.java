@@ -127,7 +127,7 @@ public class AnimeIndex extends JFrame
 	public static ArrayList<String> completedToSeeDeletedAnime = new ArrayList();
 	
 	private JButton addButton;
-	private JButton deleteButton;
+	public static JButton deleteButton;
 	public static JComboBox animeTypeComboBox;
 	public static AddAnimeDialog animeDialog;
 	public static SearchBar searchBar;

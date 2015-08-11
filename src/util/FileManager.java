@@ -346,41 +346,41 @@ public class FileManager
 		 InputStream is = null;
 		 OutputStream os =null;
 		 try{
-		 try{
-			try {
-				is = new FileInputStream(url);
-			    os = new FileOutputStream(IMAGE_PATH + folderTo + File.separator + imgName);
-
-				    byte[] b = new byte[2048];
-				    int length;
-
-				    while ((length = is.read(b)) != -1) {
-				        os.write(b, 0, length);
-				    }			   
-			}catch (FileNotFoundException e) {
-				File file = new File(IMAGE_PATH + folderTo + File.separator);
-				file.mkdirs();
-				moveImage(imgPathFrom , folderTo, imgName);
-			}
-				catch (Exception e) {
-				e.printStackTrace();
-			}
-		 }finally 
-		 {
 			 try{
-			    is.close();
-			    os.close();}
-			 catch(Exception e1){
-			 e1.printStackTrace();}
-		 }
-		 }finally
-		 {
-			 try {
-				deleteData(url);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		 }
+				try {
+					is = new FileInputStream(url);
+				    os = new FileOutputStream(IMAGE_PATH + folderTo + File.separator + imgName);
+	
+					    byte[] b = new byte[2048];
+					    int length;
+	
+					    while ((length = is.read(b)) != -1) {
+					        os.write(b, 0, length);
+					    }			   
+				}catch (FileNotFoundException e) {
+					File file = new File(IMAGE_PATH + folderTo + File.separator);
+					file.mkdirs();
+					moveImage(imgPathFrom , folderTo, imgName);
+				}
+					catch (Exception e) {
+					e.printStackTrace();
+				}
+			 }finally 
+			 {
+				 try{
+				    is.close();
+				    os.close();}
+				 catch(Exception e1){
+				 e1.printStackTrace();}
+			 }
+			 }finally
+			 {
+				 try {
+					deleteData(url);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			 }
 		 }
 	 }
 	 

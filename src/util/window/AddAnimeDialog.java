@@ -782,9 +782,7 @@ public class AddAnimeDialog extends JDialog
 									AnimeIndex.completedSessionAnime.add(imagePath);
 									if (AnimeIndex.completedDeletedAnime.contains(imagePath))
 									{
-										AnimeIndex.completedSessionAnime.remove(imagePath);
 										AnimeIndex.completedDeletedAnime.remove(imagePath);
-										AnimeIndex.sessionAddedAnime.remove(name);
 									}
 								}				
 								else if (listName.equalsIgnoreCase("anime in corso"))
@@ -814,8 +812,6 @@ public class AddAnimeDialog extends JDialog
 									if (AnimeIndex.airingDeletedAnime.contains(imagePath))
 									{
 										AnimeIndex.airingDeletedAnime.remove(imagePath);
-										AnimeIndex.airingDeletedAnime.remove(imagePath);
-										AnimeIndex.sessionAddedAnime.remove(name);
 									}
 								}
 								else if (listName.equalsIgnoreCase("oav"))
@@ -844,9 +840,7 @@ public class AddAnimeDialog extends JDialog
 									AnimeIndex.ovaSessionAnime.add(imagePath);
 									if (AnimeIndex.ovaDeletedAnime.contains(imagePath))
 									{
-										AnimeIndex.ovaSessionAnime.remove(imagePath);
 										AnimeIndex.ovaDeletedAnime.remove(imagePath);
-										AnimeIndex.sessionAddedAnime.remove(name);
 									}
 								}
 								else if (listName.equalsIgnoreCase("film"))
@@ -875,9 +869,7 @@ public class AddAnimeDialog extends JDialog
 									AnimeIndex.filmSessionAnime.add(imagePath);
 									if (AnimeIndex.filmDeletedAnime.contains(imagePath))
 									{
-										AnimeIndex.filmSessionAnime.remove(imagePath);
 										AnimeIndex.filmDeletedAnime.remove(imagePath);
-										AnimeIndex.sessionAddedAnime.remove(name);
 									}
 								}
 								else if (listName.equalsIgnoreCase("completi da vedere"))
@@ -906,9 +898,7 @@ public class AddAnimeDialog extends JDialog
 									AnimeIndex.completedToSeeSessionAnime.add(imagePath);
 									if (AnimeIndex.completedToSeeDeletedAnime.contains(imagePath))
 									{
-										AnimeIndex.completedToSeeSessionAnime.remove(imagePath);
 										AnimeIndex.completedToSeeDeletedAnime.remove(imagePath);
-										AnimeIndex.sessionAddedAnime.remove(name);
 									}
 								}
 							}
@@ -992,9 +982,7 @@ public class AddAnimeDialog extends JDialog
 										AnimeIndex.completedSessionAnime.add(imagePath);
 										if (AnimeIndex.completedDeletedAnime.contains(imagePath))
 										{
-											AnimeIndex.completedSessionAnime.remove(imagePath);
 											AnimeIndex.completedDeletedAnime.remove(imagePath);
-											AnimeIndex.sessionAddedAnime.remove(name);
 										}
 									}
 									else if (listName.equalsIgnoreCase("anime in corso"))
@@ -1024,8 +1012,6 @@ public class AddAnimeDialog extends JDialog
 										if (AnimeIndex.airingDeletedAnime.contains(imagePath))
 										{
 											AnimeIndex.airingDeletedAnime.remove(imagePath);
-											AnimeIndex.airingDeletedAnime.remove(imagePath);
-											AnimeIndex.sessionAddedAnime.remove(name);
 										}
 									}
 									else if (listName.equalsIgnoreCase("oav"))
@@ -1054,9 +1040,7 @@ public class AddAnimeDialog extends JDialog
 										AnimeIndex.ovaSessionAnime.add(imagePath);
 										if (AnimeIndex.ovaDeletedAnime.contains(imagePath))
 										{
-											AnimeIndex.ovaSessionAnime.remove(imagePath);
 											AnimeIndex.ovaDeletedAnime.remove(imagePath);
-											AnimeIndex.sessionAddedAnime.remove(name);
 										}
 									}
 									else if (listName.equalsIgnoreCase("film"))
@@ -1085,9 +1069,7 @@ public class AddAnimeDialog extends JDialog
 										AnimeIndex.filmSessionAnime.add(imagePath);
 										if (AnimeIndex.filmDeletedAnime.contains(imagePath))
 										{
-											AnimeIndex.filmSessionAnime.remove(imagePath);
 											AnimeIndex.filmDeletedAnime.remove(imagePath);
-											AnimeIndex.sessionAddedAnime.remove(name);
 										}
 									}
 									else if (listName.equalsIgnoreCase("completi da vedere"))
@@ -1116,9 +1098,7 @@ public class AddAnimeDialog extends JDialog
 										AnimeIndex.completedToSeeSessionAnime.add(imagePath);
 										if (AnimeIndex.completedToSeeDeletedAnime.contains(imagePath))
 										{
-											AnimeIndex.completedToSeeSessionAnime.remove(imagePath);
 											AnimeIndex.completedToSeeDeletedAnime.remove(imagePath);
-											AnimeIndex.sessionAddedAnime.remove(name);
 										}
 									}
 								}
