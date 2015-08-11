@@ -132,6 +132,7 @@ public class ExitSaveDialog extends JDialog
 		for (int i=0; i<AnimeIndex.shiftsRegister.size(); i++)
 		{
 			String name = (String)arrayName[i];
+			String imgPathTo = "";
 			String listName = AnimeIndex.shiftsRegister.get(name);
 			String folder = "";
 			if (listName.equalsIgnoreCase("anime completati"))
@@ -150,10 +151,10 @@ public class ExitSaveDialog extends JDialog
 				if(AnimeIndex.completedMap.containsKey(name))
 				{
 					String type = "Anime Completati";
-					TreeMap<String,AnimeData> map = AnimeIndex.completedMap;					
+					TreeMap<String,AnimeData> map = AnimeIndex.completedMap;				
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
+					imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
 					File img = new File(imgPathTo);
 					if (!imgPathFrom.equals(imgPathTo))
 					{
@@ -167,7 +168,7 @@ public class ExitSaveDialog extends JDialog
 					TreeMap<String,AnimeData> map = AnimeIndex.airingMap;
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
+					imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
 					File img = new File(imgPathTo);
 					if (!imgPathFrom.equals(imgPathTo))
 					{
@@ -181,7 +182,7 @@ public class ExitSaveDialog extends JDialog
 					TreeMap<String,AnimeData> map = AnimeIndex.ovaMap;
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
+					imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
 					File img = new File(imgPathTo);
 					if (!imgPathFrom.equals(imgPathTo))
 					{
@@ -195,7 +196,7 @@ public class ExitSaveDialog extends JDialog
 					TreeMap<String,AnimeData> map = AnimeIndex.filmMap;
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
+					imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
 					File img = new File(imgPathTo);
 					if (!imgPathFrom.equals(imgPathTo))
 					{
@@ -209,14 +210,25 @@ public class ExitSaveDialog extends JDialog
 					TreeMap<String,AnimeData> map = AnimeIndex.completedToSeeMap;
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					String imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
+					imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
 					File img = new File(imgPathTo);
 					if (!imgPathFrom.equals(imgPathTo))
 					{
 						if(img.isFile()==false)
 							FileManager.moveImage(imgPathFrom, folder, nomeImg);
 					}
-				}			
+				}
+				
+				if(folder.equalsIgnoreCase("Completed"))
+					AnimeIndex.completedSessionAnime.remove(imgPathTo);
+				if(folder.equalsIgnoreCase("Airing"))
+					AnimeIndex.airingSessionAnime.remove(imgPathTo);
+				if(folder.equalsIgnoreCase("Ova"))
+					AnimeIndex.ovaSessionAnime.remove(imgPathTo);
+				if(folder.equalsIgnoreCase("Film"))
+					AnimeIndex.filmSessionAnime.remove(imgPathTo);
+				if(folder.equalsIgnoreCase("Completed to See"))
+					AnimeIndex.completedToSeeSessionAnime.remove(imgPathTo);
 			}
 		}
 	}
