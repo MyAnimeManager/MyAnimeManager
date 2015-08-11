@@ -34,6 +34,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.AbstractDocument;
 
 import main.AnimeIndex;
@@ -43,6 +45,10 @@ import util.Filters;
 import util.PatternFilter;
 import util.SortedListModel;
 import util.task.UpdateAnimeDataTask;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class AnimeInformation extends JPanel
 {
@@ -211,6 +217,25 @@ public class AnimeInformation extends JPanel
 		//secondo numero = massimo numero a cui può arrivare
 	
 		currentEpisodeField = new JTextField();
+		currentEpisodeField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (!currentEpisodeField.getText().contains("?") && !totalEpisodeText.getText().contains("?") && !currentEpisodeField.getText().isEmpty() )
+				{
+					char key = e.getKeyChar();
+					if (Character.isDigit(key))
+					{
+						int currEp = Integer.parseInt(currentEpisodeField.getText() + key);
+						int totEp = Integer.parseInt(totalEpisodeText.getText());
+						System.out.println(currEp);
+						if (currEp > totEp)
+						{
+							e.consume();
+						}
+					}
+				}
+			}
+		});
 		currentEpisodeField.setPreferredSize(new Dimension(43, 23));
 		currentEpisodeField.setMinimumSize(new Dimension(43, 23));
 		GridBagConstraints gbc_currentEpisodeField = new GridBagConstraints();
@@ -221,6 +246,7 @@ public class AnimeInformation extends JPanel
 		add(currentEpisodeField, gbc_currentEpisodeField);
 		currentEpisodeField.setColumns(3);
 		((AbstractDocument)currentEpisodeField.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,4}||\\?{0,2}"));
+		
 		
 		GridBagConstraints gbc_plusButton = new GridBagConstraints();
 		gbc_plusButton.anchor = GridBagConstraints.WEST;
