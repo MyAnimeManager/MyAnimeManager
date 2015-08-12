@@ -1,47 +1,38 @@
 package util.window;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Toolkit;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.Dialog.ModalityType;
-import java.awt.Window.Type;
-import java.awt.GridBagLayout;
-import java.awt.Component;
-
-import javax.swing.Box;
-
-import java.awt.GridBagConstraints;
-
-import javax.swing.JScrollPane;
-
-import java.awt.Insets;
-import java.awt.GridLayout;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.DefaultComboBoxModel;
-
 import java.awt.Color;
-
-import javax.swing.JList;
-
-import util.SearchBar;
-import main.AnimeIndex;
+import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionListener;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import javax.swing.JLayeredPane;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
+import javax.swing.Box;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
+
+import main.AnimeIndex;
+import util.SearchBar;
+import util.SortedListModel;
+
+import java.awt.CardLayout;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class SetExclusionDialog extends JDialog {
 
@@ -50,6 +41,8 @@ public class SetExclusionDialog extends JDialog {
 	private SearchBar searchBarExlusions;
 	private JComboBox comboBox;
 	private JButton cancelButton;
+	private SortedListModel totalModel = new SortedListModel();
+	private SortedListModel excludedModel = new SortedListModel();
 	/**
 	 * Create the dialog.
 	 */
@@ -58,6 +51,7 @@ public class SetExclusionDialog extends JDialog {
 			@Override
 			public void windowOpened(WindowEvent arg0) {
 				cancelButton.requestFocusInWindow();
+				loadModel();
 			}
 		});
 		setTitle("Esclusioni");
@@ -148,16 +142,17 @@ public class SetExclusionDialog extends JDialog {
 			gbc_scrollPane.gridy = 2;
 			contentPanel.add(scrollPane, gbc_scrollPane);
 			{
-				JLayeredPane layeredPane = new JLayeredPane();
-				scrollPane.setViewportView(layeredPane);
+				JPanel totalPane = new JPanel();
+				scrollPane.setViewportView(totalPane);
+				totalPane.setLayout(new CardLayout(0, 0));
 				
-				JList listToCheck = new JList();
+				JList listToCheck = new JList(totalModel);
 				listToCheck.setBounds(0, 0, 196, 159);
-				layeredPane.add(listToCheck);
+				totalPane.add(listToCheck, "totalList");
 				
 				JList searchListToCheck = new JList();
 				searchListToCheck.setBounds(0, 0, 196, 159);
-				layeredPane.add(searchListToCheck);
+				totalPane.add(searchListToCheck, "searchList");
 			}
 		}
 		{
@@ -181,18 +176,19 @@ public class SetExclusionDialog extends JDialog {
 			gbc_scrollPane.gridy = 2;
 			contentPanel.add(scrollPane, gbc_scrollPane);
 			
-			JLayeredPane layeredPane = new JLayeredPane();
-			scrollPane.setViewportView(layeredPane);
+			JPanel excludedPane = new JPanel();
+			scrollPane.setViewportView(excludedPane);
+			excludedPane.setLayout(new CardLayout(0, 0));
 			
-			JList listToExclude = new JList();
+			JList listToExclude = new JList(excludedModel);
 			listToExclude.setFont(null);
 			listToExclude.setBounds(0, 0, 176, 159);
-			layeredPane.add(listToExclude);
+			excludedPane.add(listToExclude, "excludedList");
 			
 			JList searchListToExclude = new JList();
 			searchListToExclude.setFont(null);
 			searchListToExclude.setBounds(0, 0, 176, 159);
-			layeredPane.add(searchListToExclude);
+			excludedPane.add(searchListToExclude, "excludedSearchedList");
 		}
 		{
 			JButton button = new JButton("<<");
@@ -213,6 +209,26 @@ public class SetExclusionDialog extends JDialog {
 		}
 		{
 			comboBox = new JComboBox();
+			comboBox.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent e) {
+					String list = (String) comboBox.getSelectedItem();
+					
+					if (list.equalsIgnoreCase("anime completati"))
+						changeModel(AnimeIndex.completedModel);
+					
+					if (list.equalsIgnoreCase("anime in corso"))
+						changeModel(AnimeIndex.airingModel);
+					
+					if (list.equalsIgnoreCase("oav"))
+						changeModel(AnimeIndex.ovaModel);
+					
+					if (list.equalsIgnoreCase("film"))
+						changeModel(AnimeIndex.filmModel);
+					
+					if (list.equalsIgnoreCase("completi da vedere"))
+						changeModel(AnimeIndex.completedToSeeModel);
+				}
+			});
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere"}));
 			GridBagConstraints gbc_comboBox = new GridBagConstraints();
 			gbc_comboBox.gridwidth = 2;
@@ -255,6 +271,33 @@ public class SetExclusionDialog extends JDialog {
 			gbc_cancelButton.gridy = 8;
 			contentPanel.add(cancelButton, gbc_cancelButton);
 			cancelButton.setActionCommand("Cancel");
+		}
+	}
+	
+	private void loadModel()
+	{
+		String[] excludedArray = AnimeIndex.exclusionAnime.toArray(new String[0]);
+		excludedModel.addAll(excludedArray);
+		
+		Object[] totalArray = AnimeIndex.completedModel.toArray();
+		for (int i = 0; i < totalArray.length; i++) 
+		{
+			String name = (String) totalArray[i];
+			if (!excludedModel.contains(name))
+				totalModel.addElement(name);
+		}
+		
+	}
+	
+	private void changeModel(SortedListModel model)
+	{
+		totalModel.clear();
+		Object[] totalArray = model.toArray();
+		for (int i = 0; i < totalArray.length; i++) 
+		{
+			String name = (String) totalArray[i];
+			if (!excludedModel.contains(name))
+				totalModel.addElement(name);
 		}
 	}
 }
