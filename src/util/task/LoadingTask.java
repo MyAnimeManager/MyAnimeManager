@@ -11,6 +11,7 @@ public class LoadingTask extends SwingWorker
 	@Override
 	protected Object doInBackground() throws Exception
 	{
+		FileManager.loadExclusionList();
 		FileManager.loadAnime("completed.txt" , AnimeIndex.completedModel, AnimeIndex.completedMap);
 		FileManager.loadAnime("airing.txt", AnimeIndex.airingModel, AnimeIndex.airingMap);
 		FileManager.loadAnime("ova.txt", AnimeIndex.ovaModel, AnimeIndex.ovaMap);

@@ -208,6 +208,65 @@ public class FileManager
 	
 	}
 
+	public static void loadExclusionList()
+	{
+		File fansubFile = new File(ANIME_PATH + "exclusion.txt");
+		if (fansubFile.isFile()) 
+		{
+			Scanner scan = null;
+			try {
+				scan = new Scanner(fansubFile);
+				
+				while (scan.hasNextLine())
+				{
+					String excludedAnime = scan.nextLine();
+					AnimeIndex.exclusionAnime.add(excludedAnime);
+				}							
+			} 
+			catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} 
+			finally
+			{
+				scan.close();
+			}
+		}
+			
+		else
+			{
+			 try {
+				fansubFile.createNewFile();
+			 	} 
+			 catch (IOException e) 
+			 	{
+				e.printStackTrace();
+				}
+			}
+	}
+	
+	public static void saveExclusionList()
+	{
+		File exclusionFile = new File(ANIME_PATH + "exclusion.txt");
+		exclusionFile.delete();
+		exclusionFile.getParentFile().mkdirs();
+		BufferedWriter output;
+		try 
+		{
+			output = new BufferedWriter(new OutputStreamWriter(
+				    new FileOutputStream(exclusionFile), "UTF-8"));
+			
+			Object[] exclusionNameArray = AnimeIndex.exclusionAnime.toArray();
+			for (int i = 0; i < exclusionNameArray.length; i++)
+				{
+					String name = (String) exclusionNameArray[i];
+					output.write(name);
+					output.write(System.lineSeparator());
+				}
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	//util
 	private static boolean checkForFile(String path)

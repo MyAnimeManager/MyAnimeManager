@@ -75,7 +75,8 @@ public class ExitSaveDialog extends JDialog
 								deleteUselessImage(AnimeIndex.ovaDeletedAnime);
 								deleteUselessImage(AnimeIndex.filmDeletedAnime);
 								deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime);
-							AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
+								AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
+								FileManager.saveExclusionList();
 							System.exit(0);
 						}
 					});
