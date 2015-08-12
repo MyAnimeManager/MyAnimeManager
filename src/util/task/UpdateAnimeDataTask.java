@@ -47,7 +47,7 @@ public class UpdateAnimeDataTask extends SwingWorker
 				duration += " min";
 		}
 		
-		if (startDate.contains("??/??/????") && startDate.contains("??/??"))
+		if (startDate.contains("??/??/????") || startDate.contains("??/??"))
 		{
 			startDate = ConnectionManager.getAnimeData("start_date", data);
 			
@@ -70,7 +70,7 @@ public class UpdateAnimeDataTask extends SwingWorker
 			}
 		}
 		
-		if (finishDate.contains("?"))
+		if (finishDate.contains("??/??/????") || finishDate.contains("??/??"))
 		{
 			finishDate = ConnectionManager.getAnimeData("end_date", data);
 			
