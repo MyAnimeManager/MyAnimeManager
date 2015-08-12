@@ -30,14 +30,14 @@ public class UpdateAnimeDataTask extends SwingWorker
 		int id = Integer.parseInt(oldData.getId());
 		String data = ConnectionManager.parseAnimeData(id);
 		
-		if (totalEp.contains("??"))
+		if (totalEp.contains("??") || totalEp.isEmpty() || totalEp.contains("?"))
 		{
 			totalEp = ConnectionManager.getAnimeData("total_episodes", data);
 			if(totalEp.equals("null")||totalEp.equals("0"))
 				totalEp = "??";
 		}
 		
-		if (duration.contains("?? min"))
+		if (duration.contains("?? min") || duration.isEmpty() || duration.equals("min") || !duration.contains("min") || duration.equals("minuti") || duration.equals("minuto") || duration.contains("??") || duration.contains("?"))
 		{
 			duration = ConnectionManager.getAnimeData("duration", data);
 			
@@ -47,7 +47,7 @@ public class UpdateAnimeDataTask extends SwingWorker
 				duration += " min";
 		}
 		
-		if (startDate.contains("??/??/????") || startDate.contains("??/??"))
+		if (startDate.contains("??/??/????") || startDate.contains("??/??") || startDate.isEmpty() || startDate.contains("?"))
 		{
 			startDate = ConnectionManager.getAnimeData("start_date", data);
 			
@@ -70,7 +70,7 @@ public class UpdateAnimeDataTask extends SwingWorker
 			}
 		}
 		
-		if (finishDate.contains("??/??/????") || finishDate.contains("??/??"))
+		if (finishDate.contains("??/??/????") || finishDate.contains("??/??") || finishDate.isEmpty() || finishDate.contains("?"))
 		{
 			finishDate = ConnectionManager.getAnimeData("end_date", data);
 			
