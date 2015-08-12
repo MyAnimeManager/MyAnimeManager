@@ -20,7 +20,7 @@ public class UpdateAnimeDataTask extends SwingWorker
 		String name = (String) AnimeIndex.getJList().getSelectedValue();
 		TreeMap<String,AnimeData> map = AnimeIndex.getMap();
 		AnimeData oldData = map.get(name);
-		//TODO if per le esclusioni
+		//TODO if per le esclusioni.
 		String totalEp = oldData.getTotalEpisode();
 		String duration = oldData.getDurationEp();
 		String startDate = oldData.getReleaseDate();
