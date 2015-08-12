@@ -34,9 +34,12 @@ import java.awt.CardLayout;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -44,15 +47,21 @@ public class SetExclusionDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private SearchBar searchBarCheck;
-	private SearchBar searchBarExlusions;
+	private SearchBar searchBarExclusions;
 	private JComboBox comboBox;
 	private JButton cancelButton;
 	private SortedListModel totalModel = new SortedListModel();
 	private SortedListModel excludedModel = new SortedListModel();
+	private SortedListModel totalSearchModel = new SortedListModel();
+	private SortedListModel excludedSearchModel = new SortedListModel();
 	private JButton excludeButton;
 	private JButton includeButton;
 	private JList listToCheck;
 	private JList listToExclude;
+	private JPanel totalPane;
+	private JList searchListToCheck;
+	private JList searchListToExclude;
+	private JPanel excludedPane;
 	/**
 	 * Create the dialog.
 	 */
@@ -123,22 +132,90 @@ public class SetExclusionDialog extends JDialog {
 			gbc_searchBarCheck.gridy = 1;
 			contentPanel.add(searchBarCheck, gbc_searchBarCheck);
 			searchBarCheck.setColumns(10);
+			searchBarCheck.getDocument().addDocumentListener(new DocumentListener() {
+				public void changedUpdate(DocumentEvent documentEvent) {
+					}
+				@Override
+				public void insertUpdate(DocumentEvent e)
+				{
+					searchListToCheck.clearSelection();
+					String search = searchBarCheck.getText();
+					CardLayout cl = (CardLayout)(totalPane.getLayout());
+			        cl.show(totalPane, "searchList");
+					SearchInList(search, totalModel, totalSearchModel);
+				}
+
+				@Override
+				public void removeUpdate(DocumentEvent e)
+				{
+					searchListToCheck.clearSelection();
+					SortedListModel model = null;
+					String search = searchBarCheck.getText();
+					JList list = listToCheck;
+					list.clearSelection();
+					
+						if (!search.isEmpty())
+						{	
+						CardLayout cl = (CardLayout)(totalPane.getLayout());
+				        cl.show(totalPane, "searchList");
+				        SearchInList(search, totalModel, totalSearchModel);
+						}
+						else
+						{
+							CardLayout cl = (CardLayout)(totalPane.getLayout());
+					        cl.show(totalPane, "totalList");
+						}
+				}
+			});
 		}
 		{
-			searchBarExlusions = new SearchBar();
-			searchBarExlusions.setFont(AnimeIndex.segui.deriveFont(11f));
+			searchBarExclusions = new SearchBar();
+			searchBarExclusions.setFont(AnimeIndex.segui.deriveFont(11f));
 			ImageIcon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(AnimeIndex.class.getResource("/image/search.png")));
-			searchBarExlusions.setIcon(icon);
-			searchBarExlusions.setForeground(Color.LIGHT_GRAY);
-			searchBarExlusions.setBackground(Color.BLACK);
+			searchBarExclusions.setIcon(icon);
+			searchBarExclusions.setForeground(Color.LIGHT_GRAY);
+			searchBarExclusions.setBackground(Color.BLACK);
 			GridBagConstraints gbc_searchBarExlusions = new GridBagConstraints();
 			gbc_searchBarExlusions.gridwidth = 2;
 			gbc_searchBarExlusions.insets = new Insets(0, 0, 5, 0);
 			gbc_searchBarExlusions.fill = GridBagConstraints.HORIZONTAL;
 			gbc_searchBarExlusions.gridx = 3;
 			gbc_searchBarExlusions.gridy = 1;
-			contentPanel.add(searchBarExlusions, gbc_searchBarExlusions);
-			searchBarExlusions.setColumns(10);
+			contentPanel.add(searchBarExclusions, gbc_searchBarExlusions);
+			searchBarExclusions.setColumns(10);
+			searchBarExclusions.getDocument().addDocumentListener(new DocumentListener() {
+				public void changedUpdate(DocumentEvent documentEvent) {
+					}
+				@Override
+				public void insertUpdate(DocumentEvent e)
+				{
+					searchListToExclude.clearSelection();
+					String search = searchBarExclusions.getText();
+					CardLayout cl = (CardLayout)(excludedPane.getLayout());
+			        cl.show(excludedPane, "excludedSearchedList");
+					SearchInList(search, excludedModel, excludedSearchModel);
+				}
+
+				@Override
+				public void removeUpdate(DocumentEvent e)
+				{
+					searchListToExclude.clearSelection();
+					String search = searchBarExclusions.getText();
+					JList list = listToExclude;
+					list.clearSelection();
+						if (!search.isEmpty())
+						{	
+						CardLayout cl = (CardLayout)(excludedPane.getLayout());
+				        cl.show(excludedPane, "excludedSearchedList");
+				        SearchInList(search, excludedModel, excludedSearchModel);
+						}
+						else
+						{
+							CardLayout cl = (CardLayout)(excludedPane.getLayout());
+					        cl.show(excludedPane, "excludedList");
+						}
+				}
+			});
 		}
 		{
 			JScrollPane scrollPane = new JScrollPane();
@@ -153,17 +230,11 @@ public class SetExclusionDialog extends JDialog {
 			gbc_scrollPane.gridy = 2;
 			contentPanel.add(scrollPane, gbc_scrollPane);
 			{
-				JPanel totalPane = new JPanel();
+				totalPane = new JPanel();
 				scrollPane.setViewportView(totalPane);
 				totalPane.setLayout(new CardLayout(0, 0));
 				
 				listToCheck = new JList(totalModel);
-				listToCheck.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mousePressed(MouseEvent e) {
-						listToExclude.clearSelection();
-					}
-				});
 				listToCheck.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				listToCheck.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
@@ -174,8 +245,14 @@ public class SetExclusionDialog extends JDialog {
 				listToCheck.setBounds(0, 0, 196, 159);
 				totalPane.add(listToCheck, "totalList");
 				
-				JList searchListToCheck = new JList();
+				searchListToCheck = new JList(totalSearchModel);
 				searchListToCheck.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				searchListToCheck.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent e) {
+						excludeButton.setEnabled(true);
+						includeButton.setEnabled(false);
+					}
+				});
 				searchListToCheck.setBounds(0, 0, 196, 159);
 				totalPane.add(searchListToCheck, "searchList");
 			}
@@ -185,7 +262,11 @@ public class SetExclusionDialog extends JDialog {
 			excludeButton.setEnabled(false);
 			excludeButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String name = (String) listToCheck.getSelectedValue();
+					String name= null;
+					if(searchBarCheck.getText().isEmpty())
+						name = (String) listToCheck.getSelectedValue();
+					else
+						name = (String) searchListToCheck.getSelectedValue();
 					totalModel.removeElement(name);
 					excludedModel.addElement(name);
 					if (totalModel.isEmpty())
@@ -194,6 +275,7 @@ public class SetExclusionDialog extends JDialog {
 					listToCheck.clearSelection();
 					listToExclude.setSelectedValue(name, true);
 					excludeButton.setEnabled(false);
+					SearchInList(searchBarCheck.getText(), totalModel, totalSearchModel);
 				}
 			});
 			GridBagConstraints gbc_excludeButton = new GridBagConstraints();
@@ -215,18 +297,11 @@ public class SetExclusionDialog extends JDialog {
 			gbc_scrollPane.gridy = 2;
 			contentPanel.add(scrollPane, gbc_scrollPane);
 			
-			JPanel excludedPane = new JPanel();
+			excludedPane = new JPanel();
 			scrollPane.setViewportView(excludedPane);
 			excludedPane.setLayout(new CardLayout(0, 0));
 			
 			listToExclude = new JList(excludedModel);
-			listToExclude.addMouseListener(new MouseAdapter() {
-				
-				@Override
-				public void mousePressed(MouseEvent e) {
-					listToCheck.clearSelection();
-				}
-			});
 			listToExclude.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			listToExclude.addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent e) {
@@ -238,7 +313,13 @@ public class SetExclusionDialog extends JDialog {
 			listToExclude.setBounds(0, 0, 176, 159);
 			excludedPane.add(listToExclude, "excludedList");
 			
-			JList searchListToExclude = new JList();
+			searchListToExclude = new JList(excludedSearchModel);
+			searchListToExclude.addListSelectionListener(new ListSelectionListener() {
+				public void valueChanged(ListSelectionEvent e) {
+					excludeButton.setEnabled(false);
+					includeButton.setEnabled(true);
+				}
+			});
 			searchListToExclude.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			searchListToExclude.setFont(null);
 			searchListToExclude.setBounds(0, 0, 176, 159);
@@ -248,7 +329,12 @@ public class SetExclusionDialog extends JDialog {
 			includeButton = new JButton("<<");
 			includeButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String name = (String) listToExclude.getSelectedValue();
+					
+					String name = null;
+					if (searchBarExclusions.getText().isEmpty())
+						name = (String) listToExclude.getSelectedValue();
+					else
+						name = (String) searchListToExclude.getSelectedValue();
 					excludedModel.removeElement(name);
 					String type = (String) comboBox.getSelectedItem();
 					if (type.equalsIgnoreCase("anime completati"))
@@ -315,7 +401,8 @@ public class SetExclusionDialog extends JDialog {
 					
 					listToExclude.clearSelection();
 					includeButton.setEnabled(false);
-				}
+					SearchInList(searchBarExclusions.getText(), excludedModel, excludedSearchModel);
+					}
 			});
 			includeButton.setEnabled(false);
 			GridBagConstraints gbc_includeButton = new GridBagConstraints();
@@ -436,4 +523,19 @@ public class SetExclusionDialog extends JDialog {
 				totalModel.addElement(name);
 		}
 	}
+	
+	private void SearchInList(String searchedVal, SortedListModel modelToSearch, SortedListModel searchModel) 
+	{
+		Object[] mainArray = modelToSearch.toArray();			
+			searchModel.clear();
+			for (int i = 0; i < mainArray.length; i++) {
+				String value = (String) mainArray[i];
+				value = value.toLowerCase();
+				searchedVal = searchedVal.toLowerCase();
+				if (value.contains(searchedVal))
+					searchModel.addElement((String)mainArray[i]);
+			}
+		if (searchModel.isEmpty())
+			searchModel.addElement("Nessun Anime Corrispondente");
+		}
 }
