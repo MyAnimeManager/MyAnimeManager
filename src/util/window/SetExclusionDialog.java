@@ -320,6 +320,7 @@ public class SetExclusionDialog extends JDialog {
 			JButton okButton = new JButton("Salva");
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					AnimeIndex.exclusionAnime.clear();
 					Object[] array = excludedModel.toArray();
 					for (int i = 0; i < array.length; i++) {
 						String name = (String) array[i];
