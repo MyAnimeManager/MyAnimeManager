@@ -256,7 +256,6 @@ public class SetExclusionDialog extends JDialog {
 						if (AnimeIndex.completedMap.containsKey(name))
 						{			
 							totalModel.addElement(name);
-							comboBox.setSelectedItem("Anime Completati");
 						}
 					}
 					
@@ -265,7 +264,6 @@ public class SetExclusionDialog extends JDialog {
 						if (AnimeIndex.airingMap.containsKey(name))
 						{
 							totalModel.addElement(name);
-							comboBox.setSelectedItem("Anime in Corso");
 						}
 					}
 					
@@ -274,7 +272,6 @@ public class SetExclusionDialog extends JDialog {
 						if (AnimeIndex.ovaMap.containsKey(name))
 						{
 							totalModel.addElement(name);
-							comboBox.setSelectedItem("OAV");
 						}
 					}
 					
@@ -283,7 +280,6 @@ public class SetExclusionDialog extends JDialog {
 						if (AnimeIndex.filmMap.containsKey(name))
 						{
 							totalModel.addElement(name);
-							comboBox.setSelectedItem("Film");
 						}
 					}
 					
@@ -292,9 +288,31 @@ public class SetExclusionDialog extends JDialog {
 						if (AnimeIndex.completedToSeeMap.containsKey(name))
 						{
 							totalModel.addElement(name);
-							comboBox.setSelectedItem("Completi Da Vedere");
 						}
 					}
+					
+					if (AnimeIndex.completedMap.containsKey(name))
+					{			
+						comboBox.setSelectedItem("Anime Completati");
+					}
+					if (AnimeIndex.airingMap.containsKey(name))
+					{
+						comboBox.setSelectedItem("Anime in Corso");
+					}
+					if (AnimeIndex.ovaMap.containsKey(name))
+					{
+						comboBox.setSelectedItem("OAV");
+					}
+					if (AnimeIndex.filmMap.containsKey(name))
+					{
+						comboBox.setSelectedItem("Film");
+					}
+					if (AnimeIndex.completedToSeeMap.containsKey(name))
+					{
+						comboBox.setSelectedItem("Completi Da Vedere");
+					}
+					listToCheck.setSelectedValue(name, true);
+					
 					listToExclude.clearSelection();
 					includeButton.setEnabled(false);
 				}
