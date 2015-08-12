@@ -80,6 +80,7 @@ public class AnimeInformation extends JPanel
 	private JLabel lblDurata;
 	public JTextField durationField;
 	public JButton checkDataButton;
+	public static UpdatingAnimeDataDialog dial;
 	/**
 	 * Create the panel.
 	 * 
@@ -748,7 +749,7 @@ public class AnimeInformation extends JPanel
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il Controllo Dati Automatico è già attivo.", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				else
 				{
-					UpdatingAnimeDataDialog dial = new UpdatingAnimeDataDialog();	
+					dial = new UpdatingAnimeDataDialog();	
 					dial.setLocationRelativeTo(AnimeIndex.mainFrame);
 	            	dial.setVisible(true);
 				} 

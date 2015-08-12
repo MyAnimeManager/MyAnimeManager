@@ -2,12 +2,12 @@ package util.task;
 
 import java.util.TreeMap;
 
-import javax.swing.JList;
 import javax.swing.SwingWorker;
 
 import main.AnimeIndex;
 import util.AnimeData;
 import util.ConnectionManager;
+import util.window.AnimeInformation;
 
 public class UpdateAnimeDataTask extends SwingWorker
 {
@@ -47,7 +47,7 @@ public class UpdateAnimeDataTask extends SwingWorker
 				duration += " min";
 		}
 		
-		if (startDate.contains("??/??/????") && startDate.contains("??/??"))
+		if (startDate.contains("??/??/????") || startDate.contains("??/??"))
 		{
 			startDate = ConnectionManager.getAnimeData("start_date", data);
 			
@@ -70,7 +70,7 @@ public class UpdateAnimeDataTask extends SwingWorker
 			}
 		}
 		
-		if (finishDate.contains("?"))
+		if (finishDate.contains("??/??/????") || finishDate.contains("??/??"))
 		{
 			finishDate = ConnectionManager.getAnimeData("end_date", data);
 			
@@ -112,7 +112,13 @@ public class UpdateAnimeDataTask extends SwingWorker
 		AnimeIndex.animeInformation.finishDateField.setText(finishDate);
 		AnimeIndex.animeInformation.typeComboBox.setSelectedItem(type);
 		
+		done();
 		return null;
 	}
 	
+	@Override
+	protected void done()
+	{
+		AnimeInformation.dial.dispose();
+	}
 }
