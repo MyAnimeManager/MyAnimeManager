@@ -1065,7 +1065,7 @@ public class AnimeIndex extends JFrame
 		searchList.setFont(segui.deriveFont(12f));
 		searchList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-//				applyListSelectionChange(AnimeIndex.searchList);
+				applyListSelectionChange(AnimeIndex.searchList);
 				String cBox = (String)animeTypeComboBox.getSelectedItem();
 				if(cBox.equalsIgnoreCase("Anime Completati"))
 				{
@@ -1258,7 +1258,7 @@ public class AnimeIndex extends JFrame
 		filterList.setFont(segui.deriveFont(12f));
 		filterList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-//				applyListSelectionChange(AnimeIndex.filterList);
+				applyListSelectionChange(AnimeIndex.filterList);
 				String cBox = (String)animeTypeComboBox.getSelectedItem();
 				if(cBox.equalsIgnoreCase("Anime Completati"))
 				{
