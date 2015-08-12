@@ -1,46 +1,43 @@
 package util.window;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JSplitPane;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-
-import javax.swing.JScrollPane;
-
-import java.awt.Insets;
-
 import javax.swing.JLabel;
 import javax.swing.JList;
-
-import java.awt.Component;
-
-import javax.swing.Box;
-
-import java.awt.Dimension;
-import java.awt.GridLayout;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
+import util.SortedListModel;
+import util.task.ReleasedAnimeTask;
 
-import javax.swing.SwingConstants;
-
-import java.awt.Window.Type;
-import java.awt.Toolkit;
-import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class ReleaseNotifierDialog extends JDialog {
+	
+	public static SortedListModel ovaReleased = new SortedListModel();
+	public static SortedListModel filmReleased = new SortedListModel();
+	public static JList ovaReleasedList;
+	public static JList filmReleasedList;
 
 	/**
 	 * Create the dialog.
 	 */
 	public ReleaseNotifierDialog() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				ReleasedAnimeTask task = new ReleasedAnimeTask();
+				task.execute();
+			}
+		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReleaseNotifierDialog.class.getResource("/image/icon.png")));
 		setTitle("Uscite del giorno");
 		setType(Type.POPUP);
@@ -72,7 +69,7 @@ public class ReleaseNotifierDialog extends JDialog {
 			scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 			getContentPane().add(scrollPane, "cell 0 2,grow");
 			{
-				JList ovaReleasedList = new JList();
+				ovaReleasedList = new JList(ovaReleased);
 				ovaReleasedList.setFont(AnimeIndex.segui.deriveFont(12f));
 				scrollPane.setViewportView(ovaReleasedList);
 			}
@@ -83,7 +80,7 @@ public class ReleaseNotifierDialog extends JDialog {
 			scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 			getContentPane().add(scrollPane, "cell 2 2,grow");
 			{
-				JList filmReleasedList = new JList();
+				filmReleasedList = new JList(filmReleased);
 				filmReleasedList.setFont(AnimeIndex.segui.deriveFont(12f));
 				scrollPane.setViewportView(filmReleasedList);
 			}

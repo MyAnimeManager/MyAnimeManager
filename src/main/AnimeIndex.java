@@ -63,6 +63,7 @@ import util.SortedListModel;
 import util.Updater;
 import util.task.CheckUpdateTask;
 import util.task.LoadingTask;
+import util.task.ReleasedAnimeTask;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
 import util.window.AnimeInformation;
@@ -209,7 +210,6 @@ public class AnimeIndex extends JFrame
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
 			}
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
