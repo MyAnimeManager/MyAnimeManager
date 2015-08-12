@@ -274,8 +274,10 @@ public class SetExclusionDialog extends JDialog {
 					listToExclude.clearSelection();
 					listToCheck.clearSelection();
 					listToExclude.setSelectedValue(name, true);
-					excludeButton.setEnabled(false);
 					SearchInList(searchBarCheck.getText(), totalModel, totalSearchModel);
+					listToExclude.clearSelection();
+					searchListToExclude.clearSelection();
+					includeButton.setEnabled(false);
 				}
 			});
 			GridBagConstraints gbc_excludeButton = new GridBagConstraints();
@@ -400,8 +402,10 @@ public class SetExclusionDialog extends JDialog {
 					listToCheck.setSelectedValue(name, true);
 					
 					listToExclude.clearSelection();
-					includeButton.setEnabled(false);
 					SearchInList(searchBarExclusions.getText(), excludedModel, excludedSearchModel);
+					listToCheck.clearSelection();
+					searchListToCheck.clearSelection();
+					excludeButton.setEnabled(false);
 					}
 			});
 			includeButton.setEnabled(false);
