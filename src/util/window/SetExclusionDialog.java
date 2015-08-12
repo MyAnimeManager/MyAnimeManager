@@ -287,6 +287,8 @@ public class SetExclusionDialog extends JDialog {
 			comboBox = new JComboBox();
 			comboBox.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent e) {
+					excludeButton.setEnabled(false);
+					includeButton.setEnabled(false);
 					String list = (String) comboBox.getSelectedItem();
 					
 					if (list.equalsIgnoreCase("anime completati"))
