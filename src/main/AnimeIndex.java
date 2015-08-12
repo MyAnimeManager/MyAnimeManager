@@ -81,8 +81,8 @@ import util.window.UpdateDialog;
 //TODO sistemare variabile per la versione successiva
 public class AnimeIndex extends JFrame
 {
-
 	public static final String VERSION = "1.0.0";
+	public static final String NEW_VERSION = "MyAnimeManager_v1.0.0_Setup.exe";
 	public static JPanel mainFrame;
 	public static JPanel cardContainer;
 	public static AnimeInformation animeInformation;
@@ -200,7 +200,7 @@ public class AnimeIndex extends JFrame
 			public void windowOpened(WindowEvent arg0) {
 				LoadingTask loadTask = new LoadingTask();
 				loadTask.execute();
-				File file = new File(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + UpdateDialog.NEW_VERSION);
+				File file = new File(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
 				if(file.isFile())
 					file.delete();
 				CheckUpdateTask updateTask = new CheckUpdateTask();

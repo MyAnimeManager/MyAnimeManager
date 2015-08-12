@@ -43,7 +43,6 @@ import util.Updater;
 	    private JPanel pan2;
 	    private JLabel lblNewLabel;
 	    private JLabel lblNovit;
-	    public static final String NEW_VERSION = "MyAnimeManager_v1.0.0_Setup.exe";
 	    public static DownloadingDialog dial; 
 
 	    public UpdateDialog(String info) {
@@ -82,7 +81,7 @@ import util.Updater;
 	            	dial.setLocationRelativeTo(AnimeIndex.mainFrame);
 	            	dial.setVisible(true);
 					save();
-					ExternalProgram ext = new ExternalProgram(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
+					ExternalProgram ext = new ExternalProgram(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + AnimeIndex.NEW_VERSION);
 					ext.run();
 	            }
 	        });
@@ -114,7 +113,7 @@ import util.Updater;
 	    	   String urlString = Updater.getDownloadLink();
 		       URL url = new URL(urlString);
 		       						
-	    	   File file = new File(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
+	    	   File file = new File(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + AnimeIndex.NEW_VERSION);
 			    try {
 					FileUtils.copyURLToFile(url, file);
 				} catch (IOException ex) {
