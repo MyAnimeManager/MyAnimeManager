@@ -37,6 +37,8 @@ import java.awt.event.ItemEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class SetExclusionDialog extends JDialog {
 
@@ -59,6 +61,7 @@ public class SetExclusionDialog extends JDialog {
 			@Override
 			public void windowOpened(WindowEvent arg0) {
 				cancelButton.requestFocusInWindow();
+				comboBox.setSelectedItem(AnimeIndex.animeTypeComboBox.getSelectedItem());
 				loadModel();
 			}
 		});
@@ -155,10 +158,17 @@ public class SetExclusionDialog extends JDialog {
 				totalPane.setLayout(new CardLayout(0, 0));
 				
 				listToCheck = new JList(totalModel);
+				listToCheck.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mousePressed(MouseEvent e) {
+						listToExclude.clearSelection();
+					}
+				});
 				listToCheck.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				listToCheck.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
 						excludeButton.setEnabled(true);
+						includeButton.setEnabled(false);
 					}
 				});
 				listToCheck.setBounds(0, 0, 196, 159);
@@ -181,6 +191,9 @@ public class SetExclusionDialog extends JDialog {
 					if (totalModel.isEmpty())
 						excludeButton.setEnabled(false);
 					listToExclude.clearSelection();
+					listToCheck.clearSelection();
+					listToExclude.setSelectedValue(name, true);
+					excludeButton.setEnabled(false);
 				}
 			});
 			GridBagConstraints gbc_excludeButton = new GridBagConstraints();
@@ -207,9 +220,17 @@ public class SetExclusionDialog extends JDialog {
 			excludedPane.setLayout(new CardLayout(0, 0));
 			
 			listToExclude = new JList(excludedModel);
+			listToExclude.addMouseListener(new MouseAdapter() {
+				
+				@Override
+				public void mousePressed(MouseEvent e) {
+					listToCheck.clearSelection();
+				}
+			});
 			listToExclude.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			listToExclude.addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent e) {
+					excludeButton.setEnabled(false);
 					includeButton.setEnabled(true);
 				}
 			});
@@ -235,36 +256,47 @@ public class SetExclusionDialog extends JDialog {
 						if (AnimeIndex.completedMap.containsKey(name))
 						{			
 							totalModel.addElement(name);
+							comboBox.setSelectedItem("Anime Completati");
 						}
 					}
 					
 					if (type.equalsIgnoreCase("anime in corso"))
 					{
 						if (AnimeIndex.airingMap.containsKey(name))
+						{
 							totalModel.addElement(name);
+							comboBox.setSelectedItem("Anime in Corso");
+						}
 					}
 					
 					if (type.equalsIgnoreCase("oav"))
 					{
 						if (AnimeIndex.ovaMap.containsKey(name))
+						{
 							totalModel.addElement(name);
+							comboBox.setSelectedItem("OAV");
+						}
 					}
 					
 					if (type.equalsIgnoreCase("film"))
 					{
 						if (AnimeIndex.filmMap.containsKey(name))
+						{
 							totalModel.addElement(name);
+							comboBox.setSelectedItem("Film");
+						}
 					}
 					
 					if (type.equalsIgnoreCase("completi da vedere"))
 					{
 						if (AnimeIndex.completedToSeeMap.containsKey(name))
+						{
 							totalModel.addElement(name);
+							comboBox.setSelectedItem("Completi Da Vedere");
+						}
 					}
-					
-					if (excludedModel.isEmpty())
-						includeButton.setEnabled(false);
-					listToCheck.clearSelection();
+					listToExclude.clearSelection();
+					includeButton.setEnabled(false);
 				}
 			});
 			includeButton.setEnabled(false);
@@ -288,9 +320,11 @@ public class SetExclusionDialog extends JDialog {
 			comboBox.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent e) {
 					excludeButton.setEnabled(false);
-					includeButton.setEnabled(false);
+					if(listToExclude.isSelectionEmpty())
+						includeButton.setEnabled(false);
+					listToCheck.clearSelection();
 					String list = (String) comboBox.getSelectedItem();
-					
+
 					if (list.equalsIgnoreCase("anime completati"))
 						changeModel(AnimeIndex.completedModel);
 					
