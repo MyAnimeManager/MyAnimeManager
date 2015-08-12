@@ -34,6 +34,10 @@ import java.awt.CardLayout;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.ListSelectionModel;
+
 public class SetExclusionDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -43,6 +47,10 @@ public class SetExclusionDialog extends JDialog {
 	private JButton cancelButton;
 	private SortedListModel totalModel = new SortedListModel();
 	private SortedListModel excludedModel = new SortedListModel();
+	private JButton excludeButton;
+	private JButton includeButton;
+	private JList listToCheck;
+	private JList listToExclude;
 	/**
 	 * Create the dialog.
 	 */
@@ -146,22 +154,40 @@ public class SetExclusionDialog extends JDialog {
 				scrollPane.setViewportView(totalPane);
 				totalPane.setLayout(new CardLayout(0, 0));
 				
-				JList listToCheck = new JList(totalModel);
+				listToCheck = new JList(totalModel);
+				listToCheck.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				listToCheck.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent e) {
+						excludeButton.setEnabled(true);
+					}
+				});
 				listToCheck.setBounds(0, 0, 196, 159);
 				totalPane.add(listToCheck, "totalList");
 				
 				JList searchListToCheck = new JList();
+				searchListToCheck.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				searchListToCheck.setBounds(0, 0, 196, 159);
 				totalPane.add(searchListToCheck, "searchList");
 			}
 		}
 		{
-			JButton button = new JButton(">>");
-			GridBagConstraints gbc_button = new GridBagConstraints();
-			gbc_button.insets = new Insets(0, 0, 5, 5);
-			gbc_button.gridx = 2;
-			gbc_button.gridy = 3;
-			contentPanel.add(button, gbc_button);
+			excludeButton = new JButton(">>");
+			excludeButton.setEnabled(false);
+			excludeButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String name = (String) listToCheck.getSelectedValue();
+					totalModel.removeElement(name);
+					excludedModel.addElement(name);
+					if (totalModel.isEmpty())
+						excludeButton.setEnabled(false);
+					listToExclude.clearSelection();
+				}
+			});
+			GridBagConstraints gbc_excludeButton = new GridBagConstraints();
+			gbc_excludeButton.insets = new Insets(0, 0, 5, 5);
+			gbc_excludeButton.gridx = 2;
+			gbc_excludeButton.gridy = 3;
+			contentPanel.add(excludeButton, gbc_excludeButton);
 		}
 		{
 			JScrollPane scrollPane = new JScrollPane();
@@ -180,23 +206,73 @@ public class SetExclusionDialog extends JDialog {
 			scrollPane.setViewportView(excludedPane);
 			excludedPane.setLayout(new CardLayout(0, 0));
 			
-			JList listToExclude = new JList(excludedModel);
+			listToExclude = new JList(excludedModel);
+			listToExclude.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			listToExclude.addListSelectionListener(new ListSelectionListener() {
+				public void valueChanged(ListSelectionEvent e) {
+					includeButton.setEnabled(true);
+				}
+			});
 			listToExclude.setFont(null);
 			listToExclude.setBounds(0, 0, 176, 159);
 			excludedPane.add(listToExclude, "excludedList");
 			
 			JList searchListToExclude = new JList();
+			searchListToExclude.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			searchListToExclude.setFont(null);
 			searchListToExclude.setBounds(0, 0, 176, 159);
 			excludedPane.add(searchListToExclude, "excludedSearchedList");
 		}
 		{
-			JButton button = new JButton("<<");
-			GridBagConstraints gbc_button = new GridBagConstraints();
-			gbc_button.insets = new Insets(0, 0, 5, 5);
-			gbc_button.gridx = 2;
-			gbc_button.gridy = 4;
-			contentPanel.add(button, gbc_button);
+			includeButton = new JButton("<<");
+			includeButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String name = (String) listToExclude.getSelectedValue();
+					excludedModel.removeElement(name);
+					String type = (String) comboBox.getSelectedItem();
+					if (type.equalsIgnoreCase("anime completati"))
+					{
+						if (AnimeIndex.completedMap.containsKey(name))
+						{			
+							totalModel.addElement(name);
+						}
+					}
+					
+					if (type.equalsIgnoreCase("anime in corso"))
+					{
+						if (AnimeIndex.airingMap.containsKey(name))
+							totalModel.addElement(name);
+					}
+					
+					if (type.equalsIgnoreCase("oav"))
+					{
+						if (AnimeIndex.ovaMap.containsKey(name))
+							totalModel.addElement(name);
+					}
+					
+					if (type.equalsIgnoreCase("film"))
+					{
+						if (AnimeIndex.filmMap.containsKey(name))
+							totalModel.addElement(name);
+					}
+					
+					if (type.equalsIgnoreCase("completi da vedere"))
+					{
+						if (AnimeIndex.completedToSeeMap.containsKey(name))
+							totalModel.addElement(name);
+					}
+					
+					if (excludedModel.isEmpty())
+						includeButton.setEnabled(false);
+					listToCheck.clearSelection();
+				}
+			});
+			includeButton.setEnabled(false);
+			GridBagConstraints gbc_includeButton = new GridBagConstraints();
+			gbc_includeButton.insets = new Insets(0, 0, 5, 5);
+			gbc_includeButton.gridx = 2;
+			gbc_includeButton.gridy = 4;
+			contentPanel.add(includeButton, gbc_includeButton);
 		}
 		{
 			Component rigidArea = Box.createRigidArea(new Dimension(1, 20));
@@ -242,6 +318,11 @@ public class SetExclusionDialog extends JDialog {
 			JButton okButton = new JButton("Salva");
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					Object[] array = excludedModel.toArray();
+					for (int i = 0; i < array.length; i++) {
+						String name = (String) array[i];
+						AnimeIndex.exclusionAnime.add(name);
+					}
 					JButton but = (JButton) e.getSource();
 					JDialog dialog = (JDialog) but.getTopLevelAncestor();
 					dialog.dispose();
