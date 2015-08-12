@@ -210,6 +210,8 @@ public class AnimeIndex extends JFrame
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				ReleasedAnimeTask task = new ReleasedAnimeTask();
+				task.execute();
 			}
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

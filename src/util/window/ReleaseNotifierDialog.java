@@ -31,13 +31,7 @@ public class ReleaseNotifierDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public ReleaseNotifierDialog() {
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowOpened(WindowEvent e) {
-				ReleasedAnimeTask task = new ReleasedAnimeTask();
-				task.execute();
-			}
-		});
+
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReleaseNotifierDialog.class.getResource("/image/icon.png")));
 		setTitle("Uscite del giorno");
 		setType(Type.POPUP);

@@ -18,7 +18,6 @@ public class ReleasedAnimeTask extends SwingWorker
 		Date date = new Date();
 		SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the day of the week abbreviated
 		String day = simpleDateformat.format(date);
-		System.out.println(day);
 		Object[] ovaArray = AnimeIndex.ovaModel.toArray();
 		for (int i = 0; i < ovaArray.length; i++)
 		{
@@ -37,11 +36,19 @@ public class ReleasedAnimeTask extends SwingWorker
 			String releaseDate = data.getReleaseDate();
 			if (day.equalsIgnoreCase(releaseDate))
 				ReleaseNotifierDialog.filmReleased.addElement(name);
-		}
-		
-		ReleaseNotifierDialog.ovaReleasedList.repaint();
-		ReleaseNotifierDialog.filmReleasedList.repaint();
+		}		
 		return null;
+	}
+	
+	@Override
+	protected void done()
+	{
+		if (!ReleaseNotifierDialog.ovaReleased.isEmpty() || !ReleaseNotifierDialog.filmReleased.isEmpty())
+		{
+		ReleaseNotifierDialog dial = new ReleaseNotifierDialog();
+		dial.setLocationRelativeTo(AnimeIndex.mainFrame);
+		dial.setVisible(true);
+		}
 	}
 
 }
