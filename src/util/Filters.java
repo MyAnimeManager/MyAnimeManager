@@ -302,6 +302,9 @@ public class Filters {
 					giorno = "Venerdì";
 				else if (currentDay == Calendar.SATURDAY)
 					giorno = "Sabato";
+				
+				if(dato.equalsIgnoreCase(giorno))
+					AnimeIndex.filterModel.addElement((String)modelArray[i]);
 				}
 				else
 				{
