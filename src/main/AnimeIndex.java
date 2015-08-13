@@ -184,16 +184,6 @@ public class AnimeIndex extends JFrame
 	 */
 	public AnimeIndex()
 	{
-		addWindowFocusListener(new WindowFocusListener() {
-			public void windowGainedFocus(WindowEvent e) {
-				if (wishlistDialog.isShowing())
-				{
-					wishlistDialog.requestFocus();
-				}
-			}
-			public void windowLostFocus(WindowEvent e) {
-			}
-		});
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentMoved(ComponentEvent e) {
