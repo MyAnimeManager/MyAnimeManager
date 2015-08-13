@@ -286,13 +286,16 @@ public class SetExclusionDialog extends JDialog {
 					excludedModel.addElement(name);
 					listToCheck.clearSelection();
 					searchListToCheck.clearSelection();
-					searchInList(searchBarCheck.getText(), totalModel, totalSearchModel);
 					listToExclude.clearSelection();
 					searchListToExclude.clearSelection();
 					if(searchBarExclusions.getText().isEmpty())
 						listToExclude.setSelectedValue(name, true);
 					else
+					{
+						searchInList(searchBarCheck.getText(), totalModel, totalSearchModel);
+						searchInList(searchBarExclusions.getText(), excludedModel, excludedSearchModel);
 						searchListToExclude.setSelectedValue(name, true);
+					}
 				
 					excludeButton.setEnabled(false);
 					includeButton.setEnabled(true);
@@ -435,13 +438,14 @@ public class SetExclusionDialog extends JDialog {
 					
 					listToExclude.clearSelection();
 					searchListToExclude.clearSelection();
-					searchInList(searchBarExclusions.getText(), excludedModel, excludedSearchModel);
 					listToCheck.clearSelection();
 					searchListToCheck.clearSelection();
 					if(searchBarCheck.getText().isEmpty())
 						listToCheck.setSelectedValue(name, true);
 					else
 					{
+						searchInList(searchBarExclusions.getText(), excludedModel, excludedSearchModel);
+						searchInList(searchBarCheck.getText(), totalModel, totalSearchModel);
 						searchListToCheck.setSelectedValue(name, true);
 					}
 					includeButton.setEnabled(false);
@@ -466,6 +470,13 @@ public class SetExclusionDialog extends JDialog {
 		}
 		{
 			comboBox = new JComboBox();
+			comboBox.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					searchInList(searchBarCheck.getText(), totalModel, totalSearchModel);
+					if(!listToExclude.isSelectionEmpty() || !searchListToExclude.isSelectionEmpty())
+						includeButton.setEnabled(true);
+				}
+			});
 			comboBox.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent e) {
 					excludeButton.setEnabled(false);
