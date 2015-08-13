@@ -26,7 +26,7 @@ public class WishlistDialog extends JDialog
 	public WishlistDialog()
 	{
 		setUndecorated(true);
-		setBounds(100, 100, 175, AnimeIndex.mainFrame.getHeight() + 1);
+		setBounds(100, 100, 175, 471);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
