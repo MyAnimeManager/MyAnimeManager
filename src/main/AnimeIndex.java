@@ -237,7 +237,6 @@ public class AnimeIndex extends JFrame
 		JMenuItem mntmWishlist = new JMenuItem("Wishlist");
 		mntmWishlist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
-				System.out.println(wishlistDialog.isShowing());
 				if (!wishlistDialog.isShowing())
 				{
 					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 175,AnimeIndex.mainFrame.getLocationOnScreen().y);
