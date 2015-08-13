@@ -8,6 +8,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import main.AnimeIndex;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -23,7 +26,7 @@ public class WishlistDialog extends JDialog
 	public WishlistDialog()
 	{
 		setUndecorated(true);
-		setBounds(100, 100, 175, 470);
+		setBounds(100, 100, 175, AnimeIndex.mainFrame.getHeight());
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
