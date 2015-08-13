@@ -58,7 +58,7 @@ public class Updater
 			}
 			rr.close();
 		} catch (Exception e) {
-			System.out.println("Errore");
+			e.printStackTrace();
 	    }
 		result = StringEscapeUtils.unescapeJava(result);
 		return result;

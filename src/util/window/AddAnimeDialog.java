@@ -58,9 +58,16 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JCheckBox;
+
 import java.awt.TextField;
+
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
+
+import java.awt.Color;
+
+import javax.swing.border.LineBorder;
+import javax.swing.JSeparator;
 
 public class AddAnimeDialog extends JDialog
 {
@@ -82,15 +89,21 @@ public class AddAnimeDialog extends JDialog
 	public static boolean checkOAVList;
 	public static boolean checkFilmList;
 	public static boolean checkToSeeList;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
+	private JTextField nameField;
+	private JTextField durationField;
+	private JTextField startDayField;
+	private JTextField startMonthField;
+	private JTextField startYearField;
+	private JTextField finishDayField;
+	private JTextField finishMonthField;
+	private JTextField finishYearField;
+	private JTextField currentEpisodeText;
+	private JComboBox fansubComboBox;
+	private JButton btnLink;
+	private JComboBox exitdayComboBox;
+	private JComboBox listToAdd;
+	private JTextField totEpField;
+	private JComboBox typeComboBox;
 
 	/**
 	 * Create the dialog.
@@ -105,7 +118,7 @@ public class AddAnimeDialog extends JDialog
 		});
 		setTitle("Aggiungi anime");
 		setResizable(false);
-		setBounds(100, 100, 580, 345);
+		setBounds(100, 100, 600, 356);
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
 		{
@@ -126,10 +139,10 @@ public class AddAnimeDialog extends JDialog
 					String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
 				}
 				GridBagLayout gbl_normalAddPanel = new GridBagLayout();
-				gbl_normalAddPanel.columnWidths = new int[]{263, 569, 0};
-				gbl_normalAddPanel.rowHeights = new int[]{229, 33, 0};
-				gbl_normalAddPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-				gbl_normalAddPanel.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+				gbl_normalAddPanel.columnWidths = new int[]{263, 0};
+				gbl_normalAddPanel.rowHeights = new int[]{229, 12, 33, 0};
+				gbl_normalAddPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+				gbl_normalAddPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 				normalAddPanel.setLayout(gbl_normalAddPanel);
 			}
 			{
@@ -632,7 +645,6 @@ public class AddAnimeDialog extends JDialog
 				{
 					JPanel dataPanel = new JPanel();
 					GridBagConstraints gbc_dataPanel = new GridBagConstraints();
-					gbc_dataPanel.gridwidth = 2;
 					gbc_dataPanel.insets = new Insets(0, 0, 5, 0);
 					gbc_dataPanel.fill = GridBagConstraints.BOTH;
 					gbc_dataPanel.gridx = 0;
@@ -641,7 +653,7 @@ public class AddAnimeDialog extends JDialog
 					GridBagLayout gbl_dataPanel = new GridBagLayout();
 					gbl_dataPanel.columnWidths = new int[]{90, 34, -3, 34, -1, 56, 64, 24, 4, 26, 4, 52, 0, 51, 50, 0};
 					gbl_dataPanel.rowHeights = new int[]{20, 20, 20, 20, 20, 23, 20, 0, 20, 0, 0};
-					gbl_dataPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+					gbl_dataPanel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 					gbl_dataPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 					dataPanel.setLayout(gbl_dataPanel);
 					{
@@ -653,25 +665,26 @@ public class AddAnimeDialog extends JDialog
 						dataPanel.add(lblNome, gbc_lblNome);
 					}
 					{
-						textField = new JTextField();
-						GridBagConstraints gbc_textField = new GridBagConstraints();
-						gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-						gbc_textField.insets = new Insets(0, 0, 5, 5);
-						gbc_textField.gridwidth = 10;
-						gbc_textField.gridx = 1;
-						gbc_textField.gridy = 0;
-						dataPanel.add(textField, gbc_textField);
-						textField.setColumns(10);
+						nameField = new JTextField();
+						GridBagConstraints gbc_nameField = new GridBagConstraints();
+						gbc_nameField.fill = GridBagConstraints.HORIZONTAL;
+						gbc_nameField.insets = new Insets(0, 0, 5, 5);
+						gbc_nameField.gridwidth = 10;
+						gbc_nameField.gridx = 1;
+						gbc_nameField.gridy = 0;
+						dataPanel.add(nameField, gbc_nameField);
+						nameField.setColumns(10);
 					}
 					{
-						JComboBox comboBox = new JComboBox();
-						GridBagConstraints gbc_comboBox = new GridBagConstraints();
-						gbc_comboBox.gridwidth = 3;
-						gbc_comboBox.insets = new Insets(0, 0, 5, 0);
-						gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-						gbc_comboBox.gridx = 12;
-						gbc_comboBox.gridy = 0;
-						dataPanel.add(comboBox, gbc_comboBox);
+						listToAdd = new JComboBox();
+						GridBagConstraints gbc_listToAdd = new GridBagConstraints();
+						gbc_listToAdd.gridwidth = 3;
+						gbc_listToAdd.insets = new Insets(0, 0, 5, 0);
+						gbc_listToAdd.fill = GridBagConstraints.HORIZONTAL;
+						gbc_listToAdd.gridx = 12;
+						gbc_listToAdd.gridy = 0;
+						dataPanel.add(listToAdd, gbc_listToAdd);
+						listToAdd.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere"}));
 					}
 					{
 						JLabel lblTipo = new JLabel("Tipo :");
@@ -682,33 +695,54 @@ public class AddAnimeDialog extends JDialog
 						dataPanel.add(lblTipo, gbc_lblTipo);
 					}
 					{
-						JComboBox comboBox = new JComboBox();
-						GridBagConstraints gbc_comboBox = new GridBagConstraints();
-						gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-						gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-						gbc_comboBox.gridwidth = 3;
-						gbc_comboBox.gridx = 1;
-						gbc_comboBox.gridy = 1;
-						dataPanel.add(comboBox, gbc_comboBox);
+						typeComboBox = new JComboBox();
+						GridBagConstraints gbc_typeComboBox = new GridBagConstraints();
+						gbc_typeComboBox.fill = GridBagConstraints.HORIZONTAL;
+						gbc_typeComboBox.insets = new Insets(0, 0, 5, 5);
+						gbc_typeComboBox.gridwidth = 3;
+						gbc_typeComboBox.gridx = 1;
+						gbc_typeComboBox.gridy = 1;
+						dataPanel.add(typeComboBox, gbc_typeComboBox);
+						typeComboBox.setModel(new DefaultComboBoxModel(new String[] {"?????", "TV", "Movie", "Special", "OVA", "ONA", "TV Short", "Blu-ray"}));
+					}
+					{
+						JLabel lblEpisodioCorrente = new JLabel("Episodio Corrente");
+						GridBagConstraints gbc_lblEpisodioCorrente = new GridBagConstraints();
+						gbc_lblEpisodioCorrente.anchor = GridBagConstraints.EAST;
+						gbc_lblEpisodioCorrente.insets = new Insets(0, 0, 5, 5);
+						gbc_lblEpisodioCorrente.gridx = 0;
+						gbc_lblEpisodioCorrente.gridy = 2;
+						dataPanel.add(lblEpisodioCorrente, gbc_lblEpisodioCorrente);
+					}
+					{
+						currentEpisodeText = new JTextField();
+						GridBagConstraints gbc_currentEpisodeText = new GridBagConstraints();
+						gbc_currentEpisodeText.gridwidth = 3;
+						gbc_currentEpisodeText.insets = new Insets(0, 0, 5, 5);
+						gbc_currentEpisodeText.fill = GridBagConstraints.HORIZONTAL;
+						gbc_currentEpisodeText.gridx = 1;
+						gbc_currentEpisodeText.gridy = 2;
+						dataPanel.add(currentEpisodeText, gbc_currentEpisodeText);
+						currentEpisodeText.setColumns(10);
 					}
 					{
 						JLabel lblEpisodiTotali = new JLabel("Episodi Totali :");
 						GridBagConstraints gbc_lblEpisodiTotali = new GridBagConstraints();
 						gbc_lblEpisodiTotali.insets = new Insets(0, 0, 5, 5);
-						gbc_lblEpisodiTotali.gridx = 0;
+						gbc_lblEpisodiTotali.gridx = 5;
 						gbc_lblEpisodiTotali.gridy = 2;
 						dataPanel.add(lblEpisodiTotali, gbc_lblEpisodiTotali);
 					}
 					{
-						textField_1 = new JTextField();
-						GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-						gbc_textField_1.gridwidth = 2;
-						gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-						gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-						gbc_textField_1.gridx = 1;
-						gbc_textField_1.gridy = 2;
-						dataPanel.add(textField_1, gbc_textField_1);
-						textField_1.setColumns(10);
+						totEpField = new JTextField();
+						GridBagConstraints gbc_totEpField = new GridBagConstraints();
+						gbc_totEpField.gridwidth = 2;
+						gbc_totEpField.fill = GridBagConstraints.HORIZONTAL;
+						gbc_totEpField.insets = new Insets(0, 0, 5, 5);
+						gbc_totEpField.gridx = 6;
+						gbc_totEpField.gridy = 2;
+						dataPanel.add(totEpField, gbc_totEpField);
+						totEpField.setColumns(10);
 					}
 					{
 						JLabel lblControllaIn_1 = new JLabel("Controlla in :");
@@ -729,25 +763,25 @@ public class AddAnimeDialog extends JDialog
 						dataPanel.add(lblDurataEpisodio, gbc_lblDurataEpisodio);
 					}
 					{
-						textField_2 = new JTextField();
-						GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-						gbc_textField_2.gridwidth = 3;
-						gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-						gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-						gbc_textField_2.gridx = 1;
-						gbc_textField_2.gridy = 3;
-						dataPanel.add(textField_2, gbc_textField_2);
-						textField_2.setColumns(10);
+						durationField = new JTextField();
+						GridBagConstraints gbc_durationField = new GridBagConstraints();
+						gbc_durationField.gridwidth = 3;
+						gbc_durationField.fill = GridBagConstraints.HORIZONTAL;
+						gbc_durationField.insets = new Insets(0, 0, 5, 5);
+						gbc_durationField.gridx = 1;
+						gbc_durationField.gridy = 3;
+						dataPanel.add(durationField, gbc_durationField);
+						durationField.setColumns(10);
 					}
 					{
-						JToggleButton tglbtnNewToggleButton = new JToggleButton("Seleziona Lista");
-						GridBagConstraints gbc_tglbtnNewToggleButton = new GridBagConstraints();
-						gbc_tglbtnNewToggleButton.fill = GridBagConstraints.HORIZONTAL;
-						gbc_tglbtnNewToggleButton.gridwidth = 3;
-						gbc_tglbtnNewToggleButton.insets = new Insets(0, 0, 5, 0);
-						gbc_tglbtnNewToggleButton.gridx = 12;
-						gbc_tglbtnNewToggleButton.gridy = 3;
-						dataPanel.add(tglbtnNewToggleButton, gbc_tglbtnNewToggleButton);
+						JToggleButton listSlectionToggleButton = new JToggleButton("Seleziona Lista");
+						GridBagConstraints gbc_listSlectionToggleButton = new GridBagConstraints();
+						gbc_listSlectionToggleButton.fill = GridBagConstraints.HORIZONTAL;
+						gbc_listSlectionToggleButton.gridwidth = 3;
+						gbc_listSlectionToggleButton.insets = new Insets(0, 0, 5, 0);
+						gbc_listSlectionToggleButton.gridx = 12;
+						gbc_listSlectionToggleButton.gridy = 3;
+						dataPanel.add(listSlectionToggleButton, gbc_listSlectionToggleButton);
 					}
 					{
 						JLabel lblFansub = new JLabel("Fansub :");
@@ -758,14 +792,15 @@ public class AddAnimeDialog extends JDialog
 						dataPanel.add(lblFansub, gbc_lblFansub);
 					}
 					{
-						JComboBox comboBox = new JComboBox();
-						GridBagConstraints gbc_comboBox = new GridBagConstraints();
-						gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-						gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-						gbc_comboBox.gridwidth = 5;
-						gbc_comboBox.gridx = 1;
-						gbc_comboBox.gridy = 4;
-						dataPanel.add(comboBox, gbc_comboBox);
+						fansubComboBox = new JComboBox();
+						GridBagConstraints gbc_fansubComboBox = new GridBagConstraints();
+						gbc_fansubComboBox.fill = GridBagConstraints.HORIZONTAL;
+						gbc_fansubComboBox.insets = new Insets(0, 0, 5, 5);
+						gbc_fansubComboBox.gridwidth = 5;
+						gbc_fansubComboBox.gridx = 1;
+						gbc_fansubComboBox.gridy = 4;
+						fansubComboBox.setModel(new DefaultComboBoxModel(AnimeIndex.getFansubList()));
+						dataPanel.add(fansubComboBox, gbc_fansubComboBox);
 					}
 					{
 						JLabel lblLink = new JLabel("Link :");
@@ -776,14 +811,14 @@ public class AddAnimeDialog extends JDialog
 						dataPanel.add(lblLink, gbc_lblLink);
 					}
 					{
-						JButton btnImpostaLink = new JButton("Imposta Link");
-						GridBagConstraints gbc_btnImpostaLink = new GridBagConstraints();
-						gbc_btnImpostaLink.fill = GridBagConstraints.HORIZONTAL;
-						gbc_btnImpostaLink.insets = new Insets(0, 0, 5, 5);
-						gbc_btnImpostaLink.gridwidth = 5;
-						gbc_btnImpostaLink.gridx = 1;
-						gbc_btnImpostaLink.gridy = 5;
-						dataPanel.add(btnImpostaLink, gbc_btnImpostaLink);
+						btnLink = new JButton("Imposta Link");
+						GridBagConstraints gbc_btnLink = new GridBagConstraints();
+						gbc_btnLink.fill = GridBagConstraints.HORIZONTAL;
+						gbc_btnLink.insets = new Insets(0, 0, 5, 5);
+						gbc_btnLink.gridwidth = 5;
+						gbc_btnLink.gridx = 1;
+						gbc_btnLink.gridy = 5;
+						dataPanel.add(btnLink, gbc_btnLink);
 					}
 					{
 						JLabel lblDataDiInizio = new JLabel("Data di Inizio :");
@@ -794,14 +829,14 @@ public class AddAnimeDialog extends JDialog
 						dataPanel.add(lblDataDiInizio, gbc_lblDataDiInizio);
 					}
 					{
-						textField_3 = new JTextField();
-						GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-						gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-						gbc_textField_3.insets = new Insets(0, 0, 5, 5);
-						gbc_textField_3.gridx = 1;
-						gbc_textField_3.gridy = 6;
-						dataPanel.add(textField_3, gbc_textField_3);
-						textField_3.setColumns(10);
+						startDayField = new JTextField();
+						GridBagConstraints gbc_startDayField = new GridBagConstraints();
+						gbc_startDayField.fill = GridBagConstraints.HORIZONTAL;
+						gbc_startDayField.insets = new Insets(0, 0, 5, 5);
+						gbc_startDayField.gridx = 1;
+						gbc_startDayField.gridy = 6;
+						dataPanel.add(startDayField, gbc_startDayField);
+						startDayField.setColumns(10);
 					}
 					{
 						JLabel label = new JLabel("/");
@@ -813,14 +848,14 @@ public class AddAnimeDialog extends JDialog
 						dataPanel.add(label, gbc_label);
 					}
 					{
-						textField_4 = new JTextField();
-						GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-						gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
-						gbc_textField_4.insets = new Insets(0, 0, 5, 5);
-						gbc_textField_4.gridx = 3;
-						gbc_textField_4.gridy = 6;
-						dataPanel.add(textField_4, gbc_textField_4);
-						textField_4.setColumns(10);
+						startMonthField = new JTextField();
+						GridBagConstraints gbc_startMonthField = new GridBagConstraints();
+						gbc_startMonthField.fill = GridBagConstraints.HORIZONTAL;
+						gbc_startMonthField.insets = new Insets(0, 0, 5, 5);
+						gbc_startMonthField.gridx = 3;
+						gbc_startMonthField.gridy = 6;
+						dataPanel.add(startMonthField, gbc_startMonthField);
+						startMonthField.setColumns(10);
 					}
 					{
 						JLabel label = new JLabel("/");
@@ -832,18 +867,21 @@ public class AddAnimeDialog extends JDialog
 						dataPanel.add(label, gbc_label);
 					}
 					{
-						textField_5 = new JTextField();
-						GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-						gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
-						gbc_textField_5.insets = new Insets(0, 0, 5, 5);
-						gbc_textField_5.gridx = 5;
-						gbc_textField_5.gridy = 6;
-						dataPanel.add(textField_5, gbc_textField_5);
-						textField_5.setColumns(10);
+						startYearField = new JTextField();
+						GridBagConstraints gbc_startYearField = new GridBagConstraints();
+						gbc_startYearField.fill = GridBagConstraints.HORIZONTAL;
+						gbc_startYearField.insets = new Insets(0, 0, 5, 5);
+						gbc_startYearField.gridx = 5;
+						gbc_startYearField.gridy = 6;
+						dataPanel.add(startYearField, gbc_startYearField);
+						startYearField.setColumns(10);
 					}
 					{
 						JTextPane txtpnConLaggiuntaManuale = new JTextPane();
-						txtpnConLaggiuntaManuale.setFont(new Font("Tahoma", Font.PLAIN, 10));
+						txtpnConLaggiuntaManuale.setBorder(new LineBorder(new Color(255, 0, 0), 1, true));
+						txtpnConLaggiuntaManuale.setBackground(Color.LIGHT_GRAY);
+						txtpnConLaggiuntaManuale.setEditable(false);
+						txtpnConLaggiuntaManuale.setFont(new Font("Tahoma", Font.PLAIN, 12));
 						txtpnConLaggiuntaManuale.setEnabled(false);
 						txtpnConLaggiuntaManuale.setText("Con l'aggiunta manuale la funzione di controllo e aggiornamento dati sar\u00E0 disattivata. Anche il collegamento alla pagina AniList dell'anime non sar\u00E0 disponibile.");
 						GridBagConstraints gbc_txtpnConLaggiuntaManuale = new GridBagConstraints();
@@ -863,15 +901,15 @@ public class AddAnimeDialog extends JDialog
 						dataPanel.add(lblDataDiFine, gbc_lblDataDiFine);
 					}
 					{
-						textField_6 = new JTextField();
-						GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-						gbc_textField_6.anchor = GridBagConstraints.NORTH;
-						gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
-						gbc_textField_6.insets = new Insets(0, 0, 5, 5);
-						gbc_textField_6.gridx = 1;
-						gbc_textField_6.gridy = 7;
-						dataPanel.add(textField_6, gbc_textField_6);
-						textField_6.setColumns(10);
+						finishDayField = new JTextField();
+						GridBagConstraints gbc_finishDayField = new GridBagConstraints();
+						gbc_finishDayField.anchor = GridBagConstraints.NORTH;
+						gbc_finishDayField.fill = GridBagConstraints.HORIZONTAL;
+						gbc_finishDayField.insets = new Insets(0, 0, 5, 5);
+						gbc_finishDayField.gridx = 1;
+						gbc_finishDayField.gridy = 7;
+						dataPanel.add(finishDayField, gbc_finishDayField);
+						finishDayField.setColumns(10);
 					}
 					{
 						JLabel label = new JLabel("/");
@@ -883,15 +921,14 @@ public class AddAnimeDialog extends JDialog
 						dataPanel.add(label, gbc_label);
 					}
 					{
-						textField_7 = new JTextField();
-						GridBagConstraints gbc_textField_7 = new GridBagConstraints();
-						gbc_textField_7.anchor = GridBagConstraints.NORTH;
-						gbc_textField_7.fill = GridBagConstraints.HORIZONTAL;
-						gbc_textField_7.insets = new Insets(0, 0, 5, 5);
-						gbc_textField_7.gridx = 3;
-						gbc_textField_7.gridy = 7;
-						dataPanel.add(textField_7, gbc_textField_7);
-						textField_7.setColumns(10);
+						finishMonthField = new JTextField();
+						GridBagConstraints gbc_finishMonthField = new GridBagConstraints();
+						gbc_finishMonthField.fill = GridBagConstraints.BOTH;
+						gbc_finishMonthField.insets = new Insets(0, 0, 5, 5);
+						gbc_finishMonthField.gridx = 3;
+						gbc_finishMonthField.gridy = 7;
+						dataPanel.add(finishMonthField, gbc_finishMonthField);
+						finishMonthField.setColumns(10);
 					}
 					{
 						JLabel label = new JLabel("/");
@@ -903,14 +940,14 @@ public class AddAnimeDialog extends JDialog
 						dataPanel.add(label, gbc_label);
 					}
 					{
-						textField_8 = new JTextField();
-						GridBagConstraints gbc_textField_8 = new GridBagConstraints();
-						gbc_textField_8.fill = GridBagConstraints.HORIZONTAL;
-						gbc_textField_8.insets = new Insets(0, 0, 5, 5);
-						gbc_textField_8.gridx = 5;
-						gbc_textField_8.gridy = 7;
-						dataPanel.add(textField_8, gbc_textField_8);
-						textField_8.setColumns(10);
+						finishYearField = new JTextField();
+						GridBagConstraints gbc_finishYearField = new GridBagConstraints();
+						gbc_finishYearField.fill = GridBagConstraints.HORIZONTAL;
+						gbc_finishYearField.insets = new Insets(0, 0, 5, 5);
+						gbc_finishYearField.gridx = 5;
+						gbc_finishYearField.gridy = 7;
+						dataPanel.add(finishYearField, gbc_finishYearField);
+						finishYearField.setColumns(10);
 					}
 					{
 						JLabel lblGiornoDiUscita = new JLabel("Giorno di Uscita :");
@@ -921,30 +958,89 @@ public class AddAnimeDialog extends JDialog
 						dataPanel.add(lblGiornoDiUscita, gbc_lblGiornoDiUscita);
 					}
 					{
-						JComboBox comboBox = new JComboBox();
-						GridBagConstraints gbc_comboBox = new GridBagConstraints();
-						gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-						gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-						gbc_comboBox.gridwidth = 5;
-						gbc_comboBox.gridx = 1;
-						gbc_comboBox.gridy = 8;
-						dataPanel.add(comboBox, gbc_comboBox);
+						exitdayComboBox = new JComboBox();
+						GridBagConstraints gbc_exitdayComboBox = new GridBagConstraints();
+						gbc_exitdayComboBox.fill = GridBagConstraints.HORIZONTAL;
+						gbc_exitdayComboBox.insets = new Insets(0, 0, 5, 5);
+						gbc_exitdayComboBox.gridwidth = 5;
+						gbc_exitdayComboBox.gridx = 1;
+						gbc_exitdayComboBox.gridy = 8;
+						dataPanel.add(exitdayComboBox, gbc_exitdayComboBox);
+						exitdayComboBox.setModel(new DefaultComboBoxModel(new String[] {"?????", "Luned\u00EC", "Marted\u00EC", "Mercoled\u00EC", "Gioved\u00EC", "Venerd\u00EC", "Sabato", "Domenica", "Concluso", "Irregolare", "Sospesa"}));
 					}
+				}
+				{
+					JSeparator separator = new JSeparator();
+					GridBagConstraints gbc_separator = new GridBagConstraints();
+					gbc_separator.fill = GridBagConstraints.BOTH;
+					gbc_separator.insets = new Insets(0, 0, 5, 0);
+					gbc_separator.gridx = 0;
+					gbc_separator.gridy = 1;
+					normalAddPanel.add(separator, gbc_separator);
 				}
 				{
 					JPanel buttonPane = new JPanel();
 					GridBagConstraints gbc_buttonPane = new GridBagConstraints();
-					gbc_buttonPane.gridwidth = 2;
 					gbc_buttonPane.anchor = GridBagConstraints.NORTH;
 					gbc_buttonPane.fill = GridBagConstraints.HORIZONTAL;
 					gbc_buttonPane.gridx = 0;
-					gbc_buttonPane.gridy = 1;
+					gbc_buttonPane.gridy = 2;
 					normalAddPanel.add(buttonPane, gbc_buttonPane);
 					FlowLayout fl_buttonPane = new FlowLayout(FlowLayout.CENTER);
 					fl_buttonPane.setHgap(100);
 					buttonPane.setLayout(fl_buttonPane);
 					{
+						
 						JButton addButton = new JButton("Aggiungi");
+						addButton.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								if (nameField.getText().equalsIgnoreCase(""))
+									{
+										JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
+											    "Nome non inserito",
+											    "Errore",
+											    JOptionPane.ERROR_MESSAGE);
+									}
+									else if ((totEpField.getText().equalsIgnoreCase("") && currentEpisodeText.getText().equalsIgnoreCase("")) || totEpField.getText().equalsIgnoreCase(""))
+									{ 
+										JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
+											    "Episodi totali o episodio corrente non inseriti/o",
+											    "Errore",
+											    JOptionPane.ERROR_MESSAGE);
+									}
+									else if ((!currentEpisodeText.getText().equalsIgnoreCase("") && (Integer.parseInt(totEpField.getText()) < Integer.parseInt(currentEpisodeText.getText()))))
+									{
+										JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
+											    "Il numero totale di episodi non può essere inferiore al numero attuale",
+											    "Errore",
+											    JOptionPane.ERROR_MESSAGE);
+									}
+									else
+									{
+										
+										if ((!(totEpField.getText().equalsIgnoreCase("")) && currentEpisodeText.getText().equalsIgnoreCase("")))
+											{
+											currentEpisodeText.setText("1");
+											}
+										//TODO controllo e aggiunta nella lista corrispondente
+										String name = nameField.getText();
+										String type = (String)typeComboBox.getSelectedItem();
+										String currentEp =currentEpisodeText.getText();
+										String totEp = totEpField.getText();
+										String duration = durationField.getText();
+										String fansub = (String)fansubComboBox.getSelectedItem();
+										String startDay = startDayField.getText() + "/" + startMonthField.getText() + "/" + startYearField.getText();
+										String finishDay = finishDayField.getText() + "/" + finishMonthField.getText() + "/" + finishYearField.getText();
+										String exitDay = (String)exitdayComboBox.getSelectedItem();
+										boolean bd = false;
+										if (type.equalsIgnoreCase("blu-ray"))
+											bd = true;
+										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "", exitDay, "", "", "", startDay, startDay, finishDay, duration, bd);
+										
+									}
+										
+							}
+						});
 
 						buttonPane.add(addButton);
 					}
@@ -1524,49 +1620,8 @@ public class AddAnimeDialog extends JDialog
 	
 }
 
-//public void actionPerformed(ActionEvent e) {
-//	
-//	if (nameField.getText().equalsIgnoreCase(""))
-//	{
-//		JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
-//			    "Nome non inserito",
-//			    "Errore",
-//			    JOptionPane.ERROR_MESSAGE);
-//	}
-//	else if ((totalEpisodeField.getText().equalsIgnoreCase("") && episodeField.getText().equalsIgnoreCase("")) || totalEpisodeField.getText().equalsIgnoreCase(""))
-//	{ 
-//		JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
-//			    "Episodi totali o episodio corrente non inseriti/o",
-//			    "Errore",
-//			    JOptionPane.ERROR_MESSAGE);
-//	}
-//	else if ((!episodeField.getText().equalsIgnoreCase("") && (Integer.parseInt(AnimeIndex.animeDialog.getTotatEp()) < Integer.parseInt(AnimeIndex.animeDialog.getCurrentEp()))))
-//	{
-//		JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
-//			    "Il numero totale di episodi non può essere inferiore al numero attuale",
-//			    "Errore",
-//			    JOptionPane.ERROR_MESSAGE);
-//	}
-//	else
-//	{
-//		
-//		if ((!(totalEpisodeField.getText().equalsIgnoreCase("")) && episodeField.getText().equalsIgnoreCase("")))
-//			{
-//				episodeField.setText("1");
-//			}
-//		
-//	String name = AnimeIndex.animeDialog.getName();
-//	String currentEp = AnimeIndex.animeDialog.getCurrentEp();
-//	String totEp = AnimeIndex.animeDialog.getTotatEp();
-//	String fansub = AnimeIndex.animeDialog.getFansub();
-//	String day = AnimeIndex.animeDialog.getDay();
-//
-//	if (currentEp.equals(totEp))
-//		AnimeIndex.animeInformation.plusButton.setEnabled(false);
-//	
-//	AnimeData data = new AnimeData(currentEp, totEp, fansub, "", null, day, "", "", "", "", "", "", "", false);
-//	
-//	
+
+	//TODO aiuto aggiunta manuale
 //	String listName = getListToAdd();
 //	JList list = null;
 //	boolean contains = false;

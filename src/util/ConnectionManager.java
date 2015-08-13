@@ -160,7 +160,6 @@ public class ConnectionManager
 			result += sc1.next() + "\r\n";
 		}
 	    sc1.close();
-	   // System.out.println(result);
 		return result;
 	}
 	

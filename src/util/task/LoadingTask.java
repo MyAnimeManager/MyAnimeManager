@@ -25,4 +25,9 @@ public class LoadingTask extends SwingWorker
 		return null;
 	}
 
+	protected void done()
+	{
+		ReleasedAnimeTask task = new ReleasedAnimeTask();
+		task.execute();
+	}
 }

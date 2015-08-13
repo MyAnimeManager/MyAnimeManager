@@ -19,6 +19,12 @@ import util.task.ReleasedAnimeTask;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class ReleaseNotifierDialog extends JDialog {
 	
@@ -31,6 +37,7 @@ public class ReleaseNotifierDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public ReleaseNotifierDialog() {
+		setModal(true);
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReleaseNotifierDialog.class.getResource("/image/icon.png")));
 		setTitle("Uscite del giorno");
@@ -64,6 +71,12 @@ public class ReleaseNotifierDialog extends JDialog {
 			getContentPane().add(scrollPane, "cell 0 2,grow");
 			{
 				ovaReleasedList = new JList(ovaReleased);
+				ovaReleasedList.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent e) {
+						filmReleasedList.clearSelection();
+					}
+				});
+				ovaReleasedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				ovaReleasedList.setFont(AnimeIndex.segui.deriveFont(12f));
 				scrollPane.setViewportView(ovaReleasedList);
 			}
@@ -75,16 +88,49 @@ public class ReleaseNotifierDialog extends JDialog {
 			getContentPane().add(scrollPane, "cell 2 2,grow");
 			{
 				filmReleasedList = new JList(filmReleased);
+				filmReleasedList.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent e) {
+						ovaReleasedList.clearSelection();
+					}
+				});
+				filmReleasedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				filmReleasedList.setFont(AnimeIndex.segui.deriveFont(12f));
 				scrollPane.setViewportView(filmReleasedList);
 			}
 		}
 		{
 			JButton btnApriSelezionato = new JButton("Apri Selezionato");
+			btnApriSelezionato.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (ovaReleasedList.isSelectionEmpty() && !filmReleasedList.isSelectionEmpty())
+					{
+						String name = (String) filmReleasedList.getSelectedValue();
+						AnimeIndex.animeTypeComboBox.setSelectedItem("Film");
+						AnimeIndex.filmList.setSelectedValue(name, true);
+					}
+					else if (filmReleasedList.isSelectionEmpty() && !ovaReleasedList.isSelectionEmpty())
+					{
+						String name = (String) ovaReleasedList.getSelectedValue();
+						AnimeIndex.animeTypeComboBox.setSelectedItem("OAV");
+						AnimeIndex.ovaList.setSelectedValue(name, true);						
+					}
+					
+					JButton butt = (JButton) e.getSource();
+					JDialog dialog = (JDialog) butt.getTopLevelAncestor();
+					dialog.dispose();
+				}
+			});
 			getContentPane().add(btnApriSelezionato, "cell 0 3 3 1,growx,aligny center");
 		}
 		{
 			JButton btnOk = new JButton("OK");
+			btnOk.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JButton butt = (JButton) e.getSource();
+					JDialog dialog = (JDialog) butt.getTopLevelAncestor();
+					dialog.dispose();
+				}
+			});
 			getContentPane().add(btnOk, "cell 0 4 3 1,growx,aligny center");
 		}
 	}

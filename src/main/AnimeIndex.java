@@ -73,17 +73,17 @@ import util.window.SetFilterDialog;
 import util.window.UpdateDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
-//TODO finire il release notifier dialog
-//TODO fare sistema di controllo
+//TODO finire il release notifier dialog (non so cosa intendi con Apri selezionato. ho messo che prende la lsita e ti fa vedere i dati suoi.)
+//TODO fare sistema di controllo (già fatto?)
 //TODO fare lista esclusioni sistema di controllo
-//TODO fare wishlist
-//TODO sistemare aggiunta anime manuale
-//TODO sistemare crediti
-//TODO sistemare variabile per la versione successiva
+//TODO fare wishlist (secondo me è inutile...)
+//TODO sistemare aggiunta anime manuale (quasi finita)
+//TODO sistemare crediti 
+//TODO sistemare variabile per la versione successiva (fatto?)
 public class AnimeIndex extends JFrame
 {
 	public static final String VERSION = "1.0.0";
-	public static final String NEW_VERSION = "MyAnimeManager_v1.0.0_Setup.exe";
+	public static final String NEW_VERSION = "MyAnimeManager_v" + VERSION + "_Setup.exe";
 	public static JPanel mainFrame;
 	public static JPanel cardContainer;
 	public static AnimeInformation animeInformation;
@@ -210,8 +210,6 @@ public class AnimeIndex extends JFrame
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				ReleasedAnimeTask task = new ReleasedAnimeTask();
-				task.execute();
 			}
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -617,7 +615,6 @@ public class AnimeIndex extends JFrame
 		animeTypeComboBox.setMaximumRowCount(2139120439);
 		animeTypeComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent evt) {
-				//TODO al 99% il problema è qui o nei metodi all'interno
 				saveModifiedInformation(list);
 				CardLayout cl = (CardLayout)(cardContainer.getLayout());
 		        cl.show(cardContainer, (String)evt.getItem());
@@ -657,7 +654,6 @@ public class AnimeIndex extends JFrame
 		        else
 		        	AnimeIndex.animeInformation.finishedButton.setEnabled(false);
 		         }
-		        //TODO controlla che usi la lista giusta sto metodo. il saveModifiedInformation senza argomenti lo fa sulla lista che è visualizzata dalla combo box. se vuoi farlo sulla lista precedente devi usare quella con un argomento
 		        Filters.toFileteredList();
 		     }
 		});
@@ -1784,7 +1780,6 @@ public class AnimeIndex extends JFrame
 
 	public void saveModifiedInformation(String list)
 	{
-		//TODO probabilmente è qui
 		if(!animeInformation.lblAnimeName.getText().equalsIgnoreCase("Anime"))
 		{
 			String name = animeInformation.lblAnimeName.getText();
@@ -1907,7 +1902,7 @@ public class AnimeIndex extends JFrame
 		deleteButton.setEnabled(true);
 		JList list = jList;
 		String anime = (String) list.getSelectedValue();
-		if (anime != null)
+		if (anime != null || !jList.isSelectionEmpty())
 		{	
 			TreeMap<String,AnimeData> map = getMap();
 			AnimeData data = map.get(anime);

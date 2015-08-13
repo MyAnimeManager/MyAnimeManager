@@ -27,11 +27,11 @@ public class ReleasedAnimeTask extends SwingWorker
 			if (day.equalsIgnoreCase(releaseDate))
 				ReleaseNotifierDialog.ovaReleased.addElement(name);
 		}
-		
+
 		Object[] filmArray = AnimeIndex.filmModel.toArray();
-		for (int i = 0; i < ovaArray.length; i++)
+		for (int i = 0; i < filmArray.length; i++)
 		{
-			String name = (String) ovaArray[i];
+			String name = (String) filmArray[i];
 			AnimeData data = AnimeIndex.filmMap.get(name);
 			String releaseDate = data.getReleaseDate();
 			if (day.equalsIgnoreCase(releaseDate))
