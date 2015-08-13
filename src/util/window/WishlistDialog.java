@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 public class WishlistDialog extends JDialog
 {
 
-	private final JPanel contentPanel = new JPanel();
+	public final JPanel contentPanel = new JPanel();
 
 	/**
 	 * Create the dialog.
@@ -23,7 +23,7 @@ public class WishlistDialog extends JDialog
 	public WishlistDialog()
 	{
 		setUndecorated(true);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 175, 470);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));

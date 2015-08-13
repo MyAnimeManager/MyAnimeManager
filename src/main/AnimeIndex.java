@@ -39,12 +39,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
@@ -63,7 +62,6 @@ import util.SortedListModel;
 import util.Updater;
 import util.task.CheckUpdateTask;
 import util.task.LoadingTask;
-import util.task.ReleasedAnimeTask;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
 import util.window.AnimeInformation;
@@ -142,6 +140,7 @@ public class AnimeIndex extends JFrame
 	public static int filtro = 9;
 	public static Font segui;
 	public static String addToPreviousList;
+	public static WishlistDialog wishlistDialog;
 	/**
 	 * Launch the application.
 	 */
@@ -165,6 +164,7 @@ public class AnimeIndex extends JFrame
 					segui = segui();
 					AnimeIndex frame = new AnimeIndex();
 					frame.setVisible(true);
+					wishlistDialog = new WishlistDialog();
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -236,10 +236,18 @@ public class AnimeIndex extends JFrame
 		
 		JMenuItem mntmWishlist = new JMenuItem("Wishlist");
 		mntmWishlist.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				WishlistDialog dialog = new WishlistDialog();
-				dialog.setLocation(0,AnimeIndex.mainFrame.getLocation().y);
-				dialog.setVisible(true);
+			public void actionPerformed(ActionEvent e) {				
+				System.out.println(wishlistDialog.isShowing());
+				if (!wishlistDialog.isShowing())
+				{
+					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 175,AnimeIndex.mainFrame.getLocationOnScreen().y);
+					wishlistDialog.setVisible(true);
+				}
+				else
+				{
+//					dialog.dispose();
+					wishlistDialog.setVisible(false);
+				}
 			}
 		});
 		mnMenu.add(mntmWishlist);
