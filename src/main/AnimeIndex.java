@@ -70,6 +70,9 @@ import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
 import util.window.UpdateDialog;
 import util.window.WishlistDialog;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO finire il release notifier dialog (non so cosa intendi con Apri selezionato. ho messo che prende la lsita e ti fa vedere i dati suoi.)
@@ -178,6 +181,13 @@ public class AnimeIndex extends JFrame
 	 */
 	public AnimeIndex()
 	{
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				if (wishlistDialog.isShowing())
+					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 175,AnimeIndex.mainFrame.getLocationOnScreen().y);
+			}
+		});
 		setTitle("My Anime Manager");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AnimeIndex.class.getResource("/image/icon.png")));
 		setResizable(false);
@@ -244,8 +254,7 @@ public class AnimeIndex extends JFrame
 				}
 				else
 				{
-//					dialog.dispose();
-					wishlistDialog.setVisible(false);
+					wishlistDialog.dispose();
 				}
 			}
 		});
