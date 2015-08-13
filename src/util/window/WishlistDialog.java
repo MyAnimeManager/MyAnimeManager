@@ -14,6 +14,7 @@ import main.AnimeIndex;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.MatteBorder;
 
 public class WishlistDialog extends JDialog
 {
@@ -26,14 +27,14 @@ public class WishlistDialog extends JDialog
 	public WishlistDialog()
 	{
 		setUndecorated(true);
-		setBounds(100, 100, 175, 471);
+		setBounds(100, 100, 175, 472);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
-		contentPanel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		contentPanel.setBorder(new MatteBorder(1, 1, 0, 1, (Color) new Color(0, 0, 0)));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+			buttonPane.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
