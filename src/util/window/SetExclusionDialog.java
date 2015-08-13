@@ -143,7 +143,7 @@ public class SetExclusionDialog extends JDialog {
 					String search = searchBarCheck.getText();
 					CardLayout cl = (CardLayout)(totalPane.getLayout());
 			        cl.show(totalPane, "searchList");
-					SearchInList(search, totalModel, totalSearchModel);
+					searchInList(search, totalModel, totalSearchModel);
 				}
 
 				@Override
@@ -159,7 +159,7 @@ public class SetExclusionDialog extends JDialog {
 						{	
 						CardLayout cl = (CardLayout)(totalPane.getLayout());
 				        cl.show(totalPane, "searchList");
-				        SearchInList(search, totalModel, totalSearchModel);
+				        searchInList(search, totalModel, totalSearchModel);
 						}
 						else
 						{
@@ -194,7 +194,7 @@ public class SetExclusionDialog extends JDialog {
 					String search = searchBarExclusions.getText();
 					CardLayout cl = (CardLayout)(excludedPane.getLayout());
 			        cl.show(excludedPane, "excludedSearchedList");
-					SearchInList(search, excludedModel, excludedSearchModel);
+					searchInList(search, excludedModel, excludedSearchModel);
 				}
 
 				@Override
@@ -208,7 +208,7 @@ public class SetExclusionDialog extends JDialog {
 						{	
 						CardLayout cl = (CardLayout)(excludedPane.getLayout());
 				        cl.show(excludedPane, "excludedSearchedList");
-				        SearchInList(search, excludedModel, excludedSearchModel);
+				        searchInList(search, excludedModel, excludedSearchModel);
 						}
 						else
 						{
@@ -275,7 +275,6 @@ public class SetExclusionDialog extends JDialog {
 		}
 		{
 			excludeButton = new JButton(">>");
-			excludeButton.setEnabled(false);
 			excludeButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String name= null;
@@ -285,16 +284,18 @@ public class SetExclusionDialog extends JDialog {
 						name = (String) searchListToCheck.getSelectedValue();
 					totalModel.removeElement(name);
 					excludedModel.addElement(name);
-					if (totalModel.isEmpty())
-						excludeButton.setEnabled(false);
-					listToExclude.clearSelection();
 					listToCheck.clearSelection();
-					listToExclude.setSelectedValue(name, true);
-					SearchInList(searchBarCheck.getText(), totalModel, totalSearchModel);
+					searchListToCheck.clearSelection();
+					searchInList(searchBarCheck.getText(), totalModel, totalSearchModel);
 					listToExclude.clearSelection();
 					searchListToExclude.clearSelection();
-					includeButton.setEnabled(false);
+					if(searchBarExclusions.getText().isEmpty())
+						listToExclude.setSelectedValue(name, true);
+					else
+						searchListToExclude.setSelectedValue(name, true);
+				
 					excludeButton.setEnabled(false);
+					includeButton.setEnabled(true);
 				}
 			});
 			GridBagConstraints gbc_excludeButton = new GridBagConstraints();
@@ -431,12 +432,18 @@ public class SetExclusionDialog extends JDialog {
 					{
 						comboBox.setSelectedItem("Completi Da Vedere");
 					}
-					listToCheck.setSelectedValue(name, true);
 					
 					listToExclude.clearSelection();
-					SearchInList(searchBarExclusions.getText(), excludedModel, excludedSearchModel);
+					searchListToExclude.clearSelection();
+					searchInList(searchBarExclusions.getText(), excludedModel, excludedSearchModel);
 					listToCheck.clearSelection();
 					searchListToCheck.clearSelection();
+					if(searchBarCheck.getText().isEmpty())
+						listToCheck.setSelectedValue(name, true);
+					else
+					{
+						searchListToCheck.setSelectedValue(name, true);
+					}
 					includeButton.setEnabled(false);
 					excludeButton.setEnabled(true);
 					}
@@ -561,7 +568,7 @@ public class SetExclusionDialog extends JDialog {
 		}
 	}
 	
-	private void SearchInList(String searchedVal, SortedListModel modelToSearch, SortedListModel searchModel) 
+	private void searchInList(String searchedVal, SortedListModel modelToSearch, SortedListModel searchModel) 
 	{
 		Object[] mainArray = modelToSearch.toArray();			
 			searchModel.clear();
