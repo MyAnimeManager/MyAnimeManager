@@ -69,14 +69,16 @@ public class ExitSaveDialog extends JDialog
 								FileManager.saveAnimeList("ova.txt", AnimeIndex.ovaModel, AnimeIndex.ovaMap);
 								FileManager.saveAnimeList("film.txt", AnimeIndex.filmModel, AnimeIndex.filmMap);
 								FileManager.saveAnimeList("toSee.txt", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
-							
+								FileManager.saveWishList();
+								FileManager.saveExclusionList();
+								
 								deleteUselessImage(AnimeIndex.completedDeletedAnime);
 								deleteUselessImage(AnimeIndex.airingDeletedAnime);
 								deleteUselessImage(AnimeIndex.ovaDeletedAnime);
 								deleteUselessImage(AnimeIndex.filmDeletedAnime);
 								deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime);
 								AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
-								FileManager.saveExclusionList();
+								
 							System.exit(0);
 						}
 					});

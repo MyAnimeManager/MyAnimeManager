@@ -15,8 +15,7 @@ import java.net.URLConnection;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-import javax.imageio.stream.FileImageInputStream;
-
+import util.window.WishlistDialog;
 import main.AnimeIndex;
 
 public class FileManager
@@ -210,12 +209,12 @@ public class FileManager
 
 	public static void loadExclusionList()
 	{
-		File fansubFile = new File(ANIME_PATH + "exclusion.txt");
-		if (fansubFile.isFile()) 
+		File exclusionFile = new File(ANIME_PATH + "exclusion.txt");
+		if (exclusionFile.isFile()) 
 		{
 			Scanner scan = null;
 			try {
-				scan = new Scanner(fansubFile);
+				scan = new Scanner(exclusionFile);
 				
 				while (scan.hasNextLine())
 				{
@@ -235,7 +234,7 @@ public class FileManager
 		else
 			{
 			 try {
-				fansubFile.createNewFile();
+				 exclusionFile.createNewFile();
 			 	} 
 			 catch (IOException e) 
 			 	{
@@ -259,6 +258,66 @@ public class FileManager
 			for (int i = 0; i < exclusionNameArray.length; i++)
 				{
 					String name = (String) exclusionNameArray[i];
+					output.write(name);
+					output.write(System.lineSeparator());
+				}
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void loadWishList()
+	{
+		File wishlistFile = new File(ANIME_PATH + "wishlist.txt");
+		if (wishlistFile.isFile()) 
+		{
+			Scanner scan = null;
+			try {
+				scan = new Scanner(wishlistFile);
+				
+				while (scan.hasNextLine())
+				{
+					String wishListAnime = scan.nextLine();
+					WishlistDialog.wishListModel.addElement(wishListAnime);
+				}							
+			} 
+			catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} 
+			finally
+			{
+				scan.close();
+			}
+		}
+			
+		else
+			{
+			 try {
+				 wishlistFile.createNewFile();
+			 	} 
+			 catch (IOException e) 
+			 	{
+				e.printStackTrace();
+				}
+			}
+	}
+	
+	public static void saveWishList()
+	{
+		File wishlistFile = new File(ANIME_PATH + "wishlist.txt");
+		wishlistFile.delete();
+		wishlistFile.getParentFile().mkdirs();
+		BufferedWriter output;
+		try 
+		{
+			output = new BufferedWriter(new OutputStreamWriter(
+				    new FileOutputStream(wishlistFile), "UTF-8"));
+			
+			Object[] wishListArray = WishlistDialog.wishListModel.toArray();
+			for (int i = 0; i < wishListArray.length; i++)
+				{
+					String name = (String) wishListArray[i];
 					output.write(name);
 					output.write(System.lineSeparator());
 				}
