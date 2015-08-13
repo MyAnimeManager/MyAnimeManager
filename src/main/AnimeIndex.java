@@ -73,6 +73,9 @@ import util.window.WishlistDialog;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.WindowFocusListener;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO finire il release notifier dialog (non so cosa intendi con Apri selezionato. ho messo che prende la lsita e ti fa vedere i dati suoi.)
@@ -181,6 +184,16 @@ public class AnimeIndex extends JFrame
 	 */
 	public AnimeIndex()
 	{
+		addWindowFocusListener(new WindowFocusListener() {
+			public void windowGainedFocus(WindowEvent e) {
+				if (wishlistDialog.isShowing())
+				{
+					wishlistDialog.requestFocus();
+				}
+			}
+			public void windowLostFocus(WindowEvent e) {
+			}
+		});
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentMoved(ComponentEvent e) {
