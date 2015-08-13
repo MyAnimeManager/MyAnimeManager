@@ -15,6 +15,8 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.MatteBorder;
+import java.awt.Window.Type;
+import java.awt.Dialog.ModalExclusionType;
 
 public class WishlistDialog extends JDialog
 {
@@ -26,7 +28,10 @@ public class WishlistDialog extends JDialog
 	 */
 	public WishlistDialog()
 	{
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setType(Type.UTILITY);
 		setUndecorated(true);
+		setResizable(false);
 		setBounds(100, 100, 175, 472);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
