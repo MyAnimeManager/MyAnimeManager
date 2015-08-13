@@ -440,6 +440,9 @@ public class AnimeIndex extends JFrame
 				String[] newFansub = {};
 				fansubList = newFansub;
 				
+				exclusionAnime.clear();
+				WishlistDialog.wishListModel.clear();
+				
 				JList list = getJList();
 				list.clearSelection();
 				animeInformation.setBlank();
