@@ -71,6 +71,7 @@ import util.window.ExitSaveDialog;
 import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
 import util.window.UpdateDialog;
+import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO finire il release notifier dialog (non so cosa intendi con Apri selezionato. ho messo che prende la lsita e ti fa vedere i dati suoi.)
@@ -232,6 +233,16 @@ public class AnimeIndex extends JFrame
 				preference.setVisible(true);
 			}
 		});
+		
+		JMenuItem mntmWishlist = new JMenuItem("Wishlist");
+		mntmWishlist.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WishlistDialog dialog = new WishlistDialog();
+				dialog.setLocation(0,AnimeIndex.mainFrame.getLocation().y);
+				dialog.setVisible(true);
+			}
+		});
+		mnMenu.add(mntmWishlist);
 		mnMenu.add(mntmPreferenze);
 		
 		JSeparator separator = new JSeparator();
