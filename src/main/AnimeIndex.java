@@ -474,7 +474,6 @@ public class AnimeIndex extends JFrame
 			            	   AnimeIndex.mainFrame.requestFocus();
 			            	   if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 175) {
 			                     ((Timer) e.getSource()).stop();
-			               System.out.println("Timer stopped");
 			            }
 			               }
 			            }).start();
@@ -490,11 +489,10 @@ public class AnimeIndex extends JFrame
 			            	   AnimeIndex.mainFrame.requestFocus();
 			            	   if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x) {
 			                     ((Timer) e.getSource()).stop();
-			               System.out.println("Timer stopped");
+			 					wishlistDialog.dispose();
 			            }
 			               }
 			            }).start();
-//					wishlistDialog.dispose();
 				}
 			}
 		});
