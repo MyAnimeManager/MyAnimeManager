@@ -68,7 +68,7 @@ public class WishlistDialog extends JDialog
 		setType(Type.UTILITY);
 		setUndecorated(true);
 		setResizable(false);
-		setBounds(100, 100, 180, 472);
+		setBounds(100, 100, 182, 472);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new MatteBorder(1, 1, 0, 1, (Color) new Color(0, 0, 0)));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
