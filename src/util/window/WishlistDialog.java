@@ -14,9 +14,11 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.border.MatteBorder;
 
 import util.SearchBar;
@@ -28,8 +30,11 @@ import main.AnimeIndex;
 
 import java.awt.GridLayout;
 import java.awt.Component;
+
 import javax.swing.Box;
+
 import net.miginfocom.swing.MigLayout;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -38,6 +43,8 @@ import javax.swing.UIManager;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class WishlistDialog extends JDialog
 {
@@ -50,6 +57,7 @@ public class WishlistDialog extends JDialog
 	private JButton btnClose;
 	private Component verticalStrut;
 	private Component verticalStrut_1;
+	private JList wishList;
 
 	/**
 	 * Create the dialog.
@@ -69,7 +77,13 @@ public class WishlistDialog extends JDialog
 			JScrollPane scrollPane = new JScrollPane();
 			contentPanel.add(scrollPane, BorderLayout.CENTER);
 			{
-				JList wishList = new JList(wishListModel);
+				wishList = new JList(wishListModel);
+				wishList.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent e) {
+						btnDeleteAnime.setEnabled(true);
+						
+					}
+				});
 				wishList.setFont(AnimeIndex.segui.deriveFont(12f));
 				wishList.setBorder(UIManager.getBorder("CheckBox.border"));
 				scrollPane.setViewportView(wishList);
@@ -118,15 +132,43 @@ public class WishlistDialog extends JDialog
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnDeleteAnime = new JButton("Elimina Anime");
+				btnDeleteAnime.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String name = (String) wishList.getSelectedValue(); 
+						wishListModel.removeElement(name);
+					}
+				});
+				btnDeleteAnime.setEnabled(false);
 			}
 			{
 				btnAggiungiAnime = new JButton("Aggiungi Anime");
+				btnAggiungiAnime.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String name = JOptionPane.showInputDialog(AnimeIndex.wishlistDialog, "Nome Anime", "Aggiungi alla wishlist", JOptionPane.QUESTION_MESSAGE);
+						wishListModel.addElement(name);
+					}
+				});
 			}
 			{
 				verticalStrut = Box.createVerticalStrut(20);
 			}
 			{
 				btnClose = new JButton(">>");
+				btnClose.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						new Timer(1, new ActionListener() {
+				               public void actionPerformed(ActionEvent e) {
+				            	   
+				            	   AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x + 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
+				            	   AnimeIndex.mainFrame.requestFocus();
+				            	   if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x) {
+				                     ((Timer) e.getSource()).stop();
+				                     AnimeIndex.wishlistDialog.dispose();
+				            }
+				               }
+				            }).start();
+					}
+				});
 			}
 			GroupLayout gl_buttonPane = new GroupLayout(buttonPane);
 			gl_buttonPane.setHorizontalGroup(
