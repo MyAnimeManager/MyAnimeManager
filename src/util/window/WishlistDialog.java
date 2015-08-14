@@ -45,6 +45,9 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class WishlistDialog extends JDialog
 {
@@ -58,6 +61,11 @@ public class WishlistDialog extends JDialog
 	private Component verticalStrut;
 	private Component verticalStrut_1;
 	private JList wishList;
+	private Component horizontalStrut;
+	private Component horizontalStrut_1;
+	private Component horizontalStrut_2;
+	private Component horizontalStrut_3;
+	private Component horizontalStrut_4;
 
 	/**
 	 * Create the dialog..
@@ -68,7 +76,7 @@ public class WishlistDialog extends JDialog
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setType(Type.UTILITY);
 		setResizable(false);
-		setBounds(100, 100, 189, 472);
+		setBounds(100, 100, 182, 472);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new MatteBorder(1, 1, 0, 1, (Color) new Color(0, 0, 0)));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -95,37 +103,50 @@ public class WishlistDialog extends JDialog
 			{
 				verticalStrut_1 = Box.createVerticalStrut(20);
 			}
-			{
-				searchBar = new SearchBar();
-				searchBar.setFont(AnimeIndex.segui.deriveFont(11f));
-				ImageIcon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(AnimeIndex.class.getResource("/image/search.png")));
-		        searchBar.setIcon(icon);
-		        searchBar.setDisabledTextColor(Color.LIGHT_GRAY);
-				searchBar.setBackground(Color.BLACK);
-				searchBar.setForeground(Color.LIGHT_GRAY);
-			}
 			
 			JComboBox comboBox = new JComboBox();
+			comboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"                   WISHLIST"}));
+			searchBar = new SearchBar();
+			searchBar.setAlignmentX(Component.LEFT_ALIGNMENT);
+			searchBar.setFont(AnimeIndex.segui.deriveFont(11f));
+			ImageIcon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(AnimeIndex.class.getResource("/image/search.png")));
+			searchBar.setIcon(icon);
+			searchBar.setDisabledTextColor(Color.LIGHT_GRAY);
+			searchBar.setBackground(Color.BLACK);
+			searchBar.setForeground(Color.LIGHT_GRAY);
+			{
+				horizontalStrut = Box.createHorizontalStrut(20);
+			}
+			{
+				horizontalStrut_1 = Box.createHorizontalStrut(20);
+			}
 			GroupLayout gl_panel = new GroupLayout(panel);
 			gl_panel.setHorizontalGroup(
 				gl_panel.createParallelGroup(Alignment.LEADING)
-					.addComponent(verticalStrut_1, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
-					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
-					.addComponent(searchBar, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panel.createSequentialGroup()
+						.addGap(90)
+						.addComponent(verticalStrut_1, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_panel.createSequentialGroup()
+						.addComponent(horizontalStrut, GroupLayout.PREFERRED_SIZE, 7, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_panel.createSequentialGroup()
+						.addComponent(horizontalStrut_1, GroupLayout.PREFERRED_SIZE, 7, GroupLayout.PREFERRED_SIZE)
+						.addComponent(searchBar, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
 			);
 			gl_panel.setVerticalGroup(
 				gl_panel.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_panel.createSequentialGroup()
 						.addComponent(verticalStrut_1, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(searchBar, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+							.addComponent(horizontalStrut, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+							.addComponent(horizontalStrut_1, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+							.addComponent(searchBar, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
 			);
 			panel.setLayout(gl_panel);
 		}
-		
-		Component horizontalStrut = Box.createHorizontalStrut(20);
-		contentPanel.add(horizontalStrut, BorderLayout.SOUTH);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new MatteBorder(0, 1, 1, 1, (Color) new Color(0, 0, 0)));
@@ -171,20 +192,43 @@ public class WishlistDialog extends JDialog
 					}
 				});
 			}
+			{
+				horizontalStrut_4 = Box.createHorizontalStrut(20);
+			}
+			{
+				horizontalStrut_3 = Box.createHorizontalStrut(20);
+			}
+			{
+				horizontalStrut_2 = Box.createHorizontalStrut(20);
+			}
 			GroupLayout gl_buttonPane = new GroupLayout(buttonPane);
 			gl_buttonPane.setHorizontalGroup(
 				gl_buttonPane.createParallelGroup(Alignment.LEADING)
-					.addComponent(btnClose, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
-					.addComponent(btnDeleteAnime, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
-					.addComponent(btnAggiungiAnime, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
-					.addComponent(verticalStrut, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_buttonPane.createSequentialGroup()
+						.addComponent(horizontalStrut_4, GroupLayout.PREFERRED_SIZE, 7, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnClose, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_buttonPane.createSequentialGroup()
+						.addComponent(horizontalStrut_3, GroupLayout.PREFERRED_SIZE, 7, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnDeleteAnime, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_buttonPane.createSequentialGroup()
+						.addComponent(horizontalStrut_2, GroupLayout.PREFERRED_SIZE, 7, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnAggiungiAnime, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_buttonPane.createSequentialGroup()
+						.addGap(90)
+						.addComponent(verticalStrut, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
 			);
 			gl_buttonPane.setVerticalGroup(
 				gl_buttonPane.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_buttonPane.createSequentialGroup()
-						.addComponent(btnClose)
-						.addComponent(btnDeleteAnime)
-						.addComponent(btnAggiungiAnime)
+						.addGroup(gl_buttonPane.createParallelGroup(Alignment.LEADING)
+							.addComponent(horizontalStrut_4, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnClose))
+						.addGroup(gl_buttonPane.createParallelGroup(Alignment.LEADING)
+							.addComponent(horizontalStrut_3, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnDeleteAnime))
+						.addGroup(gl_buttonPane.createParallelGroup(Alignment.LEADING)
+							.addComponent(horizontalStrut_2, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnAggiungiAnime))
 						.addComponent(verticalStrut, GroupLayout.PREFERRED_SIZE, 5, GroupLayout.PREFERRED_SIZE))
 			);
 			buttonPane.setLayout(gl_buttonPane);
