@@ -128,7 +128,7 @@ public class WishlistDialog extends JDialog
 		contentPanel.add(horizontalStrut, BorderLayout.SOUTH);
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+			buttonPane.setBorder(new MatteBorder(0, 1, 1, 1, (Color) new Color(0, 0, 0)));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnDeleteAnime = new JButton("Elimina Anime");
