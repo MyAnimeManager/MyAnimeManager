@@ -145,7 +145,8 @@ public class WishlistDialog extends JDialog
 				btnAggiungiAnime.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						String name = JOptionPane.showInputDialog(AnimeIndex.wishlistDialog, "Nome Anime", "Aggiungi alla wishlist", JOptionPane.QUESTION_MESSAGE);
-						wishListModel.addElement(name);
+						if (name != null)
+							wishListModel.addElement(name);
 					}
 				});
 			}
