@@ -23,6 +23,8 @@ import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
 import util.SortedListModel;
 import util.task.ReleasedAnimeTask;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class ReleaseNotifierDialog extends JDialog {
 	
@@ -36,6 +38,19 @@ public class ReleaseNotifierDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public ReleaseNotifierDialog() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				if(!ReleasedAnimeTask.enableOav)
+					ovaReleasedList.setEnabled(false);
+				else
+					ovaReleasedList.setEnabled(true);
+				if(!ReleasedAnimeTask.enableFilm)
+					filmReleasedList.setEnabled(false);
+				else
+					filmReleasedList.setEnabled(true);
+			}
+		});
 		setModal(true);
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReleaseNotifierDialog.class.getResource("/image/icon.png")));
@@ -70,10 +85,7 @@ public class ReleaseNotifierDialog extends JDialog {
 			getContentPane().add(scrollPane, "cell 0 2,grow");
 			{
 				ovaReleasedList = new JList(ovaReleased);
-				if(!ReleasedAnimeTask.enableOav)
-					ovaReleasedList.setEnabled(false);
-				else
-					ovaReleasedList.setEnabled(true);
+				
 				ovaReleasedList.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
 						filmReleasedList.clearSelection();
@@ -92,10 +104,6 @@ public class ReleaseNotifierDialog extends JDialog {
 			getContentPane().add(scrollPane, "cell 2 2,grow");
 			{
 				filmReleasedList = new JList(filmReleased);
-				if(!ReleasedAnimeTask.enableFilm)
-					filmReleasedList.setEnabled(false);
-				else
-					filmReleasedList.setEnabled(true);
 				filmReleasedList.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
 						ovaReleasedList.clearSelection();

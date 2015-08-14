@@ -18,6 +18,8 @@ public class ReleasedAnimeTask extends SwingWorker
 	@Override
 	protected Object doInBackground() throws Exception
 	{
+		ReleaseNotifierDialog.ovaReleased.clear();
+		ReleaseNotifierDialog.filmReleased.clear();
 		Date date = new Date();
 		SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the day of the week abbreviated
 		String day = simpleDateformat.format(date);
