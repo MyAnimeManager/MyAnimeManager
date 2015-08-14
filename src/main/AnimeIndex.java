@@ -436,6 +436,7 @@ public class AnimeIndex extends JFrame
 		menuBar.add(mnModifica);
 		
 		JMenuItem mntmImmagineAnime = new JMenuItem("Immagine Anime");
+		mntmImmagineAnime.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/picture.png")));
 		mntmImmagineAnime.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
