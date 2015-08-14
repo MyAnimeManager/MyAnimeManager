@@ -60,7 +60,7 @@ public class ReleasedAnimeTask extends SwingWorker
 	@Override
 	protected void done()
 	{
-		if (!ReleaseNotifierDialog.ovaReleased.isEmpty() || !ReleaseNotifierDialog.filmReleased.isEmpty() || (ReleaseNotifierDialog.ovaReleased.contains("Nessun Anime Corrispondente") && ReleaseNotifierDialog.ovaReleased.contains("Nessun Anime Corrispondente")))
+		if (!ReleaseNotifierDialog.ovaReleased.isEmpty() || !ReleaseNotifierDialog.filmReleased.isEmpty() || (ReleaseNotifierDialog.ovaReleased.contains("Nessun Anime Corrispondente") && ReleaseNotifierDialog.ovaReleased.contains("Nessun Anime Corrispondente")) )
 		{
 		ReleaseNotifierDialog dial = new ReleaseNotifierDialog();
 		dial.setLocationRelativeTo(AnimeIndex.mainFrame);
