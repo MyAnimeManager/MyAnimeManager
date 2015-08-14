@@ -32,6 +32,7 @@ public class ReleaseNotifierDialog extends JDialog {
 	public static SortedListModel filmReleased = new SortedListModel();
 	public static JList ovaReleasedList;
 	public static JList filmReleasedList;
+	private JButton btnApriSelezionato;
 
 	/**
 	 * Create the dialog.
@@ -74,6 +75,7 @@ public class ReleaseNotifierDialog extends JDialog {
 				ovaReleasedList.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
 						filmReleasedList.clearSelection();
+						btnApriSelezionato.setEnabled(true);
 					}
 				});
 				ovaReleasedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -91,6 +93,7 @@ public class ReleaseNotifierDialog extends JDialog {
 				filmReleasedList.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
 						ovaReleasedList.clearSelection();
+						btnApriSelezionato.setEnabled(true);
 					}
 				});
 				filmReleasedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -99,7 +102,8 @@ public class ReleaseNotifierDialog extends JDialog {
 			}
 		}
 		{
-			JButton btnApriSelezionato = new JButton("Apri Selezionato");
+			btnApriSelezionato = new JButton("Visualizza l'Anime Selezionato");
+			btnApriSelezionato.setEnabled(false);
 			btnApriSelezionato.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (ovaReleasedList.isSelectionEmpty() && !filmReleasedList.isSelectionEmpty())

@@ -78,17 +78,16 @@ import java.awt.event.FocusEvent;
 import java.awt.event.WindowFocusListener;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
-//TODO finire il release notifier dialog (non so cosa intendi con Apri selezionato. ho messo che prende la lsita e ti fa vedere i dati suoi.)
-//TODO fare sistema di controllo (già fatto?)
-//TODO fare lista esclusioni sistema di controllo
-//TODO fare wishlist (secondo me è inutile...)
-//TODO sistemare aggiunta anime manuale (quasi finita)
+//TODO fixare "IL BUG"
+//TODO fare sistema di controllo
+//TODO finire wishlist
+//TODO finire aggiunta anime manuale
 //TODO sistemare crediti 
 //TODO sistemare variabile per la versione successiva (fatto?)
 public class AnimeIndex extends JFrame
 {
 	public static final String VERSION = "1.0.0";
-	public static final String NEW_VERSION = "MyAnimeManager_v" + VERSION + "_Setup.exe";
+	public static final String NEW_VERSION = "MyAnimeManager_v1.0.0_Setup.exe";
 	public static JPanel mainFrame;
 	public static JPanel cardContainer;
 	public static AnimeInformation animeInformation;
