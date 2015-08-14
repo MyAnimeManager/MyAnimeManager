@@ -56,15 +56,15 @@ public class PreferenceDialog extends JDialog
 		setTitle("Preferenze");
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 380, 280);
+		setBounds(100, 100, 380, 249);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.EAST);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{197, 90, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblListToVisualize = new JLabel("Lista da visualizzare all'avvio :");
@@ -329,99 +329,8 @@ public class PreferenceDialog extends JDialog
 			GridBagConstraints gbc_separator = new GridBagConstraints();
 			gbc_separator.fill = GridBagConstraints.BOTH;
 			gbc_separator.gridwidth = 3;
-			gbc_separator.insets = new Insets(0, 0, 5, 0);
 			gbc_separator.gridx = 0;
 			gbc_separator.gridy = 8;
-			contentPanel.add(separator, gbc_separator);
-		}
-		{
-			JLabel lblImmagineAnime = new JLabel("Immagine Anime :");
-			GridBagConstraints gbc_lblImmagineAnime = new GridBagConstraints();
-			gbc_lblImmagineAnime.fill = GridBagConstraints.HORIZONTAL;
-			gbc_lblImmagineAnime.insets = new Insets(0, 0, 5, 5);
-			gbc_lblImmagineAnime.gridx = 0;
-			gbc_lblImmagineAnime.gridy = 9;
-			contentPanel.add(lblImmagineAnime, gbc_lblImmagineAnime);
-		}
-		{
-			JButton btnSeleziona = new JButton("Seleziona");
-			btnSeleziona.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					String name = AnimeIndex.animeInformation.lblAnimeName.getText();
-					if(!name.equalsIgnoreCase("Anime") && name!=null)
-					{
-					int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "La modifica sarà applicata all'anime attualmente selezinato.\n\rL'operazione non potra' essere annullata.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-					if(shouldCancel==0){
-					File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
-					JFileChooser fc = new JFileChooser(chooserDir);
-					fc.setMultiSelectionEnabled(false);
-					fc.addChoosableFileFilter(new ImageChooserFilter());
-					fc.setAcceptAllFileFilterUsed(false);
-
-					int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Imposta");
-					
-					if (returnVal == JFileChooser.APPROVE_OPTION)
-					{
-						File file = fc.getSelectedFile();
-						String dir = file.getPath();
-						try {
-							BufferedImage bufimg = ImageIO.read (file);
-							String imageName = name.replaceAll("\\\\", "_");
-							imageName = imageName.replaceAll("/", "_");
-							imageName = imageName.replaceAll(":", "_");
-							imageName = imageName.replaceAll("\\*", "_");
-							imageName = imageName.replaceAll("\\?", "_");
-							imageName = imageName.replaceAll("\"", "_");
-							imageName = imageName.replaceAll(">", "_");
-							imageName = imageName.replaceAll("<", "_");
-							String listName = AnimeIndex.getList();
-							String folder = "";
-							if (listName.equalsIgnoreCase("anime completati"))
-								folder = "Completed";
-							else if (listName.equalsIgnoreCase("anime in corso"))
-								folder = "Airing";
-							else if (listName.equalsIgnoreCase("oav"))
-								folder = "Ova";
-							else if (listName.equalsIgnoreCase("film"))
-								folder = "Film";
-							else if (listName.equalsIgnoreCase("completi da vedere"))
-								folder = "Completed to See";
-							FileManager.saveNewImage(dir, imageName, folder);
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
-							TreeMap<String,AnimeData> map = AnimeIndex.getMap();
-							String list = AnimeIndex.getList();
-							AnimeData data = map.get(name);
-							String path = data.getImagePath(list);
-							File imgFile = new File(path);
-							if(imgFile.exists())
-								AnimeIndex.animeInformation.setImage(path);
-							else
-								AnimeIndex.animeInformation.setImage("default");
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}					
-					}
-					}
-					}
-					else
-						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessun anime selezionato.\n\rSelezionarne uno da una delle liste e riprovare.", "Errore!", JOptionPane.ERROR_MESSAGE);
-				}
-			});
-			GridBagConstraints gbc_btnSeleziona = new GridBagConstraints();
-			gbc_btnSeleziona.insets = new Insets(0, 0, 5, 0);
-			gbc_btnSeleziona.gridwidth = 2;
-			gbc_btnSeleziona.fill = GridBagConstraints.HORIZONTAL;
-			gbc_btnSeleziona.gridx = 1;
-			gbc_btnSeleziona.gridy = 9;
-			contentPanel.add(btnSeleziona, gbc_btnSeleziona);
-		}
-		{
-			JSeparator separator = new JSeparator();
-			GridBagConstraints gbc_separator = new GridBagConstraints();
-			gbc_separator.fill = GridBagConstraints.BOTH;
-			gbc_separator.gridwidth = 3;
-			gbc_separator.gridx = 0;
-			gbc_separator.gridy = 10;
 			contentPanel.add(separator, gbc_separator);
 		}
 		

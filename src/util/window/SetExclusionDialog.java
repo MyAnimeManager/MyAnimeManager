@@ -236,6 +236,7 @@ public class SetExclusionDialog extends JDialog {
 				totalPane.setLayout(new CardLayout(0, 0));
 				
 				listToCheck = new JList(totalModel);
+				listToCheck.setFont(AnimeIndex.segui.deriveFont(12f));
 				listToCheck.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mousePressed(MouseEvent e) {
@@ -254,6 +255,7 @@ public class SetExclusionDialog extends JDialog {
 				totalPane.add(listToCheck, "totalList");
 				
 				searchListToCheck = new JList(totalSearchModel);
+				searchListToCheck.setFont(AnimeIndex.segui.deriveFont(12f));
 				searchListToCheck.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mousePressed(MouseEvent arg0) {
@@ -340,7 +342,7 @@ public class SetExclusionDialog extends JDialog {
 					includeButton.setEnabled(true);
 				}
 			});
-			listToExclude.setFont(null);
+			listToExclude.setFont(AnimeIndex.segui.deriveFont(12f));
 			listToExclude.setBounds(0, 0, 176, 159);
 			excludedPane.add(listToExclude, "excludedList");
 			
@@ -359,7 +361,7 @@ public class SetExclusionDialog extends JDialog {
 				}
 			});
 			searchListToExclude.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			searchListToExclude.setFont(null);
+			searchListToExclude.setFont(AnimeIndex.segui.deriveFont(12f));
 			searchListToExclude.setBounds(0, 0, 176, 159);
 			excludedPane.add(searchListToExclude, "excludedSearchedList");
 		}

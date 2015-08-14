@@ -27,10 +27,12 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.TreeMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenu;
@@ -57,6 +59,7 @@ import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.FileManager;
 import util.Filters;
+import util.ImageChooserFilter;
 import util.SearchBar;
 import util.SortedListModel;
 import util.Updater;
@@ -79,6 +82,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.WindowFocusListener;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
+import java.awt.image.BufferedImage;
 
 //TODO fixare "IL BUG"
 //TODO fare sistema di controllo
@@ -440,17 +444,16 @@ public class AnimeIndex extends JFrame
 		JMenu mnModifica = new JMenu("Modifica");
 		menuBar.add(mnModifica);
 		
-		JMenuItem mntmImmagineIniziale = new JMenuItem("Immagine Iniziale");
-		mnModifica.add(mntmImmagineIniziale);
-		
 		JMenuItem mntmImmagineAnime = new JMenuItem("Immagine Anime");
+		mntmImmagineAnime.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		mnModifica.add(mntmImmagineAnime);
 		
 		JMenu mnVisualizza = new JMenu("Visualizza");
 		menuBar.add(mnVisualizza);
-		
-		JMenuItem mntmWishlist = new JMenuItem("WishList");
-		mnVisualizza.add(mntmWishlist);
 		
 		JMenuItem mntmNuoveUscite = new JMenuItem("Nuove Uscite");
 		mntmNuoveUscite.addActionListener(new ActionListener() {
@@ -460,6 +463,12 @@ public class AnimeIndex extends JFrame
 			}
 		});
 		mnVisualizza.add(mntmNuoveUscite);
+		
+		JSeparator separator_2 = new JSeparator();
+		mnVisualizza.add(separator_2);
+		
+		JMenuItem mntmWishlist = new JMenuItem("WishList");
+		mnVisualizza.add(mntmWishlist);
 		mntmWishlist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
 				if (!wishlistDialog.isShowing())
