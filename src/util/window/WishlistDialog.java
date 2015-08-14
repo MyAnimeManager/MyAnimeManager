@@ -60,7 +60,7 @@ public class WishlistDialog extends JDialog
 	private JList wishList;
 
 	/**
-	 * Create the dialog.
+	 * Create the dialog..
 	 */
 	public WishlistDialog()
 	{
