@@ -3,6 +3,10 @@ package util.window;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -10,21 +14,15 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
 import util.SortedListModel;
 import util.task.ReleasedAnimeTask;
-
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
 
 public class ReleaseNotifierDialog extends JDialog {
 	
@@ -41,7 +39,7 @@ public class ReleaseNotifierDialog extends JDialog {
 		setModal(true);
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReleaseNotifierDialog.class.getResource("/image/icon.png")));
-		setTitle("Uscite del giorno");
+		setTitle("Nuove Uscite");
 		setType(Type.POPUP);
 		setResizable(false);
 		setBounds(100, 100, 629, 284);
@@ -72,6 +70,10 @@ public class ReleaseNotifierDialog extends JDialog {
 			getContentPane().add(scrollPane, "cell 0 2,grow");
 			{
 				ovaReleasedList = new JList(ovaReleased);
+				if(!ReleasedAnimeTask.enableOav)
+					ovaReleasedList.setEnabled(false);
+				else
+					ovaReleasedList.setEnabled(true);
 				ovaReleasedList.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
 						filmReleasedList.clearSelection();
@@ -90,6 +92,10 @@ public class ReleaseNotifierDialog extends JDialog {
 			getContentPane().add(scrollPane, "cell 2 2,grow");
 			{
 				filmReleasedList = new JList(filmReleased);
+				if(!ReleasedAnimeTask.enableFilm)
+					filmReleasedList.setEnabled(false);
+				else
+					filmReleasedList.setEnabled(true);
 				filmReleasedList.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
 						ovaReleasedList.clearSelection();
@@ -118,7 +124,10 @@ public class ReleaseNotifierDialog extends JDialog {
 						AnimeIndex.animeTypeComboBox.setSelectedItem("OAV");
 						AnimeIndex.ovaList.setSelectedValue(name, true);						
 					}
-					
+					Date date = new Date();
+					SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the day of the week abbreviated
+					String day = simpleDateformat.format(date);
+					AnimeIndex.appProp.setProperty("Date_Release", day);
 					JButton butt = (JButton) e.getSource();
 					JDialog dialog = (JDialog) butt.getTopLevelAncestor();
 					dialog.dispose();
@@ -130,6 +139,10 @@ public class ReleaseNotifierDialog extends JDialog {
 			JButton btnOk = new JButton("OK");
 			btnOk.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					Date date = new Date();
+					SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the day of the week abbreviated
+					String day = simpleDateformat.format(date);
+					AnimeIndex.appProp.setProperty("Date_Release", day);
 					JButton butt = (JButton) e.getSource();
 					JDialog dialog = (JDialog) butt.getTopLevelAncestor();
 					dialog.dispose();

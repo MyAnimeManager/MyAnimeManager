@@ -266,7 +266,7 @@ public class SetExclusionDialog extends JDialog {
 				searchListToCheck.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
 						excludeButton.setEnabled(true);
-						includeButton.setEnabled(false);
+						includeButton.setEnabled(false);							
 					}
 				});
 				searchListToCheck.setBounds(0, 0, 196, 159);
@@ -591,6 +591,8 @@ public class SetExclusionDialog extends JDialog {
 					searchModel.addElement((String)mainArray[i]);
 			}
 		if (searchModel.isEmpty())
+		{
 			searchModel.addElement("Nessun Anime Corrispondente");
 		}
+	}
 }

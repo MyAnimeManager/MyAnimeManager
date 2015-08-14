@@ -22,6 +22,7 @@ public class AnimeIndexProperties
 			defaultProps.setProperty("List_to_visualize_at_start", "Anime completati");
 			defaultProps.setProperty("Update_system", "false");
 			defaultProps.setProperty("List_to_Check", "None");
+			defaultProps.setProperty("Date_Release", "none");
 			in.close();
 		} 
 		catch (FileNotFoundException fe)
@@ -33,6 +34,7 @@ public class AnimeIndexProperties
 				defaultProps.setProperty("Update_system", "false");
 				defaultProps.setProperty("List_to_visualize_at_start", "Anime completati");
 				defaultProps.setProperty("List_to_Check", "None");
+				defaultProps.setProperty("Date_Release", "none");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

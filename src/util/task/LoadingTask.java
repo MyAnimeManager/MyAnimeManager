@@ -1,5 +1,9 @@
 package util.task;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import javax.swing.SwingWorker;
 
 import main.AnimeIndex;
@@ -28,7 +32,34 @@ public class LoadingTask extends SwingWorker
 
 	protected void done()
 	{
-		ReleasedAnimeTask task = new ReleasedAnimeTask();
-		task.execute();
+		String dataRelease = AnimeIndex.appProp.getProperty("Date_Release");	 	
+		if(dataRelease.equalsIgnoreCase("none"))
+		{
+			ReleasedAnimeTask task = new ReleasedAnimeTask();
+			task.execute();
+		}
+		else
+		{
+			Date date = new Date();
+			SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the day of the week abbreviated
+			String day = simpleDateformat.format(date);
+			GregorianCalendar calendar = new GregorianCalendar();
+			try {
+				calendar.setTime(simpleDateformat.parse(day));
+			} catch (java.text.ParseException e) {
+				e.printStackTrace();
+			}
+			GregorianCalendar c = new GregorianCalendar();
+			try {
+				c.setTime(simpleDateformat.parse(dataRelease));
+			} catch (java.text.ParseException e) {
+				e.printStackTrace();
+			}
+			if(c.before(calendar))
+			{
+				ReleasedAnimeTask task = new ReleasedAnimeTask();
+				task.execute();
+			}
+		}
 	}
 }

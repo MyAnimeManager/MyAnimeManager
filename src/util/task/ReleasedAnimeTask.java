@@ -2,6 +2,7 @@ package util.task;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.SwingWorker;
 
@@ -11,7 +12,9 @@ import util.window.ReleaseNotifierDialog;
 
 public class ReleasedAnimeTask extends SwingWorker
 {
-
+	public static boolean enableFilm;
+	public static boolean enableOav;
+	
 	@Override
 	protected Object doInBackground() throws Exception
 	{
@@ -36,10 +39,24 @@ public class ReleasedAnimeTask extends SwingWorker
 			String releaseDate = data.getReleaseDate();
 			if (day.equalsIgnoreCase(releaseDate))
 				ReleaseNotifierDialog.filmReleased.addElement(name);
-		}		
+		}
+		if (ReleaseNotifierDialog.ovaReleased.isEmpty())
+		{
+			ReleaseNotifierDialog.ovaReleased.addElement("Nessun Anime Corrispondente");
+			enableOav = false;
+		}
+		else
+			enableOav = true;
+		if (ReleaseNotifierDialog.filmReleased.isEmpty())
+		{
+			ReleaseNotifierDialog.filmReleased.addElement("Nessun Anime Corrispondente");
+			enableFilm = false;
+		}
+		else
+			enableFilm = true;
 		return null;
 	}
-	
+
 	@Override
 	protected void done()
 	{

@@ -1254,7 +1254,7 @@ public class AddAnimeDialog extends JDialog
 											"", "", animeType, releaseDate, finishDate, durationEp, false);
 									
 									AnimeIndex.ovaMap.put(name, data);
-									
+									AnimeIndex.appProp.setProperty("Date_Release", "none");
 									AnimeIndex.ovaList.clearSelection();
 									AnimeIndex.ovaList.setSelectedValue(name, true);
 									String imagePath = AnimeIndex.ovaMap.get(name).getImagePath("oav");
@@ -1283,7 +1283,7 @@ public class AddAnimeDialog extends JDialog
 											"", "", animeType, releaseDate, finishDate, durationEp, false);
 	
 									AnimeIndex.filmMap.put(name, data);
-									
+									AnimeIndex.appProp.setProperty("Date_Release", "none");
 									AnimeIndex.filmList.clearSelection();
 									AnimeIndex.filmList.setSelectedValue(name, true);
 									String imagePath = AnimeIndex.filmMap.get(name).getImagePath("film");
@@ -1454,7 +1454,7 @@ public class AddAnimeDialog extends JDialog
 												"", "", animeType, releaseDate, finishDate, durationEp, false);
 										
 										AnimeIndex.ovaMap.put(name, data);
-										
+										AnimeIndex.appProp.setProperty("Date_Release", "none");
 										AnimeIndex.ovaList.clearSelection();
 										AnimeIndex.ovaList.setSelectedValue(name, true);
 										imagePath = AnimeIndex.ovaMap.get(name).getImagePath("oav");
@@ -1483,7 +1483,7 @@ public class AddAnimeDialog extends JDialog
 												"", "", animeType, releaseDate, finishDate, durationEp, false);
 		
 										AnimeIndex.filmMap.put(name, data);
-										
+										AnimeIndex.appProp.setProperty("Date_Release", "none");
 										AnimeIndex.filmList.clearSelection();
 										AnimeIndex.filmList.setSelectedValue(name, true);
 										imagePath = AnimeIndex.filmMap.get(name).getImagePath("film");
@@ -1622,7 +1622,6 @@ public class AddAnimeDialog extends JDialog
 }
 
 
-	//TODO aiuto aggiunta manuale
 //	String listName = getListToAdd();
 //	JList list = null;
 //	boolean contains = false;

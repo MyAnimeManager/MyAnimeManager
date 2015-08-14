@@ -62,6 +62,7 @@ import util.SortedListModel;
 import util.Updater;
 import util.task.CheckUpdateTask;
 import util.task.LoadingTask;
+import util.task.ReleasedAnimeTask;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
 import util.window.AnimeInformation;
@@ -70,6 +71,7 @@ import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
 import util.window.UpdateDialog;
 import util.window.WishlistDialog;
+
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -245,22 +247,6 @@ public class AnimeIndex extends JFrame
 				preference.setVisible(true);
 			}
 		});
-		
-		JMenuItem mntmWishlist = new JMenuItem("Wishlist");
-		mntmWishlist.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
-				if (!wishlistDialog.isShowing())
-				{
-					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 175,AnimeIndex.mainFrame.getLocationOnScreen().y);
-					wishlistDialog.setVisible(true);
-				}
-				else
-				{
-					wishlistDialog.dispose();
-				}
-			}
-		});
-		mnMenu.add(mntmWishlist);
 		mnMenu.add(mntmPreferenze);
 		
 		JSeparator separator = new JSeparator();
@@ -447,6 +433,43 @@ public class AnimeIndex extends JFrame
 				animeInformation.setBlank();
 				animeInformation.fansubComboBox.removeAllItems();
 				JOptionPane.showMessageDialog(mainFrame, "Dati eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		
+		JMenu mnModifica = new JMenu("Modifica");
+		menuBar.add(mnModifica);
+		
+		JMenuItem mntmImmagineIniziale = new JMenuItem("Immagine Iniziale");
+		mnModifica.add(mntmImmagineIniziale);
+		
+		JMenuItem mntmImmagineAnime = new JMenuItem("Immagine Anime");
+		mnModifica.add(mntmImmagineAnime);
+		
+		JMenu mnVisualizza = new JMenu("Visualizza");
+		menuBar.add(mnVisualizza);
+		
+		JMenuItem mntmWishlist = new JMenuItem("WishList");
+		mnVisualizza.add(mntmWishlist);
+		
+		JMenuItem mntmNuoveUscite = new JMenuItem("Nuove Uscite");
+		mntmNuoveUscite.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ReleasedAnimeTask task = new ReleasedAnimeTask();
+				task.execute();
+			}
+		});
+		mnVisualizza.add(mntmNuoveUscite);
+		mntmWishlist.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+				if (!wishlistDialog.isShowing())
+				{
+					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 175,AnimeIndex.mainFrame.getLocationOnScreen().y);
+					wishlistDialog.setVisible(true);
+				}
+				else
+				{
+					wishlistDialog.dispose();
 				}
 			}
 		});
