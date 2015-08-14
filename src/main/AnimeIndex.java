@@ -20,6 +20,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,10 +30,12 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.TreeMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenu;
@@ -59,6 +62,7 @@ import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.FileManager;
 import util.Filters;
+import util.ImageChooserFilter;
 import util.SearchBar;
 import util.SortedListModel;
 import util.Updater;
@@ -180,6 +184,7 @@ public class AnimeIndex extends JFrame
 	 */
 	public AnimeIndex()
 	{
+		
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentMoved(ComponentEvent e) {
@@ -439,7 +444,64 @@ public class AnimeIndex extends JFrame
 		mntmImmagineAnime.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/picture.png")));
 		mntmImmagineAnime.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String name = AnimeIndex.animeInformation.lblAnimeName.getText();
+				if(!name.equalsIgnoreCase("Anime") && name!=null)
+				{
+				int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "La modifica sarà applicata all'anime attualmente selezinato.\n\rL'operazione non potra' essere annullata.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if(shouldCancel==0){
+				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+				JFileChooser fc = new JFileChooser(chooserDir);
+				fc.setMultiSelectionEnabled(false);
+				fc.addChoosableFileFilter(new ImageChooserFilter());
+				fc.setAcceptAllFileFilterUsed(false);
+
+				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Imposta");
 				
+				if (returnVal == JFileChooser.APPROVE_OPTION)
+				{
+					File file = fc.getSelectedFile();
+					String dir = file.getPath();
+					try {
+						BufferedImage bufimg = ImageIO.read (file);
+						String imageName = name.replaceAll("\\\\", "_");
+						imageName = imageName.replaceAll("/", "_");
+						imageName = imageName.replaceAll(":", "_");
+						imageName = imageName.replaceAll("\\*", "_");
+						imageName = imageName.replaceAll("\\?", "_");
+						imageName = imageName.replaceAll("\"", "_");
+						imageName = imageName.replaceAll(">", "_");
+						imageName = imageName.replaceAll("<", "_");
+						String listName = AnimeIndex.getList();
+						String folder = "";
+						if (listName.equalsIgnoreCase("anime completati"))
+							folder = "Completed";
+						else if (listName.equalsIgnoreCase("anime in corso"))
+							folder = "Airing";
+						else if (listName.equalsIgnoreCase("oav"))
+							folder = "Ova";
+						else if (listName.equalsIgnoreCase("film"))
+							folder = "Film";
+						else if (listName.equalsIgnoreCase("completi da vedere"))
+							folder = "Completed to See";
+						FileManager.saveNewImage(dir, imageName, folder);
+						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+						TreeMap<String,AnimeData> map = AnimeIndex.getMap();
+						String list = AnimeIndex.getList();
+						AnimeData data = map.get(name);
+						String path = data.getImagePath(list);
+						File imgFile = new File(path);
+						if(imgFile.exists())
+							AnimeIndex.animeInformation.setImage(path);
+						else
+							AnimeIndex.animeInformation.setImage("default");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}					
+				}
+				}
+				}
+				else
+					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessun anime selezionato.\n\rSelezionarne uno da una delle liste e riprovare.", "Errore!", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		mnModifica.add(mntmImmagineAnime);
@@ -471,13 +533,14 @@ public class AnimeIndex extends JFrame
 			               public void actionPerformed(ActionEvent e) {
 			            	   
 //			            	   wishlistDialog.setVisible(true);
-			            	   wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
+			            	   wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x - 2, AnimeIndex.mainFrame.getLocationOnScreen().y);
 			            	   AnimeIndex.mainFrame.requestFocus();
 			            	   if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 182) {
 			                     ((Timer) e.getSource()).stop();
 			            }
 			               }
 			            }).start();
+					 
 //					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 175,AnimeIndex.mainFrame.getLocationOnScreen().y);
 //					wishlistDialog.setVisible(true);
 				}
@@ -485,8 +548,8 @@ public class AnimeIndex extends JFrame
 				{
 					new Timer(1, new ActionListener() {
 			               public void actionPerformed(ActionEvent e) {
-			            	   
-			            	   wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x + 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
+
+			            	   wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x + 2, AnimeIndex.mainFrame.getLocationOnScreen().y);
 			            	   AnimeIndex.mainFrame.requestFocus();
 			            	   if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x) {
 			                     ((Timer) e.getSource()).stop();

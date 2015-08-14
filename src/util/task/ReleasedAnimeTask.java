@@ -44,14 +44,14 @@ public class ReleasedAnimeTask extends SwingWorker
 		}
 		if (ReleaseNotifierDialog.ovaReleased.isEmpty())
 		{
-			ReleaseNotifierDialog.ovaReleased.addElement("Nessun Anime Corrispondente");
+			ReleaseNotifierDialog.ovaReleased.addElement("Nessun Anime Rilasciato");
 			enableOav = false;
 		}
 		else
 			enableOav = true;
 		if (ReleaseNotifierDialog.filmReleased.isEmpty())
 		{
-			ReleaseNotifierDialog.filmReleased.addElement("Nessun Anime Corrispondente");
+			ReleaseNotifierDialog.filmReleased.addElement("Nessun Anime Rilasciato");
 			enableFilm = false;
 		}
 		else
@@ -62,7 +62,7 @@ public class ReleasedAnimeTask extends SwingWorker
 	@Override
 	protected void done()
 	{
-		if (!ReleaseNotifierDialog.ovaReleased.isEmpty() || !ReleaseNotifierDialog.filmReleased.isEmpty() || (ReleaseNotifierDialog.ovaReleased.contains("Nessun Anime Corrispondente") && ReleaseNotifierDialog.ovaReleased.contains("Nessun Anime Corrispondente")) )
+		if (!ReleaseNotifierDialog.ovaReleased.contains("Nessun Anime Rilasciato") || !ReleaseNotifierDialog.filmReleased.contains("Nessun Anime Rilasciato"))
 		{
 		ReleaseNotifierDialog dial = new ReleaseNotifierDialog();
 		dial.setLocationRelativeTo(AnimeIndex.mainFrame);

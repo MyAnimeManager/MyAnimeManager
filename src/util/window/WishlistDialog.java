@@ -58,7 +58,6 @@ public class WishlistDialog extends JDialog
 	private JButton btnDeleteAnime;
 	private JButton btnAggiungiAnime;
 	private JButton btnClose;
-	private Component verticalStrut;
 	private Component verticalStrut_1;
 	private JList wishList;
 	private Component horizontalStrut;
@@ -66,6 +65,9 @@ public class WishlistDialog extends JDialog
 	private Component horizontalStrut_2;
 	private Component horizontalStrut_3;
 	private Component horizontalStrut_4;
+	private Component verticalStrut;
+	private Component horizontalStrut_6;
+	private Component horizontalStrut_5;
 
 	/**
 	 * Create the dialog..
@@ -148,11 +150,20 @@ public class WishlistDialog extends JDialog
 			panel.setLayout(gl_panel);
 		}
 		{
+			horizontalStrut_6 = Box.createHorizontalStrut(7);
+			contentPanel.add(horizontalStrut_6, BorderLayout.WEST);
+		}
+		{
+			horizontalStrut_5 = Box.createHorizontalStrut(7);
+			contentPanel.add(horizontalStrut_5, BorderLayout.EAST);
+		}
+		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new MatteBorder(0, 1, 1, 1, (Color) new Color(0, 0, 0)));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnDeleteAnime = new JButton("Elimina Anime");
+				btnDeleteAnime.setMargin(new Insets(0, 14, 0, 14));
 				btnDeleteAnime.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						String name = (String) wishList.getSelectedValue(); 
@@ -163,25 +174,26 @@ public class WishlistDialog extends JDialog
 			}
 			{
 				btnAggiungiAnime = new JButton("Aggiungi Anime");
+				btnAggiungiAnime.setMargin(new Insets(0, 14, 0, 14));
 				btnAggiungiAnime.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						String name = JOptionPane.showInputDialog(AnimeIndex.wishlistDialog, "Nome Anime", "Aggiungi alla wishlist", JOptionPane.QUESTION_MESSAGE);
 						if (name != null)
+						{
 							wishListModel.addElement(name);
+						}
 					}
 				});
 			}
 			{
-				verticalStrut = Box.createVerticalStrut(20);
-			}
-			{
 				btnClose = new JButton(">>");
+				btnClose.setMargin(new Insets(0, 14, 0, 14));
 				btnClose.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						new Timer(1, new ActionListener() {
 				               public void actionPerformed(ActionEvent e) {
 				            	   
-				            	   AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x + 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
+				            	   AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x + 2, AnimeIndex.mainFrame.getLocationOnScreen().y);
 				            	   AnimeIndex.mainFrame.requestFocus();
 				            	   if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x) {
 				                     ((Timer) e.getSource()).stop();
@@ -193,25 +205,28 @@ public class WishlistDialog extends JDialog
 				});
 			}
 			{
-				horizontalStrut_4 = Box.createHorizontalStrut(20);
+				horizontalStrut_2 = Box.createHorizontalStrut(20);
 			}
 			{
 				horizontalStrut_3 = Box.createHorizontalStrut(20);
 			}
 			{
-				horizontalStrut_2 = Box.createHorizontalStrut(20);
+				horizontalStrut_4 = Box.createHorizontalStrut(20);
+			}
+			{
+				verticalStrut = Box.createVerticalStrut(20);
 			}
 			GroupLayout gl_buttonPane = new GroupLayout(buttonPane);
 			gl_buttonPane.setHorizontalGroup(
 				gl_buttonPane.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_buttonPane.createSequentialGroup()
-						.addComponent(horizontalStrut_4, GroupLayout.PREFERRED_SIZE, 7, GroupLayout.PREFERRED_SIZE)
+						.addComponent(horizontalStrut_2, GroupLayout.PREFERRED_SIZE, 7, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnClose, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_buttonPane.createSequentialGroup()
 						.addComponent(horizontalStrut_3, GroupLayout.PREFERRED_SIZE, 7, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnDeleteAnime, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_buttonPane.createSequentialGroup()
-						.addComponent(horizontalStrut_2, GroupLayout.PREFERRED_SIZE, 7, GroupLayout.PREFERRED_SIZE)
+						.addComponent(horizontalStrut_4, GroupLayout.PREFERRED_SIZE, 7, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnAggiungiAnime, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_buttonPane.createSequentialGroup()
 						.addGap(90)
@@ -221,14 +236,14 @@ public class WishlistDialog extends JDialog
 				gl_buttonPane.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_buttonPane.createSequentialGroup()
 						.addGroup(gl_buttonPane.createParallelGroup(Alignment.LEADING)
-							.addComponent(horizontalStrut_4, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnClose))
+							.addComponent(horizontalStrut_2, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnClose, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_buttonPane.createParallelGroup(Alignment.LEADING)
-							.addComponent(horizontalStrut_3, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnDeleteAnime))
+							.addComponent(horizontalStrut_3, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnDeleteAnime, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_buttonPane.createParallelGroup(Alignment.LEADING)
-							.addComponent(horizontalStrut_2, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnAggiungiAnime))
+							.addComponent(horizontalStrut_4, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnAggiungiAnime, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 						.addComponent(verticalStrut, GroupLayout.PREFERRED_SIZE, 5, GroupLayout.PREFERRED_SIZE))
 			);
 			buttonPane.setLayout(gl_buttonPane);
