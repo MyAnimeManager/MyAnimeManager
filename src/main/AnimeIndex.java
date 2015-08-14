@@ -471,7 +471,8 @@ public class AnimeIndex extends JFrame
 			            	   
 //			            	   wishlistDialog.setVisible(true);
 			            	   wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
-			                  if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 175) {
+			            	   AnimeIndex.mainFrame.requestFocus();
+			            	   if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 175) {
 			                     ((Timer) e.getSource()).stop();
 			               System.out.println("Timer stopped");
 			            }
@@ -482,7 +483,18 @@ public class AnimeIndex extends JFrame
 				}
 				else
 				{
-					wishlistDialog.dispose();
+					new Timer(1, new ActionListener() {
+			               public void actionPerformed(ActionEvent e) {
+			            	   
+			            	   wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x + 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
+			            	   AnimeIndex.mainFrame.requestFocus();
+			            	   if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x) {
+			                     ((Timer) e.getSource()).stop();
+			               System.out.println("Timer stopped");
+			            }
+			               }
+			            }).start();
+//					wishlistDialog.dispose();
 				}
 			}
 		});
