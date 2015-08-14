@@ -12,6 +12,8 @@ import java.awt.FontFormatException;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
@@ -27,12 +29,10 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.TreeMap;
 
-import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenu;
@@ -41,11 +41,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
@@ -59,7 +59,6 @@ import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.FileManager;
 import util.Filters;
-import util.ImageChooserFilter;
 import util.SearchBar;
 import util.SortedListModel;
 import util.Updater;
@@ -74,15 +73,7 @@ import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
 import util.window.UpdateDialog;
 import util.window.WishlistDialog;
-
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.WindowFocusListener;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
-import java.awt.image.BufferedImage;
 
 //TODO fixare "IL BUG"
 //TODO fare sistema di controllo
@@ -473,8 +464,21 @@ public class AnimeIndex extends JFrame
 			public void actionPerformed(ActionEvent e) {				
 				if (!wishlistDialog.isShowing())
 				{
-					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 175,AnimeIndex.mainFrame.getLocationOnScreen().y);
+					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x ,AnimeIndex.mainFrame.getLocationOnScreen().y);
 					wishlistDialog.setVisible(true);
+					 new Timer(1, new ActionListener() {
+			               public void actionPerformed(ActionEvent e) {
+			            	   
+//			            	   wishlistDialog.setVisible(true);
+			            	   wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
+			                  if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 175) {
+			                     ((Timer) e.getSource()).stop();
+			               System.out.println("Timer stopped");
+			            }
+			               }
+			            }).start();
+//					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 175,AnimeIndex.mainFrame.getLocationOnScreen().y);
+//					wishlistDialog.setVisible(true);
 				}
 				else
 				{
