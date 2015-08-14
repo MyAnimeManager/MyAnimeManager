@@ -64,7 +64,7 @@ public class SetExclusionDialog extends JDialog {
 	private JList searchListToExclude;
 	private JPanel excludedPane;
 	/**
-	 * Create the dialog.
+	 * Create the dialog..
 	 */
 	public SetExclusionDialog() {
 		addWindowListener(new WindowAdapter() {
