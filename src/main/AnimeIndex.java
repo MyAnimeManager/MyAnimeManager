@@ -589,11 +589,7 @@ public class AnimeIndex extends JFrame
 		mnHelp.add(mntmCredit);
 		mntmCredit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String name = System.getProperty("user.home");
-				if (name.equalsIgnoreCase("C:\\Users\\Denis"))
-					JOptionPane.showMessageDialog(mainFrame, "Creato da tu sai chi, merdina che non fa i dizionari", "Crediti", JOptionPane.INFORMATION_MESSAGE);
-				else
-					JOptionPane.showMessageDialog(mainFrame, "Creato da Yesod30", "Crediti", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(mainFrame, "Creato da Yesod30", "Crediti", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
 		});
