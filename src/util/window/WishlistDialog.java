@@ -259,7 +259,7 @@ public class WishlistDialog extends JDialog
 							AnimeIndex.wishlistMap.remove(name);
 							if (wishListModel.isEmpty())
 							{
-								wishListModel.addElement("Nessun Anime Corrispondente");
+//								wishListModel.addElement("Nessun Anime Corrispondente");
 								wishlist.setEnabled(false);
 								btnDeleteAnime.setEnabled(false);
 							}
