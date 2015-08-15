@@ -256,11 +256,13 @@ public class WishlistDialog extends JDialog
 						{
 							String name = (String) wishlist.getSelectedValue(); 
 							wishListModel.removeElement(name);
+							AnimeIndex.wishlistMap.remove(name);
 						}
 						else
 						{
 							String name = (String) wishlistSearch.getSelectedValue(); 
 							wishListModel.removeElement(name);
+							AnimeIndex.wishlistMap.remove(name);
 							searchInList(searchBar.getText(), wishListModel, wishListSearchModel);
 						}
 					}
@@ -276,7 +278,9 @@ public class WishlistDialog extends JDialog
 						int id = -1;
 						String name = JOptionPane.showInputDialog(AnimeIndex.wishlistDialog, "Nome Anime", "Aggiungi alla wishlist", JOptionPane.QUESTION_MESSAGE);
 						
-						HashMap<String,Integer> map = ConnectionManager.AnimeSearch(name);
+						if (name != null)
+						{
+							HashMap<String,Integer> map = ConnectionManager.AnimeSearch(name);
 						if (!map.isEmpty() && map.size() > 1)
 						{
 							String[] animeNames = map.keySet().toArray(new String[0]);
@@ -289,6 +293,9 @@ public class WishlistDialog extends JDialog
 								id = map.get(name);
 								AnimeIndex.wishlistMap.put(name, id);
 							}
+							else
+								animeName = "annulla";
+						}
 						}
 						if (name != null && animeName == null)
 						{
