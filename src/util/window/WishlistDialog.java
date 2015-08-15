@@ -68,7 +68,7 @@ public class WishlistDialog extends JDialog
 	private SearchBar searchBar;
 	private JButton btnDeleteAnime;
 	private JButton btnAggiungiAnime;
-	private JButton btnClose;
+	private JButton btnID;
 	private Component verticalStrut_1;
 	private Component horizontalStrut;
 	private Component horizontalStrut_1;
@@ -94,7 +94,7 @@ public class WishlistDialog extends JDialog
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setType(Type.UTILITY);
 		setResizable(false);
-		setBounds(100, 100, 182, 472);
+		setBounds(100, 100, 181, 472);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new MatteBorder(1, 1, 0, 1, (Color) new Color(0, 0, 0)));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -216,11 +216,11 @@ public class WishlistDialog extends JDialog
 						.addGap(90)
 						.addComponent(verticalStrut_1, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_panel.createSequentialGroup()
-						.addComponent(horizontalStrut, GroupLayout.PREFERRED_SIZE, 7, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+						.addComponent(horizontalStrut, GroupLayout.PREFERRED_SIZE, 5, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_panel.createSequentialGroup()
-						.addComponent(horizontalStrut_1, GroupLayout.PREFERRED_SIZE, 7, GroupLayout.PREFERRED_SIZE)
-						.addComponent(searchBar, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+						.addComponent(horizontalStrut_1, GroupLayout.PREFERRED_SIZE, 5, GroupLayout.PREFERRED_SIZE)
+						.addComponent(searchBar, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE))
 			);
 			gl_panel.setVerticalGroup(
 				gl_panel.createParallelGroup(Alignment.LEADING)
@@ -236,11 +236,11 @@ public class WishlistDialog extends JDialog
 			panel.setLayout(gl_panel);
 		}
 		{
-			horizontalStrut_6 = Box.createHorizontalStrut(7);
+			horizontalStrut_6 = Box.createHorizontalStrut(5);
 			contentPanel.add(horizontalStrut_6, BorderLayout.WEST);
 		}
 		{
-			horizontalStrut_5 = Box.createHorizontalStrut(7);
+			horizontalStrut_5 = Box.createHorizontalStrut(6);
 			contentPanel.add(horizontalStrut_5, BorderLayout.EAST);
 		}
 		{
@@ -330,13 +330,15 @@ public class WishlistDialog extends JDialog
 							wishlist.setEnabled(true);
 							wishlistSearch.setEnabled(true);
 						}
+						if(!searchBar.getText().isEmpty())
+							searchInList(searchBar.getText(), wishListModel, wishListSearchModel);
 					}
 				});
 			}
 			{
-				btnClose = new JButton(">>");
-				btnClose.setMargin(new Insets(0, 14, 0, 14));
-				btnClose.addActionListener(new ActionListener() {
+				btnID = new JButton("Visualizza");
+				btnID.setMargin(new Insets(0, 14, 0, 14));
+				btnID.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						new Timer(1, new ActionListener() {
 				               public void actionPerformed(ActionEvent e) {
@@ -368,14 +370,14 @@ public class WishlistDialog extends JDialog
 			gl_buttonPane.setHorizontalGroup(
 				gl_buttonPane.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_buttonPane.createSequentialGroup()
-						.addComponent(horizontalStrut_2, GroupLayout.PREFERRED_SIZE, 7, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnClose, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+						.addComponent(horizontalStrut_2, GroupLayout.PREFERRED_SIZE, 5, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnID, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_buttonPane.createSequentialGroup()
-						.addComponent(horizontalStrut_3, GroupLayout.PREFERRED_SIZE, 7, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnDeleteAnime, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+						.addComponent(horizontalStrut_3, GroupLayout.PREFERRED_SIZE, 5, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnDeleteAnime, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_buttonPane.createSequentialGroup()
-						.addComponent(horizontalStrut_4, GroupLayout.PREFERRED_SIZE, 7, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnAggiungiAnime, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+						.addComponent(horizontalStrut_4, GroupLayout.PREFERRED_SIZE, 5, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnAggiungiAnime, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_buttonPane.createSequentialGroup()
 						.addGap(90)
 						.addComponent(verticalStrut, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
@@ -385,7 +387,7 @@ public class WishlistDialog extends JDialog
 					.addGroup(gl_buttonPane.createSequentialGroup()
 						.addGroup(gl_buttonPane.createParallelGroup(Alignment.LEADING)
 							.addComponent(horizontalStrut_2, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnClose, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+							.addComponent(btnID, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_buttonPane.createParallelGroup(Alignment.LEADING)
 							.addComponent(horizontalStrut_3, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 							.addComponent(btnDeleteAnime, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
