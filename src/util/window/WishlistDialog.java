@@ -107,7 +107,10 @@ public class WishlistDialog extends JDialog
 					wishlist.addListSelectionListener(new ListSelectionListener() {
 						public void valueChanged(ListSelectionEvent e) {
 							if (wishListModel.contains("Nessun Anime Corrispondete"))
+							{
 								wishlist.setEnabled(false);
+								btnDeleteAnime.setEnabled(false);
+							}
 							else	
 								btnDeleteAnime.setEnabled(true);
 						}
@@ -125,7 +128,10 @@ public class WishlistDialog extends JDialog
 					wishlistSearch.addListSelectionListener(new ListSelectionListener() {
 						public void valueChanged(ListSelectionEvent e) {
 							if (wishListSearchModel.contains("Nessun Anime Corrispondete"))
+							{
 								wishlistSearch.setEnabled(false);
+								btnDeleteAnime.setEnabled(false);
+							}
 							else	
 								btnDeleteAnime.setEnabled(true);
 						}
@@ -247,7 +253,6 @@ public class WishlistDialog extends JDialog
 							wishListModel.removeElement(name);
 							searchInList(searchBar.getText(), wishListModel, wishListSearchModel);
 						}
-						btnDeleteAnime.setEnabled(false);
 					}
 				});
 				btnDeleteAnime.setEnabled(false);
