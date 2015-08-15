@@ -286,10 +286,11 @@ public class WishlistDialog extends JDialog
 						if (!map.isEmpty() && map.size() > 1)
 						{
 							String[] animeNames = map.keySet().toArray(new String[0]);
-							int animeInt = JOptionPane.showOptionDialog(WishlistDialog.this, "Scegli l'anime esatto", "Titoli multipli trovati", 
-										   JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, animeNames, animeNames[0]);
-							if (animeInt > 0)
-								name = animeNames[animeInt];							
+							String animeName = (String)JOptionPane.showInputDialog(WishlistDialog.this, "Scegli l'anime da aggiungere",
+				                    "Conflitto trovato", JOptionPane.QUESTION_MESSAGE, null, animeNames, animeNames[0]);
+							
+							if (animeName != null)
+								name = animeName;							
 						}
 						if (name != null)
 						{
