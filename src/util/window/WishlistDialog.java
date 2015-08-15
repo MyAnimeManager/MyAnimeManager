@@ -275,16 +275,8 @@ public class WishlistDialog extends JDialog
 						String animeName = null;
 						int id = -1;
 						String name = JOptionPane.showInputDialog(AnimeIndex.wishlistDialog, "Nome Anime", "Aggiungi alla wishlist", JOptionPane.QUESTION_MESSAGE);
-						try {
-							ConnectionManager.ConnectAndGetToken();
-						} catch (ConnectException e1) {
-							e1.printStackTrace();
-						} catch (UnknownHostException e1) {
-							e1.printStackTrace();
-						}
 						
 						HashMap<String,Integer> map = ConnectionManager.AnimeSearch(name);
-						
 						if (!map.isEmpty() && map.size() > 1)
 						{
 							String[] animeNames = map.keySet().toArray(new String[0]);
@@ -298,12 +290,11 @@ public class WishlistDialog extends JDialog
 								AnimeIndex.wishlistMap.put(name, id);
 							}
 						}
-						if (name != null && animeName != null)
+						if (name != null && animeName == null)
 						{
 							wishListModel.addElement(name);
 							AnimeIndex.wishlistMap.put(name, id);
 						}
-							
 					}
 				});
 			}
