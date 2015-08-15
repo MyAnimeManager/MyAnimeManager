@@ -45,7 +45,7 @@ public class SetCheckDialog extends JDialog {
 		setTitle("Liste da Controllare");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);
-		setAlwaysOnTop(true);
+//		setAlwaysOnTop(true);
 		setResizable(false);
 		setBounds(100, 100, 232, 198);
 		getContentPane().setLayout(new BorderLayout());
