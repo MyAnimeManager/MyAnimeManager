@@ -301,6 +301,7 @@ public class WishlistDialog extends JDialog
 						if (name != null && animeName != null)
 						{
 							wishListModel.addElement(name);
+							AnimeIndex.wishlistMap.put(name, id);
 						}
 							
 					}
