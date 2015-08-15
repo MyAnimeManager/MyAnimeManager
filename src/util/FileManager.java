@@ -273,13 +273,20 @@ public class FileManager
 		if (wishlistFile.isFile()) 
 		{
 			Scanner scan = null;
+			Scanner line = null;
 			try {
 				scan = new Scanner(wishlistFile);
 				
 				while (scan.hasNextLine())
 				{
-					String wishListAnime = scan.nextLine();
-					WishlistDialog.wishListModel.addElement(wishListAnime);
+					String wishListLine = scan.nextLine();
+					line = new Scanner(wishListLine);
+					line.useDelimiter("||");
+
+						String name = scan.next();
+						int id = scan.nextInt();
+						WishlistDialog.wishListModel.addElement(name);
+						AnimeIndex.wishlistMap.put(name, id);
 				}							
 			} 
 			catch (FileNotFoundException e) {
@@ -288,6 +295,8 @@ public class FileManager
 			finally
 			{
 				scan.close();
+				if (line != null)
+						line.close();
 			}
 		}
 			
@@ -318,7 +327,8 @@ public class FileManager
 			for (int i = 0; i < wishListArray.length; i++)
 				{
 					String name = (String) wishListArray[i];
-					output.write(name);
+					int id = AnimeIndex.wishlistMap.get(name);
+					output.write(name + "||" + id);
 					output.write(System.lineSeparator());
 				}
 			output.close();

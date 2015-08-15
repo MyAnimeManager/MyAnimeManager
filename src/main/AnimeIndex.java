@@ -134,6 +134,7 @@ public class AnimeIndex extends JFrame
 	public static ArrayList<String> completedToSeeDeletedAnime = new ArrayList();
 	
 	public static ArrayList<String> exclusionAnime = new ArrayList();
+	public static TreeMap<String,Integer> wishlistMap = new TreeMap<String,Integer>();
 	
 	private JButton addButton;
 	public static JButton deleteButton;
