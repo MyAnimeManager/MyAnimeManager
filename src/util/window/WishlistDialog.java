@@ -257,6 +257,12 @@ public class WishlistDialog extends JDialog
 							String name = (String) wishlist.getSelectedValue(); 
 							wishListModel.removeElement(name);
 							AnimeIndex.wishlistMap.remove(name);
+							if (wishListModel.isEmpty())
+							{
+								wishListModel.addElement("Nessun Anime Corrispondente");
+								wishlist.setEnabled(false);
+								btnDeleteAnime.setEnabled(false);
+							}
 						}
 						else
 						{
@@ -264,7 +270,14 @@ public class WishlistDialog extends JDialog
 							wishListModel.removeElement(name);
 							AnimeIndex.wishlistMap.remove(name);
 							searchInList(searchBar.getText(), wishListModel, wishListSearchModel);
+							if (wishListSearchModel.isEmpty())
+							{
+								wishListSearchModel.addElement("Nessun Anime Corrispondente");
+								wishlistSearch.setEnabled(false);
+								btnDeleteAnime.setEnabled(false);
+							}
 						}
+						
 					}
 				});
 				btnDeleteAnime.setEnabled(false);
@@ -277,6 +290,12 @@ public class WishlistDialog extends JDialog
 						String animeName = null;
 						int id = -1;
 						String name = JOptionPane.showInputDialog(AnimeIndex.wishlistDialog, "Nome Anime", "Aggiungi alla wishlist", JOptionPane.QUESTION_MESSAGE);
+						
+						try {
+							ConnectionManager.ConnectAndGetToken();
+						} catch (ConnectException | UnknownHostException e1) {
+							e1.printStackTrace();
+						}
 						
 						if (name != null)
 						{
@@ -291,7 +310,12 @@ public class WishlistDialog extends JDialog
 							{
 								name = animeName;
 								id = map.get(name);
+								if (wishListModel.contains("Nessun Anime Corrispondente"))
+									wishListModel.removeElement("Nessun Anime Corrispondente");
+								wishListModel.addElement(name);
 								AnimeIndex.wishlistMap.put(name, id);
+								wishlist.setEnabled(true);
+								wishlistSearch.setEnabled(true);
 							}
 							else
 								animeName = "annulla";
@@ -299,8 +323,12 @@ public class WishlistDialog extends JDialog
 						}
 						if (name != null && animeName == null)
 						{
+							if (wishListModel.contains("Nessun Anime Corrispondente"))
+								wishListModel.removeElement("Nessun Anime Corrispondente");
 							wishListModel.addElement(name);
 							AnimeIndex.wishlistMap.put(name, id);
+							wishlist.setEnabled(true);
+							wishlistSearch.setEnabled(true);
 						}
 					}
 				});
