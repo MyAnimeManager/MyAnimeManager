@@ -753,6 +753,7 @@ public class AnimeIndex extends JFrame
 		animeTypeComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent evt) {
 				saveModifiedInformation(list);
+				searchBar.setText("");
 				CardLayout cl = (CardLayout)(cardContainer.getLayout());
 		        cl.show(cardContainer, (String)evt.getItem());
 		        if (deleteButton.isEnabled())
