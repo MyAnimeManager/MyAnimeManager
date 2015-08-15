@@ -43,23 +43,29 @@ import javax.swing.UIManager;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.CardLayout;
+
+import javax.swing.ListModel;
 
 public class WishlistDialog extends JDialog
 {
 
 	public final JPanel contentPanel = new JPanel();
 	public static SortedListModel wishListModel = new SortedListModel();
+	private SortedListModel wishListSearchModel = new SortedListModel();
 	private SearchBar searchBar;
 	private JButton btnDeleteAnime;
 	private JButton btnAggiungiAnime;
 	private JButton btnClose;
 	private Component verticalStrut_1;
-	private JList wishList;
 	private Component horizontalStrut;
 	private Component horizontalStrut_1;
 	private Component horizontalStrut_2;
@@ -68,6 +74,11 @@ public class WishlistDialog extends JDialog
 	private Component verticalStrut;
 	private Component horizontalStrut_6;
 	private Component horizontalStrut_5;
+	private JScrollPane wishlistPane;
+	private JList wishlist;
+	private JScrollPane wishlistSearchPane;
+	private JList wishlistSearch;
+	private JPanel cardPane;
 
 	/**
 	 * Create the dialog..
@@ -85,19 +96,42 @@ public class WishlistDialog extends JDialog
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
-			JScrollPane scrollPane = new JScrollPane();
-			contentPanel.add(scrollPane, BorderLayout.CENTER);
+			cardPane = new JPanel();
+			contentPanel.add(cardPane, BorderLayout.CENTER);
+			cardPane.setLayout(new CardLayout(0, 0));
 			{
-				wishList = new JList(wishListModel);
-				wishList.addListSelectionListener(new ListSelectionListener() {
-					public void valueChanged(ListSelectionEvent e) {
-						btnDeleteAnime.setEnabled(true);
-						
-					}
-				});
-				wishList.setFont(AnimeIndex.segui.deriveFont(12f));
-				wishList.setBorder(UIManager.getBorder("CheckBox.border"));
-				scrollPane.setViewportView(wishList);
+				wishlistPane = new JScrollPane();
+				cardPane.add(wishlistPane, "wishlist");
+				{
+					wishlist = new JList(wishListModel);
+					wishlist.addListSelectionListener(new ListSelectionListener() {
+						public void valueChanged(ListSelectionEvent e) {
+							if (wishListModel.contains("Nessun Anime Corrispondete"))
+								wishlist.setEnabled(false);
+							else	
+								btnDeleteAnime.setEnabled(true);
+						}
+					});
+					wishlist.setFont(null);
+					wishlist.setBorder(UIManager.getBorder("CheckBox.border"));
+					wishlistPane.setViewportView(wishlist);
+				}
+			}
+			{
+				wishlistSearchPane = new JScrollPane();
+				cardPane.add(wishlistSearchPane, "wishlistSearch");
+				{
+					wishlistSearch = new JList(wishListSearchModel);
+					wishlistSearch.addListSelectionListener(new ListSelectionListener() {
+						public void valueChanged(ListSelectionEvent e) {
+							if (wishListSearchModel.contains("Nessun Anime Corrispondete"))
+								wishlistSearch.setEnabled(false);
+							else	
+								btnDeleteAnime.setEnabled(true);
+						}
+					});
+					wishlistSearchPane.setViewportView(wishlistSearch);
+				}
 			}
 		}
 		{
@@ -109,7 +143,7 @@ public class WishlistDialog extends JDialog
 			
 			JComboBox comboBox = new JComboBox();
 			comboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
-			comboBox.setModel(new DefaultComboBoxModel(new String[] {"                   WISHLIST"}));
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {"                 WISHLIST"}));
 			searchBar = new SearchBar();
 			searchBar.setAlignmentX(Component.LEFT_ALIGNMENT);
 			searchBar.setFont(AnimeIndex.segui.deriveFont(11f));
@@ -118,6 +152,41 @@ public class WishlistDialog extends JDialog
 			searchBar.setDisabledTextColor(Color.LIGHT_GRAY);
 			searchBar.setBackground(Color.BLACK);
 			searchBar.setForeground(Color.LIGHT_GRAY);
+			searchBar.getDocument().addDocumentListener(new DocumentListener() {
+				public void changedUpdate(DocumentEvent documentEvent) {
+					}
+				@Override
+				public void insertUpdate(DocumentEvent e)
+				{
+					wishlistSearch.clearSelection();
+					String search = searchBar.getText();
+					CardLayout cl = (CardLayout)(cardPane.getLayout());
+			        cl.show(cardPane, "wishlistSearch");
+					searchInList(search, wishListModel, wishListSearchModel);
+				}
+
+				@Override
+				public void removeUpdate(DocumentEvent e)
+				{
+					wishlistSearch.clearSelection();
+					SortedListModel model = null;
+					String search = searchBar.getText();
+					JList list = wishlist;
+					list.clearSelection();
+					
+						if (!search.isEmpty())
+						{	
+						CardLayout cl = (CardLayout)(cardPane.getLayout());
+				        cl.show(cardPane, "wishlistSearch");
+				        searchInList(search, wishListModel, wishListSearchModel);
+						}
+						else
+						{
+							CardLayout cl = (CardLayout)(cardPane.getLayout());
+					        cl.show(cardPane, "wishlist");
+						}
+				}
+			});
 			{
 				horizontalStrut = Box.createHorizontalStrut(20);
 			}
@@ -167,8 +236,18 @@ public class WishlistDialog extends JDialog
 				btnDeleteAnime.setMargin(new Insets(0, 14, 0, 14));
 				btnDeleteAnime.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						String name = (String) wishList.getSelectedValue(); 
-						wishListModel.removeElement(name);
+						if (searchBar.getText().isEmpty())
+						{
+							String name = (String) wishlist.getSelectedValue(); 
+							wishListModel.removeElement(name);
+						}
+						else
+						{
+							String name = (String) wishlistSearch.getSelectedValue(); 
+							wishListModel.removeElement(name);
+							searchInList(searchBar.getText(), wishListModel, wishListSearchModel);
+						}
+						btnDeleteAnime.setEnabled(false);
 					}
 				});
 				btnDeleteAnime.setEnabled(false);
@@ -248,6 +327,23 @@ public class WishlistDialog extends JDialog
 						.addComponent(verticalStrut, GroupLayout.PREFERRED_SIZE, 5, GroupLayout.PREFERRED_SIZE))
 			);
 			buttonPane.setLayout(gl_buttonPane);
+		}
+	}
+	
+	private void searchInList(String searchedVal, SortedListModel modelToSearch, SortedListModel searchModel) 
+	{
+		Object[] mainArray = modelToSearch.toArray();			
+			searchModel.clear();
+			for (int i = 0; i < mainArray.length; i++) {
+				String value = (String) mainArray[i];
+				value = value.toLowerCase();
+				searchedVal = searchedVal.toLowerCase();
+				if (value.contains(searchedVal))
+					searchModel.addElement((String)mainArray[i]);
+			}
+		if (searchModel.isEmpty())
+		{
+			searchModel.addElement("Nessun Anime Corrispondente");
 		}
 	}
 }
