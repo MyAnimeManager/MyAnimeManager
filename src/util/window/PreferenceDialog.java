@@ -46,6 +46,7 @@ public class PreferenceDialog extends JDialog
 	private JComboBox choosedList;
 	public static JButton dataCheckButton;
 	private SetExclusionDialog exclusionDialog;
+	private JCheckBox chckbxApriWishlist;
 
 	/**
 	 * Create the dialog.
@@ -104,6 +105,15 @@ public class PreferenceDialog extends JDialog
 					contentPanel.add(chckbxDailyRelease, gbc_chckbxDailyRelease);
 				}
 				listGroup.add(chckbxDailyRelease);
+				{
+					chckbxApriWishlist = new JCheckBox("Apri Wishlist");
+					GridBagConstraints gbc_chckbxApriWishlist = new GridBagConstraints();
+					gbc_chckbxApriWishlist.gridwidth = 2;
+					gbc_chckbxApriWishlist.insets = new Insets(0, 0, 5, 5);
+					gbc_chckbxApriWishlist.gridx = 1;
+					gbc_chckbxApriWishlist.gridy = 1;
+					contentPanel.add(chckbxApriWishlist, gbc_chckbxApriWishlist);
+				}
 				GridBagConstraints gbc_rdbtnLastList = new GridBagConstraints();
 				gbc_rdbtnLastList.fill = GridBagConstraints.HORIZONTAL;
 				gbc_rdbtnLastList.insets = new Insets(0, 0, 5, 5);
@@ -156,6 +166,13 @@ public class PreferenceDialog extends JDialog
 							AnimeIndex.appProp.setProperty("List_to_visualize_at_start", "Daily");
 							AnimeIndex.appProp.setProperty("Last_list", "---");
 						}
+						
+						if(chckbxApriWishlist.isSelected())
+						{
+							AnimeIndex.appProp.setProperty("Open_Wishlist", "true");
+						}
+						else
+							AnimeIndex.appProp.setProperty("Open_Wishlist", "false");
 						
 						JButton but = (JButton) e.getSource();
 						JDialog dialog = (JDialog) but.getTopLevelAncestor();
@@ -355,6 +372,11 @@ public class PreferenceDialog extends JDialog
 			dataCheckButton.setText("Disattiva");
 		else
 			dataCheckButton.setText("Attiva");
+		
+		if(AnimeIndex.appProp.getProperty("Open_Wishlist").equals("true"))
+			chckbxApriWishlist.setSelected(true);
+		else
+			chckbxApriWishlist.setSelected(false);
 	}
 
 }
