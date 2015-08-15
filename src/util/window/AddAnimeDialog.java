@@ -118,7 +118,7 @@ public class AddAnimeDialog extends JDialog
 		});
 		setTitle("Aggiungi anime");
 		setResizable(false);
-		setBounds(100, 100, 585, 363);
+		setBounds(100, 100, 585, 354);
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
 		{
@@ -140,7 +140,7 @@ public class AddAnimeDialog extends JDialog
 				}
 				GridBagLayout gbl_normalAddPanel = new GridBagLayout();
 				gbl_normalAddPanel.columnWidths = new int[]{263, 0};
-				gbl_normalAddPanel.rowHeights = new int[]{229, 9, 26, 0};
+				gbl_normalAddPanel.rowHeights = new int[]{252, 9, 17, 0};
 				gbl_normalAddPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 				gbl_normalAddPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 				normalAddPanel.setLayout(gbl_normalAddPanel);
@@ -717,7 +717,6 @@ public class AddAnimeDialog extends JDialog
 					{
 						currentEpisodeText = new JTextField();
 						GridBagConstraints gbc_currentEpisodeText = new GridBagConstraints();
-						gbc_currentEpisodeText.gridwidth = 3;
 						gbc_currentEpisodeText.insets = new Insets(0, 0, 5, 5);
 						gbc_currentEpisodeText.fill = GridBagConstraints.HORIZONTAL;
 						gbc_currentEpisodeText.gridx = 1;
@@ -736,7 +735,6 @@ public class AddAnimeDialog extends JDialog
 					{
 						totEpField = new JTextField();
 						GridBagConstraints gbc_totEpField = new GridBagConstraints();
-						gbc_totEpField.gridwidth = 3;
 						gbc_totEpField.fill = GridBagConstraints.HORIZONTAL;
 						gbc_totEpField.insets = new Insets(0, 0, 5, 5);
 						gbc_totEpField.gridx = 1;
@@ -965,6 +963,7 @@ public class AddAnimeDialog extends JDialog
 				{
 					JPanel buttonPane = new JPanel();
 					GridBagConstraints gbc_buttonPane = new GridBagConstraints();
+					gbc_buttonPane.anchor = GridBagConstraints.SOUTH;
 					gbc_buttonPane.fill = GridBagConstraints.HORIZONTAL;
 					gbc_buttonPane.gridx = 0;
 					gbc_buttonPane.gridy = 2;
