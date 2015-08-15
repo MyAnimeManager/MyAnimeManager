@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.MatteBorder;
 
+import util.ConnectionManager;
 import util.SearchBar;
 import util.SortedListModel;
 
@@ -52,6 +53,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.CardLayout;
+import java.net.ConnectException;
+import java.net.UnknownHostException;
+import java.util.HashMap;
 
 import javax.swing.ListModel;
 
@@ -269,10 +273,29 @@ public class WishlistDialog extends JDialog
 				btnAggiungiAnime.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						String name = JOptionPane.showInputDialog(AnimeIndex.wishlistDialog, "Nome Anime", "Aggiungi alla wishlist", JOptionPane.QUESTION_MESSAGE);
+						try {
+							ConnectionManager.ConnectAndGetToken();
+						} catch (ConnectException e1) {
+							e1.printStackTrace();
+						} catch (UnknownHostException e1) {
+							e1.printStackTrace();
+						}
+						
+						HashMap<String,Integer> map = ConnectionManager.AnimeSearch(name);
+						
+						if (!map.isEmpty() && map.size() > 1)
+						{
+							String[] animeNames = map.keySet().toArray(new String[0]);
+							int animeInt = JOptionPane.showOptionDialog(WishlistDialog.this, "Scegli l'anime esatto", "Titoli multipli trovati", 
+										   JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, animeNames, animeNames[0]);
+							if (animeInt > 0)
+								name = animeNames[animeInt];							
+						}
 						if (name != null)
 						{
 							wishListModel.addElement(name);
 						}
+							
 					}
 				});
 			}
