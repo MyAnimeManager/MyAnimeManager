@@ -599,10 +599,10 @@ public class SetExclusionDialog extends JDialog {
 					searchModel.addElement((String)mainArray[i]);
 			}
 			list.setEnabled(true);	
-		if (searchModel.contains("Nessun Anime Corrispondente"))
+		if (searchModel.isEmpty())
 		{
-			searchModel.addElement("Nessun Anime Corrispondente");
-			list.setEnabled(false);	
+			list.setEnabled(false);
+			searchModel.addElement("Nessun Anime Corrispondente");	
 		}
 	}
 }
