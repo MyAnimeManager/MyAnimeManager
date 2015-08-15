@@ -101,6 +101,8 @@ public class WishlistDialog extends JDialog
 			cardPane.setLayout(new CardLayout(0, 0));
 			{
 				wishlistPane = new JScrollPane();
+				wishlistPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+				wishlistPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 				cardPane.add(wishlistPane, "wishlist");
 				{
 					wishlist = new JList(wishListModel);
@@ -122,6 +124,8 @@ public class WishlistDialog extends JDialog
 			}
 			{
 				wishlistSearchPane = new JScrollPane();
+				wishlistSearchPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+				wishlistSearchPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 				cardPane.add(wishlistSearchPane, "wishlistSearch");
 				{
 					wishlistSearch = new JList(wishListSearchModel);
@@ -165,6 +169,7 @@ public class WishlistDialog extends JDialog
 				public void insertUpdate(DocumentEvent e)
 				{
 					wishlistSearch.clearSelection();
+					btnDeleteAnime.setEnabled(false);
 					String search = searchBar.getText();
 					CardLayout cl = (CardLayout)(cardPane.getLayout());
 			        cl.show(cardPane, "wishlistSearch");
@@ -175,6 +180,7 @@ public class WishlistDialog extends JDialog
 				public void removeUpdate(DocumentEvent e)
 				{
 					wishlistSearch.clearSelection();
+					btnDeleteAnime.setEnabled(false);
 					SortedListModel model = null;
 					String search = searchBar.getText();
 					JList list = wishlist;
@@ -349,6 +355,8 @@ public class WishlistDialog extends JDialog
 		if (searchModel.isEmpty())
 		{
 			searchModel.addElement("Nessun Anime Corrispondente");
+			wishlistSearch.setEnabled(false);
+			btnDeleteAnime.setEnabled(false);
 		}
 	}
 }
