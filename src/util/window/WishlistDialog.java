@@ -2,6 +2,7 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -21,6 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.MatteBorder;
 
+import util.AnimeData;
 import util.ConnectionManager;
 import util.SearchBar;
 import util.SortedListModel;
@@ -53,7 +55,10 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.CardLayout;
+import java.io.IOException;
 import java.net.ConnectException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 
@@ -116,9 +121,13 @@ public class WishlistDialog extends JDialog
 							{
 								wishlist.setEnabled(false);
 								btnDeleteAnime.setEnabled(false);
+								btnID.setEnabled(false);
 							}
 							else	
+							{
 								btnDeleteAnime.setEnabled(true);
+								btnID.setEnabled(true);
+							}
 						}
 					});
 					wishlist.setFont(null);
@@ -337,20 +346,40 @@ public class WishlistDialog extends JDialog
 			}
 			{
 				btnID = new JButton("Visualizza");
+				btnID.setEnabled(false);
 				btnID.setMargin(new Insets(0, 14, 0, 14));
 				btnID.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						new Timer(1, new ActionListener() {
-				               public void actionPerformed(ActionEvent e) {
-				            	   
-				            	   AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x + 2, AnimeIndex.mainFrame.getLocationOnScreen().y);
-				            	   AnimeIndex.mainFrame.requestFocus();
-				            	   if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x) {
-				                     ((Timer) e.getSource()).stop();
-				                     AnimeIndex.wishlistDialog.dispose();
-				            }
-				               }
-				            }).start();
+						String anime = null;
+						if (searchBar.getText().isEmpty())
+							anime = (String) wishlist.getSelectedValue();
+						else
+							anime = (String) wishlistSearch.getSelectedValue();
+						
+						int id = AnimeIndex.wishlistMap.get(anime);
+						String link = "https://anilist.co/anime/" + id;
+						if (id != -1)
+						{
+							try {
+								URI uriLink = new URI(link);
+								Desktop.getDesktop().browse(uriLink);
+							} catch (URISyntaxException e1) {
+								JOptionPane.showMessageDialog(WishlistDialog.this,
+									    "Link non valido",
+									    "Errore",
+									    JOptionPane.ERROR_MESSAGE);
+							} catch (IOException e1) {
+								JOptionPane.showMessageDialog(WishlistDialog.this,
+									    "Link non valido",
+									    "Errore",
+									    JOptionPane.ERROR_MESSAGE);
+							}
+						}
+						else
+							JOptionPane.showMessageDialog(WishlistDialog.this,
+								    "Link non disponibile",
+								    "Errore",
+								    JOptionPane.ERROR_MESSAGE);
 					}
 				});
 			}
