@@ -480,7 +480,7 @@ public class SetExclusionDialog extends JDialog {
 			comboBox = new JComboBox();
 			comboBox.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					searchInList(searchBarCheck.getText(), totalModel, totalSearchModel,listToCheck);
+//					searchInList(searchBarCheck.getText(), totalModel, totalSearchModel,listToCheck);
 					if(!listToExclude.isSelectionEmpty() || !searchListToExclude.isSelectionEmpty())
 						includeButton.setEnabled(true);
 				}
@@ -488,6 +488,7 @@ public class SetExclusionDialog extends JDialog {
 			comboBox.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent e) {
 					excludeButton.setEnabled(false);
+					searchBarCheck.setText("");
 					if(listToExclude.isSelectionEmpty())
 						includeButton.setEnabled(false);
 					listToCheck.clearSelection();
@@ -585,6 +586,10 @@ public class SetExclusionDialog extends JDialog {
 			if (!excludedModel.contains(name))
 				totalModel.addElement(name);
 		}
+		if (model.isEmpty())
+			listToCheck.setEnabled(false);
+		else 
+			listToCheck.setEnabled(true);
 	}
 	
 	private void searchInList(String searchedVal, SortedListModel modelToSearch, SortedListModel searchModel, JList list) 
@@ -601,8 +606,8 @@ public class SetExclusionDialog extends JDialog {
 			list.setEnabled(true);	
 		if (searchModel.isEmpty())
 		{
-			list.setEnabled(false);
-			searchModel.addElement("Nessun Anime Corrispondente");	
+			searchModel.addElement("Nessun Anime Corrispondente");
+			list.setEnabled(false);	
 		}
 	}
 }
