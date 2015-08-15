@@ -92,6 +92,7 @@ public class AnimeIndex extends JFrame
 	public static JPanel mainFrame;
 	public static JPanel cardContainer;
 	public static AnimeInformation animeInformation;
+	public static AnimeIndex frame;
 	
 	public static JList completedToSeeList;
 	public static JList filmList;
@@ -168,7 +169,7 @@ public class AnimeIndex extends JFrame
 			        }
 				try {
 					segui = segui();
-					AnimeIndex frame = new AnimeIndex();
+					frame = new AnimeIndex();
 					frame.setVisible(true);
 					wishlistDialog = new WishlistDialog();
 					
@@ -531,8 +532,6 @@ public class AnimeIndex extends JFrame
 					wishlistDialog.setVisible(true);
 					 new Timer(1, new ActionListener() {
 			               public void actionPerformed(ActionEvent e) {
-			            	   
-//			            	   wishlistDialog.setVisible(true);
 			            	   wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x - 2, AnimeIndex.mainFrame.getLocationOnScreen().y);
 			            	   AnimeIndex.mainFrame.requestFocus();
 			            	   if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 182) {

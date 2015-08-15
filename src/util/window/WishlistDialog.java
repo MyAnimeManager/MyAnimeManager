@@ -74,6 +74,7 @@ public class WishlistDialog extends JDialog
 	 */
 	public WishlistDialog()
 	{
+		super(AnimeIndex.frame, false);
 		setUndecorated(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setType(Type.UTILITY);
