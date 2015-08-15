@@ -280,6 +280,7 @@ public class SetExclusionDialog extends JDialog {
 		}
 		{
 			excludeButton = new JButton(">>");
+			excludeButton.setEnabled(false);
 			excludeButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String name= null;
