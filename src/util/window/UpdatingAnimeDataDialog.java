@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
+import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
 import util.task.UpdateAnimeDataTask;
 
@@ -26,6 +27,7 @@ public class UpdatingAnimeDataDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public UpdatingAnimeDataDialog() {
+		super(AnimeIndex.frame,true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DownloadingDialog.class.getResource("/image/autorefresh-icon15.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override

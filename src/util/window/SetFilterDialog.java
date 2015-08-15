@@ -58,6 +58,7 @@ public class SetFilterDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public SetFilterDialog() {
+		super(AnimeIndex.frame,true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(SetFilterDialog.class.getResource("/image/ellipse_icon1.png")));
 		setResizable(false);
 		setModal(true);

@@ -53,6 +53,7 @@ public class PreferenceDialog extends JDialog
 	 */
 	public PreferenceDialog()
 	{
+		super(AnimeIndex.frame,true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PreferenceDialog.class.getResource("/image/System-Preferences-icon.png")));
 		setTitle("Preferenze");
 		setResizable(false);

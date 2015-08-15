@@ -33,6 +33,7 @@ public class SetLinkDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public SetLinkDialog() {
+		super(AnimeIndex.frame,true);
 		setType(Type.POPUP);
 		setTitle("Link");
 		setResizable(false);

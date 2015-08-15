@@ -110,6 +110,7 @@ public class AddAnimeDialog extends JDialog
 	 */
 	public AddAnimeDialog()
 	{
+		super(AnimeIndex.frame,true);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent arg0) {

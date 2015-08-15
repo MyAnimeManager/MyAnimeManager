@@ -56,6 +56,7 @@ public class AddFansubDialog extends JDialog
 	 */
 	public AddFansubDialog()
 	{
+		super(AnimeIndex.frame,true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AddFansubDialog.class.getResource("/image/Aegisub.png")));
 		fansubMap.putAll(AnimeIndex.fansubMap);
 		

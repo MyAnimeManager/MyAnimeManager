@@ -41,6 +41,7 @@ public class SetCheckDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public SetCheckDialog() {
+		super(AnimeIndex.frame,true);
 		setTitle("Liste da Controllare");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);

@@ -36,6 +36,7 @@ public class AnimeImageSelection extends JDialog
 	 */
 	public AnimeImageSelection(DefaultListModel model)
 	{
+		super(AnimeIndex.frame,true);
 		setTitle("Aggiungi Immagine");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setType(Type.POPUP);

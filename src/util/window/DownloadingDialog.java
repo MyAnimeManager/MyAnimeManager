@@ -16,7 +16,9 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
 import util.task.DownloadUpdateTask;
+import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
+
 import java.awt.Toolkit;
 
 public class DownloadingDialog extends JDialog
@@ -30,6 +32,7 @@ public class DownloadingDialog extends JDialog
 	 */
 	public DownloadingDialog(String link)
 	{
+		super(AnimeIndex.frame,true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DownloadingDialog.class.getResource("/image/Update.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override

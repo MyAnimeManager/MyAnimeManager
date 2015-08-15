@@ -46,6 +46,7 @@ import util.Updater;
 	    public static DownloadingDialog dial; 
 
 	    public UpdateDialog(String info) {
+	    	super(AnimeIndex.frame,true);
 	    	setAlwaysOnTop(true);
 	    	setModal(true);
 	    	setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateDialog.class.getResource("/image/Update.png")));

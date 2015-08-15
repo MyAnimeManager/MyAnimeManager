@@ -34,6 +34,7 @@ public class ExitSaveDialog extends JDialog
 	 */
 	public ExitSaveDialog()
 	{
+		super(AnimeIndex.frame,true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ExitSaveDialog.class.getResource("/image/icon.png")));
 		setTitle("Conferma Uscita");
 		setModal(true);

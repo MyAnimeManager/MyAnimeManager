@@ -67,6 +67,7 @@ public class SetExclusionDialog extends JDialog {
 	 * Create the dialog..
 	 */
 	public SetExclusionDialog() {
+		super(AnimeIndex.frame,true);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent arg0) {

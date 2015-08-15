@@ -58,6 +58,7 @@ public class AddImageDialog extends JDialog
 	 */
 	public AddImageDialog()
 	{
+		super(AnimeIndex.frame,true);
 		setTitle("Aggiungi Immagine");	
 		setResizable(false);
 		setType(Type.POPUP);

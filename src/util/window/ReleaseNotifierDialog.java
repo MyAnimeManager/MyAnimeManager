@@ -38,6 +38,7 @@ public class ReleaseNotifierDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public ReleaseNotifierDialog() {
+		super(AnimeIndex.frame,true);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
