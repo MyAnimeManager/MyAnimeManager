@@ -1736,6 +1736,8 @@ public class AnimeIndex extends JFrame
 			}
 		if (searchModel.isEmpty())
 			searchModel.addElement("Nessun Anime Corrispondente");
+			searchList.setEnabled(false);
+			deleteButton.setEnabled(false);
 		}
 
 	public static JList getJList()
