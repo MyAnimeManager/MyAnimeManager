@@ -72,6 +72,7 @@ import util.task.ReleasedAnimeTask;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
 import util.window.AnimeInformation;
+import util.window.CreditDialog;
 import util.window.ExitSaveDialog;
 import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
@@ -83,7 +84,7 @@ import util.window.WishlistDialog;
 //TODO fare sistema di controllo
 //TODO finire wishlist
 //TODO finire aggiunta anime manuale
-//TODO sistemare crediti 
+//TODO sistemare crediti (finire la finestra, la faccio io(samu))
 //TODO sistemare variabile per la versione successiva (fatto?)
 public class AnimeIndex extends JFrame
 {
@@ -699,7 +700,9 @@ public class AnimeIndex extends JFrame
 		mnHelp.add(mntmCredit);
 		mntmCredit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(mainFrame, "Creato da Yesod30", "Crediti", JOptionPane.INFORMATION_MESSAGE);
+				CreditDialog credit = new CreditDialog();
+				credit.setLocationRelativeTo(AnimeIndex.mainFrame);
+				credit.setVisible(true);
 				
 			}
 		});
