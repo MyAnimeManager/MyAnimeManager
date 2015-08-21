@@ -861,7 +861,7 @@ public class AddAnimeDialog extends JDialog
 						txtpnConLaggiuntaManuale.setEditable(false);
 						txtpnConLaggiuntaManuale.setForeground(Color.BLACK);
 						txtpnConLaggiuntaManuale.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-						txtpnConLaggiuntaManuale.setBackground(Color.DARK_GRAY);
+						txtpnConLaggiuntaManuale.setBackground(new Color(19,19,19));
 						txtpnConLaggiuntaManuale.setFont(new Font("Tahoma", Font.PLAIN, 12));
 						txtpnConLaggiuntaManuale.setEnabled(false);
 						txtpnConLaggiuntaManuale.setText("Con l'aggiunta manuale la funzione di controllo e aggiornamento dati sar\u00E0 disattivata. Anche il collegamento alla pagina AniList dell'anime non sar\u00E0 disponibile.");
