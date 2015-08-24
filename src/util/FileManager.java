@@ -23,7 +23,7 @@ public class FileManager
 //	private final static String PATH = System.getProperty("user.home");
 
 	private final static String APPDATA_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator;
-	private final static String FANSUB_PATH = APPDATA_PATH + "Fansub.txt";
+	private final static String FANSUB_PATH = APPDATA_PATH + "Fansub.anaconda";
 	private final static String ANIME_PATH = APPDATA_PATH + File.separator + "Anime" + File.separator;
 	private final static String IMAGE_PATH = APPDATA_PATH + "Images" + File.separator;
 	private final static String DEFAULT_IMAGE_PATH = APPDATA_PATH + "Default Image" + File.separator;
@@ -209,7 +209,7 @@ public class FileManager
 
 	public static void loadExclusionList()
 	{
-		File exclusionFile = new File(ANIME_PATH + "exclusion.txt");
+		File exclusionFile = new File(ANIME_PATH + "exclusion.anaconda");
 		if (exclusionFile.isFile()) 
 		{
 			Scanner scan = null;
@@ -245,7 +245,7 @@ public class FileManager
 	
 	public static void saveExclusionList()
 	{
-		File exclusionFile = new File(ANIME_PATH + "exclusion.txt");
+		File exclusionFile = new File(ANIME_PATH + "exclusion.anaconda");
 		exclusionFile.delete();
 		exclusionFile.getParentFile().mkdirs();
 		BufferedWriter output;
@@ -269,7 +269,7 @@ public class FileManager
 	
 	public static void loadWishList()
 	{
-		File wishlistFile = new File(ANIME_PATH + "wishlist.txt");
+		File wishlistFile = new File(ANIME_PATH + "wishlist.anaconda");
 		if (wishlistFile.isFile()) 
 		{
 			Scanner scan = null;
@@ -314,7 +314,7 @@ public class FileManager
 	
 	public static void saveWishList()
 	{
-		File wishlistFile = new File(ANIME_PATH + "wishlist.txt");
+		File wishlistFile = new File(ANIME_PATH + "wishlist.anaconda");
 		wishlistFile.delete();
 		wishlistFile.getParentFile().mkdirs();
 		BufferedWriter output;

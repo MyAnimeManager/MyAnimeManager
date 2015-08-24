@@ -19,11 +19,11 @@ public class LoadingTask extends SwingWorker
 	protected Object doInBackground() throws Exception
 	{
 		FileManager.loadExclusionList();
-		FileManager.loadAnime("completed.txt" , AnimeIndex.completedModel, AnimeIndex.completedMap);
-		FileManager.loadAnime("airing.txt", AnimeIndex.airingModel, AnimeIndex.airingMap);
-		FileManager.loadAnime("ova.txt", AnimeIndex.ovaModel, AnimeIndex.ovaMap);
-		FileManager.loadAnime("film.txt", AnimeIndex.filmModel, AnimeIndex.filmMap);
-		FileManager.loadAnime("toSee.txt", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
+		FileManager.loadAnime("completed.anaconda" , AnimeIndex.completedModel, AnimeIndex.completedMap);
+		FileManager.loadAnime("airing.anaconda", AnimeIndex.airingModel, AnimeIndex.airingMap);
+		FileManager.loadAnime("ova.anaconda", AnimeIndex.ovaModel, AnimeIndex.ovaMap);
+		FileManager.loadAnime("film.anaconda", AnimeIndex.filmModel, AnimeIndex.filmMap);
+		FileManager.loadAnime("toSee.anaconda", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
 		FileManager.loadWishList();
 		AnimeIndex.completedList.repaint();
 		AnimeIndex.airingList.repaint();

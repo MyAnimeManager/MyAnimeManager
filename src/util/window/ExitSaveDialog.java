@@ -65,11 +65,11 @@ public class ExitSaveDialog extends JDialog
 							} catch (IOException e1) {
 								e1.printStackTrace();
 							}
-								FileManager.saveAnimeList("completed.txt", AnimeIndex.completedModel, AnimeIndex.completedMap);
-								FileManager.saveAnimeList("airing.txt", AnimeIndex.airingModel, AnimeIndex.airingMap);
-								FileManager.saveAnimeList("ova.txt", AnimeIndex.ovaModel, AnimeIndex.ovaMap);
-								FileManager.saveAnimeList("film.txt", AnimeIndex.filmModel, AnimeIndex.filmMap);
-								FileManager.saveAnimeList("toSee.txt", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
+								FileManager.saveAnimeList("completed.anaconda", AnimeIndex.completedModel, AnimeIndex.completedMap);
+								FileManager.saveAnimeList("airing.anaconda", AnimeIndex.airingModel, AnimeIndex.airingMap);
+								FileManager.saveAnimeList("ova.anaconda", AnimeIndex.ovaModel, AnimeIndex.ovaMap);
+								FileManager.saveAnimeList("film.anaconda", AnimeIndex.filmModel, AnimeIndex.filmMap);
+								FileManager.saveAnimeList("toSee.anaconda", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
 								FileManager.saveWishList();
 								FileManager.saveExclusionList();
 								
