@@ -698,6 +698,12 @@ public class AnimeIndex extends JFrame
 		
 		JMenuItem mntmCredit = new JMenuItem("Crediti");
 		mnHelp.add(mntmCredit);
+		
+		JSeparator separator_7 = new JSeparator();
+		mnHelp.add(separator_7);
+		
+		JMenuItem mntmSupporters = new JMenuItem("Supporters");
+		mnHelp.add(mntmSupporters);
 		mntmCredit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CreditDialog credit = new CreditDialog();
