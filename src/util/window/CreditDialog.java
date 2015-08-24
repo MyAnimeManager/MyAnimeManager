@@ -47,6 +47,7 @@ public class CreditDialog extends JDialog
 		}
 		{
 			JTextPane txtpnTestoDiProva = new JTextPane();
+			txtpnTestoDiProva.setOpaque(false);
 			txtpnTestoDiProva.setBorder(null);
 			txtpnTestoDiProva.setBackground(new Color(19,19,19));
 			txtpnTestoDiProva.setText("Testo di prova");

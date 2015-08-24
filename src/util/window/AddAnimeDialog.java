@@ -653,8 +653,8 @@ public class AddAnimeDialog extends JDialog
 					GridBagLayout gbl_dataPanel = new GridBagLayout();
 					gbl_dataPanel.columnWidths = new int[]{90, 34, -3, 38, -3, 56, 64, 24, 4, 26, 4, 52, 0, 51, 50, 0};
 					gbl_dataPanel.rowHeights = new int[]{20, 20, 0, 20, 20, 20, 20, 0, 20, 0, 0};
-					gbl_dataPanel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-					gbl_dataPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+					gbl_dataPanel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+					gbl_dataPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 					dataPanel.setLayout(gbl_dataPanel);
 					{
 						JLabel lblNome = new JLabel("Nome :");
@@ -857,24 +857,6 @@ public class AddAnimeDialog extends JDialog
 						startYearField.setColumns(10);
 					}
 					{
-						JTextPane txtpnConLaggiuntaManuale = new JTextPane();
-						txtpnConLaggiuntaManuale.setEditable(false);
-						txtpnConLaggiuntaManuale.setForeground(Color.BLACK);
-						txtpnConLaggiuntaManuale.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-						txtpnConLaggiuntaManuale.setBackground(new Color(19,19,19));
-						txtpnConLaggiuntaManuale.setFont(new Font("Tahoma", Font.PLAIN, 12));
-						txtpnConLaggiuntaManuale.setEnabled(false);
-						txtpnConLaggiuntaManuale.setText("Con l'aggiunta manuale la funzione di controllo e aggiornamento dati sar\u00E0 disattivata. Anche il collegamento alla pagina AniList dell'anime non sar\u00E0 disponibile.");
-						GridBagConstraints gbc_txtpnConLaggiuntaManuale = new GridBagConstraints();
-						gbc_txtpnConLaggiuntaManuale.anchor = GridBagConstraints.NORTH;
-						gbc_txtpnConLaggiuntaManuale.fill = GridBagConstraints.HORIZONTAL;
-						gbc_txtpnConLaggiuntaManuale.gridheight = 4;
-						gbc_txtpnConLaggiuntaManuale.gridwidth = 7;
-						gbc_txtpnConLaggiuntaManuale.gridx = 8;
-						gbc_txtpnConLaggiuntaManuale.gridy = 6;
-						dataPanel.add(txtpnConLaggiuntaManuale, gbc_txtpnConLaggiuntaManuale);
-					}
-					{
 						JLabel lblDataDiFine = new JLabel("Data di Fine :");
 						GridBagConstraints gbc_lblDataDiFine = new GridBagConstraints();
 						gbc_lblDataDiFine.insets = new Insets(0, 0, 5, 5);
@@ -930,6 +912,20 @@ public class AddAnimeDialog extends JDialog
 						gbc_finishYearField.gridy = 7;
 						dataPanel.add(finishYearField, gbc_finishYearField);
 						finishYearField.setColumns(10);
+					}
+					{
+						JTextPane txtpnConLaggiuntaManuale = new JTextPane();
+						txtpnConLaggiuntaManuale.setOpaque(false);
+						txtpnConLaggiuntaManuale.setEditable(false);
+						txtpnConLaggiuntaManuale.setText("Con l'aggiunta manuale la funzione di controllo e aggiornamento dati sar\u00E0 disattivata. Anche il collegamento alla pagina AniList dell'anime non sar\u00E0 disponibile.");
+						GridBagConstraints gbc_txtpnConLaggiuntaManuale = new GridBagConstraints();
+						gbc_txtpnConLaggiuntaManuale.gridwidth = 6;
+						gbc_txtpnConLaggiuntaManuale.gridheight = 4;
+						gbc_txtpnConLaggiuntaManuale.insets = new Insets(0, 0, 5, 5);
+						gbc_txtpnConLaggiuntaManuale.fill = GridBagConstraints.BOTH;
+						gbc_txtpnConLaggiuntaManuale.gridx = 9;
+						gbc_txtpnConLaggiuntaManuale.gridy = 6;
+						dataPanel.add(txtpnConLaggiuntaManuale, gbc_txtpnConLaggiuntaManuale);
 					}
 					{
 						JLabel lblGiornoDiUscita = new JLabel("Giorno di Uscita :");

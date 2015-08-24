@@ -223,7 +223,6 @@ public class FileManager
 				}							
 			} 
 			catch (FileNotFoundException e) {
-				e.printStackTrace();
 			} 
 			finally
 			{
@@ -238,7 +237,6 @@ public class FileManager
 			 	} 
 			 catch (IOException e) 
 			 	{
-				e.printStackTrace();
 				}
 			}
 	}
