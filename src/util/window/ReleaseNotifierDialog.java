@@ -42,10 +42,12 @@ public class ReleaseNotifierDialog extends JDialog {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
+				
 				if(!ReleasedAnimeTask.enableOav)
 					ovaReleasedList.setEnabled(false);
 				else
 					ovaReleasedList.setEnabled(true);
+				
 				if(!ReleasedAnimeTask.enableFilm)
 					filmReleasedList.setEnabled(false);
 				else

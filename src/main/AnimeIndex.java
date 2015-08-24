@@ -82,14 +82,12 @@ import util.window.WishlistDialog;
 
 //TODO fixare "IL BUG"
 //TODO fare sistema di controllo
-//TODO finire wishlist
 //TODO finire aggiunta anime manuale
 //TODO sistemare crediti (finire la finestra, la faccio io(samu))
-//TODO sistemare variabile per la versione successiva (fatto?)
 public class AnimeIndex extends JFrame
 {
 	public static final String VERSION = "1.0.0";
-	public static final String NEW_VERSION = "MyAnimeManager_v1.0.0_Setup.exe";
+	public static final String NEW_VERSION = "MyAnimeManager_Setup.exe";
 	public static JPanel mainFrame;
 	public static JPanel cardContainer;
 	public static AnimeInformation animeInformation;
@@ -150,6 +148,7 @@ public class AnimeIndex extends JFrame
 	public static Font segui;
 	public static String addToPreviousList;
 	public static WishlistDialog wishlistDialog;
+	public static boolean openReleaseDialog;
 	/**
 	 * Launch the application.
 	 */
@@ -515,6 +514,7 @@ public class AnimeIndex extends JFrame
 		JMenuItem mntmNuoveUscite = new JMenuItem("Nuove Uscite");
 		mntmNuoveUscite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				openReleaseDialog = true;
 				ReleasedAnimeTask task = new ReleasedAnimeTask();
 				task.execute();
 			}

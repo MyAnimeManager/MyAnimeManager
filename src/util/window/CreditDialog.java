@@ -20,6 +20,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import main.AnimeIndex;
+import java.awt.Toolkit;
 
 public class CreditDialog extends JDialog
 {
@@ -33,6 +34,8 @@ public class CreditDialog extends JDialog
 	public CreditDialog()
 	{
 		super(AnimeIndex.frame,true);
+		setTitle("Crediti");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CreditDialog.class.getResource("/image/icon.png")));
 		setResizable(false);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -60,7 +63,7 @@ public class CreditDialog extends JDialog
 			txtpnTestoDiProva.setOpaque(false);
 			txtpnTestoDiProva.setBorder(null);
 			txtpnTestoDiProva.setBackground(new Color(19,19,19));
-			txtpnTestoDiProva.setText("Testo di prova");
+			txtpnTestoDiProva.setText("Sviluppato da :       Yesod30     e     iTTo\r\n\r\nCopyright :\r\n\r\nContatti :");
 			txtpnTestoDiProva.setEditable(false);
 			GridBagConstraints gbc_txtpnTestoDiProva = new GridBagConstraints();
 			gbc_txtpnTestoDiProva.insets = new Insets(0, 0, 5, 0);
@@ -69,7 +72,7 @@ public class CreditDialog extends JDialog
 			gbc_txtpnTestoDiProva.gridy = 0;
 			StyledDocument doc = txtpnTestoDiProva.getStyledDocument();
 			SimpleAttributeSet center = new SimpleAttributeSet();
-			StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+			StyleConstants.setAlignment(center, StyleConstants.ALIGN_LEFT);
 			doc.setParagraphAttributes(0, doc.getLength(), center, false);
 			contentPanel.add(txtpnTestoDiProva, gbc_txtpnTestoDiProva);
 		}

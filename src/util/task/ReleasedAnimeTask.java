@@ -28,7 +28,11 @@ public class ReleasedAnimeTask extends SwingWorker
 		{
 			String name = (String) ovaArray[i];
 			AnimeData data = AnimeIndex.ovaMap.get(name);
-			String releaseDate = data.getReleaseDate();
+			String releaseDate = "";
+			if(data.getCurrentEpisode().equals(data.getTotalEpisode()) || Integer.parseInt(data.getCurrentEpisode())==(Integer.parseInt(data.getTotalEpisode())-1))
+				releaseDate = data.getFinishDate();
+			else
+				releaseDate = data.getReleaseDate();
 			if (day.equalsIgnoreCase(releaseDate))
 				ReleaseNotifierDialog.ovaReleased.addElement(name);
 		}
@@ -38,7 +42,11 @@ public class ReleasedAnimeTask extends SwingWorker
 		{
 			String name = (String) filmArray[i];
 			AnimeData data = AnimeIndex.filmMap.get(name);
-			String releaseDate = data.getReleaseDate();
+			String releaseDate = "";
+			if(data.getCurrentEpisode().equals(data.getTotalEpisode()) || Integer.parseInt(data.getCurrentEpisode())==(Integer.parseInt(data.getTotalEpisode())-1))
+				releaseDate = data.getFinishDate();
+			else
+				releaseDate = data.getReleaseDate();
 			if (day.equalsIgnoreCase(releaseDate))
 				ReleaseNotifierDialog.filmReleased.addElement(name);
 		}
@@ -64,9 +72,16 @@ public class ReleasedAnimeTask extends SwingWorker
 	{
 		if (!ReleaseNotifierDialog.ovaReleased.contains("Nessun Anime Rilasciato") || !ReleaseNotifierDialog.filmReleased.contains("Nessun Anime Rilasciato"))
 		{
-		ReleaseNotifierDialog dial = new ReleaseNotifierDialog();
-		dial.setLocationRelativeTo(AnimeIndex.mainFrame);
-		dial.setVisible(true);
+			ReleaseNotifierDialog dial = new ReleaseNotifierDialog();
+			dial.setLocationRelativeTo(AnimeIndex.mainFrame);
+			dial.setVisible(true);
+		}
+		else if (AnimeIndex.openReleaseDialog==true)
+		{
+			AnimeIndex.openReleaseDialog = false;
+			ReleaseNotifierDialog dial = new ReleaseNotifierDialog();
+			dial.setLocationRelativeTo(AnimeIndex.mainFrame);
+			dial.setVisible(true);
 		}
 	}
 
