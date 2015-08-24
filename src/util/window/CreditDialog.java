@@ -70,22 +70,17 @@ public class CreditDialog extends JDialog
 			contentPanel.add(imageLabel, gbc_imageLabel);
 		}
 		{
-			JTextPane txtpnTestoDiProva = new JTextPane();
+			JLabel txtpnTestoDiProva = new JLabel();
 			txtpnTestoDiProva.setOpaque(false);
 			txtpnTestoDiProva.setBorder(null);
 			txtpnTestoDiProva.setBackground(new Color(19,19,19));
 			txtpnTestoDiProva.setText("Sviluppato da :     ");
-			txtpnTestoDiProva.setEditable(false);
 			GridBagConstraints gbc_txtpnTestoDiProva = new GridBagConstraints();
 			gbc_txtpnTestoDiProva.gridwidth = 2;
 			gbc_txtpnTestoDiProva.insets = new Insets(0, 0, 5, 0);
 			gbc_txtpnTestoDiProva.fill = GridBagConstraints.BOTH;
 			gbc_txtpnTestoDiProva.gridx = 1;
 			gbc_txtpnTestoDiProva.gridy = 0;
-			StyledDocument doc = txtpnTestoDiProva.getStyledDocument();
-			SimpleAttributeSet center = new SimpleAttributeSet();
-			StyleConstants.setAlignment(center, StyleConstants.ALIGN_LEFT);
-			doc.setParagraphAttributes(0, doc.getLength(), center, false);
 			contentPanel.add(txtpnTestoDiProva, gbc_txtpnTestoDiProva);
 		}
 		{
