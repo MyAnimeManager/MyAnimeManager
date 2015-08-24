@@ -2,6 +2,7 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -20,7 +21,10 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import main.AnimeIndex;
+
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CreditDialog extends JDialog
 {
@@ -88,13 +92,24 @@ public class CreditDialog extends JDialog
 				}
 			});
 			{
-				JLabel lblNewLabel = new JLabel("");
-				lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/image/support-us-on-patreon.png")));
-				GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-				gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
-				gbc_lblNewLabel.gridx = 2;
-				gbc_lblNewLabel.gridy = 3;
-				contentPanel.add(lblNewLabel, gbc_lblNewLabel);
+				JLabel patreonLabel = new JLabel("");
+				patreonLabel.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						patreonLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+					}
+
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						//TODO preparare codice di apertura apgina patreon
+					}
+				});
+				patreonLabel.setIcon(new ImageIcon(getClass().getResource("/image/support-us-on-patreon.png")));
+				GridBagConstraints gbc_patreonLabel = new GridBagConstraints();
+				gbc_patreonLabel.insets = new Insets(0, 0, 5, 0);
+				gbc_patreonLabel.gridx = 2;
+				gbc_patreonLabel.gridy = 3;
+				contentPanel.add(patreonLabel, gbc_patreonLabel);
 			}
 			GridBagConstraints gbc_btnOk = new GridBagConstraints();
 			gbc_btnOk.gridx = 2;
