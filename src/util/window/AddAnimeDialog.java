@@ -867,7 +867,6 @@ public class AddAnimeDialog extends JDialog
 					{
 						finishDayField = new JTextField();
 						GridBagConstraints gbc_finishDayField = new GridBagConstraints();
-						gbc_finishDayField.anchor = GridBagConstraints.NORTH;
 						gbc_finishDayField.fill = GridBagConstraints.HORIZONTAL;
 						gbc_finishDayField.insets = new Insets(0, 0, 5, 5);
 						gbc_finishDayField.gridx = 1;

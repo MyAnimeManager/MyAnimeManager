@@ -1,20 +1,23 @@
 package util.window;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridBagLayout;
 import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
+import javax.swing.JPanel;
 import javax.swing.JTextPane;
-import java.awt.Insets;
-import java.awt.Color;
+import javax.swing.border.EmptyBorder;
+
+import main.AnimeIndex;
 
 public class CreditDialog extends JDialog
 {
@@ -38,7 +41,8 @@ public class CreditDialog extends JDialog
 		gbl_contentPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel imageLabel = new JLabel("New label");
+			JLabel imageLabel = new JLabel();
+			imageLabel.setIcon(new ImageIcon(getClass().getResource("/image/credit.png")));
 			GridBagConstraints gbc_imageLabel = new GridBagConstraints();
 			gbc_imageLabel.insets = new Insets(0, 0, 0, 5);
 			gbc_imageLabel.gridx = 0;
