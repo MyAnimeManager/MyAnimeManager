@@ -862,6 +862,7 @@ public class AnimeIndex extends JFrame
 					}
 					if (!search.isEmpty())
 					{	
+					searchList.setEnabled(true);
 					CardLayout cl = (CardLayout)(cardContainer.getLayout());
 			        cl.show(cardContainer, "Ricerca");
 					SearchInList(search, model);
@@ -880,6 +881,7 @@ public class AnimeIndex extends JFrame
 					model = filterModel;
 					if (!search.isEmpty())
 					{	
+					searchList.setEnabled(true);
 					CardLayout cl = (CardLayout)(cardContainer.getLayout());
 			        cl.show(cardContainer, "Ricerca");
 					SearchInList(search, model);
