@@ -2,7 +2,6 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -16,8 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
-
-import main.AnimeIndex;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 public class CreditDialog extends JDialog
 {
@@ -64,6 +64,10 @@ public class CreditDialog extends JDialog
 			gbc_txtpnTestoDiProva.fill = GridBagConstraints.BOTH;
 			gbc_txtpnTestoDiProva.gridx = 1;
 			gbc_txtpnTestoDiProva.gridy = 0;
+			StyledDocument doc = txtpnTestoDiProva.getStyledDocument();
+			SimpleAttributeSet center = new SimpleAttributeSet();
+			StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+			doc.setParagraphAttributes(0, doc.getLength(), center, false);
 			contentPanel.add(txtpnTestoDiProva, gbc_txtpnTestoDiProva);
 		}
 		{
