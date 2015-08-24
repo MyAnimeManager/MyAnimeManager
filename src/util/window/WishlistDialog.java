@@ -379,7 +379,7 @@ public class WishlistDialog extends JDialog
 						}
 						else
 							JOptionPane.showMessageDialog(WishlistDialog.this,
-								    "Link non disponibile",
+								    "      Pagina non disponibile",
 								    "Errore",
 								    JOptionPane.ERROR_MESSAGE);
 					}
