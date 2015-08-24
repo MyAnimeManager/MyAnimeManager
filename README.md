@@ -1,4 +1,4 @@
-# MyAnimeManager
+# My Anime Manager
 ### Informazioni
 My Anime Manager è un programma che consente di gestire liste di anime e visualizzare i vari dati degli anime memorizzati in modo facile e veloce.
 
