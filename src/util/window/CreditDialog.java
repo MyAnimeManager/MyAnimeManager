@@ -19,6 +19,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import main.AnimeIndex;
+
 public class CreditDialog extends JDialog
 {
 
@@ -30,6 +32,7 @@ public class CreditDialog extends JDialog
 	 */
 	public CreditDialog()
 	{
+		super(AnimeIndex.frame,true);
 		setResizable(false);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
