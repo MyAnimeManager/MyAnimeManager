@@ -887,7 +887,7 @@ public class AddAnimeDialog extends JDialog
 					{
 						finishMonthField = new JTextField();
 						GridBagConstraints gbc_finishMonthField = new GridBagConstraints();
-						gbc_finishMonthField.fill = GridBagConstraints.BOTH;
+						gbc_finishMonthField.fill = GridBagConstraints.HORIZONTAL;
 						gbc_finishMonthField.insets = new Insets(0, 0, 5, 5);
 						gbc_finishMonthField.gridx = 3;
 						gbc_finishMonthField.gridy = 7;
