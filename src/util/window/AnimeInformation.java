@@ -1013,7 +1013,7 @@ public class AnimeInformation extends JPanel
 				else
 					bd = false;
 				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
-						oldData.getNote(), oldData.getImageName(), "Concluso da Vedere", oldData.getId(),
+						oldData.getNote(), oldData.getImageName(), "Concluso", oldData.getId(),
 						oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
 						oldData.getFinishDate(), oldData.getDurationEp(), bd);
 				FileManager.moveImage(oldData.getImagePath(type), "Completed to See", oldData.getImageName());
