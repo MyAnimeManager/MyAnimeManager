@@ -277,12 +277,14 @@ public class FileManager
 				
 				while (scan.hasNextLine())
 				{
+					
 					String wishListLine = scan.nextLine();
 					line = new Scanner(wishListLine);
-					line.useDelimiter("||");
+					line.useDelimiter("\\|\\|");
 
-						String name = scan.next();
-						int id = scan.nextInt();
+					
+						String name = line.next();
+						int id = line.nextInt();
 						WishlistDialog.wishListModel.addElement(name);
 						AnimeIndex.wishlistMap.put(name, id);
 				}							

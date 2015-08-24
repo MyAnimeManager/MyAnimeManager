@@ -63,6 +63,8 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 
 import javax.swing.ListModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class WishlistDialog extends JDialog
 {
