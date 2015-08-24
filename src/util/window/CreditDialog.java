@@ -42,17 +42,17 @@ public class CreditDialog extends JDialog
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{83, 0, 0, 0, 0, 0};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel imageLabel = new JLabel();
 			imageLabel.setIcon(new ImageIcon(getClass().getResource("/image/credit.png")));
 			GridBagConstraints gbc_imageLabel = new GridBagConstraints();
 			gbc_imageLabel.fill = GridBagConstraints.VERTICAL;
-			gbc_imageLabel.gridheight = 3;
+			gbc_imageLabel.gridheight = 5;
 			gbc_imageLabel.insets = new Insets(0, 0, 0, 5);
 			gbc_imageLabel.gridx = 0;
 			gbc_imageLabel.gridy = 0;
@@ -66,6 +66,8 @@ public class CreditDialog extends JDialog
 			txtpnTestoDiProva.setText("Sviluppato da :       Yesod30     e     iTTo\r\n\r\nCopyright :\r\n\r\nContatti :");
 			txtpnTestoDiProva.setEditable(false);
 			GridBagConstraints gbc_txtpnTestoDiProva = new GridBagConstraints();
+			gbc_txtpnTestoDiProva.gridheight = 3;
+			gbc_txtpnTestoDiProva.gridwidth = 2;
 			gbc_txtpnTestoDiProva.insets = new Insets(0, 0, 5, 0);
 			gbc_txtpnTestoDiProva.fill = GridBagConstraints.BOTH;
 			gbc_txtpnTestoDiProva.gridx = 1;
@@ -90,13 +92,13 @@ public class CreditDialog extends JDialog
 				lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/image/support-us-on-patreon.png")));
 				GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 				gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
-				gbc_lblNewLabel.gridx = 1;
-				gbc_lblNewLabel.gridy = 1;
+				gbc_lblNewLabel.gridx = 2;
+				gbc_lblNewLabel.gridy = 3;
 				contentPanel.add(lblNewLabel, gbc_lblNewLabel);
 			}
 			GridBagConstraints gbc_btnOk = new GridBagConstraints();
-			gbc_btnOk.gridx = 1;
-			gbc_btnOk.gridy = 2;
+			gbc_btnOk.gridx = 2;
+			gbc_btnOk.gridy = 4;
 			contentPanel.add(btnOk, gbc_btnOk);
 		}
 	}
