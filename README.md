@@ -6,4 +6,7 @@ Le liste attualmente disponibili sono: Anime Completati, Anime in Corso, OAV, Fi
 
 
 ### Bug, Richieste e Suggerimenti
-Per segnalare un bug o proporre nuove funzioni usate l'issue tracker, accessibile cliccando [qui](https://github.com/MyAnimeManager/MyAnimeManager/issues) o dall'apposito pulsante a destra. Create una nuova discussione con il tasto "New Issue" e assegnate il label corretto in base a ciò che dovete scrivere.
+Per segnalare un bug o proporre nuove funzioni usate l'issue tracker, accessibile cliccando [qui](https://github.com/MyAnimeManager/MyAnimeManager/issues) o dall'apposito pulsante a destra. Create una nuova discussione con il tasto "New Issue" e appena possibile vi risponderemo.
+
+### Contatti
+Scrivere qui i contatti vari.
