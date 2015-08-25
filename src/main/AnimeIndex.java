@@ -48,6 +48,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -960,6 +961,7 @@ public class AnimeIndex extends JFrame
 		completedAnimeScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 
 		completedList = new JList(completedModel);
+		completedList.addMouseListener(AnimeIndex.exclusionPopUpMenu());
 		completedList.setFont(segui.deriveFont(12f));
 		completedList.setMaximumSize(new Dimension(157, 233));
 		completedList.setMinimumSize(new Dimension(138, 233));
@@ -1014,6 +1016,7 @@ public class AnimeIndex extends JFrame
 		airingAnimeScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		
 		airingList = new JList(airingModel);
+		airingList.addMouseListener(AnimeIndex.exclusionPopUpMenu());
 		airingList.setFont(segui.deriveFont(12f));
 		airingList.setMaximumSize(new Dimension(157, 233));
 		airingList.setMinimumSize(new Dimension(138, 233));
@@ -1071,6 +1074,7 @@ public class AnimeIndex extends JFrame
 		
 		
 		ovaList = new JList(ovaModel);
+		ovaList.addMouseListener(AnimeIndex.exclusionPopUpMenu());
 		ovaList.setFont(segui.deriveFont(12f));
 		ovaList.setMaximumSize(new Dimension(138, 233));
 		ovaList.setMinimumSize(new Dimension(138, 233));
@@ -1127,6 +1131,7 @@ public class AnimeIndex extends JFrame
 		filmScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		
 		filmList = new JList(filmModel);
+		filmList.addMouseListener(AnimeIndex.exclusionPopUpMenu());
 		filmList.setFont(segui.deriveFont(12f));
 		filmList.setMaximumSize(new Dimension(138, 233));
 		filmList.setMinimumSize(new Dimension(138, 233));
@@ -1183,6 +1188,7 @@ public class AnimeIndex extends JFrame
 		completedToSeeScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		
 		completedToSeeList = new JList(completedToSeeModel);
+		completedToSeeList.addMouseListener(AnimeIndex.exclusionPopUpMenu());
 		completedToSeeList.setFont(segui.deriveFont(12f));
 		completedToSeeList.setMaximumSize(new Dimension(138, 233));
 		completedToSeeList.setMinimumSize(new Dimension(138, 233));
@@ -1238,6 +1244,7 @@ public class AnimeIndex extends JFrame
 		searchScroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 		searchScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		searchList = new JList(searchModel);
+		searchList.addMouseListener(AnimeIndex.exclusionPopUpMenu());
 		searchList.setFont(segui.deriveFont(12f));
 		searchList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -1434,6 +1441,7 @@ public class AnimeIndex extends JFrame
 		filterScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		
 		filterList = new JList(filterModel);
+		filterList.addMouseListener(AnimeIndex.exclusionPopUpMenu());
 		filterList.setFont(segui.deriveFont(12f));
 		filterList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -2179,5 +2187,41 @@ public class AnimeIndex extends JFrame
 			e.printStackTrace();
 		}
 		return font;
+	}
+	
+	private static MouseAdapter exclusionPopUpMenu()
+	{
+		MouseAdapter mouse = new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if ( SwingUtilities.isRightMouseButton(e) )
+		        {
+		            JList list = (JList)e.getSource();
+		            int row = list.locationToIndex(e.getPoint());
+		            list.setSelectedIndex(row);
+		            
+					JPopupMenu menu = new JPopupMenu();
+	                JMenuItem add = new JMenuItem("Aggiungi alle Esclusioni");
+	                add.addActionListener(new ActionListener() {
+	                    public void actionPerformed(ActionEvent e) {
+	                        exclusionAnime.add((String)list.getSelectedValue());
+	                    }
+	                });
+	                JMenuItem remove = new JMenuItem("Rimuovi dalle Esclusioni");
+	                remove.addActionListener(new ActionListener() {
+	                    public void actionPerformed(ActionEvent e) {
+	                        exclusionAnime.remove((String)list.getSelectedValue());
+	                    }
+	                });
+	                if (exclusionAnime.contains((String)list.getSelectedValue()))
+	                	menu.add(remove);
+	                else
+	                	menu.add(add);
+	                menu.show(list, e.getX(),e.getY());
+					
+		        }
+			}
+		};
+		return mouse;
 	}
 }
