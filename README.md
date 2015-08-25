@@ -2,7 +2,7 @@
 ### Informazioni
 My Anime Manager Ã¨ un programma che consente di gestire anime e visualizzare i dati degli anime memorizzati in modo facile e veloce.
 
-Le liste attualmente disponibili sono: Anime Completati, Anime in Corso, OAV, Film e Completi da Vedere. Il programma dispone inoltre delle funzioni di cerca e di filtraggio per visualizzare sottocategorie e/o anime particolari.
+Le liste attualmente disponibili sono: Anime Completati, Anime in Corso, OAV, Film e Completi da Vedere. Il programma dispone delle funzioni di cerca e di filtraggio per visualizzare sottocategorie e/o anime particolari.
 E' stato implementato un sistema di controllo che verifica lo stato degli anime inseriti e/o che si stanno inserendo così da avere sempre i dati degli anime aggiornati ed essere sempre informati sulle releases più recenti. L'utente può comunque personalizzare i dati degli anime a sua discrezioine qualora ritenesse i dati importati non veritieri.
 L'aggiunta automatica permette di inserire anime nelle liste e di importare tutti i dati più recenti molto rapidamente.
 L'utente ha a disposizione anche una Wishlist per gli anime che desidera vedere ma che ancora non sono disponibili. 
