@@ -1254,7 +1254,7 @@ public class AddAnimeDialog extends JDialog
 									imageName = imageName.replaceAll("\"", "_");
 									imageName = imageName.replaceAll(">", "_");
 									imageName = imageName.replaceAll("<", "_");
-									FileManager.saveImage(imageLink, imageName, "film");
+									FileManager.saveImage(imageLink, imageName, "Film");
 									AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
 											"", "", animeType, releaseDate, finishDate, durationEp, false);
 	
