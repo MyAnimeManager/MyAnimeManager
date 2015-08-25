@@ -33,6 +33,8 @@ import java.net.URISyntaxException;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import java.awt.Font;
+import java.awt.Component;
+import javax.swing.Box;
 
 public class CreditDialog extends JDialog
 {
@@ -54,13 +56,13 @@ public class CreditDialog extends JDialog
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.rowHeights = new int[]{0, 21, 0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblNewLabel_1 = new JLabel("Versione :");
+			JLabel lblNewLabel_1 = new JLabel("\u2022 Versione :");
 			GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 			gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
 			gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
@@ -70,10 +72,28 @@ public class CreditDialog extends JDialog
 		}
 		{
 			JLabel label = new JLabel("");
+			label.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					String link = "https://github.com/MyAnimeManager/MyAnimeManager#my-anime-manager";
+					try {
+						URI uriLink = new URI(link);
+						Desktop.getDesktop().browse(uriLink);
+					} catch (URISyntaxException a) {
+					} catch (IOException a) {
+				}
+				}
+			});
 			label.setFont(new Font("Tahoma", Font.PLAIN, 11));
 //			label.setForeground(Color.RED);
 			label.setText("My Anime Manager   v"+AnimeIndex.VERSION);
 			GridBagConstraints gbc_label = new GridBagConstraints();
+			gbc_label.gridwidth = 4;
 			gbc_label.insets = new Insets(0, 0, 5, 0);
 			gbc_label.gridx = 2;
 			gbc_label.gridy = 0;
@@ -95,9 +115,9 @@ public class CreditDialog extends JDialog
 			txtpnTestoDiProva.setOpaque(false);
 			txtpnTestoDiProva.setBorder(null);
 			txtpnTestoDiProva.setBackground(new Color(19,19,19));
-			txtpnTestoDiProva.setText("Sviluppato da :     ");
+			txtpnTestoDiProva.setText("\u2022 Sviluppato da :     ");
 			GridBagConstraints gbc_txtpnTestoDiProva = new GridBagConstraints();
-			gbc_txtpnTestoDiProva.gridwidth = 2;
+			gbc_txtpnTestoDiProva.gridwidth = 5;
 			gbc_txtpnTestoDiProva.insets = new Insets(0, 0, 5, 0);
 			gbc_txtpnTestoDiProva.fill = GridBagConstraints.BOTH;
 			gbc_txtpnTestoDiProva.gridx = 1;
@@ -137,6 +157,7 @@ public class CreditDialog extends JDialog
 					label.setBorder(new LineBorder(new Color(40, 40, 40), 1, true));
 					label.setIcon(new ImageIcon(CreditDialog.class.getResource("/image/horo_avatar.jpg")));
 					GridBagConstraints gbc_label = new GridBagConstraints();
+					gbc_label.anchor = GridBagConstraints.EAST;
 					gbc_label.insets = new Insets(0, 0, 5, 5);
 					gbc_label.gridx = 1;
 					gbc_label.gridy = 2;
@@ -146,10 +167,18 @@ public class CreditDialog extends JDialog
 					JLabel lblNewLabel = new JLabel("Yesod30");
 					GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 					gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
-					gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
+					gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 					gbc_lblNewLabel.gridx = 2;
 					gbc_lblNewLabel.gridy = 2;
 					contentPanel.add(lblNewLabel, gbc_lblNewLabel);
+				}
+				{
+					Component horizontalStrut = Box.createHorizontalStrut(20);
+					GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
+					gbc_horizontalStrut.insets = new Insets(0, 0, 5, 5);
+					gbc_horizontalStrut.gridx = 3;
+					gbc_horizontalStrut.gridy = 2;
+					contentPanel.add(horizontalStrut, gbc_horizontalStrut);
 				}
 				{
 					JLabel label = new JLabel("");
@@ -157,8 +186,8 @@ public class CreditDialog extends JDialog
 					label.setIcon(new ImageIcon(CreditDialog.class.getResource("/image/unknown avatar.jpg")));
 					GridBagConstraints gbc_label = new GridBagConstraints();
 					gbc_label.insets = new Insets(0, 0, 5, 5);
-					gbc_label.gridx = 1;
-					gbc_label.gridy = 3;
+					gbc_label.gridx = 4;
+					gbc_label.gridy = 2;
 					contentPanel.add(label, gbc_label);
 				}
 				{
@@ -166,12 +195,20 @@ public class CreditDialog extends JDialog
 					GridBagConstraints gbc_lblItto = new GridBagConstraints();
 					gbc_lblItto.anchor = GridBagConstraints.WEST;
 					gbc_lblItto.insets = new Insets(0, 0, 5, 0);
-					gbc_lblItto.gridx = 2;
-					gbc_lblItto.gridy = 3;
+					gbc_lblItto.gridx = 5;
+					gbc_lblItto.gridy = 2;
 					contentPanel.add(lblItto, gbc_lblItto);
 				}
 				{
-					JLabel lblNewLabel_2 = new JLabel("Contatti :");
+					Component verticalStrut = Box.createVerticalStrut(2);
+					GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+					gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+					gbc_verticalStrut.gridx = 1;
+					gbc_verticalStrut.gridy = 3;
+					contentPanel.add(verticalStrut, gbc_verticalStrut);
+				}
+				{
+					JLabel lblNewLabel_2 = new JLabel("\u2022 Contatti :");
 					GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 					gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
 					gbc_lblNewLabel_2.gridx = 1;
@@ -182,6 +219,8 @@ public class CreditDialog extends JDialog
 					JLabel label = new JLabel("");
 					label.setIcon(new ImageIcon(CreditDialog.class.getResource("/image/github.png")));
 					GridBagConstraints gbc_label = new GridBagConstraints();
+					gbc_label.anchor = GridBagConstraints.WEST;
+					gbc_label.gridwidth = 4;
 					gbc_label.insets = new Insets(0, 0, 5, 0);
 					gbc_label.gridx = 2;
 					gbc_label.gridy = 4;
@@ -194,7 +233,7 @@ public class CreditDialog extends JDialog
 
 						@Override
 						public void mouseClicked(MouseEvent e) {
-							String link = "https://github.com/MyAnimeManager/MyAnimeManager#my-anime-manager";
+							String link = "https://github.com/MyAnimeManager/MyAnimeManager#contatti";
 							try {
 								URI uriLink = new URI(link);
 								Desktop.getDesktop().browse(uriLink);
@@ -206,7 +245,7 @@ public class CreditDialog extends JDialog
 				}
 				patreonLabel.setIcon(new ImageIcon(getClass().getResource("/image/support-us-on-patreon.png")));
 				GridBagConstraints gbc_patreonLabel = new GridBagConstraints();
-				gbc_patreonLabel.gridwidth = 2;
+				gbc_patreonLabel.gridwidth = 5;
 				gbc_patreonLabel.anchor = GridBagConstraints.SOUTH;
 				gbc_patreonLabel.insets = new Insets(0, 0, 5, 0);
 				gbc_patreonLabel.gridx = 1;
@@ -215,7 +254,7 @@ public class CreditDialog extends JDialog
 			}
 			GridBagConstraints gbc_btnOk = new GridBagConstraints();
 			gbc_btnOk.anchor = GridBagConstraints.SOUTH;
-			gbc_btnOk.gridwidth = 2;
+			gbc_btnOk.gridwidth = 5;
 			gbc_btnOk.gridx = 1;
 			gbc_btnOk.gridy = 6;
 			contentPanel.add(btnOk, gbc_btnOk);
