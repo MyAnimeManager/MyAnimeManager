@@ -6,7 +6,7 @@ Le liste attualmente disponibili sono: Anime Completati, Anime in Corso, OAV, Fi
 
 E' stato implementato un sistema di controllo che verifica lo stato degli anime inseriti e/o che si stanno inserendo così da avere sempre i dati più recenti ed essere sempre informati sulle ultime uscite. L'utente può comunque personalizzare i dati degli anime a sua discrezioine qualora ritenesse i dati importati non veritieri.
 
-L'aggiunta automatica permette di inserire anime nelle liste e di importare tutti i dati più recenti molto rapidamente.
+L'aggiunta da web permette di inserire anime nelle liste e di importare tutti i dati più recenti molto rapidamente.
 
 L'utente ha a disposizione anche una Wishlist per gli anime che desidera vedere ma che ancora non sono disponibili. 
 
