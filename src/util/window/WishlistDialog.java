@@ -63,6 +63,7 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 
 import javax.swing.ListModel;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -71,7 +72,7 @@ public class WishlistDialog extends JDialog
 
 	public final JPanel contentPanel = new JPanel();
 	public static SortedListModel wishListModel = new SortedListModel();
-	private SortedListModel wishListSearchModel = new SortedListModel();
+	public static SortedListModel wishListSearchModel = new SortedListModel();
 	private SearchBar searchBar;
 	private JButton btnDeleteAnime;
 	private JButton btnAggiungiAnime;
@@ -265,8 +266,12 @@ public class WishlistDialog extends JDialog
 					public void actionPerformed(ActionEvent e) {
 						if (searchBar.getText().isEmpty())
 						{
-							String name = (String) wishlist.getSelectedValue(); 
-							wishListModel.removeElement(name);
+							int index = wishlist.getSelectedIndex();
+							String name = (String)wishListModel.getElementAt(index);
+							wishListModel.removeElementAt(index);
+							index -= 1;
+							wishlist.clearSelection();
+							wishlist.setSelectedIndex(index);
 							AnimeIndex.wishlistMap.remove(name);
 							if (wishListModel.isEmpty())
 							{

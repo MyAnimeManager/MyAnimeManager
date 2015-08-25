@@ -118,6 +118,7 @@ public class AnimeIndex extends JFrame
 	public static TreeMap<String,AnimeData> ovaMap = new TreeMap<String,AnimeData>();
 	public static TreeMap<String,AnimeData> filmMap = new TreeMap<String,AnimeData>();
 	public static TreeMap<String,AnimeData> completedToSeeMap = new TreeMap<String,AnimeData>();
+	public static TreeMap<String,Integer> wishlistMap = new TreeMap<String,Integer>();
 	public static TreeMap<String,String> shiftsRegister = new TreeMap<String,String>();
 	
 	public static ArrayList<String> completedSessionAnime = new ArrayList();
@@ -134,7 +135,6 @@ public class AnimeIndex extends JFrame
 	public static ArrayList<String> completedToSeeDeletedAnime = new ArrayList();
 	
 	public static ArrayList<String> exclusionAnime = new ArrayList();
-	public static TreeMap<String,Integer> wishlistMap = new TreeMap<String,Integer>();
 	
 	private JButton addButton;
 	public static JButton deleteButton;
@@ -269,7 +269,7 @@ public class AnimeIndex extends JFrame
 				if (shouldCancel == 0)
 				{
 				try {
-					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Fansub.txt"));
+					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Fansub.anaconda"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -285,7 +285,13 @@ public class AnimeIndex extends JFrame
 				}
 			}
 		});
+		
+		JSeparator separator_9 = new JSeparator();
+		mnElimina.add(separator_9);
 		mnElimina.add(mntmEliminaFansub);		
+		
+		JSeparator separator_10 = new JSeparator();
+		mnElimina.add(separator_10);
 		JMenu mnEliminaLista = new JMenu("Tutta la Lista");
 		mnElimina.add(mnEliminaLista);
 		
@@ -296,7 +302,7 @@ public class AnimeIndex extends JFrame
 				if (shouldCancel == 0)
 				{
 				try {
-					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "completed.txt"));
+					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "completed.anaconda"));
 					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Completed"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -319,7 +325,7 @@ public class AnimeIndex extends JFrame
 				if (shouldCancel == 0)
 				{
 				try {
-					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "airing.txt"));
+					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "airing.anaconda"));
 					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Airing"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -333,6 +339,9 @@ public class AnimeIndex extends JFrame
 				}
 			}
 		});
+		
+		JSeparator separator_11 = new JSeparator();
+		mnEliminaLista.add(separator_11);
 		mnEliminaLista.add(mntmAnimeInCorso);
 		
 		JMenuItem mntmOav = new JMenuItem("OAV");
@@ -342,7 +351,7 @@ public class AnimeIndex extends JFrame
 				if (shouldCancel == 0)
 				{
 				try {
-					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "ova.txt"));
+					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "ova.anaconda"));
 					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Ova"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -356,6 +365,9 @@ public class AnimeIndex extends JFrame
 				}
 			}
 		});
+		
+		JSeparator separator_12 = new JSeparator();
+		mnEliminaLista.add(separator_12);
 		mnEliminaLista.add(mntmOav);
 		
 		JMenuItem mntmFilm = new JMenuItem("Film");
@@ -365,7 +377,7 @@ public class AnimeIndex extends JFrame
 				if (shouldCancel == 0)
 				{
 				try {
-					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "film.txt"));
+					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "film.anaconda"));
 					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Film"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -379,6 +391,9 @@ public class AnimeIndex extends JFrame
 				}
 			}
 		});
+		
+		JSeparator separator_13 = new JSeparator();
+		mnEliminaLista.add(separator_13);
 		mnEliminaLista.add(mntmFilm);
 		
 		JMenuItem mntmCompletiDaVedere = new JMenuItem("Completi da Vedere");
@@ -388,7 +403,7 @@ public class AnimeIndex extends JFrame
 				if (shouldCancel == 0)
 				{
 				try {
-					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "toSee.txt"));
+					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "toSee.anaconda"));
 					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Completed to See"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -402,7 +417,36 @@ public class AnimeIndex extends JFrame
 				}
 			}
 		});
+		
+		JSeparator separator_14 = new JSeparator();
+		mnEliminaLista.add(separator_14);
 		mnEliminaLista.add(mntmCompletiDaVedere);
+		
+		JSeparator separator_15 = new JSeparator();
+		mnEliminaLista.add(separator_15);
+		
+		JMenuItem mntmWishlist_1 = new JMenuItem("Wishlist");
+		mntmWishlist_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti gli Anime nella Wishlist?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (shouldCancel == 0)
+				{
+				try {
+					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "wishlist.anaconda"));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				
+				WishlistDialog.wishListModel.clear();
+				WishlistDialog.wishListSearchModel.clear();
+				
+				wishlistMap.clear();
+				
+				JOptionPane.showMessageDialog(mainFrame, "Anime nella Wishlist eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		mnEliminaLista.add(mntmWishlist_1);
 		mntmDeleteImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti i dati?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
