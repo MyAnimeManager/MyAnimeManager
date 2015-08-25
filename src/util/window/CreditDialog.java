@@ -32,6 +32,7 @@ import java.net.URISyntaxException;
 
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import java.awt.Font;
 
 public class CreditDialog extends JDialog
 {
@@ -45,7 +46,7 @@ public class CreditDialog extends JDialog
 	public CreditDialog()
 	{
 		super(AnimeIndex.frame,true);
-		setTitle("Crediti");
+		setTitle("My Anime Manager   v"+AnimeIndex.VERSION);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CreditDialog.class.getResource("/image/icon.png")));
 		setResizable(false);
 		setBounds(100, 100, 450, 300);
@@ -56,7 +57,7 @@ public class CreditDialog extends JDialog
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_contentPanel.rowHeights = new int[]{0, 21, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblNewLabel_1 = new JLabel("Versione :");
@@ -69,6 +70,8 @@ public class CreditDialog extends JDialog
 		}
 		{
 			JLabel label = new JLabel("");
+			label.setFont(new Font("Tahoma", Font.PLAIN, 11));
+			label.setForeground(Color.RED);
 			label.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseEntered(MouseEvent e) {
@@ -168,7 +171,7 @@ public class CreditDialog extends JDialog
 				{
 					JLabel label = new JLabel("");
 					label.setBorder(new LineBorder(new Color(40, 40, 40), 1, true));
-					label.setIcon(new ImageIcon(CreditDialog.class.getResource("/image/horo.jpg")));
+					label.setIcon(new ImageIcon(CreditDialog.class.getResource("/image/unknown avatar.jpg")));
 					GridBagConstraints gbc_label = new GridBagConstraints();
 					gbc_label.insets = new Insets(0, 0, 5, 5);
 					gbc_label.gridx = 1;
@@ -185,19 +188,21 @@ public class CreditDialog extends JDialog
 					contentPanel.add(lblItto, gbc_lblItto);
 				}
 				{
-					JTextPane txtpnCreditiContatti = new JTextPane();
-					txtpnCreditiContatti.setText("Crediti :\r\n\r\nContatti :");
-					txtpnCreditiContatti.setOpaque(false);
-					txtpnCreditiContatti.setEditable(false);
-					txtpnCreditiContatti.setBorder(null);
-					txtpnCreditiContatti.setBackground(new Color(19, 19, 19));
-					GridBagConstraints gbc_txtpnCreditiContatti = new GridBagConstraints();
-					gbc_txtpnCreditiContatti.gridwidth = 2;
-					gbc_txtpnCreditiContatti.insets = new Insets(0, 0, 5, 0);
-					gbc_txtpnCreditiContatti.fill = GridBagConstraints.BOTH;
-					gbc_txtpnCreditiContatti.gridx = 1;
-					gbc_txtpnCreditiContatti.gridy = 4;
-					contentPanel.add(txtpnCreditiContatti, gbc_txtpnCreditiContatti);
+					JLabel lblNewLabel_2 = new JLabel("Contatti :");
+					GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
+					gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
+					gbc_lblNewLabel_2.gridx = 1;
+					gbc_lblNewLabel_2.gridy = 4;
+					contentPanel.add(lblNewLabel_2, gbc_lblNewLabel_2);
+				}
+				{
+					JLabel label = new JLabel("");
+					label.setIcon(new ImageIcon(CreditDialog.class.getResource("/image/github.png")));
+					GridBagConstraints gbc_label = new GridBagConstraints();
+					gbc_label.insets = new Insets(0, 0, 5, 0);
+					gbc_label.gridx = 2;
+					gbc_label.gridy = 4;
+					contentPanel.add(label, gbc_label);
 				}
 				patreonLabel.setIcon(new ImageIcon(getClass().getResource("/image/support-us-on-patreon.png")));
 				GridBagConstraints gbc_patreonLabel = new GridBagConstraints();
@@ -209,6 +214,7 @@ public class CreditDialog extends JDialog
 				contentPanel.add(patreonLabel, gbc_patreonLabel);
 			}
 			GridBagConstraints gbc_btnOk = new GridBagConstraints();
+			gbc_btnOk.anchor = GridBagConstraints.SOUTH;
 			gbc_btnOk.gridwidth = 2;
 			gbc_btnOk.gridx = 1;
 			gbc_btnOk.gridy = 6;
