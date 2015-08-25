@@ -48,7 +48,7 @@ public class CreditDialog extends JDialog
 	public CreditDialog()
 	{
 		super(AnimeIndex.frame,true);
-		setTitle("My Anime Manager   v"+AnimeIndex.VERSION);
+		setTitle("My Anime Manager  v"+AnimeIndex.VERSION);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CreditDialog.class.getResource("/image/icon.png")));
 		setResizable(false);
 		setBounds(100, 100, 450, 300);
