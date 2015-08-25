@@ -116,6 +116,7 @@ public class UpdateAnimeDataTask extends SwingWorker
 			AnimeIndex.animeInformation.finishDateField.setText(finishDate);
 			AnimeIndex.animeInformation.typeComboBox.setSelectedItem(type);
 			
+			//TODO controllo sostituzione immagine
 			String imageLink = ConnectionManager.getAnimeData("image_url_lge", data);
 			imageLink = imageLink.replaceAll("\\\\/", "/");
 			String imageName = name.replaceAll("\\\\", "_");
