@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -2197,8 +2198,10 @@ public class AnimeIndex extends JFrame
 		        {
 		            JList list = (JList)e.getSource();
 		            int row = list.locationToIndex(e.getPoint());
-		            list.setSelectedIndex(row);
-		            
+		            Rectangle bound = list.getCellBounds(row, row);
+		            if (bound.contains(e.getPoint()))
+		            {
+	            	list.setSelectedIndex(row);
 					JPopupMenu menu = new JPopupMenu();
 	                JMenuItem add = new JMenuItem("Aggiungi alle Esclusioni");
 	                add.addActionListener(new ActionListener() {
@@ -2217,6 +2220,7 @@ public class AnimeIndex extends JFrame
 	                else
 	                	menu.add(add);
 	                menu.show(list, e.getX(),e.getY());
+		            }
 					
 		        }
 			}
