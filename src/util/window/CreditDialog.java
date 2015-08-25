@@ -69,6 +69,23 @@ public class CreditDialog extends JDialog
 		}
 		{
 			JLabel label = new JLabel("");
+			label.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					String link = "https://github.com/MyAnimeManager/MyAnimeManager#my-anime-manager";
+					try {
+						URI uriLink = new URI(link);
+						Desktop.getDesktop().browse(uriLink);
+					} catch (URISyntaxException a) {
+					} catch (IOException a) {
+				}
+				}
+			});
 			label.setText("My Anime Manager   v"+AnimeIndex.VERSION);
 			GridBagConstraints gbc_label = new GridBagConstraints();
 			gbc_label.insets = new Insets(0, 0, 5, 0);
