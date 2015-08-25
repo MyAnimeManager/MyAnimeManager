@@ -65,6 +65,7 @@ import util.Filters;
 import util.ImageChooserFilter;
 import util.SearchBar;
 import util.SortedListModel;
+import util.Updater;
 import util.task.CheckUpdateTask;
 import util.task.LoadingTask;
 import util.task.ReleasedAnimeTask;
@@ -76,6 +77,7 @@ import util.window.CreditDialog;
 import util.window.ExitSaveDialog;
 import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
+import util.window.UpdateDialog;
 import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
@@ -748,22 +750,20 @@ public class AnimeIndex extends JFrame
 		});
 		mntmControlloAggiornamenti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CheckUpdateTask task = new CheckUpdateTask();
-				task.execute();
-//					String updatedVersion = null;
-//					try {
-//						updatedVersion = Updater.getLatestVersion();
-//					} catch (Exception e1) {
-//						e1.printStackTrace();
-//					}
-//					if (updatedVersion.equalsIgnoreCase(VERSION))
-//						JOptionPane.showMessageDialog(mainFrame, "Nessun Aggiornamento Trovato", "Aggiornamento", JOptionPane.INFORMATION_MESSAGE);
-//					else
-//					{
-//					UpdateDialog update = new UpdateDialog(Updater.getWhatsNew());
-//					update.setLocationRelativeTo(AnimeIndex.mainFrame);
-//					update.setVisible(true);
-//					}
+					String updatedVersion = null;
+					try {
+						updatedVersion = Updater.getLatestVersion();
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					if (updatedVersion.equalsIgnoreCase(VERSION))
+						JOptionPane.showMessageDialog(mainFrame, "Nessun Aggiornamento Trovato", "Aggiornamento", JOptionPane.INFORMATION_MESSAGE);
+					else
+					{
+					UpdateDialog update = new UpdateDialog(Updater.getWhatsNew());
+					update.setLocationRelativeTo(AnimeIndex.mainFrame);
+					update.setVisible(true);
+					}
 			}
 		});
 		mntmAnichart.addActionListener(new ActionListener() {
