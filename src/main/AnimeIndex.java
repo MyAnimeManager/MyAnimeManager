@@ -1614,6 +1614,7 @@ public class AnimeIndex extends JFrame
 
 				SortedListModel model = getModel();
 				SortedListModel secondModel = null;
+				SortedListModel thirdModel = null;
 				JList list = null;
 				if (searchBar.getText().isEmpty() && filtro == 9)
 					list = getJList();
@@ -1621,6 +1622,12 @@ public class AnimeIndex extends JFrame
 				{
 					list = filterList;
 					secondModel = filterModel;
+				}
+				else if(!searchBar.getText().isEmpty() && filtro != 9)
+				{
+					list = searchList;
+					secondModel = searchModel;
+					thirdModel = filterModel;
 				}
 				else
 				{
@@ -1635,7 +1642,9 @@ public class AnimeIndex extends JFrame
 				String name = (String) list.getSelectedValue();
 				model.removeElement(name);
 				if (secondModel != null)
-						secondModel.removeElement(name);
+					secondModel.removeElement(name);
+				if (thirdModel != null)
+					thirdModel.removeElement(name);
 				index -= 1;
 				list.clearSelection();
 				list.setSelectedIndex(index);

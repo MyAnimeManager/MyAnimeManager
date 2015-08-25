@@ -447,7 +447,6 @@ public class WishlistDialog extends JDialog
 				if (value.contains(searchedVal))
 					searchModel.addElement((String)mainArray[i]);
 			}
-			btnDeleteAnime.setEnabled(true);
 			wishlistSearch.setEnabled(true);
 		if (searchModel.isEmpty())
 		{
