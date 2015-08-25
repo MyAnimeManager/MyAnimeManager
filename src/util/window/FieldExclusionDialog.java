@@ -38,6 +38,7 @@ public class FieldExclusionDialog extends JDialog
 	private JButton deselectAll;
 	private JButton cancelButton;
 	private JPanel panel;
+	private JCheckBox imageCheckBox;
 
 	/**
 	 * Create the dialog.
@@ -67,6 +68,9 @@ public class FieldExclusionDialog extends JDialog
 				if (AnimeIndex.appProp.getProperty("excludeType").equalsIgnoreCase("true"))
 					typeCheckBox.setSelected(true);
 				
+				if (AnimeIndex.appProp.getProperty("excludeImage").equalsIgnoreCase("true"))
+					imageCheckBox.setSelected(true);
+				
 				if(AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
 				{
 					typeCheckBox.setSelected(true);
@@ -74,7 +78,7 @@ public class FieldExclusionDialog extends JDialog
 				}
 			}
 		});
-		setBounds(100, 100, 203, 157);
+		setBounds(100, 100, 219, 157);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.NORTH);
@@ -124,11 +128,21 @@ public class FieldExclusionDialog extends JDialog
 			contentPanel.add(finishDateCheckBox, gbc_finishDateCheckBox);
 		}
 		{
+			imageCheckBox = new JCheckBox("Immagine");
+			GridBagConstraints gbc_imageCheckBox = new GridBagConstraints();
+			gbc_imageCheckBox.fill = GridBagConstraints.HORIZONTAL;
+			gbc_imageCheckBox.gridwidth = 2;
+			gbc_imageCheckBox.insets = new Insets(0, 0, 0, 5);
+			gbc_imageCheckBox.gridx = 0;
+			gbc_imageCheckBox.gridy = 2;
+			contentPanel.add(imageCheckBox, gbc_imageCheckBox);
+		}
+		{
 			totalEpCheckBox = new JCheckBox("Episodi Totali");
 			GridBagConstraints gbc_totalEpCheckBox = new GridBagConstraints();
-			gbc_totalEpCheckBox.insets = new Insets(0, 0, 0, 5);
-			gbc_totalEpCheckBox.gridwidth = 6;
-			gbc_totalEpCheckBox.gridx = 0;
+			gbc_totalEpCheckBox.fill = GridBagConstraints.HORIZONTAL;
+			gbc_totalEpCheckBox.gridwidth = 4;
+			gbc_totalEpCheckBox.gridx = 2;
 			gbc_totalEpCheckBox.gridy = 2;
 			contentPanel.add(totalEpCheckBox, gbc_totalEpCheckBox);
 		}
@@ -150,6 +164,7 @@ public class FieldExclusionDialog extends JDialog
 						durationCheckBox.setSelected(false);
 						startDateCheckBox.setSelected(false);
 						finishDateCheckBox.setSelected(false);
+						imageCheckBox.setSelected(false);
 						
 						if(!AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
 						{
@@ -195,6 +210,11 @@ public class FieldExclusionDialog extends JDialog
 						AnimeIndex.appProp.setProperty("excludeType", "true");
 					else
 						AnimeIndex.appProp.setProperty("excludeType", "false");
+					
+					if (imageCheckBox.isSelected())
+						AnimeIndex.appProp.setProperty("excludeImage", "true");
+					else
+						AnimeIndex.appProp.setProperty("excludeImage", "false");
 
 					FieldExclusionDialog.this.dispose();
 					
