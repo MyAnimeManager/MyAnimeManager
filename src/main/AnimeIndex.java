@@ -1618,8 +1618,8 @@ public class AnimeIndex extends JFrame
 				TreeMap<String,AnimeData> map = getMap();
 				ArrayList<String> arrayList = getDeletedAnimeArray();
 				int index = list.getSelectedIndex();
-				String name = (String) model.getElementAt(index);
-				model.removeElementAt(index);
+				String name = (String) list.getSelectedValue();
+				model.removeElement(name);
 				index -= 1;
 				list.clearSelection();
 				list.setSelectedIndex(index);
