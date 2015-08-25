@@ -84,7 +84,7 @@ import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
-//TODO fare sistema di controllo (controllo inserimento anime e controllo immagine)
+//TODO fare sistema di controllo (controllo inserimento anime)
 //TODO finire aggiunta anime manuale (anche disattivazione dei pulsanti anilistInfo e aggiornamento dati)
 public class AnimeIndex extends JFrame
 {
@@ -151,6 +151,7 @@ public class AnimeIndex extends JFrame
 	public static String addToPreviousList;
 	public static WishlistDialog wishlistDialog;
 	public static boolean openReleaseDialog;
+	public static boolean activeUpdate;
 	/**
 	 * Launch the application.
 	 */
@@ -532,7 +533,13 @@ public class AnimeIndex extends JFrame
 						else if (listName.equalsIgnoreCase("completi da vedere"))
 							folder = "Completed to See";
 						FileManager.saveNewImage(dir, imageName, folder);
-						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+						if(!exclusionAnime.contains(name))
+						{	
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.\n\rAl fine di mantenere l'immagine da voi impostata\n\rl'anime è stato aggiunto alla lista\n\rdegli esclusi dal Controllo Dati Automatico.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+							exclusionAnime.add(name);
+						}
+						else
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
 						TreeMap<String,AnimeData> map = AnimeIndex.getMap();
 						String list = AnimeIndex.getList();
 						AnimeData data = map.get(name);

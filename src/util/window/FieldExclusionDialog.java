@@ -216,6 +216,8 @@ public class FieldExclusionDialog extends JDialog
 					else
 						AnimeIndex.appProp.setProperty("excludeImage", "false");
 
+					AnimeIndex.activeUpdate = true;
+					
 					FieldExclusionDialog.this.dispose();
 					
 					AnimeInformation.dial = new UpdatingAnimeDataDialog();	
