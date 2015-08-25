@@ -80,7 +80,7 @@ import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
-//TODO fare sistema di controllo (controllo inserimento anime e tasto dx mouse per escludere)
+//TODO fare sistema di controllo (controllo inserimento anime e tasto dx mouse per escludere e controllo immagine)
 //TODO finire aggiunta anime manuale (anche disattivazione dei pulsanti anilistInfo e aggiornamento dati)
 public class AnimeIndex extends JFrame
 {
