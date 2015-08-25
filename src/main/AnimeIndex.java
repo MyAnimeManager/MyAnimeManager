@@ -747,7 +747,7 @@ public class AnimeIndex extends JFrame
 		});
 		mntmControlloAggiornamenti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//TODO vedere se mettere o no un dialog per far capire che sta controllando
 				CheckUpdateTask task = new CheckUpdateTask();
 				task.execute();
 //					String updatedVersion = null;
