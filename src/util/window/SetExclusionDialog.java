@@ -63,6 +63,7 @@ public class SetExclusionDialog extends JDialog {
 	private JList searchListToCheck;
 	private JList searchListToExclude;
 	private JPanel excludedPane;
+	private final JButton fieldToExcludeButton = new JButton("Campi");
 	/**
 	 * Create the dialog..
 	 */
@@ -470,7 +471,7 @@ public class SetExclusionDialog extends JDialog {
 		{
 			Component rigidArea = Box.createRigidArea(new Dimension(1, 20));
 			GridBagConstraints gbc_rigidArea = new GridBagConstraints();
-			gbc_rigidArea.gridheight = 4;
+			gbc_rigidArea.gridheight = 2;
 			gbc_rigidArea.insets = new Insets(0, 0, 5, 5);
 			gbc_rigidArea.gridx = 2;
 			gbc_rigidArea.gridy = 5;
@@ -533,6 +534,18 @@ public class SetExclusionDialog extends JDialog {
 					dialog.dispose();
 				}
 			});
+			GridBagConstraints gbc_fieldToExcludeButton = new GridBagConstraints();
+			gbc_fieldToExcludeButton.insets = new Insets(0, 0, 0, 5);
+			gbc_fieldToExcludeButton.gridx = 2;
+			gbc_fieldToExcludeButton.gridy = 8;
+			fieldToExcludeButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					FieldExclusionDialog fieldDialog = new FieldExclusionDialog();
+					fieldDialog.setLocationRelativeTo(SetExclusionDialog.this);
+					fieldDialog.setVisible(true);
+				}
+			});
+			contentPanel.add(fieldToExcludeButton, gbc_fieldToExcludeButton);
 			GridBagConstraints gbc_okButton = new GridBagConstraints();
 			gbc_okButton.fill = GridBagConstraints.HORIZONTAL;
 			gbc_okButton.insets = new Insets(0, 0, 0, 5);

@@ -24,6 +24,13 @@ public class AnimeIndexProperties
 			defaultProps.setProperty("List_to_Check", "None");
 			defaultProps.setProperty("Date_Release", "none");
 			defaultProps.setProperty("Open_Wishlist", "false");
+			
+			defaultProps.setProperty("excludeCurrentEp", "false");
+			defaultProps.setProperty("excludeTotalEp", "false");
+			defaultProps.setProperty("excludeDuration", "false");
+			defaultProps.setProperty("excludeStartingDate", "false");
+			defaultProps.setProperty("excludeFinishDate", "false");
+			defaultProps.setProperty("excludeType", "false");
 			in.close();
 		} 
 		catch (FileNotFoundException fe)
@@ -37,6 +44,14 @@ public class AnimeIndexProperties
 				defaultProps.setProperty("List_to_Check", "None");
 				defaultProps.setProperty("Date_Release", "none");
 				defaultProps.setProperty("Open_Wishlist", "false");
+				
+				
+				defaultProps.getProperty("excludeCurrentEp", "false");
+				defaultProps.getProperty("excludeTotalEp", "false");
+				defaultProps.getProperty("excludeDuration", "false");
+				defaultProps.getProperty("excludeStartingDate", "false");
+				defaultProps.getProperty("excludeFinishDate", "false");
+				defaultProps.getProperty("excludeType", "false");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

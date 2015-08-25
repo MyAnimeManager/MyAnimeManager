@@ -48,7 +48,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -66,7 +65,6 @@ import util.Filters;
 import util.ImageChooserFilter;
 import util.SearchBar;
 import util.SortedListModel;
-import util.Updater;
 import util.task.CheckUpdateTask;
 import util.task.LoadingTask;
 import util.task.ReleasedAnimeTask;
@@ -77,7 +75,6 @@ import util.window.CreditDialog;
 import util.window.ExitSaveDialog;
 import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
-import util.window.UpdateDialog;
 import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
@@ -144,6 +141,7 @@ public class AnimeIndex extends JFrame
 	public static JButton setFilterButton;
 	private String list;
 	public static boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
+	public static boolean[] exclusionFieldArray = {false,false,false,false,false,false};
 	public static int filtro = 9;
 	public static Font segui;
 	public static String addToPreviousList;
@@ -154,7 +152,7 @@ public class AnimeIndex extends JFrame
 	 */
 	public static void main(String[] args)
 	{
-		appProp = AnimeIndexProperties.createProperties();		
+		appProp = AnimeIndexProperties.createProperties();
 		EventQueue.invokeLater(new Runnable() {
 			public void run()
 			{
@@ -579,7 +577,6 @@ public class AnimeIndex extends JFrame
 					 new Timer(1, new ActionListener() {
 			               public void actionPerformed(ActionEvent e) {
 			            	   wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x - 2, AnimeIndex.mainFrame.getLocationOnScreen().y);
-			            	   AnimeIndex.mainFrame.requestFocus();
 			            	   if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 182) {
 			                     ((Timer) e.getSource()).stop();
 			            }
@@ -750,20 +747,23 @@ public class AnimeIndex extends JFrame
 		});
 		mntmControlloAggiornamenti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					String updatedVersion = null;
-					try {
-						updatedVersion = Updater.getLatestVersion();
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
-					if (updatedVersion.equalsIgnoreCase(VERSION))
-						JOptionPane.showMessageDialog(mainFrame, "Nessun Aggiornamento Trovato", "Aggiornamento", JOptionPane.INFORMATION_MESSAGE);
-					else
-					{
-					UpdateDialog update = new UpdateDialog(Updater.getWhatsNew());
-					update.setLocationRelativeTo(AnimeIndex.mainFrame);
-					update.setVisible(true);
-					}
+				
+				CheckUpdateTask task = new CheckUpdateTask();
+				task.execute();
+//					String updatedVersion = null;
+//					try {
+//						updatedVersion = Updater.getLatestVersion();
+//					} catch (Exception e1) {
+//						e1.printStackTrace();
+//					}
+//					if (updatedVersion.equalsIgnoreCase(VERSION))
+//						JOptionPane.showMessageDialog(mainFrame, "Nessun Aggiornamento Trovato", "Aggiornamento", JOptionPane.INFORMATION_MESSAGE);
+//					else
+//					{
+//					UpdateDialog update = new UpdateDialog(Updater.getWhatsNew());
+//					update.setLocationRelativeTo(AnimeIndex.mainFrame);
+//					update.setVisible(true);
+//					}
 			}
 		});
 		mntmAnichart.addActionListener(new ActionListener() {
@@ -2147,7 +2147,7 @@ public class AnimeIndex extends JFrame
 			}
 		}
 	}
-	
+		
 	private static Font segui()
 	{
 		InputStream is = AnimeIndex.class.getResourceAsStream("/font/seguisym.ttf");
