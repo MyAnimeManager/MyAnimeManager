@@ -149,7 +149,7 @@ public class CreditDialog extends JDialog
 				{
 					JLabel label = new JLabel("");
 					label.setBorder(new LineBorder(new Color(40, 40, 40), 1, true));
-					label.setIcon(new ImageIcon(CreditDialog.class.getResource("/image/unknown avatar.jpg")));
+					label.setIcon(new ImageIcon(CreditDialog.class.getResource("/image/horo_avatar.jpg")));
 					GridBagConstraints gbc_label = new GridBagConstraints();
 					gbc_label.insets = new Insets(0, 0, 5, 5);
 					gbc_label.gridx = 1;
