@@ -71,24 +71,7 @@ public class CreditDialog extends JDialog
 		{
 			JLabel label = new JLabel("");
 			label.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			label.setForeground(Color.RED);
-			label.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseEntered(MouseEvent e) {
-					label.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				}
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					String link = "https://github.com/MyAnimeManager/MyAnimeManager#my-anime-manager";
-					try {
-						URI uriLink = new URI(link);
-						Desktop.getDesktop().browse(uriLink);
-					} catch (URISyntaxException a) {
-					} catch (IOException a) {
-				}
-				}
-			});
+//			label.setForeground(Color.RED);
 			label.setText("My Anime Manager   v"+AnimeIndex.VERSION);
 			GridBagConstraints gbc_label = new GridBagConstraints();
 			gbc_label.insets = new Insets(0, 0, 5, 0);
@@ -203,6 +186,23 @@ public class CreditDialog extends JDialog
 					gbc_label.gridx = 2;
 					gbc_label.gridy = 4;
 					contentPanel.add(label, gbc_label);
+					label.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseEntered(MouseEvent e) {
+							label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						}
+
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							String link = "https://github.com/MyAnimeManager/MyAnimeManager#my-anime-manager";
+							try {
+								URI uriLink = new URI(link);
+								Desktop.getDesktop().browse(uriLink);
+							} catch (URISyntaxException a) {
+							} catch (IOException a) {
+						}
+						}
+					});
 				}
 				patreonLabel.setIcon(new ImageIcon(getClass().getResource("/image/support-us-on-patreon.png")));
 				GridBagConstraints gbc_patreonLabel = new GridBagConstraints();
