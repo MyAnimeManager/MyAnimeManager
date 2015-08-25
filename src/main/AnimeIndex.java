@@ -68,6 +68,7 @@ import util.SortedListModel;
 import util.task.CheckUpdateTask;
 import util.task.LoadingTask;
 import util.task.ReleasedAnimeTask;
+import util.task.UpdateAnimeDataTask;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
 import util.window.AnimeInformation;
@@ -79,8 +80,8 @@ import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
-//TODO fare sistema di controllo
-//TODO finire aggiunta anime manuale
+//TODO fare sistema di controllo (controllo inserimento anime e tasto dx mouse per escludere)
+//TODO finire aggiunta anime manuale (anche disattivazione dei pulsanti anilistInfo e aggiornamento dati)
 public class AnimeIndex extends JFrame
 {
 	public static final String VERSION = "1.0.0";
@@ -747,7 +748,6 @@ public class AnimeIndex extends JFrame
 		});
 		mntmControlloAggiornamenti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO vedere se mettere o no un dialog per far capire che sta controllando
 				CheckUpdateTask task = new CheckUpdateTask();
 				task.execute();
 //					String updatedVersion = null;
@@ -995,6 +995,9 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 			}
 			
+			UpdateAnimeDataTask task = new UpdateAnimeDataTask();
+			task.execute();
+			
 			}
 		});
 
@@ -1050,6 +1053,9 @@ public class AnimeIndex extends JFrame
 					if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
 						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 				}
+				
+				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
+				task.execute();
 			}
 		});
 		airingAnimeScroll.setViewportView(airingList);
@@ -1104,6 +1110,9 @@ public class AnimeIndex extends JFrame
 					if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
 						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 				}
+				
+				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
+				task.execute();
 			}
 		});
 		ovaScroll.setViewportView(ovaList);
@@ -1157,6 +1166,9 @@ public class AnimeIndex extends JFrame
 					if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
 						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 				}
+				
+				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
+				task.execute();
 			}
 		});
 		filmScroll.setViewportView(filmList);
@@ -1210,6 +1222,9 @@ public class AnimeIndex extends JFrame
 					if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
 						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 				}
+				
+				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
+				task.execute();
 			}
 		});
 		completedToSeeScroll.setViewportView(completedToSeeList);
@@ -1398,6 +1413,9 @@ public class AnimeIndex extends JFrame
 								AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 						}
 					}
+				
+				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
+				task.execute();
 			}
 		});
 		searchList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1591,6 +1609,9 @@ public class AnimeIndex extends JFrame
 								AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 						}
 					}
+				
+				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
+				task.execute();
 			}
 		});
 		filterList.setSize(new Dimension(138, 233));

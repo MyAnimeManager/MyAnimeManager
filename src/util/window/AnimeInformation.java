@@ -741,10 +741,12 @@ public class AnimeInformation extends JPanel
 		add(lblNote, gbc_lblNote);
 		
 		checkDataButton = new JButton("");
+		checkDataButton.setToolTipText("Aggiorna i dati dell'anime");
 		checkDataButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true"))
-					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il Controllo Dati Automatico è già attivo.", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+				String name = lblAnimeName.getText();
+				if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true") && !AnimeIndex.exclusionAnime.contains(name))
+					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "I dati di questo anime sono già stati\n\raggiornati dal Controllo Dati Automatico.", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				else
 				{
 					FieldExclusionDialog exclusions = new FieldExclusionDialog();

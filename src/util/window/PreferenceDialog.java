@@ -228,7 +228,7 @@ public class PreferenceDialog extends JDialog
 					}
 					else
 					{
-						int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "Il sistema utilizza Internet.\n\rAssicurarsi che la rete sia\n\rdisponibile al fine di evitare\n\ril blocco del programma.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "Il controllo utilizza Internet.\n\rAssicurarsi che la rete sia disponibile.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 						if(shouldCancel==0)
 						{
 							AnimeIndex.appProp.setProperty("Update_system", "true");
