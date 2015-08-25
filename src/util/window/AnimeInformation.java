@@ -7,12 +7,15 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,12 +32,15 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.text.AbstractDocument;
 
@@ -741,6 +747,38 @@ public class AnimeInformation extends JPanel
 		add(lblNote, gbc_lblNote);
 		
 		checkDataButton = new JButton("");
+		checkDataButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JList list = AnimeIndex.getJList();
+				if (!list.isSelectionEmpty())
+				{
+					if ( SwingUtilities.isRightMouseButton(e) )
+			        {
+						JPopupMenu menu = new JPopupMenu();
+		                JMenuItem add = new JMenuItem("Aggiungi alle Esclusioni");
+		                add.addActionListener(new ActionListener() {
+		                    public void actionPerformed(ActionEvent e) {
+		                        AnimeIndex.exclusionAnime.add(lblAnimeName.getText());
+		                    }
+		                });
+		                JMenuItem remove = new JMenuItem("Rimuovi dalle Esclusioni");
+		                remove.addActionListener(new ActionListener() {
+		                    public void actionPerformed(ActionEvent e) {
+		                        AnimeIndex.exclusionAnime.remove((lblAnimeName.getText()));
+		                    }
+		                });
+		                if (AnimeIndex.exclusionAnime.contains(lblAnimeName.getText()))
+		                	menu.add(remove);
+		                else
+		                	menu.add(add);
+		                menu.show((JButton)e.getSource(), e.getX(),e.getY());
+	
+						
+			        }
+				}
+			}
+		});
 		checkDataButton.setToolTipText("Aggiorna i dati dell'anime");
 		checkDataButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -1225,59 +1263,4 @@ public class AnimeInformation extends JPanel
 			setLinkButton.setText(linkName);
 	}
 
-
 }
-
-//btnSave = new JButton("Salva");
-//btnSave.addActionListener(new ActionListener() {
-//	public void actionPerformed(ActionEvent e) {
-//		
-//		String name = lblAnimeName.getText();
-//		String currEp = currentEpisodeField.getText();
-//		String totEp = totalEpisodeText.getText();
-//		String fansub = (String) fansubComboBox.getSelectedItem();
-//		String fansubLink = getLink();
-//		String note = noteTextArea.getText();
-//		String day = (String) exitDaycomboBox.getSelectedItem();
-//		
-//		String list = AnimeIndex.getList();
-//		if (list.equalsIgnoreCase("Anime Completati"))
-//			{
-//			String image = AnimeIndex.completedMap.get(name).getImageName();
-//			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-//			AnimeIndex.completedMap.put(name, data);
-//			}
-//		else if (list.equalsIgnoreCase("Anime in Corso"))
-//			{
-//			String image = AnimeIndex.airingMap.get(name).getImageName();
-//			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-//			AnimeIndex.airingMap.put(name, data);
-//			}
-//		else if (list.equalsIgnoreCase("OAV"))
-//			{
-//			String image = AnimeIndex.ovaMap.get(name).getImageName();
-//			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-//			AnimeIndex.ovaMap.put(name, data);
-//			}
-//		else if (list.equalsIgnoreCase("Film"))
-//		{
-//			String image = AnimeIndex.filmMap.get(name).getImageName();
-//			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-//			AnimeIndex.filmMap.put(name, data);
-//		}
-//		else if (list.equalsIgnoreCase("Completi Da Vedere"))
-//		{
-//			String image = AnimeIndex.completedToSeeMap.get(name).getImageName();
-//			AnimeData data = new AnimeData(currEp, totEp, fansub, fansubLink, note, image, day);
-//			AnimeIndex.completedToSeeMap.put(name, data);
-//		}
-//	}
-//});
-//GridBagConstraints gbc_btnSave = new GridBagConstraints();
-//gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
-//gbc_btnSave.gridwidth = 2;
-//gbc_btnSave.insets = new Insets(0, 0, 0, 5);
-//gbc_btnSave.gridx = 1;
-//gbc_btnSave.gridy = 11;
-//add(btnSave, gbc_btnSave);
-
