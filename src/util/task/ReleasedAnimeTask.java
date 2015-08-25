@@ -23,6 +23,24 @@ public class ReleasedAnimeTask extends SwingWorker
 		Date date = new Date();
 		SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the day of the week abbreviated
 		String day = simpleDateformat.format(date);
+		GregorianCalendar calendar = new GregorianCalendar();
+		try {
+			calendar.setTime(simpleDateformat.parse(day));
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+		}
+		GregorianCalendar c1 = new GregorianCalendar();
+		if(!AnimeIndex.appProp.getProperty("Date_Release").equalsIgnoreCase("none"))
+		{
+			try {
+				c1.setTime(simpleDateformat.parse(AnimeIndex.appProp.getProperty("Date_Release")));
+			} catch (java.text.ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		else
+			c1 = null;
+		GregorianCalendar c = new GregorianCalendar();
 		Object[] ovaArray = AnimeIndex.ovaModel.toArray();
 		for (int i = 0; i < ovaArray.length; i++)
 		{
@@ -33,8 +51,24 @@ public class ReleasedAnimeTask extends SwingWorker
 				releaseDate = data.getFinishDate();
 			else
 				releaseDate = data.getReleaseDate();
-			if (day.equalsIgnoreCase(releaseDate))
-				ReleaseNotifierDialog.ovaReleased.addElement(name);
+			try {
+				c.setTime(simpleDateformat.parse(releaseDate));
+			} catch (java.text.ParseException e) {
+				e.printStackTrace();
+			}
+			if(c1!=null)
+			{
+				if(c.after(c1))
+				{
+					if (c.before(calendar)||c.equals(calendar))
+						ReleaseNotifierDialog.ovaReleased.addElement(name);
+				}
+			}
+			else
+			{
+				if (c.before(calendar)||c.equals(calendar))
+					ReleaseNotifierDialog.ovaReleased.addElement(name);
+			}
 		}
 
 		Object[] filmArray = AnimeIndex.filmModel.toArray();
@@ -47,8 +81,24 @@ public class ReleasedAnimeTask extends SwingWorker
 				releaseDate = data.getFinishDate();
 			else
 				releaseDate = data.getReleaseDate();
-			if (day.equalsIgnoreCase(releaseDate))
-				ReleaseNotifierDialog.filmReleased.addElement(name);
+			try {
+				c.setTime(simpleDateformat.parse(releaseDate));
+			} catch (java.text.ParseException e) {
+				e.printStackTrace();
+			}
+			if(c1!=null)
+			{
+				if(c.after(c1))
+				{
+					if (c.before(calendar)||c.equals(calendar))
+						ReleaseNotifierDialog.filmReleased.addElement(name);
+				}
+			}
+			else
+			{
+				if (c.before(calendar)||c.equals(calendar))
+					ReleaseNotifierDialog.filmReleased.addElement(name);
+			}
 		}
 		if (ReleaseNotifierDialog.ovaReleased.isEmpty())
 		{

@@ -63,7 +63,7 @@ public class ReleaseNotifierDialog extends JDialog {
 		setBounds(100, 100, 629, 284);
 		getContentPane().setLayout(new MigLayout("", "[346.00px][-19.00,grow][339px]", "[16.00][][106.00px,grow][][]"));
 		{
-			JLabel lblOggiEStato = new JLabel("OGGI E' STATO RILASCIATO :");
+			JLabel lblOggiEStato = new JLabel("E' STATO RILASCIATO :");
 			getContentPane().add(lblOggiEStato, "cell 0 0 3 1,alignx center,aligny center");
 		}
 		{

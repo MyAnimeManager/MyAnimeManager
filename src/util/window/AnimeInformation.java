@@ -747,9 +747,9 @@ public class AnimeInformation extends JPanel
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il Controllo Dati Automatico è già attivo.", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				else
 				{
-					dial = new UpdatingAnimeDataDialog();	
-					dial.setLocationRelativeTo(AnimeIndex.mainFrame);
-	            	dial.setVisible(true);
+					FieldExclusionDialog exclusions = new FieldExclusionDialog();
+					exclusions.setLocationRelativeTo(exitDaycomboBox);
+					exclusions.setVisible(true);
 				} 
 			}
 		});

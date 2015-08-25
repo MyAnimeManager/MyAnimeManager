@@ -28,7 +28,7 @@ public class UpdatingAnimeDataDialog extends JDialog {
 	 */
 	public UpdatingAnimeDataDialog() {
 		super(AnimeIndex.frame,true);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(DownloadingDialog.class.getResource("/image/autorefresh-icon15.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UpdatingAnimeDataDialog.class.getResource("/image/refresh-icon15.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {

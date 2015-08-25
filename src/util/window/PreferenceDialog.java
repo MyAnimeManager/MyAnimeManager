@@ -225,7 +225,6 @@ public class PreferenceDialog extends JDialog
 						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Controllo Dati Automatico:    DISATTIVATO", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 						dataCheckButton.setText("Attiva");
 						AnimeIndex.animeInformation.checkDataButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/refresh-icon15.png")));
-						//TODO se il marcatore e' acceso nn viene mostrato il warning e il sistema di update viene disattivato.
 					}
 					else
 					{
@@ -235,7 +234,6 @@ public class PreferenceDialog extends JDialog
 							AnimeIndex.appProp.setProperty("Update_system", "true");
 							dataCheckButton.setText("Disattiva");
 							AnimeIndex.animeInformation.checkDataButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/autorefresh-icon15.png")));
-							//TODO attiva il sistema di update fino alla disattivazione da parte dell'utente
 						}
 					}
 				}
