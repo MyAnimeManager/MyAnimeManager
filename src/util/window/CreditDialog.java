@@ -285,7 +285,8 @@ public class CreditDialog extends JDialog
 					contentPanel.add(lblCopyright, gbc_lblCopyright);
 				}
 				{
-					JLabel lblNewLabel_3 = new JLabel("\"GNU License\"");
+					JLabel lblNewLabel_3 = new JLabel("");
+					lblNewLabel_3.setIcon(new ImageIcon(CreditDialog.class.getResource("/image/gplv3.png")));
 					lblNewLabel_3.setForeground(Color.ORANGE);
 					lblNewLabel_3.addMouseListener(new MouseAdapter() {
 						@Override
@@ -294,7 +295,7 @@ public class CreditDialog extends JDialog
 						}
 						@Override
 						public void mouseClicked(MouseEvent e) {
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Copyright (C) <2015> \nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\nSee GNU General Public License here: http://www.gnu.org/licenses/.", "GNU License", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Copyright (C) <2015>   <Yesod30, iTTo>\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see http://www.gnu.org/licenses/.", "GNU License", JOptionPane.INFORMATION_MESSAGE);
 						}
 					});
 					GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
