@@ -31,6 +31,7 @@ public class AnimeIndexProperties
 			defaultProps.setProperty("excludeStartingDate", "false");
 			defaultProps.setProperty("excludeFinishDate", "false");
 			defaultProps.setProperty("excludeType", "false");
+			defaultProps.setProperty("excludeImage", "false");
 			in.close();
 		} 
 		catch (FileNotFoundException fe)
@@ -52,6 +53,7 @@ public class AnimeIndexProperties
 				defaultProps.getProperty("excludeStartingDate", "false");
 				defaultProps.getProperty("excludeFinishDate", "false");
 				defaultProps.getProperty("excludeType", "false");
+				defaultProps.setProperty("excludeImage", "false");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
