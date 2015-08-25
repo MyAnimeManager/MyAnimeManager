@@ -1613,17 +1613,29 @@ public class AnimeIndex extends JFrame
 				String type = (String) animeTypeComboBox.getSelectedItem();
 
 				SortedListModel model = getModel();
+				SortedListModel secondModel = null;
 				JList list = null;
-				if (searchBar.getText().isEmpty())
+				if (searchBar.getText().isEmpty() && filtro == 9)
 					list = getJList();
+				else if (searchBar.getText().isEmpty() && filtro != 9)
+				{
+					list = filterList;
+					secondModel = filterModel;
+				}
 				else
+				{
 					list = searchList;
+					secondModel = searchModel;
+				}
+				
 				String listName = getList();
 				TreeMap<String,AnimeData> map = getMap();
 				ArrayList<String> arrayList = getDeletedAnimeArray();
 				int index = list.getSelectedIndex();
 				String name = (String) list.getSelectedValue();
 				model.removeElement(name);
+				if (secondModel != null)
+						secondModel.removeElement(name);
 				index -= 1;
 				list.clearSelection();
 				list.setSelectedIndex(index);
