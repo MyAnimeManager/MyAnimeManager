@@ -7,6 +7,7 @@ import javax.swing.SwingWorker;
 import main.AnimeIndex;
 import util.AnimeData;
 import util.ConnectionManager;
+import util.FileManager;
 import util.window.AnimeInformation;
 import util.window.PreferenceDialog;
 
@@ -114,6 +115,29 @@ public class UpdateAnimeDataTask extends SwingWorker
 			AnimeIndex.animeInformation.releaseDateField.setText(startDate);
 			AnimeIndex.animeInformation.finishDateField.setText(finishDate);
 			AnimeIndex.animeInformation.typeComboBox.setSelectedItem(type);
+			
+			String imageLink = ConnectionManager.getAnimeData("image_url_lge", data);
+			imageLink = imageLink.replaceAll("\\\\/", "/");
+			String imageName = name.replaceAll("\\\\", "_");
+			imageName = imageName.replaceAll("/", "_");
+			imageName = imageName.replaceAll(":", "_");
+			imageName = imageName.replaceAll("\\*", "_");
+			imageName = imageName.replaceAll("\\?", "_");
+			imageName = imageName.replaceAll("\"", "_");
+			imageName = imageName.replaceAll(">", "_");
+			imageName = imageName.replaceAll("<", "_");
+			String list = AnimeIndex.getList();
+			if (list.equalsIgnoreCase("anime completati"))
+				FileManager.saveImage(imageLink, imageName, "Completed");
+			if (list.equalsIgnoreCase("anime in corso"))
+				FileManager.saveImage(imageLink, imageName, "Airing");
+			if (list.equalsIgnoreCase("oav"))
+				FileManager.saveImage(imageLink, imageName, "Ova");
+			if (list.equalsIgnoreCase("film"))
+				FileManager.saveImage(imageLink, imageName, "Film");
+			if (list.equalsIgnoreCase("completi da vedere"))
+				FileManager.saveImage(imageLink, imageName, "Completed to See");
+			
 			
 			AnimeInformation.dial.dispose();
 		}
