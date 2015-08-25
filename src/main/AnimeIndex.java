@@ -84,7 +84,6 @@ import util.window.WishlistDialog;
 //TODO fixare "IL BUG"
 //TODO fare sistema di controllo
 //TODO finire aggiunta anime manuale
-//TODO sistemare crediti (finire la finestra, la faccio io(samu))
 public class AnimeIndex extends JFrame
 {
 	public static final String VERSION = "1.0.0";
