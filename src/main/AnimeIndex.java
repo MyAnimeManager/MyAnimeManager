@@ -689,14 +689,6 @@ public class AnimeIndex extends JFrame
 		mnHelp.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/icon2.png")));
 		mnInfo.add(mnHelp);
 		
-		JMenuItem mntmAboutMyAnimeManager = new JMenuItem("Versione Programma");
-		mntmAboutMyAnimeManager.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(mainFrame, "My Anime Manager          "+VERSION, "Versione", JOptionPane.INFORMATION_MESSAGE);
-			}
-		});
-		mnHelp.add(mntmAboutMyAnimeManager);
-		
 		JMenuItem mntmCredit = new JMenuItem("Crediti");
 		mnHelp.add(mntmCredit);
 		
