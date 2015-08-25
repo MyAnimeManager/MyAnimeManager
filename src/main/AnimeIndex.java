@@ -145,7 +145,6 @@ public class AnimeIndex extends JFrame
 	public static JButton setFilterButton;
 	private String list;
 	public static boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
-	public static boolean[] exclusionFieldArray = {false,false,false,false,false,false};
 	public static int filtro = 9;
 	public static Font segui;
 	public static String addToPreviousList;
