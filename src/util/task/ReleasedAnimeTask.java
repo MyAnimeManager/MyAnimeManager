@@ -59,6 +59,7 @@ public class ReleasedAnimeTask extends SwingWorker
 			} catch (java.text.ParseException e) {
 				e.printStackTrace();
 			}
+			
 			if(lastControlDate!=null)
 			{
 				if(animeDate.after(lastControlDate))
@@ -72,6 +73,8 @@ public class ReleasedAnimeTask extends SwingWorker
 				if (animeDate.before(today)||animeDate.equals(today))
 					ReleaseNotifierDialog.ovaReleased.addElement(name);
 			}
+			System.out.println(animeDate.get(Calendar.DATE));
+
 		}
 
 		Object[] filmArray = AnimeIndex.filmModel.toArray();
