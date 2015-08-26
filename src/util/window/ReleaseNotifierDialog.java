@@ -6,7 +6,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -23,6 +25,7 @@ import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
 import util.SortedListModel;
 import util.task.ReleasedAnimeTask;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -52,6 +55,15 @@ public class ReleaseNotifierDialog extends JDialog {
 					filmReleasedList.setEnabled(false);
 				else
 					filmReleasedList.setEnabled(true);
+			}
+			@Override
+			public void windowClosing(WindowEvent e) {
+				GregorianCalendar calendar = new GregorianCalendar();
+				int currentDay = calendar.get(Calendar.DATE);
+				int currentMonth = calendar.get(Calendar.MONTH)+1;
+				int currentYear = calendar.get(Calendar.YEAR);
+				String date = currentDay + "/" + currentMonth + "/" + currentYear;
+				AnimeIndex.appProp.setProperty("Date_Release", date);
 			}
 		});
 		setModal(true);
@@ -150,10 +162,12 @@ public class ReleaseNotifierDialog extends JDialog {
 			JButton btnOk = new JButton("OK");
 			btnOk.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					Date date = new Date();
-					SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the day of the week abbreviated
-					String day = simpleDateformat.format(date);
-					AnimeIndex.appProp.setProperty("Date_Release", day);
+					GregorianCalendar calendar = new GregorianCalendar();
+					int currentDay = calendar.get(Calendar.DATE);
+					int currentMonth = calendar.get(Calendar.MONTH)+1;
+					int currentYear = calendar.get(Calendar.YEAR);
+					String date = currentDay + "/" + currentMonth + "/" + currentYear;
+					AnimeIndex.appProp.setProperty("Date_Release", date);
 					JButton butt = (JButton) e.getSource();
 					JDialog dialog = (JDialog) butt.getTopLevelAncestor();
 					dialog.dispose();

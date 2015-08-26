@@ -1,6 +1,7 @@
 package util.task;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -20,12 +21,14 @@ public class ReleasedAnimeTask extends SwingWorker
 	{
 		ReleaseNotifierDialog.ovaReleased.clear();
 		ReleaseNotifierDialog.filmReleased.clear();
-		Date date = new Date();
-		SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the day of the week abbreviated
-		String day = simpleDateformat.format(date);
 		GregorianCalendar calendar = new GregorianCalendar();
+		int currentDay = calendar.get(Calendar.DATE);
+		int currentMonth = calendar.get(Calendar.MONTH)+1;
+		int currentYear = calendar.get(Calendar.YEAR);
+		String date = currentDay + "/" + currentMonth + "/" + currentYear;
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the day of the week abbreviated
 		try {
-			calendar.setTime(simpleDateformat.parse(day));
+			calendar.setTime(simpleDateformat.parse(date));
 		} catch (java.text.ParseException e) {
 			e.printStackTrace();
 		}
