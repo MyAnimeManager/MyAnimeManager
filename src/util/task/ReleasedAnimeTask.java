@@ -73,8 +73,8 @@ public class ReleasedAnimeTask extends SwingWorker
 				if (animeDate.before(today)||animeDate.equals(today))
 					ReleaseNotifierDialog.ovaReleased.addElement(name);
 			}
-			System.out.println(animeDate.get(Calendar.DATE));
-
+			System.out.println(name + ": " + animeDate.get(Calendar.DATE) + "/" + animeDate.get(Calendar.MONTH)+1 + "/" + animeDate.get(Calendar.YEAR));
+			System.out.println(name + ": " + releaseDate);
 		}
 
 		Object[] filmArray = AnimeIndex.filmModel.toArray();
