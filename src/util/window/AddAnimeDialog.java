@@ -1772,7 +1772,7 @@ public class AddAnimeDialog extends JDialog
 				map = AnimeIndex.filmMap;
 		}
 		
-		if (listName.equalsIgnoreCase("completi da vedere"))
+		else if (listName.equalsIgnoreCase("completi da vedere"))
 		{
 			Date today = new Date();
 			Date finish = null;
@@ -1816,9 +1816,6 @@ public class AddAnimeDialog extends JDialog
 				map = AnimeIndex.completedToSeeMap;
 		}
 		
-		
-			
-	
 		return map;	
 	}
 }
