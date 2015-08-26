@@ -122,6 +122,8 @@ public class UtilEvent
 							AnimeIndex.animeInformation.setBlank();
 						}
 					}
+					else
+						AnimeIndex.animeInformation.setBlank();
 				}
 					
 			}
