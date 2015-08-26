@@ -18,7 +18,6 @@ public class UpdateAnimeDataTask extends SwingWorker
 	@Override
 	protected Object doInBackground() throws Exception
 	{
-		AnimeIndex.saveModifiedInformation();
 		ConnectionManager.ConnectAndGetToken();
 		
 		String nome = "";
