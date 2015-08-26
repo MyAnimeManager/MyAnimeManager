@@ -1,11 +1,9 @@
 package util.window;
 
 import java.awt.BorderLayout;
-import java.awt.Checkbox;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -13,14 +11,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
-import java.util.EventObject;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -28,14 +35,14 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.JToggleButton;
 import javax.swing.ListSelectionModel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.text.AbstractDocument;
 
 import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
@@ -43,31 +50,7 @@ import util.AnimeData;
 import util.ConnectionManager;
 import util.FileManager;
 import util.Filters;
-import util.PatternFilter;
 import util.SearchBar;
-
-import com.jgoodies.forms.factories.FormFactory;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.RowSpec;
-import com.sun.xml.internal.fastinfoset.stax.events.StartDocumentEvent;
-
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
-import javax.swing.JCheckBox;
-
-import java.awt.TextField;
-
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
-
-import java.awt.Color;
-
-import javax.swing.border.LineBorder;
-import javax.swing.JSeparator;
 
 public class AddAnimeDialog extends JDialog
 {
@@ -77,7 +60,7 @@ public class AddAnimeDialog extends JDialog
 	private JButton btnCerca;
 	private DefaultListModel animeModel;
 	private HashMap<String,Integer> animeSearched;
-	private JComboBox listToAddAniComboBox;
+	private static JComboBox listToAddAniComboBox;
 	private JButton addAniButton;
 	private JPanel anilistAddPanel;
 	private JPanel normalAddPanel;
@@ -1594,6 +1577,67 @@ public class AddAnimeDialog extends JDialog
 		}
 		}
 	}
+	
+	
+	private static TreeMap<String,AnimeData> checkDataConflict(String finishDate, String type)
+	{
+		//anime completati --> se anime è completato (se no avverte e gaurda la categoria in cui aggiungerlo)
+		//anime in corso --> se è da finire e completati o completati da vedere e controllo tipo
+		//oav --> se è oav
+		//film --> se è film
+		//completi da vedere --> stesa cosa dei completati
+		TreeMap<String,AnimeData> map = null;
+		
+		String listName = (String) listToAddAniComboBox.getSelectedItem();
+		
+		if (listName.equalsIgnoreCase("anime completati"))
+		{
+			Date today = new Date();
+			Date finish = null;
+			
+			try {
+				finish = DateFormat.getDateInstance().parse(finishDate);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			if (today.before(finish) && (type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
+			{
+				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è ancora completo. Vuoi aggiungerlo agli anime in corso?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (choiche == 0)
+					map = AnimeIndex.airingMap;
+				else
+					map = AnimeIndex.completedMap;
+			}
+			
+			else if (!(type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
+			{
+				if (type.equalsIgnoreCase("Movie"))
+				{
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai film?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if (choiche == 0)
+						map = AnimeIndex.filmMap;
+					else
+						map = AnimeIndex.completedMap;
+				}
+				
+				if (type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("Ova") || type.equalsIgnoreCase("Ona"))
+				{
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un Ova/Special. Vuoi aggiungerlo alla sezione Ova?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if (choiche == 0)
+						map = AnimeIndex.ovaMap;
+					else
+						map = AnimeIndex.completedMap;
+				}
+				
+			}
+
+
+		}
+		
+		return map;	
+	}
+
 	
 }
 
