@@ -26,7 +26,7 @@ public class ReleasedAnimeTask extends SwingWorker
 		int currentMonth = today.get(Calendar.MONTH)+1;
 		int currentYear = today.get(Calendar.YEAR);
 		String date = currentDay + "/" + currentMonth + "/" + currentYear;
-		SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the day of the week abbreviated
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/yyyy"); // the day of the week abbreviated
 		try {
 			today.setTime(simpleDateformat.parse(date));
 		} catch (java.text.ParseException e) {
@@ -56,6 +56,8 @@ public class ReleasedAnimeTask extends SwingWorker
 				releaseDate = data.getReleaseDate();
 			try {
 				animeDate.setTime(simpleDateformat.parse(releaseDate));
+				System.out.println(releaseDate);
+				System.out.println(simpleDateformat.parse(releaseDate));
 			} catch (java.text.ParseException e) {
 				e.printStackTrace();
 			}
@@ -73,8 +75,8 @@ public class ReleasedAnimeTask extends SwingWorker
 				if (animeDate.before(today)||animeDate.equals(today))
 					ReleaseNotifierDialog.ovaReleased.addElement(name);
 			}
-			System.out.println(name + ": " + animeDate.get(Calendar.DATE) + "/" + animeDate.get(Calendar.MONTH)+1 + "/" + animeDate.get(Calendar.YEAR));
-			System.out.println(name + ": " + releaseDate);
+//			System.out.println(name + ": " + animeDate.get(Calendar.DATE) + "/" + animeDate.get(Calendar.MONTH)+1 + "/" + animeDate.get(Calendar.YEAR));
+//			System.out.println(name + ": " + releaseDate);
 		}
 
 		Object[] filmArray = AnimeIndex.filmModel.toArray();
