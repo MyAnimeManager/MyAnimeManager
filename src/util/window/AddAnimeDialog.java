@@ -1581,11 +1581,6 @@ public class AddAnimeDialog extends JDialog
 	
 	private static TreeMap<String,AnimeData> checkDataConflict(String finishDate, String type)
 	{
-		//anime completati --> se anime è completato (se no avverte e gaurda la categoria in cui aggiungerlo)
-		//anime in corso --> se è da finire e completati o completati da vedere e controllo tipo
-		//oav --> se è oav
-		//film --> se è film
-		//completi da vedere --> stesa cosa dei completati
 		TreeMap<String,AnimeData> map = null;
 		
 		String listName = (String) listToAddAniComboBox.getSelectedItem();
@@ -1633,6 +1628,197 @@ public class AddAnimeDialog extends JDialog
 			else
 				map = AnimeIndex.completedMap;
 		}
+		
+		else if (listName.equalsIgnoreCase("anime in corso"))
+		{
+			Date today = new Date();
+			Date finish = null;
+			
+			try {
+				finish = DateFormat.getDateInstance().parse(finishDate);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			if (today.after(finish) && (type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
+			{
+				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è già completo. Vuoi aggiungerlo agli anime completi da vedere?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (choiche == 0)
+					map = AnimeIndex.completedToSeeMap;
+				else
+					map = AnimeIndex.airingMap;
+			}
+			
+			else if (!(type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
+			{
+				if (type.equalsIgnoreCase("Movie"))
+				{
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai film?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if (choiche == 0)
+						map = AnimeIndex.filmMap;
+					else
+						map = AnimeIndex.airingMap;
+				}
+				
+				if (type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("Ova") || type.equalsIgnoreCase("Ona"))
+				{
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un Ova/Special. Vuoi aggiungerlo alla sezione Ova?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if (choiche == 0)
+						map = AnimeIndex.ovaMap;
+					else
+						map = AnimeIndex.airingMap;
+				}
+			}
+			
+			else 
+				map = AnimeIndex.airingMap;
+		}
+		
+		else if (listName.equalsIgnoreCase("oav"))
+		{
+			
+			if (!(type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
+			{
+				if (type.equalsIgnoreCase("Movie"))
+				{
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai film?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if (choiche == 0)
+						map = AnimeIndex.filmMap;
+					else
+						map = AnimeIndex.ovaMap;
+				}
+
+			}
+			
+			else if ((type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
+			{
+				Date today = new Date();
+				Date finish = null;
+				
+				try {
+					finish = DateFormat.getDateInstance().parse(finishDate);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				if (today.before(finish))
+				{
+				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un Oav/Special. Vuoi aggiungerlo agli anime in corso?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (choiche == 0)
+					map = AnimeIndex.airingMap;
+				else
+					map = AnimeIndex.ovaMap;
+				}
+				else if (today.after(finish))
+				{
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un Oav/Special. Vuoi aggiungerlo agli anime completati?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if (choiche == 0)
+						map = AnimeIndex.completedMap;
+					else
+						map = AnimeIndex.ovaMap;
+				}
+			}
+			
+			else
+				map = AnimeIndex.ovaMap;
+		}
+		
+		else if (listName.equalsIgnoreCase("film"))
+		{
+			
+			if (!(type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
+			{
+				if (type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("Ova") || type.equalsIgnoreCase("Ona"))
+				{
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo alla sezione Ova?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if (choiche == 0)
+						map = AnimeIndex.ovaMap;
+					else
+						map = AnimeIndex.filmMap;
+				}
+
+			}
+			
+			else if ((type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
+			{
+				Date today = new Date();
+				Date finish = null;
+				
+				try {
+					finish = DateFormat.getDateInstance().parse(finishDate);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				if (today.before(finish))
+				{
+				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un Oav/Special. Vuoi aggiungerlo agli anime in corso?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (choiche == 0)
+					map = AnimeIndex.airingMap;
+				else
+					map = AnimeIndex.filmMap;
+				}
+				else if (today.after(finish))
+				{
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un Oav/Special. Vuoi aggiungerlo agli anime completati?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if (choiche == 0)
+						map = AnimeIndex.completedMap;
+					else
+						map = AnimeIndex.filmMap;
+				}
+			}
+			
+			else
+				map = AnimeIndex.filmMap;
+		}
+		
+		if (listName.equalsIgnoreCase("completi da vedere"))
+		{
+			Date today = new Date();
+			Date finish = null;
+			
+			try {
+				finish = DateFormat.getDateInstance().parse(finishDate);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			if (today.before(finish) && (type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
+			{
+				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è ancora completo. Vuoi aggiungerlo agli anime in corso?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (choiche == 0)
+					map = AnimeIndex.airingMap;
+				else
+					map = AnimeIndex.completedToSeeMap;
+			}
+			
+			else if (!(type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
+			{
+				if (type.equalsIgnoreCase("Movie"))
+				{
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai film?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if (choiche == 0)
+						map = AnimeIndex.filmMap;
+					else
+						map = AnimeIndex.completedToSeeMap;
+				}
+				
+				if (type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("Ova") || type.equalsIgnoreCase("Ona"))
+				{
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un Ova/Special. Vuoi aggiungerlo alla sezione Ova?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if (choiche == 0)
+						map = AnimeIndex.ovaMap;
+					else
+						map = AnimeIndex.completedToSeeMap;
+				}
+			}
+			else
+				map = AnimeIndex.completedToSeeMap;
+		}
+		
+		
+			
+	
 		return map;	
 	}
 }
