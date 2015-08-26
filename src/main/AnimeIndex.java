@@ -879,7 +879,6 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void removeUpdate(DocumentEvent e)
 			{
-				saveModifiedInformation();
 				searchList.clearSelection();
 				SortedListModel model = null;
 				String search = searchBar.getText();
