@@ -91,6 +91,7 @@ import java.awt.event.KeyEvent;
 //TODO fixare "IL BUG"
 //TODO fare sistema di controllo (controllo inserimento anime)
 //TODO finire aggiunta anime manuale (anche disattivazione dei pulsanti anilistInfo e aggiornamento dati)
+//TODO ReleasedAnimeTask esclusione ??/??/????
 public class AnimeIndex extends JFrame
 {
 	public static final String VERSION = "1.0.0";
