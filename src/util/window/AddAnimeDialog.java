@@ -1631,6 +1631,9 @@ public class AddAnimeDialog extends JDialog
 				}
 				
 			}
+			
+			else
+				map = AnimeIndex.completedMap;
 
 
 		}
