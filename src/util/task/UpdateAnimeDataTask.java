@@ -20,6 +20,18 @@ public class UpdateAnimeDataTask extends SwingWorker
 	{
 		AnimeIndex.saveModifiedInformation();
 		ConnectionManager.ConnectAndGetToken();
+		
+		String nome = "";
+		if(AnimeIndex.filtro!=9)
+		{
+			nome = (String)AnimeIndex.filterList.getSelectedValue();
+			AnimeIndex.getJList().setSelectedValue(nome, true);
+		}
+		if(!AnimeIndex.searchBar.getText().isEmpty())
+		{
+			nome = (String)AnimeIndex.searchList.getSelectedValue();
+			AnimeIndex.getJList().setSelectedValue(nome, true);
+		}
 		String name = (String) AnimeIndex.getJList().getSelectedValue();
 		TreeMap<String,AnimeData> map = AnimeIndex.getMap();
 		AnimeData oldData = map.get(name);
