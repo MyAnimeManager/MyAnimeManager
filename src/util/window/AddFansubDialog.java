@@ -173,12 +173,22 @@ public class AddFansubDialog extends JDialog
 						linkAddField.setText(link);
 						fansubAddField.setEnabled(false);
 						}
-						if(!fansubList.isSelectionEmpty() && fansubList.getSelectedValue().equals("?????") && fansubList.getSelectedValue()!=null)
+						if(!fansubList.isSelectionEmpty() && fansubList.getSelectedValue()!=null)
 						{
-							deleteButton.setEnabled(false);
-							linkAddField.setEnabled(false);
-							addButton.setText("Salva");
-							fansubAddField.setEnabled(false);
+							if(fansubList.getSelectedValue().equals("?????"))
+							{
+								deleteButton.setEnabled(false);
+								linkAddField.setEnabled(false);
+								addButton.setText("Salva");
+								fansubAddField.setEnabled(false);
+							}
+							if(fansubList.getSelectedValue().equals("Dynit")||fansubList.getSelectedValue().equals("Yamato Animation")||fansubList.getSelectedValue().equals("Crunchyroll"))
+							{
+								deleteButton.setEnabled(false);
+								linkAddField.setEnabled(true);
+								addButton.setText("Salva");
+								fansubAddField.setEnabled(false);
+							}
 						}
 					}
 				});

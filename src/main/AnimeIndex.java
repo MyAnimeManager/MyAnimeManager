@@ -286,6 +286,21 @@ public class AnimeIndex extends JFrame
 				fansubMap.clear();
 				animeInformation.fansubComboBox.removeAllItems();
 				addToFansub("?????");
+				addToFansub("Dynit");
+				addToFansub("Yamato Animation");
+				addToFansub("Crunchyroll");
+				if(!fansubMap.containsKey("Dynit"))
+				{
+					fansubMap.put("Dynit", "");
+				}
+				if(!fansubMap.containsKey("Yamato Animation"))
+				{
+					fansubMap.put("Yamato Animation", "");
+				}
+				if(!fansubMap.containsKey("Crunchyroll"))
+				{
+					fansubMap.put("Crunchyroll", "");
+				}
 				animeInformation.setFansubComboBox();
 				animeInformation.setBlank();
 				JOptionPane.showMessageDialog(mainFrame, "Fansub eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
@@ -1863,6 +1878,19 @@ public class AnimeIndex extends JFrame
 		animeInformation = new AnimeInformation();
 		mainFrame.add(animeInformation, BorderLayout.CENTER);
 		addToFansub("?????");
+		
+		if(!fansubMap.containsKey("Dynit"))
+		{
+			fansubMap.put("Dynit", "");
+		}
+		if(!fansubMap.containsKey("Yamato Animation"))
+		{
+			fansubMap.put("Yamato Animation", "");
+		}
+		if(!fansubMap.containsKey("Crunchyroll"))
+		{
+			fansubMap.put("Crunchyroll", "");
+		}
 		AnimeIndex.animeInformation.setFansubComboBox();
 		animeInformation.setBlank();
 		if (appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Last list"))

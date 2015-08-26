@@ -56,8 +56,6 @@ public class ReleasedAnimeTask extends SwingWorker
 				releaseDate = data.getReleaseDate();
 			try {
 				animeDate.setTime(simpleDateformat.parse(releaseDate));
-				System.out.println(releaseDate);
-				System.out.println(simpleDateformat.parse(releaseDate));
 			} catch (java.text.ParseException e) {
 				e.printStackTrace();
 			}

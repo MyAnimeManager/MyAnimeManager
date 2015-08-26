@@ -326,7 +326,7 @@ public class Filters {
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
 						}
-						if(dato.equalsIgnoreCase(giorno))
+						if(c.equals(calendar))
 							AnimeIndex.filterModel.addElement((String)modelArray[i]);
 					}
 					else if (!data.getFinishDate().equalsIgnoreCase("??/??/????") && !data.getFinishDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getFinishDate().substring(0, 3).equalsIgnoreCase("??/"))
