@@ -24,6 +24,7 @@ public class AnimeIndexProperties
 			defaultProps.setProperty("List_to_Check", "None");
 			defaultProps.setProperty("Date_Release", "none");
 			defaultProps.setProperty("Open_Wishlist", "false");
+			defaultProps.setProperty("Check_Data_Conflict", "active");
 			
 			defaultProps.setProperty("excludeCurrentEp", "false");
 			defaultProps.setProperty("excludeTotalEp", "false");
@@ -45,7 +46,7 @@ public class AnimeIndexProperties
 				defaultProps.setProperty("List_to_Check", "None");
 				defaultProps.setProperty("Date_Release", "none");
 				defaultProps.setProperty("Open_Wishlist", "false");
-				
+				defaultProps.setProperty("Check_Data_Conflict", "active");
 				
 				defaultProps.getProperty("excludeCurrentEp", "false");
 				defaultProps.getProperty("excludeTotalEp", "false");

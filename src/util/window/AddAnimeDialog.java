@@ -51,6 +51,8 @@ import util.ConnectionManager;
 import util.FileManager;
 import util.Filters;
 import util.SearchBar;
+import javax.swing.ImageIcon;
+import java.awt.Font;
 
 public class AddAnimeDialog extends JDialog
 {
@@ -86,6 +88,7 @@ public class AddAnimeDialog extends JDialog
 	private JComboBox listToAdd;
 	private JTextField totEpField;
 	private JComboBox typeComboBox;
+	private JComboBox checkDataConflictComboBox;
 
 	/**
 	 * Create the dialog.
@@ -97,6 +100,10 @@ public class AddAnimeDialog extends JDialog
 			@Override
 			public void windowOpened(WindowEvent arg0) {
 				searchBar.requestFocus();
+				if(AnimeIndex.appProp.getProperty("Check_Data_Conflict").equals("active"))
+					checkDataConflictComboBox.setSelectedItem("Attivo");
+				else
+					checkDataConflictComboBox.setSelectedItem("Disattivo");
 			}
 		});
 		setTitle("Aggiungi anime");
@@ -1020,10 +1027,12 @@ public class AddAnimeDialog extends JDialog
 					JPanel button2Panel = new JPanel();
 					anilistAddPanel.add(button2Panel, BorderLayout.SOUTH);
 					{
-						button2Panel.setLayout(new MigLayout("", "[74.00px,grow][159.00px,grow][83.00px,grow][160.00][15.00px,grow][78.00][143.00px,grow]", "[23px,grow]"));
+						button2Panel.setLayout(new MigLayout("", "[74.00px][159.00px][361.00][][143.00px]", "[23px,grow]"));
 					}
 					{
 						JLabel lblControllaIn = new JLabel("Controlla in :");
+						lblControllaIn.setToolTipText("Verifica la presenza di conflitti all'interno delle liste");
+						lblControllaIn.setFont(new Font("Tahoma", Font.PLAIN, 11));
 						button2Panel.add(lblControllaIn, "cell 0 0");
 					}
 					{
@@ -1037,8 +1046,8 @@ public class AddAnimeDialog extends JDialog
 						});
 						button2Panel.add(checkToggleButton, "cell 1 0,growx,aligny center");
 					}
-					addAniButton = new JButton("Aggiungi");
-					button2Panel.add(addAniButton, "cell 3 0,growx");
+					addAniButton = new JButton("          Aggiungi          ");
+					button2Panel.add(addAniButton, "cell 2 0,alignx center");
 					addAniButton.setEnabled(false);
 					addAniButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -1496,16 +1505,29 @@ public class AddAnimeDialog extends JDialog
 							AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 						}
 					});
-					JButton button = new JButton("Esci");
-					button2Panel.add(button, "cell 6 0,growx");
-					button.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							keepOpen.setSelected(false);
-							JButton but = (JButton) e.getSource();
-							JDialog dialog = (JDialog) but.getTopLevelAncestor();
-							dialog.dispose();
-						}
-					});
+					{
+						JLabel lblControlloDatiAnime = new JLabel("Controllo Dati Anime :");
+						lblControlloDatiAnime.setToolTipText("Controlla la coerenza dei dati dell'anime che si sta aggiungendo con la lista in cui si sta inserendo");
+						lblControlloDatiAnime.setFont(new Font("Tahoma", Font.PLAIN, 11));
+						button2Panel.add(lblControlloDatiAnime, "cell 3 0,alignx right");
+					}
+					{
+						checkDataConflictComboBox = new JComboBox();
+						checkDataConflictComboBox.addItemListener(new ItemListener() {
+							public void itemStateChanged(ItemEvent arg0) {
+								if(checkDataConflictComboBox.getSelectedItem().equals("Attivo"))
+								{
+									AnimeIndex.appProp.setProperty("Check_Data_Conflict", "active");
+								}
+								else
+								{
+									AnimeIndex.appProp.setProperty("Check_Data_Conflict", "disactive");
+								}
+							}
+						});
+						checkDataConflictComboBox.setModel(new DefaultComboBoxModel(new String[] {"Attivo", "Disattivo"}));
+						button2Panel.add(checkDataConflictComboBox, "cell 4 0,growx");
+					}
 				}
 			}
 		}
