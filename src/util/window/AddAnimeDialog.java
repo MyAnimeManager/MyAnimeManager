@@ -1077,6 +1077,8 @@ public class AddAnimeDialog extends JDialog
 					}
 					{
 						checkToggleButton = new JToggleButton("Seleziona Lista");
+						checkToggleButton.setMinimumSize(new Dimension(122, 21));
+						checkToggleButton.setMaximumSize(new Dimension(122, 21));
 						checkToggleButton.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								checkDialog = new SetCheckDialog();
