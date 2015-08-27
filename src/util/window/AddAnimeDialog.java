@@ -51,7 +51,9 @@ import util.ConnectionManager;
 import util.FileManager;
 import util.Filters;
 import util.SearchBar;
+
 import javax.swing.ImageIcon;
+
 import java.awt.Font;
 
 public class AddAnimeDialog extends JDialog
@@ -1045,9 +1047,27 @@ public class AddAnimeDialog extends JDialog
 											bd = true;
 										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "", exitDay, "", "", "", startDay, startDay, finishDay, duration, bd);
 										
-										TreeMap<String,AnimeData> map = checkDataConflict(finishDay, type);
+										TreeMap<String,AnimeData> map = null;
+										if (!(finishDay.isEmpty() && type.isEmpty()))
+												map = checkDataConflict(finishDay, type);
+										else
+										{
+											String list = (String) listToAdd.getSelectedItem();
+											
+											if (list.equalsIgnoreCase("anime completati"))
+												map = AnimeIndex.completedMap;
+											else if (list.equalsIgnoreCase("anime in corso"))
+												map = AnimeIndex.airingMap;
+											else if(list.equalsIgnoreCase("oav"))
+												map = AnimeIndex.ovaMap;
+											else if(list.equalsIgnoreCase("film"))
+												map = AnimeIndex.filmMap;
+											else if(list.equalsIgnoreCase("completati da vedere"))
+												map = AnimeIndex.completedToSeeMap;										
+										}
 										
-										System.out.println(map.equals(AnimeIndex.completedMap));
+										//TODO controllo per le liste
+										
 									}
 										
 							}
