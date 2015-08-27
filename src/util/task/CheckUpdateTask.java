@@ -10,7 +10,7 @@ import util.window.UpdateDialog;
 
 public class CheckUpdateTask extends SwingWorker
 {
-//	String updatedVersion;
+
 	@Override
 	public String doInBackground() throws Exception
 	{
@@ -20,7 +20,7 @@ public class CheckUpdateTask extends SwingWorker
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-			return updatedVersion;
+		return updatedVersion;
 	}
 	
 	@Override

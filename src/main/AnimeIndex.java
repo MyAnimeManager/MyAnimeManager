@@ -9,7 +9,6 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,7 +48,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -57,7 +55,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardDownRightHandler;
 
 import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
@@ -83,9 +80,6 @@ import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
 import util.window.UpdateDialog;
 import util.window.WishlistDialog;
-
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
