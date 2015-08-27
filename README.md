@@ -21,3 +21,6 @@ Per segnalare un bug o proporre nuove funzioni usate l'issue tracker, accessibil
 
 ### Contatti
 Per qualsiasi ragione potete contattare gli sviluppatori all'indirizzo mail myanimemanagerproject@gmail.com, appena possibile riceverete una risposta.
+
+### Licenza
+My Anime Manager è protetta dalla licenza GNU GPL 3. Per maggiori informazioni vedete il file License.txt
