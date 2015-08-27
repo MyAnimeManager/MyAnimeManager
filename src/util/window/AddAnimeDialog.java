@@ -1660,7 +1660,8 @@ public class AddAnimeDialog extends JDialog
 			Date finish = null;
 			
 			try {
-				finish = DateFormat.getDateInstance().parse(finishDate);
+				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+				finish = format.parse(finishDate);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -1710,7 +1711,8 @@ public class AddAnimeDialog extends JDialog
 			Date finish = null;
 			
 			try {
-				finish = DateFormat.getDateInstance().parse(finishDate);
+				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+				finish = format.parse(finishDate);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -1777,7 +1779,8 @@ public class AddAnimeDialog extends JDialog
 				Date finish = null;
 				
 				try {
-					finish = DateFormat.getDateInstance().parse(finishDate);
+					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+					finish = format.parse(finishDate);
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
@@ -1832,7 +1835,8 @@ public class AddAnimeDialog extends JDialog
 				Date finish = null;
 				
 				try {
-					finish = DateFormat.getDateInstance().parse(finishDate);
+					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+					finish = format.parse(finishDate);
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
@@ -1865,7 +1869,8 @@ public class AddAnimeDialog extends JDialog
 			Date finish = null;
 			
 			try {
-				finish = DateFormat.getDateInstance().parse(finishDate);
+				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+				finish = format.parse(finishDate);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
