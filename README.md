@@ -17,7 +17,7 @@ Sono presenti inoltre collegamenti alle piattaforme più diffuse come AnimeClick,
 Alcuni aspetti grafici del programma possono essere personalizzati dall'utente.
 
 ### Licenza
-My Anime Manager è coperto dalla licenza GNU GPL 3. Per maggiori informazioni: [License](https://github.com/MyAnimeManager/MyAnimeManager/blob/master/resources/License.txt)
+My Anime Manager è coperto dalla licenza "GNU GPL 3". Per maggiori informazioni: [License](https://github.com/MyAnimeManager/MyAnimeManager/blob/master/resources/License.txt)
 
 
 ### Bug, Richieste e Suggerimenti
