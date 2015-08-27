@@ -586,6 +586,7 @@ public class AnimeIndex extends JFrame
 		menuBar.add(mnVisualizza);
 		
 		JMenuItem mntmNuoveUscite = new JMenuItem("Nuove Uscite");
+		mntmNuoveUscite.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/new_icon.png")));
 		mntmNuoveUscite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				openReleaseDialog = true;
@@ -599,6 +600,7 @@ public class AnimeIndex extends JFrame
 		mnVisualizza.add(separator_2);
 		
 		JMenuItem mntmWishlist = new JMenuItem("WishList");
+		mntmWishlist.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/wishlist_256.png")));
 		mnVisualizza.add(mntmWishlist);
 		mntmWishlist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
