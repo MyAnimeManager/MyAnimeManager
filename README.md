@@ -12,7 +12,7 @@ L'utente ha a disposizione anche una Wishlist per gli anime che desidera vedere 
 
 Ad ogni anime è associabile un fansub con link per aprire velocemente la relativa pagina web.
 
-Sono presenti inoltre collegamenti alle piattaforme più diffuse come AnimeClick, MyAnimeManager, AniList, AniChart e altre ancora.
+Sono presenti inoltre collegamenti alle piattaforme più diffuse come AnimeClick, MyAnimeList, AniList, AniChart e altre ancora.
 
 Alcuni aspetti grafici del programma possono essere personalizzati dall'utente.
 
