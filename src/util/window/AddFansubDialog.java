@@ -181,7 +181,8 @@ public class AddFansubDialog extends JDialog
 								linkAddField.setEnabled(false);
 								addButton.setText("Salva");
 								fansubAddField.setEnabled(false);
-								fansubAddField.setText("?????");
+								fansubAddField.setText("????");
+								linkAddField.setText("");
 							}
 							if(fansubList.getSelectedValue().equals("Dynit")||fansubList.getSelectedValue().equals("Yamato Animation")||fansubList.getSelectedValue().equals("Crunchyroll"))
 							{
@@ -337,6 +338,7 @@ public class AddFansubDialog extends JDialog
 	
 	public static void setFansubMap(TreeMap<String, String> fansubMap) 
 	{
+		AnimeIndex.fansubMap.clear();
 		AnimeIndex.fansubMap.putAll(fansubMap);
 	}
 }
