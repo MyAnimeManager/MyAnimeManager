@@ -69,6 +69,7 @@ public class AddAnimeDialog extends JDialog
 	private JCheckBox keepOpen;
 	public SetCheckDialog checkDialog;
 	public static JToggleButton checkToggleButton;
+	public static JToggleButton listSlectionToggleButton;
 	public static boolean checkCompletedList;
 	public static boolean checkAiringList;
 	public static boolean checkOAVList;
@@ -750,7 +751,7 @@ public class AddAnimeDialog extends JDialog
 						totEpField.setColumns(10);
 					}
 					{
-						JToggleButton listSlectionToggleButton = new JToggleButton("Seleziona Lista");
+						listSlectionToggleButton = new JToggleButton("Seleziona Lista");
 						GridBagConstraints gbc_listSlectionToggleButton = new GridBagConstraints();
 						gbc_listSlectionToggleButton.fill = GridBagConstraints.HORIZONTAL;
 						gbc_listSlectionToggleButton.gridwidth = 3;

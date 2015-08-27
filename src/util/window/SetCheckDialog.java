@@ -234,6 +234,8 @@ public class SetCheckDialog extends JDialog {
 						{	
 							AddAnimeDialog.checkToggleButton.setText("Tutte le Liste");
 							AddAnimeDialog.checkToggleButton.setSelected(true);
+							AddAnimeDialog.listSlectionToggleButton.setText("Tutte le Liste");
+							AddAnimeDialog.listSlectionToggleButton.setSelected(true);
 							AddAnimeDialog.checkCompletedList = AddAnimeDialog.checkAiringList = AddAnimeDialog.checkOAVList = AddAnimeDialog.checkFilmList = AddAnimeDialog.checkToSeeList = true;
 							AnimeIndex.appProp.setProperty("List_to_Check", "All");
 					    }
@@ -241,6 +243,8 @@ public class SetCheckDialog extends JDialog {
 						{
 							AddAnimeDialog.checkToggleButton.setText("Nessuna Lista");
 							AddAnimeDialog.checkToggleButton.setSelected(false);
+							AddAnimeDialog.listSlectionToggleButton.setText("Nessuna Lista");
+							AddAnimeDialog.listSlectionToggleButton.setSelected(false);
 							AddAnimeDialog.checkCompletedList = AddAnimeDialog.checkAiringList = AddAnimeDialog.checkOAVList = AddAnimeDialog.checkFilmList = AddAnimeDialog.checkToSeeList = false;
 							AnimeIndex.appProp.setProperty("List_to_Check", "None");
 						}
@@ -248,6 +252,8 @@ public class SetCheckDialog extends JDialog {
 						{
 							AddAnimeDialog.checkToggleButton.setText("Anime Completati");
 							AddAnimeDialog.checkToggleButton.setSelected(true);
+							AddAnimeDialog.listSlectionToggleButton.setText("Anime Completati");
+							AddAnimeDialog.listSlectionToggleButton.setSelected(true);
 							AddAnimeDialog.checkCompletedList = true;
 							AddAnimeDialog.checkAiringList = AddAnimeDialog.checkOAVList = AddAnimeDialog.checkFilmList = AddAnimeDialog.checkToSeeList = false;
 							AnimeIndex.appProp.setProperty("List_to_Check", "Anime Completati");
@@ -256,6 +262,8 @@ public class SetCheckDialog extends JDialog {
 						{
 							AddAnimeDialog.checkToggleButton.setText("Anime in Corso");
 							AddAnimeDialog.checkToggleButton.setSelected(true);
+							AddAnimeDialog.listSlectionToggleButton.setText("Anime in Corso");
+							AddAnimeDialog.listSlectionToggleButton.setSelected(true);
 							AddAnimeDialog.checkAiringList = true;
 							AddAnimeDialog.checkCompletedList = AddAnimeDialog.checkOAVList = AddAnimeDialog.checkFilmList = AddAnimeDialog.checkToSeeList = false;
 							AnimeIndex.appProp.setProperty("List_to_Check", "Anime in Corso");
@@ -264,6 +272,8 @@ public class SetCheckDialog extends JDialog {
 						{
 							AddAnimeDialog.checkToggleButton.setText("OAV");
 							AddAnimeDialog.checkToggleButton.setSelected(true);
+							AddAnimeDialog.listSlectionToggleButton.setText("OAV");
+							AddAnimeDialog.listSlectionToggleButton.setSelected(true);
 							AddAnimeDialog.checkOAVList = true;
 							AddAnimeDialog.checkCompletedList = AddAnimeDialog.checkAiringList = AddAnimeDialog.checkFilmList = AddAnimeDialog.checkToSeeList = false;
 							AnimeIndex.appProp.setProperty("List_to_Check", "OAV");
@@ -272,6 +282,8 @@ public class SetCheckDialog extends JDialog {
 						{
 							AddAnimeDialog.checkToggleButton.setText("Film");
 							AddAnimeDialog.checkToggleButton.setSelected(true);
+							AddAnimeDialog.listSlectionToggleButton.setText("Film");
+							AddAnimeDialog.listSlectionToggleButton.setSelected(true);
 							AddAnimeDialog.checkFilmList = true;
 							AddAnimeDialog.checkCompletedList = AddAnimeDialog.checkAiringList = AddAnimeDialog.checkOAVList = AddAnimeDialog.checkToSeeList = false;
 							AnimeIndex.appProp.setProperty("List_to_Check", "Film");
@@ -280,6 +292,8 @@ public class SetCheckDialog extends JDialog {
 						{
 							AddAnimeDialog.checkToggleButton.setText("Completi da Vedere");
 							AddAnimeDialog.checkToggleButton.setSelected(true);
+							AddAnimeDialog.listSlectionToggleButton.setText("Completi da Vedere");
+							AddAnimeDialog.listSlectionToggleButton.setSelected(true);
 							AddAnimeDialog.checkToSeeList = true;
 							AddAnimeDialog.checkCompletedList = AddAnimeDialog.checkAiringList = AddAnimeDialog.checkOAVList = AddAnimeDialog.checkFilmList = false;
 							AnimeIndex.appProp.setProperty("List_to_Check", "Completi Da vedere");
@@ -288,6 +302,8 @@ public class SetCheckDialog extends JDialog {
 						{
 							AddAnimeDialog.checkToggleButton.setText("Più Liste");
 							AddAnimeDialog.checkToggleButton.setSelected(true);
+							AddAnimeDialog.listSlectionToggleButton.setText("Più Liste");
+							AddAnimeDialog.listSlectionToggleButton.setSelected(true);
 							
 							if(checkCompleted.isSelected())
 								AddAnimeDialog.checkCompletedList = true;
