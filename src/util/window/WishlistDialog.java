@@ -1,60 +1,15 @@
 package util.window;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
-import javax.swing.Timer;
-import javax.swing.border.MatteBorder;
-
-import util.AnimeData;
-import util.ConnectionManager;
-import util.SearchBar;
-import util.SortedListModel;
-
-import javax.swing.JTextField;
-
-import main.AnimeIndex;
-
-import java.awt.GridLayout;
-import java.awt.Component;
-
-import javax.swing.Box;
-
-import net.miginfocom.swing.MigLayout;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.BevelBorder;
-import javax.swing.UIManager;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.CardLayout;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URI;
@@ -62,10 +17,30 @@ import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 
-import javax.swing.ListModel;
+import javax.swing.Box;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.border.MatteBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import main.AnimeIndex;
+import util.ConnectionManager;
+import util.SearchBar;
+import util.SortedListModel;
 
 public class WishlistDialog extends JDialog
 {
@@ -97,7 +72,8 @@ public class WishlistDialog extends JDialog
 	 */
 	public WishlistDialog()
 	{
-		super(AnimeIndex.frame, false);
+//		super(AnimeIndex.frame, false);
+		super(SwingUtilities.windowForComponent(AnimeIndex.frame));
 		setUndecorated(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setType(Type.UTILITY);

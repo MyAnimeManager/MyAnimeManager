@@ -608,6 +608,7 @@ public class AnimeIndex extends JFrame
 					wishlistDialog.setVisible(true);
 					 new Timer(1, new ActionListener() {
 			               public void actionPerformed(ActionEvent e) {
+			            	   AnimeIndex.mainFrame.requestFocus();
 			            	   wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x - 2, AnimeIndex.mainFrame.getLocationOnScreen().y);
 			            	   if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 182) {
 			                     ((Timer) e.getSource()).stop();
