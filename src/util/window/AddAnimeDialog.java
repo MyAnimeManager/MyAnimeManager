@@ -648,7 +648,7 @@ public class AddAnimeDialog extends JDialog
 					gbc_dataPanel.gridy = 0;
 					normalAddPanel.add(dataPanel, gbc_dataPanel);
 					GridBagLayout gbl_dataPanel = new GridBagLayout();
-					gbl_dataPanel.columnWidths = new int[]{90, 34, -3, 38, -3, 56, 64, 24, 4, 26, 4, 52, 0, 51, 50, 0};
+					gbl_dataPanel.columnWidths = new int[]{90, 34, -3, 38, -3, 56, 64, 24, 4, 26, 4, 52, 0, 51, 51, 0};
 					gbl_dataPanel.rowHeights = new int[]{20, 20, 0, 20, 20, 20, 20, 0, 20, 0, 0};
 					gbl_dataPanel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 					gbl_dataPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
@@ -824,9 +824,9 @@ public class AddAnimeDialog extends JDialog
 						});
 						checkDataConflictComboBoxManualAdd.setModel(new DefaultComboBoxModel(new String[] {"Attivo", "Disattivo"}));
 						GridBagConstraints gbc_checkDataConflictComboBoxManualAdd = new GridBagConstraints();
-						gbc_checkDataConflictComboBoxManualAdd.gridwidth = 3;
-						gbc_checkDataConflictComboBoxManualAdd.insets = new Insets(0, 0, 5, 5);
 						gbc_checkDataConflictComboBoxManualAdd.fill = GridBagConstraints.HORIZONTAL;
+						gbc_checkDataConflictComboBoxManualAdd.gridwidth = 3;
+						gbc_checkDataConflictComboBoxManualAdd.insets = new Insets(0, 0, 5, 0);
 						gbc_checkDataConflictComboBoxManualAdd.gridx = 12;
 						gbc_checkDataConflictComboBoxManualAdd.gridy = 5;
 						dataPanel.add(checkDataConflictComboBoxManualAdd, gbc_checkDataConflictComboBoxManualAdd);
