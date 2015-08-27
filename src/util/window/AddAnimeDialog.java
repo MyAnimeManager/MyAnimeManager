@@ -89,6 +89,7 @@ public class AddAnimeDialog extends JDialog
 	private JTextField totEpField;
 	private JComboBox typeComboBox;
 	private JComboBox checkDataConflictComboBox;
+	private JComboBox checkDataConflictComboBoxManualAdd;
 
 	/**
 	 * Create the dialog.
@@ -101,9 +102,15 @@ public class AddAnimeDialog extends JDialog
 			public void windowOpened(WindowEvent arg0) {
 				searchBar.requestFocus();
 				if(AnimeIndex.appProp.getProperty("Check_Data_Conflict").equals("active"))
+				{
 					checkDataConflictComboBox.setSelectedItem("Attivo");
+					checkDataConflictComboBoxManualAdd.setSelectedItem("Attivo");
+				}
 				else
+				{
 					checkDataConflictComboBox.setSelectedItem("Disattivo");
+					checkDataConflictComboBoxManualAdd.setSelectedItem("Disattivo");
+				}
 			}
 		});
 		setTitle("Aggiungi anime");
@@ -643,7 +650,7 @@ public class AddAnimeDialog extends JDialog
 					GridBagLayout gbl_dataPanel = new GridBagLayout();
 					gbl_dataPanel.columnWidths = new int[]{90, 34, -3, 38, -3, 56, 64, 24, 4, 26, 4, 52, 0, 51, 50, 0};
 					gbl_dataPanel.rowHeights = new int[]{20, 20, 0, 20, 20, 20, 20, 0, 20, 0, 0};
-					gbl_dataPanel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+					gbl_dataPanel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 					gbl_dataPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 					dataPanel.setLayout(gbl_dataPanel);
 					{
@@ -715,6 +722,16 @@ public class AddAnimeDialog extends JDialog
 						currentEpisodeText.setColumns(10);
 					}
 					{
+						JLabel lblControllaIn_1 = new JLabel("Controlla in :");
+						GridBagConstraints gbc_lblControllaIn_1 = new GridBagConstraints();
+						gbc_lblControllaIn_1.anchor = GridBagConstraints.SOUTH;
+						gbc_lblControllaIn_1.gridwidth = 3;
+						gbc_lblControllaIn_1.insets = new Insets(0, 0, 5, 0);
+						gbc_lblControllaIn_1.gridx = 12;
+						gbc_lblControllaIn_1.gridy = 2;
+						dataPanel.add(lblControllaIn_1, gbc_lblControllaIn_1);
+					}
+					{
 						JLabel lblEpisodiTotali = new JLabel("Episodi Totali :");
 						GridBagConstraints gbc_lblEpisodiTotali = new GridBagConstraints();
 						gbc_lblEpisodiTotali.insets = new Insets(0, 0, 5, 5);
@@ -733,14 +750,14 @@ public class AddAnimeDialog extends JDialog
 						totEpField.setColumns(10);
 					}
 					{
-						JLabel lblControllaIn_1 = new JLabel("Controlla in :");
-						GridBagConstraints gbc_lblControllaIn_1 = new GridBagConstraints();
-						gbc_lblControllaIn_1.anchor = GridBagConstraints.SOUTH;
-						gbc_lblControllaIn_1.gridwidth = 3;
-						gbc_lblControllaIn_1.insets = new Insets(0, 0, 5, 0);
-						gbc_lblControllaIn_1.gridx = 12;
-						gbc_lblControllaIn_1.gridy = 3;
-						dataPanel.add(lblControllaIn_1, gbc_lblControllaIn_1);
+						JToggleButton listSlectionToggleButton = new JToggleButton("Seleziona Lista");
+						GridBagConstraints gbc_listSlectionToggleButton = new GridBagConstraints();
+						gbc_listSlectionToggleButton.fill = GridBagConstraints.HORIZONTAL;
+						gbc_listSlectionToggleButton.gridwidth = 3;
+						gbc_listSlectionToggleButton.insets = new Insets(0, 0, 5, 0);
+						gbc_listSlectionToggleButton.gridx = 12;
+						gbc_listSlectionToggleButton.gridy = 3;
+						dataPanel.add(listSlectionToggleButton, gbc_listSlectionToggleButton);
 					}
 					{
 						JLabel lblDurataEpisodio = new JLabel("Durata Episodio :");
@@ -762,14 +779,13 @@ public class AddAnimeDialog extends JDialog
 						durationField.setColumns(10);
 					}
 					{
-						JToggleButton listSlectionToggleButton = new JToggleButton("Seleziona Lista");
-						GridBagConstraints gbc_listSlectionToggleButton = new GridBagConstraints();
-						gbc_listSlectionToggleButton.fill = GridBagConstraints.HORIZONTAL;
-						gbc_listSlectionToggleButton.gridwidth = 3;
-						gbc_listSlectionToggleButton.insets = new Insets(0, 0, 5, 0);
-						gbc_listSlectionToggleButton.gridx = 12;
-						gbc_listSlectionToggleButton.gridy = 4;
-						dataPanel.add(listSlectionToggleButton, gbc_listSlectionToggleButton);
+						JLabel lblControlloDatiAnime_1 = new JLabel("Controllo Dati Anime :");
+						GridBagConstraints gbc_lblControlloDatiAnime_1 = new GridBagConstraints();
+						gbc_lblControlloDatiAnime_1.gridwidth = 3;
+						gbc_lblControlloDatiAnime_1.insets = new Insets(0, 0, 5, 0);
+						gbc_lblControlloDatiAnime_1.gridx = 12;
+						gbc_lblControlloDatiAnime_1.gridy = 4;
+						dataPanel.add(lblControlloDatiAnime_1, gbc_lblControlloDatiAnime_1);
 					}
 					{
 						JLabel lblFansub = new JLabel("Fansub :");
@@ -789,6 +805,31 @@ public class AddAnimeDialog extends JDialog
 						gbc_fansubComboBox.gridy = 5;
 						fansubComboBox.setModel(new DefaultComboBoxModel(AnimeIndex.getFansubList()));
 						dataPanel.add(fansubComboBox, gbc_fansubComboBox);
+					}
+					{
+						checkDataConflictComboBoxManualAdd = new JComboBox();
+						checkDataConflictComboBoxManualAdd.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent arg0) {
+								if(checkDataConflictComboBoxManualAdd.getSelectedItem().equals("Attivo"))
+								{
+									AnimeIndex.appProp.setProperty("Check_Data_Conflict", "active");
+									checkDataConflictComboBox.setSelectedItem("Attivo");
+								}
+								else
+								{
+									AnimeIndex.appProp.setProperty("Check_Data_Conflict", "disactive");
+									checkDataConflictComboBox.setSelectedItem("Disattivo");
+								}
+							}
+						});
+						checkDataConflictComboBoxManualAdd.setModel(new DefaultComboBoxModel(new String[] {"Attivo", "Disattivo"}));
+						GridBagConstraints gbc_checkDataConflictComboBoxManualAdd = new GridBagConstraints();
+						gbc_checkDataConflictComboBoxManualAdd.gridwidth = 3;
+						gbc_checkDataConflictComboBoxManualAdd.insets = new Insets(0, 0, 5, 5);
+						gbc_checkDataConflictComboBoxManualAdd.fill = GridBagConstraints.HORIZONTAL;
+						gbc_checkDataConflictComboBoxManualAdd.gridx = 12;
+						gbc_checkDataConflictComboBoxManualAdd.gridy = 5;
+						dataPanel.add(checkDataConflictComboBoxManualAdd, gbc_checkDataConflictComboBoxManualAdd);
 					}
 					{
 						JLabel lblDataDiInizio = new JLabel("Data di Inizio :");
@@ -910,7 +951,6 @@ public class AddAnimeDialog extends JDialog
 						GridBagConstraints gbc_txtpnConLaggiuntaManuale = new GridBagConstraints();
 						gbc_txtpnConLaggiuntaManuale.gridwidth = 6;
 						gbc_txtpnConLaggiuntaManuale.gridheight = 4;
-						gbc_txtpnConLaggiuntaManuale.insets = new Insets(0, 0, 5, 5);
 						gbc_txtpnConLaggiuntaManuale.fill = GridBagConstraints.BOTH;
 						gbc_txtpnConLaggiuntaManuale.gridx = 9;
 						gbc_txtpnConLaggiuntaManuale.gridy = 6;
@@ -1518,10 +1558,12 @@ public class AddAnimeDialog extends JDialog
 								if(checkDataConflictComboBox.getSelectedItem().equals("Attivo"))
 								{
 									AnimeIndex.appProp.setProperty("Check_Data_Conflict", "active");
+									checkDataConflictComboBoxManualAdd.setSelectedItem("Attivo");
 								}
 								else
 								{
 									AnimeIndex.appProp.setProperty("Check_Data_Conflict", "disactive");
+									checkDataConflictComboBoxManualAdd.setSelectedItem("Disattivo");
 								}
 							}
 						});
