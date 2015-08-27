@@ -1044,6 +1044,9 @@ public class AddAnimeDialog extends JDialog
 											bd = true;
 										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "", exitDay, "", "", "", startDay, startDay, finishDay, duration, bd);
 										
+										TreeMap<String,AnimeData> map = checkDataConflict(finishDay, type);
+										
+										System.out.println(map.equals(AnimeIndex.completedMap));
 									}
 										
 							}
