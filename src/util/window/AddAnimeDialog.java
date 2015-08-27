@@ -1067,7 +1067,7 @@ public class AddAnimeDialog extends JDialog
 					JPanel button2Panel = new JPanel();
 					anilistAddPanel.add(button2Panel, BorderLayout.SOUTH);
 					{
-						button2Panel.setLayout(new MigLayout("", "[74.00px][159.00px][361.00][][143.00px]", "[23px,grow]"));
+						button2Panel.setLayout(new MigLayout("", "[74.00px][159.00px,grow][361.00][][143.00px]", "[23px,grow]"));
 					}
 					{
 						JLabel lblControllaIn = new JLabel("Controlla in :");
