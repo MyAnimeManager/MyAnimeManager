@@ -329,7 +329,6 @@ public class WishlistDialog extends JDialog
 			}
 			{
 				btnID = new JButton("Visualizza");
-				btnID.setIcon(new ImageIcon(WishlistDialog.class.getResource("/image/wishlist_256.png")));
 				btnID.setEnabled(false);
 				btnID.setMargin(new Insets(0, 14, 0, 14));
 				btnID.addActionListener(new ActionListener() {
