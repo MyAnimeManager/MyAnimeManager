@@ -1598,7 +1598,7 @@ public class AddAnimeDialog extends JDialog
 			
 			if (today.before(finish) && (type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
 			{
-				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è ancora completo. Vuoi aggiungerlo agli anime in corso?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è ancora in corso. Vuoi aggiungerlo agli \"Anime in Corso\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (choiche == 0)
 					map = AnimeIndex.airingMap;
 				else
@@ -1609,7 +1609,7 @@ public class AddAnimeDialog extends JDialog
 			{
 				if (type.equalsIgnoreCase("Movie"))
 				{
-					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai film?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai \"Film\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
 						map = AnimeIndex.filmMap;
 					else
@@ -1618,7 +1618,13 @@ public class AddAnimeDialog extends JDialog
 				
 				if (type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("Ova") || type.equalsIgnoreCase("Ona"))
 				{
-					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un Ova/Special. Vuoi aggiungerlo alla sezione Ova?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int choiche;
+					if(type.equalsIgnoreCase("Special"))
+						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è uno Special. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					else if(type.equalsIgnoreCase("Ova"))
+						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un OAV. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					else
+						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un ONA. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
 						map = AnimeIndex.ovaMap;
 					else
@@ -1642,7 +1648,7 @@ public class AddAnimeDialog extends JDialog
 			
 			if (today.after(finish) && (type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
 			{
-				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è già completo. Vuoi aggiungerlo agli anime completi da vedere?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è concluso. Vuoi aggiungerlo agli anime \"Completi da Vedere\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (choiche == 0)
 					map = AnimeIndex.completedToSeeMap;
 				else
@@ -1653,7 +1659,7 @@ public class AddAnimeDialog extends JDialog
 			{
 				if (type.equalsIgnoreCase("Movie"))
 				{
-					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai film?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai \"Film\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
 						map = AnimeIndex.filmMap;
 					else
@@ -1662,7 +1668,13 @@ public class AddAnimeDialog extends JDialog
 				
 				if (type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("Ova") || type.equalsIgnoreCase("Ona"))
 				{
-					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un Ova/Special. Vuoi aggiungerlo alla sezione Ova?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int choiche;
+					if(type.equalsIgnoreCase("Special"))
+						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è uno Special. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					else if(type.equalsIgnoreCase("Ova"))
+						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un OAV. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					else
+						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un ONA. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
 						map = AnimeIndex.ovaMap;
 					else
@@ -1681,7 +1693,7 @@ public class AddAnimeDialog extends JDialog
 			{
 				if (type.equalsIgnoreCase("Movie"))
 				{
-					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai film?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai \"Film\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
 						map = AnimeIndex.filmMap;
 					else
@@ -1703,7 +1715,7 @@ public class AddAnimeDialog extends JDialog
 				
 				if (today.before(finish))
 				{
-				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un Oav/Special. Vuoi aggiungerlo agli anime in corso?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un OAV o uno Special. Vuoi aggiungerlo agli \"Anime in Corso\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (choiche == 0)
 					map = AnimeIndex.airingMap;
 				else
@@ -1711,9 +1723,9 @@ public class AddAnimeDialog extends JDialog
 				}
 				else if (today.after(finish))
 				{
-					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un Oav/Special. Vuoi aggiungerlo agli anime completati?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un OAV o uno Special. Vuoi aggiungerlo agli anime \"Completi da Vedere\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
-						map = AnimeIndex.completedMap;
+						map = AnimeIndex.completedToSeeMap;
 					else
 						map = AnimeIndex.ovaMap;
 				}
@@ -1730,7 +1742,13 @@ public class AddAnimeDialog extends JDialog
 			{
 				if (type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("Ova") || type.equalsIgnoreCase("Ona"))
 				{
-					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo alla sezione Ova?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int choiche;
+					if(type.equalsIgnoreCase("Special"))
+						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è uno Special. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					else if(type.equalsIgnoreCase("Ova"))
+						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un OAV. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					else
+						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un ONA. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
 						map = AnimeIndex.ovaMap;
 					else
@@ -1752,7 +1770,7 @@ public class AddAnimeDialog extends JDialog
 				
 				if (today.before(finish))
 				{
-				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un Oav/Special. Vuoi aggiungerlo agli anime in corso?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un OAV o uno Special. Vuoi aggiungerlo agli \"Anime in Corso\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (choiche == 0)
 					map = AnimeIndex.airingMap;
 				else
@@ -1760,9 +1778,9 @@ public class AddAnimeDialog extends JDialog
 				}
 				else if (today.after(finish))
 				{
-					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un Oav/Special. Vuoi aggiungerlo agli anime completati?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un OAV o uno Special. Vuoi aggiungerlo agli anime \"Completi da Vedere\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
-						map = AnimeIndex.completedMap;
+						map = AnimeIndex.completedToSeeMap;
 					else
 						map = AnimeIndex.filmMap;
 				}
@@ -1785,7 +1803,7 @@ public class AddAnimeDialog extends JDialog
 			
 			if (today.before(finish) && (type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
 			{
-				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è ancora completo. Vuoi aggiungerlo agli anime in corso?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è ancora in corso. Vuoi aggiungerlo agli \"Anime in Corso\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (choiche == 0)
 					map = AnimeIndex.airingMap;
 				else
@@ -1796,7 +1814,7 @@ public class AddAnimeDialog extends JDialog
 			{
 				if (type.equalsIgnoreCase("Movie"))
 				{
-					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai film?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai \"Film\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
 						map = AnimeIndex.filmMap;
 					else
@@ -1805,7 +1823,13 @@ public class AddAnimeDialog extends JDialog
 				
 				if (type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("Ova") || type.equalsIgnoreCase("Ona"))
 				{
-					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un Ova/Special. Vuoi aggiungerlo alla sezione Ova?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int choiche;
+					if(type.equalsIgnoreCase("Special"))
+						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è uno Special. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					else if(type.equalsIgnoreCase("Ova"))
+						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un OAV. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					else
+						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un ONA. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
 						map = AnimeIndex.ovaMap;
 					else
