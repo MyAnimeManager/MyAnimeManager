@@ -181,6 +181,7 @@ public class AddFansubDialog extends JDialog
 								linkAddField.setEnabled(false);
 								addButton.setText("Salva");
 								fansubAddField.setEnabled(false);
+								fansubAddField.setText("?????");
 							}
 							if(fansubList.getSelectedValue().equals("Dynit")||fansubList.getSelectedValue().equals("Yamato Animation")||fansubList.getSelectedValue().equals("Crunchyroll"))
 							{
