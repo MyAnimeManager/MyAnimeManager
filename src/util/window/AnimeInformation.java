@@ -699,7 +699,7 @@ public class AnimeInformation extends JPanel
 					finishDateField.setText(day);
 				if(finishDateField.getText().length()!=10 && !finishDateField.getText().isEmpty())
 				{
-					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: "+day+")", "Errore!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
 					finishDateField.requestFocusInWindow();
 				}
 			}
