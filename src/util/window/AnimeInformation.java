@@ -538,7 +538,7 @@ public class AnimeInformation extends JPanel
 		
 		exitDaycomboBox = new JComboBox();
 		exitDaycomboBox.setEnabled(false);
-		exitDaycomboBox.setModel(new DefaultComboBoxModel(new String[] {"?????", "Luned\u00EC", "Marted\u00EC", "Mercoled\u00EC", "Gioved\u00EC", "Venerd\u00EC", "Sabato", "Domenica", "Concluso", "Irregolare", "Sospesa"}));
+		exitDaycomboBox.setModel(new DefaultComboBoxModel(new String[] {"?????", "Luned\u00EC", "Marted\u00EC", "Mercoled\u00EC", "Gioved\u00EC", "Venerd\u00EC", "Sabato", "Domenica", "Concluso", "Irregolare", "Sospesa", "Rilasciato"}));
 		GridBagConstraints gbc_exitDaycomboBox = new GridBagConstraints();
 		gbc_exitDaycomboBox.gridwidth = 2;
 		gbc_exitDaycomboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -688,7 +688,7 @@ public class AnimeInformation extends JPanel
 					}
 					AnimeData oldData = map.get(name);
 					AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
-						    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
+						    oldData.getNote(), oldData.getImageName(), "Irregolare", oldData.getId(),
 							oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), 
 							oldData.getFinishDate(), oldData.getDurationEp(), true);
 					map.put(name, newData);

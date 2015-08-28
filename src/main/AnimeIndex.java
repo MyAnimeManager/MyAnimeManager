@@ -26,7 +26,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Properties;
 import java.util.TreeMap;
 
@@ -2351,4 +2354,26 @@ public class AnimeIndex extends JFrame
 		return font;
 	}
 		
+	private static String today()
+	{
+		GregorianCalendar today = new GregorianCalendar();
+		int currentDay = today.get(Calendar.DATE);
+		int currentMonth = today.get(Calendar.MONTH)+1;
+		int currentYear = today.get(Calendar.YEAR);
+		String date = currentDay + "/" + currentMonth + "/" + currentYear;
+		
+		return date;
+	}
+	
+	private static GregorianCalendar getDate(String date)
+	{
+		GregorianCalendar day = new GregorianCalendar();
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/yyyy"); // the day of the week abbreviated
+		try {
+			day.setTime(simpleDateformat.parse(date));
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+		}
+		return day;
+	}
 }
