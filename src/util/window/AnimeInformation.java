@@ -50,6 +50,8 @@ import util.FileManager;
 import util.Filters;
 import util.PatternFilter;
 import util.SortedListModel;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class AnimeInformation extends JPanel
 {
@@ -170,21 +172,46 @@ public class AnimeInformation extends JPanel
 				else 
 				{
 					int num = Integer.parseInt(currentEpisodeField.getText());
-					num++;
+					num++;			
 					if (num == 1)
 					{
 						minusButton.setEnabled(true);
+						if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+						{
+							if(Integer.parseInt(totalEpisodeText.getText())>1)
+							{
+								if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+								{
+									exitDaycomboBox.setSelectedItem("Rilasciato");
+									exitDaycomboBox.setEnabled(false);
+								}
+							}
+						}
+					}
+					else if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+					{
+						exitDaycomboBox.setEnabled(true);
+						exitDaycomboBox.setSelectedItem("?????");
 					}
 			
 					if ((totalEpisodeText.getText()) != null && !(totalEpisodeText.getText().isEmpty()) && !totalEpisodeText.getText().equalsIgnoreCase("??"))
 					{
-						int maxnum = Integer.parseInt(totalEpisodeText.getText());		
+						int maxnum = Integer.parseInt(totalEpisodeText.getText());	
 						if (num == maxnum)
 						{
 							plusButton.setEnabled(false);
 							String listName = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();				
 							if (!listName.equalsIgnoreCase("anime completati"))
 							finishedButton.setEnabled(true);
+							if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+							{
+								if(AnimeIndex.getDate(finishDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+								{
+									exitDaycomboBox.setSelectedItem("Concluso");
+									exitDaycomboBox.setEnabled(false);
+								}
+							}
+							
 						}
 					}
 					currentEpisodeField.setText(Integer.toString(num));
@@ -219,6 +246,18 @@ public class AnimeInformation extends JPanel
 		//secondo numero = massimo numero a cui può arrivare
 	
 		currentEpisodeField = new JTextField();
+		currentEpisodeField.addFocusListener(new FocusAdapter() {
+			String num;
+			@Override
+			public void focusGained(FocusEvent e) {
+				num = currentEpisodeField.getText();
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(currentEpisodeField.getText().isEmpty())
+					currentEpisodeField.setText(num);
+			}
+		});
 		currentEpisodeField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -239,21 +278,72 @@ public class AnimeInformation extends JPanel
 						e.consume();
 					}
 					
-					if (currEp == totEp)
-					{
-						plusButton.setEnabled(false);
-						finishedButton.setEnabled(true);
-					}
 					if (currEp < totEp)
 					{
 						minusButton.setEnabled(true);
 						plusButton.setEnabled(true);
 						finishedButton.setEnabled(false);
+						
+						if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+						{
+							exitDaycomboBox.setSelectedItem("?????");
+							exitDaycomboBox.setEnabled(true);
+						}
 					}
+					
 					if (currEp == 0)
 					{
 						minusButton.setEnabled(false);
 						finishedButton.setEnabled(false);
+						
+						if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+						{
+							if(Integer.parseInt(totalEpisodeText.getText())>1)
+							{
+								if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+								{
+									exitDaycomboBox.setSelectedItem("Rilasciato");
+									exitDaycomboBox.setEnabled(false);
+								}
+							}
+							else
+							{
+								if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+								{
+									exitDaycomboBox.setSelectedItem("Concluso");
+									exitDaycomboBox.setEnabled(false);
+								}
+							}
+						}
+					}
+					if(currEp==1)
+					{
+						if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+						{
+							if(Integer.parseInt(totalEpisodeText.getText())>1)
+							{
+								if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+								{
+									exitDaycomboBox.setSelectedItem("Rilasciato");
+									exitDaycomboBox.setEnabled(false);
+								}
+							}
+						}
+					}
+									
+					if (currEp == totEp)
+					{
+						plusButton.setEnabled(false);
+						finishedButton.setEnabled(true);
+						
+						if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+						{
+							if(AnimeIndex.getDate(finishDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+							{
+								exitDaycomboBox.setSelectedItem("Concluso");
+								exitDaycomboBox.setEnabled(false);
+							}
+						}
 					}
 				}
 			}
@@ -288,22 +378,74 @@ public class AnimeInformation extends JPanel
 				int num = Integer.parseInt(currentEpisodeField.getText());
 				if (num != 0)
 				{
-				num--;
-				currentEpisodeField.setText(Integer.toString(num));
+					num--;
+					currentEpisodeField.setText(Integer.toString(num));
+					if(num==1)
+					{
+						if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+						{
+							if(Integer.parseInt(totalEpisodeText.getText())>1)
+							{
+								if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+								{
+									exitDaycomboBox.setSelectedItem("Rilasciato");
+									exitDaycomboBox.setEnabled(false);
+								}
+							}
+							else
+							{
+								if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+								{
+									exitDaycomboBox.setSelectedItem("Concluso");
+									exitDaycomboBox.setEnabled(false);
+								}
+							}
+						}
+					}
+				
 					if (num == 0)
 					{
 						minusButton.setEnabled(false);
 						plusButton.requestFocusInWindow();
+						if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+						{
+							if(Integer.parseInt(totalEpisodeText.getText())>1)
+							{
+								if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+								{
+									exitDaycomboBox.setSelectedItem("Rilasciato");
+									exitDaycomboBox.setEnabled(false);
+								}
+							}
+							else
+							{
+								if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+								{
+									exitDaycomboBox.setSelectedItem("Concluso");
+									exitDaycomboBox.setEnabled(false);
+								}
+							}
+						}
 					}
 					
 					if ( (totalEpisodeText.getText()) != null && !(totalEpisodeText.getText().isEmpty()))
 					{	
 						if (!totalEpisodeText.getText().equals("??"))
 						{
-						int maxnum = Integer.parseInt(totalEpisodeText.getText());
-						if (num < maxnum)
-							plusButton.setEnabled(true);
-							finishedButton.setEnabled(false);
+							int maxnum = Integer.parseInt(totalEpisodeText.getText());
+							if (num < maxnum)
+							{
+								plusButton.setEnabled(true);
+								finishedButton.setEnabled(false);
+							}
+							if(num==maxnum-1 && Integer.parseInt(totalEpisodeText.getText())>1)
+							{
+								if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+								{
+									exitDaycomboBox.setSelectedItem("?????");
+									exitDaycomboBox.setEnabled(true);
+								}
+							}
 						}
 					}
 				}

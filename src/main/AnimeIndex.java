@@ -2354,7 +2354,7 @@ public class AnimeIndex extends JFrame
 		return font;
 	}
 		
-	private static String today()
+	public static String today()
 	{
 		GregorianCalendar today = new GregorianCalendar();
 		int currentDay = today.get(Calendar.DATE);
@@ -2365,7 +2365,7 @@ public class AnimeIndex extends JFrame
 		return date;
 	}
 	
-	private static GregorianCalendar getDate(String date)
+	public static GregorianCalendar getDate(String date)
 	{
 		GregorianCalendar day = new GregorianCalendar();
 		SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/yyyy"); // the day of the week abbreviated
