@@ -51,6 +51,7 @@ import util.ConnectionManager;
 import util.FileManager;
 import util.Filters;
 import util.SearchBar;
+import util.SortedListModel;
 
 import javax.swing.ImageIcon;
 
@@ -88,7 +89,7 @@ public class AddAnimeDialog extends JDialog
 	private JTextField currentEpisodeText;
 	private JComboBox fansubComboBox;
 	private JComboBox exitdayComboBox;
-	private JComboBox listToAdd;
+	private static JComboBox listToAdd;
 	private JTextField totEpField;
 	private JComboBox typeComboBox;
 	private JComboBox checkDataConflictComboBox;
@@ -818,6 +819,7 @@ public class AddAnimeDialog extends JDialog
 						gbc_fansubComboBox.gridy = 5;
 						fansubComboBox.setModel(new DefaultComboBoxModel(AnimeIndex.getFansubList()));
 						dataPanel.add(fansubComboBox, gbc_fansubComboBox);
+						fansubComboBox.setSelectedItem("?????");
 					}
 					{
 						checkDataConflictComboBoxManualAdd = new JComboBox();
@@ -1058,26 +1060,143 @@ public class AddAnimeDialog extends JDialog
 										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "", exitDay, "", "", "", startDay, startDay, finishDay, duration, bd);
 										
 										TreeMap<String,AnimeData> map = null;
-										if (!(finishDay.isEmpty() && type.isEmpty()))
-												map = checkDataConflict(finishDay, type);
-										else
+										SortedListModel model = null;
+										JList jlist = null;
+										String list = null;
+										boolean contains = false;
+										if (checkCompletedList==false && checkAiringList==false && checkOAVList==false && checkFilmList==false && checkToSeeList==false) 
 										{
-											String list = (String) listToAdd.getSelectedItem();
+											if (!((finishDay.equalsIgnoreCase("//") && type.equalsIgnoreCase("?????"))))
+											{
+												map = checkDataConflict(finishDay, type);
+												if (map.equals(AnimeIndex.completedMap))
+													model = AnimeIndex.completedModel;
+												else if (map.equals(AnimeIndex.airingMap))
+													model = AnimeIndex.airingModel;
+												else if (map.equals(AnimeIndex.ovaMap))
+													model = AnimeIndex.ovaModel;
+												else if (map.equals(AnimeIndex.filmMap))
+													model = AnimeIndex.filmModel;
+												else if (map.equals(AnimeIndex.completedToSeeMap))
+													model = AnimeIndex.completedToSeeModel;
+											}
+											else 
+											{
+												list = (String) listToAdd.getSelectedItem();
+
+												if (list.equalsIgnoreCase("anime completati"))
+												{
+													map = AnimeIndex.completedMap;
+													model = AnimeIndex.completedModel;
+													jlist = AnimeIndex.completedList;
+												}	
+												else if (list.equalsIgnoreCase("anime in corso"))
+												{
+													map = AnimeIndex.airingMap;
+													model = AnimeIndex.airingModel;	
+													jlist = AnimeIndex.airingList;
+												}
+												else if (list.equalsIgnoreCase("oav"))
+												{
+													map = AnimeIndex.ovaMap;
+													model = AnimeIndex.ovaModel;
+													jlist = AnimeIndex.ovaList;
+												}	
+												else if (list.equalsIgnoreCase("film"))
+												{
+													map = AnimeIndex.filmMap;
+													model = AnimeIndex.filmModel;
+													jlist = AnimeIndex.filmList;
+												}	
+												else if (list.equalsIgnoreCase("completati da vedere"))
+												{	
+													map = AnimeIndex.completedToSeeMap;
+													model = AnimeIndex.completedToSeeModel;
+													jlist = AnimeIndex.completedToSeeList;
+												}	
+
+												model.addElement(name);
+												map.put(name, data);
+												AnimeIndex.animeTypeComboBox.setSelectedItem(list);
+												jlist.clearSelection();
+												jlist.setSelectedValue(name, true);
+												AddAnimeDialog.this.dispose();
+											}
 											
-											if (list.equalsIgnoreCase("anime completati"))
-												map = AnimeIndex.completedMap;
-											else if (list.equalsIgnoreCase("anime in corso"))
-												map = AnimeIndex.airingMap;
-											else if(list.equalsIgnoreCase("oav"))
-												map = AnimeIndex.ovaMap;
-											else if(list.equalsIgnoreCase("film"))
-												map = AnimeIndex.filmMap;
-											else if(list.equalsIgnoreCase("completati da vedere"))
-												map = AnimeIndex.completedToSeeMap;										
 										}
 										
 										//TODO controllo per le liste
-										
+										else
+										{
+											boolean ok = true;
+											if (checkCompletedList==true)
+											{
+												if (AnimeIndex.completedMap.containsKey(name))
+												{
+													JOptionPane.showMessageDialog(AddAnimeDialog.this, "Anime già presente in \"Anime Completati\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+													contains = true;
+													ok = false;
+												}
+											}
+											if (checkAiringList==true)
+											{
+												if (AnimeIndex.airingMap.containsKey(name))
+												{
+													JOptionPane.showMessageDialog(AddAnimeDialog.this, "Anime già presente in \"Anime in Corso\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+													contains = true;
+													ok = false;
+												}
+											}
+											if (checkOAVList==true)
+											{
+												if (AnimeIndex.ovaMap.containsKey(name))
+												{
+													JOptionPane.showMessageDialog(AddAnimeDialog.this, "Anime già presente in \"OAV\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+													contains = true;
+													ok = false;
+												}
+											}
+											if (checkFilmList==true)
+											{
+												if (AnimeIndex.filmMap.containsKey(name))
+												{
+													JOptionPane.showMessageDialog(AddAnimeDialog.this, "Anime già presente in \"Film\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+													contains = true;
+													ok = false;
+												}
+											}
+											if (checkToSeeList==true)
+											{
+												if (AnimeIndex.completedToSeeMap.containsKey(name))
+												{
+													JOptionPane.showMessageDialog(AddAnimeDialog.this, "Anime già presente in \"Completi da Vedere\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+													contains = true;
+													ok = false;
+												}
+											}
+											if(ok==true)
+											{	
+												if(!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !AnimeIndex.ovaMap.containsKey(name) && !AnimeIndex.filmMap.containsKey(name) && !AnimeIndex.completedToSeeMap.containsKey(name))
+													AnimeIndex.sessionAddedAnime.add(name);
+												
+												map = checkDataConflict(finishDay, type);
+												
+												if (map.equals(AnimeIndex.completedMap))
+													model = AnimeIndex.completedModel;
+												else if (map.equals(AnimeIndex.airingMap))
+													model = AnimeIndex.airingModel;
+												else if (map.equals(AnimeIndex.ovaMap))
+													model = AnimeIndex.ovaModel;
+												else if (map.equals(AnimeIndex.filmMap))
+													model = AnimeIndex.filmModel;
+												else if (map.equals(AnimeIndex.completedToSeeMap))
+													model = AnimeIndex.completedToSeeModel;
+												
+												model.addElement(name);
+												map.put(name, data);
+												AddAnimeDialog.this.dispose();
+											}
+										}
 									}
 										
 							}
@@ -1689,10 +1808,11 @@ public class AddAnimeDialog extends JDialog
 	{
 		TreeMap<String,AnimeData> map = null;
 		
-		String listName = (String) listToAddAniComboBox.getSelectedItem();
+		String listName = (String) listToAdd.getSelectedItem();
 		
 		if (listName.equalsIgnoreCase("anime completati"))
 		{
+			map = AnimeIndex.completedMap;
 			Date today = new Date();
 			Date finish = null;
 			
@@ -1738,12 +1858,11 @@ public class AddAnimeDialog extends JDialog
 						map = AnimeIndex.completedMap;
 				}
 			}
-			else
-				map = AnimeIndex.completedMap;
 		}
 		
 		else if (listName.equalsIgnoreCase("anime in corso"))
 		{
+			map = AnimeIndex.airingMap;
 			Date today = new Date();
 			Date finish = null;
 			
@@ -1789,14 +1908,11 @@ public class AddAnimeDialog extends JDialog
 						map = AnimeIndex.airingMap;
 				}
 			}
-			
-			else 
-				map = AnimeIndex.airingMap;
 		}
 		
 		else if (listName.equalsIgnoreCase("oav"))
 		{
-			
+			map = AnimeIndex.ovaMap;
 			if (!(type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
 			{
 				if (type.equalsIgnoreCase("Movie"))
@@ -1839,13 +1955,13 @@ public class AddAnimeDialog extends JDialog
 						map = AnimeIndex.ovaMap;
 				}
 			}
-			
-			else
-				map = AnimeIndex.ovaMap;
+
 		}
 		
 		else if (listName.equalsIgnoreCase("film"))
 		{
+			
+			map = AnimeIndex.filmMap;
 			
 			if (!(type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
 			{
@@ -1895,13 +2011,12 @@ public class AddAnimeDialog extends JDialog
 						map = AnimeIndex.filmMap;
 				}
 			}
-			
-			else
-				map = AnimeIndex.filmMap;
+
 		}
 		
 		else if (listName.equalsIgnoreCase("completi da vedere"))
 		{
+			map = AnimeIndex.completedToSeeMap;
 			Date today = new Date();
 			Date finish = null;
 			
@@ -1947,105 +2062,9 @@ public class AddAnimeDialog extends JDialog
 						map = AnimeIndex.completedToSeeMap;
 				}
 			}
-			else
-				map = AnimeIndex.completedToSeeMap;
+
 		}
 		
 		return map;	
 	}
 }
-
-
-//	String listName = getListToAdd();
-//	JList list = null;
-//	boolean contains = false;
-//	
-//	if (listName.equalsIgnoreCase("anime completati"))
-//	{	
-//		if (AnimeIndex.completedMap.containsKey(name))
-//		{
-//			JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
-//			contains = true;
-//		}
-//		else
-//		{
-//		AnimeIndex.completedMap.put(name, data);
-//		AnimeIndex.completedModel.addElement(AnimeIndex.animeDialog.getName());						
-//		AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-//		AnimeIndex.completedList.setSelectedValue(name, true);
-//		AnimeIndex.completedSessionAnime.add(name);
-//		}
-//	}				
-//	else if (listName.equalsIgnoreCase("anime in corso"))
-//	{
-//		if (AnimeIndex.airingMap.containsKey(name))
-//		{
-//			JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
-//			contains = true;
-//		}
-//		else
-//		{
-//		AnimeIndex.airingMap.put(name, data);
-//		AnimeIndex.airingModel.addElement(AnimeIndex.animeDialog.getName());
-//		AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-//		AnimeIndex.airingList.setSelectedValue(name, true);
-//		AnimeIndex.airingSessionAnime.add(name);
-//		}
-//	}
-//	else if (listName.equalsIgnoreCase("oav"))
-//	{
-//		if (AnimeIndex.ovaMap.containsKey(name))
-//		{
-//			JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
-//			contains = true;
-//		}
-//		else
-//		{
-//		AnimeIndex.ovaMap.put(name, data);
-//		AnimeIndex.ovaModel.addElement(AnimeIndex.animeDialog.getName());
-//		AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-//		AnimeIndex.ovaList.setSelectedValue(name, true);
-//		AnimeIndex.ovaSessionAnime.add(name);
-//		}
-//	}
-//	else if (listName.equalsIgnoreCase("film"))
-//	{
-//		if (AnimeIndex.filmMap.containsKey(name))
-//		{
-//			JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
-//			contains = true;
-//		}
-//		else
-//		{
-//		AnimeIndex.filmMap.put(name, data);
-//		AnimeIndex.filmModel.addElement(AnimeIndex.animeDialog.getName());
-//		AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-//		AnimeIndex.filmList.setSelectedValue(name, true);
-//		AnimeIndex.filmSessionAnime.add(name);
-//		}
-//	}
-//	else if (listName.equalsIgnoreCase("completi da vedere"))
-//	{
-//		if (AnimeIndex.completedToSeeMap.containsKey(name))
-//		{
-//			JOptionPane.showMessageDialog(contentPanel, "Anime già presente", "Errore!", JOptionPane.ERROR_MESSAGE);
-//			contains = true;
-//		}
-//		else
-//		{
-//		AnimeIndex.completedToSeeMap.put(name, data);
-//		AnimeIndex.completedToSeeModel.addElement(AnimeIndex.animeDialog.getName());
-//		AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-//		AnimeIndex.completedToSeeList.setSelectedValue(name, true);
-//		AnimeIndex.completedToSeeSessionAnime.add(name);
-//		}
-//	}
-//	
-//	if (!contains)
-//	{
-//	JButton but = (JButton) e.getSource();
-//	JDialog dialog = (JDialog) but.getTopLevelAncestor();
-//	dialog.dispose();
-//	}
-//}
-//}

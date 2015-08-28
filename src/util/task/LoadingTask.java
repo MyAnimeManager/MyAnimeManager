@@ -25,6 +25,11 @@ public class LoadingTask extends SwingWorker
 		FileManager.loadAnime("film.anaconda", AnimeIndex.filmModel, AnimeIndex.filmMap);
 		FileManager.loadAnime("toSee.anaconda", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
 		FileManager.loadWishList();
+		AnimeIndex.completedList.revalidate();
+		AnimeIndex.airingList.revalidate();
+		AnimeIndex.ovaList.revalidate();
+		AnimeIndex.filmList.revalidate();
+		AnimeIndex.completedToSeeList.revalidate();
 		AnimeIndex.completedList.repaint();
 		AnimeIndex.airingList.repaint();
 		AnimeIndex.ovaList.repaint();
