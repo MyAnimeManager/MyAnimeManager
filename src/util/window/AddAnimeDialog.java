@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -17,7 +18,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,6 +43,7 @@ import javax.swing.JToggleButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.AbstractDocument;
 
 import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
@@ -50,12 +51,9 @@ import util.AnimeData;
 import util.ConnectionManager;
 import util.FileManager;
 import util.Filters;
+import util.PatternFilter;
 import util.SearchBar;
 import util.SortedListModel;
-
-import javax.swing.ImageIcon;
-
-import java.awt.Font;
 
 public class AddAnimeDialog extends JDialog
 {
@@ -857,6 +855,19 @@ public class AddAnimeDialog extends JDialog
 					}
 					{
 						startDayField = new JTextField();
+						startDayField.addKeyListener(new KeyAdapter() {
+							@Override
+							public void keyTyped(KeyEvent e) {
+								char key = e.getKeyChar();
+								String textDay = startDayField.getText() + key;
+								if (Character.isDigit(key))
+								{
+									int day = Integer.parseInt(textDay);
+									if (day > 31)
+										e.consume();
+								}
+							}
+						});
 						GridBagConstraints gbc_startDayField = new GridBagConstraints();
 						gbc_startDayField.fill = GridBagConstraints.HORIZONTAL;
 						gbc_startDayField.insets = new Insets(0, 0, 5, 5);
@@ -864,6 +875,7 @@ public class AddAnimeDialog extends JDialog
 						gbc_startDayField.gridy = 6;
 						dataPanel.add(startDayField, gbc_startDayField);
 						startDayField.setColumns(10);
+						((AbstractDocument)startDayField.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,2}||\\?{0,2}"));
 					}
 					{
 						JLabel label = new JLabel("/");
@@ -876,6 +888,19 @@ public class AddAnimeDialog extends JDialog
 					}
 					{
 						startMonthField = new JTextField();
+						startMonthField.addKeyListener(new KeyAdapter() {
+							@Override
+							public void keyTyped(KeyEvent e) {
+								char key = e.getKeyChar();
+								String textMonth = startMonthField.getText() + key;
+								if (Character.isDigit(key))
+								{
+									int month = Integer.parseInt(textMonth);
+									if (month > 12)
+										e.consume();
+								}
+							}
+						});
 						GridBagConstraints gbc_startMonthField = new GridBagConstraints();
 						gbc_startMonthField.fill = GridBagConstraints.HORIZONTAL;
 						gbc_startMonthField.insets = new Insets(0, 0, 5, 5);
@@ -883,6 +908,7 @@ public class AddAnimeDialog extends JDialog
 						gbc_startMonthField.gridy = 6;
 						dataPanel.add(startMonthField, gbc_startMonthField);
 						startMonthField.setColumns(10);
+						((AbstractDocument)startMonthField.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,2}||\\?{0,2}"));
 					}
 					{
 						JLabel label = new JLabel("/");
@@ -902,6 +928,7 @@ public class AddAnimeDialog extends JDialog
 						gbc_startYearField.gridy = 6;
 						dataPanel.add(startYearField, gbc_startYearField);
 						startYearField.setColumns(10);
+						((AbstractDocument)startYearField.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,4}||\\?{0,4}"));
 					}
 					{
 						JLabel lblDataDiFine = new JLabel("Data di Fine :");
@@ -913,6 +940,19 @@ public class AddAnimeDialog extends JDialog
 					}
 					{
 						finishDayField = new JTextField();
+						finishDayField.addKeyListener(new KeyAdapter() {
+							@Override
+							public void keyTyped(KeyEvent e) {
+								char key = e.getKeyChar();
+								String textDay = finishDayField.getText() + key;
+								if (Character.isDigit(key))
+								{
+									int day = Integer.parseInt(textDay);
+									if (day > 31)
+										e.consume();
+								}
+							}
+						});
 						GridBagConstraints gbc_finishDayField = new GridBagConstraints();
 						gbc_finishDayField.fill = GridBagConstraints.HORIZONTAL;
 						gbc_finishDayField.insets = new Insets(0, 0, 5, 5);
@@ -920,6 +960,7 @@ public class AddAnimeDialog extends JDialog
 						gbc_finishDayField.gridy = 7;
 						dataPanel.add(finishDayField, gbc_finishDayField);
 						finishDayField.setColumns(10);
+						((AbstractDocument)finishDayField.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,2}||\\?{0,2}"));
 					}
 					{
 						JLabel label = new JLabel("/");
@@ -932,6 +973,19 @@ public class AddAnimeDialog extends JDialog
 					}
 					{
 						finishMonthField = new JTextField();
+						finishMonthField.addKeyListener(new KeyAdapter() {
+							@Override
+							public void keyTyped(KeyEvent e) {
+								char key = e.getKeyChar();
+								String textMonth = finishMonthField.getText() + key;
+								if (Character.isDigit(key))
+								{
+									int month = Integer.parseInt(textMonth);
+									if (month > 12)
+										e.consume();
+								}
+							}
+						});
 						GridBagConstraints gbc_finishMonthField = new GridBagConstraints();
 						gbc_finishMonthField.fill = GridBagConstraints.HORIZONTAL;
 						gbc_finishMonthField.insets = new Insets(0, 0, 5, 5);
@@ -939,6 +993,7 @@ public class AddAnimeDialog extends JDialog
 						gbc_finishMonthField.gridy = 7;
 						dataPanel.add(finishMonthField, gbc_finishMonthField);
 						finishMonthField.setColumns(10);
+						((AbstractDocument)finishMonthField.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,2}||\\?{0,2}"));
 					}
 					{
 						JLabel label = new JLabel("/");
@@ -958,6 +1013,7 @@ public class AddAnimeDialog extends JDialog
 						gbc_finishYearField.gridy = 7;
 						dataPanel.add(finishYearField, gbc_finishYearField);
 						finishYearField.setColumns(10);
+						((AbstractDocument)finishYearField.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,4}||\\?{0,4}"));
 					}
 					{
 						JTextPane txtpnConLaggiuntaManuale = new JTextPane();
@@ -1051,17 +1107,58 @@ public class AddAnimeDialog extends JDialog
 										String currentEp =currentEpisodeText.getText();
 										String totEp = totEpField.getText();
 										String duration = durationField.getText();
+										if (duration.isEmpty())
+											duration = "?? min";
 										String fansub = (String)fansubComboBox.getSelectedItem();
-										String startDay = startDayField.getText() + "/" + startMonthField.getText() + "/" + startYearField.getText();
-										String finishDay = finishDayField.getText() + "/" + finishMonthField.getText() + "/" + finishYearField.getText();
+												
+										String startDay = startDayField.getText();
+										if (startDay.length() < 2)
+											startDay = 0 + startDay;
+										String startMonth = startMonthField.getText();
+										if (startMonth.length() < 2)
+											startMonth = 0 + startMonth;
+										String startYear = startYearField.getText();
+										if (startYear.length() < 4)
+										{
+											if (startYear.length() == 3)
+												startYear = "?" + startYear;
+											if (startYear.length() == 2)
+												startYear = "??" + startYear;
+											if (startYear.length() == 1)
+												startYear = "???" + startYear;
+										}
+										String startDate = startDay + "/" + startMonth + "/" + startYear;
+										if (startDate.equals("//"))
+											startDate = "??/??/????";
+										
+										String finishDay = finishDayField.getText();
+										if (finishDay.length() < 2)
+											finishDay = 0 + finishDay;
+										String finishMonth = finishMonthField.getText();
+										if (finishMonth.length() < 2)
+											finishMonth = 0 + finishMonth;
+										String finishYear = finishYearField.getText();
+										if (finishYear.length() < 4)
+										{
+											if (finishYear.length() == 3)
+												finishYear = "?" + finishYear;
+											if (finishYear.length() == 2)
+												finishYear = "??" + finishYear;
+											if (finishYear.length() == 1)
+												finishYear = "???" + finishYear;
+										}
+										String finishDate = finishDay + "/" + finishMonth + "/" + finishYear;
+										if (finishDate.equals("//"))
+											finishDate = "??/??/????";
+										
 										String exitDay = (String)exitdayComboBox.getSelectedItem();
 										boolean bd = false;
 										if (type.equalsIgnoreCase("blu-ray"))
 											bd = true;
-										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "", exitDay, "", "", "", startDay, startDay, finishDay, duration, bd);
+										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
 										
 										//TODO controllo e aggiunta nella lista corrispondente
-										if (finishDay.equalsIgnoreCase("//") || type.equalsIgnoreCase("?????"))
+										if (finishDate.equalsIgnoreCase("//") || type.equalsIgnoreCase("?????"))
 										{
 											String listName = (String) listToAdd.getSelectedItem();
 											JList list = AddAnimeDialog.getJList(listName);
