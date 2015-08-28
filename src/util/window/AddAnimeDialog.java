@@ -1174,7 +1174,7 @@ public class AddAnimeDialog extends JDialog
 										}
 										else
 										{
-											manualAnimeAdd(name, data, finishDay, type);
+											manualAnimeAdd(name, data, finishDate, type);
 										}
 										
 									}
