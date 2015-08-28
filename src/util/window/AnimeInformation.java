@@ -254,8 +254,11 @@ public class AnimeInformation extends JPanel
 			}
 			@Override
 			public void focusLost(FocusEvent e) {
-				if(currentEpisodeField.getText().isEmpty())
-					currentEpisodeField.setText(num);
+				if(!e.getOppositeComponent().equals("plusButton"))
+				{
+					if(currentEpisodeField.getText().isEmpty())
+						currentEpisodeField.setText(num);
+				}
 			}
 		});
 		currentEpisodeField.addKeyListener(new KeyAdapter() {
