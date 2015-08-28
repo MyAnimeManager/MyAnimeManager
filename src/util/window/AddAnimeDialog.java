@@ -69,7 +69,7 @@ public class AddAnimeDialog extends JDialog
 	private JButton addAniButton;
 	private JPanel anilistAddPanel;
 	private JPanel normalAddPanel;
-	private JCheckBox keepOpen;
+	private static JCheckBox keepOpen;
 	public SetCheckDialog checkDialog;
 	public static JToggleButton checkToggleButton;
 	public static JToggleButton listSlectionToggleButton;
@@ -94,6 +94,7 @@ public class AddAnimeDialog extends JDialog
 	private JComboBox typeComboBox;
 	private JComboBox checkDataConflictComboBox;
 	private JComboBox checkDataConflictComboBoxManualAdd;
+	private static JTabbedPane tabbedPane;
 
 	/**
 	 * Create the dialog.
@@ -123,7 +124,7 @@ public class AddAnimeDialog extends JDialog
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
 		{
-			JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+			tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 			getContentPane().add(tabbedPane, BorderLayout.CENTER);
 			{
 				normalAddPanel = new JPanel();
@@ -1044,7 +1045,7 @@ public class AddAnimeDialog extends JDialog
 											{
 											currentEpisodeText.setText("1");
 											}
-										//TODO controllo e aggiunta nella lista corrispondente
+										
 										String name = nameField.getText();
 										String type = (String)typeComboBox.getSelectedItem();
 										String currentEp =currentEpisodeText.getText();
@@ -1059,146 +1060,27 @@ public class AddAnimeDialog extends JDialog
 											bd = true;
 										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "", exitDay, "", "", "", startDay, startDay, finishDay, duration, bd);
 										
-										TreeMap<String,AnimeData> map = null;
-										SortedListModel model = null;
-										JList jlist = null;
-										String list = null;
-										boolean contains = false;
-										if (checkCompletedList==false && checkAiringList==false && checkOAVList==false && checkFilmList==false && checkToSeeList==false) 
+										//TODO controllo e aggiunta nella lista corrispondente
+										if (finishDay.equalsIgnoreCase("//") || type.equalsIgnoreCase("?????"))
 										{
-											if (!((finishDay.equalsIgnoreCase("//") && type.equalsIgnoreCase("?????"))))
-											{
-												map = checkDataConflict(finishDay, type);
-												if (map.equals(AnimeIndex.completedMap))
-													model = AnimeIndex.completedModel;
-												else if (map.equals(AnimeIndex.airingMap))
-													model = AnimeIndex.airingModel;
-												else if (map.equals(AnimeIndex.ovaMap))
-													model = AnimeIndex.ovaModel;
-												else if (map.equals(AnimeIndex.filmMap))
-													model = AnimeIndex.filmModel;
-												else if (map.equals(AnimeIndex.completedToSeeMap))
-													model = AnimeIndex.completedToSeeModel;
-											}
-											else 
-											{
-												list = (String) listToAdd.getSelectedItem();
-
-												if (list.equalsIgnoreCase("anime completati"))
-												{
-													map = AnimeIndex.completedMap;
-													model = AnimeIndex.completedModel;
-													jlist = AnimeIndex.completedList;
-												}	
-												else if (list.equalsIgnoreCase("anime in corso"))
-												{
-													map = AnimeIndex.airingMap;
-													model = AnimeIndex.airingModel;	
-													jlist = AnimeIndex.airingList;
-												}
-												else if (list.equalsIgnoreCase("oav"))
-												{
-													map = AnimeIndex.ovaMap;
-													model = AnimeIndex.ovaModel;
-													jlist = AnimeIndex.ovaList;
-												}	
-												else if (list.equalsIgnoreCase("film"))
-												{
-													map = AnimeIndex.filmMap;
-													model = AnimeIndex.filmModel;
-													jlist = AnimeIndex.filmList;
-												}	
-												else if (list.equalsIgnoreCase("completati da vedere"))
-												{	
-													map = AnimeIndex.completedToSeeMap;
-													model = AnimeIndex.completedToSeeModel;
-													jlist = AnimeIndex.completedToSeeList;
-												}	
-
-												model.addElement(name);
-												map.put(name, data);
-												AnimeIndex.animeTypeComboBox.setSelectedItem(list);
-												jlist.clearSelection();
-												jlist.setSelectedValue(name, true);
-												AddAnimeDialog.this.dispose();
-											}
+											String listName = (String) listToAdd.getSelectedItem();
+											JList list = AddAnimeDialog.getJList(listName);
+											SortedListModel model = AddAnimeDialog.getModel(listName);
+											TreeMap<String,AnimeData> map = AddAnimeDialog.getMap(listName);
 											
+											map.put(name, data);
+											model.addElement(name);
+											AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+											list.clearSelection();
+											list.setSelectedValue(name, true);
+											AddAnimeDialog.this.dispose();
 										}
-										
-										//TODO controllo per le liste
 										else
 										{
-											boolean ok = true;
-											if (checkCompletedList==true)
-											{
-												if (AnimeIndex.completedMap.containsKey(name))
-												{
-													JOptionPane.showMessageDialog(AddAnimeDialog.this, "Anime già presente in \"Anime Completati\"", "Errore!", JOptionPane.ERROR_MESSAGE);
-													contains = true;
-													ok = false;
-												}
-											}
-											if (checkAiringList==true)
-											{
-												if (AnimeIndex.airingMap.containsKey(name))
-												{
-													JOptionPane.showMessageDialog(AddAnimeDialog.this, "Anime già presente in \"Anime in Corso\"", "Errore!", JOptionPane.ERROR_MESSAGE);
-													contains = true;
-													ok = false;
-												}
-											}
-											if (checkOAVList==true)
-											{
-												if (AnimeIndex.ovaMap.containsKey(name))
-												{
-													JOptionPane.showMessageDialog(AddAnimeDialog.this, "Anime già presente in \"OAV\"", "Errore!", JOptionPane.ERROR_MESSAGE);
-													contains = true;
-													ok = false;
-												}
-											}
-											if (checkFilmList==true)
-											{
-												if (AnimeIndex.filmMap.containsKey(name))
-												{
-													JOptionPane.showMessageDialog(AddAnimeDialog.this, "Anime già presente in \"Film\"", "Errore!", JOptionPane.ERROR_MESSAGE);
-													contains = true;
-													ok = false;
-												}
-											}
-											if (checkToSeeList==true)
-											{
-												if (AnimeIndex.completedToSeeMap.containsKey(name))
-												{
-													JOptionPane.showMessageDialog(AddAnimeDialog.this, "Anime già presente in \"Completi da Vedere\"", "Errore!", JOptionPane.ERROR_MESSAGE);
-													contains = true;
-													ok = false;
-												}
-											}
-											if(ok==true)
-											{	
-												if(!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !AnimeIndex.ovaMap.containsKey(name) && !AnimeIndex.filmMap.containsKey(name) && !AnimeIndex.completedToSeeMap.containsKey(name))
-													AnimeIndex.sessionAddedAnime.add(name);
-												
-												map = checkDataConflict(finishDay, type);
-												
-												if (map.equals(AnimeIndex.completedMap))
-													model = AnimeIndex.completedModel;
-												else if (map.equals(AnimeIndex.airingMap))
-													model = AnimeIndex.airingModel;
-												else if (map.equals(AnimeIndex.ovaMap))
-													model = AnimeIndex.ovaModel;
-												else if (map.equals(AnimeIndex.filmMap))
-													model = AnimeIndex.filmModel;
-												else if (map.equals(AnimeIndex.completedToSeeMap))
-													model = AnimeIndex.completedToSeeModel;
-												
-												model.addElement(name);
-												map.put(name, data);
-												AddAnimeDialog.this.dispose();
-											}
+											manualAnimeAdd(name, data, finishDay, type);
 										}
-									}
 										
+									}
 							}
 						});
 
@@ -1804,15 +1686,15 @@ public class AddAnimeDialog extends JDialog
 	}
 	
 	
-	private static TreeMap<String,AnimeData> checkDataConflict(String finishDate, String type)
+	private static String checkDataConflict(String finishDate, String type)
 	{
-		TreeMap<String,AnimeData> map = null;
+		String map = "";
 		
 		String listName = (String) listToAdd.getSelectedItem();
 		
 		if (listName.equalsIgnoreCase("anime completati"))
 		{
-			map = AnimeIndex.completedMap;
+			map = "Anime Completati";
 			Date today = new Date();
 			Date finish = null;
 			
@@ -1827,9 +1709,9 @@ public class AddAnimeDialog extends JDialog
 			{
 				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è ancora in corso. Vuoi aggiungerlo agli \"Anime in Corso\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (choiche == 0)
-					map = AnimeIndex.airingMap;
+					map = "Anime in Corso";
 				else
-					map = AnimeIndex.completedMap;
+					map = "Anime Completati";
 			}
 			
 			else if (!(type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
@@ -1838,9 +1720,9 @@ public class AddAnimeDialog extends JDialog
 				{
 					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai \"Film\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
-						map = AnimeIndex.filmMap;
+						map = "Film";
 					else
-						map = AnimeIndex.completedMap;
+						map = "Anime Completati";
 				}
 				
 				if (type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("Ova") || type.equalsIgnoreCase("Ona"))
@@ -1853,16 +1735,16 @@ public class AddAnimeDialog extends JDialog
 					else
 						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un ONA. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
-						map = AnimeIndex.ovaMap;
+						map = "OAV";
 					else
-						map = AnimeIndex.completedMap;
+						map = "Anime Completati";
 				}
 			}
 		}
 		
 		else if (listName.equalsIgnoreCase("anime in corso"))
 		{
-			map = AnimeIndex.airingMap;
+			map = "Anime in Corso";
 			Date today = new Date();
 			Date finish = null;
 			
@@ -1877,9 +1759,9 @@ public class AddAnimeDialog extends JDialog
 			{
 				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è concluso. Vuoi aggiungerlo agli anime \"Completi da Vedere\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (choiche == 0)
-					map = AnimeIndex.completedToSeeMap;
+					map = "Completi Da Vedere";
 				else
-					map = AnimeIndex.airingMap;
+					map = "Anime in Corso";
 			}
 			
 			else if (!(type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
@@ -1888,9 +1770,9 @@ public class AddAnimeDialog extends JDialog
 				{
 					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai \"Film\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
-						map = AnimeIndex.filmMap;
+						map = "Film";
 					else
-						map = AnimeIndex.airingMap;
+						map = "Anime in Corso";
 				}
 				
 				if (type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("Ova") || type.equalsIgnoreCase("Ona"))
@@ -1903,25 +1785,25 @@ public class AddAnimeDialog extends JDialog
 					else
 						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un ONA. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
-						map = AnimeIndex.ovaMap;
+						map = "OAV";
 					else
-						map = AnimeIndex.airingMap;
+						map = "Anime in Corso";
 				}
 			}
 		}
 		
 		else if (listName.equalsIgnoreCase("oav"))
 		{
-			map = AnimeIndex.ovaMap;
+			map = "OAV";
 			if (!(type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
 			{
 				if (type.equalsIgnoreCase("Movie"))
 				{
 					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai \"Film\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
-						map = AnimeIndex.filmMap;
+						map = "Film";
 					else
-						map = AnimeIndex.ovaMap;
+						map = "OAV";
 				}
 
 			}
@@ -1942,17 +1824,17 @@ public class AddAnimeDialog extends JDialog
 				{
 				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un OAV o uno Special. Vuoi aggiungerlo agli \"Anime in Corso\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (choiche == 0)
-					map = AnimeIndex.airingMap;
+					map = "Anime in Corso";
 				else
-					map = AnimeIndex.ovaMap;
+					map = "OAV";
 				}
 				else if (today.after(finish))
 				{
 					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un OAV o uno Special. Vuoi aggiungerlo agli anime \"Completi da Vedere\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
-						map = AnimeIndex.completedToSeeMap;
+						map = "Completi Da Vedere";
 					else
-						map = AnimeIndex.ovaMap;
+						map = "OAV";
 				}
 			}
 
@@ -1961,7 +1843,7 @@ public class AddAnimeDialog extends JDialog
 		else if (listName.equalsIgnoreCase("film"))
 		{
 			
-			map = AnimeIndex.filmMap;
+			map = "Film";
 			
 			if (!(type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
 			{
@@ -1975,9 +1857,9 @@ public class AddAnimeDialog extends JDialog
 					else
 						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un ONA. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
-						map = AnimeIndex.ovaMap;
+						map = "OAV";
 					else
-						map = AnimeIndex.filmMap;
+						map = "Film";
 				}
 
 			}
@@ -1998,17 +1880,17 @@ public class AddAnimeDialog extends JDialog
 				{
 				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un OAV o uno Special. Vuoi aggiungerlo agli \"Anime in Corso\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (choiche == 0)
-					map = AnimeIndex.airingMap;
+					map = "Anime in Corso";
 				else
-					map = AnimeIndex.filmMap;
+					map = "Film";
 				}
 				else if (today.after(finish))
 				{
 					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime non è un OAV o uno Special. Vuoi aggiungerlo agli anime \"Completi da Vedere\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
-						map = AnimeIndex.completedToSeeMap;
+						map = "Completi Da Vedere";
 					else
-						map = AnimeIndex.filmMap;
+						map = "Film";
 				}
 			}
 
@@ -2016,7 +1898,7 @@ public class AddAnimeDialog extends JDialog
 		
 		else if (listName.equalsIgnoreCase("completi da vedere"))
 		{
-			map = AnimeIndex.completedToSeeMap;
+			map = "Completi Da Vedere";
 			Date today = new Date();
 			Date finish = null;
 			
@@ -2031,9 +1913,9 @@ public class AddAnimeDialog extends JDialog
 			{
 				int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è ancora in corso. Vuoi aggiungerlo agli \"Anime in Corso\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (choiche == 0)
-					map = AnimeIndex.airingMap;
+					map = "Anime in Corso";
 				else
-					map = AnimeIndex.completedToSeeMap;
+					map = "Completi Da Vedere";
 			}
 			
 			else if (!(type.equalsIgnoreCase("tv") ||type.equalsIgnoreCase("tv short")))
@@ -2042,9 +1924,9 @@ public class AddAnimeDialog extends JDialog
 				{
 					int choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un film. Vuoi aggiungerlo ai \"Film\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
-						map = AnimeIndex.filmMap;
+						map = "Film";
 					else
-						map = AnimeIndex.completedToSeeMap;
+						map = "Completi Da Vedere";
 				}
 				
 				if (type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("Ova") || type.equalsIgnoreCase("Ona"))
@@ -2057,14 +1939,194 @@ public class AddAnimeDialog extends JDialog
 					else
 						choiche = JOptionPane.showConfirmDialog(AddAnimeDialog.listToAddAniComboBox, "L'anime è un ONA. Vuoi aggiungerlo alla sezione \"OAV\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
-						map = AnimeIndex.ovaMap;
+						map = "OAV";
 					else
-						map = AnimeIndex.completedToSeeMap;
+						map = "Completi Da Vedere";
 				}
 			}
 
 		}
 		
 		return map;	
+	}
+		
+	private static JList getJList(String listName)
+	{
+		JList list= null;
+			if (listName.equalsIgnoreCase("anime completati"))
+			{	
+				list = AnimeIndex.completedList;						
+			}				
+			else if (listName.equalsIgnoreCase("anime in corso"))
+			{
+				list = AnimeIndex.airingList;
+			}
+			else if (listName.equalsIgnoreCase("oav"))
+			{
+				list = AnimeIndex.ovaList;
+			}
+			else if (listName.equalsIgnoreCase("film"))
+			{
+				list = AnimeIndex.filmList;
+			}
+			else if (listName.equalsIgnoreCase("completi da vedere"))
+			{
+				list = AnimeIndex.completedToSeeList;
+			}
+			
+		return list;
+	}
+	
+	private static TreeMap getMap(String listName)
+	{
+		TreeMap map= null;
+		if (listName.equalsIgnoreCase("anime completati"))
+		{	
+			map = AnimeIndex.completedMap;						
+		}				
+		else if (listName.equalsIgnoreCase("anime in corso"))
+		{
+			map = AnimeIndex.airingMap;
+		}
+		else if (listName.equalsIgnoreCase("oav"))
+		{
+			map = AnimeIndex.ovaMap;
+		}
+		else if (listName.equalsIgnoreCase("film"))
+		{
+			map = AnimeIndex.filmMap;
+		}
+		else if (listName.equalsIgnoreCase("completi da vedere"))
+		{
+			map = AnimeIndex.completedToSeeMap;
+		}
+		return map;
+	}
+	
+	private static SortedListModel getModel(String listName)
+	{
+		SortedListModel model= null;
+			if (listName.equalsIgnoreCase("anime completati"))
+			{	
+				model = AnimeIndex.completedModel;						
+			}				
+			else if (listName.equalsIgnoreCase("anime in corso"))
+			{
+				model = AnimeIndex.airingModel;
+			}
+			else if (listName.equalsIgnoreCase("oav"))
+			{
+				model = AnimeIndex.ovaModel;
+			}
+			else if (listName.equalsIgnoreCase("film"))
+			{
+				model = AnimeIndex.filmModel;
+			}
+			else if (listName.equalsIgnoreCase("completi da vedere"))
+			{
+				model = AnimeIndex.completedToSeeModel;
+			}
+			
+		return model;
+	}
+
+	private static void checkAnimeAlreadyAdded(String name, String listName, AnimeData data)
+	{
+		JList list = AddAnimeDialog.getJList(listName);
+		SortedListModel model = AddAnimeDialog.getModel(listName);
+		TreeMap<String,AnimeData> map = AddAnimeDialog.getMap(listName);
+		
+		boolean contains = false;
+		if(checkCompletedList==false && checkAiringList==false && checkOAVList==false && checkFilmList==false && checkToSeeList==false)
+		{
+			if(!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !AnimeIndex.ovaMap.containsKey(name) && !AnimeIndex.filmMap.containsKey(name) && !AnimeIndex.completedToSeeMap.containsKey(name))
+				AnimeIndex.sessionAddedAnime.add(name);
+			
+			map.put(name, data);
+			model.addElement(name);
+			AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+			list.clearSelection();
+			list.setSelectedValue(name, true);				
+			
+		}
+		
+		else
+		{
+			boolean ok = true;
+			if (checkCompletedList==true)
+			{
+				if (AnimeIndex.completedMap.containsKey(name))
+				{
+					JOptionPane.showMessageDialog(AddAnimeDialog.tabbedPane, "Anime già presente in \"Anime Completati\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+					contains = true;
+					ok = false;
+				}
+			}
+			if (checkAiringList==true)
+			{
+				if (AnimeIndex.airingMap.containsKey(name))
+				{
+					JOptionPane.showMessageDialog(AddAnimeDialog.tabbedPane, "Anime già presente in \"Anime in Corso\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+					contains = true;
+					ok = false;
+				}
+			}
+			if (checkOAVList==true)
+			{
+				if (AnimeIndex.ovaMap.containsKey(name))
+				{
+					JOptionPane.showMessageDialog(AddAnimeDialog.tabbedPane, "Anime già presente in \"OAV\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+					contains = true;
+					ok = false;
+				}
+			}
+			if (checkFilmList==true)
+			{
+				if (AnimeIndex.filmMap.containsKey(name))
+				{
+					JOptionPane.showMessageDialog(AddAnimeDialog.tabbedPane, "Anime già presente in \"Film\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+					contains = true;
+					ok = false;
+				}
+			}
+			if (checkToSeeList==true)
+			{
+				if (AnimeIndex.completedToSeeMap.containsKey(name))
+				{
+					JOptionPane.showMessageDialog(AddAnimeDialog.tabbedPane, "Anime già presente in \"Completi da Vedere\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+					contains = true;
+					ok = false;
+				}
+			}
+			
+			if(ok==true)
+			{	
+				if(!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !AnimeIndex.ovaMap.containsKey(name) && !AnimeIndex.filmMap.containsKey(name) && !AnimeIndex.completedToSeeMap.containsKey(name))
+					AnimeIndex.sessionAddedAnime.add(name);
+					
+				map.put(name, data);
+				model.addElement(name);
+				AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+				list.clearSelection();
+				list.setSelectedValue(name, true);	
+
+			}
+			
+			if(AnimeIndex.filtro != 9)
+		    {
+			    Filters.removeFilters();
+		    }
+			AnimeIndex.animeDialog.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			if (!contains && !keepOpen.isSelected())
+			{
+			AnimeIndex.animeDialog.dispose();
+			}
+		}
+	}
+	
+	private static void manualAnimeAdd(String name, AnimeData data, String finishDay, String type)
+	{
+		String list = AddAnimeDialog.checkDataConflict(finishDay, type);
+		AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
 	}
 }
