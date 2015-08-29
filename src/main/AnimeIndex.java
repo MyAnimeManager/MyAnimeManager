@@ -2403,7 +2403,7 @@ public class AnimeIndex extends JFrame
 		return day;
 	}
 	
-	private static void controlFields() throws NullPointerException
+	private static void controlFields()
 	{
 		String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
 
