@@ -1133,6 +1133,13 @@ public class AnimeIndex extends JFrame
 		
 		
 		ovaList = new JList(ovaModel);
+		ovaList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(!frame.isFocusOwner() || !wishlistDialog.isFocusOwner())
+					e.consume();
+			}
+		});
 		ovaList.addKeyListener(UtilEvent.cancDeleteAnime());
 		ovaList.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		ovaList.setFont(segui.deriveFont(12f));
