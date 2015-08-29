@@ -157,7 +157,7 @@ public class AnimeIndex extends JFrame
 	public static WishlistDialog wishlistDialog;
 	public static boolean openReleaseDialog;
 	public static boolean activeUpdate;
-	private static String lastSelection;
+	public static String lastSelection;
 	
 	public static String currentEpisodeNumber;
 	public static String totalEpNumber;
