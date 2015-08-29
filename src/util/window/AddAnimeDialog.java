@@ -1184,7 +1184,7 @@ public class AddAnimeDialog extends JDialog
 										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
 										
 										
-										if ((AnimeIndex.appProp.getProperty("CheckDataConflict").equalsIgnoreCase("false") ) || finishDate.equalsIgnoreCase("//") || type.equalsIgnoreCase("?????"))
+										if ((AnimeIndex.appProp.getProperty("Check_Data_Conflict").equalsIgnoreCase("false") ) || finishDate.equalsIgnoreCase("//") || type.equalsIgnoreCase("?????"))
 										{
 											String listName = (String) listToAdd.getSelectedItem();
 											JList list = AddAnimeDialog.getJList(listName);
@@ -1330,7 +1330,7 @@ public class AddAnimeDialog extends JDialog
 							String finishDay = finishDate.substring(0, 1);
 							String finishMonth = finishDate.substring(3, 5);
 							String finishYear = finishDate.substring(6);
-							if ((AnimeIndex.appProp.getProperty("CheckDataConflict").equalsIgnoreCase("false") )||finishDay.equalsIgnoreCase("??") || finishMonth.equalsIgnoreCase("??") || finishYear.equalsIgnoreCase("????") || animeType.equalsIgnoreCase("?????"))
+							if ((AnimeIndex.appProp.getProperty("Check_Data_Conflict").equalsIgnoreCase("false") )||finishDay.equalsIgnoreCase("??") || finishMonth.equalsIgnoreCase("??") || finishYear.equalsIgnoreCase("????") || animeType.equalsIgnoreCase("?????"))
 								list = (String) listToAddAniComboBox.getSelectedItem();
 							else
 								list = checkDataConflict(finishDate, animeType, true);
