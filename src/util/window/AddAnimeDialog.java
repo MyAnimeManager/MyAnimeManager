@@ -2221,6 +2221,21 @@ public class AddAnimeDialog extends JDialog
 		}
 	}
 	
+	private static String addSaveImage(String name, String dataAni)
+	{
+		String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+		imageLink = imageLink.replaceAll("\\\\/", "/");
+		String imageName = name.replaceAll("\\\\", "_");
+		imageName = imageName.replaceAll("/", "_");
+		imageName = imageName.replaceAll(":", "_");
+		imageName = imageName.replaceAll("\\*", "_");
+		imageName = imageName.replaceAll("\\?", "_");
+		imageName = imageName.replaceAll("\"", "_");
+		imageName = imageName.replaceAll(">", "_");
+		imageName = imageName.replaceAll("<", "_");
+		FileManager.saveImage(imageLink, imageName, "Completed");
+		return imageName;
+	}
 	private static void manualAnimeAdd(String name, AnimeData data, String finishDay, String type)
 	{
 		String list = AddAnimeDialog.checkDataConflict(finishDay, type);
