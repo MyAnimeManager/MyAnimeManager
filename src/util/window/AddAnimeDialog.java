@@ -1300,7 +1300,11 @@ public class AddAnimeDialog extends JDialog
 							if (currentEp.equals(totEp))
 								AnimeIndex.animeInformation.plusButton.setEnabled(false);
 							
-							String list = checkDataConflict(finishDate, animeType);
+							String list ="";
+							if (finishDate.equalsIgnoreCase("??/??/????")|| animeType.equalsIgnoreCase("?????"))
+								list = (String) listToAdd.getSelectedItem();
+							else
+								list = checkDataConflict(finishDate, animeType);
 							String imageName = AddAnimeDialog.addSaveImage(name, dataAni, list);
 							AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
 									"", "", animeType, releaseDate, finishDate, durationEp, false); 
