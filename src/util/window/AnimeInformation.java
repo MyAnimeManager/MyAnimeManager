@@ -483,6 +483,18 @@ public class AnimeInformation extends JPanel
 		add(lblTotalEpisode, gbc_lblTotalEpisode);
 		
 		totalEpisodeText = new JTextField();
+		totalEpisodeText.addFocusListener(new FocusAdapter() {
+			String ep;
+			@Override
+			public void focusGained(FocusEvent e) {
+				ep = totalEpisodeText.getText();
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(totalEpisodeText.getText().isEmpty())
+					totalEpisodeText.setText(ep);
+			}
+		});
 		totalEpisodeText.setMinimumSize(new Dimension(43, 23));
 		totalEpisodeText.setPreferredSize(new Dimension(43, 23));
 		GridBagConstraints gbc_totalEpisodeText = new GridBagConstraints();
@@ -505,6 +517,28 @@ public class AnimeInformation extends JPanel
 		add(lblDurata, gbc_lblDurata);
 		
 		durationField = new JTextField();
+		durationField.addFocusListener(new FocusAdapter() {
+			String durata;
+			@Override
+			public void focusGained(FocusEvent e) {
+				durata = durationField.getText().trim();
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(durationField.getText().isEmpty() || durationField.getText().replaceAll(" ", "").replaceAll("\\p{IsAlphabetic}", "").isEmpty())
+				{
+					durationField.setText(durata);
+				}
+				if(!durationField.getText().isEmpty() && !durationField.getText().trim().endsWith(" min"))
+				{
+					String duration = durationField.getText().trim();
+					duration = duration.replaceAll("\\p{IsAlphabetic}", "");
+					duration = duration.replaceAll(" ", "");
+					duration = duration + " min";
+					durationField.setText(duration);
+				}
+			}
+		});
 		GridBagConstraints gbc_durationFiled = new GridBagConstraints();
 		gbc_durationFiled.gridwidth = 2;
 		gbc_durationFiled.insets = new Insets(0, 0, 5, 5);
@@ -656,17 +690,19 @@ public class AnimeInformation extends JPanel
 			String day;
 			@Override
 			public void focusGained(FocusEvent e) {
-				day = releaseDateField.getText();
+				day = releaseDateField.getText().trim();
 			}
 			@Override
 			public void focusLost(FocusEvent e) {
 				if(releaseDateField.getText().isEmpty())
 					releaseDateField.setText(day);
-				if(releaseDateField.getText().length()!=10 && !releaseDateField.getText().isEmpty())
+				if(releaseDateField.getText().trim().length()!=10 && !releaseDateField.getText().isEmpty())
 				{
-					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: "+day+")", "Errore!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
 					releaseDateField.requestFocusInWindow();
 				}
+				else
+					releaseDateField.setText(releaseDateField.getText().trim());
 			}
 		});
 		GridBagConstraints gbc_releaseDateField = new GridBagConstraints();
@@ -691,17 +727,19 @@ public class AnimeInformation extends JPanel
 			String day;
 			@Override
 			public void focusGained(FocusEvent e) {
-				day = finishDateField.getText();
+				day = finishDateField.getText().trim();
 			}
 			@Override
 			public void focusLost(FocusEvent e) {
 				if(finishDateField.getText().isEmpty())
 					finishDateField.setText(day);
-				if(finishDateField.getText().length()!=10 && !finishDateField.getText().isEmpty())
+				if(finishDateField.getText().trim().length()!=10 && !finishDateField.getText().isEmpty())
 				{
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
 					finishDateField.requestFocusInWindow();
 				}
+				else
+					finishDateField.setText(finishDateField.getText().trim());
 			}
 		});
 		GridBagConstraints gbc_finishDateField = new GridBagConstraints();
