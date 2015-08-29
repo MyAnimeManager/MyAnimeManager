@@ -25,6 +25,11 @@ public class LoadingTask extends SwingWorker
 		FileManager.loadAnime("film.anaconda", AnimeIndex.filmModel, AnimeIndex.filmMap);
 		FileManager.loadAnime("toSee.anaconda", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
 		FileManager.loadWishList();
+		return null;
+	}
+
+	protected void done()
+	{
 		AnimeIndex.completedList.revalidate();
 		AnimeIndex.airingList.revalidate();
 		AnimeIndex.ovaList.revalidate();
@@ -35,11 +40,7 @@ public class LoadingTask extends SwingWorker
 		AnimeIndex.ovaList.repaint();
 		AnimeIndex.filmList.repaint();
 		AnimeIndex.completedToSeeList.repaint();
-		return null;
-	}
-
-	protected void done()
-	{
+		
 		if(AnimeIndex.appProp.getProperty("Open_Wishlist").equalsIgnoreCase("true"))
 		{
 			AnimeIndex.wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x ,AnimeIndex.mainFrame.getLocationOnScreen().y);
