@@ -1102,56 +1102,56 @@ public class AddAnimeDialog extends JDialog
 											currentEpisodeText.setText("1");
 											}
 										
-										String name = nameField.getText();
-										String type = (String)typeComboBox.getSelectedItem();
-										String currentEp =currentEpisodeText.getText();
-										String totEp = totEpField.getText();
-										String duration = durationField.getText();
+										String name = nameField.getText().trim();
+										String type = ((String) typeComboBox.getSelectedItem()).trim();
+										String currentEp =currentEpisodeText.getText().trim();
+										String totEp = totEpField.getText().trim();
+										String duration = durationField.getText().trim();
 										if (duration.isEmpty())
 											duration = "?? min";
-										String fansub = (String)fansubComboBox.getSelectedItem();
+										String fansub = ((String) fansubComboBox.getSelectedItem()).trim();
 												
-										String startDay = startDayField.getText();
+										String startDay = startDayField.getText().trim();
 										if (startDay.length() < 2)
-											startDay = 0 + startDay;
-										String startMonth = startMonthField.getText();
+											startDay = 0 + startDay.trim();
+										String startMonth = startMonthField.getText().trim();
 										if (startMonth.length() < 2)
-											startMonth = 0 + startMonth;
-										String startYear = startYearField.getText();
+											startMonth = 0 + startMonth.trim();
+										String startYear = startYearField.getText().trim();
 										if (startYear.length() < 4)
 										{
 											if (startYear.length() == 3)
-												startYear = "?" + startYear;
+												startYear = "?" + startYear.trim();
 											if (startYear.length() == 2)
-												startYear = "??" + startYear;
+												startYear = "??" + startYear.trim();
 											if (startYear.length() == 1)
-												startYear = "???" + startYear;
+												startYear = "???" + startYear.trim();
 										}
 										String startDate = startDay + "/" + startMonth + "/" + startYear;
 										if (startDate.equals("//"))
 											startDate = "??/??/????";
 										
-										String finishDay = finishDayField.getText();
+										String finishDay = finishDayField.getText().trim();
 										if (finishDay.length() < 2)
-											finishDay = 0 + finishDay;
-										String finishMonth = finishMonthField.getText();
+											finishDay = 0 + finishDay.trim();
+										String finishMonth = finishMonthField.getText().trim();
 										if (finishMonth.length() < 2)
-											finishMonth = 0 + finishMonth;
-										String finishYear = finishYearField.getText();
+											finishMonth = 0 + finishMonth.trim();
+										String finishYear = finishYearField.getText().trim();
 										if (finishYear.length() < 4)
 										{
 											if (finishYear.length() == 3)
-												finishYear = "?" + finishYear;
+												finishYear = "?" + finishYear.trim();
 											if (finishYear.length() == 2)
-												finishYear = "??" + finishYear;
+												finishYear = "??" + finishYear.trim();
 											if (finishYear.length() == 1)
-												finishYear = "???" + finishYear;
+												finishYear = "???" + finishYear.trim();
 										}
 										String finishDate = finishDay + "/" + finishMonth + "/" + finishYear;
 										if (finishDate.equals("//"))
 											finishDate = "??/??/????";
 										
-										String exitDay = (String)exitdayComboBox.getSelectedItem();
+										String exitDay = ((String) exitdayComboBox.getSelectedItem()).trim();
 										boolean bd = false;
 										if (type.equalsIgnoreCase("blu-ray"))
 											bd = true;
