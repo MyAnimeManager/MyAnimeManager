@@ -2446,6 +2446,34 @@ public class AnimeIndex extends JFrame
 				lastSelection = (String) getJList().getSelectedValue();
 			}
 		}
+		SortedListModel model = null;
+		if(AnimeIndex.filtro!=9)
+		{
+			model = filterModel;
+		}
+		if(!AnimeIndex.searchBar.getText().isEmpty())
+		{
+			model = searchModel;
+		}
+		if(AnimeIndex.searchBar.getText().isEmpty() && filtro == 9)
+		{
+			model = getModel();
+		}
+		if(!model.contains(lastSelection))
+		{
+			if(AnimeIndex.filtro!=9)
+			{
+				lastSelection = (String) filterList.getSelectedValue();
+			}
+			if(!AnimeIndex.searchBar.getText().isEmpty())
+			{
+				lastSelection = (String) searchList.getSelectedValue();
+			}
+			if(AnimeIndex.searchBar.getText().isEmpty() && filtro == 9)
+			{
+				lastSelection = (String) getJList().getSelectedValue();
+			}
+		}
 
 		String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
 
