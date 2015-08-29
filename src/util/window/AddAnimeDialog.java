@@ -1330,7 +1330,7 @@ public class AddAnimeDialog extends JDialog
 							String finishDay = finishDate.substring(0, 1);
 							String finishMonth = finishDate.substring(3, 5);
 							String finishYear = finishDate.substring(6);
-							if (finishDay.equalsIgnoreCase("??") || finishMonth.equalsIgnoreCase("??") || finishYear.equalsIgnoreCase("????") || animeType.equalsIgnoreCase("?????"))
+							if ((AnimeIndex.appProp.getProperty("CheckDataConflict").equalsIgnoreCase("false") )||finishDay.equalsIgnoreCase("??") || finishMonth.equalsIgnoreCase("??") || finishYear.equalsIgnoreCase("????") || animeType.equalsIgnoreCase("?????"))
 								list = (String) listToAddAniComboBox.getSelectedItem();
 							else
 								list = checkDataConflict(finishDate, animeType, true);
