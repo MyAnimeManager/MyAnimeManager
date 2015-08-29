@@ -155,7 +155,7 @@ public class AnimeIndex extends JFrame
 	public static WishlistDialog wishlistDialog;
 	public static boolean openReleaseDialog;
 	public static boolean activeUpdate;
-	private String lastSelection;
+	private static String lastSelection;
 	
 	public static String currentEpisodeNumber;
 	public static String totalEpNumber;
@@ -995,13 +995,6 @@ public class AnimeIndex extends JFrame
 		completedAnimeScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 
 		completedList = new JList(completedModel);
-		completedList.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(!frame.isFocusOwner() || !wishlistDialog.isFocusOwner())
-					e.consume();
-			}
-		});
 	    completedList.addKeyListener(UtilEvent.cancDeleteAnime());
 		completedList.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		completedList.setFont(segui.deriveFont(12f));
@@ -1133,18 +1126,6 @@ public class AnimeIndex extends JFrame
 		
 		
 		ovaList = new JList(ovaModel);
-		ovaList.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(!frame.isFocusOwner() || !wishlistDialog.isFocusOwner())
-					if(animeInformation.releaseDateField.getText().trim().length()!=10 && !animeInformation.releaseDateField.getText().isEmpty())
-					{
-						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-						animeInformation.releaseDateField.requestFocusInWindow();
-					e.consume();
-					}
-			}
-		});
 		ovaList.addKeyListener(UtilEvent.cancDeleteAnime());
 		ovaList.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		ovaList.setFont(segui.deriveFont(12f));
@@ -2405,6 +2386,19 @@ public class AnimeIndex extends JFrame
 	
 	private static void controlFileds()
 	{
+		if(AnimeIndex.filtro!=9)
+		{
+			lastSelection = (String) filterList.getSelectedValue();
+		}
+		if(!AnimeIndex.searchBar.getText().isEmpty())
+		{
+			lastSelection = (String) searchList.getSelectedValue();
+		}
+		if(AnimeIndex.searchBar.getText().isEmpty() && filtro == 9)
+		{
+			lastSelection = getList();
+		}
+		
 		if(animeInformation.totalEpisodeText.getText().isEmpty() && totalEpNumber!=null)
 			animeInformation.totalEpisodeText.setText(totalEpNumber);
 		
