@@ -1137,7 +1137,12 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(!frame.isFocusOwner() || !wishlistDialog.isFocusOwner())
+					if(animeInformation.releaseDateField.getText().trim().length()!=10 && !animeInformation.releaseDateField.getText().isEmpty())
+					{
+						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
+						animeInformation.releaseDateField.requestFocusInWindow();
 					e.consume();
+					}
 			}
 		});
 		ovaList.addKeyListener(UtilEvent.cancDeleteAnime());
@@ -1148,11 +1153,6 @@ public class AnimeIndex extends JFrame
 		ovaList.setSize(new Dimension(138, 233));
 		ovaList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				if(animeInformation.releaseDateField.getText().trim().length()!=10 && !animeInformation.releaseDateField.getText().isEmpty())
-				{
-					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-					animeInformation.releaseDateField.requestFocusInWindow();
-				}
 				applyListSelectionChange(AnimeIndex.ovaList);
 				AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
