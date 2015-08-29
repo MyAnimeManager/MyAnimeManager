@@ -710,22 +710,24 @@ public class AnimeInformation extends JPanel
 			}
 			@Override
 			public void focusLost(FocusEvent e) {
+				if (e.getOppositeComponent() != null) {
 				if(releaseDateField.getText().trim().isEmpty())
 					releaseDateField.setText(AnimeIndex.startDate);
 				if(releaseDateField.getText().trim().length()!=10 && !releaseDateField.getText().trim().isEmpty())
 				{
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-					if (e.getOppositeComponent() != null) {
+					
 						if (e.getOppositeComponent().equals(WishlistDialog.btnAggiungiAnime)|| e.getOppositeComponent().equals(WishlistDialog.btnDeleteAnime)|| e.getOppositeComponent().equals(WishlistDialog.btnID)|| e.getOppositeComponent().equals(WishlistDialog.comboBox)|| e.getOppositeComponent().equals(WishlistDialog.searchBar)|| e.getOppositeComponent().equals(WishlistDialog.wishlist)|| e.getOppositeComponent().equals(WishlistDialog.wishlistSearch))
 						{
 							releaseDateField.requestFocus();
 						} else {
 							releaseDateField.requestFocusInWindow();
 						}
-					}
+					
 				}
 				else
 					releaseDateField.setText(releaseDateField.getText().trim());
+			}
 			}
 		});
 		GridBagConstraints gbc_releaseDateField = new GridBagConstraints();
@@ -754,6 +756,7 @@ public class AnimeInformation extends JPanel
 			}
 			@Override
 			public void focusLost(FocusEvent e) {
+				if (e.getOppositeComponent() != null) {
 				if(finishDateField.getText().trim().isEmpty())
 					finishDateField.setText(AnimeIndex.endDate);
 				if(finishDateField.getText().trim().length()!=10 && !finishDateField.getText().trim().isEmpty())
@@ -770,6 +773,7 @@ public class AnimeInformation extends JPanel
 				}
 				else
 					finishDateField.setText(finishDateField.getText().trim());
+			}
 			}
 		});
 		GridBagConstraints gbc_finishDateField = new GridBagConstraints();
