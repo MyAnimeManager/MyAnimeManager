@@ -1302,7 +1302,7 @@ public class AddAnimeDialog extends JDialog
 							
 							String list ="";
 							if (finishDate.equalsIgnoreCase("??/??/????")|| animeType.equalsIgnoreCase("?????"))
-								list = (String) listToAdd.getSelectedItem();
+								list = (String) listToAddAniComboBox.getSelectedItem();
 							else
 								list = checkDataConflict(finishDate, animeType);
 							String imageName = AddAnimeDialog.addSaveImage(name, dataAni, list);
