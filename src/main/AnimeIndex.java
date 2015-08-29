@@ -216,6 +216,7 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void windowClosing(WindowEvent we) {	
 				try{
+					AnimeIndex.mainFrame.requestFocusInWindow();
 					if(!animeInformation.releaseDateField.getText().trim().isEmpty() && animeInformation.releaseDateField.getText().trim().length()==10 && animeInformation.releaseDateField.getText().trim().length()==10 && !animeInformation.finishDateField.getText().trim().isEmpty() && animeInformation.finishDateField.getText().trim().length()==10 && animeInformation.finishDateField.getText().trim().length()==10)
 					{
 						saveModifiedInformation();
