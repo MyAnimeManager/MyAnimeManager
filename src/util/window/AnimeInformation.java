@@ -715,13 +715,13 @@ public class AnimeInformation extends JPanel
 				if(releaseDateField.getText().trim().length()!=10 && !releaseDateField.getText().trim().isEmpty())
 				{
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-					if(e.getOppositeComponent().equals(WishlistDialog.btnAggiungiAnime) || e.getOppositeComponent().equals(WishlistDialog.btnDeleteAnime) || e.getOppositeComponent().equals(WishlistDialog.btnID) || e.getOppositeComponent().equals(WishlistDialog.comboBox) || e.getOppositeComponent().equals(WishlistDialog.searchBar) || e.getOppositeComponent().equals(WishlistDialog.wishlist) || e.getOppositeComponent().equals(WishlistDialog.wishlistSearch))
-					{
-						releaseDateField.requestFocus();
-					}
-					else
-					{
-						releaseDateField.requestFocusInWindow();
+					if (e.getOppositeComponent() != null) {
+						if (e.getOppositeComponent().equals(WishlistDialog.btnAggiungiAnime)|| e.getOppositeComponent().equals(WishlistDialog.btnDeleteAnime)|| e.getOppositeComponent().equals(WishlistDialog.btnID)|| e.getOppositeComponent().equals(WishlistDialog.comboBox)|| e.getOppositeComponent().equals(WishlistDialog.searchBar)|| e.getOppositeComponent().equals(WishlistDialog.wishlist)|| e.getOppositeComponent().equals(WishlistDialog.wishlistSearch))
+						{
+							releaseDateField.requestFocus();
+						} else {
+							releaseDateField.requestFocusInWindow();
+						}
 					}
 				}
 				else
