@@ -1184,7 +1184,7 @@ public class AddAnimeDialog extends JDialog
 										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
 										
 										
-										if (finishDate.equalsIgnoreCase("//") || type.equalsIgnoreCase("?????"))
+										if ((AnimeIndex.appProp.getProperty("CheckDataConflict").equalsIgnoreCase("false") ) || finishDate.equalsIgnoreCase("//") || type.equalsIgnoreCase("?????"))
 										{
 											String listName = (String) listToAdd.getSelectedItem();
 											JList list = AddAnimeDialog.getJList(listName);
