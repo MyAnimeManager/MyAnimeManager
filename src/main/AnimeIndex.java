@@ -2512,6 +2512,7 @@ public class AnimeIndex extends JFrame
 			}
 			
 		}
+		}
 		catch(NullPointerException e)
 		{
 			if(AnimeIndex.filtro!=9)
@@ -2530,3 +2531,4 @@ public class AnimeIndex extends JFrame
 		}
 	}
 }
+
