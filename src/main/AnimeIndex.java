@@ -140,6 +140,7 @@ public class AnimeIndex extends JFrame
 	public static ArrayList<String> completedToSeeDeletedAnime = new ArrayList();
 	
 	public static ArrayList<String> exclusionAnime = new ArrayList();
+	private static ArrayList<String> selectionList = new ArrayList();
 	
 	private JButton addButton;
 	public static JButton deleteButton;
@@ -996,6 +997,12 @@ public class AnimeIndex extends JFrame
 		completedAnimeScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 
 		completedList = new JList(completedModel);
+		completedList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				controlFields();
+			}
+		});
 	    completedList.addKeyListener(UtilEvent.cancDeleteAnime());
 		completedList.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		completedList.setFont(segui.deriveFont(12f));
@@ -1060,6 +1067,12 @@ public class AnimeIndex extends JFrame
 		airingAnimeScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		
 		airingList = new JList(airingModel);
+		airingList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				controlFields();
+			}
+		});
 		airingList.addKeyListener(UtilEvent.cancDeleteAnime());
 		airingList.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		airingList.setFont(segui.deriveFont(12f));
@@ -1133,26 +1146,14 @@ public class AnimeIndex extends JFrame
 		ovaList.setMaximumSize(new Dimension(138, 233));
 		ovaList.setMinimumSize(new Dimension(138, 233));
 		ovaList.setSize(new Dimension(138, 233));
+		ovaList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				controlFields();
+			}
+		});
 		ovaList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				try{
-				controlFields();}
-				catch(NullPointerException e1)
-				{
-					if(AnimeIndex.filtro!=9)
-					{
-						lastSelection = (String) filterList.getSelectedValue();
-					}
-					if(!AnimeIndex.searchBar.getText().isEmpty())
-					{
-						lastSelection = (String) searchList.getSelectedValue();
-					}
-					if(AnimeIndex.searchBar.getText().isEmpty() && filtro == 9)
-					{
-						lastSelection = (String) getJList().getSelectedValue();
-					}
-					controlFields();
-				}
 				applyListSelectionChange(AnimeIndex.ovaList);
 				AnimeIndex.animeInformation.minusButton.setEnabled(true);
 				AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
@@ -1211,6 +1212,12 @@ public class AnimeIndex extends JFrame
 		filmScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		
 		filmList = new JList(filmModel);
+		filmList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				controlFields();
+			}
+		});
 		filmList.addKeyListener(UtilEvent.cancDeleteAnime());
 		filmList.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		filmList.setFont(segui.deriveFont(12f));
@@ -1277,6 +1284,12 @@ public class AnimeIndex extends JFrame
 		completedToSeeScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		
 		completedToSeeList = new JList(completedToSeeModel);
+		completedToSeeList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				controlFields();
+			}
+		});
 		completedToSeeList.addKeyListener(UtilEvent.cancDeleteAnime());
 		completedToSeeList.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		completedToSeeList.setFont(segui.deriveFont(12f));
@@ -1342,6 +1355,12 @@ public class AnimeIndex extends JFrame
 		searchScroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 		searchScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		searchList = new JList(searchModel);
+		searchList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				controlFields();
+			}
+		});
 		searchList.addKeyListener(UtilEvent.cancDeleteAnime());
 		searchList.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		searchList.setFont(segui.deriveFont(12f));
@@ -1579,6 +1598,12 @@ public class AnimeIndex extends JFrame
 		filterScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		
 		filterList = new JList(filterModel);
+		filterList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				controlFields();
+			}
+		});
 		filterList.addKeyListener(UtilEvent.cancDeleteAnime());
 		filterList.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		filterList.setFont(segui.deriveFont(12f));
@@ -2264,6 +2289,7 @@ public class AnimeIndex extends JFrame
 	
 	private void applyListSelectionChange(JList jList)
 	{
+		selectionList.add((String)getJList().getSelectedValue());
 		try
 		{
 			saveModifiedInformation();
@@ -2405,6 +2431,22 @@ public class AnimeIndex extends JFrame
 	
 	private static void controlFields()
 	{
+		if(lastSelection == null)
+		{
+			if(AnimeIndex.filtro!=9)
+			{
+				lastSelection = (String) filterList.getSelectedValue();
+			}
+			if(!AnimeIndex.searchBar.getText().isEmpty())
+			{
+				lastSelection = (String) searchList.getSelectedValue();
+			}
+			if(AnimeIndex.searchBar.getText().isEmpty() && filtro == 9)
+			{
+				lastSelection = (String) getJList().getSelectedValue();
+			}
+		}
+
 		String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
 
 		TreeMap<String,AnimeData> map = null;	
@@ -2457,36 +2499,56 @@ public class AnimeIndex extends JFrame
 			durationEp = duration;
 		}
 		
-		if(oldData.getReleaseDate().trim().isEmpty() && startDate!=null)
-			startDay = startDate;
-		if(oldData.getReleaseDate().trim().length()!=10 && !oldData.getReleaseDate().trim().isEmpty())
+		if(oldData.getReleaseDate().trim().length()!=10)
 		{
-			JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-			JList lista = null;
-			if(AnimeIndex.filtro!=9)
+			if(oldData.getReleaseDate().trim().isEmpty() && startDate!=null && startDate.length()==10)
+				startDay = startDate;
+			else
 			{
-				lista = filterList;
+				JList lista = null;
+				if(AnimeIndex.filtro!=9)
+				{
+					lista = filterList;
+				}
+				if(!AnimeIndex.searchBar.getText().isEmpty())
+				{
+					lista = searchList;
+				}
+				if(AnimeIndex.searchBar.getText().isEmpty() && filtro==9)
+				{
+					lista = getJList();
+				}
+				lista.setSelectedValue(lastSelection, true);
+				JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
+				animeInformation.releaseDateField.requestFocusInWindow();
 			}
-			if(!AnimeIndex.searchBar.getText().isEmpty())
-			{
-				lista = searchList;
-			}
-			if(AnimeIndex.searchBar.getText().isEmpty() && filtro==9)
-			{
-				lista = getJList();
-			}
-			lista.setSelectedValue(lastSelection, true);
-			animeInformation.releaseDateField.requestFocusInWindow();
 		}
 		if (oldData.getReleaseDate().endsWith(" ") || oldData.getReleaseDate().startsWith(" "))
 			startDay = oldData.getReleaseDate().trim();
 		
-		if(oldData.getFinishDate().trim().isEmpty())
-			endDay = endDate;
-		if(oldData.getFinishDate().trim().length()!=10 && !oldData.getFinishDate().trim().isEmpty())
+		if(oldData.getFinishDate().trim().length()!=10)
 		{
-			JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-			animeInformation.finishDateField.requestFocusInWindow();
+			if(oldData.getFinishDate().trim().isEmpty() && endDay!=null && endDate.length()==10)
+				endDay = endDate;
+			else
+			{
+				JList lista = null;
+				if(AnimeIndex.filtro!=9)
+				{
+					lista = filterList;
+				}
+				if(!AnimeIndex.searchBar.getText().isEmpty())
+				{
+					lista = searchList;
+				}
+				if(AnimeIndex.searchBar.getText().isEmpty() && filtro==9)
+				{
+					lista = getJList();
+				}
+				lista.setSelectedValue(lastSelection, true);
+				JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
+				animeInformation.finishDateField.requestFocusInWindow();
+			}
 		}
 		if (oldData.getFinishDate().endsWith(" ") || oldData.getFinishDate().startsWith(" "))
 			startDay = oldData.getFinishDate().trim();
@@ -2527,7 +2589,23 @@ public class AnimeIndex extends JFrame
 					oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
 					endDay, oldData.getDurationEp(), oldData.getBd());
 		}
-		getMap().put(lastSelection, newData);
+		if(newData!=null)
+			getMap().put(lastSelection, newData);
+		
+		if(AnimeIndex.filtro!=9)
+		{
+			lastSelection = (String) filterList.getSelectedValue();
+		}
+		if(!AnimeIndex.searchBar.getText().isEmpty())
+		{
+			lastSelection = (String) searchList.getSelectedValue();
+		}
+		if(AnimeIndex.searchBar.getText().isEmpty() && filtro == 9)
+		{
+			lastSelection = (String) getJList().getSelectedValue();
+		}
+
+		System.out.println(lastSelection);
 	}
 }
 

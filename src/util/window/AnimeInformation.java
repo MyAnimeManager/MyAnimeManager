@@ -688,6 +688,7 @@ public class AnimeInformation extends JPanel
 		add(lblInizio, gbc_lblInizio);
 		
 		releaseDateField = new JTextField();
+		((AbstractDocument)releaseDateField.getDocument()).setDocumentFilter( new PatternFilter("[\\p{IsDigit}\\/\\?]{0,10}"));
 		releaseDateField.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -724,6 +725,7 @@ public class AnimeInformation extends JPanel
 		add(lblFine, gbc_lblFine);
 		
 		finishDateField = new JTextField();
+		((AbstractDocument)finishDateField.getDocument()).setDocumentFilter( new PatternFilter("[\\p{IsDigit}\\/\\?]{0,10}"));
 		finishDateField.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
