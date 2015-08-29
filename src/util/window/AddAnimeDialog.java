@@ -1177,7 +1177,7 @@ public class AddAnimeDialog extends JDialog
 											bd = true;
 										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
 										
-										//TODO controllo e aggiunta nella lista corrispondente
+										
 										if (finishDate.equalsIgnoreCase("//") || type.equalsIgnoreCase("?????"))
 										{
 											String listName = (String) listToAdd.getSelectedItem();
@@ -1196,7 +1196,7 @@ public class AddAnimeDialog extends JDialog
 										{
 											manualAnimeAdd(name, data, finishDate, type);
 										}
-										
+										AnimeIndex.lastSelection = name;
 									}
 							}
 						});
@@ -1331,6 +1331,7 @@ public class AddAnimeDialog extends JDialog
 							AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
 				
 //TODO
+							AnimeIndex.lastSelection = anime;
 							AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 						}
 					});
