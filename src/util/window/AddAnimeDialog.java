@@ -724,6 +724,7 @@ public class AddAnimeDialog extends JDialog
 						gbc_currentEpisodeText.gridy = 2;
 						dataPanel.add(currentEpisodeText, gbc_currentEpisodeText);
 						currentEpisodeText.setColumns(10);
+						((AbstractDocument)currentEpisodeText.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,4}||\\?{0,2}"));
 					}
 					{
 						JLabel lblControllaIn_1 = new JLabel("Controlla in :");
@@ -753,6 +754,7 @@ public class AddAnimeDialog extends JDialog
 						gbc_totEpField.gridy = 3;
 						dataPanel.add(totEpField, gbc_totEpField);
 						totEpField.setColumns(10);
+						((AbstractDocument)totEpField.getDocument()).setDocumentFilter( new PatternFilter("\\d{0,4}||\\?{0,2}"));
 					}
 					{
 						listSlectionToggleButton = new JToggleButton("Seleziona Lista");
@@ -1137,6 +1139,8 @@ public class AddAnimeDialog extends JDialog
 											if (startYear.length() == 1)
 												startYear = "???" + startYear.trim();
 										}
+										if (startYear.isEmpty())
+											startYear = "????";
 										String startDate = startDay + "/" + startMonth + "/" + startYear;
 										if (startDate.equals("//"))
 											startDate = "??/??/????";
@@ -1167,6 +1171,8 @@ public class AddAnimeDialog extends JDialog
 											if (finishYear.length() == 1)
 												finishYear = "???" + finishYear.trim();
 										}
+										if (finishYear.isEmpty())
+											finishYear = "????";
 										String finishDate = finishDay + "/" + finishMonth + "/" + finishYear;
 										if (finishDate.equals("//"))
 											finishDate = "??/??/????";
