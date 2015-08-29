@@ -216,16 +216,22 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void windowClosing(WindowEvent we) {	
 				try{
-					saveModifiedInformation();
-					ExitSaveDialog exitDialog = new ExitSaveDialog();
-					exitDialog.setLocationRelativeTo(mainFrame);
-					exitDialog.setVisible(true);
+					if(!animeInformation.releaseDateField.getText().trim().isEmpty() && animeInformation.releaseDateField.getText().trim().length()==10 && animeInformation.releaseDateField.getText().trim().length()==10 && !animeInformation.finishDateField.getText().trim().isEmpty() && animeInformation.finishDateField.getText().trim().length()==10 && animeInformation.finishDateField.getText().trim().length()==10)
+					{
+						saveModifiedInformation();
+						ExitSaveDialog exitDialog = new ExitSaveDialog();
+						exitDialog.setLocationRelativeTo(mainFrame);
+						exitDialog.setVisible(true);
+					}
 				}
 				catch (Exception e)
 				{
-					ExitSaveDialog exitDialog = new ExitSaveDialog();
-					exitDialog.setLocationRelativeTo(mainFrame);
-					exitDialog.setVisible(true);
+					if(!animeInformation.releaseDateField.getText().trim().isEmpty() && animeInformation.releaseDateField.getText().trim().length()==10 && animeInformation.releaseDateField.getText().trim().length()==10 && !animeInformation.finishDateField.getText().trim().isEmpty() && animeInformation.finishDateField.getText().trim().length()==10 && animeInformation.finishDateField.getText().trim().length()==10)
+					{
+						ExitSaveDialog exitDialog = new ExitSaveDialog();
+						exitDialog.setLocationRelativeTo(mainFrame);
+						exitDialog.setVisible(true);
+					}
 				}
 				
 			}
@@ -1840,59 +1846,61 @@ public class AnimeIndex extends JFrame
 		deleteButton.setMaximumSize(new Dimension(159, 21));
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				String type = (String) animeTypeComboBox.getSelectedItem();
-
-				SortedListModel model = getModel();
-				SortedListModel secondModel = null;
-				SortedListModel thirdModel = null;
-				JList list = null;
-				if (searchBar.getText().isEmpty() && filtro == 9)
-					list = getJList();
-				else if (searchBar.getText().isEmpty() && filtro != 9)
+				if(!animeInformation.releaseDateField.getText().trim().isEmpty() && animeInformation.releaseDateField.getText().trim().length()==10 && animeInformation.releaseDateField.getText().trim().length()==10 && !animeInformation.finishDateField.getText().trim().isEmpty() && animeInformation.finishDateField.getText().trim().length()==10 && animeInformation.finishDateField.getText().trim().length()==10)
 				{
-					list = filterList;
-					secondModel = filterModel;
-				}
-				else if(!searchBar.getText().isEmpty() && filtro != 9)
-				{
-					list = searchList;
-					secondModel = searchModel;
-					thirdModel = filterModel;
-				}
-				else
-				{
-					list = searchList;
-					secondModel = searchModel;
-				}
-				
-				String listName = getList();
-				TreeMap<String,AnimeData> map = getMap();
-				ArrayList<String> arrayList = getDeletedAnimeArray();
-				int index = list.getSelectedIndex();
-				String name = (String) list.getSelectedValue();
-				model.removeElement(name);
-				if (secondModel != null)
-					secondModel.removeElement(name);
-				if (thirdModel != null)
-					thirdModel.removeElement(name);
-				index -= 1;
-				list.clearSelection();
-				list.setSelectedIndex(index);
-				
-				String image = map.get(name).getImagePath(listName);
-				arrayList.add(image);
-								
-				map.remove(name);
-				if(sessionAddedAnime.contains(name))
-					sessionAddedAnime.remove(name);
-				
-				if (!list.isSelectionEmpty())					
-					deleteButton.setEnabled(true);
-				else
-				{
-					deleteButton.setEnabled(false);
-					animeInformation.setBlank();
+					String type = (String) animeTypeComboBox.getSelectedItem();
+	
+					SortedListModel model = getModel();
+					SortedListModel secondModel = null;
+					SortedListModel thirdModel = null;
+					JList list = null;
+					if (searchBar.getText().isEmpty() && filtro == 9)
+						list = getJList();
+					else if (searchBar.getText().isEmpty() && filtro != 9)
+					{
+						list = filterList;
+						secondModel = filterModel;
+					}
+					else if(!searchBar.getText().isEmpty() && filtro != 9)
+					{
+						list = searchList;
+						secondModel = searchModel;
+						thirdModel = filterModel;
+					}
+					else
+					{
+						list = searchList;
+						secondModel = searchModel;
+					}
+					
+					String listName = getList();
+					TreeMap<String,AnimeData> map = getMap();
+					ArrayList<String> arrayList = getDeletedAnimeArray();
+					int index = list.getSelectedIndex();
+					String name = (String) list.getSelectedValue();
+					model.removeElement(name);
+					if (secondModel != null)
+						secondModel.removeElement(name);
+					if (thirdModel != null)
+						thirdModel.removeElement(name);
+					index -= 1;
+					list.clearSelection();
+					list.setSelectedIndex(index);
+					
+					String image = map.get(name).getImagePath(listName);
+					arrayList.add(image);
+									
+					map.remove(name);
+					if(sessionAddedAnime.contains(name))
+						sessionAddedAnime.remove(name);
+					
+					if (!list.isSelectionEmpty())					
+						deleteButton.setEnabled(true);
+					else
+					{
+						deleteButton.setEnabled(false);
+						animeInformation.setBlank();
+					}
 				}
 			}
 		});
@@ -1904,11 +1912,13 @@ public class AnimeIndex extends JFrame
 		addButton.setPreferredSize(new Dimension(159, 21));
 		addButton.setMaximumSize(new Dimension(159, 21));
 		addButton.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent arg0) {	
-				animeDialog = new AddAnimeDialog();
-				animeDialog.setLocationRelativeTo(mainFrame);
-				animeDialog.setVisible(true);
+				if(!animeInformation.releaseDateField.getText().trim().isEmpty() && animeInformation.releaseDateField.getText().trim().length()==10 && animeInformation.releaseDateField.getText().trim().length()==10 && !animeInformation.finishDateField.getText().trim().isEmpty() && animeInformation.finishDateField.getText().trim().length()==10 && animeInformation.finishDateField.getText().trim().length()==10)
+				{
+					animeDialog = new AddAnimeDialog();
+					animeDialog.setLocationRelativeTo(mainFrame);
+					animeDialog.setVisible(true);
+				}
 			}
 		});
 		buttonPanel.add(addButton, BorderLayout.SOUTH);
@@ -1916,11 +1926,14 @@ public class AnimeIndex extends JFrame
 	    setFilterButton = new JButton("Filtro");
 	    setFilterButton.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		SetFilterDialog filterDialog = new SetFilterDialog();
-				filterDialog.setLocationRelativeTo(animeInformation.animeImage);
-				filterDialog.setVisible(true);
-				if(!searchBar.getText().isEmpty())
-					searchBar.setText("");
+	    		if(!animeInformation.releaseDateField.getText().trim().isEmpty() && animeInformation.releaseDateField.getText().trim().length()==10 && animeInformation.releaseDateField.getText().trim().length()==10 && !animeInformation.finishDateField.getText().trim().isEmpty() && animeInformation.finishDateField.getText().trim().length()==10 && animeInformation.finishDateField.getText().trim().length()==10)
+				{
+		    		SetFilterDialog filterDialog = new SetFilterDialog();
+					filterDialog.setLocationRelativeTo(animeInformation.animeImage);
+					filterDialog.setVisible(true);
+					if(!searchBar.getText().isEmpty())
+						searchBar.setText("");
+				}
 	    	}
 	    });
 	    setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon3.png")));

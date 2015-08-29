@@ -164,57 +164,60 @@ public class AnimeInformation extends JPanel
 		plusButton.setMinimumSize(new Dimension(30, 30));
 		plusButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if ((currentEpisodeField.getText()) != null && (currentEpisodeField.getText().isEmpty()))
+				if(!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length()==10 && releaseDateField.getText().trim().length()==10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length()==10 && finishDateField.getText().trim().length()==10)
 				{
-					currentEpisodeField.setText("0");
-					minusButton.setEnabled(false);
-				}
-				else 
-				{
-					int num = Integer.parseInt(currentEpisodeField.getText());
-					num++;			
-					if (num == 1)
+					if ((currentEpisodeField.getText()) != null && (currentEpisodeField.getText().isEmpty()))
 					{
-						minusButton.setEnabled(true);
-						if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
-						{
-							if(Integer.parseInt(totalEpisodeText.getText())>1)
-							{
-								if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
-								{
-									exitDaycomboBox.setSelectedItem("Rilasciato");
-									exitDaycomboBox.setEnabled(false);
-								}
-							}
-						}
+						currentEpisodeField.setText("0");
+						minusButton.setEnabled(false);
 					}
-					else if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+					else 
 					{
-						exitDaycomboBox.setEnabled(true);
-						exitDaycomboBox.setSelectedItem("?????");
-					}
-			
-					if ((totalEpisodeText.getText()) != null && !(totalEpisodeText.getText().isEmpty()) && !totalEpisodeText.getText().equalsIgnoreCase("??"))
-					{
-						int maxnum = Integer.parseInt(totalEpisodeText.getText());	
-						if (num == maxnum)
+						int num = Integer.parseInt(currentEpisodeField.getText());
+						num++;			
+						if (num == 1)
 						{
-							plusButton.setEnabled(false);
-							String listName = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();				
-							if (!listName.equalsIgnoreCase("anime completati"))
-							finishedButton.setEnabled(true);
+							minusButton.setEnabled(true);
 							if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
 							{
-								if(AnimeIndex.getDate(finishDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+								if(Integer.parseInt(totalEpisodeText.getText())>1)
 								{
-									exitDaycomboBox.setSelectedItem("Concluso");
-									exitDaycomboBox.setEnabled(false);
+									if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+									{
+										exitDaycomboBox.setSelectedItem("Rilasciato");
+										exitDaycomboBox.setEnabled(false);
+									}
 								}
 							}
-							
 						}
+						else if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+						{
+							exitDaycomboBox.setEnabled(true);
+							exitDaycomboBox.setSelectedItem("?????");
+						}
+				
+						if ((totalEpisodeText.getText()) != null && !(totalEpisodeText.getText().isEmpty()) && !totalEpisodeText.getText().equalsIgnoreCase("??"))
+						{
+							int maxnum = Integer.parseInt(totalEpisodeText.getText());	
+							if (num == maxnum)
+							{
+								plusButton.setEnabled(false);
+								String listName = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();				
+								if (!listName.equalsIgnoreCase("anime completati"))
+								finishedButton.setEnabled(true);
+								if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+								{
+									if(AnimeIndex.getDate(finishDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+									{
+										exitDaycomboBox.setSelectedItem("Concluso");
+										exitDaycomboBox.setEnabled(false);
+									}
+								}
+								
+							}
+						}
+						currentEpisodeField.setText(Integer.toString(num));
 					}
-					currentEpisodeField.setText(Integer.toString(num));
 				}
 			}
 		});
@@ -382,75 +385,78 @@ public class AnimeInformation extends JPanel
 		minusButton.setSize(new Dimension(30, 30));
 		minusButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int num = Integer.parseInt(currentEpisodeField.getText());
-				if (num != 0)
+				if(!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length()==10 && releaseDateField.getText().trim().length()==10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length()==10 && finishDateField.getText().trim().length()==10)
 				{
-					num--;
-					currentEpisodeField.setText(Integer.toString(num));
-					if(num==1)
+					int num = Integer.parseInt(currentEpisodeField.getText());
+					if (num != 0)
 					{
-						if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+						num--;
+						currentEpisodeField.setText(Integer.toString(num));
+						if(num==1)
 						{
-							if(Integer.parseInt(totalEpisodeText.getText())>1)
+							if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
 							{
-								if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+								if(Integer.parseInt(totalEpisodeText.getText())>1)
 								{
-									exitDaycomboBox.setSelectedItem("Rilasciato");
-									exitDaycomboBox.setEnabled(false);
+									if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+									{
+										exitDaycomboBox.setSelectedItem("Rilasciato");
+										exitDaycomboBox.setEnabled(false);
+									}
 								}
-							}
-							else
-							{
-								if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+								else
 								{
-									exitDaycomboBox.setSelectedItem("Concluso");
-									exitDaycomboBox.setEnabled(false);
+									if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+									{
+										exitDaycomboBox.setSelectedItem("Concluso");
+										exitDaycomboBox.setEnabled(false);
+									}
 								}
 							}
 						}
-					}
-				
-					if (num == 0)
-					{
-						minusButton.setEnabled(false);
-						plusButton.requestFocusInWindow();
-						if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
-						{
-							if(Integer.parseInt(totalEpisodeText.getText())>1)
-							{
-								if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
-								{
-									exitDaycomboBox.setSelectedItem("Rilasciato");
-									exitDaycomboBox.setEnabled(false);
-								}
-							}
-							else
-							{
-								if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
-								{
-									exitDaycomboBox.setSelectedItem("Concluso");
-									exitDaycomboBox.setEnabled(false);
-								}
-							}
-						}
-					}
 					
-					if ( (totalEpisodeText.getText()) != null && !(totalEpisodeText.getText().isEmpty()))
-					{	
-						if (!totalEpisodeText.getText().equals("??"))
+						if (num == 0)
 						{
-							int maxnum = Integer.parseInt(totalEpisodeText.getText());
-							if (num < maxnum)
+							minusButton.setEnabled(false);
+							plusButton.requestFocusInWindow();
+							if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
 							{
-								plusButton.setEnabled(true);
-								finishedButton.setEnabled(false);
-							}
-							if(num==maxnum-1 && Integer.parseInt(totalEpisodeText.getText())>1)
-							{
-								if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+								if(Integer.parseInt(totalEpisodeText.getText())>1)
 								{
-									exitDaycomboBox.setSelectedItem("?????");
-									exitDaycomboBox.setEnabled(true);
+									if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+									{
+										exitDaycomboBox.setSelectedItem("Rilasciato");
+										exitDaycomboBox.setEnabled(false);
+									}
+								}
+								else
+								{
+									if(AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
+									{
+										exitDaycomboBox.setSelectedItem("Concluso");
+										exitDaycomboBox.setEnabled(false);
+									}
+								}
+							}
+						}
+						
+						if ( (totalEpisodeText.getText()) != null && !(totalEpisodeText.getText().isEmpty()))
+						{	
+							if (!totalEpisodeText.getText().equals("??"))
+							{
+								int maxnum = Integer.parseInt(totalEpisodeText.getText());
+								if (num < maxnum)
+								{
+									plusButton.setEnabled(true);
+									finishedButton.setEnabled(false);
+								}
+								if(num==maxnum-1 && Integer.parseInt(totalEpisodeText.getText())>1)
+								{
+									if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+									{
+										exitDaycomboBox.setSelectedItem("?????");
+										exitDaycomboBox.setEnabled(true);
+									}
 								}
 							}
 						}
@@ -588,28 +594,31 @@ public class AnimeInformation extends JPanel
 		fansubButton.setEnabled(false);
 		fansubButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String link = AnimeIndex.fansubMap.get((String)fansubComboBox.getSelectedItem());
-				if (link != null && !link.isEmpty())
+				if(!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length()==10 && releaseDateField.getText().trim().length()==10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length()==10 && finishDateField.getText().trim().length()==10)
 				{
-					try {
-						URI uriLink = new URI(link);
-						Desktop.getDesktop().browse(uriLink);
-					} catch (URISyntaxException e) {
-						JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
-							    "Link non valido",
-							    "Errore",
-							    JOptionPane.ERROR_MESSAGE);
-						fansubButton.setEnabled(false);
-					} catch (IOException e) {
-						JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
-							    "Link non valido",
-							    "Errore",
-							    JOptionPane.ERROR_MESSAGE);
-						fansubButton.setEnabled(false);
+					String link = AnimeIndex.fansubMap.get((String)fansubComboBox.getSelectedItem());
+					if (link != null && !link.isEmpty())
+					{
+						try {
+							URI uriLink = new URI(link);
+							Desktop.getDesktop().browse(uriLink);
+						} catch (URISyntaxException e) {
+							JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
+								    "Link non valido",
+								    "Errore",
+								    JOptionPane.ERROR_MESSAGE);
+							fansubButton.setEnabled(false);
+						} catch (IOException e) {
+							JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
+								    "Link non valido",
+								    "Errore",
+								    JOptionPane.ERROR_MESSAGE);
+							fansubButton.setEnabled(false);
+						}
 					}
+					else
+						fansubButton.setEnabled(false);
 				}
-				else
-					fansubButton.setEnabled(false);
 			}
 		});
 		GridBagConstraints gbc_fansubButton = new GridBagConstraints();
@@ -631,38 +640,43 @@ public class AnimeInformation extends JPanel
 		btnOpen.setEnabled(false);
 		btnOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String link = getLink();
-				if (!link.isEmpty())
+				if(!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length()==10 && releaseDateField.getText().trim().length()==10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length()==10 && finishDateField.getText().trim().length()==10)
 				{
-					try {
-						URI uriLink = new URI(link);
-						Desktop.getDesktop().browse(uriLink);
-					} catch (URISyntaxException e) {
-						JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
-							    "Link non valido",
-							    "Errore",
-							    JOptionPane.ERROR_MESSAGE);
-						btnOpen.setEnabled(false);
-					} catch (IOException e) {
-						JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
-							    "Link non valido",
-							    "Errore",
-							    JOptionPane.ERROR_MESSAGE);
-						btnOpen.setEnabled(false);
+					String link = getLink();
+					if (!link.isEmpty())
+					{
+						try {
+							URI uriLink = new URI(link);
+							Desktop.getDesktop().browse(uriLink);
+						} catch (URISyntaxException e) {
+							JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
+								    "Link non valido",
+								    "Errore",
+								    JOptionPane.ERROR_MESSAGE);
+							btnOpen.setEnabled(false);
+						} catch (IOException e) {
+							JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
+								    "Link non valido",
+								    "Errore",
+								    JOptionPane.ERROR_MESSAGE);
+							btnOpen.setEnabled(false);
+						}
 					}
+					else
+						btnOpen.setEnabled(false);
 				}
-				else
-					btnOpen.setEnabled(false);
-			}
-				
+			}	
 		});
 		
 		setLinkButton = new JButton("Imposta Link");
 		setLinkButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setLink = new SetLinkDialog();
-				setLink.setLocationRelativeTo(AnimeIndex.mainFrame);
-				setLink.setVisible(true);
+				if(!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length()==10 && releaseDateField.getText().trim().length()==10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length()==10 && finishDateField.getText().trim().length()==10)
+				{
+					setLink = new SetLinkDialog();
+					setLink.setLocationRelativeTo(AnimeIndex.mainFrame);
+					setLink.setVisible(true);
+				}
 			}
 		});
 		GridBagConstraints gbc_btnScegliLink = new GridBagConstraints();
@@ -701,7 +715,14 @@ public class AnimeInformation extends JPanel
 				if(releaseDateField.getText().trim().length()!=10 && !releaseDateField.getText().trim().isEmpty())
 				{
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-					releaseDateField.requestFocusInWindow();
+					if(e.getOppositeComponent().equals(WishlistDialog.btnAggiungiAnime) || e.getOppositeComponent().equals(WishlistDialog.btnDeleteAnime) || e.getOppositeComponent().equals(WishlistDialog.btnID) || e.getOppositeComponent().equals(WishlistDialog.comboBox) || e.getOppositeComponent().equals(WishlistDialog.searchBar) || e.getOppositeComponent().equals(WishlistDialog.wishlist) || e.getOppositeComponent().equals(WishlistDialog.wishlistSearch))
+					{
+						releaseDateField.requestFocus();
+					}
+					else
+					{
+						releaseDateField.requestFocusInWindow();
+					}
 				}
 				else
 					releaseDateField.setText(releaseDateField.getText().trim());
@@ -738,7 +759,14 @@ public class AnimeInformation extends JPanel
 				if(finishDateField.getText().trim().length()!=10 && !finishDateField.getText().trim().isEmpty())
 				{
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-					finishDateField.requestFocusInWindow();
+					if(e.getOppositeComponent().equals(WishlistDialog.btnAggiungiAnime) || e.getOppositeComponent().equals(WishlistDialog.btnDeleteAnime) || e.getOppositeComponent().equals(WishlistDialog.btnID) || e.getOppositeComponent().equals(WishlistDialog.comboBox) || e.getOppositeComponent().equals(WishlistDialog.searchBar) || e.getOppositeComponent().equals(WishlistDialog.wishlist) || e.getOppositeComponent().equals(WishlistDialog.wishlistSearch))
+					{
+						releaseDateField.requestFocus();
+					}
+					else
+					{
+						releaseDateField.requestFocusInWindow();
+					}
 				}
 				else
 					finishDateField.setText(finishDateField.getText().trim());
@@ -974,31 +1002,32 @@ public class AnimeInformation extends JPanel
 		checkDataButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JList list = AnimeIndex.getJList();
-				if (!list.isSelectionEmpty())
+				if(!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length()==10 && releaseDateField.getText().trim().length()==10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length()==10 && finishDateField.getText().trim().length()==10)
 				{
-					if ( SwingUtilities.isRightMouseButton(e) )
-			        {
-						JPopupMenu menu = new JPopupMenu();
-		                JMenuItem add = new JMenuItem("Aggiungi alle Esclusioni");
-		                add.addActionListener(new ActionListener() {
-		                    public void actionPerformed(ActionEvent e) {
-		                        AnimeIndex.exclusionAnime.add(lblAnimeName.getText());
-		                    }
-		                });
-		                JMenuItem remove = new JMenuItem("Rimuovi dalle Esclusioni");
-		                remove.addActionListener(new ActionListener() {
-		                    public void actionPerformed(ActionEvent e) {
-		                        AnimeIndex.exclusionAnime.remove((lblAnimeName.getText()));
-		                    }
-		                });
-		                if (AnimeIndex.exclusionAnime.contains(lblAnimeName.getText()))
-		                	menu.add(remove);
-		                else
-		                	menu.add(add);
-		                menu.show((JButton)e.getSource(), e.getX(),e.getY());
-	
-						
+					JList list = AnimeIndex.getJList();
+					if (!list.isSelectionEmpty())
+					{
+						if ( SwingUtilities.isRightMouseButton(e) )
+				        {
+							JPopupMenu menu = new JPopupMenu();
+			                JMenuItem add = new JMenuItem("Aggiungi alle Esclusioni");
+			                add.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {
+			                        AnimeIndex.exclusionAnime.add(lblAnimeName.getText());
+			                    }
+			                });
+			                JMenuItem remove = new JMenuItem("Rimuovi dalle Esclusioni");
+			                remove.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {
+			                        AnimeIndex.exclusionAnime.remove((lblAnimeName.getText()));
+			                    }
+			                });
+			                if (AnimeIndex.exclusionAnime.contains(lblAnimeName.getText()))
+			                	menu.add(remove);
+			                else
+			                	menu.add(add);
+			                menu.show((JButton)e.getSource(), e.getX(),e.getY());
+				        }					
 			        }
 				}
 			}
@@ -1006,15 +1035,18 @@ public class AnimeInformation extends JPanel
 		checkDataButton.setToolTipText("Aggiorna i dati dell'anime");
 		checkDataButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String name = lblAnimeName.getText();
-				if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true") && !AnimeIndex.exclusionAnime.contains(name))
-					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "I dati di questo anime sono già stati\n\raggiornati dal Controllo Dati Automatico.", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
-				else
+				if(!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length()==10 && releaseDateField.getText().trim().length()==10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length()==10 && finishDateField.getText().trim().length()==10)
 				{
-					FieldExclusionDialog exclusions = new FieldExclusionDialog();
-					exclusions.setLocationRelativeTo(exitDaycomboBox);
-					exclusions.setVisible(true);
-				} 
+					String name = lblAnimeName.getText();
+					if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true") && !AnimeIndex.exclusionAnime.contains(name))
+						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "I dati di questo anime sono già stati\n\raggiornati dal Controllo Dati Automatico.", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+					else
+					{
+						FieldExclusionDialog exclusions = new FieldExclusionDialog();
+						exclusions.setLocationRelativeTo(exitDaycomboBox);
+						exclusions.setVisible(true);
+					} 
+				}
 			}
 		});
 		if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true"))
@@ -1059,14 +1091,186 @@ public class AnimeInformation extends JPanel
 		finishedButton.setEnabled(false);
 		finishedButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AnimeIndex.saveModifiedInformation();
-				String name = lblAnimeName.getText();
-				if (AnimeIndex.completedMap.containsKey(name))
+				if(!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length()==10 && releaseDateField.getText().trim().length()==10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length()==10 && finishDateField.getText().trim().length()==10)
 				{
-					JOptionPane.showMessageDialog(AnimeInformation.this, "Anime già presente in \"Anime Completati\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+					AnimeIndex.saveModifiedInformation();
+					String name = lblAnimeName.getText();
+					if (AnimeIndex.completedMap.containsKey(name))
+					{
+						JOptionPane.showMessageDialog(AnimeInformation.this, "Anime già presente in \"Anime Completati\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+					}
+					else
+					{
+						if(AnimeIndex.filtro!=9 && !AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
+							AnimeIndex.filterList.setSelectedValue(name, true);
+						
+						if(AnimeIndex.filtro!=9 && !name.equals("Anime"))
+						{
+							AnimeIndex.getJList().setSelectedValue(name, true);
+						}
+						if(!AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
+						{
+							AnimeIndex.getJList().setSelectedValue(name, true);
+						}
+						String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
+						
+						SortedListModel model = null;
+						JList list = null;
+						TreeMap<String,AnimeData> map = null;								
+						if (type.equalsIgnoreCase("anime in corso"))
+						{
+							model = AnimeIndex.airingModel;
+							list = AnimeIndex.airingList;
+							map = AnimeIndex.airingMap;
+						}
+						else if (type.equalsIgnoreCase("oav"))
+						{
+							model = AnimeIndex.ovaModel;
+							list = AnimeIndex.ovaList;
+							map = AnimeIndex.ovaMap;
+						}
+						else if (type.equalsIgnoreCase("film"))
+						{
+							model = AnimeIndex.filmModel;
+							list = AnimeIndex.filmList;
+							map = AnimeIndex.filmMap;
+						}
+						else if (type.equalsIgnoreCase("completi da vedere"))
+						{
+							model = AnimeIndex.completedToSeeModel;
+							list = AnimeIndex.completedToSeeList;
+							map = AnimeIndex.completedToSeeMap;
+						}
+						AnimeData oldData = map.get(name);
+						String oldType = oldData.getAnimeType();
+						Boolean bd;
+						if(oldData.getAnimeType().equalsIgnoreCase("blu-ray"))
+							bd = true;
+						else
+							bd = false;
+						AnimeData newData = new AnimeData(oldData.getTotalEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
+									oldData.getNote(), oldData.getImageName(), "Concluso", oldData.getId(),
+									oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
+									oldData.getFinishDate(), oldData.getDurationEp(), bd);
+						FileManager.moveImage(oldData.getImagePath(type), "Completed", oldData.getImageName());
+						map.remove(name);
+						AnimeIndex.completedMap.put(name, newData);
+						int index;
+						int filterIndex;
+						int searchIndex;
+						if(AnimeIndex.filtro!=9)
+						{
+							filterIndex = AnimeIndex.filterList.getSelectedIndex();
+							AnimeIndex.filterModel.removeElementAt(filterIndex);
+						}
+						else
+							filterIndex=-1;
+						
+						if(!AnimeIndex.searchBar.getText().isEmpty())
+						{
+							searchIndex = AnimeIndex.searchList.getSelectedIndex();
+							AnimeIndex.searchModel.removeElementAt(searchIndex);
+						}
+						else
+							searchIndex=-1;
+						
+						index = list.getSelectedIndex();
+						model.removeElementAt(index);
+						list.clearSelection();
+						if(AnimeIndex.filtro!=9 && !AnimeIndex.searchBar.getText().isEmpty())
+							AnimeIndex.filterList.clearSelection();
+						
+						AnimeIndex.completedModel.addElement(name);
+						if(!AnimeIndex.shiftsRegister.containsKey(name))
+							AnimeIndex.shiftsRegister.put(name,type);
+						AnimeIndex.animeInformation.minusButton.setEnabled(false);
+					    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
+					    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
+					    AnimeIndex.animeInformation.finishedButton.setEnabled(false);
+		
+				    	if(AnimeIndex.filtro!=9 && filterIndex-1 >= 0)
+				    		AnimeIndex.filterList.setSelectedIndex(filterIndex-1);
+				    	else if (AnimeIndex.filtro!=9 && filterIndex-1 < 0)
+				    		AnimeIndex.animeInformation.setBlank();
+				    	
+				    	if(!AnimeIndex.searchBar.getText().isEmpty() && searchIndex-1 >= 0)
+				    		AnimeIndex.searchList.setSelectedIndex(searchIndex-1);
+				    	else if (!AnimeIndex.searchBar.getText().isEmpty() && searchIndex-1 < 0)
+				    		AnimeIndex.animeInformation.setBlank();
+				    	
+				    	if(AnimeIndex.filtro==9 && AnimeIndex.searchBar.getText().isEmpty() && index-1 >= 0)
+				    		list.setSelectedIndex(index-1);
+				    	else if (AnimeIndex.filtro==9 && AnimeIndex.searchBar.getText().isEmpty() && index-1 < 0)
+				    		AnimeIndex.animeInformation.setBlank();
+				    	
+					}
 				}
-				else
+			}
+		});
+
+		btnAnilistInfo = new JButton("Pi\u00F9 Informazioni");
+		btnAnilistInfo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length()==10 && releaseDateField.getText().trim().length()==10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length()==10 && finishDateField.getText().trim().length()==10)
 				{
+					String anime = (String) AnimeIndex.getJList().getSelectedValue();
+					AnimeData data = (AnimeData)AnimeIndex.getMap().get(anime);
+					String link = "https://anilist.co/anime/"+data.getId();
+					if (!link.isEmpty())
+					{
+						try {
+							URI uriLink = new URI(link);
+							Desktop.getDesktop().browse(uriLink);
+						} catch (URISyntaxException e1) {
+							JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
+								    "Link non valido",
+								    "Errore",
+								    JOptionPane.ERROR_MESSAGE);
+							btnOpen.setEnabled(false);
+						} catch (IOException e1) {
+							JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
+								    "Link non valido",
+								    "Errore",
+								    JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					else
+						JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
+							    "Link non valido",
+							    "Errore",
+							    JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
+		GridBagConstraints gbc_btnAnilistInfo = new GridBagConstraints();
+		gbc_btnAnilistInfo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnAnilistInfo.gridwidth = 2;
+		gbc_btnAnilistInfo.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAnilistInfo.gridx = 1;
+		gbc_btnAnilistInfo.gridy = 11;
+		add(btnAnilistInfo, gbc_btnAnilistInfo);
+		
+		GridBagConstraints gbc_finishedButton = new GridBagConstraints();
+		gbc_finishedButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_finishedButton.insets = new Insets(0, 0, 0, 5);
+		gbc_finishedButton.gridx = 10;
+		gbc_finishedButton.gridy = 11;
+		add(finishedButton, gbc_finishedButton);
+		
+		addToSeeButton = new JButton("Concluso da Vedere");
+		addToSeeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length()==10 && releaseDateField.getText().trim().length()==10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length()==10 && finishDateField.getText().trim().length()==10)
+				{
+					AnimeIndex.saveModifiedInformation();
+					String name = lblAnimeName.getText();
+					if (AnimeIndex.completedToSeeMap.containsKey(name))
+					{
+						JOptionPane.showMessageDialog(AnimeInformation.this, "Anime già presente in \"Completi da Vedere\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+					}
+					else
+					{
 					if(AnimeIndex.filtro!=9 && !AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
 						AnimeIndex.filterList.setSelectedValue(name, true);
 					
@@ -1101,26 +1305,26 @@ public class AnimeInformation extends JPanel
 						list = AnimeIndex.filmList;
 						map = AnimeIndex.filmMap;
 					}
-					else if (type.equalsIgnoreCase("completi da vedere"))
+					else if (type.equalsIgnoreCase("anime completati"))
 					{
-						model = AnimeIndex.completedToSeeModel;
-						list = AnimeIndex.completedToSeeList;
-						map = AnimeIndex.completedToSeeMap;
+						model = AnimeIndex.completedModel;
+						list = AnimeIndex.completedList;
+						map = AnimeIndex.completedMap;
 					}
 					AnimeData oldData = map.get(name);
-					String oldType = oldData.getAnimeType();
 					Boolean bd;
 					if(oldData.getAnimeType().equalsIgnoreCase("blu-ray"))
 						bd = true;
 					else
 						bd = false;
-					AnimeData newData = new AnimeData(oldData.getTotalEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
-								oldData.getNote(), oldData.getImageName(), "Concluso", oldData.getId(),
-								oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
-								oldData.getFinishDate(), oldData.getDurationEp(), bd);
-					FileManager.moveImage(oldData.getImagePath(type), "Completed", oldData.getImageName());
+					AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
+							oldData.getNote(), oldData.getImageName(), "Concluso", oldData.getId(),
+							oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
+							oldData.getFinishDate(), oldData.getDurationEp(), bd);
+					FileManager.moveImage(oldData.getImagePath(type), "Completed to See", oldData.getImageName());
 					map.remove(name);
-					AnimeIndex.completedMap.put(name, newData);
+					AnimeIndex.completedToSeeMap.put(name, newData);
+					
 					int index;
 					int filterIndex;
 					int searchIndex;
@@ -1146,15 +1350,15 @@ public class AnimeInformation extends JPanel
 					if(AnimeIndex.filtro!=9 && !AnimeIndex.searchBar.getText().isEmpty())
 						AnimeIndex.filterList.clearSelection();
 					
-					AnimeIndex.completedModel.addElement(name);
+					AnimeIndex.completedToSeeModel.addElement(name);	
 					if(!AnimeIndex.shiftsRegister.containsKey(name))
 						AnimeIndex.shiftsRegister.put(name,type);
-					AnimeIndex.animeInformation.minusButton.setEnabled(false);
-				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
+					AnimeIndex.animeInformation.minusButton.setEnabled(true);
+				    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 				    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
-				    AnimeIndex.animeInformation.finishedButton.setEnabled(false);
-	
-			    	if(AnimeIndex.filtro!=9 && filterIndex-1 >= 0)
+				    AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
+				    
+				    if(AnimeIndex.filtro!=9 && filterIndex-1 >= 0)
 			    		AnimeIndex.filterList.setSelectedIndex(filterIndex-1);
 			    	else if (AnimeIndex.filtro!=9 && filterIndex-1 < 0)
 			    		AnimeIndex.animeInformation.setBlank();
@@ -1168,169 +1372,7 @@ public class AnimeInformation extends JPanel
 			    		list.setSelectedIndex(index-1);
 			    	else if (AnimeIndex.filtro==9 && AnimeIndex.searchBar.getText().isEmpty() && index-1 < 0)
 			    		AnimeIndex.animeInformation.setBlank();
-				}
-			}
-		});
-
-		btnAnilistInfo = new JButton("Pi\u00F9 Informazioni");
-		btnAnilistInfo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String anime = (String) AnimeIndex.getJList().getSelectedValue();
-				AnimeData data = (AnimeData)AnimeIndex.getMap().get(anime);
-				String link = "https://anilist.co/anime/"+data.getId();
-				if (!link.isEmpty())
-				{
-					try {
-						URI uriLink = new URI(link);
-						Desktop.getDesktop().browse(uriLink);
-					} catch (URISyntaxException e1) {
-						JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
-							    "Link non valido",
-							    "Errore",
-							    JOptionPane.ERROR_MESSAGE);
-						btnOpen.setEnabled(false);
-					} catch (IOException e1) {
-						JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
-							    "Link non valido",
-							    "Errore",
-							    JOptionPane.ERROR_MESSAGE);
 					}
-				}
-				else
-					JOptionPane.showMessageDialog(AnimeIndex.animeDialog,
-						    "Link non valido",
-						    "Errore",
-						    JOptionPane.ERROR_MESSAGE);
-			}
-		});
-		
-		GridBagConstraints gbc_btnAnilistInfo = new GridBagConstraints();
-		gbc_btnAnilistInfo.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnAnilistInfo.gridwidth = 2;
-		gbc_btnAnilistInfo.insets = new Insets(0, 0, 0, 5);
-		gbc_btnAnilistInfo.gridx = 1;
-		gbc_btnAnilistInfo.gridy = 11;
-		add(btnAnilistInfo, gbc_btnAnilistInfo);
-		
-		GridBagConstraints gbc_finishedButton = new GridBagConstraints();
-		gbc_finishedButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_finishedButton.insets = new Insets(0, 0, 0, 5);
-		gbc_finishedButton.gridx = 10;
-		gbc_finishedButton.gridy = 11;
-		add(finishedButton, gbc_finishedButton);
-		
-		addToSeeButton = new JButton("Concluso da Vedere");
-		addToSeeButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				AnimeIndex.saveModifiedInformation();
-				String name = lblAnimeName.getText();
-				if (AnimeIndex.completedToSeeMap.containsKey(name))
-				{
-					JOptionPane.showMessageDialog(AnimeInformation.this, "Anime già presente in \"Completi da Vedere\"", "Errore!", JOptionPane.ERROR_MESSAGE);
-				}
-				else
-				{
-				if(AnimeIndex.filtro!=9 && !AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
-					AnimeIndex.filterList.setSelectedValue(name, true);
-				
-				if(AnimeIndex.filtro!=9 && !name.equals("Anime"))
-				{
-					AnimeIndex.getJList().setSelectedValue(name, true);
-				}
-				if(!AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
-				{
-					AnimeIndex.getJList().setSelectedValue(name, true);
-				}
-				String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
-				
-				SortedListModel model = null;
-				JList list = null;
-				TreeMap<String,AnimeData> map = null;								
-				if (type.equalsIgnoreCase("anime in corso"))
-				{
-					model = AnimeIndex.airingModel;
-					list = AnimeIndex.airingList;
-					map = AnimeIndex.airingMap;
-				}
-				else if (type.equalsIgnoreCase("oav"))
-				{
-					model = AnimeIndex.ovaModel;
-					list = AnimeIndex.ovaList;
-					map = AnimeIndex.ovaMap;
-				}
-				else if (type.equalsIgnoreCase("film"))
-				{
-					model = AnimeIndex.filmModel;
-					list = AnimeIndex.filmList;
-					map = AnimeIndex.filmMap;
-				}
-				else if (type.equalsIgnoreCase("anime completati"))
-				{
-					model = AnimeIndex.completedModel;
-					list = AnimeIndex.completedList;
-					map = AnimeIndex.completedMap;
-				}
-				AnimeData oldData = map.get(name);
-				Boolean bd;
-				if(oldData.getAnimeType().equalsIgnoreCase("blu-ray"))
-					bd = true;
-				else
-					bd = false;
-				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
-						oldData.getNote(), oldData.getImageName(), "Concluso", oldData.getId(),
-						oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
-						oldData.getFinishDate(), oldData.getDurationEp(), bd);
-				FileManager.moveImage(oldData.getImagePath(type), "Completed to See", oldData.getImageName());
-				map.remove(name);
-				AnimeIndex.completedToSeeMap.put(name, newData);
-				
-				int index;
-				int filterIndex;
-				int searchIndex;
-				if(AnimeIndex.filtro!=9)
-				{
-					filterIndex = AnimeIndex.filterList.getSelectedIndex();
-					AnimeIndex.filterModel.removeElementAt(filterIndex);
-				}
-				else
-					filterIndex=-1;
-				
-				if(!AnimeIndex.searchBar.getText().isEmpty())
-				{
-					searchIndex = AnimeIndex.searchList.getSelectedIndex();
-					AnimeIndex.searchModel.removeElementAt(searchIndex);
-				}
-				else
-					searchIndex=-1;
-				
-				index = list.getSelectedIndex();
-				model.removeElementAt(index);
-				list.clearSelection();
-				if(AnimeIndex.filtro!=9 && !AnimeIndex.searchBar.getText().isEmpty())
-					AnimeIndex.filterList.clearSelection();
-				
-				AnimeIndex.completedToSeeModel.addElement(name);	
-				if(!AnimeIndex.shiftsRegister.containsKey(name))
-					AnimeIndex.shiftsRegister.put(name,type);
-				AnimeIndex.animeInformation.minusButton.setEnabled(true);
-			    AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
-			    AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
-			    AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
-			    
-			    if(AnimeIndex.filtro!=9 && filterIndex-1 >= 0)
-		    		AnimeIndex.filterList.setSelectedIndex(filterIndex-1);
-		    	else if (AnimeIndex.filtro!=9 && filterIndex-1 < 0)
-		    		AnimeIndex.animeInformation.setBlank();
-		    	
-		    	if(!AnimeIndex.searchBar.getText().isEmpty() && searchIndex-1 >= 0)
-		    		AnimeIndex.searchList.setSelectedIndex(searchIndex-1);
-		    	else if (!AnimeIndex.searchBar.getText().isEmpty() && searchIndex-1 < 0)
-		    		AnimeIndex.animeInformation.setBlank();
-		    	
-		    	if(AnimeIndex.filtro==9 && AnimeIndex.searchBar.getText().isEmpty() && index-1 >= 0)
-		    		list.setSelectedIndex(index-1);
-		    	else if (AnimeIndex.filtro==9 && AnimeIndex.searchBar.getText().isEmpty() && index-1 < 0)
-		    		AnimeIndex.animeInformation.setBlank();
 				}
 			}
 	});

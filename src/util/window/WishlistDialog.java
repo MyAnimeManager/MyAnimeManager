@@ -48,10 +48,10 @@ public class WishlistDialog extends JDialog
 	public final JPanel contentPanel = new JPanel();
 	public static SortedListModel wishListModel = new SortedListModel();
 	public static SortedListModel wishListSearchModel = new SortedListModel();
-	private SearchBar searchBar;
-	private JButton btnDeleteAnime;
-	private JButton btnAggiungiAnime;
-	private JButton btnID;
+	public static SearchBar searchBar;
+	public static JButton btnDeleteAnime;
+	public static JButton btnAggiungiAnime;
+	public static JButton btnID;
 	private Component verticalStrut_1;
 	private Component horizontalStrut;
 	private Component horizontalStrut_1;
@@ -62,10 +62,11 @@ public class WishlistDialog extends JDialog
 	private Component horizontalStrut_6;
 	private Component horizontalStrut_5;
 	private JScrollPane wishlistPane;
-	private JList wishlist;
+	public static JList wishlist;
 	private JScrollPane wishlistSearchPane;
-	private JList wishlistSearch;
+	public static JList wishlistSearch;
 	private JPanel cardPane;
+	public static JComboBox comboBox;
 
 	/**
 	 * Create the dialog..
@@ -143,7 +144,7 @@ public class WishlistDialog extends JDialog
 				verticalStrut_1 = Box.createVerticalStrut(20);
 			}
 			
-			JComboBox comboBox = new JComboBox();
+			comboBox = new JComboBox();
 			comboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"                 WISHLIST"}));
 			searchBar = new SearchBar();
