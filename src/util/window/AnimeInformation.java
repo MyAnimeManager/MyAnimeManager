@@ -247,21 +247,20 @@ public class AnimeInformation extends JPanel
 	
 		currentEpisodeField = new JTextField();
 		currentEpisodeField.addFocusListener(new FocusAdapter() {
-			String num;
 			@Override
 			public void focusGained(FocusEvent e) {
-				num = currentEpisodeField.getText();
+				AnimeIndex.currentEpisodeNumber = currentEpisodeField.getText();
 			}
 			@Override
 			public void focusLost(FocusEvent e) {
 				if(!e.getOppositeComponent().equals(plusButton))
 				{
 					if(currentEpisodeField.getText().isEmpty())
-						currentEpisodeField.setText(num);
+						currentEpisodeField.setText(AnimeIndex.currentEpisodeNumber);
 				}
 				else
 				{
-					String numero = Integer.parseInt(num)-1+"";
+					String numero = Integer.parseInt(AnimeIndex.currentEpisodeNumber)-1+"";
 					currentEpisodeField.setText(numero);
 				}
 			}
@@ -484,15 +483,15 @@ public class AnimeInformation extends JPanel
 		
 		totalEpisodeText = new JTextField();
 		totalEpisodeText.addFocusListener(new FocusAdapter() {
-			String ep;
+			
 			@Override
 			public void focusGained(FocusEvent e) {
-				ep = totalEpisodeText.getText();
+				AnimeIndex.totalEpNumber = totalEpisodeText.getText();
 			}
 			@Override
 			public void focusLost(FocusEvent e) {
 				if(totalEpisodeText.getText().isEmpty())
-					totalEpisodeText.setText(ep);
+					totalEpisodeText.setText(AnimeIndex.totalEpNumber);
 			}
 		});
 		totalEpisodeText.setMinimumSize(new Dimension(43, 23));
@@ -518,23 +517,26 @@ public class AnimeInformation extends JPanel
 		
 		durationField = new JTextField();
 		durationField.addFocusListener(new FocusAdapter() {
-			String durata;
 			@Override
 			public void focusGained(FocusEvent e) {
-				durata = durationField.getText().trim();
+				AnimeIndex.durata = durationField.getText().trim();
 			}
 			@Override
 			public void focusLost(FocusEvent e) {
-				if(durationField.getText().isEmpty() || durationField.getText().replaceAll(" ", "").replaceAll("\\p{IsAlphabetic}", "").isEmpty())
+				if(durationField.getText().isEmpty())
 				{
-					durationField.setText(durata);
+					durationField.setText(AnimeIndex.durata);
 				}
 				if(!durationField.getText().isEmpty() && !durationField.getText().trim().endsWith(" min"))
 				{
 					String duration = durationField.getText().trim();
 					duration = duration.replaceAll("\\p{IsAlphabetic}", "");
 					duration = duration.replaceAll(" ", "");
-					duration = duration + " min";
+					duration = duration.replaceAll("\\p{IsPunctuation}", "");
+					if(duration.isEmpty())
+						duration = "?? min";
+					else
+						duration = duration + " min";
 					durationField.setText(duration);
 				}
 			}
@@ -687,15 +689,14 @@ public class AnimeInformation extends JPanel
 		
 		releaseDateField = new JTextField();
 		releaseDateField.addFocusListener(new FocusAdapter() {
-			String day;
 			@Override
 			public void focusGained(FocusEvent e) {
-				day = releaseDateField.getText().trim();
+				AnimeIndex.startDate = releaseDateField.getText().trim();
 			}
 			@Override
 			public void focusLost(FocusEvent e) {
 				if(releaseDateField.getText().isEmpty())
-					releaseDateField.setText(day);
+					releaseDateField.setText(AnimeIndex.startDate);
 				if(releaseDateField.getText().trim().length()!=10 && !releaseDateField.getText().isEmpty())
 				{
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
@@ -724,15 +725,14 @@ public class AnimeInformation extends JPanel
 		
 		finishDateField = new JTextField();
 		finishDateField.addFocusListener(new FocusAdapter() {
-			String day;
 			@Override
 			public void focusGained(FocusEvent e) {
-				day = finishDateField.getText().trim();
+				AnimeIndex.endDate = finishDateField.getText().trim();
 			}
 			@Override
 			public void focusLost(FocusEvent e) {
 				if(finishDateField.getText().isEmpty())
-					finishDateField.setText(day);
+					finishDateField.setText(AnimeIndex.endDate);
 				if(finishDateField.getText().trim().length()!=10 && !finishDateField.getText().isEmpty())
 				{
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);

@@ -155,6 +155,13 @@ public class AnimeIndex extends JFrame
 	public static WishlistDialog wishlistDialog;
 	public static boolean openReleaseDialog;
 	public static boolean activeUpdate;
+	private String lastSelection;
+	
+	public static String currentEpisodeNumber;
+	public static String totalEpNumber;
+	public static String durata;
+	public static String startDate;
+	public static String endDate;
 	/**
 	 * Launch the application.
 	 */
@@ -988,6 +995,13 @@ public class AnimeIndex extends JFrame
 		completedAnimeScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 
 		completedList = new JList(completedModel);
+		completedList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(!frame.isFocusOwner() || !wishlistDialog.isFocusOwner())
+					e.consume();
+			}
+		});
 	    completedList.addKeyListener(UtilEvent.cancDeleteAnime());
 		completedList.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		completedList.setFont(segui.deriveFont(12f));
@@ -2375,5 +2389,41 @@ public class AnimeIndex extends JFrame
 			e.printStackTrace();
 		}
 		return day;
+	}
+	
+	private static void controlFileds()
+	{
+		if(animeInformation.totalEpisodeText.getText().isEmpty() && totalEpNumber!=null)
+			animeInformation.totalEpisodeText.setText(totalEpNumber);
+		
+		if(animeInformation.currentEpisodeField.getText().isEmpty() && currentEpisodeNumber!=null)
+			animeInformation.currentEpisodeField.setText(currentEpisodeNumber);
+		
+		if(animeInformation.durationField.getText().isEmpty() && durata!=null)
+		{
+			animeInformation.durationField.setText(durata);
+		}
+		if(!animeInformation.durationField.getText().isEmpty() && !animeInformation.durationField.getText().trim().endsWith(" min"))
+		{
+			String duration = animeInformation.durationField.getText().trim();
+			duration = duration.replaceAll("\\p{IsAlphabetic}", "");
+			duration = duration.replaceAll(" ", "");
+			duration = duration.replaceAll("\\p{IsPunctuation}", "");
+			if(duration.isEmpty())
+				duration = "?? min";
+			else
+				duration = duration + " min";
+			animeInformation.durationField.setText(duration);
+		}
+		
+		if(animeInformation.releaseDateField.getText().isEmpty() && startDate!=null)
+			animeInformation.releaseDateField.setText(startDate);
+		if(animeInformation.releaseDateField.getText().trim().length()!=10 && !animeInformation.releaseDateField.getText().isEmpty())
+		{
+			JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
+			animeInformation.releaseDateField.requestFocusInWindow();
+		}
+		else
+			animeInformation.releaseDateField.setText(animeInformation.releaseDateField.getText().trim());
 	}
 }
