@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
@@ -648,7 +649,7 @@ public class AnimeIndex extends JFrame
 		JMenuItem mntmAggiungiFansub = new JMenuItem("Nuovo Fansub");
 		mntmAggiungiFansub.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/Aegisub.png")));
 		mnAggiungi.add(mntmAggiungiFansub);
-		mntmAggiungiFansub.addActionListener(new ActionListener() {
+		mntmAggiungiFansub.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				fansubDialog = new AddFansubDialog();
 				fansubDialog.setLocationRelativeTo(mainFrame);
@@ -2384,7 +2385,7 @@ public class AnimeIndex extends JFrame
 		return day;
 	}
 	
-	private static void controlFileds()
+	private static void controlFields()
 	{
 		try
 		{
@@ -2412,11 +2413,11 @@ public class AnimeIndex extends JFrame
 				map = AnimeIndex.completedToSeeMap;
 			}
 			AnimeData oldData = map.get(lastSelection);
-			String currentEp;
-			String totalEp;
-			String durtionEp;
-			String startDay;
-			String endDay;
+			String currentEp = "";
+			String totalEp = "";
+			String durtionEp = "";
+			String startDay = "";
+			String endDay = "";
 			if(oldData.getTotalEpisode().isEmpty() && totalEpNumber!=null)
 				totalEp = totalEpNumber;
 			
@@ -2463,6 +2464,53 @@ public class AnimeIndex extends JFrame
 			}
 			if (oldData.getReleaseDate().endsWith(" ") || oldData.getReleaseDate().startsWith(" "))
 				startDay = oldData.getReleaseDate().trim();
+			
+			if(oldData.getFinishDate().trim().isEmpty())
+				endDay = endDate;
+			if(oldData.getFinishDate().trim().length()!=10 && !oldData.getFinishDate().trim().isEmpty())
+			{
+				JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
+				animeInformation.finishDateField.requestFocusInWindow();
+			}
+			if (oldData.getFinishDate().endsWith(" ") || oldData.getFinishDate().startsWith(" "))
+				startDay = oldData.getFinishDate().trim();
+			
+			AnimeData newData = null;
+			if(!currentEp.equals(oldData.getCurrentEpisode()) && !currentEp.isEmpty())
+			{
+				newData = new AnimeData(currentEp, oldData.getTotalEpisode(), oldData.getFansub(), 
+					    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
+						oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
+						oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
+			}
+			if(!totalEp.equals(oldData.getTotalEpisode()) && !totalEp.isEmpty())
+			{
+				newData = new AnimeData("1", oldData.getTotalEpisode(), oldData.getFansub(), 
+					    oldData.getNote(), oldData.getImageName(), "Irregolare", oldData.getId(),
+						oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), 
+						oldData.getFinishDate(), oldData.getDurationEp(), true);
+			}
+			if(!durtionEp.equals(oldData.getDurationEp()) && !durtionEp.isEmpty())
+			{
+				newData = new AnimeData("1", oldData.getTotalEpisode(), oldData.getFansub(), 
+					    oldData.getNote(), oldData.getImageName(), "Irregolare", oldData.getId(),
+						oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), 
+						oldData.getFinishDate(), oldData.getDurationEp(), true);
+			if(!startDay.equals(oldData.getReleaseDate()) && !startDay.isEmpty())
+			{
+				newData = new AnimeData("1", oldData.getTotalEpisode(), oldData.getFansub(), 
+					    oldData.getNote(), oldData.getImageName(), "Irregolare", oldData.getId(),
+						oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), 
+						oldData.getFinishDate(), oldData.getDurationEp(), true);
+			}
+			if(!endDay.equals(oldData.getFinishDate()) && !endDay.isEmpty())
+			{
+				newData = new AnimeData("1", oldData.getTotalEpisode(), oldData.getFansub(), 
+					    oldData.getNote(), oldData.getImageName(), "Irregolare", oldData.getId(),
+						oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), 
+						oldData.getFinishDate(), oldData.getDurationEp(), true);
+			}
+			
 		}
 		catch(NullPointerException e)
 		{
@@ -2478,7 +2526,7 @@ public class AnimeIndex extends JFrame
 			{
 				lastSelection = (String) getJList().getSelectedValue();
 			}
-			controlFileds();
+			controlFields();
 		}
 	}
 }
