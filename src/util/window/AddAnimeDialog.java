@@ -1324,13 +1324,12 @@ public class AddAnimeDialog extends JDialog
 							if (finishDate.equalsIgnoreCase("??/??/????")|| animeType.equalsIgnoreCase("?????"))
 								list = (String) listToAddAniComboBox.getSelectedItem();
 							else
-								list = checkDataConflict(finishDate, animeType);
+								list = checkDataConflict(finishDate, animeType, true);
 							String imageName = AddAnimeDialog.addSaveImage(name, dataAni, list);
 							AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
 									"", "", animeType, releaseDate, finishDate, durationEp, false); 
 							AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
 				
-//TODO
 							AnimeIndex.lastSelection = anime;
 							AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 						}
@@ -1450,11 +1449,14 @@ public class AddAnimeDialog extends JDialog
 	}
 	
 	
-	private static String checkDataConflict(String finishDate, String type)
+	private static String checkDataConflict(String finishDate, String type, boolean isAniAdd)
 	{
+		String listName = "";
 		String map = "";
-		
-		String listName = (String) listToAdd.getSelectedItem();
+		if (isAniAdd)
+			listName = (String) listToAddAniComboBox.getSelectedItem();
+		else
+			listName = (String) listToAdd.getSelectedItem();
 		
 		if (listName.equalsIgnoreCase("anime completati"))
 		{
@@ -1917,7 +1919,7 @@ public class AddAnimeDialog extends JDialog
 	
 	private static void manualAnimeAdd(String name, AnimeData data, String finishDate, String type)
 	{
-		String list = AddAnimeDialog.checkDataConflict(finishDate, type);
+		String list = AddAnimeDialog.checkDataConflict(finishDate, type, false);
 		AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
 	}
 	
