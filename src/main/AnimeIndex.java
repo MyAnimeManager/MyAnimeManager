@@ -158,7 +158,6 @@ public class AnimeIndex extends JFrame
 	public static boolean openReleaseDialog;
 	public static boolean activeUpdate;
 	public static String lastSelection;
-	private static UpdateAnimeDataTask task = new UpdateAnimeDataTask();
 	
 	public static String currentEpisodeNumber;
 	public static String totalEpNumber;
@@ -1205,10 +1204,7 @@ public class AnimeIndex extends JFrame
 						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 				}
 				
-				
-				if(!task.isDone())
-					task.cancel(true);
-				
+				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
 				task.execute();
 			}
 		});
