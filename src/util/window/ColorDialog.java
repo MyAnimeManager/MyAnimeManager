@@ -52,6 +52,7 @@ public class ColorDialog extends JDialog
 	 */
 	public ColorDialog()
 	{
+		setResizable(false);
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Personalizzazione Colori");
@@ -87,12 +88,15 @@ public class ColorDialog extends JDialog
 				public void actionPerformed(ActionEvent e) {
 					JButton butt = new JButton("Prova");
 					int color = customize(butt);
-					int oldcolor = Integer.parseInt(AnimeIndex.colorProp.getProperty("Button_color"));
+					if (AnimeIndex.colorProp.getProperty("Button_color") != null)
+					{
+						int oldcolor = Integer.parseInt(AnimeIndex.colorProp.getProperty("Button_color"));
 					if (color != 0 && color != oldcolor)
 					{
-					btnBottoni .setBackground(new Color(color));
+					btnBottoni.setBackground(new Color(color));
 					AnimeIndex.colorProp.setProperty("Button_color", Integer.toString(color));
 					changed = true;
+					}
 					}
 					
 				}
@@ -207,7 +211,7 @@ public class ColorDialog extends JDialog
 			contentPanel.add(btnSeparatori, gbc_btnSeparatori);
 		}
 		{
-			JButton btnBrareDiCaricamento = new JButton("Brare di Caricamento");
+			JButton btnBrareDiCaricamento = new JButton("Barre di Caricamento");
 			btnBrareDiCaricamento.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JProgressBar bar = new JProgressBar();
@@ -273,6 +277,21 @@ public class ColorDialog extends JDialog
 							ColorDialog.this.dispose();
 					}
 				});
+				{
+					JButton btnReset = new JButton("Reset");
+					btnReset.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							AnimeIndex.colorProp.clear();
+							int choiche = JOptionPane.showConfirmDialog(ColorDialog.this, "Per applicare le modifiche è necessario un riavvio. Riavviare ora?", "Riavvio richiesto", JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
+							if (choiche == 0)
+							{
+								saveData();
+								System.exit(0);
+							}
+						}
+					});
+					buttonPane.add(btnReset);
+				}
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

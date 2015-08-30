@@ -51,6 +51,7 @@ public class TestDialog extends JDialog
 	 */
 	public TestDialog()
 	{
+		setResizable(false);
 		setModal(true);
 		setBounds(100, 100, 450, 365);
 		getContentPane().setLayout(new BorderLayout());

@@ -37,6 +37,7 @@ public class CustomizingDialog extends JDialog
 	 */
 	public CustomizingDialog(JComponent component)
 	{
+		setResizable(false);
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 290, 250);
