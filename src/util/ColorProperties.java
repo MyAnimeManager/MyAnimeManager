@@ -78,7 +78,6 @@ public class ColorProperties
 	public static void setColor(Properties colorProperties)
 	{ 
 		//JPanel
-		System.out.println(colorProperties.getProperty("Background_color") == null);
 		if (colorProperties.getProperty("Background_color") != null && !colorProperties.getProperty("Background_color").equalsIgnoreCase("null"))
 		{
 			Color color = new Color(Integer.parseInt(colorProperties.getProperty("Background_color")));
