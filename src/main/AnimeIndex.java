@@ -64,6 +64,7 @@ import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 import util.AnimeData;
 import util.AnimeIndexProperties;
+import util.ColorProperties;
 import util.FileManager;
 import util.Filters;
 import util.ImageChooserFilter;
@@ -117,7 +118,6 @@ public class AnimeIndex extends JFrame
 	
 	private static String[] fansubList = {};
 	public static TreeMap<String,String> fansubMap = new TreeMap<String,String>();
-	public static Properties appProp;
 	public static TreeMap<String,AnimeData> completedMap = new TreeMap<String,AnimeData>();
 	public static TreeMap<String,AnimeData> airingMap = new TreeMap<String,AnimeData>();
 	public static TreeMap<String,AnimeData> ovaMap = new TreeMap<String,AnimeData>();
@@ -164,12 +164,16 @@ public class AnimeIndex extends JFrame
 	public static String durata;
 	public static String startDate;
 	public static String endDate;
+	
+	public static Properties appProp;
+	public static Properties colorProp;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args)
 	{
 		appProp = AnimeIndexProperties.createProperties();
+		colorProp = ColorProperties.createProperties();
 		EventQueue.invokeLater(new Runnable() {
 			public void run()
 			{
@@ -184,6 +188,8 @@ public class AnimeIndex extends JFrame
 			          System.out.println("Substance Graphite failed to initialize");
 			        }
 				try {
+					
+					ColorProperties.setColor(colorProp);
 					segui = segui();
 					frame = new AnimeIndex();
 					frame.setVisible(true);

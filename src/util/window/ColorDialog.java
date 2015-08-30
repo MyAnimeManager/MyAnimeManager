@@ -1,16 +1,12 @@
 package util.window;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.Properties;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -20,16 +16,19 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
+import util.AnimeIndexProperties;
+import util.ColorProperties;
+import util.FileManager;
+import main.AnimeIndex;
 
 
 public class ColorDialog extends JDialog
@@ -37,40 +36,16 @@ public class ColorDialog extends JDialog
 
 	private final JPanel contentPanel = new JPanel();
 	private static ColorDialog dialog;
-	public static Properties colorProperties;
 	private static boolean changed = false;
 
-//	public static void main(String[] args)
-//	{
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run()
-//			{
-//				try {
-//			         UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel());
-//			        } catch (Exception e) {
-//			          System.out.println("Substance Graphite failed to initialize");
-//			        }
-//				try {
-//			          UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel());
-//			        } catch (Exception e) {
-//			          System.out.println("Substance Graphite failed to initialize");
-//			        }
+
 //				colorProperties = ColorProperties.createProperties();
 //				if (!colorProperties.getProperty("Button_color").equalsIgnoreCase("null"))
 //				{
 //					Color color = new Color(Integer.parseInt(colorProperties.getProperty("Button_color")));
 //					UIManager.put("Button.background", color);
 //				}
-//				try {
-//					dialog = new ColorDialog();
-//					dialog.setVisible(true);
-//					
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+
 
 	/**
 	 * Create the dialog.
@@ -79,14 +54,6 @@ public class ColorDialog extends JDialog
 	{
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-//		addWindowListener(new WindowAdapter() {
-//			@Override
-//			public void windowClosing(WindowEvent e) {
-//				ColorProperties.saveProperties(colorProperties);
-//				System.exit(0);
-//			}
-//		});
 		setTitle("Personalizzazione Colori");
 		setBounds(100, 100, 404, 226);
 		getContentPane().setLayout(new BorderLayout());
@@ -120,8 +87,13 @@ public class ColorDialog extends JDialog
 				public void actionPerformed(ActionEvent e) {
 					JButton butt = new JButton("Prova");
 					int color = customize(butt);
+					int oldcolor = Integer.parseInt(AnimeIndex.colorProp.getProperty("Button_color"));
+					if (color != 0 && color != oldcolor)
+					{
 					btnBottoni .setBackground(new Color(color));
-					colorProperties.setProperty("Button_color", Integer.toString(color));
+					AnimeIndex.colorProp.setProperty("Button_color", Integer.toString(color));
+					changed = true;
+					}
 					
 				}
 			});
@@ -284,6 +256,20 @@ public class ColorDialog extends JDialog
 			}
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (changed)
+						{
+							int choiche = JOptionPane.showConfirmDialog(ColorDialog.this, "Per applicare le modifiche è necessario un riavvio. Riavviare ora?", "Riavvio richiesto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+							if (choiche == 0)
+								System.exit(0);
+							else
+								changed = false;
+						}
+						else
+							ColorDialog.this.dispose();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -307,11 +293,26 @@ public class ColorDialog extends JDialog
 				dial.setLocationRelativeTo(ColorDialog.dialog);
 				dial.setVisible(true);
 				int colorRGB = dial.color;
-				if (colorRGB != 0)
-					return colorRGB;
-				else
-					return 0; //TODO far ritornare il valore salvato precedentemente nelle prop
+				return colorRGB;
 
 	}
 
+	private static void saveData()
+	{
+		FileManager.saveAnimeList("completed.anaconda", AnimeIndex.completedModel, AnimeIndex.completedMap);
+		FileManager.saveAnimeList("airing.anaconda", AnimeIndex.airingModel, AnimeIndex.airingMap);
+		FileManager.saveAnimeList("ova.anaconda", AnimeIndex.ovaModel, AnimeIndex.ovaMap);
+		FileManager.saveAnimeList("film.anaconda", AnimeIndex.filmModel, AnimeIndex.filmMap);
+		FileManager.saveAnimeList("toSee.anaconda", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
+		FileManager.saveWishList();
+		FileManager.saveExclusionList();
+		
+		ExitSaveDialog.deleteUselessImage(AnimeIndex.completedDeletedAnime);
+		ExitSaveDialog.deleteUselessImage(AnimeIndex.airingDeletedAnime);
+		ExitSaveDialog.deleteUselessImage(AnimeIndex.ovaDeletedAnime);
+		ExitSaveDialog.deleteUselessImage(AnimeIndex.filmDeletedAnime);
+		ExitSaveDialog.deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime);
+		AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
+		ColorProperties.saveProperties(AnimeIndex.colorProp);
+	}
 }

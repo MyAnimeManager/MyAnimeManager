@@ -20,6 +20,7 @@ import com.sun.xml.internal.ws.util.CompletedFuture;
 import main.AnimeIndex;
 import util.AnimeData;
 import util.AnimeIndexProperties;
+import util.ColorProperties;
 import util.FileManager;
 
 import java.awt.Toolkit;
@@ -79,6 +80,7 @@ public class ExitSaveDialog extends JDialog
 								deleteUselessImage(AnimeIndex.filmDeletedAnime);
 								deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime);
 								AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
+								ColorProperties.saveProperties(AnimeIndex.colorProp);
 								
 							System.exit(0);
 						}
@@ -117,7 +119,7 @@ public class ExitSaveDialog extends JDialog
 		}
 	}
 
-	private void deleteUselessImage(ArrayList<String> arrayList)
+	public static void deleteUselessImage(ArrayList<String> arrayList)
 	{
 		for (int i = 0; i < arrayList.size(); i++)
 		{
