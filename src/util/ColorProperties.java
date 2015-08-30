@@ -67,11 +67,54 @@ public class ColorProperties
 	}
 	
 	public static void setColor(Properties colorProperties)
-	{
+	{ 
+		//JPanel
+		if (!colorProperties.getProperty("Background_color").equalsIgnoreCase("null"))
+		{
+			Color color = new Color(Integer.parseInt(colorProperties.getProperty("Background_color")));
+			UIManager.put("Panel.background", color);
+		}
+	
+		//Bottoni
 		if (!colorProperties.getProperty("Button_color").equalsIgnoreCase("null"))
 		{
 			Color color = new Color(Integer.parseInt(colorProperties.getProperty("Button_color")));
 			UIManager.put("Button.background", color);
+		}
+		
+		//TextField		
+		if (!colorProperties.getProperty("TextField_color").equalsIgnoreCase("null"))
+		{
+			Color color = new Color(Integer.parseInt(colorProperties.getProperty("TextField_color")));
+			UIManager.put("TextField.background", color);
+		}
+		
+		//Label
+		if (!colorProperties.getProperty("Label_color").equalsIgnoreCase("null"))
+		{
+			Color color = new Color(Integer.parseInt(colorProperties.getProperty("Label_color")));
+			UIManager.put("Label.background", color);
+		}
+		
+		//CheckBox
+		if (!colorProperties.getProperty("CheckBox_color").equalsIgnoreCase("null"))
+		{
+			Color color = new Color(Integer.parseInt(colorProperties.getProperty("CheckBox_color")));
+			UIManager.put("CheckBox.background", color);
+		}
+		
+		//RadioBox
+		if (!colorProperties.getProperty("RadioBox_color").equalsIgnoreCase("null"))
+		{
+			Color color = new Color(Integer.parseInt(colorProperties.getProperty("RadioBox_color")));
+			UIManager.put("RadioButton.background", color);
+		}
+		
+		//Liste
+		if (!colorProperties.getProperty("List_color").equalsIgnoreCase("null"))
+		{
+			Color color = new Color(Integer.parseInt(colorProperties.getProperty("List_color")));
+			UIManager.put("List.background", color);
 		}
 	}
 }

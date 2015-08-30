@@ -72,16 +72,11 @@ public class ColorDialog extends JDialog
 				public void actionPerformed(ActionEvent e) {
 					JPanel panel = new JPanel();
 					int color = customize(panel);
+					if (color != 0)
+					{
 					btnSfondo.setBackground(new Color(color));
-					if (!AnimeIndex.colorProp.getProperty("Background_color").equalsIgnoreCase("null"))
-					{
-						int oldcolor = Integer.parseInt(AnimeIndex.colorProp.getProperty("Button_color"));
-					if (color != 0 && color != oldcolor)
-					{
-						btnSfondo.setBackground(new Color(color));
 					AnimeIndex.colorProp.setProperty("Background_color", Integer.toString(color));
 					changed = true;
-					}
 					}
 				}
 			});
@@ -120,7 +115,12 @@ public class ColorDialog extends JDialog
 				public void actionPerformed(ActionEvent e) {
 					JTextField text = new JTextField();
 					int color = customize(text);
-					btnCampiDiInput .setBackground(new Color(color));
+					if (color != 0)
+					{
+					btnCampiDiInput.setBackground(new Color(color));
+					AnimeIndex.colorProp.setProperty("TextField_color", Integer.toString(color));
+					changed = true;
+					}
 				}
 			});
 			GridBagConstraints gbc_btnCampiDiInput = new GridBagConstraints();
@@ -136,7 +136,12 @@ public class ColorDialog extends JDialog
 				public void actionPerformed(ActionEvent e) {
 					JLabel label = new JLabel("Prova");
 					int color = customize(label);
-					btnLabel .setBackground(new Color(color));
+					if (color != 0)
+					{
+						btnLabel.setBackground(new Color(color));
+					AnimeIndex.colorProp.setProperty("Label_color", Integer.toString(color));
+					changed = true;
+					}
 				}
 			});
 			GridBagConstraints gbc_btnLabel = new GridBagConstraints();
@@ -152,7 +157,12 @@ public class ColorDialog extends JDialog
 				public void actionPerformed(ActionEvent e) {
 					JCheckBox checkBox = new JCheckBox();
 					int color = customize(checkBox);
-					btnCheckbox .setBackground(new Color(color));
+					if (color != 0)
+					{
+					btnCheckbox.setBackground(new Color(color));
+					AnimeIndex.colorProp.setProperty("CheckBox_color", Integer.toString(color));
+					changed = true;
+					}
 				}
 			});
 			GridBagConstraints gbc_btnCheckbox = new GridBagConstraints();
@@ -168,7 +178,12 @@ public class ColorDialog extends JDialog
 				public void actionPerformed(ActionEvent e) {
 					JRadioButton radioButton = new JRadioButton();
 					int color = customize(radioButton);
-					btnRadiobox .setBackground(new Color(color));
+					if (color != 0)
+					{
+					btnRadiobox.setBackground(new Color(color));
+					AnimeIndex.colorProp.setProperty("RadioBox_color", Integer.toString(color));
+					changed = true;
+					}
 					
 				}
 			});
@@ -190,7 +205,12 @@ public class ColorDialog extends JDialog
 					model.addElement("Prova 4");
 					JList list = new JList(model);
 					int color = customize(list);
-					btnListe .setBackground(new Color(color));
+					if (color != 0)
+					{
+					btnListe.setBackground(new Color(color));
+					AnimeIndex.colorProp.setProperty("List_color", Integer.toString(color));
+					changed = true;
+					}
 				}
 			});
 			GridBagConstraints gbc_btnListe = new GridBagConstraints();
