@@ -262,7 +262,10 @@ public class ColorDialog extends JDialog
 						{
 							int choiche = JOptionPane.showConfirmDialog(ColorDialog.this, "Per applicare le modifiche è necessario un riavvio. Riavviare ora?", "Riavvio richiesto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 							if (choiche == 0)
+							{
+								saveData();
 								System.exit(0);
+							}
 							else
 								changed = false;
 						}
