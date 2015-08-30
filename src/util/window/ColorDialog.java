@@ -226,7 +226,12 @@ public class ColorDialog extends JDialog
 				public void actionPerformed(ActionEvent e) {
 					JSeparator separator = new JSeparator();
 					int color = customize(separator);
-					btnSeparatori .setBackground(new Color(color));
+					if (color != 0)
+					{
+					btnSeparatori.setBackground(new Color(color));
+					AnimeIndex.colorProp.setProperty("Separator_color", Integer.toString(color));
+					changed = true;
+					}
 				}
 			});
 			GridBagConstraints gbc_btnSeparatori = new GridBagConstraints();
@@ -237,14 +242,19 @@ public class ColorDialog extends JDialog
 			contentPanel.add(btnSeparatori, gbc_btnSeparatori);
 		}
 		{
-			JButton btnBrareDiCaricamento = new JButton("Barre di Caricamento");
-			btnBrareDiCaricamento.addActionListener(new ActionListener() {
+			JButton btnBarreDiCaricamento = new JButton("Barre di Caricamento");
+			btnBarreDiCaricamento.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JProgressBar bar = new JProgressBar();
 					bar.setIndeterminate(true);
 					bar.setOrientation(SwingConstants.VERTICAL);
 					int color = customize(bar);
-					btnBrareDiCaricamento .setBackground(new Color(color));
+					if (color != 0)
+					{
+					btnBarreDiCaricamento.setBackground(new Color(color));
+					AnimeIndex.colorProp.setProperty("ProgressBar_color", Integer.toString(color));
+					changed = true;
+					}
 				}
 			});
 			GridBagConstraints gbc_btnBrareDiCaricamento = new GridBagConstraints();
@@ -252,7 +262,7 @@ public class ColorDialog extends JDialog
 			gbc_btnBrareDiCaricamento.fill = GridBagConstraints.HORIZONTAL;
 			gbc_btnBrareDiCaricamento.gridx = 0;
 			gbc_btnBrareDiCaricamento.gridy = 4;
-			contentPanel.add(btnBrareDiCaricamento, gbc_btnBrareDiCaricamento);
+			contentPanel.add(btnBarreDiCaricamento, gbc_btnBrareDiCaricamento);
 		}
 		{
 			JButton btnListeADiscesa = new JButton("Liste a Discesa");
@@ -260,7 +270,12 @@ public class ColorDialog extends JDialog
 				public void actionPerformed(ActionEvent e) {
 					JComboBox comboBox = new JComboBox();
 					int color = customize(comboBox);
-					btnListeADiscesa .setBackground(new Color(color));
+					if (color != 0)
+					{
+					btnListeADiscesa.setBackground(new Color(color));
+					AnimeIndex.colorProp.setProperty("ComboBox_color", Integer.toString(color));
+					changed = true;
+					}
 				}
 			});
 			GridBagConstraints gbc_btnListeADiscesa = new GridBagConstraints();

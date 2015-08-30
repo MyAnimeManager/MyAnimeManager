@@ -104,6 +104,7 @@ public class AnimeInformation extends JPanel
 		setLayout(gridBagLayout);
 		
 		scrollPane = new JScrollPane();
+		scrollPane.setOpaque(false);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		scrollPane.setBorder(null);

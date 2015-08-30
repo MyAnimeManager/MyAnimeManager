@@ -84,6 +84,7 @@ public class TestDialog extends JDialog
 		{
 			JSeparator separator = new JSeparator();
 			GridBagConstraints gbc_separator = new GridBagConstraints();
+			gbc_separator.fill = GridBagConstraints.BOTH;
 			gbc_separator.insets = new Insets(0, 0, 5, 0);
 			gbc_separator.gridx = 0;
 			gbc_separator.gridy = 2;

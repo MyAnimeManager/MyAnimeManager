@@ -32,7 +32,16 @@ public class ColorProperties
 			try {
 				prop.getParentFile().mkdirs();
 				prop.createNewFile();
+				defaultProps.put("Background_color", "null");
 				defaultProps.put("Button_color", "null");
+				defaultProps.put("TextField_color", "null");
+				defaultProps.put("Label_color", "null");
+				defaultProps.put("CheckBox_color", "null");
+				defaultProps.put("RadioBox_color", "null");
+				defaultProps.put("List_color", "null");
+				defaultProps.put("Separator_color", "null");
+				defaultProps.put("ProgressBar_color", "null");
+				defaultProps.put("ComboBox_color", "null");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -73,6 +82,7 @@ public class ColorProperties
 		{
 			Color color = new Color(Integer.parseInt(colorProperties.getProperty("Background_color")));
 			UIManager.put("Panel.background", color);
+//			UIManager.put("ScrollPane.background", color);
 		}
 	
 		//Bottoni
@@ -87,6 +97,7 @@ public class ColorProperties
 		{
 			Color color = new Color(Integer.parseInt(colorProperties.getProperty("TextField_color")));
 			UIManager.put("TextField.background", color);
+			UIManager.put("TextArea.background", color);
 		}
 		
 		//Label
@@ -115,6 +126,27 @@ public class ColorProperties
 		{
 			Color color = new Color(Integer.parseInt(colorProperties.getProperty("List_color")));
 			UIManager.put("List.background", color);
+		}
+		
+		//Separator
+		if (!colorProperties.getProperty("Separator_color").equalsIgnoreCase("null"))
+		{
+			Color color = new Color(Integer.parseInt(colorProperties.getProperty("Separator_color")));
+			UIManager.put("Separator.background", color);
+		}
+		
+		//LoadingBar
+		if (!colorProperties.getProperty("ProgressBar_color").equalsIgnoreCase("null"))
+		{
+			Color color = new Color(Integer.parseInt(colorProperties.getProperty("ProgressBar_color")));
+			UIManager.put("ProgressBar.background", color);
+		}
+		
+		//ComboBox
+		if (!colorProperties.getProperty("ComboBox_color").equalsIgnoreCase("null"))
+		{
+			Color color = new Color(Integer.parseInt(colorProperties.getProperty("ComboBox_color")));
+			UIManager.put("ComboBox.background", color);
 		}
 	}
 }
