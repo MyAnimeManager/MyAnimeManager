@@ -82,7 +82,8 @@ public class ColorProperties
 		{
 			Color color = new Color(Integer.parseInt(colorProperties.getProperty("Background_color")));
 			UIManager.put("Panel.background", color);
-//			UIManager.put("ScrollPane.background", color);
+			UIManager.put("Viewport.background", color);
+			UIManager.put("OptionPane.background", color);
 		}
 	
 		//Bottoni
