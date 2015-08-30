@@ -18,6 +18,8 @@ public class UpdateAnimeDataTask extends SwingWorker
 	@Override
 	protected Object doInBackground() throws Exception
 	{
+		if(!isDone())
+			cancel(true);
 		ConnectionManager.ConnectAndGetToken();
 		
 		String nome = "";
