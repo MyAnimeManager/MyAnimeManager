@@ -784,6 +784,7 @@ public class AnimeIndex extends JFrame
 		menuBar.add(mnInfo);
 		
 		JMenuItem mntmStatistiche = new JMenuItem("Statistiche");
+		mntmStatistiche.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/stats.png")));
 		mntmStatistiche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int nCompleted = 0;
