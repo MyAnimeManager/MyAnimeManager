@@ -37,7 +37,7 @@ public class ColorProperties
 				defaultProps.put("TextField_color", "null");
 				defaultProps.put("Label_color", "null");
 				defaultProps.put("CheckBox_color", "null");
-				defaultProps.put("RadioBox_color", "null");
+				defaultProps.put("Menu_color", "null");
 				defaultProps.put("List_color", "null");
 				defaultProps.put("Separator_color", "null");
 				defaultProps.put("ProgressBar_color", "null");
@@ -116,11 +116,14 @@ public class ColorProperties
 			UIManager.put("CheckBox.background", color);
 		}
 		
-		//RadioBox
-		if (colorProperties.getProperty("RadioBox_color") != null && !colorProperties.getProperty("RadioBox_color").equalsIgnoreCase("null"))
+		//Menu
+		if (colorProperties.getProperty("Menu_color") != null && !colorProperties.getProperty("Menu_color").equalsIgnoreCase("null"))
 		{
-			Color color = new Color(Integer.parseInt(colorProperties.getProperty("RadioBox_color")));
-			UIManager.put("RadioButton.background", color);
+			Color color = new Color(Integer.parseInt(colorProperties.getProperty("Menu_color")));
+			UIManager.put("MenuBar.background", color);
+			UIManager.put("Menu.Background", color);;
+			UIManager.put("PopupMenu.background", color);
+			UIManager.put("MenuItem.background", color);
 		}
 		
 		//Liste

@@ -173,15 +173,15 @@ public class ColorDialog extends JDialog
 			contentPanel.add(btnCheckbox, gbc_btnCheckbox);
 		}
 		{
-			JButton btnRadiobox = new JButton("RadioBox");
-			btnRadiobox.addActionListener(new ActionListener() {
+			JButton btnMenu = new JButton("Menu");
+			btnMenu.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JRadioButton radioButton = new JRadioButton();
-					int color = customize(radioButton);
+					JPanel panel = new JPanel();
+					int color = customize(panel);
 					if (color != 0)
 					{
-					btnRadiobox.setBackground(new Color(color));
-					AnimeIndex.colorProp.setProperty("RadioBox_color", Integer.toString(color));
+					btnMenu.setBackground(new Color(color));
+					AnimeIndex.colorProp.setProperty("Menu_color", Integer.toString(color));
 					changed = true;
 					}
 					
@@ -192,7 +192,7 @@ public class ColorDialog extends JDialog
 			gbc_btnRadiobox.insets = new Insets(0, 0, 5, 0);
 			gbc_btnRadiobox.gridx = 1;
 			gbc_btnRadiobox.gridy = 2;
-			contentPanel.add(btnRadiobox, gbc_btnRadiobox);
+			contentPanel.add(btnMenu, gbc_btnRadiobox);
 		}
 		{
 			JButton btnListe = new JButton("Liste");

@@ -265,9 +265,11 @@ public class AnimeIndex extends JFrame
 		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2));
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBackground(new Color(Integer.parseInt(colorProp.getProperty("Menu_color"))));
 		setJMenuBar(menuBar);
 		
 		JMenu mnMenu = new JMenu("Opzioni");
+		mnMenu.setOpaque(true);
 		menuBar.add(mnMenu);
 		
 		JMenuItem mntmPreferenze = new JMenuItem("Preferenze");
@@ -285,6 +287,7 @@ public class AnimeIndex extends JFrame
 		mnMenu.add(separator);
 		
 		JMenu mnElimina = new JMenu("Elimina");
+		mnElimina.setBackground(new Color(Integer.parseInt(colorProp.getProperty("Menu_color"))));
 		mnElimina.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/DeleteRed.png")));
 		mnMenu.add(mnElimina);
 		
@@ -337,6 +340,7 @@ public class AnimeIndex extends JFrame
 		JSeparator separator_10 = new JSeparator();
 		mnElimina.add(separator_10);
 		JMenu mnEliminaLista = new JMenu("Tutta la Lista");
+		mnEliminaLista.setBackground(new Color(Integer.parseInt(colorProp.getProperty("Menu_color"))));
 		mnElimina.add(mnEliminaLista);
 		
 		JMenuItem mntmAnimeCompletati = new JMenuItem("Anime Completati");
@@ -813,6 +817,8 @@ public class AnimeIndex extends JFrame
 		mnInfo.add(separator_1);
 		
 		JMenu mnHelp = new JMenu("Aiuto");
+		mnHelp.setBackground(new Color(Integer.parseInt(colorProp.getProperty("Menu_color"))));
+		
 		mnHelp.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/icon2.png")));
 		mnInfo.add(mnHelp);
 		

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,14 +15,18 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.border.EmptyBorder;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser.ColorWheelChooser;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 
 public class CustomizingDialog extends JDialog
@@ -72,23 +77,25 @@ public class CustomizingDialog extends JDialog
 		}
 		{
 			JPanel componentPanel = new JPanel();
-			contentPanel.add(componentPanel, BorderLayout.EAST);			
-			componentPanel.setLayout(new BorderLayout(0, 0));
+			contentPanel.add(componentPanel, BorderLayout.EAST);
 			{
 				componentPanel.add(component, BorderLayout.CENTER);
-				if (component instanceof JPanel)
+				
+				if (component instanceof JPanel || component instanceof JSeparator)
 				{
 					Component area = Box.createRigidArea(new Dimension(40,40));
 					component.add(area);
 				}
 			}
+			componentPanel.setLayout(new BorderLayout(0, 0));
 			{
 				Component verticalStrut = Box.createVerticalStrut(60);
-				componentPanel.add(verticalStrut, BorderLayout.NORTH);
+				componentPanel.add(verticalStrut);
 			}
+
 			{
 				Component verticalStrut = Box.createVerticalStrut(30);
-				componentPanel.add(verticalStrut, BorderLayout.SOUTH);
+				componentPanel.add(verticalStrut);
 			}
 		}
 		{
