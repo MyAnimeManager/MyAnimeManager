@@ -531,7 +531,7 @@ public class AnimeIndex extends JFrame
 				animeInformation.setBlank();
 				animeInformation.fansubComboBox.removeAllItems();
 				JOptionPane.showMessageDialog(mainFrame, "Dati eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
-				ExternalProgram ext = new ExternalProgram(FileManager.getAppDataPath() + File.separator + "My Anime Manager.exe");
+				ExternalProgram ext = new ExternalProgram(FileManager.getAppDataPath() + "My Anime Manager.exe");
 				ext.run();
 				}
 			}
