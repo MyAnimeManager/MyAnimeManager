@@ -89,12 +89,13 @@ import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
-//TODO fare sistema di controllo (controllo inserimento anime)
-//TODO finire aggiunta anime manuale (anche disattivazione dei pulsanti anilistInfo e aggiornamento dati)
-//TODO ReleasedAnimeTask esclusione ??/??/???? e rifarla
+//TODO fixare bug controllo aggiunta anime
+//TODO disattivazione combobox giorno di uscita al cambio di anime;
+//TODO ReleasedAnimeTask esclusione ??/??/???? 
 public class AnimeIndex extends JFrame
 {
 	public static final String VERSION = "1.0.0";
+	public static final String CURRENT_VERSION = "MyAnimeManager.exe";
 	public static final String NEW_VERSION = "MyAnimeManager_Setup.exe";
 	public static JPanel mainFrame;
 	public static JPanel cardContainer;
@@ -531,7 +532,7 @@ public class AnimeIndex extends JFrame
 				animeInformation.fansubComboBox.removeAllItems();
 				animeInformation.setBlank();
 				JOptionPane.showMessageDialog(mainFrame, "Dati eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
-				ExternalProgram ext = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + "My Anime Manager.exe");
+				ExternalProgram ext = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + CURRENT_VERSION);
 				ext.run();
 				}
 			}

@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -27,6 +28,7 @@ import javax.swing.border.EmptyBorder;
 
 import util.AnimeIndexProperties;
 import util.ColorProperties;
+import util.ExternalProgram;
 import util.FileManager;
 import main.AnimeIndex;
 
@@ -329,7 +331,8 @@ public class ColorDialog extends JDialog
 							if (choiche == 0)
 							{
 								saveData();
-								System.exit(0);
+								ExternalProgram ext = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + AnimeIndex.CURRENT_VERSION);
+								ext.run();
 							}
 							else
 								changed = false;
@@ -347,7 +350,8 @@ public class ColorDialog extends JDialog
 							if (choiche == 0)
 							{
 								saveData();
-								System.exit(0);
+								ExternalProgram ext = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + AnimeIndex.CURRENT_VERSION);
+								ext.run();
 							}
 						}
 					});

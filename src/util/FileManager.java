@@ -443,7 +443,7 @@ public class FileManager
 	}
 	 public static void deleteData(File file)	throws IOException
 	 {
-		 File program = new File(FileManager.getAppDataPath() + "MyAnimeManager.exe");
+		 File program = new File(FileManager.getAppDataPath() + AnimeIndex.CURRENT_VERSION);
 		    	if(file.isDirectory())
 		    	{		 
 		    		if(file.list().length==0)		 
