@@ -68,6 +68,8 @@ public class ColorDialog extends JDialog
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JButton btnSfondo = new JButton("Sfondo");
+			if (AnimeIndex.colorProp.getProperty("Background_color") != null && !AnimeIndex.colorProp.getProperty("Background_color").equalsIgnoreCase("null"))
+				btnSfondo.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("Background_color"))));
 			btnSfondo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JPanel panel = new JPanel();
@@ -89,6 +91,8 @@ public class ColorDialog extends JDialog
 		}
 		{
 			JButton btnBottoni = new JButton("Bottoni");
+			if (AnimeIndex.colorProp.getProperty("Button_color") != null && !AnimeIndex.colorProp.getProperty("Button_color").equalsIgnoreCase("null"))
+				btnBottoni.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("Button_color"))));
 			btnBottoni.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JButton butt = new JButton("Prova");
@@ -111,6 +115,8 @@ public class ColorDialog extends JDialog
 		}
 		{
 			JButton btnCampiDiInput = new JButton("Campi di Input");
+			if (AnimeIndex.colorProp.getProperty("TextField_color") != null && !AnimeIndex.colorProp.getProperty("TextField_color").equalsIgnoreCase("null"))
+				btnCampiDiInput.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("TextField_color"))));
 			btnCampiDiInput.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JTextField text = new JTextField();
@@ -132,6 +138,8 @@ public class ColorDialog extends JDialog
 		}
 		{
 			JButton btnLabel = new JButton("Label");
+			if (AnimeIndex.colorProp.getProperty("Label_color") != null && !AnimeIndex.colorProp.getProperty("Label_color").equalsIgnoreCase("null"))
+				btnLabel.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("Label_color"))));
 			btnLabel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JLabel label = new JLabel("Prova");
@@ -153,6 +161,8 @@ public class ColorDialog extends JDialog
 		}
 		{
 			JButton btnCheckbox = new JButton("CheckBox");
+			if (AnimeIndex.colorProp.getProperty("CheckBox_color") != null && !AnimeIndex.colorProp.getProperty("CheckBox_color").equalsIgnoreCase("null"))
+				btnCheckbox.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("CheckBox_color"))));
 			btnCheckbox.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JCheckBox checkBox = new JCheckBox();
@@ -174,6 +184,8 @@ public class ColorDialog extends JDialog
 		}
 		{
 			JButton btnMenu = new JButton("Menu");
+			if (AnimeIndex.colorProp.getProperty("Menu_color") != null && !AnimeIndex.colorProp.getProperty("Menu_color").equalsIgnoreCase("null"))
+				btnMenu.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("Menu_color"))));
 			btnMenu.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JPanel panel = new JPanel();
@@ -196,6 +208,8 @@ public class ColorDialog extends JDialog
 		}
 		{
 			JButton btnListe = new JButton("Liste");
+			if (AnimeIndex.colorProp.getProperty("List_color") != null && !AnimeIndex.colorProp.getProperty("List_color").equalsIgnoreCase("null"))
+				btnListe.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("List_color"))));
 			btnListe.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					DefaultListModel model = new DefaultListModel();
@@ -222,6 +236,8 @@ public class ColorDialog extends JDialog
 		}
 		{
 			JButton btnSeparatori = new JButton("Separatori");
+			if (AnimeIndex.colorProp.getProperty("Separator_color") != null && !AnimeIndex.colorProp.getProperty("Separator_color").equalsIgnoreCase("null"))
+				btnSeparatori.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("Separator_color"))));
 			btnSeparatori.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JSeparator separator = new JSeparator();
@@ -243,6 +259,8 @@ public class ColorDialog extends JDialog
 		}
 		{
 			JButton btnBarreDiCaricamento = new JButton("Barre di Caricamento");
+			if (AnimeIndex.colorProp.getProperty("ProgressBar_color") != null && !AnimeIndex.colorProp.getProperty("ProgressBar_color").equalsIgnoreCase("null"))
+				btnBarreDiCaricamento.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("ProgressBar_color"))));
 			btnBarreDiCaricamento.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JProgressBar bar = new JProgressBar();
@@ -266,6 +284,8 @@ public class ColorDialog extends JDialog
 		}
 		{
 			JButton btnListeADiscesa = new JButton("Liste a Discesa");
+			if (AnimeIndex.colorProp.getProperty("ComboBox_color") != null && !AnimeIndex.colorProp.getProperty("ComboBox_color").equalsIgnoreCase("null"))
+				btnListeADiscesa.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("ComboBox_color"))));
 			btnListeADiscesa.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JComboBox comboBox = new JComboBox();
