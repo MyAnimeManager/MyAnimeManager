@@ -341,7 +341,7 @@ public class ColorDialog extends JDialog
 				JButton cancelButton = new JButton("Annulla");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						System.exit(0);
+						ColorDialog.this.dispose();
 					}
 				});
 				cancelButton.setActionCommand("Cancel");
