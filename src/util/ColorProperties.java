@@ -84,6 +84,7 @@ public class ColorProperties
 			UIManager.put("Panel.background", color);
 			UIManager.put("Viewport.background", color);
 			UIManager.put("OptionPane.background", color);
+			UIManager.put("ScrollBar.background", color);
 		}
 	
 		//Bottoni
@@ -121,7 +122,7 @@ public class ColorProperties
 		{
 			Color color = new Color(Integer.parseInt(colorProperties.getProperty("Menu_color")));
 			UIManager.put("MenuBar.background", color);
-			UIManager.put("Menu.Background", color);;
+			UIManager.put("Menu.background", color);
 			UIManager.put("PopupMenu.background", color);
 			UIManager.put("MenuItem.background", color);
 		}
