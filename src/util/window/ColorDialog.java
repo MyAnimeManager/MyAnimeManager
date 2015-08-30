@@ -73,16 +73,16 @@ public class ColorDialog extends JDialog
 					JPanel panel = new JPanel();
 					int color = customize(panel);
 					btnSfondo.setBackground(new Color(color));
-//					if (AnimeIndex.colorProp.getProperty("Background_color") != null)
-//					{
-//						int oldcolor = Integer.parseInt(AnimeIndex.colorProp.getProperty("Button_color"));
-//					if (color != 0 && color != oldcolor)
-//					{
-//						btnSfondo.setBackground(new Color(color));
-//					AnimeIndex.colorProp.setProperty("Button_color", Integer.toString(color));
-//					changed = true;
-//					}
-//					}
+					if (!AnimeIndex.colorProp.getProperty("Background_color").equalsIgnoreCase("null"))
+					{
+						int oldcolor = Integer.parseInt(AnimeIndex.colorProp.getProperty("Button_color"));
+					if (color != 0 && color != oldcolor)
+					{
+						btnSfondo.setBackground(new Color(color));
+					AnimeIndex.colorProp.setProperty("Background_color", Integer.toString(color));
+					changed = true;
+					}
+					}
 				}
 			});
 			GridBagConstraints gbc_btnSfondo = new GridBagConstraints();
@@ -98,15 +98,11 @@ public class ColorDialog extends JDialog
 				public void actionPerformed(ActionEvent e) {
 					JButton butt = new JButton("Prova");
 					int color = customize(butt);
-					if (!AnimeIndex.colorProp.getProperty("Button_color").equalsIgnoreCase("null"))
-					{
-						int oldcolor = Integer.parseInt(AnimeIndex.colorProp.getProperty("Button_color"));
-					if (color != 0 && color != oldcolor)
+					if (color != 0)
 					{
 					btnBottoni.setBackground(new Color(color));
 					AnimeIndex.colorProp.setProperty("Button_color", Integer.toString(color));
 					changed = true;
-					}
 					}
 					
 				}
