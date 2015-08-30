@@ -152,7 +152,7 @@ public class FieldExclusionDialog extends JDialog
 			{
 			}
 			{
-				deselectAll = new JButton("Nessuno");
+				deselectAll = new JButton("Nessun Campo Escluso");
 				deselectAll.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						AnimeIndex.appProp.setProperty("excludeTotalEp", "false");

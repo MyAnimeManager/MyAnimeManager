@@ -65,6 +65,7 @@ import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.ColorProperties;
+import util.ExternalProgram;
 import util.FileManager;
 import util.Filters;
 import util.ImageChooserFilter;
@@ -523,6 +524,8 @@ public class AnimeIndex extends JFrame
 				animeInformation.setBlank();
 				animeInformation.fansubComboBox.removeAllItems();
 				JOptionPane.showMessageDialog(mainFrame, "Dati eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+				ExternalProgram ext = new ExternalProgram(FileManager.getAppDataPath() + File.separator + "My Anime Manager.exe");
+				ext.run();
 				}
 			}
 		});
@@ -772,6 +775,35 @@ public class AnimeIndex extends JFrame
 		
 		JMenu mnInfo = new JMenu("Info");
 		menuBar.add(mnInfo);
+		
+		JMenuItem mntmStatistiche = new JMenuItem("Statistiche");
+		mntmStatistiche.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int nCompleted = 0;
+				int nAiring = 0;
+				int nOAV = 0;
+				int nFilm = 0;
+				int nToSee = 0;
+				int nWish = 0;
+				for(int i=0; i<completedMap.size(); i++)
+					nCompleted += 1;
+				for(int i=0; i<airingMap.size(); i++)
+					nAiring += 1;
+				for(int i=0; i<ovaMap.size(); i++)
+					nOAV += 1;
+				for(int i=0; i<filmMap.size(); i++)
+					nFilm += 1;
+				for(int i=0; i<completedToSeeMap.size(); i++)
+					nToSee += 1;
+				for(int i=0; i<wishlistMap.size(); i++)
+					nWish += 1;                                                                                                                                                                                                                                                   
+				JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Anime Completati:      "+nCompleted+"\n\r\n\rAnime in Corso:           "+nAiring+"\n\r\n\rOAV:                              "+nOAV+"\n\r\n\rFilm:                               "+nFilm+"\n\r\n\rCompleti da Vedere:    "+nToSee+"\n\r\n\rWishlist:                         "+nWish, "Statistiche", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		mnInfo.add(mntmStatistiche);
+		
+		JSeparator separator_16 = new JSeparator();
+		mnInfo.add(separator_16);
 		
 		JMenuItem mntmControlloAggiornamenti = new JMenuItem("Controllo aggiornamenti");
 		mntmControlloAggiornamenti.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/Update.png")));

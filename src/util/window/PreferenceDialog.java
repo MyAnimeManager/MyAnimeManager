@@ -58,7 +58,7 @@ public class PreferenceDialog extends JDialog
 		setTitle("Preferenze");
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 380, 280);
+		setBounds(100, 100, 380, 291);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.EAST);
@@ -271,49 +271,84 @@ public class PreferenceDialog extends JDialog
 			contentPanel.add(separator, gbc_separator);
 		}
 		{
-			JLabel lblImmagineIniziale = new JLabel("Immagine Iniziale :");
-			GridBagConstraints gbc_lblImmagineIniziale = new GridBagConstraints();
-			gbc_lblImmagineIniziale.fill = GridBagConstraints.HORIZONTAL;
-			gbc_lblImmagineIniziale.insets = new Insets(0, 0, 5, 5);
-			gbc_lblImmagineIniziale.gridx = 0;
-			gbc_lblImmagineIniziale.gridy = 7;
-			contentPanel.add(lblImmagineIniziale, gbc_lblImmagineIniziale);
+			JLabel lblAspetto = new JLabel("Aspetto :");
+			GridBagConstraints gbc_lblAspetto = new GridBagConstraints();
+			gbc_lblAspetto.anchor = GridBagConstraints.WEST;
+			gbc_lblAspetto.insets = new Insets(0, 0, 5, 5);
+			gbc_lblAspetto.gridx = 0;
+			gbc_lblAspetto.gridy = 7;
+			contentPanel.add(lblAspetto, gbc_lblAspetto);
 		}
 		{
-			JButton DefaultImageButton = new JButton("Sfoglia");
-			DefaultImageButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
-					JFileChooser fc = new JFileChooser(chooserDir);
-					fc.setMultiSelectionEnabled(false);
-					fc.addChoosableFileFilter(new ImageChooserFilter());
-					fc.setAcceptAllFileFilterUsed(false);
-
-					int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Imposta");
-					
-					if (returnVal == JFileChooser.APPROVE_OPTION)
-					{
-						File file = fc.getSelectedFile();
-						String dir = file.getPath();
-						try {
-							BufferedImage bufimg = ImageIO.read (file);
-							FileManager.saveDefaultImage(dir, "default");
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
-							AnimeIndex.animeInformation.setBlank();
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-						
-					}
-				}
-			});
-			GridBagConstraints gbc_DefaultImageButton = new GridBagConstraints();
-			gbc_DefaultImageButton.fill = GridBagConstraints.HORIZONTAL;
-			gbc_DefaultImageButton.insets = new Insets(0, 0, 5, 5);
-			gbc_DefaultImageButton.gridx = 1;
-			gbc_DefaultImageButton.gridy = 7;
-			contentPanel.add(DefaultImageButton, gbc_DefaultImageButton);
+			{
+				JLabel lblColori = new JLabel("               \u2022 Colori :");
+				GridBagConstraints gbc_lblColori = new GridBagConstraints();
+				gbc_lblColori.anchor = GridBagConstraints.WEST;
+				gbc_lblColori.insets = new Insets(0, 0, 5, 5);
+				gbc_lblColori.gridx = 0;
+				gbc_lblColori.gridy = 8;
+				contentPanel.add(lblColori, gbc_lblColori);
+			}
 		}
+		JButton btnColor = new JButton("Personalizza");
+		btnColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ColorDialog dial = new ColorDialog();
+				dial.setLocationRelativeTo(AnimeIndex.mainFrame);
+				dial.setVisible(true);
+			}
+		});
+		GridBagConstraints gbc_btnColor = new GridBagConstraints();
+		gbc_btnColor.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnColor.gridwidth = 2;
+		gbc_btnColor.insets = new Insets(0, 0, 5, 0);
+		gbc_btnColor.gridx = 1;
+		gbc_btnColor.gridy = 8;
+		contentPanel.add(btnColor, gbc_btnColor);
+		{
+			{
+				JLabel lblImmagineIniziale = new JLabel("               \u2022 Immagine Iniziale :");
+				GridBagConstraints gbc_lblImmagineIniziale = new GridBagConstraints();
+				gbc_lblImmagineIniziale.anchor = GridBagConstraints.WEST;
+				gbc_lblImmagineIniziale.insets = new Insets(0, 0, 5, 5);
+				gbc_lblImmagineIniziale.gridx = 0;
+				gbc_lblImmagineIniziale.gridy = 9;
+				contentPanel.add(lblImmagineIniziale, gbc_lblImmagineIniziale);
+			}
+		}
+		JButton DefaultImageButton = new JButton("Sfoglia");
+		DefaultImageButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+				JFileChooser fc = new JFileChooser(chooserDir);
+				fc.setMultiSelectionEnabled(false);
+				fc.addChoosableFileFilter(new ImageChooserFilter());
+				fc.setAcceptAllFileFilterUsed(false);
+
+				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Imposta");
+				
+				if (returnVal == JFileChooser.APPROVE_OPTION)
+				{
+					File file = fc.getSelectedFile();
+					String dir = file.getPath();
+					try {
+						BufferedImage bufimg = ImageIO.read (file);
+						FileManager.saveDefaultImage(dir, "default");
+						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+						AnimeIndex.animeInformation.setBlank();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					
+				}
+			}
+		});
+		GridBagConstraints gbc_DefaultImageButton = new GridBagConstraints();
+		gbc_DefaultImageButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_DefaultImageButton.insets = new Insets(0, 0, 5, 5);
+		gbc_DefaultImageButton.gridx = 1;
+		gbc_DefaultImageButton.gridy = 9;
+		contentPanel.add(DefaultImageButton, gbc_DefaultImageButton);
 		{
 			JButton removeDefaultImage = new JButton("Rimuovi");
 			removeDefaultImage.addActionListener(new ActionListener() {
@@ -337,34 +372,8 @@ public class PreferenceDialog extends JDialog
 			gbc_removeDefaultImage.fill = GridBagConstraints.HORIZONTAL;
 			gbc_removeDefaultImage.insets = new Insets(0, 0, 5, 0);
 			gbc_removeDefaultImage.gridx = 2;
-			gbc_removeDefaultImage.gridy = 7;
+			gbc_removeDefaultImage.gridy = 9;
 			contentPanel.add(removeDefaultImage, gbc_removeDefaultImage);
-		}
-		{
-			JSeparator separator = new JSeparator();
-			GridBagConstraints gbc_separator = new GridBagConstraints();
-			gbc_separator.fill = GridBagConstraints.BOTH;
-			gbc_separator.gridwidth = 3;
-			gbc_separator.insets = new Insets(0, 0, 5, 5);
-			gbc_separator.gridx = 0;
-			gbc_separator.gridy = 8;
-			contentPanel.add(separator, gbc_separator);
-		}
-		{
-			JButton btnColor = new JButton("Personalizza aspetto");
-			btnColor.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					ColorDialog dial = new ColorDialog();
-					dial.setLocationRelativeTo(AnimeIndex.mainFrame);
-					dial.setVisible(true);
-				}
-			});
-			GridBagConstraints gbc_btnColor = new GridBagConstraints();
-			gbc_btnColor.gridwidth = 3;
-			gbc_btnColor.insets = new Insets(0, 0, 5, 5);
-			gbc_btnColor.gridx = 0;
-			gbc_btnColor.gridy = 9;
-			contentPanel.add(btnColor, gbc_btnColor);
 		}
 		{
 			JSeparator separator = new JSeparator();
