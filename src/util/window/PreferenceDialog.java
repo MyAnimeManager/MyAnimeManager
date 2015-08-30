@@ -58,15 +58,15 @@ public class PreferenceDialog extends JDialog
 		setTitle("Preferenze");
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 380, 249);
+		setBounds(100, 100, 380, 280);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.EAST);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{197, 90, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblListToVisualize = new JLabel("Lista da visualizzare all'avvio :");
@@ -110,7 +110,7 @@ public class PreferenceDialog extends JDialog
 					chckbxApriWishlist = new JCheckBox("Apri Wishlist");
 					GridBagConstraints gbc_chckbxApriWishlist = new GridBagConstraints();
 					gbc_chckbxApriWishlist.gridwidth = 2;
-					gbc_chckbxApriWishlist.insets = new Insets(0, 0, 5, 5);
+					gbc_chckbxApriWishlist.insets = new Insets(0, 0, 5, 0);
 					gbc_chckbxApriWishlist.gridx = 1;
 					gbc_chckbxApriWishlist.gridy = 1;
 					contentPanel.add(chckbxApriWishlist, gbc_chckbxApriWishlist);
@@ -345,8 +345,34 @@ public class PreferenceDialog extends JDialog
 			GridBagConstraints gbc_separator = new GridBagConstraints();
 			gbc_separator.fill = GridBagConstraints.BOTH;
 			gbc_separator.gridwidth = 3;
+			gbc_separator.insets = new Insets(0, 0, 5, 5);
 			gbc_separator.gridx = 0;
 			gbc_separator.gridy = 8;
+			contentPanel.add(separator, gbc_separator);
+		}
+		{
+			JButton btnColor = new JButton("Personalizza aspetto");
+			btnColor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ColorDialog dial = new ColorDialog();
+					dial.setLocationRelativeTo(AnimeIndex.mainFrame);
+					dial.setVisible(true);
+				}
+			});
+			GridBagConstraints gbc_btnColor = new GridBagConstraints();
+			gbc_btnColor.gridwidth = 3;
+			gbc_btnColor.insets = new Insets(0, 0, 5, 5);
+			gbc_btnColor.gridx = 0;
+			gbc_btnColor.gridy = 9;
+			contentPanel.add(btnColor, gbc_btnColor);
+		}
+		{
+			JSeparator separator = new JSeparator();
+			GridBagConstraints gbc_separator = new GridBagConstraints();
+			gbc_separator.fill = GridBagConstraints.BOTH;
+			gbc_separator.gridwidth = 3;
+			gbc_separator.gridx = 0;
+			gbc_separator.gridy = 10;
 			contentPanel.add(separator, gbc_separator);
 		}
 		
