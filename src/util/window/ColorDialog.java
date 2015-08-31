@@ -39,16 +39,16 @@ public class ColorDialog extends JDialog
 	private final JPanel contentPanel = new JPanel();
 	private static ColorDialog dialog;
 	private static boolean changed = false;
-	private int panelColor;
-	private int buttonColor;
-	private int textFieldColor;
-	private int labelColor;
-	private int checkBoxColor;
-	private int menuColor;
-	private int listColor;
-	private int separatorColor;
-	private int progressBarColor;
-	private int comboBoxColor;
+	public static int panelColor;
+	public static int buttonColor;
+	public static int textFieldColor;
+	public static int labelColor;
+	public static int checkBoxColor;
+	public static int menuColor;
+	public static int listColor;
+	public static int separatorColor;
+	public static int progressBarColor;
+	public static int comboBoxColor;
 
 
 	/**
@@ -268,8 +268,8 @@ public class ColorDialog extends JDialog
 				}
 			btnSeparatori.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JSeparator separator = new JSeparator();
-					int color = customize(separator);
+					JPanel panel = new JPanel();
+					int color = customize(panel);
 					if (color != 0)
 					{
 					btnSeparatori.setBackground(new Color(color));
