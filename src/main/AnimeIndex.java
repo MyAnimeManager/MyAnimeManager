@@ -53,6 +53,7 @@ import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -61,8 +62,12 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.pushingpixels.lafwidget.contrib.blogofbug.swing.SwingBugUtilities;
 import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
+import com.sun.java.swing.SwingUtilities3;
+
+import sun.swing.SwingUtilities2;
 import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.ColorProperties;
@@ -2710,7 +2715,9 @@ public class AnimeIndex extends JFrame
 		appThread = new Thread() {
 		     public void run() {
 		         try {
-		             SwingUtilities.invokeAndWait(task);
+		        	 
+		             SwingUtilities.invokeLater(task);
+		             
 		         }
 		         catch (Exception e) {
 		             e.printStackTrace();
