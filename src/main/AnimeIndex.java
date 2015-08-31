@@ -14,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
@@ -25,6 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
@@ -52,6 +52,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -169,6 +170,8 @@ public class AnimeIndex extends JFrame
 	
 	public static Properties appProp;
 	public static Properties colorProp;
+	
+	public Thread appThread;
 	/**
 	 * Launch the application.
 	 */
@@ -1253,9 +1256,9 @@ public class AnimeIndex extends JFrame
 					if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
 						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 				}
+				 
+				autoDataCheck();
 				
-				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
-				task.execute();
 			}
 		});
 		ovaScroll.setViewportView(ovaList);
@@ -2493,7 +2496,7 @@ public class AnimeIndex extends JFrame
 		}
 		return day;
 	}
-	
+	//TODO fixare errore quando clicchi una lista in un punto dove non ci sono anime selezionabili all'apertura o dopo aver cambiato lista
 	private static void controlFields()
 	{
 		if(lastSelection == null)
@@ -2699,6 +2702,24 @@ public class AnimeIndex extends JFrame
 		}
 
 		System.out.println(lastSelection);
+	}
+	
+	private void autoDataCheck()
+	{
+		UpdateAnimeDataTask task = new UpdateAnimeDataTask();
+		appThread = new Thread() {
+		     public void run() {
+		         try {
+		             SwingUtilities.invokeAndWait(task);
+		         }
+		         catch (Exception e) {
+		             e.printStackTrace();
+		         }
+
+		     }
+		 };
+
+		 appThread.start();
 	}
 }
 
