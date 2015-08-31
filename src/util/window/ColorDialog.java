@@ -39,14 +39,16 @@ public class ColorDialog extends JDialog
 	private final JPanel contentPanel = new JPanel();
 	private static ColorDialog dialog;
 	private static boolean changed = false;
-
-
-//				colorProperties = ColorProperties.createProperties();
-//				if (!colorProperties.getProperty("Button_color").equalsIgnoreCase("null"))
-//				{
-//					Color color = new Color(Integer.parseInt(colorProperties.getProperty("Button_color")));
-//					UIManager.put("Button.background", color);
-//				}
+	private int panelColor;
+	private int buttonColor;
+	private int textFieldColor;
+	private int labelColor;
+	private int checkBoxColor;
+	private int menuColor;
+	private int listColor;
+	private int separatorColor;
+	private int progressBarColor;
+	private int comboBoxColor;
 
 
 	/**
@@ -71,7 +73,10 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnSfondo = new JButton("Sfondo");
 			if (AnimeIndex.colorProp.getProperty("Background_color") != null && !AnimeIndex.colorProp.getProperty("Background_color").equalsIgnoreCase("null"))
-				btnSfondo.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("Background_color"))));
+			{
+				panelColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("Background_color"));
+				btnSfondo.setBackground(new Color(panelColor));
+			}
 			btnSfondo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JPanel panel = new JPanel();
@@ -79,7 +84,7 @@ public class ColorDialog extends JDialog
 					if (color != 0)
 					{
 					btnSfondo.setBackground(new Color(color));
-					AnimeIndex.colorProp.setProperty("Background_color", Integer.toString(color));
+					panelColor = color;
 					changed = true;
 					}
 				}
@@ -94,7 +99,10 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnBottoni = new JButton("Bottoni");
 			if (AnimeIndex.colorProp.getProperty("Button_color") != null && !AnimeIndex.colorProp.getProperty("Button_color").equalsIgnoreCase("null"))
-				btnBottoni.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("Button_color"))));
+			{
+				buttonColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("Button_color"));
+				btnBottoni.setBackground(new Color(buttonColor));
+			}
 			btnBottoni.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JButton butt = new JButton("Prova");
@@ -102,7 +110,7 @@ public class ColorDialog extends JDialog
 					if (color != 0)
 					{
 					btnBottoni.setBackground(new Color(color));
-					AnimeIndex.colorProp.setProperty("Button_color", Integer.toString(color));
+					buttonColor = color;
 					changed = true;
 					}
 					
@@ -118,7 +126,10 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnCampiDiInput = new JButton("Campi di Input");
 			if (AnimeIndex.colorProp.getProperty("TextField_color") != null && !AnimeIndex.colorProp.getProperty("TextField_color").equalsIgnoreCase("null"))
-				btnCampiDiInput.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("TextField_color"))));
+			{
+				textFieldColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("TextField_color"));
+				btnCampiDiInput.setBackground(new Color(textFieldColor));
+			}
 			btnCampiDiInput.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JTextField text = new JTextField();
@@ -126,7 +137,7 @@ public class ColorDialog extends JDialog
 					if (color != 0)
 					{
 					btnCampiDiInput.setBackground(new Color(color));
-					AnimeIndex.colorProp.setProperty("TextField_color", Integer.toString(color));
+					textFieldColor = color;
 					changed = true;
 					}
 				}
@@ -141,7 +152,10 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnLabel = new JButton("Label");
 			if (AnimeIndex.colorProp.getProperty("Label_color") != null && !AnimeIndex.colorProp.getProperty("Label_color").equalsIgnoreCase("null"))
-				btnLabel.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("Label_color"))));
+			{
+				labelColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("Label_color"));
+				btnLabel.setBackground(new Color(labelColor));
+			}
 			btnLabel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JLabel label = new JLabel("Prova");
@@ -149,7 +163,7 @@ public class ColorDialog extends JDialog
 					if (color != 0)
 					{
 						btnLabel.setBackground(new Color(color));
-					AnimeIndex.colorProp.setProperty("Label_color", Integer.toString(color));
+					labelColor = color;
 					changed = true;
 					}
 				}
@@ -164,7 +178,10 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnCheckbox = new JButton("CheckBox");
 			if (AnimeIndex.colorProp.getProperty("CheckBox_color") != null && !AnimeIndex.colorProp.getProperty("CheckBox_color").equalsIgnoreCase("null"))
-				btnCheckbox.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("CheckBox_color"))));
+				{
+				checkBoxColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("CheckBox_color"));
+				btnCheckbox.setBackground(new Color(checkBoxColor));				
+				}
 			btnCheckbox.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JCheckBox checkBox = new JCheckBox();
@@ -172,7 +189,7 @@ public class ColorDialog extends JDialog
 					if (color != 0)
 					{
 					btnCheckbox.setBackground(new Color(color));
-					AnimeIndex.colorProp.setProperty("CheckBox_color", Integer.toString(color));
+					checkBoxColor = color;
 					changed = true;
 					}
 				}
@@ -187,7 +204,10 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnMenu = new JButton("Menu");
 			if (AnimeIndex.colorProp.getProperty("Menu_color") != null && !AnimeIndex.colorProp.getProperty("Menu_color").equalsIgnoreCase("null"))
-				btnMenu.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("Menu_color"))));
+				{
+				menuColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("Menu_color"));
+				btnMenu.setBackground(new Color(menuColor));
+				}
 			btnMenu.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JPanel panel = new JPanel();
@@ -195,7 +215,7 @@ public class ColorDialog extends JDialog
 					if (color != 0)
 					{
 					btnMenu.setBackground(new Color(color));
-					AnimeIndex.colorProp.setProperty("Menu_color", Integer.toString(color));
+					menuColor = color;
 					changed = true;
 					}
 					
@@ -211,7 +231,10 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnListe = new JButton("Liste");
 			if (AnimeIndex.colorProp.getProperty("List_color") != null && !AnimeIndex.colorProp.getProperty("List_color").equalsIgnoreCase("null"))
-				btnListe.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("List_color"))));
+				{
+				listColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("List_color"));
+				btnListe.setBackground(new Color(listColor));			
+				}
 			btnListe.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					DefaultListModel model = new DefaultListModel();
@@ -224,7 +247,7 @@ public class ColorDialog extends JDialog
 					if (color != 0)
 					{
 					btnListe.setBackground(new Color(color));
-					AnimeIndex.colorProp.setProperty("List_color", Integer.toString(color));
+					listColor = color;
 					changed = true;
 					}
 				}
@@ -239,7 +262,10 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnSeparatori = new JButton("Separatori");
 			if (AnimeIndex.colorProp.getProperty("Separator_color") != null && !AnimeIndex.colorProp.getProperty("Separator_color").equalsIgnoreCase("null"))
-				btnSeparatori.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("Separator_color"))));
+				{
+				separatorColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("Separator_color"));
+				btnSeparatori.setBackground(new Color(separatorColor));
+				}
 			btnSeparatori.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JSeparator separator = new JSeparator();
@@ -247,7 +273,7 @@ public class ColorDialog extends JDialog
 					if (color != 0)
 					{
 					btnSeparatori.setBackground(new Color(color));
-					AnimeIndex.colorProp.setProperty("Separator_color", Integer.toString(color));
+					separatorColor = color;
 					changed = true;
 					}
 				}
@@ -262,7 +288,10 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnBarreDiCaricamento = new JButton("Barre di Caricamento");
 			if (AnimeIndex.colorProp.getProperty("ProgressBar_color") != null && !AnimeIndex.colorProp.getProperty("ProgressBar_color").equalsIgnoreCase("null"))
-				btnBarreDiCaricamento.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("ProgressBar_color"))));
+				{
+				progressBarColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("ProgressBar_color"));
+				btnBarreDiCaricamento.setBackground(new Color(progressBarColor));
+				}
 			btnBarreDiCaricamento.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JProgressBar bar = new JProgressBar();
@@ -272,7 +301,7 @@ public class ColorDialog extends JDialog
 					if (color != 0)
 					{
 					btnBarreDiCaricamento.setBackground(new Color(color));
-					AnimeIndex.colorProp.setProperty("ProgressBar_color", Integer.toString(color));
+					progressBarColor = color;
 					changed = true;
 					}
 				}
@@ -287,7 +316,10 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnListeADiscesa = new JButton("Liste a Discesa");
 			if (AnimeIndex.colorProp.getProperty("ComboBox_color") != null && !AnimeIndex.colorProp.getProperty("ComboBox_color").equalsIgnoreCase("null"))
-				btnListeADiscesa.setBackground(new Color(Integer.parseInt(AnimeIndex.colorProp.getProperty("ComboBox_color"))));
+				{
+				comboBoxColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("ComboBox_color"));
+				btnListeADiscesa.setBackground(new Color(comboBoxColor));
+				}
 			btnListeADiscesa.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JComboBox comboBox = new JComboBox();
@@ -295,7 +327,7 @@ public class ColorDialog extends JDialog
 					if (color != 0)
 					{
 					btnListeADiscesa.setBackground(new Color(color));
-					AnimeIndex.colorProp.setProperty("ComboBox_color", Integer.toString(color));
+					comboBoxColor = color;
 					changed = true;
 					}
 				}
@@ -330,6 +362,7 @@ public class ColorDialog extends JDialog
 							int choiche = JOptionPane.showConfirmDialog(ColorDialog.this, "Per applicare le modifiche è necessario un riavvio. Riavviare ora?", "Riavvio richiesto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 							if (choiche == 0)
 							{
+								saveColor();
 								saveData();
 								ExternalProgram ext = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + AnimeIndex.CURRENT_VERSION);
 								ext.run();
@@ -384,6 +417,19 @@ public class ColorDialog extends JDialog
 
 	}
 
+	private void saveColor()
+	{
+		AnimeIndex.colorProp.setProperty("Background_color", Integer.toString(panelColor));
+		AnimeIndex.colorProp.setProperty("Button_color", Integer.toString(buttonColor));
+		AnimeIndex.colorProp.setProperty("TextField_color", Integer.toString(textFieldColor));
+		AnimeIndex.colorProp.setProperty("Label_color", Integer.toString(labelColor));
+		AnimeIndex.colorProp.setProperty("CheckBox_color", Integer.toString(checkBoxColor));
+		AnimeIndex.colorProp.setProperty("Menu_color", Integer.toString(menuColor));
+		AnimeIndex.colorProp.setProperty("List_color", Integer.toString(listColor));
+		AnimeIndex.colorProp.setProperty("Separator_color", Integer.toString(separatorColor));
+		AnimeIndex.colorProp.setProperty("ProgressBar_color", Integer.toString(progressBarColor));
+		AnimeIndex.colorProp.setProperty("ComboBox_color", Integer.toString(comboBoxColor));
+	}
 	private static void saveData()
 	{
 		FileManager.saveAnimeList("completed.anaconda", AnimeIndex.completedModel, AnimeIndex.completedMap);
