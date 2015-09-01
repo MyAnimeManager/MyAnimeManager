@@ -2736,8 +2736,7 @@ public class AnimeIndex extends JFrame
 	
 	public static void setAnimeInformationFields()
 	{
-		System.out.println(animeInformation.totalEpisodeText.getText().equals("??"));
-		if(!animeInformation.totalEpisodeText.getText().equals("??"));
+		if(!animeInformation.totalEpisodeText.getText().equals("??"))
 		{
 			int totEp = Integer.parseInt(animeInformation.totalEpisodeText.getText());
 			int currEp = Integer.parseInt(animeInformation.currentEpisodeField.getText());
