@@ -79,6 +79,7 @@ import util.SearchBar;
 import util.SortedListModel;
 import util.Updater;
 import util.UtilEvent;
+import util.task.AutoDataCheckTask;
 import util.task.CheckUpdateTask;
 import util.task.LoadingTask;
 import util.task.ReleasedAnimeTask;
@@ -176,7 +177,7 @@ public class AnimeIndex extends JFrame
 	public static Properties appProp;
 	public static Properties colorProp;
 	
-	public Thread appThread;
+	public static Thread appThread;
 	/**
 	 * Launch the application.
 	 */
@@ -1261,9 +1262,9 @@ public class AnimeIndex extends JFrame
 					if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
 						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 				}
-				 
-				autoDataCheck();
 				
+				autoDataCheck();
+				setAnimeInformationFields();
 			}
 		});
 		ovaScroll.setViewportView(ovaList);
@@ -1336,6 +1337,7 @@ public class AnimeIndex extends JFrame
 				
 				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
 				task.execute();
+				setAnimeInformationFields();
 			}
 		});
 		filmScroll.setViewportView(filmList);
@@ -1560,6 +1562,7 @@ public class AnimeIndex extends JFrame
 					}
 					else if(cBox.equalsIgnoreCase("Film"))
 					{
+						setAnimeInformationFields();
 						AnimeIndex.animeInformation.minusButton.setEnabled(true);
 						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
@@ -1646,6 +1649,7 @@ public class AnimeIndex extends JFrame
 					}
 				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
 				task.execute();
+				setAnimeInformationFields();
 			}
 		});
 		searchList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1803,6 +1807,7 @@ public class AnimeIndex extends JFrame
 					}
 					else if(cBox.equalsIgnoreCase("Film"))
 					{
+						setAnimeInformationFields();
 						AnimeIndex.animeInformation.minusButton.setEnabled(true);
 						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
@@ -1889,6 +1894,7 @@ public class AnimeIndex extends JFrame
 					}
 				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
 				task.execute();
+				setAnimeInformationFields();
 			}
 		});
 		filterList.setSize(new Dimension(138, 233));
@@ -2716,22 +2722,8 @@ public class AnimeIndex extends JFrame
 	
 	private void autoDataCheck()
 	{
-		UpdateAnimeDataTask task = new UpdateAnimeDataTask();
-		appThread = new Thread() {
-		     public void run() {
-		         try {
-		        	 
-		             SwingUtilities.invokeLater(task);
-		          
-		         }
-		         catch (Exception e) {
-		             e.printStackTrace();
-		         }
-
-		     }
-		 };
-
-		 appThread.start();
+		AutoDataCheckTask tsk = new AutoDataCheckTask();
+		tsk.run();
 	}
 	
 	public static void setAnimeInformationFields()
