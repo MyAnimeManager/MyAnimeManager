@@ -222,7 +222,7 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void componentMoved(ComponentEvent e) {
 				if (wishlistDialog.isShowing())
-					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 182,AnimeIndex.mainFrame.getLocationOnScreen().y);
+					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 18,AnimeIndex.mainFrame.getLocationOnScreen().y);
 			}
 		});
 		setTitle("My Anime Manager");
@@ -651,7 +651,7 @@ public class AnimeIndex extends JFrame
 			               public void actionPerformed(ActionEvent e) {
 			            	   AnimeIndex.mainFrame.requestFocus();
 			            	   wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x - 2, AnimeIndex.mainFrame.getLocationOnScreen().y);
-			            	   if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 182) {
+			            	   if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 180) {
 			                     ((Timer) e.getSource()).stop();
 			            }
 			               }
