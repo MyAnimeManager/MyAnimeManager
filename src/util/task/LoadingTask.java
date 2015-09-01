@@ -47,9 +47,9 @@ public class LoadingTask extends SwingWorker
 			AnimeIndex.wishlistDialog.setVisible(true);
 			 new Timer(1, new ActionListener() {
 	               public void actionPerformed(ActionEvent e) {
-	            	   AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x - 2, AnimeIndex.mainFrame.getLocationOnScreen().y);
+	            	   AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
 	            	   AnimeIndex.mainFrame.requestFocus();
-	            	   if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 182) {
+	            	   if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 181) {
 	                     ((Timer) e.getSource()).stop();
 	            }
 	               }
