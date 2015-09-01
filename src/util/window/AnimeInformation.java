@@ -928,6 +928,7 @@ public class AnimeInformation extends JPanel
 				    }
 			    	AnimeIndex.animeTypeComboBox.setSelectedItem("Anime in Corso");
 					AnimeIndex.airingList.setSelectedValue(name, true);
+					AnimeIndex.lastSelection = name;
 					}
 				}
 				else if(shouldCancel==1)

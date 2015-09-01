@@ -501,7 +501,8 @@ public class FileManager
 			 {
 				 try{
 				    is.close();
-				    os.close();}
+				    if(os!=null)
+				    	os.close();}
 				 catch(Exception e1){
 				 e1.printStackTrace();}
 			 }

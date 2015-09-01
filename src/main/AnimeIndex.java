@@ -2571,139 +2571,144 @@ public class AnimeIndex extends JFrame
 		{
 			map = AnimeIndex.completedToSeeMap;
 		}
-		AnimeData oldData = map.get(lastSelection);
-		String currentEp = "";
-		String totalEp = "";
-		String durationEp = "";
-		String startDay = "";
-		String endDay = "";
-		if(oldData.getTotalEpisode().isEmpty() && totalEpNumber!=null)
-			totalEp = totalEpNumber;
-		
-		if(oldData.getCurrentEpisode().isEmpty() && currentEpisodeNumber!=null)
-			currentEp = currentEpisodeNumber;
-		
-		if(oldData.getDurationEp().trim().isEmpty() && durata!=null)
+		AnimeData oldData = null;
+		if(lastSelection!=null)
+			oldData = map.get(lastSelection);
+		if(oldData!=null)
 		{
-			durationEp = durata;
-		}
-		if(!oldData.getDurationEp().trim().isEmpty() && !oldData.getDurationEp().trim().endsWith(" min"))
-		{
-			String duration = oldData.getDurationEp().trim();
-			duration = duration.replaceAll("\\p{IsAlphabetic}", "");
-			duration = duration.replaceAll(" ", "");
-			duration = duration.replaceAll("\\p{IsPunctuation}", "");
-			if(duration.isEmpty())
-				duration = "?? min";
-			else
-				duration = duration + " min";
-			durationEp = duration;
-		}
-		
-		if(oldData.getReleaseDate().trim().length()!=10)
-		{
-			if(oldData.getReleaseDate().trim().isEmpty() && startDate!=null && startDate.length()==10)
-				startDay = startDate;
-			else
+			String currentEp = "";
+			String totalEp = "";
+			String durationEp = "";
+			String startDay = "";
+			String endDay = "";
+			if(oldData.getTotalEpisode().isEmpty() && totalEpNumber!=null)
+				totalEp = totalEpNumber;
+			
+			if(oldData.getCurrentEpisode().isEmpty() && currentEpisodeNumber!=null)
+				currentEp = currentEpisodeNumber;
+			
+			if(oldData.getDurationEp().trim().isEmpty() && durata!=null)
 			{
-				JList lista = null;
-				if(AnimeIndex.filtro!=9)
-				{
-					lista = filterList;
-				}
-				if(!AnimeIndex.searchBar.getText().isEmpty())
-				{
-					lista = searchList;
-				}
-				if(AnimeIndex.searchBar.getText().isEmpty() && filtro==9)
-				{
-					lista = getJList();
-				}
-				lista.setSelectedValue(lastSelection, true);
-				JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-				animeInformation.releaseDateField.requestFocusInWindow();
+				durationEp = durata;
 			}
-		}
-		if (oldData.getReleaseDate().endsWith(" ") || oldData.getReleaseDate().startsWith(" "))
-			startDay = oldData.getReleaseDate().trim();
-		
-		if(oldData.getFinishDate().trim().length()!=10)
-		{
-			if(oldData.getFinishDate().trim().isEmpty() && endDay!=null && endDate.length()==10)
-				endDay = endDate;
-			else
+			if(!oldData.getDurationEp().trim().isEmpty() && !oldData.getDurationEp().trim().endsWith(" min"))
 			{
-				JList lista = null;
-				if(AnimeIndex.filtro!=9)
-				{
-					lista = filterList;
-				}
-				if(!AnimeIndex.searchBar.getText().isEmpty())
-				{
-					lista = searchList;
-				}
-				if(AnimeIndex.searchBar.getText().isEmpty() && filtro==9)
-				{
-					lista = getJList();
-				}
-				lista.setSelectedValue(lastSelection, true);
-				JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-				animeInformation.finishDateField.requestFocusInWindow();
+				String duration = oldData.getDurationEp().trim();
+				duration = duration.replaceAll("\\p{IsAlphabetic}", "");
+				duration = duration.replaceAll(" ", "");
+				duration = duration.replaceAll("\\p{IsPunctuation}", "");
+				if(duration.isEmpty())
+					duration = "?? min";
+				else
+					duration = duration + " min";
+				durationEp = duration;
 			}
-		}
-		if (oldData.getFinishDate().endsWith(" ") || oldData.getFinishDate().startsWith(" "))
-			startDay = oldData.getFinishDate().trim();
-		
-		AnimeData newData = null;
-		if(!currentEp.equals(oldData.getCurrentEpisode()) && !currentEp.isEmpty())
-		{
-			newData = new AnimeData(currentEp, oldData.getTotalEpisode(), oldData.getFansub(), 
-				    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
-					oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
-					oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
-		}
-		if(!totalEp.equals(oldData.getTotalEpisode()) && !totalEp.isEmpty())
-		{
-			newData = new AnimeData(oldData.getCurrentEpisode(), totalEp, oldData.getFansub(), 
-				    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
-					oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
-					oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
-		}
-		if(!durationEp.equals(oldData.getDurationEp()) && !durationEp.isEmpty())
-		{
-			newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
-				    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
-					oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
-					oldData.getFinishDate(), durationEp, oldData.getBd());
-		}
-		if(!startDay.equals(oldData.getReleaseDate()) && !startDay.isEmpty())
-		{
-			newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
-				    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
-					oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), startDay, 
-					oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
-		}
-		if(!endDay.equals(oldData.getFinishDate()) && !endDay.isEmpty())
-		{
-			newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
-				    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
-					oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
-					endDay, oldData.getDurationEp(), oldData.getBd());
-		}
-		if(newData!=null)
-			getMap().put(lastSelection, newData);
-		
-		if(AnimeIndex.filtro!=9)
-		{
-			lastSelection = (String) filterList.getSelectedValue();
-		}
-		if(!AnimeIndex.searchBar.getText().isEmpty())
-		{
-			lastSelection = (String) searchList.getSelectedValue();
-		}
-		if(AnimeIndex.searchBar.getText().isEmpty() && filtro == 9)
-		{
-			lastSelection = (String) getJList().getSelectedValue();
+			
+			if(oldData.getReleaseDate().trim().length()!=10)
+			{
+				if(oldData.getReleaseDate().trim().isEmpty() && startDate!=null && startDate.length()==10)
+					startDay = startDate;
+				else
+				{
+					JList lista = null;
+					if(AnimeIndex.filtro!=9)
+					{
+						lista = filterList;
+					}
+					if(!AnimeIndex.searchBar.getText().isEmpty())
+					{
+						lista = searchList;
+					}
+					if(AnimeIndex.searchBar.getText().isEmpty() && filtro==9)
+					{
+						lista = getJList();
+					}
+					lista.setSelectedValue(lastSelection, true);
+					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
+					animeInformation.releaseDateField.requestFocusInWindow();
+				}
+			}
+			if (oldData.getReleaseDate().endsWith(" ") || oldData.getReleaseDate().startsWith(" "))
+				startDay = oldData.getReleaseDate().trim();
+			
+			if(oldData.getFinishDate().trim().length()!=10)
+			{
+				if(oldData.getFinishDate().trim().isEmpty() && endDay!=null && endDate.length()==10)
+					endDay = endDate;
+				else
+				{
+					JList lista = null;
+					if(AnimeIndex.filtro!=9)
+					{
+						lista = filterList;
+					}
+					if(!AnimeIndex.searchBar.getText().isEmpty())
+					{
+						lista = searchList;
+					}
+					if(AnimeIndex.searchBar.getText().isEmpty() && filtro==9)
+					{
+						lista = getJList();
+					}
+					lista.setSelectedValue(lastSelection, true);
+					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
+					animeInformation.finishDateField.requestFocusInWindow();
+				}
+			}
+			if (oldData.getFinishDate().endsWith(" ") || oldData.getFinishDate().startsWith(" "))
+				startDay = oldData.getFinishDate().trim();
+			
+			AnimeData newData = null;
+			if(!currentEp.equals(oldData.getCurrentEpisode()) && !currentEp.isEmpty())
+			{
+				newData = new AnimeData(currentEp, oldData.getTotalEpisode(), oldData.getFansub(), 
+					    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
+						oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
+						oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
+			}
+			if(!totalEp.equals(oldData.getTotalEpisode()) && !totalEp.isEmpty())
+			{
+				newData = new AnimeData(oldData.getCurrentEpisode(), totalEp, oldData.getFansub(), 
+					    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
+						oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
+						oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
+			}
+			if(!durationEp.equals(oldData.getDurationEp()) && !durationEp.isEmpty())
+			{
+				newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
+					    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
+						oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
+						oldData.getFinishDate(), durationEp, oldData.getBd());
+			}
+			if(!startDay.equals(oldData.getReleaseDate()) && !startDay.isEmpty())
+			{
+				newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
+					    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
+						oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), startDay, 
+						oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
+			}
+			if(!endDay.equals(oldData.getFinishDate()) && !endDay.isEmpty())
+			{
+				newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
+					    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
+						oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), 
+						endDay, oldData.getDurationEp(), oldData.getBd());
+			}
+			if(newData!=null)
+				getMap().put(lastSelection, newData);
+			
+			if(AnimeIndex.filtro!=9)
+			{
+				lastSelection = (String) filterList.getSelectedValue();
+			}
+			if(!AnimeIndex.searchBar.getText().isEmpty())
+			{
+				lastSelection = (String) searchList.getSelectedValue();
+			}
+			if(AnimeIndex.searchBar.getText().isEmpty() && filtro == 9)
+			{
+				lastSelection = (String) getJList().getSelectedValue();
+			}
 		}
 
 		System.out.println(lastSelection);
