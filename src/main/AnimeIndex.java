@@ -95,7 +95,7 @@ import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
-//TODO fixare bug controllo aggiunta anime
+//TODO fixare bug controllo aggiunta anime e aggiungere anime al lastSelection dopo l'inserimento
 //TODO disattivazione combobox giorno di uscita al cambio di anime;
 //TODO ReleasedAnimeTask esclusione ??/??/???? 
 public class AnimeIndex extends JFrame
@@ -2501,7 +2501,7 @@ public class AnimeIndex extends JFrame
 		}
 		return day;
 	}
-	//TODO fixare errore quando clicchi una lista in un punto dove non ci sono anime selezionabili all'apertura o dopo aver cambiato lista
+	
 	private static void controlFields()
 	{
 		if(lastSelection == null)
