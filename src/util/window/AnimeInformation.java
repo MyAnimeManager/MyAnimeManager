@@ -499,6 +499,7 @@ public class AnimeInformation extends JPanel
 			public void focusLost(FocusEvent e) {
 				if(totalEpisodeText.getText().isEmpty())
 					totalEpisodeText.setText(AnimeIndex.totalEpNumber);
+				AnimeIndex.setAnimeInformationFields();
 			}
 		});
 		totalEpisodeText.setMinimumSize(new Dimension(43, 23));
@@ -794,6 +795,11 @@ public class AnimeInformation extends JPanel
 		add(lblExitDay, gbc_lblExitDay);
 		
 		exitDaycomboBox = new JComboBox();
+		exitDaycomboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AnimeIndex.setAnimeInformationFields();
+			}
+		});
 		exitDaycomboBox.setEnabled(false);
 		exitDaycomboBox.setModel(new DefaultComboBoxModel(new String[] {"?????", "Luned\u00EC", "Marted\u00EC", "Mercoled\u00EC", "Gioved\u00EC", "Venerd\u00EC", "Sabato", "Domenica", "Concluso", "Irregolare", "Sospesa", "Rilasciato"}));
 		GridBagConstraints gbc_exitDaycomboBox = new GridBagConstraints();
