@@ -213,7 +213,7 @@ public class AnimeIndex extends JFrame
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the frame..
 	 */
 	public AnimeIndex()
 	{
