@@ -186,7 +186,7 @@ public class AnimeInformation extends JPanel {
 								if (Integer.parseInt(totalEpisodeText.getText()) > 1)
 									if (AnimeIndex.getDate(releaseDateField.getText()).before(AnimeIndex.getDate(AnimeIndex.today())))
 									{
-										exitDaycomboBox.setSelectedItem("Rilasciato");
+										exitDaycomboBox.setSelectedItem("?????");
 										exitDaycomboBox.setEnabled(false);
 									}
 						}
@@ -195,7 +195,8 @@ public class AnimeInformation extends JPanel {
 							if (Integer.parseInt(totalEpisodeText.getText()) > 1)
 							{
 								System.out.println("ok");
-								exitDaycomboBox.setSelectedItem("?????");
+								if(exitDaycomboBox.getSelectedItem().equals("?????")||exitDaycomboBox.getSelectedItem().equals("Rilasciato")||exitDaycomboBox.getSelectedItem().equals("Concluso"))
+									exitDaycomboBox.setSelectedItem("?????");
 								exitDaycomboBox.setEnabled(true);
 							}
 						}

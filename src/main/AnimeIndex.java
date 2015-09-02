@@ -2741,7 +2741,8 @@ public class AnimeIndex extends JFrame
 			{			
 				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
 				{
-					animeInformation.exitDaycomboBox.setSelectedItem("?????");
+					if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+						animeInformation.exitDaycomboBox.setSelectedItem("?????");
 					animeInformation.exitDaycomboBox.setEnabled(true);
 				}
 			}
