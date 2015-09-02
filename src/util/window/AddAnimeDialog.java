@@ -1330,7 +1330,7 @@ public class AddAnimeDialog extends JDialog
 							String finishDay = finishDate.substring(0, 1);
 							String finishMonth = finishDate.substring(3, 5);
 							String finishYear = finishDate.substring(6);
-							if ((AnimeIndex.appProp.getProperty("Check_Data_Conflict").equalsIgnoreCase("false") )||finishDay.equalsIgnoreCase("??") || finishMonth.equalsIgnoreCase("??") || finishYear.equalsIgnoreCase("????") || animeType.equalsIgnoreCase("?????"))
+							if ((AnimeIndex.appProp.getProperty("Check_Data_Conflict").equalsIgnoreCase("false") ) || animeType.equalsIgnoreCase("?????"))
 								list = (String) listToAddAniComboBox.getSelectedItem();
 							else
 								list = checkDataConflict(finishDate, animeType, true);
@@ -1467,7 +1467,7 @@ public class AddAnimeDialog extends JDialog
 			listName = (String) listToAddAniComboBox.getSelectedItem();
 		else
 			listName = (String) listToAdd.getSelectedItem();
-		if (!(finishDate.equalsIgnoreCase("??/??/????") && type.equalsIgnoreCase("?????")))
+		if (!(finishDate.equalsIgnoreCase("??/??/????")))
 		{
 
 			if (listName.equalsIgnoreCase("anime completati"))
@@ -1742,9 +1742,7 @@ public class AddAnimeDialog extends JDialog
 		}
 		else
 		{
-			if (finishDate.equalsIgnoreCase("??/??/????"))
-			{
-				if ((type.equalsIgnoreCase("tv") || type.equalsIgnoreCase("tv-short")) && listName.equalsIgnoreCase("anime in corso"))
+				if ((type.equalsIgnoreCase("tv") || type.equalsIgnoreCase("tv-short")) && !listName.equalsIgnoreCase("anime in corso"))
 				{
 					int choiche = JOptionPane.showConfirmDialog(AnimeIndex.animeDialog, "L'anime non ha una data di conclusione, perciò potrebbe essere ancora in corso. Vuoi aggiungerlo agli Anime in Corso?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
@@ -1770,7 +1768,6 @@ public class AddAnimeDialog extends JDialog
 					else
 						map = listName;
 				}
-			}
 		}
 		return map;	
 	}
