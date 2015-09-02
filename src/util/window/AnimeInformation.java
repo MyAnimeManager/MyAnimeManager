@@ -192,10 +192,13 @@ public class AnimeInformation extends JPanel {
 						}
 						else if (AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
 						{
-							exitDaycomboBox.setEnabled(true);
-							exitDaycomboBox.setSelectedItem("?????");
+							if (Integer.parseInt(totalEpisodeText.getText()) > 1)
+							{
+								System.out.println("ok");
+								exitDaycomboBox.setSelectedItem("?????");
+								exitDaycomboBox.setEnabled(true);
+							}
 						}
-						
 						if ((totalEpisodeText.getText()) != null && !(totalEpisodeText.getText().isEmpty()) && !totalEpisodeText.getText().equalsIgnoreCase("??"))
 						{
 							int maxnum = Integer.parseInt(totalEpisodeText.getText());

@@ -79,7 +79,6 @@ import util.SearchBar;
 import util.SortedListModel;
 import util.Updater;
 import util.UtilEvent;
-import util.task.AutoDataCheckTask;
 import util.task.CheckUpdateTask;
 import util.task.LoadingTask;
 import util.task.ReleasedAnimeTask;
@@ -1115,8 +1114,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 			}
 			
-			UpdateAnimeDataTask task = new UpdateAnimeDataTask();
-			task.execute();
+			autoDataCheck();
 			
 			}
 		});
@@ -1190,8 +1188,7 @@ public class AnimeIndex extends JFrame
 						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 				}
 				
-				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
-				task.execute();
+				autoDataCheck();
 			}
 		});
 		airingAnimeScroll.setViewportView(airingList);
@@ -1335,8 +1332,7 @@ public class AnimeIndex extends JFrame
 						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 				}
 				
-				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
-				task.execute();
+				autoDataCheck();
 				setAnimeInformationFields();
 			}
 		});
@@ -1408,8 +1404,7 @@ public class AnimeIndex extends JFrame
 						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 				}
 				
-				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
-				task.execute();
+				autoDataCheck();
 			}
 		});
 		completedToSeeScroll.setViewportView(completedToSeeList);
@@ -1647,8 +1642,7 @@ public class AnimeIndex extends JFrame
 								AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 						}
 					}
-				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
-				task.execute();
+				autoDataCheck();
 				setAnimeInformationFields();
 			}
 		});
@@ -1892,8 +1886,7 @@ public class AnimeIndex extends JFrame
 								AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 						}
 					}
-				UpdateAnimeDataTask task = new UpdateAnimeDataTask();
-				task.execute();
+				autoDataCheck();
 				setAnimeInformationFields();
 			}
 		});
@@ -2722,8 +2715,19 @@ public class AnimeIndex extends JFrame
 	
 	private void autoDataCheck()
 	{
-		AutoDataCheckTask tsk = new AutoDataCheckTask();
-		tsk.run();
+		UpdateAnimeDataTask task = new UpdateAnimeDataTask();
+		AnimeIndex.appThread = new Thread() {
+		     public void run() {
+		         try {		        	 
+		             SwingUtilities.invokeLater(task);
+		         }
+		         catch (Exception e) {
+		             e.printStackTrace();
+		         }
+		     }
+		 };
+
+		 AnimeIndex.appThread.start();
 	}
 	
 	public static void setAnimeInformationFields()
