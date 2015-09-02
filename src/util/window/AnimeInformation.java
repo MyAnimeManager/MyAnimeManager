@@ -1403,35 +1403,35 @@ public class AnimeInformation extends JPanel {
 		}
 	}
 	
-	public void setAnimeName(String name)
-	{
-		lblAnimeName.setText(name);
-	}
-	
-	public void setCurrentEp(String episode)
-	{
-		currentEpisodeField.setText(episode);
-	}
-	
-	public void setTotalEp(String totEpisode)
-	{
-		totalEpisodeText.setText(totEpisode);
-	}
-	
-	public void setFansub(String fansub)
-	{
-		fansubComboBox.setSelectedItem(fansub);
-	}
-	
-	public static void setFansubComboBox()
-	{
-		fansubComboBox.setModel(new DefaultComboBoxModel(AnimeIndex.getFansubList()));
-	}
-	
-	public void setNote(String note)
-	{
-		noteTextArea.setText(note);
-	}
+////	public void setAnimeName(String name)
+////	{
+////		lblAnimeName.setText(name);
+////	}
+////	
+////	public void setCurrentEp(String episode)
+////	{
+////		currentEpisodeField.setText(episode);
+////	}
+////	
+////	public void setTotalEp(String totEpisode)
+////	{
+////		totalEpisodeText.setText(totEpisode);
+////	}
+////	
+////	public void setFansub(String fansub)
+////	{
+////		fansubComboBox.setSelectedItem(fansub);
+////	}
+////	
+//	public static void setFansubComboBox()
+//	{
+//		fansubComboBox.setModel(new DefaultComboBoxModel(AnimeIndex.getFansubList()));
+//	}
+////	
+////	public void setNote(String note)
+////	{
+////		noteTextArea.setText(note);
+////	}
 	
 	public void setImage(String path)
 	{
