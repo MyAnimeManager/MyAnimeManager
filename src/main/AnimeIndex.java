@@ -95,7 +95,8 @@ import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
-//TODO fixare bug controllo aggiunta anime e aggiungere anime al lastSelection dopo l'inserimento
+//TODO dopo la segnalazione di incoerenza se la lista nn e' anime completati o completi da vedere porre currEp = 1 e la exitDayComboBox a ?????
+//TODO togliere controllo in tutti i campi ad ogni segnalazione di incoerenza e fare che controlli nei campi secondo i booleani di controllo
 //TODO ReleasedAnimeTask esclusione ??/??/???? 
 public class AnimeIndex extends JFrame
 {
@@ -2796,6 +2797,103 @@ public class AnimeIndex extends JFrame
 					{
 						animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
 						animeInformation.exitDaycomboBox.setEnabled(false);
+					}
+				}
+			}
+		}
+	}
+	
+	public static void setAnimeInformationFields(int cEp, int tEp)
+	{
+		if(!(cEp+"").equals("??") && !(cEp+"").isEmpty() && !(tEp+"").isEmpty())
+		{
+			int totEp = tEp;
+			int currEp = cEp;
+				
+			if (currEp < totEp)
+			{			
+				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+				{
+					if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+						animeInformation.exitDaycomboBox.setSelectedItem("?????");
+					animeInformation.exitDaycomboBox.setEnabled(true);
+				}
+				else if (AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+				{
+					if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+						animeInformation.exitDaycomboBox.setSelectedItem("?????");
+					animeInformation.exitDaycomboBox.setEnabled(true);
+				}
+			}
+			
+			if (currEp == 0)
+			{
+				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+				{
+					if(tEp>1)
+					{
+						if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
+						{
+							animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+							animeInformation.exitDaycomboBox.setEnabled(false);
+						}
+						else
+						{
+							if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+								animeInformation.exitDaycomboBox.setSelectedItem("?????");
+							animeInformation.exitDaycomboBox.setEnabled(true);
+						}
+					}
+					else
+					{
+						if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
+						{
+							animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+							animeInformation.exitDaycomboBox.setEnabled(false);
+						}
+						else
+						{
+							if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+								animeInformation.exitDaycomboBox.setSelectedItem("?????");
+							animeInformation.exitDaycomboBox.setEnabled(true);
+						}
+					}
+				}
+			}
+			if(currEp==1)
+			{
+				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+				{
+					if(tEp>1)
+					{
+						if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
+						{
+							animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+							animeInformation.exitDaycomboBox.setEnabled(false);
+						}
+						else
+						{
+							if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+								animeInformation.exitDaycomboBox.setSelectedItem("?????");
+							animeInformation.exitDaycomboBox.setEnabled(true);
+						}
+					}
+				}
+			}			
+			if (currEp == totEp)
+			{
+				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+				{
+					if(getDate(animeInformation.finishDateField.getText()).before(getDate(today())))
+					{
+						animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+						animeInformation.exitDaycomboBox.setEnabled(false);
+					}
+					else
+					{
+						if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+							animeInformation.exitDaycomboBox.setSelectedItem("?????");
+						animeInformation.exitDaycomboBox.setEnabled(true);
 					}
 				}
 			}

@@ -287,7 +287,7 @@ public class AnimeInformation extends JPanel {
 						plusButton.setEnabled(false);
 						finishedButton.setEnabled(true);
 					}
-					AnimeIndex.setAnimeInformationFields();
+					AnimeIndex.setAnimeInformationFields(currEp, totEp);
 				}
 			}
 		});
@@ -394,22 +394,27 @@ public class AnimeInformation extends JPanel {
 				AnimeIndex.setAnimeInformationFields();
 			}
 		});
-//		totalEpisodeText.addKeyListener(new KeyAdapter() {
-//			
-//			@Override
-//			public void keyTyped(KeyEvent e)
-//			{
-//				char key = e.getKeyChar();
-//				int currEp = 0;
-//				if (Character.isDigit(key) && !totalEpisodeText.getText().isEmpty())
-//					currEp = Integer.parseInt(totalEpisodeText.getText() + key);
-//				else if (!totalEpisodeText.getText().isEmpty())
-//					currEp = Integer.parseInt(totalEpisodeText.getText());
-//				else if (Character.isDigit(key) && totalEpisodeText.getText().isEmpty())
-//					currEp = Integer.parseInt(key + "");
-//				AnimeIndex.setAnimeInformationFields();
-//			}
-//		});
+		totalEpisodeText.addKeyListener(new KeyAdapter() {
+			
+			@Override
+			public void keyTyped(KeyEvent e)
+			{
+				if (!currentEpisodeField.getText().contains("?") && !totalEpisodeText.getText().contains("?"))
+				{
+					char key = e.getKeyChar();
+					int totEp = 0;
+					if (Character.isDigit(key) && !totalEpisodeText.getText().isEmpty())
+						totEp = Integer.parseInt(totalEpisodeText.getText() + key);
+					else if (!totalEpisodeText.getText().isEmpty())
+						totEp = Integer.parseInt(totalEpisodeText.getText());
+					else if (Character.isDigit(key) && totalEpisodeText.getText().isEmpty())
+						totEp = Integer.parseInt(key + "");
+					int currEp = Integer.parseInt(currentEpisodeField.getText());
+					//TODO nn funziona
+					AnimeIndex.setAnimeInformationFields(currEp, totEp);
+				}
+			}
+		});
 		totalEpisodeText.setMinimumSize(new Dimension(43, 23));
 		totalEpisodeText.setPreferredSize(new Dimension(43, 23));
 		GridBagConstraints gbc_totalEpisodeText = new GridBagConstraints();
@@ -641,7 +646,10 @@ public class AnimeInformation extends JPanel {
 						
 					}
 					else
+					{
 						releaseDateField.setText(releaseDateField.getText().trim());
+						AnimeIndex.setAnimeInformationFields();
+					}
 				}
 			}
 		});
@@ -688,7 +696,10 @@ public class AnimeInformation extends JPanel {
 							releaseDateField.requestFocusInWindow();
 					}
 					else
+					{
 						finishDateField.setText(finishDateField.getText().trim());
+						AnimeIndex.setAnimeInformationFields();
+					}
 				}
 			}
 		});
