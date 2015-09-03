@@ -96,7 +96,6 @@ import util.window.WishlistDialog;
 
 //TODO fixare "IL BUG"
 //TODO fixare bug controllo aggiunta anime e aggiungere anime al lastSelection dopo l'inserimento
-//TODO disattivazione combobox giorno di uscita al cambio di anime;
 //TODO ReleasedAnimeTask esclusione ??/??/???? 
 public class AnimeIndex extends JFrame
 {
@@ -2732,7 +2731,7 @@ public class AnimeIndex extends JFrame
 	
 	public static void setAnimeInformationFields()
 	{
-		if(!animeInformation.totalEpisodeText.getText().equals("??"))
+		if(!animeInformation.totalEpisodeText.getText().equals("??") && !animeInformation.currentEpisodeField.getText().isEmpty() && !animeInformation.totalEpisodeText.getText().isEmpty())
 		{
 			int totEp = Integer.parseInt(animeInformation.totalEpisodeText.getText());
 			int currEp = Integer.parseInt(animeInformation.currentEpisodeField.getText());
@@ -2740,6 +2739,12 @@ public class AnimeIndex extends JFrame
 			if (currEp < totEp)
 			{			
 				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+				{
+					if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+						animeInformation.exitDaycomboBox.setSelectedItem("?????");
+					animeInformation.exitDaycomboBox.setEnabled(true);
+				}
+				else if (AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
 				{
 					if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
 						animeInformation.exitDaycomboBox.setSelectedItem("?????");
@@ -2782,8 +2787,7 @@ public class AnimeIndex extends JFrame
 						}
 					}
 				}
-			}
-							
+			}			
 			if (currEp == totEp)
 			{
 				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
