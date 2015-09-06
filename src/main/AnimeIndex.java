@@ -2800,16 +2800,27 @@ public class AnimeIndex extends JFrame
 					}
 				}
 			}
+			if(getDate(animeInformation.finishDateField.getText()).before(getDate(today())))
+			{
+				if(totEp>1 && currEp<totEp)
+				{
+						animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+						animeInformation.exitDaycomboBox.setEnabled(false);
+				}
+				else
+				{
+					animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+					animeInformation.exitDaycomboBox.setEnabled(false);
+				}
+			}
 		}
 	}
 	
-	public static void setAnimeInformationFields(int cEp, int tEp)
+	public static void setAnimeInformationFields(int currEp, int totEp)
 	{
-		if(!(cEp+"").equals("??") && !(cEp+"").isEmpty() && !(tEp+"").isEmpty())
+		if(!(currEp+"").equals("??") && !(currEp+"").isEmpty() && !(totEp+"").isEmpty())
 		{
-			int totEp = tEp;
-			int currEp = cEp;
-				
+			System.out.println("ok");
 			if (currEp < totEp)
 			{			
 				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
@@ -2830,7 +2841,7 @@ public class AnimeIndex extends JFrame
 			{
 				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
 				{
-					if(tEp>1)
+					if(totEp>1)
 					{
 						if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
 						{
@@ -2864,7 +2875,7 @@ public class AnimeIndex extends JFrame
 			{
 				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
 				{
-					if(tEp>1)
+					if(totEp>1)
 					{
 						if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
 						{
@@ -2895,6 +2906,19 @@ public class AnimeIndex extends JFrame
 							animeInformation.exitDaycomboBox.setSelectedItem("?????");
 						animeInformation.exitDaycomboBox.setEnabled(true);
 					}
+				}
+			}
+			if(getDate(animeInformation.finishDateField.getText()).before(getDate(today())))
+			{
+				if(totEp>1 && currEp<totEp)
+				{
+						animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+						animeInformation.exitDaycomboBox.setEnabled(false);
+				}
+				else
+				{
+					animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+					animeInformation.exitDaycomboBox.setEnabled(false);
 				}
 			}
 		}

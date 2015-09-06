@@ -115,6 +115,10 @@ public class AddAnimeDialog extends JDialog
 					checkDataConflictComboBoxManualAdd.setSelectedItem("Disattivo");
 				}
 			}
+			@Override
+			public void windowClosed(WindowEvent e) {
+				AnimeIndex.setAnimeInformationFields();
+			}
 		});
 		setTitle("Aggiungi anime");
 		setResizable(false);
