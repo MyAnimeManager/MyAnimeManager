@@ -49,6 +49,7 @@ import util.FileManager;
 import util.Filters;
 import util.PatternFilter;
 import util.SortedListModel;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
@@ -410,7 +411,7 @@ public class AnimeInformation extends JPanel {
 					else if (Character.isDigit(key) && totalEpisodeText.getText().isEmpty())
 						totEp = Integer.parseInt(key + "");
 					int currEp = Integer.parseInt(currentEpisodeField.getText());
-					//TODO nn funziona
+					
 					AnimeIndex.setAnimeInformationFields(currEp, totEp);
 				}
 			}
@@ -929,8 +930,9 @@ public class AnimeInformation extends JPanel {
 								@Override
 								public void actionPerformed(ActionEvent e)
 								{
-									//vedi cosa mettere nell'array
-									AnimeIndex.exclusionAnime.add(lblAnimeName.getText());
+									PreferenceDialog.exclusionDialog = new SetExclusionDialog();
+									PreferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
+									PreferenceDialog.exclusionDialog.setVisible(true);
 								}
 							});
 							JMenuItem remove = new JMenuItem("Rimuovi dalle Esclusioni");

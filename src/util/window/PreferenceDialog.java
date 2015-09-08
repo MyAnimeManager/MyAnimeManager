@@ -45,7 +45,7 @@ public class PreferenceDialog extends JDialog
 	private JCheckBox chckbxDailyRelease;
 	private JComboBox choosedList;
 	public static JButton dataCheckButton;
-	private SetExclusionDialog exclusionDialog;
+	public static SetExclusionDialog exclusionDialog;
 	private JCheckBox chckbxApriWishlist;
 
 	/**

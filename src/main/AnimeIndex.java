@@ -134,7 +134,6 @@ public class AnimeIndex extends JFrame
 	public static TreeMap<String,Integer> wishlistMap = new TreeMap<String,Integer>();
 	public static TreeMap<String,String> shiftsRegister = new TreeMap<String,String>();
 	public static TreeMap<String,boolean[]> exclusionAnime =  new TreeMap<String,boolean[]>();
-	public static boolean[] exclusionFieldsArray = {false, false, false, false, false, false};
 	
 	public static ArrayList<String> completedSessionAnime = new ArrayList();
 	public static ArrayList<String> airingSessionAnime = new ArrayList();
@@ -596,12 +595,23 @@ public class AnimeIndex extends JFrame
 						FileManager.saveNewImage(dir, imageName, folder);
 						if(!exclusionAnime.containsKey(name))
 						{	
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.\n\rAl fine di mantenere l'immagine da voi impostata\n\rl'anime è stato aggiunto alla lista\n\rdegli esclusi dal Controllo Dati Automatico.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
-							//qui credo civ ada il boolean dell'immagine ma non so qualè è.è
-							exclusionAnime.add(name);
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.\n\rAl fine di mantenere la modifica\n\rl'immagine di questo anime è stata aggiunta alla lista\n\rdelle esclusioni dal Controllo Dati Automatico.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+							boolean[] exc = exclusionAnime.get(name);
+							exc[0] = true;
+							exclusionAnime.put(name, exc);
 						}
 						else
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+						{
+							if(exclusionAnime.get(name)[0]==false)
+							{
+								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.\n\rAl fine di mantenere la modifica\n\rl'immagine di questo anime è stata aggiunta alla lista\n\rdelle esclusioni dal Controllo Dati Automatico.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+								boolean[] exc = exclusionAnime.get(name);
+								exc[0] = true;
+								exclusionAnime.put(name, exc);
+							}
+							else
+								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+						}
 						TreeMap<String,AnimeData> map = AnimeIndex.getMap();
 						String list = AnimeIndex.getList();
 						AnimeData data = map.get(name);

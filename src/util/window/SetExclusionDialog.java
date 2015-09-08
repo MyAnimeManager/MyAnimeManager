@@ -65,12 +65,12 @@ public class SetExclusionDialog extends JDialog {
 	private JList searchListToExclude;
 	private JPanel excludedPane;
 	private JLabel lblCampiEsclusi;
-	private JCheckBox chckbxImmagine;
-	private JCheckBox chckbxEpisodiTotali;
-	private JCheckBox chckbxDurataEpisodio;
-	private JCheckBox chckbxDataDiUscita;
-	private JCheckBox chckbxDataDiFine;
-	private JCheckBox chckbxTipo;
+	private JCheckBox imgExcludeCheck;
+	private JCheckBox totEpExcludeCheck;
+	private JCheckBox durationExcludeCheck;
+	private JCheckBox releaseDateExcludeCheck;
+	private JCheckBox finischDateExcludeCheck;
+	private JCheckBox typeExcludeCheck;
 	/**
 	 * Create the dialog..
 	 */
@@ -325,22 +325,22 @@ public class SetExclusionDialog extends JDialog {
 				}
 			});
 			{
-				chckbxImmagine = new JCheckBox("Immagine");
-				GridBagConstraints gbc_chckbxImmagine = new GridBagConstraints();
-				gbc_chckbxImmagine.anchor = GridBagConstraints.WEST;
-				gbc_chckbxImmagine.insets = new Insets(0, 0, 5, 0);
-				gbc_chckbxImmagine.gridx = 5;
-				gbc_chckbxImmagine.gridy = 2;
-				contentPanel.add(chckbxImmagine, gbc_chckbxImmagine);
+				imgExcludeCheck = new JCheckBox("Immagine");
+				GridBagConstraints gbc_imgExcludeCheck = new GridBagConstraints();
+				gbc_imgExcludeCheck.anchor = GridBagConstraints.WEST;
+				gbc_imgExcludeCheck.insets = new Insets(0, 0, 5, 0);
+				gbc_imgExcludeCheck.gridx = 5;
+				gbc_imgExcludeCheck.gridy = 2;
+				contentPanel.add(imgExcludeCheck, gbc_imgExcludeCheck);
 			}
 			{
-				chckbxEpisodiTotali = new JCheckBox("Episodi Totali");
-				GridBagConstraints gbc_chckbxEpisodiTotali = new GridBagConstraints();
-				gbc_chckbxEpisodiTotali.anchor = GridBagConstraints.WEST;
-				gbc_chckbxEpisodiTotali.insets = new Insets(0, 0, 5, 0);
-				gbc_chckbxEpisodiTotali.gridx = 5;
-				gbc_chckbxEpisodiTotali.gridy = 3;
-				contentPanel.add(chckbxEpisodiTotali, gbc_chckbxEpisodiTotali);
+				totEpExcludeCheck = new JCheckBox("Episodi Totali");
+				GridBagConstraints gbc_totEpExcludeCheck = new GridBagConstraints();
+				gbc_totEpExcludeCheck.anchor = GridBagConstraints.WEST;
+				gbc_totEpExcludeCheck.insets = new Insets(0, 0, 5, 0);
+				gbc_totEpExcludeCheck.gridx = 5;
+				gbc_totEpExcludeCheck.gridy = 3;
+				contentPanel.add(totEpExcludeCheck, gbc_totEpExcludeCheck);
 			}
 			GridBagConstraints gbc_excludeButton = new GridBagConstraints();
 			gbc_excludeButton.insets = new Insets(0, 0, 5, 5);
@@ -496,13 +496,13 @@ public class SetExclusionDialog extends JDialog {
 					}
 			});
 			{
-				chckbxDurataEpisodio = new JCheckBox("Durata Episodio");
-				GridBagConstraints gbc_chckbxDurataEpisodio = new GridBagConstraints();
-				gbc_chckbxDurataEpisodio.anchor = GridBagConstraints.WEST;
-				gbc_chckbxDurataEpisodio.insets = new Insets(0, 0, 5, 0);
-				gbc_chckbxDurataEpisodio.gridx = 5;
-				gbc_chckbxDurataEpisodio.gridy = 4;
-				contentPanel.add(chckbxDurataEpisodio, gbc_chckbxDurataEpisodio);
+				durationExcludeCheck = new JCheckBox("Durata Episodio");
+				GridBagConstraints gbc_durationExcludeCheck = new GridBagConstraints();
+				gbc_durationExcludeCheck.anchor = GridBagConstraints.WEST;
+				gbc_durationExcludeCheck.insets = new Insets(0, 0, 5, 0);
+				gbc_durationExcludeCheck.gridx = 5;
+				gbc_durationExcludeCheck.gridy = 4;
+				contentPanel.add(durationExcludeCheck, gbc_durationExcludeCheck);
 			}
 			includeButton.setEnabled(false);
 			GridBagConstraints gbc_includeButton = new GridBagConstraints();
@@ -512,13 +512,13 @@ public class SetExclusionDialog extends JDialog {
 			contentPanel.add(includeButton, gbc_includeButton);
 		}
 		{
-			chckbxDataDiUscita = new JCheckBox("Data di Uscita");
-			GridBagConstraints gbc_chckbxDataDiUscita = new GridBagConstraints();
-			gbc_chckbxDataDiUscita.anchor = GridBagConstraints.WEST;
-			gbc_chckbxDataDiUscita.insets = new Insets(0, 0, 5, 0);
-			gbc_chckbxDataDiUscita.gridx = 5;
-			gbc_chckbxDataDiUscita.gridy = 5;
-			contentPanel.add(chckbxDataDiUscita, gbc_chckbxDataDiUscita);
+			releaseDateExcludeCheck = new JCheckBox("Data di Inizio");
+			GridBagConstraints gbc_releaseDateExcludeCheck = new GridBagConstraints();
+			gbc_releaseDateExcludeCheck.anchor = GridBagConstraints.WEST;
+			gbc_releaseDateExcludeCheck.insets = new Insets(0, 0, 5, 0);
+			gbc_releaseDateExcludeCheck.gridx = 5;
+			gbc_releaseDateExcludeCheck.gridy = 5;
+			contentPanel.add(releaseDateExcludeCheck, gbc_releaseDateExcludeCheck);
 		}
 		{
 			Component rigidArea = Box.createRigidArea(new Dimension(1, 20));
@@ -563,22 +563,22 @@ public class SetExclusionDialog extends JDialog {
 				}
 			});
 			{
-				chckbxDataDiFine = new JCheckBox("Data di Fine");
-				GridBagConstraints gbc_chckbxDataDiFine = new GridBagConstraints();
-				gbc_chckbxDataDiFine.anchor = GridBagConstraints.WEST;
-				gbc_chckbxDataDiFine.insets = new Insets(0, 0, 5, 0);
-				gbc_chckbxDataDiFine.gridx = 5;
-				gbc_chckbxDataDiFine.gridy = 6;
-				contentPanel.add(chckbxDataDiFine, gbc_chckbxDataDiFine);
+				finischDateExcludeCheck = new JCheckBox("Data di Fine");
+				GridBagConstraints gbc_finischDateExcludeCheck = new GridBagConstraints();
+				gbc_finischDateExcludeCheck.anchor = GridBagConstraints.WEST;
+				gbc_finischDateExcludeCheck.insets = new Insets(0, 0, 5, 0);
+				gbc_finischDateExcludeCheck.gridx = 5;
+				gbc_finischDateExcludeCheck.gridy = 6;
+				contentPanel.add(finischDateExcludeCheck, gbc_finischDateExcludeCheck);
 			}
 			{
-				chckbxTipo = new JCheckBox("Tipo");
-				GridBagConstraints gbc_chckbxTipo = new GridBagConstraints();
-				gbc_chckbxTipo.anchor = GridBagConstraints.WEST;
-				gbc_chckbxTipo.insets = new Insets(0, 0, 5, 0);
-				gbc_chckbxTipo.gridx = 5;
-				gbc_chckbxTipo.gridy = 7;
-				contentPanel.add(chckbxTipo, gbc_chckbxTipo);
+				typeExcludeCheck = new JCheckBox("Tipo");
+				GridBagConstraints gbc_typeExcludeCheck = new GridBagConstraints();
+				gbc_typeExcludeCheck.anchor = GridBagConstraints.WEST;
+				gbc_typeExcludeCheck.insets = new Insets(0, 0, 5, 0);
+				gbc_typeExcludeCheck.gridx = 5;
+				gbc_typeExcludeCheck.gridy = 7;
+				contentPanel.add(typeExcludeCheck, gbc_typeExcludeCheck);
 			}
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere"}));
 			GridBagConstraints gbc_comboBox = new GridBagConstraints();
