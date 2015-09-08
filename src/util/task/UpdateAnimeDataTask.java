@@ -36,7 +36,7 @@ public class UpdateAnimeDataTask extends SwingWorker
 		AnimeData oldData = map.get(name);
 		if(AnimeIndex.activeUpdate == true)
 		{
-			if(AnimeIndex.exclusionAnime.contains(name) || AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("false"))
+			if(AnimeIndex.exclusionAnime.containsKey(name) || AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("false"))
 			{
 				String totalEp = oldData.getTotalEpisode();
 				String duration = oldData.getDurationEp();
@@ -166,7 +166,7 @@ public class UpdateAnimeDataTask extends SwingWorker
 			}
 			AnimeIndex.activeUpdate = false;
 		}
-		else if (AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true") && !AnimeIndex.exclusionAnime.contains(name))
+		else if (AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true") && !AnimeIndex.exclusionAnime.containsKey(name))
 		{
 			String totalEp = oldData.getTotalEpisode();
 			String duration = oldData.getDurationEp();

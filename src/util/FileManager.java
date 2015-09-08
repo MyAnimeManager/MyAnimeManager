@@ -206,20 +206,30 @@ public class FileManager
 		}
 	
 	}
-
 	public static void loadExclusionList()
 	{
 		File exclusionFile = new File(ANIME_PATH + "exclusion.anaconda");
 		if (exclusionFile.isFile()) 
 		{
 			Scanner scan = null;
+			Scanner line = null;
 			try {
 				scan = new Scanner(exclusionFile);
 				
 				while (scan.hasNextLine())
 				{
 					String excludedAnime = scan.nextLine();
-					AnimeIndex.exclusionAnime.add(excludedAnime);
+					line = new Scanner(excludedAnime);
+					line.useDelimiter("\\|\\|");
+					String name = line.next();
+					boolean[] bool = new boolean[6];
+					int i = 0;
+					while (line.hasNext())
+					{
+						bool[i] = line.nextBoolean();
+						i++;
+					}
+					AnimeIndex.exclusionAnime.put(name,bool);
 				}							
 			} 
 			catch (FileNotFoundException e) {
@@ -227,6 +237,8 @@ public class FileManager
 			finally
 			{
 				scan.close();
+				if (line != null)
+						line.close();
 			}
 		}
 			
@@ -252,11 +264,15 @@ public class FileManager
 			output = new BufferedWriter(new OutputStreamWriter(
 				    new FileOutputStream(exclusionFile), "UTF-8"));
 			
-			Object[] exclusionNameArray = AnimeIndex.exclusionAnime.toArray();
+			Object[] exclusionNameArray = AnimeIndex.exclusionAnime.keySet().toArray();
 			for (int i = 0; i < exclusionNameArray.length; i++)
 				{
 					String name = (String) exclusionNameArray[i];
-					output.write(name);
+					boolean[] bool = AnimeIndex.exclusionAnime.get(name);
+					String line = name + "||";
+					for (int j = 0; j < bool.length ; j++)
+						line += bool[j] + "||";
+					output.write(line);				
 					output.write(System.lineSeparator());
 				}
 			output.close();

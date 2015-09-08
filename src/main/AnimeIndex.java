@@ -133,9 +133,8 @@ public class AnimeIndex extends JFrame
 	public static TreeMap<String,AnimeData> completedToSeeMap = new TreeMap<String,AnimeData>();
 	public static TreeMap<String,Integer> wishlistMap = new TreeMap<String,Integer>();
 	public static TreeMap<String,String> shiftsRegister = new TreeMap<String,String>();
-	public static TreeMap<String,boolean[]> exclusionAnime1 =  new TreeMap<String,boolean[]>();
+	public static TreeMap<String,boolean[]> exclusionAnime =  new TreeMap<String,boolean[]>();
 	public static boolean[] exclusionFieldsArray = {false, false, false, false, false, false};
-	public static ArrayList<String> exclusionAnime =  new ArrayList<String>();
 	
 	public static ArrayList<String> completedSessionAnime = new ArrayList();
 	public static ArrayList<String> airingSessionAnime = new ArrayList();
@@ -595,9 +594,10 @@ public class AnimeIndex extends JFrame
 						else if (listName.equalsIgnoreCase("completi da vedere"))
 							folder = "Completed to See";
 						FileManager.saveNewImage(dir, imageName, folder);
-						if(!exclusionAnime.contains(name))
+						if(!exclusionAnime.containsKey(name))
 						{	
 							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.\n\rAl fine di mantenere l'immagine da voi impostata\n\rl'anime è stato aggiunto alla lista\n\rdegli esclusi dal Controllo Dati Automatico.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+							//qui credo civ ada il boolean dell'immagine ma non so qualè è.è
 							exclusionAnime.add(name);
 						}
 						else

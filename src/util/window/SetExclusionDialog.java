@@ -597,6 +597,7 @@ public class SetExclusionDialog extends JDialog {
 					Object[] array = excludedModel.toArray();
 					for (int i = 0; i < array.length; i++) {
 						String name = (String) array[i];
+						//vedere cosa mettere come array.
 						AnimeIndex.exclusionAnime.add(name);
 					}
 					JButton but = (JButton) e.getSource();
@@ -634,7 +635,7 @@ public class SetExclusionDialog extends JDialog {
 	
 	private void loadModel()
 	{
-		String[] excludedArray = AnimeIndex.exclusionAnime.toArray(new String[0]);
+		String[] excludedArray = AnimeIndex.exclusionAnime.keySet().toArray(new String[0]);
 		excludedModel.addAll(excludedArray);
 		
 		Object[] totalArray = AnimeIndex.completedModel.toArray();

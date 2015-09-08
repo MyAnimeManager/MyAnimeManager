@@ -929,6 +929,7 @@ public class AnimeInformation extends JPanel {
 								@Override
 								public void actionPerformed(ActionEvent e)
 								{
+									//vedi cosa mettere nell'array
 									AnimeIndex.exclusionAnime.add(lblAnimeName.getText());
 								}
 							});
@@ -941,7 +942,7 @@ public class AnimeInformation extends JPanel {
 									AnimeIndex.exclusionAnime.remove((lblAnimeName.getText()));
 								}
 							});
-							if (AnimeIndex.exclusionAnime.contains(lblAnimeName.getText()))
+							if (AnimeIndex.exclusionAnime.containsKey(lblAnimeName.getText()))
 								menu.add(remove);
 							else
 								menu.add(add);
@@ -959,7 +960,7 @@ public class AnimeInformation extends JPanel {
 				if (!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length() == 10 && releaseDateField.getText().trim().length() == 10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length() == 10 && finishDateField.getText().trim().length() == 10)
 				{
 					String name = lblAnimeName.getText();
-					if (AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true") && !AnimeIndex.exclusionAnime.contains(name))
+					if (AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true") && !AnimeIndex.exclusionAnime.containsKey(name))
 						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "I dati di questo anime sono già stati\n\raggiornati dal Controllo Dati Automatico.", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 					else
 					{
