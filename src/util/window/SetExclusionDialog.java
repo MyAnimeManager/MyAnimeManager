@@ -746,61 +746,64 @@ public class SetExclusionDialog extends JDialog {
 	}
 	private void getExclusionFields(String name)
 	{
-		if(exclusionSessionAnime.containsKey(name))
+		if(name!=null)
 		{
-			boolean[] exc = exclusionSessionAnime.get(name);
-			if(exc[0]==false)
-				imgExcludeCheck.setSelected(false);
+			if(exclusionSessionAnime.containsKey(name))
+			{
+				boolean[] exc = exclusionSessionAnime.get(name);
+				if(exc[0]==false)
+					imgExcludeCheck.setSelected(false);
+				else
+					imgExcludeCheck.setSelected(true);
+				if(exc[1]==false)
+					totEpExcludeCheck.setSelected(false);
+				else
+					totEpExcludeCheck.setSelected(true);
+				if(exc[2]==false)
+					durationExcludeCheck.setSelected(false);
+				else
+					durationExcludeCheck.setSelected(true);
+				if(exc[3]==false)
+					releaseDateExcludeCheck.setSelected(false);
+				else
+					releaseDateExcludeCheck.setSelected(true);
+				if(exc[4]==false)
+					finischDateExcludeCheck.setSelected(false);
+				else
+					finischDateExcludeCheck.setSelected(true);
+				if(exc[5]==false)
+					typeExcludeCheck.setSelected(false);
+				else
+					typeExcludeCheck.setSelected(true);
+			}
 			else
-				imgExcludeCheck.setSelected(true);
-			if(exc[1]==false)
-				totEpExcludeCheck.setSelected(false);
-			else
-				totEpExcludeCheck.setSelected(true);
-			if(exc[2]==false)
-				durationExcludeCheck.setSelected(false);
-			else
-				durationExcludeCheck.setSelected(true);
-			if(exc[3]==false)
-				releaseDateExcludeCheck.setSelected(false);
-			else
-				releaseDateExcludeCheck.setSelected(true);
-			if(exc[4]==false)
-				finischDateExcludeCheck.setSelected(false);
-			else
-				finischDateExcludeCheck.setSelected(true);
-			if(exc[5]==false)
-				typeExcludeCheck.setSelected(false);
-			else
-				typeExcludeCheck.setSelected(true);
-		}
-		else
-		{
-			boolean[] exc = AnimeIndex.exclusionAnime.get(name);
-			if(exc[0]==false)
-				imgExcludeCheck.setSelected(false);
-			else
-				imgExcludeCheck.setSelected(true);
-			if(exc[1]==false)
-				totEpExcludeCheck.setSelected(false);
-			else
-				totEpExcludeCheck.setSelected(true);
-			if(exc[2]==false)
-				durationExcludeCheck.setSelected(false);
-			else
-				durationExcludeCheck.setSelected(true);
-			if(exc[3]==false)
-				releaseDateExcludeCheck.setSelected(false);
-			else
-				releaseDateExcludeCheck.setSelected(true);
-			if(exc[4]==false)
-				finischDateExcludeCheck.setSelected(false);
-			else
-				finischDateExcludeCheck.setSelected(true);
-			if(exc[5]==false)
-				typeExcludeCheck.setSelected(false);
-			else
-				typeExcludeCheck.setSelected(true);
+			{
+				boolean[] exc = AnimeIndex.exclusionAnime.get(name);
+				if(exc[0]==false)
+					imgExcludeCheck.setSelected(false);
+				else
+					imgExcludeCheck.setSelected(true);
+				if(exc[1]==false)
+					totEpExcludeCheck.setSelected(false);
+				else
+					totEpExcludeCheck.setSelected(true);
+				if(exc[2]==false)
+					durationExcludeCheck.setSelected(false);
+				else
+					durationExcludeCheck.setSelected(true);
+				if(exc[3]==false)
+					releaseDateExcludeCheck.setSelected(false);
+				else
+					releaseDateExcludeCheck.setSelected(true);
+				if(exc[4]==false)
+					finischDateExcludeCheck.setSelected(false);
+				else
+					finischDateExcludeCheck.setSelected(true);
+				if(exc[5]==false)
+					typeExcludeCheck.setSelected(false);
+				else
+					typeExcludeCheck.setSelected(true);
+			}
 		}
 	}
 	
