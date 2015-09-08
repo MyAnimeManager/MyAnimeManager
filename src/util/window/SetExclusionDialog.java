@@ -93,7 +93,7 @@ public class SetExclusionDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{15, 196, 16, 95, 106, 0, 0};
+		gbl_contentPanel.columnWidths = new int[]{15, 196, 16, 103, 106, 0, 0};
 		gbl_contentPanel.rowHeights = new int[]{23, 0, 0, 0, 31, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
@@ -134,6 +134,7 @@ public class SetExclusionDialog extends JDialog {
 			{
 				lblCampiEsclusi = new JLabel("Campi Esclusi");
 				GridBagConstraints gbc_lblCampiEsclusi = new GridBagConstraints();
+				gbc_lblCampiEsclusi.gridheight = 2;
 				gbc_lblCampiEsclusi.insets = new Insets(0, 0, 5, 0);
 				gbc_lblCampiEsclusi.gridx = 5;
 				gbc_lblCampiEsclusi.gridy = 0;
