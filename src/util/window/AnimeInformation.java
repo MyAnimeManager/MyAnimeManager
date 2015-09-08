@@ -49,6 +49,7 @@ import util.FileManager;
 import util.Filters;
 import util.PatternFilter;
 import util.SortedListModel;
+import util.UtilEvent;
 
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -211,6 +212,7 @@ public class AnimeInformation extends JPanel {
 		gbc_rigidArea.gridy = 0;
 		add(rigidArea, gbc_rigidArea);
 		animeImage = new JLabel(new ImageIcon(image));
+		animeImage.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		animeImage.setBorder(new LineBorder(new Color(40, 40, 40), 3, true));
 		GridBagConstraints gbc_animeImage = new GridBagConstraints();
 		gbc_animeImage.gridheight = 9;
@@ -379,6 +381,7 @@ public class AnimeInformation extends JPanel {
 		add(lblTotalEpisode, gbc_lblTotalEpisode);
 		
 		totalEpisodeText = new JTextField();
+		totalEpisodeText.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		totalEpisodeText.addFocusListener(new FocusAdapter() {
 			
 			@Override
@@ -438,6 +441,7 @@ public class AnimeInformation extends JPanel {
 		add(lblDurata, gbc_lblDurata);
 		
 		durationField = new JTextField();
+		durationField.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		durationField.addFocusListener(new FocusAdapter() {
 			
 			@Override
@@ -620,6 +624,7 @@ public class AnimeInformation extends JPanel {
 		add(lblInizio, gbc_lblInizio);
 		
 		releaseDateField = new JTextField();
+		releaseDateField.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		((AbstractDocument) releaseDateField.getDocument()).setDocumentFilter(new PatternFilter("[\\p{IsDigit}\\/\\?]{0,10}"));
 		releaseDateField.addFocusListener(new FocusAdapter() {
 			
@@ -672,6 +677,7 @@ public class AnimeInformation extends JPanel {
 		add(lblFine, gbc_lblFine);
 		
 		finishDateField = new JTextField();
+		finishDateField.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		((AbstractDocument) finishDateField.getDocument()).setDocumentFilter(new PatternFilter("[\\p{IsDigit}\\/\\?]{0,10}"));
 		finishDateField.addFocusListener(new FocusAdapter() {
 			
@@ -745,6 +751,7 @@ public class AnimeInformation extends JPanel {
 		add(lblTipo, gbc_lblTipo);
 		
 		typeComboBox = new JComboBox();
+		typeComboBox.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		typeComboBox.addActionListener(new ActionListener() {
 			
 			@Override

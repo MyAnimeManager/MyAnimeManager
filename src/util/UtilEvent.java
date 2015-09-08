@@ -28,34 +28,298 @@ public class UtilEvent
 			public void mouseClicked(MouseEvent e) {
 				if ( SwingUtilities.isRightMouseButton(e) )
 		        {
-		            JList list = (JList)e.getSource();
-		            int row = list.locationToIndex(e.getPoint());
-		            Rectangle bound = list.getCellBounds(row, row);
-		            if (bound.contains(e.getPoint()))
-		            {
-	            	list.setSelectedIndex(row);
-					JPopupMenu menu = new JPopupMenu();
-	                JMenuItem add = new JMenuItem("Aggiungi alle Esclusioni");
-	                add.addActionListener(new ActionListener() {
-	                    public void actionPerformed(ActionEvent e) {
-	                    	PreferenceDialog.exclusionDialog = new SetExclusionDialog();
-							PreferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
-							PreferenceDialog.exclusionDialog.setVisible(true);
-	                    }
-	                });
-	                JMenuItem remove = new JMenuItem("Rimuovi dalle Esclusioni");
-	                remove.addActionListener(new ActionListener() {
-	                    public void actionPerformed(ActionEvent e) {
-	                    	AnimeIndex.exclusionAnime.remove((String)list.getSelectedValue());
-	                    }
-	                });
-	                if (AnimeIndex.exclusionAnime.containsKey((String)list.getSelectedValue()))
-	                	menu.add(remove);
-	                else
-	                	menu.add(add);
-	                menu.show(list, e.getX(),e.getY());
-		            }
+					if (e.getSource() instanceof JList)
+					{
+			            JList list = (JList)e.getSource();
+			            int row = list.locationToIndex(e.getPoint());
+			            Rectangle bound = list.getCellBounds(row, row);
+			            if (bound.contains(e.getPoint()))
+			            {
+		            	list.setSelectedIndex(row);
+						JPopupMenu menu = new JPopupMenu();
+		                JMenuItem add = new JMenuItem("Aggiungi alle Esclusioni");
+		                add.addActionListener(new ActionListener() {
+		                    public void actionPerformed(ActionEvent e) {
+		                    	PreferenceDialog.exclusionDialog = new SetExclusionDialog();
+								PreferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
+								PreferenceDialog.exclusionDialog.setVisible(true);
+		                    }
+		                });
+		                JMenuItem remove = new JMenuItem("Rimuovi dalle Esclusioni");
+		                remove.addActionListener(new ActionListener() {
+		                    public void actionPerformed(ActionEvent e) {
+		                    	AnimeIndex.exclusionAnime.remove((String)list.getSelectedValue());
+		                    }
+		                });
+		                if (AnimeIndex.exclusionAnime.containsKey((String)list.getSelectedValue()))
+		                	menu.add(remove);
+		                else
+		                	menu.add(add);
+		                menu.show(list, e.getX(),e.getY());
+			            }
+					}
 					
+					else if (e.getSource().equals(AnimeIndex.animeInformation.animeImage))
+					{
+						JList list = AnimeIndex.getJList();
+						if (!list.isSelectionEmpty())
+						{
+							String name = (String) list.getSelectedValue();
+							JPopupMenu menu = new JPopupMenu();
+			                JMenuItem add = new JMenuItem("Escludi Immagine dall'aggiornamento");
+			                add.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {	 
+			                    	if (AnimeIndex.exclusionAnime.containsKey(name))
+			                    	{
+				                    	boolean[] bool = AnimeIndex.exclusionAnime.get(name);
+				                    	bool[0] = true;
+				                    	AnimeIndex.exclusionAnime.put(name, bool);
+			                    	}
+			                    	else
+			                    	{
+			                    		boolean[] bool = {true,false,false,false,false,false};
+			                    		AnimeIndex.exclusionAnime.put(name, bool);
+			                    	}
+			                    }
+			                });
+			                JMenuItem remove = new JMenuItem("Includi Immagine nell'aggiornamento");
+			                remove.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {                	
+			                    	boolean[] bool = AnimeIndex.exclusionAnime.get(name);
+			                    	bool[0] = false;
+			                    	if (isAllFalse(bool))
+			                    	{
+			                    		AnimeIndex.exclusionAnime.remove(name);
+			                    	}
+			                    	else
+			                    		AnimeIndex.exclusionAnime.put(name, bool);
+			                    }
+			                });
+			                if (AnimeIndex.exclusionAnime.get(name) != null && AnimeIndex.exclusionAnime.get(name)[0])
+			                	menu.add(remove);
+			                else
+			                	menu.add(add);
+			                menu.show(AnimeIndex.animeInformation.animeImage, e.getX(),e.getY());
+						}
+					}
+					
+					else if (e.getSource().equals(AnimeIndex.animeInformation.totalEpisodeText))
+					{
+						JList list = AnimeIndex.getJList();
+						if (!list.isSelectionEmpty())
+						{
+							String name = (String) list.getSelectedValue();
+							JPopupMenu menu = new JPopupMenu();
+			                JMenuItem add = new JMenuItem("Escludi Episodi Totali dall'aggiornamento");
+			                add.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {	 
+			                    	if (AnimeIndex.exclusionAnime.containsKey(name))
+			                    	{
+				                    	boolean[] bool = AnimeIndex.exclusionAnime.get(name);
+				                    	bool[1] = true;
+				                    	AnimeIndex.exclusionAnime.put(name, bool);
+			                    	}
+			                    	else
+			                    	{
+			                    		boolean[] bool = {false,true,false,false,false,false};
+			                    		AnimeIndex.exclusionAnime.put(name, bool);
+			                    	}
+			                    }
+			                });
+			                JMenuItem remove = new JMenuItem("Includi Episodi Totali nell'aggiornamento");
+			                remove.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {                	
+			                    	boolean[] bool = AnimeIndex.exclusionAnime.get(name);
+			                    	bool[1] = false;
+			                    	if (isAllFalse(bool))
+			                    	{
+			                    		AnimeIndex.exclusionAnime.remove(name);
+			                    	}
+			                    	else
+			                    		AnimeIndex.exclusionAnime.put(name, bool);
+			                    }
+			                });
+			                if (AnimeIndex.exclusionAnime.get(name) != null && AnimeIndex.exclusionAnime.get(name)[1])
+			                	menu.add(remove);
+			                else
+			                	menu.add(add);
+			                menu.show(AnimeIndex.animeInformation.totalEpisodeText, e.getX(),e.getY());
+						}
+					}
+					
+					else if (e.getSource().equals(AnimeIndex.animeInformation.durationField))
+					{
+						JList list = AnimeIndex.getJList();
+						if (!list.isSelectionEmpty())
+						{
+							String name = (String) list.getSelectedValue();
+							JPopupMenu menu = new JPopupMenu();
+			                JMenuItem add = new JMenuItem("Escludi Durata dall'aggiornamento");
+			                add.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {	 
+			                    	if (AnimeIndex.exclusionAnime.containsKey(name))
+			                    	{
+				                    	boolean[] bool = AnimeIndex.exclusionAnime.get(name);
+				                    	bool[2] = true;
+				                    	AnimeIndex.exclusionAnime.put(name, bool);
+			                    	}
+			                    	else
+			                    	{
+			                    		boolean[] bool = {false,false,true,false,false,false};
+			                    		AnimeIndex.exclusionAnime.put(name, bool);
+			                    	}
+			                    }
+			                });
+			                JMenuItem remove = new JMenuItem("Includi Durata nell'aggiornamento");
+			                remove.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {                	
+			                    	boolean[] bool = AnimeIndex.exclusionAnime.get(name);
+			                    	bool[2] = false;
+			                    	if (isAllFalse(bool))
+			                    	{
+			                    		AnimeIndex.exclusionAnime.remove(name);
+			                    	}
+			                    	else
+			                    		AnimeIndex.exclusionAnime.put(name, bool);
+			                    }
+			                });
+			                if (AnimeIndex.exclusionAnime.get(name) != null && AnimeIndex.exclusionAnime.get(name)[2])
+			                	menu.add(remove);
+			                else
+			                	menu.add(add);
+			                menu.show(AnimeIndex.animeInformation.durationField, e.getX(),e.getY());
+						}
+					}
+					
+					else if (e.getSource().equals(AnimeIndex.animeInformation.releaseDateField))
+					{
+						JList list = AnimeIndex.getJList();
+						if (!list.isSelectionEmpty())
+						{
+							String name = (String) list.getSelectedValue();
+							JPopupMenu menu = new JPopupMenu();
+			                JMenuItem add = new JMenuItem("Escludi Data di Inizio dall'aggiornamento");
+			                add.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {	 
+			                    	if (AnimeIndex.exclusionAnime.containsKey(name))
+			                    	{
+				                    	boolean[] bool = AnimeIndex.exclusionAnime.get(name);
+				                    	bool[3] = true;
+				                    	AnimeIndex.exclusionAnime.put(name, bool);
+			                    	}
+			                    	else
+			                    	{
+			                    		boolean[] bool = {false,false,false,true,false,false};
+			                    		AnimeIndex.exclusionAnime.put(name, bool);
+			                    	}
+			                    }
+			                });
+			                JMenuItem remove = new JMenuItem("Includi Data di Inizio nell'aggiornamento");
+			                remove.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {                	
+			                    	boolean[] bool = AnimeIndex.exclusionAnime.get(name);
+			                    	bool[3] = false;
+			                    	if (isAllFalse(bool))
+			                    	{
+			                    		AnimeIndex.exclusionAnime.remove(name);
+			                    	}
+			                    	else
+			                    		AnimeIndex.exclusionAnime.put(name, bool);
+			                    }
+			                });
+			                if (AnimeIndex.exclusionAnime.get(name) != null && AnimeIndex.exclusionAnime.get(name)[3])
+			                	menu.add(remove);
+			                else
+			                	menu.add(add);
+			                menu.show(AnimeIndex.animeInformation.releaseDateField, e.getX(),e.getY());
+						}
+					}
+					else if (e.getSource().equals(AnimeIndex.animeInformation.finishDateField))
+					{
+						JList list = AnimeIndex.getJList();
+						if (!list.isSelectionEmpty())
+						{
+							String name = (String) list.getSelectedValue();
+							JPopupMenu menu = new JPopupMenu();
+			                JMenuItem add = new JMenuItem("Escludi Data di Fine dall'aggiornamento");
+			                add.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {	 
+			                    	if (AnimeIndex.exclusionAnime.containsKey(name))
+			                    	{
+				                    	boolean[] bool = AnimeIndex.exclusionAnime.get(name);
+				                    	bool[4] = true;
+				                    	AnimeIndex.exclusionAnime.put(name, bool);
+			                    	}
+			                    	else
+			                    	{
+			                    		boolean[] bool = {false,false,false,false,true,false};
+			                    		AnimeIndex.exclusionAnime.put(name, bool);
+			                    	}
+			                    }
+			                });
+			                JMenuItem remove = new JMenuItem("Includi Data di Fine nell'aggiornamento");
+			                remove.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {                	
+			                    	boolean[] bool = AnimeIndex.exclusionAnime.get(name);
+			                    	bool[4] = false;
+			                    	if (isAllFalse(bool))
+			                    	{
+			                    		AnimeIndex.exclusionAnime.remove(name);
+			                    	}
+			                    	else
+			                    		AnimeIndex.exclusionAnime.put(name, bool);
+			                    }
+			                });
+			                if (AnimeIndex.exclusionAnime.get(name) != null && AnimeIndex.exclusionAnime.get(name)[4])
+			                	menu.add(remove);
+			                else
+			                	menu.add(add);
+			                menu.show(AnimeIndex.animeInformation.finishDateField, e.getX(),e.getY());
+						}
+					}
+					else if (e.getSource().equals(AnimeIndex.animeInformation.typeComboBox))
+					{
+						JList list = AnimeIndex.getJList();
+						if (!list.isSelectionEmpty())
+						{
+							String name = (String) list.getSelectedValue();
+							JPopupMenu menu = new JPopupMenu();
+			                JMenuItem add = new JMenuItem("Escludi Tipo dall'aggiornamento");
+			                add.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {	 
+			                    	if (AnimeIndex.exclusionAnime.containsKey(name))
+			                    	{
+				                    	boolean[] bool = AnimeIndex.exclusionAnime.get(name);
+				                    	bool[5] = true;
+				                    	AnimeIndex.exclusionAnime.put(name, bool);
+			                    	}
+			                    	else
+			                    	{
+			                    		boolean[] bool = {false,false,false,false,false,true};
+			                    		AnimeIndex.exclusionAnime.put(name, bool);
+			                    	}
+			                    }
+			                });
+			                JMenuItem remove = new JMenuItem("Includi Tipo nell'aggiornamento");
+			                remove.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {                	
+			                    	boolean[] bool = AnimeIndex.exclusionAnime.get(name);
+			                    	bool[5] = false;
+			                    	if (isAllFalse(bool))
+			                    	{
+			                    		AnimeIndex.exclusionAnime.remove(name);
+			                    	}
+			                    	else
+			                    		AnimeIndex.exclusionAnime.put(name, bool);
+			                    }
+			                });
+			                if (AnimeIndex.exclusionAnime.get(name) != null && AnimeIndex.exclusionAnime.get(name)[5])
+			                	menu.add(remove);
+			                else
+			                	menu.add(add);
+			                menu.show(AnimeIndex.animeInformation.typeComboBox, e.getX(),e.getY());
+						}
+					}
 		        }
 			}
 		};
@@ -134,5 +398,20 @@ public class UtilEvent
 		};
 		
 		return key;
+	}
+	
+	private static boolean isAllFalse(boolean[] bool)
+	{
+		boolean allFalse = false;
+		int falseNumber = 0;
+		for (int i = 1; i < bool.length; i++)
+		{
+			if (bool[i] == false)
+				falseNumber++;				
+		}
+		
+		if (falseNumber == bool.length)
+			allFalse = true;
+		return allFalse;
 	}
 }
