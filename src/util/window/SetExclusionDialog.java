@@ -317,6 +317,8 @@ public class SetExclusionDialog extends JDialog {
 					searchListToCheck.clearSelection();
 					listToExclude.clearSelection();
 					searchListToExclude.clearSelection();
+					boolean[] defaultExcludionFiled = {false,false,false,false,false,false};
+					exclusionSessionAnime.put(name, defaultExcludionFiled);
 					if(searchBarExclusions.getText().isEmpty())
 						listToExclude.setSelectedValue(name, true);
 					else
@@ -325,8 +327,7 @@ public class SetExclusionDialog extends JDialog {
 						searchInList(searchBarExclusions.getText(), excludedModel, excludedSearchModel,searchListToExclude);
 						searchListToExclude.setSelectedValue(name, true);
 					}
-					boolean[] defaultExcludionFiled = {false,false,false,false,false,false};
-					exclusionSessionAnime.put(name, defaultExcludionFiled);	
+						
 					
 					excludeButton.setEnabled(false);
 					includeButton.setEnabled(true);
