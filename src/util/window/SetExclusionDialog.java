@@ -43,6 +43,8 @@ import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
+import java.util.TreeMap;
+
 import javax.swing.JCheckBox;
 
 public class SetExclusionDialog extends JDialog {
@@ -65,12 +67,16 @@ public class SetExclusionDialog extends JDialog {
 	private JList searchListToExclude;
 	private JPanel excludedPane;
 	private JLabel lblCampiEsclusi;
+	
+	private String selectedAnime = "";
+	
 	private JCheckBox imgExcludeCheck;
 	private JCheckBox totEpExcludeCheck;
 	private JCheckBox durationExcludeCheck;
 	private JCheckBox releaseDateExcludeCheck;
 	private JCheckBox finischDateExcludeCheck;
 	private JCheckBox typeExcludeCheck;
+	private TreeMap<String,boolean[]> exclusionSessionAnime =  new TreeMap<String,boolean[]>();
 	/**
 	 * Create the dialog..
 	 */
@@ -319,13 +325,21 @@ public class SetExclusionDialog extends JDialog {
 						searchInList(searchBarExclusions.getText(), excludedModel, excludedSearchModel,searchListToExclude);
 						searchListToExclude.setSelectedValue(name, true);
 					}
-				
+					boolean[] defaultExcludionFiled = {false,false,false,false,false,false};
+					exclusionSessionAnime.put(name, defaultExcludionFiled);	
+					
 					excludeButton.setEnabled(false);
 					includeButton.setEnabled(true);
 				}
 			});
 			{
 				imgExcludeCheck = new JCheckBox("Immagine");
+				imgExcludeCheck.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(selectedAnime!=null)
+							exclusionSessionAnime.put(selectedAnime, setExclusionFields(selectedAnime));
+					}
+				});
 				GridBagConstraints gbc_imgExcludeCheck = new GridBagConstraints();
 				gbc_imgExcludeCheck.anchor = GridBagConstraints.WEST;
 				gbc_imgExcludeCheck.insets = new Insets(0, 0, 5, 0);
@@ -335,6 +349,12 @@ public class SetExclusionDialog extends JDialog {
 			}
 			{
 				totEpExcludeCheck = new JCheckBox("Episodi Totali");
+				totEpExcludeCheck.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(selectedAnime!=null)
+							exclusionSessionAnime.put(selectedAnime, setExclusionFields(selectedAnime));
+					}
+				});
 				GridBagConstraints gbc_totEpExcludeCheck = new GridBagConstraints();
 				gbc_totEpExcludeCheck.anchor = GridBagConstraints.WEST;
 				gbc_totEpExcludeCheck.insets = new Insets(0, 0, 5, 0);
@@ -372,6 +392,12 @@ public class SetExclusionDialog extends JDialog {
 				
 				@Override
 				public void mousePressed(MouseEvent e) {
+					if(searchBarExclusions.getText().isEmpty())
+						selectedAnime = (String)listToExclude.getSelectedValue();
+					else
+						selectedAnime = (String)searchListToExclude.getSelectedValue();
+					if(selectedAnime!=null)
+						getExclusionFields(selectedAnime);
 					listToCheck.clearSelection();
 					searchListToCheck.clearSelection();
 				}
@@ -379,8 +405,17 @@ public class SetExclusionDialog extends JDialog {
 			listToExclude.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			listToExclude.addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent e) {
+										
 					excludeButton.setEnabled(false);
 					includeButton.setEnabled(true);
+					
+					if(searchBarExclusions.getText().isEmpty())
+						selectedAnime = (String)listToExclude.getSelectedValue();
+					else
+						selectedAnime = (String)searchListToExclude.getSelectedValue();
+					if(selectedAnime!=null)
+						getExclusionFields(selectedAnime);
+					System.out.println(selectedAnime);
 				}
 			});
 			listToExclude.setFont(AnimeIndex.segui.deriveFont(12f));
@@ -491,12 +526,21 @@ public class SetExclusionDialog extends JDialog {
 						searchInList(searchBarCheck.getText(), totalModel, totalSearchModel,searchListToCheck);
 						searchListToCheck.setSelectedValue(name, true);
 					}
+					
+					exclusionSessionAnime.remove(name);
+					
 					includeButton.setEnabled(false);
 					excludeButton.setEnabled(true);
 					}
 			});
 			{
 				durationExcludeCheck = new JCheckBox("Durata Episodio");
+				durationExcludeCheck.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(selectedAnime!=null)
+							exclusionSessionAnime.put(selectedAnime, setExclusionFields(selectedAnime));
+					}
+				});
 				GridBagConstraints gbc_durationExcludeCheck = new GridBagConstraints();
 				gbc_durationExcludeCheck.anchor = GridBagConstraints.WEST;
 				gbc_durationExcludeCheck.insets = new Insets(0, 0, 5, 0);
@@ -513,6 +557,12 @@ public class SetExclusionDialog extends JDialog {
 		}
 		{
 			releaseDateExcludeCheck = new JCheckBox("Data di Inizio");
+			releaseDateExcludeCheck.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(selectedAnime!=null)
+						exclusionSessionAnime.put(selectedAnime, setExclusionFields(selectedAnime));
+				}
+			});
 			GridBagConstraints gbc_releaseDateExcludeCheck = new GridBagConstraints();
 			gbc_releaseDateExcludeCheck.anchor = GridBagConstraints.WEST;
 			gbc_releaseDateExcludeCheck.insets = new Insets(0, 0, 5, 0);
@@ -564,6 +614,12 @@ public class SetExclusionDialog extends JDialog {
 			});
 			{
 				finischDateExcludeCheck = new JCheckBox("Data di Fine");
+				finischDateExcludeCheck.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(selectedAnime!=null)
+							exclusionSessionAnime.put(selectedAnime, setExclusionFields(selectedAnime));
+					}
+				});
 				GridBagConstraints gbc_finischDateExcludeCheck = new GridBagConstraints();
 				gbc_finischDateExcludeCheck.anchor = GridBagConstraints.WEST;
 				gbc_finischDateExcludeCheck.insets = new Insets(0, 0, 5, 0);
@@ -573,6 +629,12 @@ public class SetExclusionDialog extends JDialog {
 			}
 			{
 				typeExcludeCheck = new JCheckBox("Tipo");
+				typeExcludeCheck.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(selectedAnime!=null)
+							exclusionSessionAnime.put(selectedAnime, setExclusionFields(selectedAnime));
+					}
+				});
 				GridBagConstraints gbc_typeExcludeCheck = new GridBagConstraints();
 				gbc_typeExcludeCheck.anchor = GridBagConstraints.WEST;
 				gbc_typeExcludeCheck.insets = new Insets(0, 0, 5, 0);
@@ -598,7 +660,7 @@ public class SetExclusionDialog extends JDialog {
 					for (int i = 0; i < array.length; i++) {
 						String name = (String) array[i];
 						//vedere cosa mettere come array.
-						AnimeIndex.exclusionAnime.add(name);
+						AnimeIndex.exclusionAnime.putAll(exclusionSessionAnime);
 					}
 					JButton but = (JButton) e.getSource();
 					JDialog dialog = (JDialog) but.getTopLevelAncestor();
@@ -681,5 +743,82 @@ public class SetExclusionDialog extends JDialog {
 			searchModel.addElement("Nessun Anime Corrispondente");
 			list.setEnabled(false);	
 		}
+	}
+	private void getExclusionFields(String name)
+	{
+		if(exclusionSessionAnime.containsKey(name))
+		{
+			boolean[] exc = exclusionSessionAnime.get(name);
+			if(exc[0]==false)
+				imgExcludeCheck.setSelected(false);
+			else
+				imgExcludeCheck.setSelected(true);
+			if(exc[1]==false)
+				totEpExcludeCheck.setSelected(false);
+			else
+				totEpExcludeCheck.setSelected(true);
+			if(exc[2]==false)
+				durationExcludeCheck.setSelected(false);
+			else
+				durationExcludeCheck.setSelected(true);
+			if(exc[3]==false)
+				releaseDateExcludeCheck.setSelected(false);
+			else
+				releaseDateExcludeCheck.setSelected(true);
+			if(exc[4]==false)
+				finischDateExcludeCheck.setSelected(false);
+			else
+				finischDateExcludeCheck.setSelected(true);
+			if(exc[5]==false)
+				typeExcludeCheck.setSelected(false);
+			else
+				typeExcludeCheck.setSelected(true);
+		}
+		else
+		{
+			boolean[] exc = AnimeIndex.exclusionAnime.get(name);
+			if(exc[0]==false)
+				imgExcludeCheck.setSelected(false);
+			else
+				imgExcludeCheck.setSelected(true);
+			if(exc[1]==false)
+				totEpExcludeCheck.setSelected(false);
+			else
+				totEpExcludeCheck.setSelected(true);
+			if(exc[2]==false)
+				durationExcludeCheck.setSelected(false);
+			else
+				durationExcludeCheck.setSelected(true);
+			if(exc[3]==false)
+				releaseDateExcludeCheck.setSelected(false);
+			else
+				releaseDateExcludeCheck.setSelected(true);
+			if(exc[4]==false)
+				finischDateExcludeCheck.setSelected(false);
+			else
+				finischDateExcludeCheck.setSelected(true);
+			if(exc[5]==false)
+				typeExcludeCheck.setSelected(false);
+			else
+				typeExcludeCheck.setSelected(true);
+		}
+	}
+	
+	private boolean[] setExclusionFields(String name)
+	{
+		boolean[] exc = {false,false,false,false,false,false};
+		if(imgExcludeCheck.isSelected())
+			exc[0]=true;
+		if(totEpExcludeCheck.isSelected())
+			exc[1]=true;
+		if(durationExcludeCheck.isSelected())
+			exc[2]=true;
+		if(releaseDateExcludeCheck.isSelected())
+			exc[3]=true;
+		if(finischDateExcludeCheck.isSelected())
+			exc[4]=true;
+		if(typeExcludeCheck.isSelected())
+			exc[5]=true;
+		return exc;
 	}
 }
