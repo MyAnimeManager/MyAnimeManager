@@ -53,28 +53,92 @@ public class FieldExclusionDialog extends JDialog
 			@Override
 			public void windowOpened(WindowEvent e) {
 				
-				if (AnimeIndex.appProp.getProperty("excludeTotalEp").equalsIgnoreCase("true"))
-					totalEpCheckBox.setSelected(true);
-				
-				if (AnimeIndex.appProp.getProperty("excludeDuration").equalsIgnoreCase("true"))
-					durationCheckBox.setSelected(true);
-				
-				if (AnimeIndex.appProp.getProperty("excludeStartingDate").equalsIgnoreCase("true"))
-					startDateCheckBox.setSelected(true);
-				
-				if (AnimeIndex.appProp.getProperty("excludeFinishDate").equalsIgnoreCase("true"))
-					finishDateCheckBox.setSelected(true);
-				
-				if (AnimeIndex.appProp.getProperty("excludeType").equalsIgnoreCase("true"))
-					typeCheckBox.setSelected(true);
-				
-				if (AnimeIndex.appProp.getProperty("excludeImage").equalsIgnoreCase("true"))
-					imageCheckBox.setSelected(true);
-				
-				if(AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
+				if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("false"))
 				{
-					typeCheckBox.setSelected(true);
-					typeCheckBox.setEnabled(false);
+					String name = AnimeIndex.animeInformation.lblAnimeName.getText();
+					if(AnimeIndex.exclusionAnime.containsKey(name))
+					{
+						boolean[] exc = AnimeIndex.exclusionAnime.get(name);
+						
+						if (exc[1]==false)
+							totalEpCheckBox.setSelected(true);
+						
+						if (exc[2]==false)
+							durationCheckBox.setSelected(true);
+						
+						if (exc[3]==false)
+							startDateCheckBox.setSelected(true);
+						
+						if (exc[4]==false)
+							finishDateCheckBox.setSelected(true);
+						
+						if (exc[5]==false)
+							typeCheckBox.setSelected(true);
+						
+						if (exc[0]==false)
+							imageCheckBox.setSelected(true);
+						
+						if(AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
+						{
+							typeCheckBox.setSelected(true);
+							typeCheckBox.setEnabled(false);
+						}
+					}
+					else
+					{
+						if (AnimeIndex.appProp.getProperty("excludeTotalEp").equalsIgnoreCase("true"))
+							totalEpCheckBox.setSelected(true);
+						
+						if (AnimeIndex.appProp.getProperty("excludeDuration").equalsIgnoreCase("true"))
+							durationCheckBox.setSelected(true);
+						
+						if (AnimeIndex.appProp.getProperty("excludeStartingDate").equalsIgnoreCase("true"))
+							startDateCheckBox.setSelected(true);
+						
+						if (AnimeIndex.appProp.getProperty("excludeFinishDate").equalsIgnoreCase("true"))
+							finishDateCheckBox.setSelected(true);
+						
+						if (AnimeIndex.appProp.getProperty("excludeType").equalsIgnoreCase("true"))
+							typeCheckBox.setSelected(true);
+						
+						if (AnimeIndex.appProp.getProperty("excludeImage").equalsIgnoreCase("true"))
+							imageCheckBox.setSelected(true);
+						
+						if(AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
+						{
+							typeCheckBox.setSelected(true);
+							typeCheckBox.setEnabled(false);
+						}
+					}
+				}
+				else
+				{
+					String name = AnimeIndex.animeInformation.lblAnimeName.getText();
+					boolean[] exc = AnimeIndex.exclusionAnime.get(name);
+					
+					if (exc[1]==false)
+						totalEpCheckBox.setSelected(true);
+					
+					if (exc[2]==false)
+						durationCheckBox.setSelected(true);
+					
+					if (exc[3]==false)
+						startDateCheckBox.setSelected(true);
+					
+					if (exc[4]==false)
+						finishDateCheckBox.setSelected(true);
+					
+					if (exc[5]==false)
+						typeCheckBox.setSelected(true);
+					
+					if (exc[0]==false)
+						imageCheckBox.setSelected(true);
+					
+					if(AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
+					{
+						typeCheckBox.setSelected(true);
+						typeCheckBox.setEnabled(false);
+					}
 				}
 			}
 		});
@@ -155,11 +219,14 @@ public class FieldExclusionDialog extends JDialog
 				deselectAll = new JButton("Nessun Campo Escluso");
 				deselectAll.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						AnimeIndex.appProp.setProperty("excludeTotalEp", "false");
-						AnimeIndex.appProp.setProperty("excludeDuration", "false");
-						AnimeIndex.appProp.setProperty("excludeStartingDate", "false");
-						AnimeIndex.appProp.setProperty("excludeFinishDate", "false");
-						
+						String name = AnimeIndex.animeInformation.lblAnimeName.getText();
+						if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("false") && AnimeIndex.exclusionAnime.containsKey(name))
+						{
+							AnimeIndex.appProp.setProperty("excludeTotalEp", "false");
+							AnimeIndex.appProp.setProperty("excludeDuration", "false");
+							AnimeIndex.appProp.setProperty("excludeStartingDate", "false");
+							AnimeIndex.appProp.setProperty("excludeFinishDate", "false");
+						}
 						totalEpCheckBox.setSelected(false);
 						durationCheckBox.setSelected(false);
 						startDateCheckBox.setSelected(false);
@@ -185,37 +252,78 @@ public class FieldExclusionDialog extends JDialog
 			panel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-											
-					if (totalEpCheckBox.isSelected())
-						AnimeIndex.appProp.setProperty("excludeTotalEp", "true");
+					if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("false"))
+					{
+						String name = AnimeIndex.animeInformation.lblAnimeName.getText();
+						if(AnimeIndex.exclusionAnime.containsKey(name))
+						{
+							boolean[] exc = {false,false,false,false,false,false};
+							if(!imageCheckBox.isSelected())
+								exc[0]=true;
+							if(!totalEpCheckBox.isSelected())
+								exc[1]=true;
+							if(!durationCheckBox.isSelected())
+								exc[2]=true;
+							if(!startDateCheckBox.isSelected())
+								exc[3]=true;
+							if(!finishDateCheckBox.isSelected())
+								exc[4]=true;
+							if(!typeCheckBox.isSelected())
+								exc[5]=true;
+							AnimeIndex.exclusionAnime.put(name, exc);
+						}
+						else
+						{
+							if (totalEpCheckBox.isSelected())
+								AnimeIndex.appProp.setProperty("excludeTotalEp", "true");
+							else
+								AnimeIndex.appProp.setProperty("excludeTotalEp", "false");
+							
+							if (durationCheckBox.isSelected())
+								AnimeIndex.appProp.setProperty("excludeDuration", "true");
+							else
+								AnimeIndex.appProp.setProperty("excludeDuration", "false");
+							
+							if (startDateCheckBox.isSelected())
+								AnimeIndex.appProp.setProperty("excludeStartingDate", "true");
+							else
+								AnimeIndex.appProp.setProperty("excludeStartingDate", "false");
+							
+							if (finishDateCheckBox.isSelected())
+								AnimeIndex.appProp.setProperty("excludeFinishDate", "true");
+							else
+								AnimeIndex.appProp.setProperty("excludeFinishDate", "false");
+							
+							if (typeCheckBox.isSelected())
+								AnimeIndex.appProp.setProperty("excludeType", "true");
+							else
+								AnimeIndex.appProp.setProperty("excludeType", "false");
+							
+							if (imageCheckBox.isSelected())
+								AnimeIndex.appProp.setProperty("excludeImage", "true");
+							else
+								AnimeIndex.appProp.setProperty("excludeImage", "false");
+						}
+					}
 					else
-						AnimeIndex.appProp.setProperty("excludeTotalEp", "false");
+					{
+						String name = AnimeIndex.animeInformation.lblAnimeName.getText();
+						boolean[] exc = {false,false,false,false,false,false};
+						if(!imageCheckBox.isSelected())
+							exc[0]=true;
+						if(!totalEpCheckBox.isSelected())
+							exc[1]=true;
+						if(!durationCheckBox.isSelected())
+							exc[2]=true;
+						if(!startDateCheckBox.isSelected())
+							exc[3]=true;
+						if(!finishDateCheckBox.isSelected())
+							exc[4]=true;
+						if(!typeCheckBox.isSelected())
+							exc[5]=true;
+						AnimeIndex.exclusionAnime.put(name, exc);
+					}
 					
-					if (durationCheckBox.isSelected())
-						AnimeIndex.appProp.setProperty("excludeDuration", "true");
-					else
-						AnimeIndex.appProp.setProperty("excludeDuration", "false");
-					
-					if (startDateCheckBox.isSelected())
-						AnimeIndex.appProp.setProperty("excludeStartingDate", "true");
-					else
-						AnimeIndex.appProp.setProperty("excludeStartingDate", "false");
-					
-					if (finishDateCheckBox.isSelected())
-						AnimeIndex.appProp.setProperty("excludeFinishDate", "true");
-					else
-						AnimeIndex.appProp.setProperty("excludeFinishDate", "false");
-					
-					if (typeCheckBox.isSelected())
-						AnimeIndex.appProp.setProperty("excludeType", "true");
-					else
-						AnimeIndex.appProp.setProperty("excludeType", "false");
-					
-					if (imageCheckBox.isSelected())
-						AnimeIndex.appProp.setProperty("excludeImage", "true");
-					else
-						AnimeIndex.appProp.setProperty("excludeImage", "false");
-
 					AnimeIndex.activeUpdate = true;
 					
 					FieldExclusionDialog.this.dispose();

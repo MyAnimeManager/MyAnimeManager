@@ -89,6 +89,7 @@ public class AnimeInformation extends JPanel {
 	public JTextField durationField;
 	public JButton checkDataButton;
 	public static UpdatingAnimeDataDialog dial;
+	public boolean selectExcludedAnimeAtWindowOpened = false;
 	
 	/**
 	 * Create the panel.
@@ -937,6 +938,9 @@ public class AnimeInformation extends JPanel {
 								@Override
 								public void actionPerformed(ActionEvent e)
 								{
+									boolean[] exc = {true,true,true,true,true,true};
+									AnimeIndex.exclusionAnime.put(lblAnimeName.getText(), exc);
+									selectExcludedAnimeAtWindowOpened=true;
 									PreferenceDialog.exclusionDialog = new SetExclusionDialog();
 									PreferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
 									PreferenceDialog.exclusionDialog.setVisible(true);

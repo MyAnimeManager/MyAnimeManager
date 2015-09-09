@@ -97,7 +97,9 @@ import util.window.WishlistDialog;
 //TODO fixare "IL BUG"
 //TODO dopo la segnalazione di incoerenza se la lista nn e' anime completati o completi da vedere porre currEp = 1 e la exitDayComboBox a ?????
 //TODO togliere controllo in tutti i campi ad ogni segnalazione di incoerenza e fare che controlli nei campi secondo i booleani di controllo
+//TODO correggere attivazione aggiornamento dati in base ai campi esclusi
 //TODO ReleasedAnimeTask esclusione ??/??/???? 
+//TODO finire Patron
 public class AnimeIndex extends JFrame
 {
 	public static final String VERSION = "1.0.0";
@@ -850,6 +852,27 @@ public class AnimeIndex extends JFrame
 		
 		JMenuItem mntmCredit = new JMenuItem("Crediti");
 		mnHelp.add(mntmCredit);
+		
+		JSeparator separator_17 = new JSeparator();
+		mnHelp.add(separator_17);
+		
+		JMenuItem mntmProposte = new JMenuItem("Segnalazioni");
+		mntmProposte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Per segnalare un bug o proporre nuove funzionalità è disponibile  l' \"Issue Tracker\".\nCreate una nuova discussione con il tasto \"New Issue\" e appena possibile riceverete una risposta.\n\nAprire l’Issue Tracker?", "Bug, Richieste e Suggerimenti", JOptionPane.YES_NO_OPTION);
+				if (shouldCancel==0)
+				{
+					String link = "https://github.com/MyAnimeManager/MyAnimeManager/issues";
+					try {
+						URI uriLink = new URI(link);
+						Desktop.getDesktop().browse(uriLink);
+					} catch (URISyntaxException a) {
+					} catch (IOException a) {
+				}
+				}
+			}
+		});
+		mnHelp.add(mntmProposte);
 		
 		JSeparator separator_7 = new JSeparator();
 		mnHelp.add(separator_7);

@@ -35,27 +35,30 @@ public class UtilEvent
 			            Rectangle bound = list.getCellBounds(row, row);
 			            if (bound.contains(e.getPoint()))
 			            {
-		            	list.setSelectedIndex(row);
-						JPopupMenu menu = new JPopupMenu();
-		                JMenuItem add = new JMenuItem("Aggiungi alle Esclusioni");
-		                add.addActionListener(new ActionListener() {
-		                    public void actionPerformed(ActionEvent e) {
-		                    	PreferenceDialog.exclusionDialog = new SetExclusionDialog();
-								PreferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
-								PreferenceDialog.exclusionDialog.setVisible(true);
-		                    }
-		                });
-		                JMenuItem remove = new JMenuItem("Rimuovi dalle Esclusioni");
-		                remove.addActionListener(new ActionListener() {
-		                    public void actionPerformed(ActionEvent e) {
-		                    	AnimeIndex.exclusionAnime.remove((String)list.getSelectedValue());
-		                    }
-		                });
-		                if (AnimeIndex.exclusionAnime.containsKey((String)list.getSelectedValue()))
-		                	menu.add(remove);
-		                else
-		                	menu.add(add);
-		                menu.show(list, e.getX(),e.getY());
+			            	list.setSelectedIndex(row);
+							JPopupMenu menu = new JPopupMenu();
+			                JMenuItem add = new JMenuItem("Aggiungi alle Esclusioni");
+			                add.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {
+			                    	boolean[] exc = {true,true,true,true,true,true};
+									AnimeIndex.exclusionAnime.put(AnimeIndex.animeInformation.lblAnimeName.getText(), exc);
+									AnimeIndex.animeInformation.selectExcludedAnimeAtWindowOpened=true;
+			                    	PreferenceDialog.exclusionDialog = new SetExclusionDialog();
+									PreferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
+									PreferenceDialog.exclusionDialog.setVisible(true);
+			                    }
+			                });
+			                JMenuItem remove = new JMenuItem("Rimuovi dalle Esclusioni");
+			                remove.addActionListener(new ActionListener() {
+			                    public void actionPerformed(ActionEvent e) {
+			                    	AnimeIndex.exclusionAnime.remove((String)list.getSelectedValue());
+			                    }
+			                });
+			                if (AnimeIndex.exclusionAnime.containsKey((String)list.getSelectedValue()))
+			                	menu.add(remove);
+			                else
+			                	menu.add(add);
+			                menu.show(list, e.getX(),e.getY());
 			            }
 					}
 					
@@ -404,7 +407,7 @@ public class UtilEvent
 	{
 		boolean allFalse = false;
 		int falseNumber = 0;
-		for (int i = 1; i < bool.length; i++)
+		for (int i = 0; i < bool.length; i++)
 		{
 			if (bool[i] == false)
 				falseNumber++;				
