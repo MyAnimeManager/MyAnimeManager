@@ -2657,9 +2657,33 @@ public class AnimeIndex extends JFrame
 					{
 						lista = getJList();
 					}
+					int i = 0;
+					if(!exclusionAnime.containsKey(lastSelection))
+					{
+						boolean[]exc={false,false,false,true,false,false};
+						exclusionAnime.put(lastSelection, exc);
+						i=1;
+					}
+					else if(exclusionAnime.containsKey(lastSelection) && exclusionAnime.get(lastSelection)[3]==false)
+					{
+						boolean[] exc = exclusionAnime.get(lastSelection);
+						exc[3]=true;
+						exclusionAnime.put(lastSelection, exc);
+						i=2;
+					}
 					lista.setSelectedValue(lastSelection, true);
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
 					animeInformation.releaseDateField.requestFocusInWindow();
+					if(i==1)
+					{
+						exclusionAnime.remove(lastSelection);
+					}
+					else if(i==2)
+					{
+						boolean[] exc = exclusionAnime.get(lastSelection);
+						exc[3]=false;
+						exclusionAnime.put(lastSelection, exc);
+					}
 				}
 			}
 			if (oldData.getReleaseDate().endsWith(" ") || oldData.getReleaseDate().startsWith(" "))
@@ -2684,9 +2708,34 @@ public class AnimeIndex extends JFrame
 					{
 						lista = getJList();
 					}
+					int i = 0;
+					if(!exclusionAnime.containsKey(lastSelection))
+					{
+						boolean[]exc={false,false,false,false,true,false};
+						exclusionAnime.put(lastSelection, exc);
+						i=1;
+					}
+					else if(exclusionAnime.containsKey(lastSelection) && exclusionAnime.get(lastSelection)[4]==false)
+					{
+						boolean[] exc = exclusionAnime.get(lastSelection);
+						exc[4]=true;
+						exclusionAnime.put(lastSelection, exc);
+						i=2;
+					}
 					lista.setSelectedValue(lastSelection, true);
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
 					animeInformation.finishDateField.requestFocusInWindow();
+					if(i==1)
+					{
+						exclusionAnime.remove(lastSelection);
+					}
+					else if(i==2)
+					{
+						boolean[] exc = exclusionAnime.get(lastSelection);
+						exc[4]=false;
+						exclusionAnime.put(lastSelection, exc);
+					}
+					
 				}
 			}
 			if (oldData.getFinishDate().endsWith(" ") || oldData.getFinishDate().startsWith(" "))
@@ -2764,7 +2813,7 @@ public class AnimeIndex extends JFrame
 
 		 AnimeIndex.appThread.start();
 	}
-	
+//TODO fixare caso data = ??/??/????
 	public static void setAnimeInformationFields()
 	{
 		if(!animeInformation.totalEpisodeText.getText().equals("??") && !animeInformation.currentEpisodeField.getText().isEmpty() && !animeInformation.totalEpisodeText.getText().isEmpty())

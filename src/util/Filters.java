@@ -62,108 +62,184 @@ public class Filters {
 			else if(AnimeIndex.filtro==4)
 			{
 				dato=data.getAnimeType();
-				if(!data.getReleaseDate().equalsIgnoreCase("??/??/????") && !data.getReleaseDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getReleaseDate().substring(0, 3).equalsIgnoreCase("??/") && (data.getCurrentEpisode().equalsIgnoreCase("??") || data.getCurrentEpisode().equalsIgnoreCase("0") || data.getCurrentEpisode().equalsIgnoreCase("1")))
+				if(!data.getReleaseDate().equalsIgnoreCase("??/??/????") && !data.getTotalEpisode().equalsIgnoreCase("??") && !data.getCurrentEpisode().equalsIgnoreCase(data.getTotalEpisode()))
 				{
 					GregorianCalendar calendar = new GregorianCalendar();
 					int currentDay = calendar.get(Calendar.DATE);
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getReleaseDate();
-					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;;
-					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
-					try {
-						calendar.setTime(sdf.parse(currentData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					if(animeData.substring(0, 6).equalsIgnoreCase("??/??/"))
+					{
+						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
+						{	
+							if(currentYear>Integer.parseInt(animeData.substring(6, 10)))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					GregorianCalendar c = new GregorianCalendar();
-					try {
-						c.setTime(sdf.parse(animeData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					else if(animeData.substring(0, 3).equalsIgnoreCase("??/"))
+					{
+						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
+						{	
+							if(currentYear>Integer.parseInt(animeData.substring(6, 10)) || (currentYear==Integer.parseInt(animeData.substring(6, 10)) && currentMonth>Integer.parseInt(animeData.substring(3, 5))))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
-					{	if(c.before(calendar) || c.equals(calendar))
-							AnimeIndex.filterModel.addElement((String)modelArray[i]);
+					else
+					{
+						String currentData = currentDay + "/" + currentMonth + "/" + currentYear;;
+						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
+						try {
+							calendar.setTime(sdf.parse(currentData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						GregorianCalendar c = new GregorianCalendar();
+						try {
+							c.setTime(sdf.parse(animeData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
+						{	if(c.before(calendar) || c.equals(calendar))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
 				}
-				else if (!data.getFinishDate().equalsIgnoreCase("??/??/????") && !data.getFinishDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getFinishDate().substring(0, 3).equalsIgnoreCase("??/"))
+				else if (!data.getFinishDate().equalsIgnoreCase("??/??/????"))
 				{
 					GregorianCalendar calendar = new GregorianCalendar();
 					int currentDay = calendar.get(Calendar.DATE);
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getFinishDate();
-					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
-					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
-					try {
-						calendar.setTime(sdf.parse(currentData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					if(animeData.substring(0, 6).equalsIgnoreCase("??/??/"))
+					{
+						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
+						{	
+							if(currentYear>Integer.parseInt(animeData.substring(6, 10)))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					GregorianCalendar c = new GregorianCalendar();
-					try {
-						c.setTime(sdf.parse(animeData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					else if(animeData.substring(0, 3).equalsIgnoreCase("??/"))
+					{
+						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
+						{	
+							if(currentYear>Integer.parseInt(animeData.substring(6, 10)) || (currentYear==Integer.parseInt(animeData.substring(6, 10)) && currentMonth>Integer.parseInt(animeData.substring(3, 5))))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
-					{	if(c.before(calendar) || c.equals(calendar))
-							AnimeIndex.filterModel.addElement((String)modelArray[i]);
+					else
+					{
+						String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
+						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
+						try {
+							calendar.setTime(sdf.parse(currentData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						GregorianCalendar c = new GregorianCalendar();
+						try {
+							c.setTime(sdf.parse(animeData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
+						{	if(c.before(calendar) || c.equals(calendar))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
 				}					
 			}
 			else if(AnimeIndex.filtro==5)
 			{
 				dato=data.getAnimeType();
-				if(!data.getReleaseDate().equalsIgnoreCase("??/??/????") && !data.getReleaseDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getReleaseDate().substring(0, 3).equalsIgnoreCase("??/") && (data.getCurrentEpisode().equalsIgnoreCase("??") || data.getCurrentEpisode().equalsIgnoreCase("0") || data.getCurrentEpisode().equalsIgnoreCase("1")))
+				if(!data.getReleaseDate().equalsIgnoreCase("??/??/????") && !data.getTotalEpisode().equalsIgnoreCase("??") && !data.getCurrentEpisode().equalsIgnoreCase(data.getTotalEpisode()))
 				{
 					GregorianCalendar calendar = new GregorianCalendar();
 					int currentDay = calendar.get(Calendar.DATE);
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getReleaseDate();
-					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
-					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
-					try {
-						calendar.setTime(sdf.parse(currentData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					if(animeData.substring(0, 6).equalsIgnoreCase("??/??/"))
+					{
+						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
+						{	
+							if(currentYear<=Integer.parseInt(animeData.substring(6, 10)))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					GregorianCalendar c = new GregorianCalendar();
-					try {
-						c.setTime(sdf.parse(animeData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					else if(animeData.substring(0, 3).equalsIgnoreCase("??/"))
+					{
+						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
+						{	
+							if(currentYear<Integer.parseInt(animeData.substring(6, 10)) || (currentYear==Integer.parseInt(animeData.substring(6, 10)) && currentMonth<=Integer.parseInt(animeData.substring(3, 5))))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
-					{	if(c.after(calendar))
-							AnimeIndex.filterModel.addElement((String)modelArray[i]);
+					else
+					{
+						String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
+						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
+						try {
+							calendar.setTime(sdf.parse(currentData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						GregorianCalendar c = new GregorianCalendar();
+						try {
+							c.setTime(sdf.parse(animeData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
+						{	if(c.after(calendar))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
 				}
-				else if (!data.getFinishDate().equalsIgnoreCase("??/??/????") && !data.getFinishDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getFinishDate().substring(0, 3).equalsIgnoreCase("??/"))
+				else if (!data.getFinishDate().equalsIgnoreCase("??/??/????"))
 				{
 					GregorianCalendar calendar = new GregorianCalendar();
 					int currentDay = calendar.get(Calendar.DATE);
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getFinishDate();
-					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
-					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
-					try {
-						calendar.setTime(sdf.parse(currentData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					if(animeData.substring(0, 6).equalsIgnoreCase("??/??/"))
+					{
+						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
+						{	
+							if(currentYear<=Integer.parseInt(animeData.substring(6, 10)))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					GregorianCalendar c = new GregorianCalendar();
-					try {
-						c.setTime(sdf.parse(animeData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					else if(animeData.substring(0, 3).equalsIgnoreCase("??/"))
+					{
+						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
+						{	
+							if(currentYear<Integer.parseInt(animeData.substring(6, 10)) || (currentYear==Integer.parseInt(animeData.substring(6, 10)) && currentMonth<=Integer.parseInt(animeData.substring(3, 5))))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
-					{	if(c.after(calendar))
-							AnimeIndex.filterModel.addElement((String)modelArray[i]);
+					else
+					{
+						String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
+						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
+						try {
+							calendar.setTime(sdf.parse(currentData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						GregorianCalendar c = new GregorianCalendar();
+						try {
+							c.setTime(sdf.parse(animeData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
+						{	if(c.after(calendar))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
 				}
 				else
@@ -172,108 +248,184 @@ public class Filters {
 			else if(AnimeIndex.filtro==6)
 			{
 				dato=data.getAnimeType();
-				if(!data.getReleaseDate().equalsIgnoreCase("??/??/????") && !data.getReleaseDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getReleaseDate().substring(0, 3).equalsIgnoreCase("??/") && (data.getCurrentEpisode().equalsIgnoreCase("??") || data.getCurrentEpisode().equalsIgnoreCase("0") || data.getCurrentEpisode().equalsIgnoreCase("1")))
+				if(!data.getReleaseDate().equalsIgnoreCase("??/??/????") && !data.getTotalEpisode().equalsIgnoreCase("??") && !data.getCurrentEpisode().equalsIgnoreCase(data.getTotalEpisode()))
 				{
 					GregorianCalendar calendar = new GregorianCalendar();
 					int currentDay = calendar.get(Calendar.DATE);
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getReleaseDate();
-					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
-					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
-					try {
-						calendar.setTime(sdf.parse(currentData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					if(animeData.substring(0, 6).equalsIgnoreCase("??/??/"))
+					{
+						if(dato.equalsIgnoreCase("Movie"))
+						{	
+							if(currentYear>Integer.parseInt(animeData.substring(6, 10)))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					GregorianCalendar c = new GregorianCalendar();
-					try {
-						c.setTime(sdf.parse(animeData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					else if(animeData.substring(0, 3).equalsIgnoreCase("??/"))
+					{
+						if(dato.equalsIgnoreCase("Movie"))
+						{	
+							if(currentYear>Integer.parseInt(animeData.substring(6, 10)) || (currentYear==Integer.parseInt(animeData.substring(6, 10)) && currentMonth>Integer.parseInt(animeData.substring(3, 5))))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					if(dato.equalsIgnoreCase("Movie"))
-					{	if(c.before(calendar) || c.equals(calendar))
-							AnimeIndex.filterModel.addElement((String)modelArray[i]);
+					else
+					{
+						String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
+						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
+						try {
+							calendar.setTime(sdf.parse(currentData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						GregorianCalendar c = new GregorianCalendar();
+						try {
+							c.setTime(sdf.parse(animeData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						if(dato.equalsIgnoreCase("Movie"))
+						{	if(c.before(calendar) || c.equals(calendar))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
 				}
-				else if (!data.getFinishDate().equalsIgnoreCase("??/??/????") && !data.getFinishDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getFinishDate().substring(0, 3).equalsIgnoreCase("??/"))
+				else if (!data.getFinishDate().equalsIgnoreCase("??/??/????"))
 				{
 					GregorianCalendar calendar = new GregorianCalendar();
 					int currentDay = calendar.get(Calendar.DATE);
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getFinishDate();
-					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
-					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
-					try {
-						calendar.setTime(sdf.parse(currentData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					if(animeData.substring(0, 6).equalsIgnoreCase("??/??/"))
+					{
+						if(dato.equalsIgnoreCase("Movie"))
+						{	
+							if(currentYear>Integer.parseInt(animeData.substring(6, 10)))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					GregorianCalendar c = new GregorianCalendar();
-					try {
-						c.setTime(sdf.parse(animeData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					else if(animeData.substring(0, 3).equalsIgnoreCase("??/"))
+					{
+						if(dato.equalsIgnoreCase("Movie"))
+						{	
+							if(currentYear>Integer.parseInt(animeData.substring(6, 10)) || (currentYear==Integer.parseInt(animeData.substring(6, 10)) && currentMonth>Integer.parseInt(animeData.substring(3, 5))))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					if(dato.equalsIgnoreCase("Movie"))
-					{	if(c.before(calendar) || c.equals(calendar))
-							AnimeIndex.filterModel.addElement((String)modelArray[i]);
+					else
+					{
+						String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
+						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
+						try {
+							calendar.setTime(sdf.parse(currentData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						GregorianCalendar c = new GregorianCalendar();
+						try {
+							c.setTime(sdf.parse(animeData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						if(dato.equalsIgnoreCase("Movie"))
+						{	if(c.before(calendar) || c.equals(calendar))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
 				}
 			}
 			else if(AnimeIndex.filtro==7)
 			{
 				dato=data.getAnimeType();
-				if(!data.getReleaseDate().equalsIgnoreCase("??/??/????") && !data.getReleaseDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getReleaseDate().substring(0, 3).equalsIgnoreCase("??/") && (data.getCurrentEpisode().equalsIgnoreCase("??") || data.getCurrentEpisode().equalsIgnoreCase("0") || data.getCurrentEpisode().equalsIgnoreCase("1")))
+				if(!data.getReleaseDate().equalsIgnoreCase("??/??/????") && !data.getTotalEpisode().equalsIgnoreCase("??") && !data.getCurrentEpisode().equalsIgnoreCase(data.getTotalEpisode()))
 				{
 					GregorianCalendar calendar = new GregorianCalendar();
 					int currentDay = calendar.get(Calendar.DATE);
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getReleaseDate();
-					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
-					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
-					try {
-						calendar.setTime(sdf.parse(currentData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					if(animeData.substring(0, 6).equalsIgnoreCase("??/??/"))
+					{
+						if(dato.equalsIgnoreCase("Movie"))
+						{	
+							if(currentYear<=Integer.parseInt(animeData.substring(6, 10)))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					GregorianCalendar c = new GregorianCalendar();
-					try {
-						c.setTime(sdf.parse(animeData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					else if(animeData.substring(0, 3).equalsIgnoreCase("??/"))
+					{
+						if(dato.equalsIgnoreCase("Movie"))
+						{	
+							if(currentYear<Integer.parseInt(animeData.substring(6, 10)) || (currentYear==Integer.parseInt(animeData.substring(6, 10)) && currentMonth<=Integer.parseInt(animeData.substring(3, 5))))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					if(dato.equalsIgnoreCase("Movie"))
-					{	if(c.after(calendar))
-							AnimeIndex.filterModel.addElement((String)modelArray[i]);
+					else
+					{
+						String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
+						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
+						try {
+							calendar.setTime(sdf.parse(currentData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						GregorianCalendar c = new GregorianCalendar();
+						try {
+							c.setTime(sdf.parse(animeData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						if(dato.equalsIgnoreCase("Movie"))
+						{	if(c.after(calendar))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
 				}
-				else if (!data.getFinishDate().equalsIgnoreCase("??/??/????") && !data.getFinishDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getFinishDate().substring(0, 3).equalsIgnoreCase("??/"))
+				else if (!data.getFinishDate().equalsIgnoreCase("??/??/????"))
 				{
 					GregorianCalendar calendar = new GregorianCalendar();
 					int currentDay = calendar.get(Calendar.DATE);
 					int currentMonth = calendar.get(Calendar.MONTH)+1;
 					int currentYear = calendar.get(Calendar.YEAR);
 					String animeData = data.getFinishDate();
-					String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
-					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
-					try {
-						calendar.setTime(sdf.parse(currentData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					if(animeData.substring(0, 6).equalsIgnoreCase("??/??/"))
+					{
+						if(dato.equalsIgnoreCase("Movie"))
+						{	
+							if(currentYear<=Integer.parseInt(animeData.substring(6, 10)))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					GregorianCalendar c = new GregorianCalendar();
-					try {
-						c.setTime(sdf.parse(animeData));
-					} catch (java.text.ParseException e) {
-						e.printStackTrace();
+					else if(animeData.substring(0, 3).equalsIgnoreCase("??/"))
+					{
+						if(dato.equalsIgnoreCase("Movie"))
+						{	
+							if(currentYear<Integer.parseInt(animeData.substring(6, 10)) || (currentYear==Integer.parseInt(animeData.substring(6, 10)) && currentMonth<=Integer.parseInt(animeData.substring(3, 5))))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
-					if(dato.equalsIgnoreCase("Movie"))
-					{	if(c.after(calendar))
-							AnimeIndex.filterModel.addElement((String)modelArray[i]);
+					else
+					{
+						String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
+						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		 	
+						try {
+							calendar.setTime(sdf.parse(currentData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						GregorianCalendar c = new GregorianCalendar();
+						try {
+							c.setTime(sdf.parse(animeData));
+						} catch (java.text.ParseException e) {
+							e.printStackTrace();
+						}
+						if(dato.equalsIgnoreCase("Movie"))
+						{	if(c.after(calendar))
+								AnimeIndex.filterModel.addElement((String)modelArray[i]);
+						}
 					}
 				}
 				else
