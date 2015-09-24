@@ -654,7 +654,12 @@ public class AnimeInformation extends JPanel {
 					}
 					else
 					{
-						releaseDateField.setText(releaseDateField.getText().trim());
+						if(releaseDateField.getText().trim().substring(6, 10).equals("????"))
+							releaseDateField.setText("??/??/????");
+						else if(releaseDateField.getText().trim().substring(3, 5).equals("??"))
+							releaseDateField.setText("??/??/"+releaseDateField.getText().trim().substring(6, 10));
+						else
+							releaseDateField.setText(releaseDateField.getText().trim());
 						AnimeIndex.setAnimeInformationFields();
 					}
 				}
@@ -705,7 +710,12 @@ public class AnimeInformation extends JPanel {
 					}
 					else
 					{
-						finishDateField.setText(finishDateField.getText().trim());
+						if(finishDateField.getText().trim().substring(6, 10).equals("????"))
+							finishDateField.setText("??/??/????");
+						else if(finishDateField.getText().trim().substring(3, 5).equals("??"))
+							finishDateField.setText("??/??/"+finishDateField.getText().trim().substring(6, 10));
+						else
+							finishDateField.setText(finishDateField.getText().trim());
 						AnimeIndex.setAnimeInformationFields();
 					}
 				}

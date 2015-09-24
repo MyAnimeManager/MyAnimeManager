@@ -2683,6 +2683,16 @@ public class AnimeIndex extends JFrame
 					}
 				}
 			}
+			else
+			{
+				if(oldData.getReleaseDate().trim().substring(6, 10).equals("????"))
+					startDay = "??/??/????";
+				else if(oldData.getReleaseDate().trim().substring(3, 5).equals("??"))
+					startDay = "??/??/"+oldData.getReleaseDate().trim().substring(6, 10);
+				else
+					startDay = oldData.getReleaseDate().trim();
+				AnimeIndex.setAnimeInformationFields();
+			}
 			if (oldData.getReleaseDate().endsWith(" ") || oldData.getReleaseDate().startsWith(" "))
 				startDay = oldData.getReleaseDate().trim();
 			
@@ -2732,11 +2742,20 @@ public class AnimeIndex extends JFrame
 						exc[4]=false;
 						exclusionAnime.put(lastSelection, exc);
 					}
-					
 				}
 			}
+			else
+			{
+				if(oldData.getFinishDate().trim().substring(6, 10).equals("????"))
+					endDay ="??/??/????";
+				else if(oldData.getFinishDate().trim().substring(3, 5).equals("??"))
+					endDay ="??/??/"+oldData.getFinishDate().trim().substring(6, 10);
+				else
+					endDay = oldData.getFinishDate().trim();
+				AnimeIndex.setAnimeInformationFields();
+			}
 			if (oldData.getFinishDate().endsWith(" ") || oldData.getFinishDate().startsWith(" "))
-				startDay = oldData.getFinishDate().trim();
+				endDay = oldData.getFinishDate().trim();
 			
 			AnimeData newData = null;
 			if(!currentEp.equals(oldData.getCurrentEpisode()) && !currentEp.isEmpty())
@@ -2842,7 +2861,9 @@ public class AnimeIndex extends JFrame
 							}
 						}catch(ParseException e){
 							String data = animeInformation.releaseDateField.getText();
-							if(data.contains("??/??/"))
+							if(data.equals("??/??/????"))
+							{}
+							else if(data.contains("??/??/"))
 							{
 								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
 								{
@@ -2873,7 +2894,9 @@ public class AnimeIndex extends JFrame
 							}
 						}catch(ParseException e){
 							String data = animeInformation.releaseDateField.getText();
-							if(data.contains("??/??/"))
+							if(data.equals("??/??/????"))
+							{}
+							else if(data.contains("??/??/"))
 							{
 								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
 								{
@@ -2910,7 +2933,9 @@ public class AnimeIndex extends JFrame
 							}
 						}catch(ParseException e){
 							String data = animeInformation.releaseDateField.getText();
-							if(data.contains("??/??/"))
+							if(data.equals("??/??/????"))
+							{}
+							else if(data.contains("??/??/"))
 							{
 								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
 								{
@@ -2945,7 +2970,9 @@ public class AnimeIndex extends JFrame
 						}
 					}catch(ParseException e){
 						String data = animeInformation.finishDateField.getText();
-						if(data.contains("??/??/"))
+						if(data.equals("??/??/????"))
+						{}
+						else if(data.contains("??/??/"))
 						{
 							if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
 							{
@@ -2983,7 +3010,9 @@ public class AnimeIndex extends JFrame
 				}
 			}catch(ParseException e){
 				String data = animeInformation.finishDateField.getText();
-				if(data.contains("??/??/"))
+				if(data.equals("??/??/????"))
+				{}
+				else if(data.contains("??/??/"))
 				{
 					if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
 					{
@@ -3056,7 +3085,9 @@ public class AnimeIndex extends JFrame
 							}
 						}catch(ParseException e){
 							String data = animeInformation.releaseDateField.getText();
-							if(data.contains("??/??/"))
+							if(data.equals("??/??/????"))
+							{}
+							else if(data.contains("??/??/"))
 							{
 								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
 								{
@@ -3111,7 +3142,9 @@ public class AnimeIndex extends JFrame
 							}
 						}catch(ParseException e){
 							String data = animeInformation.releaseDateField.getText();
-							if(data.contains("??/??/"))
+							if(data.equals("??/??/????"))
+							{}
+							else if(data.contains("??/??/"))
 							{
 								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
 								{
@@ -3172,7 +3205,9 @@ public class AnimeIndex extends JFrame
 							}
 						}catch(ParseException e){
 							String data = animeInformation.releaseDateField.getText();
-							if(data.contains("??/??/"))
+							if(data.equals("??/??/????"))
+							{}
+							else if(data.contains("??/??/"))
 							{
 								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
 								{
@@ -3231,7 +3266,9 @@ public class AnimeIndex extends JFrame
 						}
 					}catch(ParseException e){
 						String data = animeInformation.finishDateField.getText();
-						if(data.contains("??/??/"))
+						if(data.equals("??/??/????"))
+						{}
+						else if(data.contains("??/??/"))
 						{
 							if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
 							{
@@ -3287,7 +3324,9 @@ public class AnimeIndex extends JFrame
 				}
 			}catch(ParseException e){
 				String data = animeInformation.finishDateField.getText();
-				if(data.contains("??/??/"))
+				if(data.equals("??/??/????"))
+				{}
+				else if(data.contains("??/??/"))
 				{
 					if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
 					{
