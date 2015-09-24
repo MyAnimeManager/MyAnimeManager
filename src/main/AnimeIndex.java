@@ -2854,7 +2854,7 @@ public class AnimeIndex extends JFrame
 							{
 								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
 								{
-									if(Integer.parseInt(data.substring(4, 6)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
 									{
 										animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
 										animeInformation.exitDaycomboBox.setEnabled(false);
@@ -2885,7 +2885,7 @@ public class AnimeIndex extends JFrame
 							{
 								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
 								{
-									if(Integer.parseInt(data.substring(4, 6)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
 									{
 										animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
 										animeInformation.exitDaycomboBox.setEnabled(false);
@@ -2922,7 +2922,7 @@ public class AnimeIndex extends JFrame
 							{
 								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
 								{
-									if(Integer.parseInt(data.substring(4, 6)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
 									{
 										animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
 										animeInformation.exitDaycomboBox.setEnabled(false);
@@ -2957,7 +2957,7 @@ public class AnimeIndex extends JFrame
 						{
 							if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
 							{
-								if(Integer.parseInt(data.substring(4, 6)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+								if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
 								{
 									animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
 									animeInformation.exitDaycomboBox.setEnabled(false);
@@ -3003,7 +3003,7 @@ public class AnimeIndex extends JFrame
 				{
 					if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
 					{
-						if(Integer.parseInt(data.substring(4, 6)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+						if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
 						{
 							if(totEp>1 && currEp<totEp)
 							{
@@ -3074,7 +3074,7 @@ public class AnimeIndex extends JFrame
 							{
 								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
 								{
-									if(Integer.parseInt(data.substring(4, 6)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
 									{
 										animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
 										animeInformation.exitDaycomboBox.setEnabled(false);
@@ -3129,7 +3129,7 @@ public class AnimeIndex extends JFrame
 							{
 								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
 								{
-									if(Integer.parseInt(data.substring(4, 6)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
 									{
 										animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
 										animeInformation.exitDaycomboBox.setEnabled(false);
@@ -3190,7 +3190,7 @@ public class AnimeIndex extends JFrame
 							{
 								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
 								{
-									if(Integer.parseInt(data.substring(4, 6)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
 									{
 										animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
 										animeInformation.exitDaycomboBox.setEnabled(false);
@@ -3249,7 +3249,7 @@ public class AnimeIndex extends JFrame
 						{
 							if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
 							{
-								if(Integer.parseInt(data.substring(4, 6)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+								if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
 								{
 									animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
 									animeInformation.exitDaycomboBox.setEnabled(false);
@@ -3307,7 +3307,7 @@ public class AnimeIndex extends JFrame
 				{
 					if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
 					{
-						if(Integer.parseInt(data.substring(4, 6)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+						if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
 						{
 							if(totEp>1 && currEp<totEp)
 							{
