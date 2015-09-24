@@ -1273,7 +1273,6 @@ public class AddAnimeDialog extends JDialog
 								else
 									durationEp += " min";
 							}
-							
 							if (releaseDate != null && !releaseDate.isEmpty())
 							{
 								if (releaseDate.equals("null"))
@@ -1294,7 +1293,6 @@ public class AddAnimeDialog extends JDialog
 									releaseDate = dayStart + "/" + monthStart + "/" + yearStart;
 								}
 							}
-							
 							if (finishDate != null && !finishDate.isEmpty())
 							{
 								if (finishDate.equals("null"))
@@ -1317,19 +1315,12 @@ public class AddAnimeDialog extends JDialog
 								if (totEp.equals("1"))
 									finishDate = releaseDate;
 							}
-						
 							String exitDay = "?????";
-							if (((String)listToAddAniComboBox.getSelectedItem()).equalsIgnoreCase("anime completati")){
-								currentEp = totEp;
-								exitDay = "Concluso";
-							    }
 							if (((String)listToAddAniComboBox.getSelectedItem()).equalsIgnoreCase("completi da vedere"))
-								exitDay = "Concluso";
-							
+								exitDay = "Concluso";						
 														
 							if (currentEp.equals(totEp))
 								AnimeIndex.animeInformation.plusButton.setEnabled(false);
-							
 							String list ="";
 							String finishDay = finishDate.substring(0, 1);
 							String finishMonth = finishDate.substring(3, 5);
@@ -1338,6 +1329,12 @@ public class AddAnimeDialog extends JDialog
 								list = (String) listToAddAniComboBox.getSelectedItem();
 							else
 								list = checkDataConflict(finishDate, animeType, true);
+							
+							if (list.equalsIgnoreCase("anime completati")){
+								currentEp = totEp;
+								exitDay = "Concluso";
+							    }
+							
 							String imageName = AddAnimeDialog.addSaveImage(name, dataAni, list);
 							AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
 									"", "", animeType, releaseDate, finishDate, durationEp, false); 
