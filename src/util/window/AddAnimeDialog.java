@@ -1745,7 +1745,7 @@ public class AddAnimeDialog extends JDialog
 		{
 				if ((type.equalsIgnoreCase("tv") || type.equalsIgnoreCase("tv-short")) && !listName.equalsIgnoreCase("anime in corso"))
 				{
-					int choiche = JOptionPane.showConfirmDialog(AnimeIndex.animeDialog, "L'anime non ha una data di conclusione, perciò potrebbe essere ancora in corso. Vuoi aggiungerlo agli Anime in Corso?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int choiche = JOptionPane.showConfirmDialog(AnimeIndex.animeDialog, "L'anime non ha data di conclusione definita, perciò potrebbe essere ancora in corso. Vuoi aggiungerlo agli Anime in Corso?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
 						map = "Anime in Corso";
 					else
@@ -1754,7 +1754,7 @@ public class AddAnimeDialog extends JDialog
 				
 				else if ((type.equalsIgnoreCase("OVA") || type.equalsIgnoreCase("ONA") || type.equalsIgnoreCase("Special")) && !listName.equalsIgnoreCase("oav"))
 				{
-					int choiche = JOptionPane.showConfirmDialog(AnimeIndex.animeDialog, "L'OAV non ha una data di conclusione, perciò potrebbe essere ancora in corso. Vuoi aggiungerlo agli OAV?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int choiche = JOptionPane.showConfirmDialog(AnimeIndex.animeDialog, "L'OAV non ha data di conclusione definita, perciò potrebbe essere ancora in corso. Vuoi aggiungerlo agli OAV?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
 						map = "OAV";
 					else
@@ -1763,7 +1763,7 @@ public class AddAnimeDialog extends JDialog
 				
 				else if (type.equalsIgnoreCase("Film") && !listName.equalsIgnoreCase("film"))
 				{
-					int choiche = JOptionPane.showConfirmDialog(AnimeIndex.animeDialog, "Il Film non ha una data di conclusione, perciò potrebbe essere ancora in corso. Vuoi aggiungerlo agli OAV?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int choiche = JOptionPane.showConfirmDialog(AnimeIndex.animeDialog, "Il Film non ha data di conclusione definita, perciò potrebbe essere ancora in corso. Vuoi aggiungerlo agli OAV?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == 0)
 						map = "Film";
 					else
