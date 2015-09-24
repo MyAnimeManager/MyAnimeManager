@@ -96,7 +96,6 @@ import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
-//TODO dopo la segnalazione di incoerenza se la lista nn e' anime completati o completi da vedere porre currEp = 1 e la exitDayComboBox a ?????
 //TODO togliere controllo in tutti i campi ad ogni segnalazione di incoerenza e fare che controlli nei campi secondo i booleani di controllo
 //TODO correggere attivazione aggiornamento dati in base ai campi esclusi
 //TODO ReleasedAnimeTask esclusione ??/??/???? 
