@@ -1,20 +1,15 @@
 package util.task;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
 import javax.swing.SwingWorker;
 
-import main.AnimeIndex;
-
 import org.apache.commons.io.FileUtils;
 
+import main.AnimeIndex;
 import util.FileManager;
 import util.Updater;
 import util.window.UpdateDialog;

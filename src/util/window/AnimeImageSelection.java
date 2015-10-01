@@ -2,29 +2,19 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JScrollPane;
 import javax.swing.JList;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.event.ListSelectionListener;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import main.AnimeIndex;
-import util.AnimeData;
-import util.ConnectionManager;
-import util.FileManager;
-
-import java.awt.Window.Type;
-import java.util.HashMap;
-import java.util.TreeMap;
 
 public class AnimeImageSelection extends JDialog
 {

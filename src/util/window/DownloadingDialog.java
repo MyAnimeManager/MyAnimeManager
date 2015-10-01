@@ -1,25 +1,18 @@
 package util.window;
 
 import java.awt.Cursor;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
-import util.task.DownloadUpdateTask;
 import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
-
-import java.awt.Toolkit;
+import util.task.DownloadUpdateTask;
 
 public class DownloadingDialog extends JDialog
 {

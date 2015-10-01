@@ -2,6 +2,7 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -15,15 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.sun.xml.internal.ws.util.CompletedFuture;
-
 import main.AnimeIndex;
 import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.ColorProperties;
 import util.FileManager;
-
-import java.awt.Toolkit;
 
 public class ExitSaveDialog extends JDialog
 {

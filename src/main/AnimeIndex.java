@@ -24,7 +24,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -54,7 +53,6 @@ import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -63,12 +61,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.pushingpixels.lafwidget.contrib.blogofbug.swing.SwingBugUtilities;
 import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
-import com.sun.java.swing.SwingUtilities3;
-
-import sun.swing.SwingUtilities2;
 import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.ColorProperties;
@@ -80,10 +74,10 @@ import util.SearchBar;
 import util.SortedListModel;
 import util.Updater;
 import util.UtilEvent;
+import util.task.AutoUpdateAnimeDataTask;
 import util.task.CheckUpdateTask;
 import util.task.LoadingTask;
 import util.task.ReleasedAnimeTask;
-import util.task.UpdateAnimeDataTask;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
 import util.window.AnimeInformation;
@@ -2815,7 +2809,7 @@ public class AnimeIndex extends JFrame
 	
 	private void autoDataCheck()
 	{
-		UpdateAnimeDataTask task = new UpdateAnimeDataTask();
+		AutoUpdateAnimeDataTask task = new AutoUpdateAnimeDataTask();
 		AnimeIndex.appThread = new Thread() {
 		     public void run() {
 		         try {		        	 

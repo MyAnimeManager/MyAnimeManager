@@ -20,8 +20,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser.ColorWheelChooser;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 
 public class CustomizingDialog extends JDialog

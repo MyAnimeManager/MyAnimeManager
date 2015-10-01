@@ -13,13 +13,13 @@ import javax.swing.SwingConstants;
 
 import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
-import util.task.UpdateAnimeDataTask;
+import util.task.AutoUpdateAnimeDataTask;
 
 public class UpdatingAnimeDataDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
-	UpdateAnimeDataTask task = new UpdateAnimeDataTask();
+	AutoUpdateAnimeDataTask task = new AutoUpdateAnimeDataTask();
 	private JProgressBar progressBar;
 	private JLabel lblControlloInCorso;
 

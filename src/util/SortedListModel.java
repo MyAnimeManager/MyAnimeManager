@@ -1,10 +1,12 @@
 package util;
 
-import java.awt.BorderLayout;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
-import javax.swing.*;
-
-import java.util.*;
+import javax.swing.AbstractListModel;
 
 public class SortedListModel extends AbstractListModel {
   SortedSet<String> model;
