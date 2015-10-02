@@ -1867,9 +1867,11 @@ public class AddAnimeDialog extends JDialog
 			
 			map.put(name, data);
 			model.addElement(name);
+			AnimeIndex.shouldUpdate = false;
 			AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 			list.clearSelection();
-			list.setSelectedValue(name, true);				
+			list.setSelectedValue(name, true);	
+			AnimeIndex.shouldUpdate = true;
 			
 		}
 		

@@ -173,7 +173,9 @@ public class AnimeIndex extends JFrame
 	public static Properties appProp;
 	public static Properties colorProp;
 	
+	
 	public static Thread appThread;
+	public static boolean shouldUpdate;
 	/**
 	 * Launch the application.
 	 */
@@ -2809,6 +2811,8 @@ public class AnimeIndex extends JFrame
 	
 	private void autoDataCheck()
 	{
+		if (AnimeIndex.shouldUpdate)
+		{
 		AutoUpdateAnimeDataTask task = new AutoUpdateAnimeDataTask();
 		AnimeIndex.appThread = new Thread() {
 		     public void run() {
@@ -2822,6 +2826,7 @@ public class AnimeIndex extends JFrame
 		 };
 
 		 AnimeIndex.appThread.start();
+		}
 	}
 
 	public static void setAnimeInformationFields()
