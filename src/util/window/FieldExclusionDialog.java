@@ -247,83 +247,12 @@ public class FieldExclusionDialog extends JDialog
 			panel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("false"))
-					{
-						String name = AnimeIndex.animeInformation.lblAnimeName.getText();
-						if(AnimeIndex.exclusionAnime.containsKey(name))
-						{
-							boolean[] exc = {false,false,false,false,false,false};
-							if(!imageCheckBox.isSelected())
-								exc[0]=true;
-							if(!totalEpCheckBox.isSelected())
-								exc[1]=true;
-							if(!durationCheckBox.isSelected())
-								exc[2]=true;
-							if(!startDateCheckBox.isSelected())
-								exc[3]=true;
-							if(!finishDateCheckBox.isSelected())
-								exc[4]=true;
-							if(!typeCheckBox.isSelected())
-								exc[5]=true;
-							AnimeIndex.exclusionAnime.put(name, exc);
-						}
-						else
-						{
-							if (totalEpCheckBox.isSelected())
-								AnimeIndex.appProp.setProperty("excludeTotalEp", "true");
-							else
-								AnimeIndex.appProp.setProperty("excludeTotalEp", "false");
-							
-							if (durationCheckBox.isSelected())
-								AnimeIndex.appProp.setProperty("excludeDuration", "true");
-							else
-								AnimeIndex.appProp.setProperty("excludeDuration", "false");
-							
-							if (startDateCheckBox.isSelected())
-								AnimeIndex.appProp.setProperty("excludeStartingDate", "true");
-							else
-								AnimeIndex.appProp.setProperty("excludeStartingDate", "false");
-							
-							if (finishDateCheckBox.isSelected())
-								AnimeIndex.appProp.setProperty("excludeFinishDate", "true");
-							else
-								AnimeIndex.appProp.setProperty("excludeFinishDate", "false");
-							
-							if (typeCheckBox.isSelected())
-								AnimeIndex.appProp.setProperty("excludeType", "true");
-							else
-								AnimeIndex.appProp.setProperty("excludeType", "false");
-							
-							if (imageCheckBox.isSelected())
-								AnimeIndex.appProp.setProperty("excludeImage", "true");
-							else
-								AnimeIndex.appProp.setProperty("excludeImage", "false");
-						}
-					}
-					else
-					{
-						String name = AnimeIndex.animeInformation.lblAnimeName.getText();
-						boolean[] exc = {false,false,false,false,false,false};
-						if(!imageCheckBox.isSelected())
-							exc[0]=true;
-						if(!totalEpCheckBox.isSelected())
-							exc[1]=true;
-						if(!durationCheckBox.isSelected())
-							exc[2]=true;
-						if(!startDateCheckBox.isSelected())
-							exc[3]=true;
-						if(!finishDateCheckBox.isSelected())
-							exc[4]=true;
-						if(!typeCheckBox.isSelected())
-							exc[5]=true;
-						AnimeIndex.exclusionAnime.put(name, exc);
-					}
 					
-					AnimeIndex.activeUpdate = true;
+					String name = AnimeIndex.animeInformation.lblAnimeName.getText();	
 					
 					FieldExclusionDialog.this.dispose();
-					
-					AnimeInformation.dial = new UpdatingAnimeDataDialog();	
+					boolean[] exclusion = {imageCheckBox.isSelected(), totalEpCheckBox.isSelected(), durationCheckBox.isSelected(), startDateCheckBox.isSelected(), finishDateCheckBox.isSelected(), typeCheckBox.isSelected()};
+					AnimeInformation.dial = new UpdatingAnimeDataDialog(exclusion);	
 					AnimeInformation.dial.setLocationRelativeTo(AnimeIndex.mainFrame);
 					AnimeInformation.dial.setVisible(true);
 				}

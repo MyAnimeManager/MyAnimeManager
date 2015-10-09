@@ -13,26 +13,26 @@ import javax.swing.SwingConstants;
 
 import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
-import util.task.AutoUpdateAnimeDataTask;
+import util.task.ManualUpdateAnimeDataTask;
 
 public class UpdatingAnimeDataDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
-	AutoUpdateAnimeDataTask task = new AutoUpdateAnimeDataTask();
 	private JProgressBar progressBar;
 	private JLabel lblControlloInCorso;
 
 	/**
 	 * Create the dialog.
 	 */
-	public UpdatingAnimeDataDialog() {
+	public UpdatingAnimeDataDialog(boolean[] exclusion) {
 		super(AnimeIndex.frame,true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UpdatingAnimeDataDialog.class.getResource("/image/refresh-icon15.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
 			        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+			        ManualUpdateAnimeDataTask task = new ManualUpdateAnimeDataTask(exclusion);
 			        task.execute();
 			}
 			});	
