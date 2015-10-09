@@ -55,22 +55,22 @@ public class FieldExclusionDialog extends JDialog
 					{
 						boolean[] exc = AnimeIndex.exclusionAnime.get(name);
 						
-						if (exc[1]==false)
+						if (exc[1]==true)
 							totalEpCheckBox.setSelected(true);
 						
-						if (exc[2]==false)
+						if (exc[2]==true)
 							durationCheckBox.setSelected(true);
 						
-						if (exc[3]==false)
+						if (exc[3]==true)
 							startDateCheckBox.setSelected(true);
 						
-						if (exc[4]==false)
+						if (exc[4]==true)
 							finishDateCheckBox.setSelected(true);
 						
-						if (exc[5]==false)
+						if (exc[5]==true)
 							typeCheckBox.setSelected(true);
 						
-						if (exc[0]==false)
+						if (exc[0]==true)
 							imageCheckBox.setSelected(true);
 						
 						if(AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))

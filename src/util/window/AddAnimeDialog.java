@@ -1462,7 +1462,7 @@ public class AddAnimeDialog extends JDialog
 	
 	private static String checkDataConflict(String finishDate, String type, boolean isAniAdd)
 	{
-		String map = null;
+		String map = (String) listToAddAniComboBox.getSelectedItem();
 		String listName = "";
 		if (isAniAdd)
 			listName = (String) listToAddAniComboBox.getSelectedItem();
