@@ -63,28 +63,33 @@ public class SortedListModel extends AbstractListModel {
     return removed;
   }
 
-public boolean isEmpty()
-{
-	if (this.getSize() == 0)
-		return true;
-	else
-		return false;
-}
-
-public Object[] toArray()
-{
-	Object[] array = model.toArray();
-	return array;
-}
-
-public boolean removeElementAt(int index)
-{
-	Object object = getElementAt(index); 
-	boolean removed = model.remove(object);
-	    if (removed) {
-	      fireContentsChanged(this, 0, getSize());
-	    }
-	    return removed;	
-}
-
-}
+	public boolean isEmpty()
+	{
+		if (this.getSize() == 0)
+			return true;
+		else
+			return false;
+	}
+	
+	public Object[] toArray()
+	{
+		Object[] array = model.toArray();
+		return array;
+	}
+	
+	public boolean removeElementAt(int index)
+	{
+		Object object = getElementAt(index); 
+		boolean removed = model.remove(object);
+		    if (removed) {
+		      fireContentsChanged(this, 0, getSize());
+		    }
+		    return removed;	
+	}
+	
+	public void update()
+	{
+		fireContentsChanged(this, 0, getSize());
+	}
+	
+	}

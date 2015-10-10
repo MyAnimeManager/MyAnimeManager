@@ -30,16 +30,11 @@ public class LoadingTask extends SwingWorker
 
 	protected void done()
 	{
-		AnimeIndex.completedList.revalidate();
-		AnimeIndex.airingList.revalidate();
-		AnimeIndex.ovaList.revalidate();
-		AnimeIndex.filmList.revalidate();
-		AnimeIndex.completedToSeeList.revalidate();
-		AnimeIndex.completedList.repaint();
-		AnimeIndex.airingList.repaint();
-		AnimeIndex.ovaList.repaint();
-		AnimeIndex.filmList.repaint();
-		AnimeIndex.completedToSeeList.repaint();
+		AnimeIndex.completedModel.update();
+		AnimeIndex.airingModel.update();
+		AnimeIndex.ovaModel.update();
+		AnimeIndex.filmModel.update();
+		AnimeIndex.completedToSeeModel.update();
 		
 		if(AnimeIndex.appProp.getProperty("Open_Wishlist").equalsIgnoreCase("true"))
 		{
