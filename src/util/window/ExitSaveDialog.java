@@ -70,6 +70,7 @@ public class ExitSaveDialog extends JDialog
 								FileManager.saveAnimeList("toSee.anaconda", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
 								FileManager.saveWishList();
 								FileManager.saveExclusionList();
+								FileManager.saveDateMap();
 								
 								deleteUselessImage(AnimeIndex.completedDeletedAnime);
 								deleteUselessImage(AnimeIndex.airingDeletedAnime);

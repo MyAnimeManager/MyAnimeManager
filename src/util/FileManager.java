@@ -12,11 +12,13 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-import util.window.WishlistDialog;
 import main.AnimeIndex;
+import util.window.WishlistDialog;
 
 public class FileManager
 {
@@ -351,6 +353,78 @@ public class FileManager
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//Treemap date
+	public static void saveDateMap()
+	{
+		File wishlistFile = new File(ANIME_PATH + "date.anaconda");
+		wishlistFile.delete();
+		wishlistFile.getParentFile().mkdirs();
+		BufferedWriter output;
+		// data --> stringa
+		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+		try 
+		{
+			output = new BufferedWriter(new OutputStreamWriter(
+				    new FileOutputStream(wishlistFile), "UTF-8"));
+			
+			Object[] dateArray = AnimeIndex.exitDateMap.keySet().toArray();
+			for (int i = 0; i < dateArray.length; i++)
+				{
+					String name = (String) dateArray[i];
+					Date date = AnimeIndex.exitDateMap.get(name);					
+					String dateString = sd.format(date);
+					output.write(name + "||" + dateString);
+					output.write(System.lineSeparator());
+				}
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void loadDateMap()
+	{
+		File exclusionFile = new File(ANIME_PATH + "date.anaconda");
+		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+		if (exclusionFile.isFile()) 
+		{
+			Scanner scan = null;
+			Scanner line = null;
+			try {
+				scan = new Scanner(exclusionFile);
+				
+				while (scan.hasNextLine())
+				{
+					String excludedAnime = scan.nextLine();
+					line = new Scanner(excludedAnime);
+					line.useDelimiter("\\|\\|");
+					String name = line.next();
+					String dateString = line.next();
+					Date date = sd.parse(dateString);
+					AnimeIndex.exitDateMap.put(name,date);
+				}							
+			} 
+			catch (Exception e) {
+			} 
+			finally
+			{
+				scan.close();
+				if (line != null)
+						line.close();
+			}
+		}
+			
+		else
+			{
+			 try {
+				 exclusionFile.createNewFile();
+			 	} 
+			 catch (IOException e) 
+			 	{
+				}
+			}
 	}
 	
 	//util
