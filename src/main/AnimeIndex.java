@@ -30,6 +30,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -129,6 +130,7 @@ public class AnimeIndex extends JFrame
 	public static TreeMap<String,Integer> wishlistMap = new TreeMap<String,Integer>();
 	public static TreeMap<String,String> shiftsRegister = new TreeMap<String,String>();
 	public static TreeMap<String,boolean[]> exclusionAnime =  new TreeMap<String,boolean[]>();
+	public static TreeMap<String,Date> exitDateMap = new TreeMap<String,Date>();
 	
 	public static ArrayList<String> completedSessionAnime = new ArrayList();
 	public static ArrayList<String> airingSessionAnime = new ArrayList();
