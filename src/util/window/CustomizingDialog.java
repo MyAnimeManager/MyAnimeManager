@@ -99,7 +99,6 @@ public class CustomizingDialog extends JDialog
 					public void actionPerformed(ActionEvent e) {
 						if (colorChoosed != null)
 							color = colorChoosed.getRGB();
-						//TODO salvare nel properties
 						CustomizingDialog.this.dispose();
 					}
 				});
