@@ -362,7 +362,7 @@ public class ColorDialog extends JDialog
 							{
 								saveColor();
 								saveData();
-								ExternalProgram ext = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + "MyAnimeManager");
+								ExternalProgram ext = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + "MyAnimeManager.exe", 20000);
 								ext.run();
 							}
 							else

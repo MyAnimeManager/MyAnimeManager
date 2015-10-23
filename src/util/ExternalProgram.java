@@ -10,6 +10,9 @@ public class ExternalProgram extends Thread{
 		arguments = s;
 	}
 	
+	public ExternalProgram(String s, int time){
+		arguments = s + " -t " + time;
+	}
 	public void run(){
         try{
             Process pr = Runtime.getRuntime().exec(new String[] {"cmd.exe", "/C", arguments});
