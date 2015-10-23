@@ -1340,6 +1340,7 @@ public class AddAnimeDialog extends JDialog
 									"", "", animeType, releaseDate, finishDate, durationEp, false); 
 							updateControlList(list);
 							AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
+							restorePreviousCheck();
 				
 							AnimeIndex.lastSelection = anime;
 							AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -1947,6 +1948,7 @@ public class AddAnimeDialog extends JDialog
 			AnimeIndex.animeDialog.dispose();
 			}
 		}
+		
 	}
 	
 	private static String addSaveImage(String name, String dataAni, String list)
@@ -1989,6 +1991,61 @@ public class AddAnimeDialog extends JDialog
 			checkFilmList = true;
 		else if (list.equalsIgnoreCase("completi da vedere"))
 			checkToSeeList = true;
+	}
+	
+	private void restorePreviousCheck()
+	{
+		String previousCheck = (String) listToAddAniComboBox.getSelectedItem();
+		if (previousCheck.equals("Anime Completati"))
+		{
+			checkCompletedList = true;
+			checkAiringList = false;
+			checkOAVList = false;
+			checkFilmList = false;
+			checkToSeeList = false;
+			checkToggleButton.setText("Anime Completati");
+			checkToggleButton.setSelected(true);
+		}
+		else if (previousCheck.equals("Anime in Corso"))
+		{
+			checkCompletedList = false;
+			checkAiringList = true;
+			checkOAVList = false;
+			checkFilmList = false;
+			checkToSeeList = false;
+			checkToggleButton.setText("Anime in Corso");
+			checkToggleButton.setSelected(true);
+		}
+		else if (previousCheck.equals("OAV"))
+		{
+			checkCompletedList = false;
+			checkAiringList = false;
+			checkOAVList = true;
+			checkFilmList = false;
+			checkToSeeList = false;
+			checkToggleButton.setText("OAV");
+			checkToggleButton.setSelected(true);
+		}
+		else if (previousCheck.equals("Film"))
+		{
+			checkCompletedList = false;
+			checkAiringList = false;
+			checkOAVList = false;
+			checkFilmList = true;
+			checkToSeeList = false;
+			checkToggleButton.setText("Film");
+			checkToggleButton.setSelected(true);
+		}
+		else if (previousCheck.equals("Completi Da Vedere"))
+		{
+			checkCompletedList = false;
+			checkAiringList = false;
+			checkOAVList = false;
+			checkFilmList = false;
+			checkToSeeList = true;
+			checkToggleButton.setText("Completi Da Vedere");
+			checkToggleButton.setSelected(true);
+		}
 	}
 	
 	private static void manualAnimeAdd(String name, AnimeData data, String finishDate, String type)
