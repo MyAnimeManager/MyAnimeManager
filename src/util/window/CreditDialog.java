@@ -55,9 +55,9 @@ public class CreditDialog extends JDialog
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblNewLabel_1 = new JLabel("\u2022 Versione :");
@@ -103,7 +103,7 @@ public class CreditDialog extends JDialog
 			imageLabel.setIcon(new ImageIcon(getClass().getResource("/image/credit.png")));
 			GridBagConstraints gbc_imageLabel = new GridBagConstraints();
 			gbc_imageLabel.fill = GridBagConstraints.VERTICAL;
-			gbc_imageLabel.gridheight = 10;
+			gbc_imageLabel.gridheight = 9;
 			gbc_imageLabel.insets = new Insets(0, 0, 5, 5);
 			gbc_imageLabel.gridx = 0;
 			gbc_imageLabel.gridy = 0;
@@ -133,14 +133,6 @@ public class CreditDialog extends JDialog
 			contentPanel.add(txtpnTestoDiProva, gbc_txtpnTestoDiProva);
 		}
 		{
-			JButton btnOk = new JButton("OK");
-			btnOk.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JButton butt = (JButton) e.getSource();
-					JDialog dial = (JDialog) butt.getTopLevelAncestor();
-					dial.dispose();
-				}
-			});
 			{
 				JLabel patreonLabel = new JLabel("");
 				patreonLabel.addMouseListener(new MouseAdapter() {
@@ -309,24 +301,32 @@ public class CreditDialog extends JDialog
 				gbc_patreonLabel.gridy = 8;
 				contentPanel.add(patreonLabel, gbc_patreonLabel);
 			}
-			GridBagConstraints gbc_btnOk = new GridBagConstraints();
-			gbc_btnOk.insets = new Insets(0, 0, 5, 0);
-			gbc_btnOk.anchor = GridBagConstraints.SOUTH;
-			gbc_btnOk.gridwidth = 6;
-			gbc_btnOk.gridx = 1;
-			gbc_btnOk.gridy = 9;
-			contentPanel.add(btnOk, gbc_btnOk);
 		}
 		{
 			JLabel lblNewLabel_4 = new JLabel("We don't own any rights on the images in the program.");
 			lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 7));
 			GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
-			gbc_lblNewLabel_4.anchor = GridBagConstraints.WEST;
-			gbc_lblNewLabel_4.gridwidth = 7;
+			gbc_lblNewLabel_4.insets = new Insets(0, 0, 0, 5);
+			gbc_lblNewLabel_4.anchor = GridBagConstraints.SOUTHWEST;
+			gbc_lblNewLabel_4.gridwidth = 2;
 			gbc_lblNewLabel_4.gridx = 0;
-			gbc_lblNewLabel_4.gridy = 10;
+			gbc_lblNewLabel_4.gridy = 9;
 			contentPanel.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		}
+		JButton btnOk = new JButton("OK");
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JButton butt = (JButton) e.getSource();
+				JDialog dial = (JDialog) butt.getTopLevelAncestor();
+				dial.dispose();
+			}
+		});
+		GridBagConstraints gbc_btnOk = new GridBagConstraints();
+		gbc_btnOk.anchor = GridBagConstraints.SOUTH;
+		gbc_btnOk.gridwidth = 9;
+		gbc_btnOk.gridx = 2;
+		gbc_btnOk.gridy = 9;
+		contentPanel.add(btnOk, gbc_btnOk);
 	}
 
 }
