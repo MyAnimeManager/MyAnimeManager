@@ -49,15 +49,15 @@ public class CreditDialog extends JDialog
 		setTitle("My Anime Manager  v"+AnimeIndex.VERSION);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CreditDialog.class.getResource("/image/icon.png")));
 		setResizable(false);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 317);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblNewLabel_1 = new JLabel("\u2022 Versione :");
@@ -104,7 +104,7 @@ public class CreditDialog extends JDialog
 			GridBagConstraints gbc_imageLabel = new GridBagConstraints();
 			gbc_imageLabel.fill = GridBagConstraints.VERTICAL;
 			gbc_imageLabel.gridheight = 10;
-			gbc_imageLabel.insets = new Insets(0, 0, 0, 5);
+			gbc_imageLabel.insets = new Insets(0, 0, 5, 5);
 			gbc_imageLabel.gridx = 0;
 			gbc_imageLabel.gridy = 0;
 			contentPanel.add(imageLabel, gbc_imageLabel);
@@ -310,11 +310,22 @@ public class CreditDialog extends JDialog
 				contentPanel.add(patreonLabel, gbc_patreonLabel);
 			}
 			GridBagConstraints gbc_btnOk = new GridBagConstraints();
+			gbc_btnOk.insets = new Insets(0, 0, 5, 0);
 			gbc_btnOk.anchor = GridBagConstraints.SOUTH;
 			gbc_btnOk.gridwidth = 6;
 			gbc_btnOk.gridx = 1;
 			gbc_btnOk.gridy = 9;
 			contentPanel.add(btnOk, gbc_btnOk);
+		}
+		{
+			JLabel lblNewLabel_4 = new JLabel("We don't own any rights on the images in the program.");
+			lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 7));
+			GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
+			gbc_lblNewLabel_4.anchor = GridBagConstraints.WEST;
+			gbc_lblNewLabel_4.gridwidth = 7;
+			gbc_lblNewLabel_4.gridx = 0;
+			gbc_lblNewLabel_4.gridy = 10;
+			contentPanel.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		}
 	}
 
