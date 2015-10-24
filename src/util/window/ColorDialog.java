@@ -362,7 +362,8 @@ public class ColorDialog extends JDialog
 							{
 								saveColor();
 								saveData();
-								ExternalProgram.runBatch(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + "RESTART.bat");
+								ExternalProgram ext= new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + "MAMRestart.jar");
+								ext.run();
 							}
 							else
 								changed = false;
