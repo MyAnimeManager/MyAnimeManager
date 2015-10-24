@@ -95,7 +95,7 @@ import util.window.WishlistDialog;
 //TODO finire Patron
 public class AnimeIndex extends JFrame
 {
-	public static final String VERSION = "1.0.0";
+	public static final String VERSION = "1.0.0 beta";
 	public static final String CURRENT_VERSION = "MyAnimeManager.exe";
 	public static final String NEW_VERSION = "MyAnimeManager_Setup.exe";
 	public static JPanel mainFrame;
