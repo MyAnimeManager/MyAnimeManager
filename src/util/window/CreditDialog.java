@@ -142,7 +142,7 @@ public class CreditDialog extends JDialog
 					}
 
 					@Override
-					public void mouseClicked(MouseEvent e) {
+					public void mouseReleased(MouseEvent e) {
 						String link = "https://www.patreon.com/MyAnimeManager?ty=h";
 						try {
 							URI uriLink = new URI(link);
@@ -231,7 +231,7 @@ public class CreditDialog extends JDialog
 					label.setIcon(new ImageIcon(CreditDialog.class.getResource("/image/github.png")));
 					GridBagConstraints gbc_label = new GridBagConstraints();
 					gbc_label.anchor = GridBagConstraints.WEST;
-					gbc_label.gridwidth = 8;
+					gbc_label.gridwidth = 4;
 					gbc_label.insets = new Insets(0, 0, 5, 0);
 					gbc_label.gridx = 3;
 					gbc_label.gridy = 5;
@@ -243,7 +243,7 @@ public class CreditDialog extends JDialog
 						}
 
 						@Override
-						public void mouseClicked(MouseEvent e) {
+						public void mouseReleased(MouseEvent e) {
 							String link = "https://github.com/MyAnimeManager/MyAnimeManager#contatti";
 							try {
 								URI uriLink = new URI(link);
