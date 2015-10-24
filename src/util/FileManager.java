@@ -534,7 +534,7 @@ public class FileManager
 	 public static void deleteData(File file)	throws IOException
 	 {
 		 File program = new File(FileManager.getAppDataPath() + AnimeIndex.CURRENT_VERSION);
-		 File restart = new File(FileManager.getAppDataPath() + "RESTART.bat");
+		 File restart = new File(FileManager.getAppDataPath() + "MAMRestart.jar");
 		    	if(file.isDirectory())
 		    	{		 
 		    		if(file.list().length==0)		 
