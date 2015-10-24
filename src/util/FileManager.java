@@ -534,6 +534,7 @@ public class FileManager
 	 public static void deleteData(File file)	throws IOException
 	 {
 		 File program = new File(FileManager.getAppDataPath() + AnimeIndex.CURRENT_VERSION);
+		 File restart = new File(FileManager.getAppDataPath() + "RESTART.bat");
 		    	if(file.isDirectory())
 		    	{		 
 		    		if(file.list().length==0)		 
@@ -545,7 +546,7 @@ public class FileManager
 		        	   for (String temp : files) 
 		        	   {
 		        	      File fileDelete = new File(file, temp);
-		        	      if (!fileDelete.equals(program))
+		        	      if (!fileDelete.equals(program) && !fileDelete.equals(restart))
 		        	    	  deleteData(fileDelete);
 
 		        	   }

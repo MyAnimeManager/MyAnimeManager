@@ -24,6 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -538,8 +539,7 @@ public class AnimeIndex extends JFrame
 				animeInformation.fansubComboBox.removeAllItems();
 				animeInformation.setBlank();
 				JOptionPane.showMessageDialog(mainFrame, "Dati eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
-				ExternalProgram ext = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + CURRENT_VERSION);
-				ext.run();
+				ExternalProgram.runBatch(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + "RESTART.bat");
 				}
 			}
 		});

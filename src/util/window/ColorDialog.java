@@ -362,8 +362,7 @@ public class ColorDialog extends JDialog
 							{
 								saveColor();
 								saveData();
-								ExternalProgram ext = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + "MyAnimeManager.exe", 20000);
-								ext.run();
+								ExternalProgram.runBatch(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + "RESTART.bat");
 							}
 							else
 								changed = false;
@@ -381,8 +380,7 @@ public class ColorDialog extends JDialog
 							if (choiche == 0)
 							{
 								saveData();
-								ExternalProgram ext = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + AnimeIndex.CURRENT_VERSION);
-								ext.run();
+								ExternalProgram.runBatch(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + "RESTART.bat");
 							}
 						}
 					});
