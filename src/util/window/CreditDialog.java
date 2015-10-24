@@ -54,10 +54,10 @@ public class CreditDialog extends JDialog
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, -28, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 21, 0, 0, 0, 0, 0, 98, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblNewLabel_1 = new JLabel("\u2022 Versione :");
@@ -92,7 +92,7 @@ public class CreditDialog extends JDialog
 //			label.setForeground(Color.RED);
 			label.setText("My Anime Manager   v"+AnimeIndex.VERSION);
 			GridBagConstraints gbc_label = new GridBagConstraints();
-			gbc_label.gridwidth = 5;
+			gbc_label.gridwidth = 9;
 			gbc_label.insets = new Insets(0, 0, 5, 0);
 			gbc_label.gridx = 2;
 			gbc_label.gridy = 0;
@@ -102,8 +102,8 @@ public class CreditDialog extends JDialog
 			JLabel imageLabel = new JLabel();
 			imageLabel.setIcon(new ImageIcon(getClass().getResource("/image/credit.png")));
 			GridBagConstraints gbc_imageLabel = new GridBagConstraints();
-			gbc_imageLabel.fill = GridBagConstraints.VERTICAL;
-			gbc_imageLabel.gridheight = 9;
+			gbc_imageLabel.anchor = GridBagConstraints.SOUTH;
+			gbc_imageLabel.gridheight = 10;
 			gbc_imageLabel.insets = new Insets(0, 0, 5, 5);
 			gbc_imageLabel.gridx = 0;
 			gbc_imageLabel.gridy = 0;
@@ -143,7 +143,7 @@ public class CreditDialog extends JDialog
 
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						String link = "https://www.patreon.com/";
+						String link = "https://www.patreon.com/MyAnimeManager?ty=h";
 						try {
 							URI uriLink = new URI(link);
 							Desktop.getDesktop().browse(uriLink);
@@ -194,6 +194,7 @@ public class CreditDialog extends JDialog
 				{
 					JLabel lblItto = new JLabel("iTTo");
 					GridBagConstraints gbc_lblItto = new GridBagConstraints();
+					gbc_lblItto.gridwidth = 5;
 					gbc_lblItto.anchor = GridBagConstraints.WEST;
 					gbc_lblItto.insets = new Insets(0, 0, 5, 0);
 					gbc_lblItto.gridx = 6;
@@ -230,7 +231,7 @@ public class CreditDialog extends JDialog
 					label.setIcon(new ImageIcon(CreditDialog.class.getResource("/image/github.png")));
 					GridBagConstraints gbc_label = new GridBagConstraints();
 					gbc_label.anchor = GridBagConstraints.WEST;
-					gbc_label.gridwidth = 4;
+					gbc_label.gridwidth = 8;
 					gbc_label.insets = new Insets(0, 0, 5, 0);
 					gbc_label.gridx = 3;
 					gbc_label.gridy = 5;
@@ -286,7 +287,7 @@ public class CreditDialog extends JDialog
 					});
 					GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 					gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
-					gbc_lblNewLabel_3.gridwidth = 4;
+					gbc_lblNewLabel_3.gridwidth = 8;
 					gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 0);
 					gbc_lblNewLabel_3.gridx = 3;
 					gbc_lblNewLabel_3.gridy = 7;
@@ -294,7 +295,7 @@ public class CreditDialog extends JDialog
 				}
 				patreonLabel.setIcon(new ImageIcon(getClass().getResource("/image/support-us-on-patreon.png")));
 				GridBagConstraints gbc_patreonLabel = new GridBagConstraints();
-				gbc_patreonLabel.gridwidth = 6;
+				gbc_patreonLabel.gridwidth = 10;
 				gbc_patreonLabel.anchor = GridBagConstraints.SOUTH;
 				gbc_patreonLabel.insets = new Insets(0, 0, 5, 0);
 				gbc_patreonLabel.gridx = 1;
@@ -310,7 +311,7 @@ public class CreditDialog extends JDialog
 			gbc_lblNewLabel_4.anchor = GridBagConstraints.SOUTHWEST;
 			gbc_lblNewLabel_4.gridwidth = 2;
 			gbc_lblNewLabel_4.gridx = 0;
-			gbc_lblNewLabel_4.gridy = 9;
+			gbc_lblNewLabel_4.gridy = 10;
 			contentPanel.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		}
 		JButton btnOk = new JButton("OK");
@@ -322,7 +323,7 @@ public class CreditDialog extends JDialog
 			}
 		});
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
-		gbc_btnOk.anchor = GridBagConstraints.SOUTH;
+		gbc_btnOk.gridheight = 2;
 		gbc_btnOk.gridwidth = 9;
 		gbc_btnOk.gridx = 2;
 		gbc_btnOk.gridy = 9;

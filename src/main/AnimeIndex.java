@@ -874,13 +874,17 @@ public class AnimeIndex extends JFrame
 		mnHelp.add(separator_7);
 		
 		JMenuItem mntmSupporters = new JMenuItem("Supporters");
+		mntmSupporters.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessun supporter trovato.", "Supporters", JOptionPane.INFORMATION_MESSAGE);	
+			}
+		});
 		mnHelp.add(mntmSupporters);
 		mntmCredit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CreditDialog credit = new CreditDialog();
 				credit.setLocationRelativeTo(AnimeIndex.mainFrame);
-				credit.setVisible(true);
-				
+				credit.setVisible(true);	
 			}
 		});
 		mntmControlloAggiornamenti.addActionListener(new ActionListener() {
