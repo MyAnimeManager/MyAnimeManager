@@ -2018,6 +2018,7 @@ public class AnimeIndex extends JFrame
 		buttonPanel.add(addButton, BorderLayout.SOUTH);
 		
 	    setFilterButton = new JButton("Filtro");
+	    setFilterButton.setToolTipText("Filtri per la lista corrente");
 	    setFilterButton.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		if(!animeInformation.releaseDateField.getText().trim().isEmpty() && animeInformation.releaseDateField.getText().trim().length()==10 && animeInformation.releaseDateField.getText().trim().length()==10 && !animeInformation.finishDateField.getText().trim().isEmpty() && animeInformation.finishDateField.getText().trim().length()==10 && animeInformation.finishDateField.getText().trim().length()==10)

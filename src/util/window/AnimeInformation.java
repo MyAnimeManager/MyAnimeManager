@@ -511,6 +511,7 @@ public class AnimeInformation extends JPanel {
 		gbc_fansubComboBox.gridy = 5;
 		add(fansubComboBox, gbc_fansubComboBox);
 		fansubButton = new JButton("Apri");
+		fansubButton.setToolTipText("Apre il link rispettivo del fansub");
 		fansubButton.setEnabled(false);
 		fansubButton.addActionListener(new ActionListener() {
 			
@@ -557,6 +558,7 @@ public class AnimeInformation extends JPanel {
 		add(lblFansubLink, gbc_lblFansubLink);
 		
 		btnOpen = new JButton("Apri");
+		btnOpen.setToolTipText("Apri il link impostato");
 		btnOpen.setEnabled(false);
 		btnOpen.addActionListener(new ActionListener() {
 			
@@ -589,6 +591,7 @@ public class AnimeInformation extends JPanel {
 		});
 		
 		setLinkButton = new JButton("Imposta Link");
+		setLinkButton.setToolTipText("Aggiungi un link rapido");
 		setLinkButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -1148,6 +1151,7 @@ public class AnimeInformation extends JPanel {
 		});
 		
 		btnAnilistInfo = new JButton("Pi\u00F9 Informazioni");
+		btnAnilistInfo.setToolTipText("Apri la pagina di Anilist dell'anime");
 		btnAnilistInfo.addActionListener(new ActionListener() {
 			
 			@Override

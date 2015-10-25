@@ -160,7 +160,7 @@ public class AddAnimeDialog extends JDialog
 						JPanel searchPanel1 = new JPanel();
 						searchPanel.add(searchPanel1, BorderLayout.NORTH);
 						GridBagLayout gbl_searchPanel1 = new GridBagLayout();
-						gbl_searchPanel1.columnWidths = new int[]{63, 246, 61, 109, 46, 25, 0};
+						gbl_searchPanel1.columnWidths = new int[]{63, 177, 66, 102, 44, 25, 0};
 						gbl_searchPanel1.rowHeights = new int[]{27, 0};
 						gbl_searchPanel1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 						gbl_searchPanel1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
@@ -206,16 +206,15 @@ public class AddAnimeDialog extends JDialog
 							gbc_searchBar.gridx = 0;
 							gbc_searchBar.gridy = 0;
 							searchPanel1.add(searchBar, gbc_searchBar);
-							searchBar.setPreferredSize(new Dimension(344, 27));
-							searchBar.setMinimumSize(new Dimension(344, 27));
-							searchBar.setMaximumSize(new Dimension(344, 27));
+							searchBar.setPreferredSize(new Dimension(200, 27));
+							searchBar.setMinimumSize(new Dimension(200, 27));
+							searchBar.setMaximumSize(new Dimension(200, 27));
 							searchBar.setColumns(30);
 						}
 						{
 							btnCerca = new JButton("Cerca");
 							GridBagConstraints gbc_btnCerca = new GridBagConstraints();
 							gbc_btnCerca.insets = new Insets(0, 0, 0, 5);
-							gbc_btnCerca.anchor = GridBagConstraints.WEST;
 							gbc_btnCerca.gridx = 2;
 							gbc_btnCerca.gridy = 0;
 							searchPanel1.add(btnCerca, gbc_btnCerca);
@@ -300,7 +299,6 @@ public class AddAnimeDialog extends JDialog
 								});
 								listToAddAniComboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere"}));
 								GridBagConstraints gbc_listToAddAniComboBox = new GridBagConstraints();
-								gbc_listToAddAniComboBox.fill = GridBagConstraints.HORIZONTAL;
 								gbc_listToAddAniComboBox.gridwidth = 2;
 								gbc_listToAddAniComboBox.insets = new Insets(0, 0, 0, 5);
 								gbc_listToAddAniComboBox.gridx = 3;
@@ -308,7 +306,7 @@ public class AddAnimeDialog extends JDialog
 								searchPanel1.add(listToAddAniComboBox, gbc_listToAddAniComboBox);
 							}
 							{
-								keepOpen = new JCheckBox("");
+								keepOpen = new JCheckBox("Mantieni aperta");
 								keepOpen.setToolTipText("Mantieni questa finestra aperta dopo ogni aggiunta");
 								GridBagConstraints gbc_keepOpen = new GridBagConstraints();
 								gbc_keepOpen.anchor = GridBagConstraints.EAST;
