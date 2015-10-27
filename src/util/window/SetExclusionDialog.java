@@ -764,12 +764,13 @@ public class SetExclusionDialog extends JDialog {
 					for(int i=0; i<arr.length; i++)
 						AnimeIndex.exclusionAnime.remove((String)arr[i]);
 					
-					AnimeIndex.exclusionAnime.putAll(exclusionSessionAnime);
-					
 					if(AnimeIndex.animeInformation.selectExcludedAnimeAtWindowOpened==true)
 					{
 						AnimeIndex.animeInformation.selectExcludedAnimeAtWindowOpened = false;
 					}
+					
+					AnimeIndex.exclusionAnime.putAll(exclusionSessionAnime);
+					
 					JButton but = (JButton) e.getSource();
 					JDialog dialog = (JDialog) but.getTopLevelAncestor();
 					dialog.dispose();
