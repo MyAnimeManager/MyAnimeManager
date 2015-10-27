@@ -322,9 +322,10 @@ public class CreditDialog extends JDialog
 			}
 		});
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
+		gbc_btnOk.anchor = GridBagConstraints.WEST;
 		gbc_btnOk.gridheight = 2;
-		gbc_btnOk.gridwidth = 9;
-		gbc_btnOk.gridx = 2;
+		gbc_btnOk.gridwidth = 7;
+		gbc_btnOk.gridx = 4;
 		gbc_btnOk.gridy = 9;
 		contentPanel.add(btnOk, gbc_btnOk);
 	}
