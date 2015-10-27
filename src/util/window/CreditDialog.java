@@ -143,7 +143,7 @@ public class CreditDialog extends JDialog
 
 					@Override
 					public void mouseReleased(MouseEvent e) {
-						String link = "https://www.patreon.com/MyAnimeManager?ty=h";
+						String link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RFJLMVCQYZEQG";
 						try {
 							URI uriLink = new URI(link);
 							Desktop.getDesktop().browse(uriLink);
@@ -293,10 +293,9 @@ public class CreditDialog extends JDialog
 					gbc_lblNewLabel_3.gridy = 7;
 					contentPanel.add(lblNewLabel_3, gbc_lblNewLabel_3);
 				}
-				patreonLabel.setIcon(new ImageIcon(getClass().getResource("/image/support-us-on-patreon.png")));
+				patreonLabel.setIcon(new ImageIcon(getClass().getResource("/image/Paypal-donate.png")));
 				GridBagConstraints gbc_patreonLabel = new GridBagConstraints();
 				gbc_patreonLabel.gridwidth = 10;
-				gbc_patreonLabel.anchor = GridBagConstraints.SOUTH;
 				gbc_patreonLabel.insets = new Insets(0, 0, 5, 0);
 				gbc_patreonLabel.gridx = 1;
 				gbc_patreonLabel.gridy = 8;
