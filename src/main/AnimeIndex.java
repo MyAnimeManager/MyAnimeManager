@@ -824,7 +824,7 @@ public class AnimeIndex extends JFrame
 					nToSee += 1;
 				for(int i=0; i<wishlistMap.size(); i++)
 					nWish += 1;                                                                                                                                                                                                                                                   
-				JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Anime Completati:      "+nCompleted+"\n\r\n\rAnime in Corso:           "+nAiring+"\n\r\n\rOAV:                              "+nOAV+"\n\r\n\rFilm:                               "+nFilm+"\n\r\n\rCompleti da Vedere:    "+nToSee+"\n\r\n\rWishlist:                         "+nWish, "Statistiche", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Anime Completati:      "+nCompleted+"\n\r\n\rAnime in Corso:           "+nAiring+"\n\r\n\rOav:                               "+nOAV+"\n\r\n\rFilm:                               "+nFilm+"\n\r\n\rCompleti da Vedere:    "+nToSee+"\n\r\n\rWishlist:                         "+nWish, "Statistiche", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		mnInfo.add(mntmStatistiche);
@@ -869,17 +869,6 @@ public class AnimeIndex extends JFrame
 			}
 		});
 		mnHelp.add(mntmProposte);
-		
-		JSeparator separator_7 = new JSeparator();
-		mnHelp.add(separator_7);
-		
-		JMenuItem mntmSupporters = new JMenuItem("Supporters");
-		mntmSupporters.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessun supporter trovato.", "Supporters", JOptionPane.INFORMATION_MESSAGE);	
-			}
-		});
-		mnHelp.add(mntmSupporters);
 		mntmCredit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CreditDialog credit = new CreditDialog();
