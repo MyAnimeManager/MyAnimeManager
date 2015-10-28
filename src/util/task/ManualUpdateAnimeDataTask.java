@@ -118,7 +118,7 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 				type = ConnectionManager.getAnimeData("type", data);
 			}
 
-			if (AnimeIndex.appProp.getProperty("excludeImage").equalsIgnoreCase("false") && exclusionArray[0])
+			if (exclusionArray[0])
 			{
 				String imageLink = ConnectionManager.getAnimeData("image_url_lge", data);
 				imageLink = imageLink.replaceAll("\\\\/", "/");
