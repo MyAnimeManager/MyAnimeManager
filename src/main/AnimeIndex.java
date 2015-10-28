@@ -2806,10 +2806,10 @@ public class AnimeIndex extends JFrame
 	{
 		if (AnimeIndex.shouldUpdate)
 		{
-		AutoUpdateAnimeDataTask task = new AutoUpdateAnimeDataTask();
 		AnimeIndex.appThread = new Thread() {
 		     public void run() {
-		         try {		        	 
+		         try {	
+		        	 AutoUpdateAnimeDataTask task = new AutoUpdateAnimeDataTask();
 		             SwingUtilities.invokeLater(task);
 		         }
 		         catch (Exception e) {
