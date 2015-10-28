@@ -15,10 +15,5 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/MyAnimeManager/lib/commons-io-2.4-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/merchantsdk-2.13.117.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/MyAnimeManager/lib/merchantsdk-2.13.117-sources.jar!/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
