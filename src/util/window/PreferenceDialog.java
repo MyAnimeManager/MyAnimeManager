@@ -81,7 +81,7 @@ public class PreferenceDialog extends JDialog
 				}
 			});
 			{
-				rdbtnLastList = new JCheckBox("Ultima Lista");
+				rdbtnLastList = new JCheckBox("Ultima Lista Visualizzata");
 				rdbtnLastList.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						choosedList.setEnabled(false);
