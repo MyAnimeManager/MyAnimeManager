@@ -814,7 +814,7 @@ public class SetExclusionDialog extends JDialog {
 		String[] excludedArray = AnimeIndex.exclusionAnime.keySet().toArray(new String[0]);
 		excludedModel.addAll(excludedArray);
 		
-		Object[] totalArray = AnimeIndex.completedModel.toArray();
+		Object[] totalArray = AnimeIndex.getModel().toArray();
 		for (int i = 0; i < totalArray.length; i++) 
 		{
 			String name = (String) totalArray[i];
