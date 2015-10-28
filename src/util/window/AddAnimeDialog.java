@@ -306,7 +306,8 @@ public class AddAnimeDialog extends JDialog
 								searchPanel1.add(listToAddAniComboBox, gbc_listToAddAniComboBox);
 							}
 							{
-								keepOpen = new JCheckBox("Mantieni aperta");
+								keepOpen = new JCheckBox("Non Chiudere");
+								keepOpen.setFont(new Font("Tahoma", Font.PLAIN, 11));
 								keepOpen.setToolTipText("Mantieni questa finestra aperta dopo ogni aggiunta");
 								GridBagConstraints gbc_keepOpen = new GridBagConstraints();
 								gbc_keepOpen.anchor = GridBagConstraints.EAST;
