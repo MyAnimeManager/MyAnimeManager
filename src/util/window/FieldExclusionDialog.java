@@ -79,32 +79,6 @@ public class FieldExclusionDialog extends JDialog
 							typeCheckBox.setEnabled(false);
 						}
 					}
-					else
-					{
-						if (AnimeIndex.appProp.getProperty("excludeTotalEp").equalsIgnoreCase("true"))
-							totalEpCheckBox.setSelected(true);
-						
-						if (AnimeIndex.appProp.getProperty("excludeDuration").equalsIgnoreCase("true"))
-							durationCheckBox.setSelected(true);
-						
-						if (AnimeIndex.appProp.getProperty("excludeStartingDate").equalsIgnoreCase("true"))
-							startDateCheckBox.setSelected(true);
-						
-						if (AnimeIndex.appProp.getProperty("excludeFinishDate").equalsIgnoreCase("true"))
-							finishDateCheckBox.setSelected(true);
-						
-						if (AnimeIndex.appProp.getProperty("excludeType").equalsIgnoreCase("true"))
-							typeCheckBox.setSelected(true);
-						
-						if (AnimeIndex.appProp.getProperty("excludeImage").equalsIgnoreCase("true"))
-							imageCheckBox.setSelected(true);
-						
-						if(AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
-						{
-							typeCheckBox.setSelected(true);
-							typeCheckBox.setEnabled(false);
-						}
-					}
 				}
 				else
 				{
@@ -215,13 +189,7 @@ public class FieldExclusionDialog extends JDialog
 				deselectAll.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						String name = AnimeIndex.animeInformation.lblAnimeName.getText();
-						if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("false") && AnimeIndex.exclusionAnime.containsKey(name))
-						{
-							AnimeIndex.appProp.setProperty("excludeTotalEp", "false");
-							AnimeIndex.appProp.setProperty("excludeDuration", "false");
-							AnimeIndex.appProp.setProperty("excludeStartingDate", "false");
-							AnimeIndex.appProp.setProperty("excludeFinishDate", "false");
-						}
+
 						totalEpCheckBox.setSelected(false);
 						durationCheckBox.setSelected(false);
 						startDateCheckBox.setSelected(false);
@@ -243,7 +211,7 @@ public class FieldExclusionDialog extends JDialog
 			panel = new JPanel();
 			getContentPane().add(panel, BorderLayout.SOUTH);
 			panel.setLayout(new GridLayout(0, 2, 0, 0));
-			JButton okButton = new JButton("OK");
+			JButton okButton = new JButton("Aggiorna");
 			panel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
