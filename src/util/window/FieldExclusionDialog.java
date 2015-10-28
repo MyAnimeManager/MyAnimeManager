@@ -30,7 +30,6 @@ public class FieldExclusionDialog extends JDialog
 	private JCheckBox typeCheckBox;
 	private JCheckBox finishDateCheckBox;
 	private JCheckBox totalEpCheckBox;
-	private JButton deselectAll;
 	private JButton cancelButton;
 	private JPanel panel;
 	private JCheckBox imageCheckBox;
@@ -43,7 +42,7 @@ public class FieldExclusionDialog extends JDialog
 		super(AnimeIndex.frame, true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FieldExclusionDialog.class.getResource("/image/refresh-icon15.png")));
 		setResizable(false);
-		setTitle("Esclusione campi");
+		setTitle("Campi da aggiornare");
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -111,7 +110,7 @@ public class FieldExclusionDialog extends JDialog
 				}
 			}
 		});
-		setBounds(100, 100, 219, 157);
+		setBounds(100, 100, 219, 139);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.NORTH);
@@ -178,34 +177,6 @@ public class FieldExclusionDialog extends JDialog
 			gbc_totalEpCheckBox.gridx = 2;
 			gbc_totalEpCheckBox.gridy = 2;
 			contentPanel.add(totalEpCheckBox, gbc_totalEpCheckBox);
-		}
-		{
-			JPanel buttonPane = new JPanel();
-			getContentPane().add(buttonPane, BorderLayout.CENTER);
-			{
-			}
-			{
-				deselectAll = new JButton("Nessun Campo Escluso");
-				deselectAll.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						String name = AnimeIndex.animeInformation.lblAnimeName.getText();
-
-						totalEpCheckBox.setSelected(false);
-						durationCheckBox.setSelected(false);
-						startDateCheckBox.setSelected(false);
-						finishDateCheckBox.setSelected(false);
-						imageCheckBox.setSelected(false);
-						
-						if(!AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
-						{
-							typeCheckBox.setSelected(false);
-							AnimeIndex.appProp.setProperty("excludeType", "false");
-						}
-					}
-				});
-			}
-			buttonPane.setLayout(new GridLayout(0, 1, 0, 0));
-			buttonPane.add(deselectAll);
 		}
 		{
 			panel = new JPanel();
