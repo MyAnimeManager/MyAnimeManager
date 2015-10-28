@@ -82,7 +82,9 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 				if (totalEp.equals("1"))
 					finishDate = startDate;
 				
-				String type = ConnectionManager.getAnimeData("type", data);
+				String type = (String)AnimeIndex.animeInformation.typeComboBox.getSelectedItem();
+				if(!type.equals("Blu-ray"))
+					type = ConnectionManager.getAnimeData("type", data);
 				
 				String imageLink = ConnectionManager.getAnimeData("image_url_lge", data);
 				imageLink = imageLink.replaceAll("\\\\/", "/");
@@ -195,7 +197,7 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 						finishDate = startDate;
 				}
 				
-				if(exclusionArray[5])
+				if(exclusionArray[5] && !type.equalsIgnoreCase("Blu-ray"))
 				{
 					type = ConnectionManager.getAnimeData("type", data);
 				}

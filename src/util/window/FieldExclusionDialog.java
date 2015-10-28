@@ -74,7 +74,7 @@ public class FieldExclusionDialog extends JDialog
 						
 						if(AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
 						{
-							typeCheckBox.setSelected(true);
+							typeCheckBox.setSelected(false);
 							typeCheckBox.setEnabled(false);
 						}
 					}
@@ -86,6 +86,11 @@ public class FieldExclusionDialog extends JDialog
 						finishDateCheckBox.setSelected(true);
 						typeCheckBox.setSelected(true);
 						imageCheckBox.setSelected(true);
+						if(AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
+						{
+							typeCheckBox.setSelected(false);
+							typeCheckBox.setEnabled(false);
+						}
 					}
 				}
 				else
@@ -113,7 +118,7 @@ public class FieldExclusionDialog extends JDialog
 					
 					if(AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
 					{
-						typeCheckBox.setSelected(true);
+						typeCheckBox.setSelected(false);
 						typeCheckBox.setEnabled(false);
 					}
 				}
