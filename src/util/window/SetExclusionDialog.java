@@ -42,6 +42,7 @@ import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.TreeMap;
 
 import javax.swing.JCheckBox;
@@ -90,7 +91,7 @@ public class SetExclusionDialog extends JDialog {
 			public void windowOpened(WindowEvent arg0) {
 				cancelButton.requestFocusInWindow();
 				comboBox.setSelectedItem(AnimeIndex.animeTypeComboBox.getSelectedItem());
-				loadModel();
+				changeModel(AnimeIndex.getModel());
 				if(AnimeIndex.animeInformation.selectExcludedAnimeAtWindowOpened==true)
 				{
 					listToExclude.setSelectedValue(AnimeIndex.animeInformation.lblAnimeName.getText(), true);
@@ -809,23 +810,13 @@ public class SetExclusionDialog extends JDialog {
 		}
 	}
 	
-	private void loadModel()
-	{
-		String[] excludedArray = AnimeIndex.exclusionAnime.keySet().toArray(new String[0]);
-		excludedModel.addAll(excludedArray);
-		
-		Object[] totalArray = AnimeIndex.getModel().toArray();
-		for (int i = 0; i < totalArray.length; i++) 
-		{
-			String name = (String) totalArray[i];
-			if (!excludedModel.contains(name))
-				totalModel.addElement(name);
-		}
-		
-	}
-	
 	private void changeModel(SortedListModel model)
 	{
+		for (Map.Entry<String, boolean[]> entry : AnimeIndex.exclusionAnime.entrySet())
+		{
+			excludedModel.addElement(entry.getKey());
+		}
+		
 		totalModel.clear();
 		Object[] totalArray = model.toArray();
 		for (int i = 0; i < totalArray.length; i++) 
