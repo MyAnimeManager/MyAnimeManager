@@ -23,8 +23,6 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 	@Override
 	protected Object doInBackground() throws Exception
 	{
-		if (AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("false"))
-		{
 			AnimeIndex.saveModifiedInformation();
 			ConnectionManager.ConnectAndGetToken();
 			String nome = "";
@@ -164,7 +162,6 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 			AnimeIndex.animeInformation.typeComboBox.setSelectedItem(map.get(name).getAnimeType());	
 
 			AnimeInformation.dial.dispose();
-		}
 		return null;
 	}
 }
