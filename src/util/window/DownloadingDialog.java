@@ -57,7 +57,7 @@ public class DownloadingDialog extends JDialog
 				int progress = task.getProgress();
 				progressBar.setValue(progress);
 				if (task.totalSize != 0)
-					lblDownloadInCorso.setText("Scaricati " + ((task.currentSize/1024)) + "/" + ((task.totalSize/1024)) +"Kb");
+					lblDownloadInCorso.setText("Scaricati " + ((task.currentSize/1024)) + "/" + ((task.totalSize/1024)) +" Kb");
 			}
 		});
 

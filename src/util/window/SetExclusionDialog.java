@@ -194,9 +194,9 @@ public class SetExclusionDialog extends JDialog {
 					
 						if (!search.isEmpty())
 						{	
-						CardLayout cl = (CardLayout)(totalPane.getLayout());
-				        cl.show(totalPane, "searchList");
-				        searchInList(search, totalModel, totalSearchModel,searchListToCheck);
+							CardLayout cl = (CardLayout)(totalPane.getLayout());
+					        cl.show(totalPane, "searchList");
+					        searchInList(search, totalModel, totalSearchModel,searchListToCheck);
 						}
 						else
 						{
@@ -243,9 +243,9 @@ public class SetExclusionDialog extends JDialog {
 					list.clearSelection();
 						if (!search.isEmpty())
 						{	
-						CardLayout cl = (CardLayout)(excludedPane.getLayout());
-				        cl.show(excludedPane, "excludedSearchedList");
-				        searchInList(search, excludedModel, excludedSearchModel,searchListToExclude);
+							CardLayout cl = (CardLayout)(excludedPane.getLayout());
+					        cl.show(excludedPane, "excludedSearchedList");
+					        searchInList(search, excludedModel, excludedSearchModel,searchListToExclude);
 						}
 						else
 						{
