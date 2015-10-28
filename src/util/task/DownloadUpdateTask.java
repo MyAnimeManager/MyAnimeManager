@@ -1,13 +1,16 @@
 package util.task;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 
 import javax.swing.SwingWorker;
-
-import org.apache.commons.io.FileUtils;
 
 import main.AnimeIndex;
 import util.FileManager;
@@ -16,6 +19,9 @@ import util.window.UpdateDialog;
 
 public class DownloadUpdateTask extends SwingWorker
 {    
+	public int totalSize;
+	public int currentSize = 0;
+	
 	@Override
 	protected Void doInBackground() throws Exception
 	{
@@ -25,9 +31,10 @@ public class DownloadUpdateTask extends SwingWorker
 
 	private void downloadFile(String link) throws MalformedURLException, IOException
     {
-		File file = new File(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + AnimeIndex.NEW_VERSION);
+		String file = FileManager.getAppDataPath() + File.separator + "Update" + File.separator + AnimeIndex.NEW_VERSION;
 		URL url = new URL(link);
-		FileUtils.copyURLToFile(url, file);
+//		FileUtils.copyURLToFile(url, file);
+		downloadUpdate(url, file);
     }
 	
 	@Override
@@ -36,4 +43,35 @@ public class DownloadUpdateTask extends SwingWorker
 		UpdateDialog.dial.dispose();
 	}
 	
+	public void downloadUpdate(URL fileUrl, String destinationFile) {
+//	    URL url;
+		try {
+//			url = new URL(fileUrl);
+			URLConnection conn =fileUrl.openConnection();
+			conn.setRequestProperty("User-Agent", "My Anime Index");
+			totalSize = conn.getContentLength();
+			InputStream is = conn.getInputStream();
+		    OutputStream os = new FileOutputStream(destinationFile);
+
+			    byte[] b = new byte[4096];
+			    int length;
+			    this.setProgress(0);
+			    
+			    while ((length = is.read(b)) != -1) {
+			        os.write(b, 0, length);
+			        currentSize += length;
+			        setProgress((int)(((double)currentSize/(double)totalSize) * 100));
+			    }
+
+			    is.close();
+			    os.close();
+		}catch (FileNotFoundException e) {
+			File file = new File(FileManager.getAppDataPath() + File.separator + "Update" + File.separator);
+			file.mkdirs();
+			downloadUpdate(fileUrl ,destinationFile);
+		}
+			catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

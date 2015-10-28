@@ -13,6 +13,8 @@ import javax.swing.SwingConstants;
 import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
 import util.task.DownloadUpdateTask;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class DownloadingDialog extends JDialog
 {
@@ -38,17 +40,26 @@ public class DownloadingDialog extends JDialog
 		setModal(true);
 		setResizable(false);
 		setTitle("Download Aggiornamento...");
-		setBounds(100, 100, 328, 76);
+		setBounds(100, 100, 328, 85);
 		
-		String labelString = "Scaricando...";
 		getContentPane().setLayout(new MigLayout("", "[320.00px]", "[14px][14px]"));
-		lblDownloadInCorso = new JLabel("Download in corso...");
+		lblDownloadInCorso = new JLabel("Avvio download in corso...");
 		lblDownloadInCorso.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lblDownloadInCorso, "cell 0 0,growx,aligny center");
 		
-		progressBar = new JProgressBar();
-		progressBar.setIndeterminate(true);
+		progressBar = new JProgressBar(0,100);
+		progressBar.setStringPainted(true);
+//		progressBar.setIndeterminate(true);
 		getContentPane().add(progressBar, "cell 0 1,growx,aligny center");
+		
+		task.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				int progress = task.getProgress();
+				progressBar.setValue(progress);
+				if (task.totalSize != 0)
+					lblDownloadInCorso.setText("Scaricati " + ((task.currentSize/1024)) + "/" + ((task.totalSize/1024)) +"Kb");
+			}
+		});
 
 		
 		
