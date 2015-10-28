@@ -160,7 +160,7 @@ public class AddAnimeDialog extends JDialog
 						JPanel searchPanel1 = new JPanel();
 						searchPanel.add(searchPanel1, BorderLayout.NORTH);
 						GridBagLayout gbl_searchPanel1 = new GridBagLayout();
-						gbl_searchPanel1.columnWidths = new int[]{63, 177, 66, 102, 44, 25, 0};
+						gbl_searchPanel1.columnWidths = new int[]{63, 177, 66, 102, 44, 105, 0};
 						gbl_searchPanel1.rowHeights = new int[]{27, 0};
 						gbl_searchPanel1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 						gbl_searchPanel1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
