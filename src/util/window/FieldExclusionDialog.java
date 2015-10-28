@@ -78,6 +78,15 @@ public class FieldExclusionDialog extends JDialog
 							typeCheckBox.setEnabled(false);
 						}
 					}
+					else
+					{
+						totalEpCheckBox.setSelected(true);
+						durationCheckBox.setSelected(true);
+						startDateCheckBox.setSelected(true);
+						finishDateCheckBox.setSelected(true);
+						typeCheckBox.setSelected(true);
+						imageCheckBox.setSelected(true);
+					}
 				}
 				else
 				{
@@ -122,7 +131,6 @@ public class FieldExclusionDialog extends JDialog
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			durationCheckBox = new JCheckBox("Durata");
-			durationCheckBox.setSelected(true);
 			GridBagConstraints gbc_durationCheckBox = new GridBagConstraints();
 			gbc_durationCheckBox.fill = GridBagConstraints.HORIZONTAL;
 			gbc_durationCheckBox.gridwidth = 2;
@@ -133,7 +141,6 @@ public class FieldExclusionDialog extends JDialog
 		}
 		{
 			typeCheckBox = new JCheckBox("Tipo");
-			typeCheckBox.setSelected(true);
 			GridBagConstraints gbc_typeCheckBox = new GridBagConstraints();
 			gbc_typeCheckBox.fill = GridBagConstraints.HORIZONTAL;
 			gbc_typeCheckBox.insets = new Insets(0, 0, 5, 0);
@@ -144,7 +151,6 @@ public class FieldExclusionDialog extends JDialog
 		}
 		{
 			startDateCheckBox = new JCheckBox("Data di Inizio");
-			startDateCheckBox.setSelected(true);
 			GridBagConstraints gbc_startDateCheckBox = new GridBagConstraints();
 			gbc_startDateCheckBox.gridwidth = 2;
 			gbc_startDateCheckBox.insets = new Insets(0, 0, 5, 5);
@@ -154,7 +160,6 @@ public class FieldExclusionDialog extends JDialog
 		}
 		{
 			finishDateCheckBox = new JCheckBox("Data di Fine");
-			finishDateCheckBox.setSelected(true);
 			GridBagConstraints gbc_finishDateCheckBox = new GridBagConstraints();
 			gbc_finishDateCheckBox.gridwidth = 2;
 			gbc_finishDateCheckBox.fill = GridBagConstraints.HORIZONTAL;
@@ -165,7 +170,6 @@ public class FieldExclusionDialog extends JDialog
 		}
 		{
 			imageCheckBox = new JCheckBox("Immagine");
-			imageCheckBox.setSelected(true);
 			GridBagConstraints gbc_imageCheckBox = new GridBagConstraints();
 			gbc_imageCheckBox.fill = GridBagConstraints.HORIZONTAL;
 			gbc_imageCheckBox.gridwidth = 2;
@@ -176,7 +180,6 @@ public class FieldExclusionDialog extends JDialog
 		}
 		{
 			totalEpCheckBox = new JCheckBox("Episodi Totali");
-			totalEpCheckBox.setSelected(true);
 			GridBagConstraints gbc_totalEpCheckBox = new GridBagConstraints();
 			gbc_totalEpCheckBox.fill = GridBagConstraints.HORIZONTAL;
 			gbc_totalEpCheckBox.gridwidth = 4;
