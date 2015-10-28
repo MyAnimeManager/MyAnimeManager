@@ -14,11 +14,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
-
 import main.AnimeIndex;
 import util.window.WishlistDialog;
+
 
 public class FileManager
 {
@@ -36,15 +37,11 @@ public class FileManager
 		fansubFile.getParentFile().mkdirs();
 		BufferedWriter output = new BufferedWriter(new FileWriter(fansubFile));
 		try
-		{
-						Object[] fansub = AnimeIndex.fansubMap.keySet().toArray();
-						Object[] linkFansub = AnimeIndex.fansubMap.values().toArray();
-			
-			for (int i = 0; i < fansub.length; i++)
-				if (fansub[i] != null)
-				{
-					output.write(fansub[i] + "||" + linkFansub[i] + "||" + System.lineSeparator());
-				}
+		{			
+			for (Map.Entry<String, String> entry : AnimeIndex.fansubMap.entrySet())
+			{
+				output.write(entry.getKey() + "||" + entry.getValue() + "||" + System.lineSeparator());
+			}
 					
 		} 
 		finally
@@ -194,14 +191,11 @@ public class FileManager
 			output = new BufferedWriter(new OutputStreamWriter(
 				    new FileOutputStream(animeFile), "UTF-8"));
 			
-			Object[] animeNameArray = category.toArray();
-			for (int i = 0; i < animeNameArray.length; i++)
-				{
-					String name = (String) animeNameArray[i];
-					AnimeData data = map.get(name);
-					output.write(name + "||" + data.toString() + "||");
-					output.write(System.lineSeparator());
-				}
+			for (Map.Entry<String,AnimeData> entry : map.entrySet())
+			{
+				output.write(entry.getKey() + "||" + entry.getValue().toString() + "||");
+				output.write(System.lineSeparator());
+			}
 			output.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -266,17 +260,15 @@ public class FileManager
 			output = new BufferedWriter(new OutputStreamWriter(
 				    new FileOutputStream(exclusionFile), "UTF-8"));
 			
-			Object[] exclusionNameArray = AnimeIndex.exclusionAnime.keySet().toArray();
-			for (int i = 0; i < exclusionNameArray.length; i++)
-				{
-					String name = (String) exclusionNameArray[i];
-					boolean[] bool = AnimeIndex.exclusionAnime.get(name);
-					String line = name + "||";
-					for (int j = 0; j < bool.length ; j++)
-						line += bool[j] + "||";
-					output.write(line);				
-					output.write(System.lineSeparator());
-				}
+			for (Map.Entry<String,boolean[]> entry : AnimeIndex.exclusionAnime.entrySet())
+			{
+				String line = entry.getKey() + "||";
+				for (boolean bool : entry.getValue())
+					line += bool + "||";
+				output.write(line);				
+				output.write(System.lineSeparator());
+					
+			}
 			output.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -369,15 +361,11 @@ public class FileManager
 			output = new BufferedWriter(new OutputStreamWriter(
 				    new FileOutputStream(wishlistFile), "UTF-8"));
 			
-			Object[] dateArray = AnimeIndex.exitDateMap.keySet().toArray();
-			for (int i = 0; i < dateArray.length; i++)
-				{
-					String name = (String) dateArray[i];
-					Date date = AnimeIndex.exitDateMap.get(name);					
-					String dateString = sd.format(date);
-					output.write(name + "||" + dateString);
-					output.write(System.lineSeparator());
-				}
+			for (Map.Entry<String,Date> entry : AnimeIndex.exitDateMap.entrySet())
+			{
+				output.write(entry.getKey() + "||" + sd.format(entry.getValue()));
+				output.write(System.lineSeparator());
+			}
 			output.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -478,7 +466,8 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	public static void saveDefaultImage(String imageUrl, String destinationFile) {
+	public static void saveDefaultImage(String imageUrl, String destinationFile) 
+	{
 	    File url;
 		try {
 			url = new File(imageUrl);
@@ -505,6 +494,7 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
+	
 	public static void saveNewImage(String imageUrl, String destinationFile, String folderName) {
 	    File url;
 		try {
