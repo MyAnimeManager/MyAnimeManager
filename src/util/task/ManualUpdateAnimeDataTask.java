@@ -49,14 +49,14 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 			
 			String data = ConnectionManager.parseAnimeData(id);
 			
-			if(!exclusionArray[1])
+			if(exclusionArray[1])
 			{
 				totalEp = ConnectionManager.getAnimeData("total_episodes", data);
 				if(totalEp.equals("null")||totalEp.equals("0"))
 					totalEp = "??";
 			}
 			
-			if(!exclusionArray[2])
+			if(exclusionArray[2])
 			{
 				 duration = ConnectionManager.getAnimeData("duration", data);
 				if(duration.equals("null")||duration.equals("0"))
@@ -65,7 +65,7 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 					duration += " min";
 			}
 			
-			if (!exclusionArray[3])
+			if (exclusionArray[3])
 			{
 				startDate = ConnectionManager.getAnimeData("start_date", data);
 				
@@ -88,7 +88,7 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 				}
 			}
 			
-			if(!exclusionArray[4])
+			if(exclusionArray[4])
 			{
 				finishDate = ConnectionManager.getAnimeData("end_date", data);
 				
@@ -118,7 +118,7 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 				type = ConnectionManager.getAnimeData("type", data);
 			}
 
-			if (AnimeIndex.appProp.getProperty("excludeImage").equalsIgnoreCase("false") && !exclusionArray[0])
+			if (AnimeIndex.appProp.getProperty("excludeImage").equalsIgnoreCase("false") && exclusionArray[0])
 			{
 				String imageLink = ConnectionManager.getAnimeData("image_url_lge", data);
 				imageLink = imageLink.replaceAll("\\\\/", "/");
