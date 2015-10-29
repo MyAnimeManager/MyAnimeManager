@@ -307,6 +307,14 @@ public class AddAnimeDialog extends JDialog
 							}
 							{
 								keepOpen = new JCheckBox("Non Chiudere");
+								keepOpen.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										if (keepOpen.isSelected())
+											AnimeIndex.appProp.setProperty("Stay_open_after_anime_add", "true");
+										else
+											AnimeIndex.appProp.setProperty("Stay_open_after_anime_add", "false");
+									}
+								});
 								keepOpen.setFont(new Font("Tahoma", Font.PLAIN, 11));
 								keepOpen.setToolTipText("Mantieni questa finestra aperta dopo ogni aggiunta");
 								GridBagConstraints gbc_keepOpen = new GridBagConstraints();
@@ -314,6 +322,8 @@ public class AddAnimeDialog extends JDialog
 								gbc_keepOpen.gridx = 5;
 								gbc_keepOpen.gridy = 0;
 								searchPanel1.add(keepOpen, gbc_keepOpen);
+								if (Boolean.parseBoolean(AnimeIndex.appProp.getProperty("Stay_open_after_anime_add")))
+									keepOpen.setSelected(true);
 							}
 							{
 								JScrollPane listPanel = new JScrollPane();

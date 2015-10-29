@@ -264,6 +264,35 @@ public class AnimeIndex extends JFrame
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
+				if (Boolean.parseBoolean(appProp.getProperty("Ask_for_donation")))
+				{
+					int sessionNumber = Integer.parseInt(appProp.getProperty("Session_Number"));
+					sessionNumber++;
+					if (sessionNumber == 1)
+					{
+						sessionNumber = 0;
+						String[] array = { "Si!", "Non ora...", "No, sono una brutta persona" };
+						int choiche = JOptionPane.showOptionDialog(AnimeIndex.mainFrame, "Ti piace il programma? Se vuoi puoi ringraziarci con una donazione!", "Avviso!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, array, "Si!");
+						if (choiche == 0)
+						{
+							String link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RFJLMVCQYZEQG";
+							try {
+								URI uriLink = new URI(link);
+								Desktop.getDesktop().browse(uriLink);
+							} catch (URISyntaxException a) {
+							} catch (IOException a) {
+						}
+						}
+						else if (choiche == 2)
+						{
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Ok, non te lo chiederemo più.");
+							appProp.setProperty("Ask_for_donation", "false");
+						}
+						
+					}
+					appProp.setProperty("Session_Number", Integer.toString(sessionNumber));
+				}
 			}
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -1931,58 +1960,63 @@ public class AnimeIndex extends JFrame
 			public void actionPerformed(ActionEvent arg0) {
 				if(!animeInformation.releaseDateField.getText().trim().isEmpty() && animeInformation.releaseDateField.getText().trim().length()==10 && animeInformation.releaseDateField.getText().trim().length()==10 && !animeInformation.finishDateField.getText().trim().isEmpty() && animeInformation.finishDateField.getText().trim().length()==10 && animeInformation.finishDateField.getText().trim().length()==10)
 				{
-					String type = (String) animeTypeComboBox.getSelectedItem();
-	
-					SortedListModel model = getModel();
-					SortedListModel secondModel = null;
-					SortedListModel thirdModel = null;
-					JList list = null;
-					if (searchBar.getText().isEmpty() && filtro == 9)
-						list = getJList();
-					else if (searchBar.getText().isEmpty() && filtro != 9)
-					{
-						list = filterList;
-						secondModel = filterModel;
-					}
-					else if(!searchBar.getText().isEmpty() && filtro != 9)
-					{
-						list = searchList;
-						secondModel = searchModel;
-						thirdModel = filterModel;
-					}
-					else
-					{
-						list = searchList;
-						secondModel = searchModel;
-					}
+					int choiche = JOptionPane.showConfirmDialog(AnimeIndex.frame, "Vuoi eliminare quest'anime?", "Conferma Eliminazione", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					
-					String listName = getList();
-					TreeMap<String,AnimeData> map = getMap();
-					ArrayList<String> arrayList = getDeletedAnimeArray();
-					int index = list.getSelectedIndex();
-					String name = (String) list.getSelectedValue();
-					model.removeElement(name);
-					if (secondModel != null)
-						secondModel.removeElement(name);
-					if (thirdModel != null)
-						thirdModel.removeElement(name);
-					index -= 1;
-					list.clearSelection();
-					list.setSelectedIndex(index);
-					
-					String image = map.get(name).getImagePath(listName);
-					arrayList.add(image);
-									
-					map.remove(name);
-					if(sessionAddedAnime.contains(name))
-						sessionAddedAnime.remove(name);
-					
-					if (!list.isSelectionEmpty())					
-						deleteButton.setEnabled(true);
-					else
+					if(choiche == JOptionPane.YES_OPTION)
 					{
-						deleteButton.setEnabled(false);
-						animeInformation.setBlank();
+						String type = (String) animeTypeComboBox.getSelectedItem();
+		
+						SortedListModel model = getModel();
+						SortedListModel secondModel = null;
+						SortedListModel thirdModel = null;
+						JList list = null;
+						if (searchBar.getText().isEmpty() && filtro == 9)
+							list = getJList();
+						else if (searchBar.getText().isEmpty() && filtro != 9)
+						{
+							list = filterList;
+							secondModel = filterModel;
+						}
+						else if(!searchBar.getText().isEmpty() && filtro != 9)
+						{
+							list = searchList;
+							secondModel = searchModel;
+							thirdModel = filterModel;
+						}
+						else
+						{
+							list = searchList;
+							secondModel = searchModel;
+						}
+						
+						String listName = getList();
+						TreeMap<String,AnimeData> map = getMap();
+						ArrayList<String> arrayList = getDeletedAnimeArray();
+						int index = list.getSelectedIndex();
+						String name = (String) list.getSelectedValue();
+						model.removeElement(name);
+						if (secondModel != null)
+							secondModel.removeElement(name);
+						if (thirdModel != null)
+							thirdModel.removeElement(name);
+						index -= 1;
+						list.clearSelection();
+						list.setSelectedIndex(index);
+						
+						String image = map.get(name).getImagePath(listName);
+						arrayList.add(image);
+										
+						map.remove(name);
+						if(sessionAddedAnime.contains(name))
+							sessionAddedAnime.remove(name);
+						
+						if (!list.isSelectionEmpty())					
+							deleteButton.setEnabled(true);
+						else
+						{
+							deleteButton.setEnabled(false);
+							animeInformation.setBlank();
+						}
 					}
 				}
 			}

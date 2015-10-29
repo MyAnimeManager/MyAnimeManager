@@ -89,6 +89,7 @@ public class PreferenceDialog extends JDialog
 				});
 				{
 					chckbxDailyRelease = new JCheckBox("Uscite del Giorno");
+					chckbxDailyRelease.setToolTipText("Visualizza le uscite del giorno applicando automaticamente il filtro alle liste");
 					chckbxDailyRelease.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							choosedList.setEnabled(false);

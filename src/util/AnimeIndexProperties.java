@@ -25,7 +25,9 @@ public class AnimeIndexProperties
 			defaultProps.setProperty("Date_Release", "none");
 			defaultProps.setProperty("Open_Wishlist", "false");
 			defaultProps.setProperty("Check_Data_Conflict", "active");
-
+			defaultProps.setProperty("Stay_open_after_anime_add", "false");
+			defaultProps.setProperty("Session_Number", "0");
+			defaultProps.setProperty("Ask_for_donation", "true");
 			in.close();
 		} 
 		catch (FileNotFoundException fe)
