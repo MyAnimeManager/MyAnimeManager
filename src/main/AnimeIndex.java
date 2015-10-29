@@ -269,7 +269,7 @@ public class AnimeIndex extends JFrame
 				{
 					int sessionNumber = Integer.parseInt(appProp.getProperty("Session_Number"));
 					sessionNumber++;
-					if (sessionNumber == 1)
+					if (sessionNumber == 30)
 					{
 						sessionNumber = 0;
 						String[] array = { "Si!", "Non ora...", "No, sono una brutta persona" };
