@@ -19,7 +19,7 @@ public class SuggestionWaitDialog extends JDialog
 
 	SuggestionFetcherTask task = new SuggestionFetcherTask();
 	private JProgressBar progressBar;
-	private JLabel lblRicezioneDati;
+	private JLabel lblDownloadInCorso;
 	/**
 	 * Create the dialog.
 	 */
@@ -41,9 +41,9 @@ public class SuggestionWaitDialog extends JDialog
 		setBounds(100, 100, 328, 85);
 		
 		getContentPane().setLayout(new MigLayout("", "[320.00px]", "[14px][14px]"));
-		lblRicezioneDati = new JLabel("Ricezione dati in corso...");
-		lblRicezioneDati.setHorizontalAlignment(SwingConstants.CENTER);
-		getContentPane().add(lblRicezioneDati, "cell 0 0,growx,aligny center");
+		lblDownloadInCorso = new JLabel("Ricezione dati in corso...");
+		lblDownloadInCorso.setHorizontalAlignment(SwingConstants.CENTER);
+		getContentPane().add(lblDownloadInCorso, "cell 0 0,growx,aligny center");
 		
 		progressBar = new JProgressBar(0,100);
 		progressBar.setIndeterminate(true);

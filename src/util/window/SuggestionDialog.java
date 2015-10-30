@@ -2,15 +2,10 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.Desktop;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URI;
@@ -25,6 +20,13 @@ import main.AnimeIndex;
 import util.SuggestionHelper;
 import util.SuggestionTaskPane;
 import util.task.SuggestionFetcherTask;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Component;
+import javax.swing.Box;
 
 
 public class SuggestionDialog extends JDialog {
@@ -100,60 +102,70 @@ public class SuggestionDialog extends JDialog {
 			});
 			buttonPane.add(btnClose);
 		}
+		
+		JPanel panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.NORTH);
+		panel.setLayout(new BorderLayout(0, 0));
 		{
 			JScrollPane scrollPane = new JScrollPane();
+			panel.add(scrollPane, BorderLayout.CENTER);
 			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
-			scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
-			getContentPane().add(scrollPane, BorderLayout.CENTER);
 			{
-				JPanel panel = new JPanel();
-				scrollPane.setViewportView(panel);
-				GridBagLayout gbl_panel = new GridBagLayout();
-				gbl_panel.columnWidths = new int[]{0, 0};
-				gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-				gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-				gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-				panel.setLayout(gbl_panel);
+				JPanel panel_1 = new JPanel();
+				scrollPane.setViewportView(panel_1);
+				GridBagLayout gbl_panel_1 = new GridBagLayout();
+				gbl_panel_1.columnWidths = new int[]{0, 0, 0};
+				gbl_panel_1.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+				gbl_panel_1.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+				gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+				panel_1.setLayout(gbl_panel_1);
 				
 					suggestionOne.addPropertyChangeListener(OpenCloseListener(1));
 					GridBagConstraints gbc_suggestionOne = new GridBagConstraints();
-					gbc_suggestionOne.insets = new Insets(0, 0, 5, 0);
+					gbc_suggestionOne.insets = new Insets(0, 0, 5, 5);
 					gbc_suggestionOne.fill = GridBagConstraints.HORIZONTAL;
 					gbc_suggestionOne.gridx = 0;
 					gbc_suggestionOne.gridy = 0;
-					panel.add(suggestionOne, gbc_suggestionOne);
+					panel_1.add(suggestionOne, gbc_suggestionOne);
 				
 					suggestionTwo.addPropertyChangeListener(OpenCloseListener(2));
 					GridBagConstraints gbc_suggestionTwo = new GridBagConstraints();
-					gbc_suggestionTwo.insets = new Insets(0, 0, 5, 0);
+					gbc_suggestionTwo.insets = new Insets(0, 0, 5, 5);
 					gbc_suggestionTwo.fill = GridBagConstraints.HORIZONTAL;
 					gbc_suggestionTwo.gridx = 0;
 					gbc_suggestionTwo.gridy = 1;
-					panel.add(suggestionTwo, gbc_suggestionTwo);
+					panel_1.add(suggestionTwo, gbc_suggestionTwo);
 				
 					suggestionThree.addPropertyChangeListener(OpenCloseListener(3));
+					
+					Component horizontalStrut = Box.createHorizontalStrut(0);
+					GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
+					gbc_horizontalStrut.insets = new Insets(0, 0, 5, 0);
+					gbc_horizontalStrut.gridx = 1;
+					gbc_horizontalStrut.gridy = 1;
+					panel_1.add(horizontalStrut, gbc_horizontalStrut);
 					GridBagConstraints gbc_suggestionThree = new GridBagConstraints();
-					gbc_suggestionThree.insets = new Insets(0, 0, 5, 0);
+					gbc_suggestionThree.insets = new Insets(0, 0, 5, 5);
 					gbc_suggestionThree.fill = GridBagConstraints.HORIZONTAL;
 					gbc_suggestionThree.gridx = 0;
 					gbc_suggestionThree.gridy = 2;
-					panel.add(suggestionThree, gbc_suggestionThree);
+					panel_1.add(suggestionThree, gbc_suggestionThree);
 				
 					suggestionFuor.addPropertyChangeListener(OpenCloseListener(4));
 					GridBagConstraints gbc_suggestionFuor = new GridBagConstraints();
-					gbc_suggestionFuor.insets = new Insets(0, 0, 5, 0);
+					gbc_suggestionFuor.insets = new Insets(0, 0, 5, 5);
 					gbc_suggestionFuor.fill = GridBagConstraints.HORIZONTAL;
 					gbc_suggestionFuor.gridx = 0;
 					gbc_suggestionFuor.gridy = 3;
-					panel.add(suggestionFuor, gbc_suggestionFuor);
+					panel_1.add(suggestionFuor, gbc_suggestionFuor);
 				
 					suggestionFive.addPropertyChangeListener(OpenCloseListener(5));
 					GridBagConstraints gbc_suggestionFive = new GridBagConstraints();
+					gbc_suggestionFive.insets = new Insets(0, 0, 0, 5);
 					gbc_suggestionFive.fill = GridBagConstraints.HORIZONTAL;
 					gbc_suggestionFive.gridx = 0;
 					gbc_suggestionFive.gridy = 4;
-					panel.add(suggestionFive, gbc_suggestionFive);
+					panel_1.add(suggestionFive, gbc_suggestionFive);
 				
 			}
 		}
