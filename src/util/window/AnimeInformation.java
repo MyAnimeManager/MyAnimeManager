@@ -513,7 +513,7 @@ public class AnimeInformation extends JPanel {
 		gbc_fansubComboBox.gridy = 5;
 		add(fansubComboBox, gbc_fansubComboBox);
 		fansubButton = new JButton("Apri");
-		fansubButton.setToolTipText("Apre il link rispettivo del fansub");
+		fansubButton.setToolTipText("Apri il sito web del fansub");
 		fansubButton.setEnabled(false);
 		fansubButton.addActionListener(new ActionListener() {
 			

@@ -269,11 +269,11 @@ public class AnimeIndex extends JFrame
 				{
 					int sessionNumber = Integer.parseInt(appProp.getProperty("Session_Number"));
 					sessionNumber++;
-					if (sessionNumber == 30)
+					if (sessionNumber >= 30)
 					{
 						sessionNumber = 0;
-						String[] array = { "Si!", "Non ora...", "No, sono una brutta persona" };
-						int choiche = JOptionPane.showOptionDialog(AnimeIndex.mainFrame, "Ti piace il programma? Se vuoi puoi ringraziarci con una donazione!", "Avviso!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, array, "Si!");
+						String[] array = { "Si!", "Non ora...", "Non ricordarmelo più" };
+						int choiche = JOptionPane.showOptionDialog(AnimeIndex.mainFrame, "Se ti piace  MY ANIME MANAGER  sosotienici con una libera donazione!", "Avviso!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, array, "Si!");
 						if (choiche == 0)
 						{
 							String link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RFJLMVCQYZEQG";
@@ -284,9 +284,11 @@ public class AnimeIndex extends JFrame
 							} catch (IOException a) {
 						}
 						}
+						else if (choiche == 1)
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menu \"Info > Aiuto > Crediti\"");
 						else if (choiche == 2)
 						{
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Ok, non te lo chiederemo più.");
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Ok, non te lo chiederemo più.\n\r\n\r\n\rMa ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menu \"Info > Aiuto > Crediti\"");
 							appProp.setProperty("Ask_for_donation", "false");
 						}
 						
