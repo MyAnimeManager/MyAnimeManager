@@ -1,13 +1,14 @@
 package util.window;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.net.URI;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -16,19 +17,31 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import main.AnimeIndex;
+import util.SuggestionHelper;
 import util.SuggestionTaskPane;
+import util.task.SuggestionFetcherTask;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class SuggestionDialog extends JDialog {
-	private SuggestionTaskPane suggestionOne = new SuggestionTaskPane();
-	private SuggestionTaskPane suggestionTwo = new SuggestionTaskPane();
-	private SuggestionTaskPane suggestionThree = new SuggestionTaskPane();
-	private SuggestionTaskPane suggestionFuor = new SuggestionTaskPane();
-	private SuggestionTaskPane suggestionFive = new SuggestionTaskPane();
-	private SuggestionTaskPane[] taskPaneArray = {suggestionOne, suggestionTwo, suggestionThree, suggestionFuor, suggestionFive};
+	private static SuggestionTaskPane suggestionOne = new SuggestionTaskPane();
+	private static SuggestionTaskPane suggestionTwo = new SuggestionTaskPane();
+	private static SuggestionTaskPane suggestionThree = new SuggestionTaskPane();
+	private static SuggestionTaskPane suggestionFuor = new SuggestionTaskPane();
+	private static SuggestionTaskPane suggestionFive = new SuggestionTaskPane();
+	private static SuggestionTaskPane[] taskPaneArray = {suggestionOne, suggestionTwo, suggestionThree, suggestionFuor, suggestionFive};
+	private static String linkOne;
+	private static String linkTwo;
+	private static String linkThree;
+	private static String linkFour;
+	private static String linkFive;
+	private static String[] linkArray = {linkOne, linkTwo, linkThree, linkFour, linkFive};
+	public static SuggestionWaitDialog waitDialog = new SuggestionWaitDialog();
+	public static boolean dataAlreadyFetched = false;
 	
 	/**
 	 * Create the dialog.
@@ -36,14 +49,21 @@ public class SuggestionDialog extends JDialog {
 	public SuggestionDialog()
 	{
 		super(AnimeIndex.frame, true);
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-				//TODO prendere dal sito i vari dati
+				if (!dataAlreadyFetched)
+				{
+				waitDialog.setLocationRelativeTo(SuggestionDialog.this);
+				waitDialog.setVisible(true);
+				SuggestionFetcherTask task = new SuggestionFetcherTask();
+				task.execute();
+				}
 			}
 		});
 		setTitle("Anime Consigliati");
-		setBounds(100, 100, 450, 225);
+		setBounds(100, 100, 470, 225);
 		getContentPane().setLayout(new BorderLayout());
 		{
 			JPanel buttonPane = new JPanel();
@@ -56,9 +76,28 @@ public class SuggestionDialog extends JDialog {
 			buttonPane.add(btnAdd);
 			
 			JButton btnOpen = new JButton("Apri");
+			btnOpen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					int taskPaneNumber = getSelectedTaskPane();
+					try
+					{
+						URI uriLink = new URI(linkArray[taskPaneNumber]);
+						Desktop.getDesktop().browse(uriLink);
+					}
+					catch (Exception ex)
+					{
+						
+					}
+				}
+			});
 			buttonPane.add(btnOpen);
 			
-			JButton btnClose = new JButton("Chiudi\r\n");
+			JButton btnClose = new JButton("Chiudi");
+			btnClose.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					SuggestionDialog.this.dispose();
+				}
+			});
 			buttonPane.add(btnClose);
 		}
 		{
@@ -138,6 +177,34 @@ public class SuggestionDialog extends JDialog {
 			}
 		};
 		return propListener;
+	}
+	
+	public static void storeSuggestion(int suggestionNumber)
+	{
+		try
+		{
+			String name = SuggestionHelper.getSuggestion(suggestionNumber + 1);
+			String description = SuggestionHelper.getDescription(suggestionNumber + 1);
+			String link = SuggestionHelper.getLink(suggestionNumber + 1);
+			
+			taskPaneArray[suggestionNumber].setTitle(name);
+			taskPaneArray[suggestionNumber].setText(description);
+			linkArray[suggestionNumber] = link;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	private int getSelectedTaskPane()
+	{
+		for (int i = 0; i < taskPaneArray.length; i++)
+		{
+			if (!taskPaneArray[i].isCollapsed())
+				return i;
+		}
+		return -1;
 	}
 	
 }
