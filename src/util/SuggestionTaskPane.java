@@ -11,13 +11,11 @@ import org.jdesktop.swingx.JXTaskPane;
 
 
 public class SuggestionTaskPane extends JXTaskPane {
+	private JTextArea textArea;
 	
-	/**
-	 * Create the panel.
-	 */
-	public SuggestionTaskPane(String name,String text)
+	public SuggestionTaskPane()
 	{	
-		super(name);
+		super();
 		this.setCollapsed(true);
 		GridBagConstraints gbc_taskPane = new GridBagConstraints();
 		gbc_taskPane.fill = GridBagConstraints.HORIZONTAL;
@@ -29,12 +27,17 @@ public class SuggestionTaskPane extends JXTaskPane {
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
-		JTextArea textArea = new JTextArea(text);
+		textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		this.getContentPane().add(textArea, BorderLayout.CENTER);
 	
+	}
+	
+	public void setText(String text)
+	{
+		textArea.setText(text);	
 	}
 	
 }
