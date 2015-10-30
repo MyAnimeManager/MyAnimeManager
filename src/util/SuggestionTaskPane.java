@@ -9,6 +9,8 @@ import javax.swing.ScrollPaneConstants;
 
 import org.jdesktop.swingx.JXTaskPane;
 
+import main.AnimeIndex;
+
 
 public class SuggestionTaskPane extends JXTaskPane {
 	private JTextArea textArea;
@@ -17,6 +19,7 @@ public class SuggestionTaskPane extends JXTaskPane {
 	{	
 		super();
 		this.setCollapsed(true);
+		this.setFont(AnimeIndex.segui.deriveFont(11f));
 		GridBagConstraints gbc_taskPane = new GridBagConstraints();
 		gbc_taskPane.fill = GridBagConstraints.HORIZONTAL;
 		gbc_taskPane.gridx = 0;
