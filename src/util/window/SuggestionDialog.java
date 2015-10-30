@@ -65,7 +65,7 @@ public class SuggestionDialog extends JDialog {
 			}
 		});
 		setTitle("Anime Consigliati");
-		setBounds(100, 100, 470, 225);
+		setBounds(100, 100, 470, 210);
 		getContentPane().setLayout(new BorderLayout());
 		{
 			JPanel buttonPane = new JPanel();
