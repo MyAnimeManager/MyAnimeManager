@@ -2,30 +2,27 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import org.jdesktop.swingx.JXCollapsiblePane;
-import org.jdesktop.swingx.ScrollableSizeHint;
+import util.SingleSuggestionPanel;
 
 
 public class SuggestionDialogV2 extends JDialog {
-	private JXCollapsiblePane collapsiblePane;
 	
 	/**
 	 * Create the dialog.
 	 */
 	public SuggestionDialogV2()
 	{
-		setBounds(100, 100, 450, 222);
+		setBounds(100, 100, 450, 292);
 		getContentPane().setLayout(new BorderLayout());
 		{
 			JPanel buttonPane = new JPanel();
@@ -50,33 +47,28 @@ public class SuggestionDialogV2 extends JDialog {
 			{
 				JPanel panel = new JPanel();
 				scrollPane.setViewportView(panel);
-				panel.setLayout(new GridLayout(5, 0, 0, 0));
+				GridBagLayout gbl_panel = new GridBagLayout();
+				gbl_panel.columnWidths = new int[]{0, 0};
+				gbl_panel.rowHeights = new int[]{0, 0, 0};
+				gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+				gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+				panel.setLayout(gbl_panel);
 				{
-					JLabel lblNewLabel = new JLabel("New label");
-					lblNewLabel.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							if (!collapsiblePane.isCollapsed())
-								collapsiblePane.setCollapsed(true);
-							else
-								collapsiblePane.setCollapsed(false);
-						}
-					});
-					panel.add(lblNewLabel);
+					SingleSuggestionPanel singleSuggestionPanel = new SingleSuggestionPanel("Anime 1");
+					GridBagConstraints gbc_singleSuggestionPanel = new GridBagConstraints();
+					gbc_singleSuggestionPanel.insets = new Insets(0, 0, 5, 0);
+					gbc_singleSuggestionPanel.fill = GridBagConstraints.HORIZONTAL;
+					gbc_singleSuggestionPanel.gridx = 0;
+					gbc_singleSuggestionPanel.gridy = 0;
+					panel.add(singleSuggestionPanel, gbc_singleSuggestionPanel);
 				}
 				{
-					collapsiblePane = new JXCollapsiblePane();
-					collapsiblePane.setScrollableHeightHint(ScrollableSizeHint.MINIMUM_STRETCH);
-					collapsiblePane.setCollapsed(true);
-					panel.add(collapsiblePane);
-					{
-						JLabel lblAnime = new JLabel("Anime1");
-						collapsiblePane.add(lblAnime, BorderLayout.NORTH);
-					}
-					{
-						JLabel lblProva = new JLabel("Prova");
-						collapsiblePane.add(lblProva, BorderLayout.SOUTH);
-					}
+					SingleSuggestionPanel singleSuggestionPanel = new SingleSuggestionPanel("Anime 2");
+					GridBagConstraints gbc_singleSuggestionPanel = new GridBagConstraints();
+					gbc_singleSuggestionPanel.fill = GridBagConstraints.HORIZONTAL;
+					gbc_singleSuggestionPanel.gridx = 0;
+					gbc_singleSuggestionPanel.gridy = 1;
+					panel.add(singleSuggestionPanel, gbc_singleSuggestionPanel);
 				}
 			}
 		}
