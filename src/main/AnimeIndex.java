@@ -282,7 +282,7 @@ public class AnimeIndex extends JFrame
 								Desktop.getDesktop().browse(uriLink);
 							} catch (URISyntaxException a) {
 							} catch (IOException a) {
-						}
+							}
 						}
 						else if (choiche == 1)
 							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menu \"Info > Aiuto > Crediti\"");
