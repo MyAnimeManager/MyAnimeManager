@@ -86,7 +86,7 @@ import util.window.CreditDialog;
 import util.window.ExitSaveDialog;
 import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
-import util.window.SuggestionDialogV2;
+import util.window.SuggestionDialogV1;
 import util.window.UpdateDialog;
 import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
@@ -2039,7 +2039,7 @@ public class AnimeIndex extends JFrame
 //					animeDialog.setLocationRelativeTo(mainFrame);
 //					animeDialog.setVisible(true);
 					//TODO Prova a vedere quale dei due sta meglio secondo te tra V1 e V2. nel V2 clicca il label(non scompare del tutto perrchè ne ha solo uno, ma poi lo metto bene a posto.
-					SuggestionDialogV2 dial = new SuggestionDialogV2();
+					SuggestionDialogV1 dial = new SuggestionDialogV1();
 					dial.setLocationRelativeTo(mainFrame);
 					dial.setVisible(true);
 				}
