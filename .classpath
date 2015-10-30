@@ -15,5 +15,11 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/MyAnimeManager/lib/commons-io-2.4-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/swingx-all-1.6.4.jar" sourcepath="lib/swingx-all-1.6.4-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/MyAnimeManager/lib/swingx-all-1.6.4-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/substance-swingx.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
