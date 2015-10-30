@@ -27,12 +27,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.AbstractDocument;
 
+import main.AnimeIndex;
+import util.PatternFilter;
+
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
-
-import main.AnimeIndex;
-import util.PatternFilter;
 public class AddFansubDialog extends JDialog
 {
 

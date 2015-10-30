@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
+
 import main.AnimeIndex;
 import util.window.WishlistDialog;
 

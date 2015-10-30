@@ -15,9 +15,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
+import main.AnimeIndex;
 import util.window.PreferenceDialog;
 import util.window.SetExclusionDialog;
-import main.AnimeIndex;
 
 public class UtilEvent
 {

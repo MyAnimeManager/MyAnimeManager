@@ -24,11 +24,11 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import main.AnimeIndex;
 import util.AnimeIndexProperties;
 import util.ColorProperties;
 import util.ExternalProgram;
 import util.FileManager;
-import main.AnimeIndex;
 
 
 public class ColorDialog extends JDialog
