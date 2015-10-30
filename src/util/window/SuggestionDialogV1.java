@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import org.jdesktop.swingx.JXTaskPane;
+import javax.swing.JLabel;
 
 
 public class SuggestionDialogV1 extends JDialog {
@@ -50,6 +51,10 @@ public class SuggestionDialogV1 extends JDialog {
 					JXTaskPane taskPane = new JXTaskPane();
 					taskPane.setTitle("Anime 1");
 					panel.add(taskPane);
+					{
+						JLabel lblPaasdaadasdas = new JLabel("Paasdaadasdas");
+						taskPane.add(lblPaasdaadasdas, BorderLayout.SOUTH);
+					}
 				}
 				{
 					JXTaskPane taskPane = new JXTaskPane();
