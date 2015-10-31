@@ -37,7 +37,7 @@ public class SuggestionWaitDialog extends JDialog
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setModal(true);
 		setResizable(false);
-		setTitle("Scarico dati...");
+		setTitle("Scaricamento dati...");
 		setBounds(100, 100, 328, 85);
 		
 		getContentPane().setLayout(new MigLayout("", "[320.00px]", "[14px][14px]"));

@@ -680,6 +680,19 @@ public class AnimeIndex extends JFrame
 		JSeparator separator_2 = new JSeparator();
 		mnVisualizza.add(separator_2);
 		
+		JMenuItem mntmAnimeConsigliati = new JMenuItem("Anime Consigliati");
+		mntmAnimeConsigliati.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SuggestionDialog dial = new SuggestionDialog();
+				dial.setLocationRelativeTo(mainFrame);
+				dial.setVisible(true);
+			}
+		});
+		mnVisualizza.add(mntmAnimeConsigliati);
+		
+		JSeparator separator_7 = new JSeparator();
+		mnVisualizza.add(separator_7);
+		
 		JMenuItem mntmWishlist = new JMenuItem("WishList");
 		mntmWishlist.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/wishlist_256.png")));
 		mnVisualizza.add(mntmWishlist);
@@ -2035,12 +2048,9 @@ public class AnimeIndex extends JFrame
 			public void actionPerformed(ActionEvent arg0) {	
 				if(!animeInformation.releaseDateField.getText().trim().isEmpty() && animeInformation.releaseDateField.getText().trim().length()==10 && animeInformation.releaseDateField.getText().trim().length()==10 && !animeInformation.finishDateField.getText().trim().isEmpty() && animeInformation.finishDateField.getText().trim().length()==10 && animeInformation.finishDateField.getText().trim().length()==10)
 				{
-//					animeDialog = new AddAnimeDialog();
-//					animeDialog.setLocationRelativeTo(mainFrame);
-//					animeDialog.setVisible(true);
-					SuggestionDialog dial = new SuggestionDialog();
-					dial.setLocationRelativeTo(mainFrame);
-					dial.setVisible(true);
+					animeDialog = new AddAnimeDialog();
+					animeDialog.setLocationRelativeTo(mainFrame);
+					animeDialog.setVisible(true);
 				}
 			}
 		});

@@ -2,6 +2,7 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -26,6 +27,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Component;
+
 import javax.swing.Box;
 
 
@@ -41,6 +43,7 @@ public class SuggestionDialog extends JDialog {
 	private static String linkThree;
 	private static String linkFour;
 	private static String linkFive;
+	private JButton btnClose;
 	private static String[] linkArray = {linkOne, linkTwo, linkThree, linkFour, linkFive};
 	public static SuggestionWaitDialog waitDialog = new SuggestionWaitDialog();
 	public static boolean dataAlreadyFetched = false;
@@ -55,6 +58,7 @@ public class SuggestionDialog extends JDialog {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
+				btnClose.requestFocusInWindow();
 				if (!dataAlreadyFetched)
 				{
 				waitDialog.setLocationRelativeTo(SuggestionDialog.this);
@@ -94,7 +98,7 @@ public class SuggestionDialog extends JDialog {
 			});
 			buttonPane.add(btnOpen);
 			
-			JButton btnClose = new JButton("Chiudi");
+			btnClose = new JButton("Chiudi");
 			btnClose.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					SuggestionDialog.this.dispose();
@@ -109,6 +113,8 @@ public class SuggestionDialog extends JDialog {
 		{
 			JScrollPane scrollPane = new JScrollPane();
 			panel.add(scrollPane, BorderLayout.CENTER);
+			scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+			scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			{
 				JPanel panel_1 = new JPanel();
