@@ -11,6 +11,8 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 
 import net.miginfocom.swing.MigLayout;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class WaitDialog extends JDialog
 {
@@ -44,6 +46,13 @@ public class WaitDialog extends JDialog
 		progressBar = new JProgressBar();
 		progressBar.setIndeterminate(true);
 		getContentPane().add(progressBar, "cell 0 1,growx,aligny center");		
+		
+		task.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				if (evt.getNewValue().equals("DONE"))
+					WaitDialog.this.dispose();
+			}
+		});
 		
 }	
 }
