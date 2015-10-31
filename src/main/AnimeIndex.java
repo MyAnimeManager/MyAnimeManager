@@ -681,6 +681,7 @@ public class AnimeIndex extends JFrame
 		mnVisualizza.add(separator_2);
 		
 		JMenuItem mntmAnimeConsigliati = new JMenuItem("Anime Consigliati");
+		mntmAnimeConsigliati.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/suggested-anime.png")));
 		mntmAnimeConsigliati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SuggestionDialog dial = new SuggestionDialog();
