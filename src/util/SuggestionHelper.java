@@ -11,28 +11,31 @@ public class SuggestionHelper {
 	
 	private final static String SUGGESTION_URL = "http://myanimemanagerupdate.webstarts.com/suggestion.html";
 	
-	public static String getSuggestion(int suggestionNumber) throws Exception
+	public static String getSuggestion(int suggestionNumber, String data) throws Exception
     {
-        String data = getData();
         String suggestion = data.substring(data.indexOf("[suggestion_" + suggestionNumber + "]")+14,data.indexOf("[/suggestion_" + suggestionNumber + "]"));
         return suggestion;
     }
 	
-	public static String getDescription(int suggestionNumber) throws Exception
+	public static String getDescription(int suggestionNumber, String data) throws Exception
     {
-        String data = getData();
         String description = data.substring(data.indexOf("[description_" + suggestionNumber + "]")+15,data.indexOf("[/description_" + suggestionNumber + "]"));
         return description;
     }
 	
-	public static String getLink(int suggestionNumber) throws Exception
+	public static String getLink(int suggestionNumber, String data) throws Exception
     {
-        String data = getData();
         String link = data.substring(data.indexOf("[link_" + suggestionNumber + "]")+8,data.indexOf("[/link_" + suggestionNumber + "]"));
         return link;
     }
 	
-	private static String getData()
+	public static String getId(int suggestionNumber, String data) throws Exception
+    {
+        String id = data.substring(data.indexOf("[id_" + suggestionNumber + "]")+6,data.indexOf("[/id_" + suggestionNumber + "]"));
+        return id;
+    }
+	
+	public static String getData()
 	{
 		URL url; // The URL to read
 		HttpURLConnection conn = null; // The actual connection to the web page

@@ -45,6 +45,7 @@ public class SuggestionDialog extends JDialog {
 	private static String linkFive;
 	private JButton btnClose;
 	private static String[] linkArray = {linkOne, linkTwo, linkThree, linkFour, linkFive};
+	private static String[] idArray = new String[5];
 	public static SuggestionWaitDialog waitDialog = new SuggestionWaitDialog();
 	public static boolean dataAlreadyFetched = false;
 	
@@ -79,6 +80,12 @@ public class SuggestionDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			
 			JButton btnAdd = new JButton("Aggiungi");
+			btnAdd.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					int taskPaneNumber = getSelectedTaskPane();
+					//TODO Aggiunta anime ad una lista
+				}
+			});
 			buttonPane.add(btnAdd);
 			
 			JButton btnOpen = new JButton("Apri");
@@ -197,17 +204,19 @@ public class SuggestionDialog extends JDialog {
 		return propListener;
 	}
 	
-	public static void storeSuggestion(int suggestionNumber)
+	public static void storeSuggestion(int suggestionNumber, String data)
 	{
 		try
 		{
-			String name = SuggestionHelper.getSuggestion(suggestionNumber + 1);
-			String description = SuggestionHelper.getDescription(suggestionNumber + 1);
-			String link = SuggestionHelper.getLink(suggestionNumber + 1);
+			String name = SuggestionHelper.getSuggestion(suggestionNumber + 1, data);
+			String description = SuggestionHelper.getDescription(suggestionNumber + 1, data);
+			String link = SuggestionHelper.getLink(suggestionNumber + 1, data);
+			String id = SuggestionHelper.getId(suggestionNumber + 1, data);
 			
 			taskPaneArray[suggestionNumber].setTitle(name);
 			taskPaneArray[suggestionNumber].setText(description);
 			linkArray[suggestionNumber] = link;
+			idArray[suggestionNumber]= id;
 		}
 		catch (Exception e)
 		{
