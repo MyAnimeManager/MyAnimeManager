@@ -884,21 +884,11 @@ public class AnimeIndex extends JFrame
 		
 		JSeparator separator_1 = new JSeparator();
 		mnInfo.add(separator_1);
-		
-		JMenu mnHelp = new JMenu("Aiuto");
 		if (AnimeIndex.colorProp.getProperty("Menu_color") != null && !AnimeIndex.colorProp.getProperty("Menu_color").equalsIgnoreCase("null"))
-			mnHelp.setBackground(new Color(Integer.parseInt(colorProp.getProperty("Menu_color"))));
-		
-		mnHelp.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/icon2.png")));
-		mnInfo.add(mnHelp);
-		
-		JMenuItem mntmCredit = new JMenuItem("Crediti");
-		mnHelp.add(mntmCredit);
-		
-		JSeparator separator_17 = new JSeparator();
-		mnHelp.add(separator_17);
+			mnInfo.setBackground(new Color(Integer.parseInt(colorProp.getProperty("Menu_color"))));
 		
 		JMenuItem mntmProposte = new JMenuItem("Segnalazioni");
+		mnInfo.add(mntmProposte);
 		mntmProposte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Per segnalare un bug o proporre nuove funzionalità è disponibile  l' \"Issue Tracker\".\nCreate una nuova discussione con il tasto \"New Issue\" e appena possibile riceverete una risposta.\n\nAprire l’Issue Tracker?", "Bug, Richieste e Suggerimenti", JOptionPane.YES_NO_OPTION);
@@ -914,7 +904,30 @@ public class AnimeIndex extends JFrame
 				}
 			}
 		});
-		mnHelp.add(mntmProposte);
+		
+		JSeparator separator_18 = new JSeparator();
+		mnInfo.add(separator_18);
+		
+		JMenuItem mntmGuidaOnline = new JMenuItem("Wiki");
+		mntmGuidaOnline.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String link = "https://github.com/MyAnimeManager/MyAnimeManager/wiki#benvenuto-nella-wiki-di-myanimemanager";
+				try {
+					URI uriLink = new URI(link);
+					Desktop.getDesktop().browse(uriLink);
+				} catch (URISyntaxException a) {
+				} catch (IOException a) {
+			}
+			}
+		});
+		mnInfo.add(mntmGuidaOnline);
+		
+		JSeparator separator_17 = new JSeparator();
+		mnInfo.add(separator_17);
+		
+		JMenuItem mntmCredit = new JMenuItem("Crediti");
+		mntmCredit.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/icon2.png")));
+		mnInfo.add(mntmCredit);
 		mntmCredit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CreditDialog credit = new CreditDialog();
