@@ -39,17 +39,16 @@ import util.task.SuggestionFetcherTask;
 
 
 public class SuggestionDialog extends JDialog {
-	private static SuggestionTaskPane suggestionOne = new SuggestionTaskPane();
-	private static SuggestionTaskPane suggestionTwo = new SuggestionTaskPane();
-	private static SuggestionTaskPane suggestionThree = new SuggestionTaskPane();
-	private static SuggestionTaskPane suggestionFuor = new SuggestionTaskPane();
-	private static SuggestionTaskPane suggestionFive = new SuggestionTaskPane();
-	private static SuggestionTaskPane[] taskPaneArray = {suggestionOne, suggestionTwo, suggestionThree, suggestionFuor, suggestionFive};
+	private SuggestionTaskPane suggestionOne = new SuggestionTaskPane();
+	private SuggestionTaskPane suggestionTwo = new SuggestionTaskPane();
+	private SuggestionTaskPane suggestionThree = new SuggestionTaskPane();
+	private SuggestionTaskPane suggestionFuor = new SuggestionTaskPane();
+	private SuggestionTaskPane suggestionFive = new SuggestionTaskPane();
+	private SuggestionTaskPane[] taskPaneArray = {suggestionOne, suggestionTwo, suggestionThree, suggestionFuor, suggestionFive};
 	private JButton btnClose;
 	private static String[] linkArray = new String[5];
 	private static String[] idArray = new String[5];
-	public static SuggestionWaitDialog waitDialog = new SuggestionWaitDialog();
-	public static boolean dataAlreadyFetched = false;
+	public SuggestionWaitDialog waitDialog = new SuggestionWaitDialog();
 	
 	/**
 	 * Create the dialog.
@@ -62,13 +61,10 @@ public class SuggestionDialog extends JDialog {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				btnClose.requestFocusInWindow();
-				if (!dataAlreadyFetched)
-				{
 				waitDialog.setLocationRelativeTo(SuggestionDialog.this);
 				waitDialog.setVisible(true);
 				SuggestionFetcherTask task = new SuggestionFetcherTask();
 				task.execute();
-				}
 			}
 		});
 		setTitle("Anime Consigliati");
@@ -210,7 +206,7 @@ public class SuggestionDialog extends JDialog {
 		return propListener;
 	}
 	
-	public static void storeSuggestion(int suggestionNumber, String data)
+	public void storeSuggestion(int suggestionNumber, String data)
 	{
 		try
 		{

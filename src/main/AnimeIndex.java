@@ -147,6 +147,7 @@ public class AnimeIndex extends JFrame
 	
 	private static ArrayList<String> selectionList = new ArrayList();
 	
+	public static SuggestionDialog suggestionDial;
 	private JButton addButton;
 	public static JButton deleteButton;
 	public static JComboBox animeTypeComboBox;
@@ -684,9 +685,9 @@ public class AnimeIndex extends JFrame
 		mntmAnimeConsigliati.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/suggested-anime.png")));
 		mntmAnimeConsigliati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SuggestionDialog dial = new SuggestionDialog();
-				dial.setLocationRelativeTo(mainFrame);
-				dial.setVisible(true);
+				suggestionDial = new SuggestionDialog();
+				suggestionDial.setLocationRelativeTo(mainFrame);
+				suggestionDial.setVisible(true);
 			}
 		});
 		mnVisualizza.add(mntmAnimeConsigliati);
