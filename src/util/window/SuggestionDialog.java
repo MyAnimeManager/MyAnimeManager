@@ -1,18 +1,25 @@
 package util.window;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URI;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -20,15 +27,8 @@ import javax.swing.ScrollPaneConstants;
 import main.AnimeIndex;
 import util.SuggestionHelper;
 import util.SuggestionTaskPane;
+import util.task.SuggestionAddTask;
 import util.task.SuggestionFetcherTask;
-
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Component;
-
-import javax.swing.Box;
 
 
 public class SuggestionDialog extends JDialog {
@@ -38,13 +38,8 @@ public class SuggestionDialog extends JDialog {
 	private static SuggestionTaskPane suggestionFuor = new SuggestionTaskPane();
 	private static SuggestionTaskPane suggestionFive = new SuggestionTaskPane();
 	private static SuggestionTaskPane[] taskPaneArray = {suggestionOne, suggestionTwo, suggestionThree, suggestionFuor, suggestionFive};
-	private static String linkOne;
-	private static String linkTwo;
-	private static String linkThree;
-	private static String linkFour;
-	private static String linkFive;
 	private JButton btnClose;
-	private static String[] linkArray = {linkOne, linkTwo, linkThree, linkFour, linkFive};
+	private static String[] linkArray = new String[5];
 	private static String[] idArray = new String[5];
 	public static SuggestionWaitDialog waitDialog = new SuggestionWaitDialog();
 	public static boolean dataAlreadyFetched = false;
@@ -83,7 +78,11 @@ public class SuggestionDialog extends JDialog {
 			btnAdd.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int taskPaneNumber = getSelectedTaskPane();
-					//TODO Aggiunta anime ad una lista
+					String id = idArray[taskPaneNumber];
+					String[] listArray = {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere"};
+					String list = (String) JOptionPane.showInputDialog(SuggestionDialog.this, "A quale lista vuoi aggiungerlo", "Aggiungi a...", JOptionPane.QUESTION_MESSAGE, null, listArray, listArray[0]);
+					SuggestionAddTask task = new SuggestionAddTask(list, id);
+					WaitDialog dial = new WaitDialog("Scaricando dati...", "Ricevendo dati...", task, SuggestionDialog.this);
 				}
 			});
 			buttonPane.add(btnAdd);

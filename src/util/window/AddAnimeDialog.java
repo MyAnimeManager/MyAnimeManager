@@ -1783,7 +1783,7 @@ public class AddAnimeDialog extends JDialog
 		return map;	
 	}
 		
-	private static JList getJList(String listName)
+	public static JList getJList(String listName)
 	{
 		JList list= null;
 			if (listName.equalsIgnoreCase("anime completati"))
@@ -1810,7 +1810,7 @@ public class AddAnimeDialog extends JDialog
 		return list;
 	}
 	
-	private static TreeMap getMap(String listName)
+	public static TreeMap getMap(String listName)
 	{
 		TreeMap map= null;
 		if (listName.equalsIgnoreCase("anime completati"))
@@ -1836,7 +1836,7 @@ public class AddAnimeDialog extends JDialog
 		return map;
 	}
 	
-	private static SortedListModel getModel(String listName)
+	public static SortedListModel getModel(String listName)
 	{
 		SortedListModel model= null;
 			if (listName.equalsIgnoreCase("anime completati"))
@@ -1960,7 +1960,7 @@ public class AddAnimeDialog extends JDialog
 		
 	}
 	
-	private static String addSaveImage(String name, String dataAni, String list)
+	public static String addSaveImage(String name, String dataAni, String list)
 	{
 		String folder = "";
 		if (list.equalsIgnoreCase("anime completati"))
