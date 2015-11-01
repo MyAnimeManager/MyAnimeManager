@@ -2863,8 +2863,6 @@ public class AnimeIndex extends JFrame
 				lastSelection = (String) getJList().getSelectedValue();
 			}
 		}
-
-		System.out.println(lastSelection);
 	}
 	
 	private void autoDataCheck()
