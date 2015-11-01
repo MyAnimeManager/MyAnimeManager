@@ -397,6 +397,8 @@ public class AnimeInformation extends JPanel {
 					totalEpisodeText.setText(AnimeIndex.totalEpNumber);
 				if (totalEpisodeText.getText().equals(currentEpisodeField.getText()))
 					finishedButton.setEnabled(true);
+				if (Integer.parseInt(totalEpisodeText.getText()) > Integer.parseInt(currentEpisodeField.getText()) && !plusButton.isEnabled())
+					plusButton.setEnabled(true);
 				AnimeIndex.setAnimeInformationFields();
 			}
 		});

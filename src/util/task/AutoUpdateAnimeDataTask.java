@@ -67,26 +67,30 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 					startDate = dayStart + "/" + monthStart + "/" + yearStart;
 				}
 				
-				String finishDate = ConnectionManager.getAnimeData("end_date", data);
-				if (finishDate.equals("null"))
-					finishDate = "??/??/????";
-				else if(finishDate.length()==4)
-					finishDate = "??/??/" + finishDate;
-				else if(finishDate.length()==7)
-				{
-					String monthEnd = finishDate.substring(5, 7);
-					String yearEnd = finishDate.substring(0, 4);
-					finishDate = "??/" + monthEnd + "/" + yearEnd;
-				}
-				else if (finishDate.length() > 7)
-				{
-					String dayEnd = finishDate.substring(8, 10);
-					String monthEnd= finishDate.substring(5, 7);
-					String yearEnd = finishDate.substring(0, 4);
-					finishDate = dayEnd + "/" + monthEnd + "/" + yearEnd;
-				}
+				String finishDate;
 				if (totalEp.equals("1"))
 					finishDate = startDate;
+				else
+				{
+					finishDate = ConnectionManager.getAnimeData("end_date", data);
+					if (finishDate.equals("null"))
+						finishDate = "??/??/????";
+					else if(finishDate.length()==4)
+						finishDate = "??/??/" + finishDate;
+					else if(finishDate.length()==7)
+					{
+						String monthEnd = finishDate.substring(5, 7);
+						String yearEnd = finishDate.substring(0, 4);
+						finishDate = "??/" + monthEnd + "/" + yearEnd;
+					}
+					else if (finishDate.length() > 7)
+					{
+						String dayEnd = finishDate.substring(8, 10);
+						String monthEnd= finishDate.substring(5, 7);
+						String yearEnd = finishDate.substring(0, 4);
+						finishDate = dayEnd + "/" + monthEnd + "/" + yearEnd;
+					}
+				}
 				
 				String type = (String)AnimeIndex.animeInformation.typeComboBox.getSelectedItem();
 				if(!type.equals("Blu-ray"))
@@ -180,25 +184,6 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 				
 				if(exclusionArray[4]==false)
 				{
-					finishDate = ConnectionManager.getAnimeData("end_date", data);
-					
-					if (finishDate.equals("null"))
-						finishDate = "??/??/????";
-					else if(finishDate.length()==4)
-						finishDate = "??/??/" + finishDate;
-					else if(finishDate.length()==7)
-					{
-						String monthEnd = finishDate.substring(5, 7);
-						String yearEnd = finishDate.substring(0, 4);
-						finishDate = "??/" + monthEnd + "/" + yearEnd;
-					}
-					else if (finishDate.length() > 7)
-					{
-						String dayEnd = finishDate.substring(8, 10);
-						String monthEnd= finishDate.substring(5, 7);
-						String yearEnd = finishDate.substring(0, 4);
-						finishDate = dayEnd + "/" + monthEnd + "/" + yearEnd;
-					}
 					if (totalEp.equals("1"))
 					{
 						if (exclusionArray[3]==false)
@@ -225,6 +210,28 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 								startDate = dayStart + "/" + monthStart + "/" + yearStart;
 							}
 							finishDate = startDate;
+						}
+					}
+					else
+					{
+						finishDate = ConnectionManager.getAnimeData("end_date", data);
+						
+						if (finishDate.equals("null"))
+							finishDate = "??/??/????";
+						else if(finishDate.length()==4)
+							finishDate = "??/??/" + finishDate;
+						else if(finishDate.length()==7)
+						{
+							String monthEnd = finishDate.substring(5, 7);
+							String yearEnd = finishDate.substring(0, 4);
+							finishDate = "??/" + monthEnd + "/" + yearEnd;
+						}
+						else if (finishDate.length() > 7)
+						{
+							String dayEnd = finishDate.substring(8, 10);
+							String monthEnd= finishDate.substring(5, 7);
+							String yearEnd = finishDate.substring(0, 4);
+							finishDate = dayEnd + "/" + monthEnd + "/" + yearEnd;
 						}
 					}
 				}	
