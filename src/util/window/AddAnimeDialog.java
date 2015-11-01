@@ -1872,11 +1872,11 @@ public class AddAnimeDialog extends JDialog
 		boolean contains = false;
 		if(checkCompletedList==false && checkAiringList==false && checkOAVList==false && checkFilmList==false && checkToSeeList==false)
 		{
-			if(!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !AnimeIndex.ovaMap.containsKey(name) && !AnimeIndex.filmMap.containsKey(name) && !AnimeIndex.completedToSeeMap.containsKey(name))
-				AnimeIndex.sessionAddedAnime.add(name);
-			
 			map.put(name, data);
 			model.addElement(name);
+			if(!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !AnimeIndex.ovaMap.containsKey(name) && !AnimeIndex.filmMap.containsKey(name) && !AnimeIndex.completedToSeeMap.containsKey(name))
+				AnimeIndex.sessionAddedAnime.add(map.get(name).getImagePath(listName));
+			
 			AnimeIndex.shouldUpdate = false;
 			AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 			list.clearSelection();
@@ -1936,11 +1936,11 @@ public class AddAnimeDialog extends JDialog
 			
 			if(ok==true)
 			{	
-				if(!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !AnimeIndex.ovaMap.containsKey(name) && !AnimeIndex.filmMap.containsKey(name) && !AnimeIndex.completedToSeeMap.containsKey(name))
-					AnimeIndex.sessionAddedAnime.add(name);
-					
 				map.put(name, data);
 				model.addElement(name);
+				if(!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !AnimeIndex.ovaMap.containsKey(name) && !AnimeIndex.filmMap.containsKey(name) && !AnimeIndex.completedToSeeMap.containsKey(name))
+					AnimeIndex.sessionAddedAnime.add(map.get(name).getImagePath(listName));
+					
 				AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 				list.clearSelection();
 				list.setSelectedValue(name, true);	
