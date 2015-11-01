@@ -55,6 +55,7 @@ import util.Filters;
 import util.PatternFilter;
 import util.SearchBar;
 import util.SortedListModel;
+import java.awt.Toolkit;
 
 public class AddAnimeDialog extends JDialog
 {

@@ -889,6 +889,7 @@ public class AnimeIndex extends JFrame
 			mnInfo.setBackground(new Color(Integer.parseInt(colorProp.getProperty("Menu_color"))));
 		
 		JMenuItem mntmProposte = new JMenuItem("Segnalazioni");
+		mntmProposte.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/bug-128.png")));
 		mnInfo.add(mntmProposte);
 		mntmProposte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -910,6 +911,7 @@ public class AnimeIndex extends JFrame
 		mnInfo.add(separator_18);
 		
 		JMenuItem mntmGuidaOnline = new JMenuItem("Wiki");
+		mntmGuidaOnline.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/wiki-ico.png")));
 		mntmGuidaOnline.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String link = "https://github.com/MyAnimeManager/MyAnimeManager/wiki#benvenuto-nella-wiki-di-myanimemanager";
