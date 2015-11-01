@@ -176,7 +176,7 @@ public class AnimeIndex extends JFrame
 	
 	
 	public static Thread appThread;
-	public static boolean shouldUpdate;
+	public static boolean shouldUpdate = true;
 	/**
 	 * Launch the application.
 	 */
@@ -2871,10 +2871,10 @@ public class AnimeIndex extends JFrame
 	{
 		if (AnimeIndex.shouldUpdate)
 		{
+		AutoUpdateAnimeDataTask task = new AutoUpdateAnimeDataTask();
 		AnimeIndex.appThread = new Thread() {
 		     public void run() {
-		         try {	
-		        	 AutoUpdateAnimeDataTask task = new AutoUpdateAnimeDataTask();
+		         try {
 		             SwingUtilities.invokeLater(task);
 		         }
 		         catch (Exception e) {
