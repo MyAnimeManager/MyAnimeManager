@@ -287,10 +287,10 @@ public class AnimeIndex extends JFrame
 							}
 						}
 						else if (choiche == 1)
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menu \"Info > Aiuto > Crediti\"");
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menu \"Info > Crediti\"");
 						else if (choiche == 2)
 						{
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "\n\rOk, non te lo chiederemo più.\n\r\n\r\n\rMa ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menu \"Info > Aiuto > Crediti\"");
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "\n\rOk, non te lo chiederemo più.\n\r\n\r\n\rMa ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menu \"Info > Crediti\"");
 							appProp.setProperty("Ask_for_donation", "false");
 						}
 						
