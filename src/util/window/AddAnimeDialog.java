@@ -1334,7 +1334,7 @@ public class AddAnimeDialog extends JDialog
 							String finishDay = finishDate.substring(0, 1);
 							String finishMonth = finishDate.substring(3, 5);
 							String finishYear = finishDate.substring(6);
-							if ((AnimeIndex.appProp.getProperty("Check_Data_Conflict").equalsIgnoreCase("false") ) || animeType.equalsIgnoreCase("?????"))
+							if ((AnimeIndex.appProp.getProperty("Check_Data_Conflict").equalsIgnoreCase("disactive") ) || animeType.equalsIgnoreCase("?????"))
 								list = (String) listToAddAniComboBox.getSelectedItem();
 							else
 								list = checkDataConflict(finishDate, animeType, true);
@@ -1343,7 +1343,6 @@ public class AddAnimeDialog extends JDialog
 								currentEp = totEp;
 								exitDay = "Concluso";
 							    }
-							
 							String imageName = AddAnimeDialog.addSaveImage(name, dataAni, list);
 							AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
 									"", "", animeType, releaseDate, finishDate, durationEp, false); 
