@@ -28,6 +28,7 @@ public class AnimeIndexProperties
 			defaultProps.setProperty("Stay_open_after_anime_add", "false");
 			defaultProps.setProperty("Session_Number", "0");
 			defaultProps.setProperty("Ask_for_donation", "true");
+			defaultProps.setProperty("Suggestions_Pack_Number", "0");
 			in.close();
 		} 
 		catch (FileNotFoundException fe)
@@ -45,6 +46,7 @@ public class AnimeIndexProperties
 				defaultProps.setProperty("Stay_open_after_anime_add", "false");
 				defaultProps.setProperty("Session_Number", "0");
 				defaultProps.setProperty("Ask_for_donation", "true");
+				defaultProps.setProperty("Suggestions_Pack_Number", "0");
 
 			} catch (IOException e) {
 				e.printStackTrace();

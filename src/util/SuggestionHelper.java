@@ -11,6 +11,12 @@ public class SuggestionHelper {
 	
 	private final static String SUGGESTION_URL = "http://myanimemanagerupdate.webstarts.com/suggestion.html";
 	
+	public static String getPackVersion(String data) throws Exception
+    {
+        String pack = data.substring(data.indexOf("[pack]")+6,data.indexOf("[/pack]"));
+        return pack;
+    }
+	
 	public static String getSuggestion(int suggestionNumber, String data) throws Exception
     {
         String suggestion = data.substring(data.indexOf("[suggestion_" + suggestionNumber + "]")+14,data.indexOf("[/suggestion_" + suggestionNumber + "]"));
