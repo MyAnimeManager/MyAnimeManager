@@ -1346,6 +1346,7 @@ public class AddAnimeDialog extends JDialog
 							String imageName = AddAnimeDialog.addSaveImage(name, dataAni, list);
 							AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, Integer.toString(id), 
 									"", "", animeType, releaseDate, finishDate, durationEp, false); 
+				//TODO
 							updateControlList(list);
 							AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
 							restorePreviousCheck();
@@ -1989,7 +1990,7 @@ public class AddAnimeDialog extends JDialog
 	private static void updateControlList(String list)
 	{
 //		checkCompletedList==false && checkAiringList==false && checkOAVList==false && checkFilmList==false && checkToSeeList==false
-		if (list.equalsIgnoreCase("anime compeltati"))
+		if (list.equalsIgnoreCase("anime completati"))
 			checkCompletedList = true;
 		else if (list.equalsIgnoreCase("anime in corso"))
 			checkAiringList = true;

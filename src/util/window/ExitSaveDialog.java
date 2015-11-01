@@ -77,6 +77,7 @@ public class ExitSaveDialog extends JDialog
 								deleteUselessImage(AnimeIndex.ovaDeletedAnime);
 								deleteUselessImage(AnimeIndex.filmDeletedAnime);
 								deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime);
+								deleteUselessImage(AnimeIndex.sessionAddedAnime);
 								AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
 								ColorProperties.saveProperties(AnimeIndex.colorProp);
 								
@@ -95,6 +96,7 @@ public class ExitSaveDialog extends JDialog
 							deleteUselessImage(AnimeIndex.ovaSessionAnime);
 							deleteUselessImage(AnimeIndex.filmSessionAnime);
 							deleteUselessImage(AnimeIndex.completedToSeeSessionAnime);
+							deleteUselessImage(AnimeIndex.sessionAddedAnime);
 							System.exit(0);
 						}
 					});
