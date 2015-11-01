@@ -1334,7 +1334,7 @@ public class AddAnimeDialog extends JDialog
 							String finishDay = finishDate.substring(0, 1);
 							String finishMonth = finishDate.substring(3, 5);
 							String finishYear = finishDate.substring(6);
-							if ((AnimeIndex.appProp.getProperty("Check_Data_Conflict").equalsIgnoreCase("disactive") ) || animeType.equalsIgnoreCase("?????"))
+							if ((AnimeIndex.appProp.getProperty("Check_Data_Conflict").equalsIgnoreCase("false") ) || animeType.equalsIgnoreCase("?????"))
 								list = (String) listToAddAniComboBox.getSelectedItem();
 							else
 								list = checkDataConflict(finishDate, animeType, true);
@@ -1366,12 +1366,12 @@ public class AddAnimeDialog extends JDialog
 							public void itemStateChanged(ItemEvent arg0) {
 								if(checkDataConflictComboBox.getSelectedItem().equals("Attivo"))
 								{
-									AnimeIndex.appProp.setProperty("Check_Data_Conflict", "active");
+									AnimeIndex.appProp.setProperty("Check_Data_Conflict", "true");
 									checkDataConflictComboBoxManualAdd.setSelectedItem("Attivo");
 								}
 								else
 								{
-									AnimeIndex.appProp.setProperty("Check_Data_Conflict", "disactive");
+									AnimeIndex.appProp.setProperty("Check_Data_Conflict", "false");
 									checkDataConflictComboBoxManualAdd.setSelectedItem("Disattivo");
 								}
 							}
