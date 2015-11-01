@@ -20,6 +20,7 @@ import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -1876,6 +1877,7 @@ public class AddAnimeDialog extends JDialog
 			
 			map.put(name, data);
 			model.addElement(name);
+			getArrayList(listName).add(map.get(name).getImagePath(listName));
 			AnimeIndex.shouldUpdate = false;
 			AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 			list.clearSelection();
@@ -1940,6 +1942,7 @@ public class AddAnimeDialog extends JDialog
 					
 				map.put(name, data);
 				model.addElement(name);
+				getArrayList(listName).add(map.get(name).getImagePath(listName));
 				AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 				list.clearSelection();
 				list.setSelectedValue(name, true);	
@@ -2063,4 +2066,19 @@ public class AddAnimeDialog extends JDialog
 		AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
 	}
 	
+	private static ArrayList<String> getArrayList(String listName)
+	{
+		ArrayList<String> arrayList = null;
+		if (listName.equalsIgnoreCase("anime compeltati"))
+			arrayList = AnimeIndex.completedSessionAnime;
+		else if (listName.equalsIgnoreCase("anime in corso"))
+			arrayList = AnimeIndex.airingSessionAnime;
+		else if (listName.equalsIgnoreCase("Oav"))
+			arrayList = AnimeIndex.ovaSessionAnime;
+		else if (listName.equalsIgnoreCase("film"))
+			arrayList = AnimeIndex.filmSessionAnime;
+		else if (listName.equalsIgnoreCase("completi da vedere"))
+			arrayList = AnimeIndex.completedToSeeSessionAnime;
+		return arrayList;
+	}
 }
