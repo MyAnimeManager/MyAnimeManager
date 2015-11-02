@@ -105,7 +105,7 @@ public class AddAnimeDialog extends JDialog
 			@Override
 			public void windowOpened(WindowEvent arg0) {
 				searchBar.requestFocus();
-				if(AnimeIndex.appProp.getProperty("Check_Data_Conflict").equals("active"))
+				if(AnimeIndex.appProp.getProperty("Check_Data_Conflict").equals("true"))
 				{
 					checkDataConflictComboBox.setSelectedItem("Attivo");
 					checkDataConflictComboBoxManualAdd.setSelectedItem("Attivo");
