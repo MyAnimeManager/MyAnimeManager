@@ -52,9 +52,9 @@ public class CreditDialog extends JDialog
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, -28, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 21, 0, 0, 0, 0, 0, 98, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 98, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblNewLabel_1 = new JLabel("\u2022 Versione :");
@@ -100,7 +100,7 @@ public class CreditDialog extends JDialog
 			imageLabel.setIcon(new ImageIcon(getClass().getResource("/image/credit.png")));
 			GridBagConstraints gbc_imageLabel = new GridBagConstraints();
 			gbc_imageLabel.anchor = GridBagConstraints.SOUTH;
-			gbc_imageLabel.gridheight = 10;
+			gbc_imageLabel.gridheight = 12;
 			gbc_imageLabel.insets = new Insets(0, 0, 5, 5);
 			gbc_imageLabel.gridx = 0;
 			gbc_imageLabel.gridy = 0;
@@ -123,7 +123,7 @@ public class CreditDialog extends JDialog
 			GridBagConstraints gbc_txtpnTestoDiProva = new GridBagConstraints();
 			gbc_txtpnTestoDiProva.anchor = GridBagConstraints.WEST;
 			gbc_txtpnTestoDiProva.gridwidth = 6;
-			gbc_txtpnTestoDiProva.insets = new Insets(0, 0, 5, 0);
+			gbc_txtpnTestoDiProva.insets = new Insets(0, 0, 5, 5);
 			gbc_txtpnTestoDiProva.fill = GridBagConstraints.VERTICAL;
 			gbc_txtpnTestoDiProva.gridx = 1;
 			gbc_txtpnTestoDiProva.gridy = 2;
@@ -229,7 +229,7 @@ public class CreditDialog extends JDialog
 					GridBagConstraints gbc_label = new GridBagConstraints();
 					gbc_label.anchor = GridBagConstraints.WEST;
 					gbc_label.gridwidth = 4;
-					gbc_label.insets = new Insets(0, 0, 5, 0);
+					gbc_label.insets = new Insets(0, 0, 5, 5);
 					gbc_label.gridx = 3;
 					gbc_label.gridy = 5;
 					contentPanel.add(label, gbc_label);
@@ -290,12 +290,30 @@ public class CreditDialog extends JDialog
 					gbc_lblNewLabel_3.gridy = 7;
 					contentPanel.add(lblNewLabel_3, gbc_lblNewLabel_3);
 				}
+				{
+					Component verticalStrut = Box.createVerticalStrut(2);
+					GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+					gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+					gbc_verticalStrut.gridx = 1;
+					gbc_verticalStrut.gridy = 8;
+					contentPanel.add(verticalStrut, gbc_verticalStrut);
+				}
+				{
+					JLabel lblSeGradisciIl = new JLabel("\u2022 Se gradisci il nostro lavoro e desideri sostenerci :");
+					GridBagConstraints gbc_lblSeGradisciIl = new GridBagConstraints();
+					gbc_lblSeGradisciIl.anchor = GridBagConstraints.WEST;
+					gbc_lblSeGradisciIl.gridwidth = 9;
+					gbc_lblSeGradisciIl.insets = new Insets(0, 0, 5, 5);
+					gbc_lblSeGradisciIl.gridx = 1;
+					gbc_lblSeGradisciIl.gridy = 9;
+					contentPanel.add(lblSeGradisciIl, gbc_lblSeGradisciIl);
+				}
 				patreonLabel.setIcon(new ImageIcon(getClass().getResource("/image/Paypal-donate.png")));
 				GridBagConstraints gbc_patreonLabel = new GridBagConstraints();
 				gbc_patreonLabel.gridwidth = 10;
 				gbc_patreonLabel.insets = new Insets(0, 0, 5, 0);
 				gbc_patreonLabel.gridx = 1;
-				gbc_patreonLabel.gridy = 8;
+				gbc_patreonLabel.gridy = 10;
 				contentPanel.add(patreonLabel, gbc_patreonLabel);
 			}
 		}
@@ -307,7 +325,7 @@ public class CreditDialog extends JDialog
 			gbc_lblNewLabel_4.anchor = GridBagConstraints.SOUTHWEST;
 			gbc_lblNewLabel_4.gridwidth = 2;
 			gbc_lblNewLabel_4.gridx = 0;
-			gbc_lblNewLabel_4.gridy = 10;
+			gbc_lblNewLabel_4.gridy = 12;
 			contentPanel.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		}
 		JButton btnOk = new JButton("OK");
@@ -323,7 +341,7 @@ public class CreditDialog extends JDialog
 		gbc_btnOk.gridheight = 2;
 		gbc_btnOk.gridwidth = 7;
 		gbc_btnOk.gridx = 4;
-		gbc_btnOk.gridy = 9;
+		gbc_btnOk.gridy = 11;
 		contentPanel.add(btnOk, gbc_btnOk);
 	}
 

@@ -37,7 +37,7 @@ import util.SuggestionHelper;
 import util.SuggestionTaskPane;
 import util.task.SuggestionFetcherTask;
 
-
+//TODO mettere aggiunta a wishlist
 public class SuggestionDialog extends JDialog {
 	private SuggestionTaskPane suggestionOne = new SuggestionTaskPane();
 	private SuggestionTaskPane suggestionTwo = new SuggestionTaskPane();

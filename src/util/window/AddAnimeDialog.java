@@ -161,9 +161,9 @@ public class AddAnimeDialog extends JDialog
 						JPanel searchPanel1 = new JPanel();
 						searchPanel.add(searchPanel1, BorderLayout.NORTH);
 						GridBagLayout gbl_searchPanel1 = new GridBagLayout();
-						gbl_searchPanel1.columnWidths = new int[]{63, 177, 66, 102, 44, 105, 0};
+						gbl_searchPanel1.columnWidths = new int[]{63, 197, 66, 102, 89, 88, 0};
 						gbl_searchPanel1.rowHeights = new int[]{27, 0};
-						gbl_searchPanel1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+						gbl_searchPanel1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 						gbl_searchPanel1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 						searchPanel1.setLayout(gbl_searchPanel1);
 						{
@@ -200,9 +200,9 @@ public class AddAnimeDialog extends JDialog
 								}
 							});
 							GridBagConstraints gbc_searchBar = new GridBagConstraints();
+							gbc_searchBar.anchor = GridBagConstraints.NORTH;
 							gbc_searchBar.fill = GridBagConstraints.HORIZONTAL;
 							gbc_searchBar.gridwidth = 2;
-							gbc_searchBar.anchor = GridBagConstraints.NORTH;
 							gbc_searchBar.insets = new Insets(0, 0, 0, 5);
 							gbc_searchBar.gridx = 0;
 							gbc_searchBar.gridy = 0;
@@ -300,6 +300,7 @@ public class AddAnimeDialog extends JDialog
 								});
 								listToAddAniComboBox.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere"}));
 								GridBagConstraints gbc_listToAddAniComboBox = new GridBagConstraints();
+								gbc_listToAddAniComboBox.fill = GridBagConstraints.HORIZONTAL;
 								gbc_listToAddAniComboBox.gridwidth = 2;
 								gbc_listToAddAniComboBox.insets = new Insets(0, 0, 0, 5);
 								gbc_listToAddAniComboBox.gridx = 3;
