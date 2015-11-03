@@ -5,8 +5,6 @@ import javax.swing.SwingWorker;
 
 import main.AnimeIndex;
 import util.SuggestionHelper;
-import util.window.AddAnimeDialog;
-import util.window.SuggestionDialog;
 
 public class NewSuggestionsNotifier extends SwingWorker{
 	

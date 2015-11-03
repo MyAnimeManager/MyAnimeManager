@@ -82,10 +82,13 @@ public class SuggestionDialog extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					int taskPaneNumber = getSelectedTaskPane();
 					String id = idArray[taskPaneNumber];
-					String[] listArray = {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere"};
+					String[] listArray = {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere", "Wishlist"};
 					String list = (String) JOptionPane.showInputDialog(SuggestionDialog.this, "A quale lista vuoi aggiungerlo", "Aggiungi a...", JOptionPane.QUESTION_MESSAGE, null, listArray, listArray[0]);
 					SuggestionDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-					addAnimeToList(list,  id);
+					if (list.equalsIgnoreCase("wishlist"))
+						addToWishlist(id);
+					else
+						addAnimeToList(list,  id);
 				}
 			});
 			buttonPane.add(btnAdd);
@@ -186,6 +189,29 @@ public class SuggestionDialog extends JDialog {
 		}
 	}
 	
+	private void addToWishlist(String id)
+	{
+		if (WishlistDialog.wishListModel.contains("Nessun Anime Corrispondente"))
+			WishlistDialog.wishListModel.removeElement("Nessun Anime Corrispondente");
+		
+		try
+		{
+			ConnectionManager.ConnectAndGetToken();
+		}
+		catch (ConnectException | UnknownHostException e)
+		{
+			e.printStackTrace();
+		}
+		String dataAni = ConnectionManager.parseAnimeData(Integer.parseInt(id));
+		String name = ConnectionManager.getAnimeData("title_romaji", dataAni);
+		
+		WishlistDialog.wishListModel.addElement(name);
+		AnimeIndex.wishlistMap.put(name, Integer.parseInt(id));
+		WishlistDialog.wishlist.setEnabled(true);
+		WishlistDialog.wishlistSearch.setEnabled(true);
+		SuggestionDialog.this.dispose();
+	}
+
 	private PropertyChangeListener OpenCloseListener(int suggestionPaneNumber)
 	{
 		PropertyChangeListener propListener = new PropertyChangeListener() {
