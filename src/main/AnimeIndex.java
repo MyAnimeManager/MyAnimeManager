@@ -97,7 +97,7 @@ import util.window.WishlistDialog;
 
 public class AnimeIndex extends JFrame
 {
-	public static final String VERSION = "1.0.3 beta";
+	public static final String VERSION = "1.0.4 beta";
 	public static final String CURRENT_VERSION = "MyAnimeManager.exe";
 	public static final String NEW_VERSION = "MyAnimeManager_Setup.exe";
 	public static JPanel mainFrame;
