@@ -48,6 +48,8 @@ public class SuggestionDialog extends JDialog {
 	private static String[] linkArray = new String[5];
 	private static String[] idArray = new String[5];
 	public SuggestionWaitDialog waitDialog = new SuggestionWaitDialog();
+	private JButton btnOpen;
+	private JButton btnAdd;
 	
 	/**
 	 * Create the dialog.
@@ -76,23 +78,27 @@ public class SuggestionDialog extends JDialog {
 			buttonPane.setLayout(fl_buttonPane);
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			
-			JButton btnAdd = new JButton("Aggiungi");
+			btnAdd = new JButton("Aggiungi");
+			btnAdd.setEnabled(false);
 			btnAdd.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int taskPaneNumber = getSelectedTaskPane();
 					String id = idArray[taskPaneNumber];
 					String[] listArray = {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere", "Wishlist"};
 					String list = (String) JOptionPane.showInputDialog(SuggestionDialog.this, "A quale lista vuoi aggiungerlo", "Aggiungi a...", JOptionPane.QUESTION_MESSAGE, null, listArray, listArray[0]);
-					SuggestionDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-					if (list.equalsIgnoreCase("wishlist"))
-						addToWishlist(id);
-					else
-						addAnimeToList(list,  id);
+					if(list != null)
+					{
+						if (list.equalsIgnoreCase("wishlist"))
+							addToWishlist(id);
+						else
+							addAnimeToList(list,  id);
+					}
 				}
 			});
 			buttonPane.add(btnAdd);
 			
-			JButton btnOpen = new JButton("Apri");
+			btnOpen = new JButton("Apri");
+			btnOpen.setEnabled(false);
 			btnOpen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int taskPaneNumber = getSelectedTaskPane();
@@ -190,6 +196,7 @@ public class SuggestionDialog extends JDialog {
 	
 	private void addToWishlist(String id)
 	{
+		SuggestionDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 		if (WishlistDialog.wishListModel.contains("Nessun Anime Corrispondente"))
 			WishlistDialog.wishListModel.removeElement("Nessun Anime Corrispondente");
 		
@@ -208,6 +215,7 @@ public class SuggestionDialog extends JDialog {
 		AnimeIndex.wishlistMap.put(name, Integer.parseInt(id));
 		WishlistDialog.wishlist.setEnabled(true);
 		WishlistDialog.wishlistSearch.setEnabled(true);
+		SuggestionDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		SuggestionDialog.this.dispose();
 	}
 
@@ -219,11 +227,19 @@ public class SuggestionDialog extends JDialog {
 				{
 					if (!taskPaneArray[suggestionPaneNumber - 1].isCollapsed())
 					{
+						btnAdd.setEnabled(true);
+						btnOpen.setEnabled(true);
 						for (SuggestionTaskPane taskPane : taskPaneArray) 
 						{
 							if (!taskPane.equals(taskPaneArray[suggestionPaneNumber - 1]))
 								taskPane.setCollapsed(true);
 						}
+					}
+					
+					if (taskPaneArray[0].isCollapsed() && taskPaneArray[1].isCollapsed() && taskPaneArray[2].isCollapsed() && taskPaneArray[3].isCollapsed() && taskPaneArray[4].isCollapsed())
+					{
+						btnAdd.setEnabled(false);
+						btnOpen.setEnabled(false);
 					}
 				}
 			}
@@ -263,6 +279,7 @@ public class SuggestionDialog extends JDialog {
 	
 	private void addAnimeToList(String listName, String id)
 	{
+		SuggestionDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 		try
 		{
 			ConnectionManager.ConnectAndGetToken();
@@ -365,5 +382,6 @@ public class SuggestionDialog extends JDialog {
 			
 		}
 		SuggestionDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		SuggestionDialog.this.dispose();
 	}
 }
