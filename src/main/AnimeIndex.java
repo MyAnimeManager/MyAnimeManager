@@ -132,6 +132,7 @@ public class AnimeIndex extends JFrame
 	public static TreeMap<String,String> shiftsRegister = new TreeMap<String,String>();
 	public static TreeMap<String,boolean[]> exclusionAnime =  new TreeMap<String,boolean[]>();
 	public static TreeMap<String,Date> exitDateMap = new TreeMap<String,Date>();
+	public static TreeMap<String,String> sessionAddedAnimeImagesShiftsRegister = new TreeMap<String,String>(); 
 	
 	public static ArrayList<String> completedSessionAnime = new ArrayList();
 	public static ArrayList<String> airingSessionAnime = new ArrayList();

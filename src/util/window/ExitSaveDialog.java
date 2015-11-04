@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.TreeMap;
 
 import javax.swing.JButton;
@@ -78,6 +79,7 @@ public class ExitSaveDialog extends JDialog
 								deleteUselessImage(AnimeIndex.filmDeletedAnime);
 								deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime);
 								deleteUselessImage(AnimeIndex.sessionAddedAnime);
+								
 								AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
 								ColorProperties.saveProperties(AnimeIndex.colorProp);
 								
@@ -97,6 +99,17 @@ public class ExitSaveDialog extends JDialog
 							deleteUselessImage(AnimeIndex.filmSessionAnime);
 							deleteUselessImage(AnimeIndex.completedToSeeSessionAnime);
 							deleteUselessImage(AnimeIndex.sessionAddedAnime);
+							Object[] keyArr = AnimeIndex.sessionAddedAnimeImagesShiftsRegister.keySet().toArray();
+							for (int i = 0; i < keyArr.length; i++)
+							{
+								try
+								{
+									FileManager.deleteData(new File (AnimeIndex.sessionAddedAnimeImagesShiftsRegister.get(keyArr[i])));
+								}
+								catch (IOException e)
+								{
+								}
+							}
 							System.exit(0);
 						}
 					});
