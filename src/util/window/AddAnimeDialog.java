@@ -58,7 +58,6 @@ import util.SortedListModel;
 
 public class AddAnimeDialog extends JDialog
 {
-	private final static String IMAGE_PATH = FileManager.getImageFolderPath();
 	private SearchBar searchBar;
 	private static JList searchedList;
 	private JButton btnCerca;
@@ -131,18 +130,7 @@ public class AddAnimeDialog extends JDialog
 			getContentPane().add(tabbedPane, BorderLayout.CENTER);
 			{
 				normalAddPanel = new JPanel();
-				{
-					String[] dayWeek = {"?????","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica", "Concluso"};
-//					if (!((String)AnimeIndex.animeTypeComboBox.getSelectedItem()).equalsIgnoreCase("anime in corso"))
-//					{
-//						exitDayComboBox.setSelectedItem("Concluso");
-//						exitDayComboBox.setEnabled(false);
-//					}
 
-				}
-				{
-					String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
-				}
 				GridBagLayout gbl_normalAddPanel = new GridBagLayout();
 				gbl_normalAddPanel.columnWidths = new int[]{263, 0};
 				gbl_normalAddPanel.rowHeights = new int[]{252, 9, 17, 0};
@@ -1518,7 +1506,8 @@ public class AddAnimeDialog extends JDialog
 			
 			map.put(name, data);
 			model.addElement(name);
-			getArrayList(listName).add(map.get(name).getImagePath(listName));
+			if (getDeletedArrayList(listName).contains(name))
+				getArrayList(listName).add(map.get(name).getImagePath(listName));
 			AnimeIndex.shouldUpdate = false;
 			AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 			list.clearSelection();
@@ -1583,6 +1572,8 @@ public class AddAnimeDialog extends JDialog
 					
 				map.put(name, data);
 				model.addElement(name);
+				if (getDeletedArrayList(listName).contains(name))
+					getArrayList(listName).add(map.get(name).getImagePath(listName));
 				getArrayList(listName).add(map.get(name).getImagePath(listName));
 				AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 				list.clearSelection();
@@ -1723,6 +1714,22 @@ public class AddAnimeDialog extends JDialog
 		return arrayList;
 	}
 	
+	private static ArrayList getDeletedArrayList(String listName)
+	{
+		ArrayList<String> arrayList = null;
+		if (listName.equalsIgnoreCase("anime completati"))
+			arrayList = AnimeIndex.completedDeletedAnime;
+		else if (listName.equalsIgnoreCase("anime in corso"))
+			arrayList = AnimeIndex.airingDeletedAnime;
+		else if (listName.equalsIgnoreCase("Oav"))
+			arrayList = AnimeIndex.ovaDeletedAnime;
+		else if (listName.equalsIgnoreCase("film"))
+			arrayList = AnimeIndex.filmDeletedAnime;
+		else if (listName.equalsIgnoreCase("completi da vedere"))
+			arrayList = AnimeIndex.completedToSeeDeletedAnime;
+		return arrayList;
+	}
+	
 	private void automaticAdd()
 	{
 		AddAnimeDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
@@ -1735,7 +1742,6 @@ public class AddAnimeDialog extends JDialog
 		String totEp = ConnectionManager.getAnimeData("total_episodes", dataAni);
 		String currentEp = "1";
 		String fansub = "";
-		String link = ""; 
 		String animeType = ConnectionManager.getAnimeData("type", dataAni);
 		String releaseDate = ConnectionManager.getAnimeData("start_date", dataAni);
 		String finishDate = ConnectionManager.getAnimeData("end_date", dataAni);
@@ -1803,9 +1809,6 @@ public class AddAnimeDialog extends JDialog
 		if (currentEp.equals(totEp))
 			AnimeIndex.animeInformation.plusButton.setEnabled(false);
 		String list ="";
-		String finishDay = finishDate.substring(0, 1);
-		String finishMonth = finishDate.substring(3, 5);
-		String finishYear = finishDate.substring(6);
 		if ((AnimeIndex.appProp.getProperty("Check_Data_Conflict").equalsIgnoreCase("false")) || animeType.equalsIgnoreCase("?????"))
 			list = (String) listToAddAniComboBox.getSelectedItem();
 		else
@@ -1821,7 +1824,7 @@ public class AddAnimeDialog extends JDialog
 		updateControlList(list);
 		AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
 		restorePreviousCheck();
-
+//FIXME
 		AnimeIndex.lastSelection = anime;
 		AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
