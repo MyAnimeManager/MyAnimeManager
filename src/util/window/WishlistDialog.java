@@ -80,7 +80,7 @@ public class WishlistDialog extends JDialog
 		setResizable(false);
 		setBounds(100, 100, 181, 471);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new MatteBorder(1, 1, 0, 1, (Color) new Color(0, 0, 0)));
+		contentPanel.setBorder(new MatteBorder(1, 1, 0, 1, new Color(0, 0, 0)));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
@@ -173,7 +173,6 @@ public class WishlistDialog extends JDialog
 				{
 					wishlistSearch.clearSelection();
 					btnDeleteAnime.setEnabled(false);
-					SortedListModel model = null;
 					String search = searchBar.getText();
 					JList list = wishlist;
 					list.clearSelection();
@@ -233,7 +232,7 @@ public class WishlistDialog extends JDialog
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(new MatteBorder(0, 1, 1, 1, (Color) new Color(0, 0, 0)));
+			buttonPane.setBorder(new MatteBorder(0, 1, 1, 1, new Color(0, 0, 0)));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnDeleteAnime = new JButton("Elimina Anime");

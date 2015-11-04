@@ -328,15 +328,11 @@ public class PreferenceDialog extends JDialog
 				{
 					File file = fc.getSelectedFile();
 					String dir = file.getPath();
-					try {
-						BufferedImage bufimg = ImageIO.read (file);
-						FileManager.saveDefaultImage(dir, "default");
-						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
-						AnimeIndex.animeInformation.setBlank();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
 					
+					FileManager.saveDefaultImage(dir, "default");
+					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+					AnimeIndex.animeInformation.setBlank();
+									
 				}
 			}
 		});

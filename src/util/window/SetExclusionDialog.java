@@ -182,7 +182,6 @@ public class SetExclusionDialog extends JDialog {
 				public void removeUpdate(DocumentEvent e)
 				{
 					searchListToCheck.clearSelection();
-					SortedListModel model = null;
 					String search = searchBarCheck.getText();
 					JList list = listToCheck;
 					list.clearSelection();
@@ -758,7 +757,7 @@ public class SetExclusionDialog extends JDialog {
 					
 					Object[] arr = checkSessionAnime.toArray();
 					for(int i=0; i<arr.length; i++)
-						AnimeIndex.exclusionAnime.remove((String)arr[i]);
+						AnimeIndex.exclusionAnime.remove(arr[i]);
 					
 					if(AnimeIndex.animeInformation.selectExcludedAnimeAtWindowOpened==true)
 					{

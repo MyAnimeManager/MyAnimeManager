@@ -44,7 +44,6 @@ public class AddFansubDialog extends JDialog
 	private JTextField fansubAddField;
 	private TreeMap<String,String> fansubMap = new TreeMap<String,String>();
 	private JButton addButton;
-	private String settedFansub;
 
 	/**
 	 * Create the dialog.
@@ -297,7 +296,7 @@ public class AddFansubDialog extends JDialog
 					    AnimeIndex.setFansubList(fansub);
 					    setFansubMap(fansubMap);
 					    AnimeIndex.animeInformation.fansubComboBox.setSelectedItem(previousFansub);
-						String link = AnimeIndex.fansubMap.get((String)AnimeIndex.animeInformation.fansubComboBox.getSelectedItem());
+						String link = AnimeIndex.fansubMap.get(AnimeIndex.animeInformation.fansubComboBox.getSelectedItem());
 						if (link != null && !link.isEmpty())
 						{
 							AnimeIndex.animeInformation.fansubButton.setEnabled(true);

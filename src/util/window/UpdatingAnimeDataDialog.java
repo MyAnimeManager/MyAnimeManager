@@ -7,7 +7,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
@@ -16,8 +15,6 @@ import net.miginfocom.swing.MigLayout;
 import util.task.ManualUpdateAnimeDataTask;
 
 public class UpdatingAnimeDataDialog extends JDialog {
-
-	private final JPanel contentPanel = new JPanel();
 
 	private JProgressBar progressBar;
 	private JLabel lblControlloInCorso;
@@ -42,7 +39,6 @@ public class UpdatingAnimeDataDialog extends JDialog {
 		setTitle("Controllo Dati...");
 		setBounds(100, 100, 328, 76);
 		
-		String labelString = "Controllo Dati in corso...";
 		getContentPane().setLayout(new MigLayout("", "[320.00px]", "[14px][14px]"));
 		lblControlloInCorso = new JLabel("Controllo Dati in corso...");
 		lblControlloInCorso.setHorizontalAlignment(SwingConstants.CENTER);

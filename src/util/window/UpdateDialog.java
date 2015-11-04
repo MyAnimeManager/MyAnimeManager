@@ -133,11 +133,11 @@ import util.Updater;
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-				FileManager.saveAnimeList("completed.txt", AnimeIndex.completedModel, AnimeIndex.completedMap);
-				FileManager.saveAnimeList("airing.txt", AnimeIndex.airingModel, AnimeIndex.airingMap);
-				FileManager.saveAnimeList("ova.txt", AnimeIndex.ovaModel, AnimeIndex.ovaMap);
-				FileManager.saveAnimeList("film.txt", AnimeIndex.filmModel, AnimeIndex.filmMap);
-				FileManager.saveAnimeList("toSee.txt", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
+				FileManager.saveAnimeList("completed.txt", AnimeIndex.completedMap);
+				FileManager.saveAnimeList("airing.txt", AnimeIndex.airingMap);
+				FileManager.saveAnimeList("ova.txt", AnimeIndex.ovaMap);
+				FileManager.saveAnimeList("film.txt", AnimeIndex.filmMap);
+				FileManager.saveAnimeList("toSee.txt", AnimeIndex.completedToSeeMap);
 			
 				deleteUselessImage(AnimeIndex.completedDeletedAnime, AnimeIndex.completedMap, "Completed");
 				deleteUselessImage(AnimeIndex.airingDeletedAnime, AnimeIndex.airingMap, "Airing");

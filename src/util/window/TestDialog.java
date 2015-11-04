@@ -159,7 +159,7 @@ public class TestDialog extends JDialog
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+			buttonPane.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 0)));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{

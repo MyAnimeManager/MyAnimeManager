@@ -293,7 +293,6 @@ public class SuggestionDialog extends JDialog {
 		String totEp = ConnectionManager.getAnimeData("total_episodes", dataAni);
 		String currentEp = "1";
 		String fansub = "";
-		String link = ""; 
 		String animeType = ConnectionManager.getAnimeData("type", dataAni);
 		String releaseDate = ConnectionManager.getAnimeData("start_date", dataAni);
 		String finishDate = ConnectionManager.getAnimeData("end_date", dataAni);
