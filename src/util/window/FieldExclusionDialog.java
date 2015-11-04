@@ -199,8 +199,6 @@ public class FieldExclusionDialog extends JDialog
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
-					String name = AnimeIndex.animeInformation.lblAnimeName.getText();	
-					
 					FieldExclusionDialog.this.dispose();
 					boolean[] exclusion = {imageCheckBox.isSelected(), totalEpCheckBox.isSelected(), durationCheckBox.isSelected(), startDateCheckBox.isSelected(), finishDateCheckBox.isSelected(), typeCheckBox.isSelected()};
 					AnimeInformation.dial = new UpdatingAnimeDataDialog(exclusion);	

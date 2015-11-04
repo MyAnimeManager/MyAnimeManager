@@ -3,7 +3,6 @@ package main;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -2006,8 +2005,7 @@ public class AnimeIndex extends JFrame
 					
 					if(choiche == JOptionPane.YES_OPTION)
 					{
-						String type = (String) animeTypeComboBox.getSelectedItem();
-		
+								
 						SortedListModel model = getModel();
 						SortedListModel secondModel = null;
 						SortedListModel thirdModel = null;
@@ -2134,24 +2132,6 @@ public class AnimeIndex extends JFrame
 		}
 		
 		animeTypeComboBox.setSelectedItem(list);
-		}
-	
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
 	}
 
 	public static  String[] getFansubList()
@@ -2332,7 +2312,6 @@ public class AnimeIndex extends JFrame
 			String currEp = animeInformation.currentEpisodeField.getText();
 			String totEp = animeInformation.totalEpisodeText.getText();
 			String fansub = (String) animeInformation.fansubComboBox.getSelectedItem();
-			String fansubLink = animeInformation.getLink();
 			String note = animeInformation.noteTextArea.getText();
 			String day = (String) animeInformation.exitDaycomboBox.getSelectedItem();
 			String linkName = animeInformation.setLinkButton.getText();
@@ -2575,6 +2554,15 @@ public class AnimeIndex extends JFrame
 			font = Font.createFont(Font.TRUETYPE_FONT,is);
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
+		} finally{ //fix me
+			try
+			{
+				is.close();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
 		return font;
 	}
@@ -2763,7 +2751,7 @@ public class AnimeIndex extends JFrame
 			
 			if(oldData.getFinishDate().trim().length()!=10)
 			{
-				if(oldData.getFinishDate().trim().isEmpty() && endDay!=null && endDate.length()==10)
+				if(oldData.getFinishDate().trim().isEmpty() && endDate.length()==10)
 					endDay = endDate;
 				else
 				{
