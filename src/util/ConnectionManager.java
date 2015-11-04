@@ -21,6 +21,7 @@ public class ConnectionManager
 	private static boolean tokenExpired = true;
 	
 	
+
 	public static void ConnectAndGetToken() throws java.net.ConnectException, java.net.UnknownHostException
 	{
 		    if (ConnectionManager.token == null || ConnectionManager.tokenExpired) {
@@ -74,7 +75,6 @@ public class ConnectionManager
 	public static HashMap<String,Integer> AnimeSearch(String anime)
 	{
 		HashMap<String,Integer> animeList = new HashMap<String,Integer>();
-		String result = "";
 		
 		String search = getSearchedAnime(anime);
 		

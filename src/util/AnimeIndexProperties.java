@@ -67,6 +67,7 @@ public class AnimeIndexProperties
 		} catch (Exception e) {
 			e.printStackTrace();
 		};
+		
 		return applicationProps;
 	}
 	
@@ -77,7 +78,8 @@ public class AnimeIndexProperties
 			out = new FileOutputStream(PROPERTIES_PATH);
 			prop.store(out, "---Start Option---");
 			out.close();
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 		}
 	}
 }

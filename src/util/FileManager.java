@@ -47,7 +47,6 @@ public class FileManager
 		} 
 		finally
 		{
-			if (output != null)
 				output.close();
 		}
 
@@ -181,7 +180,7 @@ public class FileManager
 			}
 	}
 	
-	public static void saveAnimeList(String file, SortedListModel category, TreeMap<String,AnimeData> map)
+	public static void saveAnimeList(String file, TreeMap<String,AnimeData> map)
 	{
 		File animeFile = new File(ANIME_PATH + file);
 		animeFile.delete();
@@ -417,11 +416,6 @@ public class FileManager
 	}
 	
 	//util
-	private static boolean checkForFile(String path)
-	{
-		File a = new File(path);
-		return a.isFile();		
-	}
 	
 	private static int countLines(File file) throws IOException {
 	    int lines = 0;
