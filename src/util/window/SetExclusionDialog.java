@@ -394,7 +394,7 @@ public class SetExclusionDialog extends JDialog {
 				imgExcludeCheck.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(selectedAnime!=null)
-							exclusionSessionAnime.put(selectedAnime, setExclusionFields(selectedAnime));
+							exclusionSessionAnime.put(selectedAnime, setExclusionFields());
 					}
 				});
 				GridBagConstraints gbc_imgExcludeCheck = new GridBagConstraints();
@@ -410,7 +410,7 @@ public class SetExclusionDialog extends JDialog {
 				totEpExcludeCheck.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(selectedAnime!=null)
-							exclusionSessionAnime.put(selectedAnime, setExclusionFields(selectedAnime));
+							exclusionSessionAnime.put(selectedAnime, setExclusionFields());
 					}
 				});
 				GridBagConstraints gbc_totEpExcludeCheck = new GridBagConstraints();
@@ -634,7 +634,7 @@ public class SetExclusionDialog extends JDialog {
 				durationExcludeCheck.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(selectedAnime!=null)
-							exclusionSessionAnime.put(selectedAnime, setExclusionFields(selectedAnime));
+							exclusionSessionAnime.put(selectedAnime, setExclusionFields());
 					}
 				});
 				GridBagConstraints gbc_durationExcludeCheck = new GridBagConstraints();
@@ -657,7 +657,7 @@ public class SetExclusionDialog extends JDialog {
 			releaseDateExcludeCheck.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(selectedAnime!=null)
-						exclusionSessionAnime.put(selectedAnime, setExclusionFields(selectedAnime));
+						exclusionSessionAnime.put(selectedAnime, setExclusionFields());
 				}
 			});
 			GridBagConstraints gbc_releaseDateExcludeCheck = new GridBagConstraints();
@@ -715,7 +715,7 @@ public class SetExclusionDialog extends JDialog {
 				finischDateExcludeCheck.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(selectedAnime!=null)
-							exclusionSessionAnime.put(selectedAnime, setExclusionFields(selectedAnime));
+							exclusionSessionAnime.put(selectedAnime, setExclusionFields());
 					}
 				});
 				GridBagConstraints gbc_finischDateExcludeCheck = new GridBagConstraints();
@@ -731,7 +731,7 @@ public class SetExclusionDialog extends JDialog {
 				typeExcludeCheck.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(selectedAnime!=null)
-							exclusionSessionAnime.put(selectedAnime, setExclusionFields(selectedAnime));
+							exclusionSessionAnime.put(selectedAnime, setExclusionFields());
 					}
 				});
 				GridBagConstraints gbc_typeExcludeCheck = new GridBagConstraints();
@@ -920,7 +920,7 @@ public class SetExclusionDialog extends JDialog {
 		}
 	}
 	
-	private boolean[] setExclusionFields(String name)
+	private boolean[] setExclusionFields()
 	{
 		boolean[] exc = {false,false,false,false,false,false};
 		if(imgExcludeCheck.isSelected())

@@ -98,18 +98,18 @@ public class FileManager
 					line.close();
 			}
 			return fansub;
-		}			
-		else
-			{
-			 try {
-				fansubFile.createNewFile();
-			 	} 
-			 catch (IOException e) 
-			 	{
-				e.printStackTrace();
-				}
-				 return new String[0];
+		}
+		
+		try {
+			fansubFile.getParentFile().mkdirs();
+			fansubFile.createNewFile();
+		 	} 
+		 catch (IOException e) 
+		 	{
+			e.printStackTrace();
 			}
+		 return null;
+
 		
 	}
 	

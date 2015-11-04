@@ -2,7 +2,6 @@ package util.window;
 
 
 import java.awt.BorderLayout;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -11,9 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -24,14 +21,9 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import main.AnimeIndex;
-
-import org.apache.commons.io.FileUtils;
-
-import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.ExternalProgram;
 import util.FileManager;
-import util.Updater;
 
 	public class UpdateDialog extends JDialog{
 
@@ -77,7 +69,7 @@ import util.Updater;
 	        ok.addActionListener( new ActionListener(){
 
 	            public void actionPerformed(ActionEvent e) {
-	            	dial = new DownloadingDialog(Updater.getDownloadLink());
+	            	dial = new DownloadingDialog();
 	            	UpdateDialog.this.dispose();
 	            	dial.setLocationRelativeTo(AnimeIndex.mainFrame);
 	            	dial.setVisible(true);
@@ -106,26 +98,7 @@ import util.Updater;
 
 	        this.setSize(293, 200);
 	    }
-	    private void update()
-	    {
-	       try 
-	       {
-	    	   setCursor(new Cursor(Cursor.WAIT_CURSOR));
-	    	   String urlString = Updater.getDownloadLink();
-		       URL url = new URL(urlString);
-		       						
-	    	   File file = new File(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + AnimeIndex.NEW_VERSION);
-			    try {
-					FileUtils.copyURLToFile(url, file);
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
-		       setCursor(Cursor.getDefaultCursor());		       
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-	    }
+	    
 	    private void save()
 	    {
 	    	try {
@@ -139,15 +112,15 @@ import util.Updater;
 				FileManager.saveAnimeList("film.txt", AnimeIndex.filmMap);
 				FileManager.saveAnimeList("toSee.txt", AnimeIndex.completedToSeeMap);
 			
-				deleteUselessImage(AnimeIndex.completedDeletedAnime, AnimeIndex.completedMap, "Completed");
-				deleteUselessImage(AnimeIndex.airingDeletedAnime, AnimeIndex.airingMap, "Airing");
-				deleteUselessImage(AnimeIndex.ovaDeletedAnime, AnimeIndex.ovaMap, "Oav");
-				deleteUselessImage(AnimeIndex.filmDeletedAnime, AnimeIndex.filmMap, "Film");
-				deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime, AnimeIndex.completedToSeeMap, "Completed to See");
+				deleteUselessImage(AnimeIndex.completedDeletedAnime);
+				deleteUselessImage(AnimeIndex.airingDeletedAnime);
+				deleteUselessImage(AnimeIndex.ovaDeletedAnime);
+				deleteUselessImage(AnimeIndex.filmDeletedAnime);
+				deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime);
 				AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
 		}
 	    
-	private void deleteUselessImage(ArrayList<String> arrayList, TreeMap<String, AnimeData> map, String listName)
+	private void deleteUselessImage(ArrayList<String> arrayList)
 	{
 		for (int i = 0; i < arrayList.size(); i++)
 		{

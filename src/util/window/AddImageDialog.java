@@ -123,7 +123,7 @@ public class AddImageDialog extends JDialog
 						{
 							String name = (String) array[i];
 							String data = AnimeIndex.airingMap.get(name).getImageName();
-							if (data.equalsIgnoreCase("null") || data == null)
+							if (data.equalsIgnoreCase("null"))
 							{
 								airingAdd.addElement(name);
 							}
@@ -157,7 +157,7 @@ public class AddImageDialog extends JDialog
 						{
 							String name = (String) array[i];
 							String data = AnimeIndex.ovaMap.get(name).getImageName();
-							if (data.equalsIgnoreCase("null") || data == null)
+							if (data.equalsIgnoreCase("null"))
 							{
 								ovaAdd.addElement(name);
 							}
@@ -191,7 +191,7 @@ public class AddImageDialog extends JDialog
 						{
 							String name = (String) array[i];
 							String data = AnimeIndex.filmMap.get(name).getImageName();
-							if (data.equalsIgnoreCase("null") || data == null)
+							if (data.equalsIgnoreCase("null"))
 							{
 								filmAdd.addElement(name);
 							}
@@ -225,7 +225,7 @@ public class AddImageDialog extends JDialog
 						{
 							String name = (String) array[i];
 							String data = AnimeIndex.completedToSeeMap.get(name).getImageName();
-							if (data.equalsIgnoreCase("null") || data == null)
+							if (data.equalsIgnoreCase("null"))
 							{
 								completedToSeeAdd.addElement(name);
 							}

@@ -25,7 +25,7 @@ public class DownloadingDialog extends JDialog
 	/**
 	 * Create the dialog.
 	 */
-	public DownloadingDialog(String link)
+	public DownloadingDialog()
 	{
 		super(AnimeIndex.frame,true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DownloadingDialog.class.getResource("/image/Update.png")));
@@ -49,7 +49,6 @@ public class DownloadingDialog extends JDialog
 		
 		progressBar = new JProgressBar(0,100);
 		progressBar.setStringPainted(true);
-//		progressBar.setIndeterminate(true);
 		getContentPane().add(progressBar, "cell 0 1,growx,aligny center");
 		
 		task.addPropertyChangeListener(new PropertyChangeListener() {

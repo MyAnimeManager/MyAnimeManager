@@ -46,8 +46,12 @@ public class ConnectionManager
 					rr.close();
 					
 				}
-				catch (Exception e1) {
-					e1.printStackTrace();
+				catch (java.net.ConnectException | java.net.UnknownHostException e1) {
+					throw e1;
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
 				}
 				//System.out.println(result); java.net.ConnectException
 				SaveAccessToken(result);
