@@ -67,8 +67,7 @@ public class SortedListModel extends AbstractListModel {
 	{
 		if (this.getSize() == 0)
 			return true;
-		else
-			return false;
+		return false;
 	}
 	
 	public Object[] toArray()

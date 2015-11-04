@@ -32,7 +32,7 @@ public class Filters {
 		TreeMap<String,AnimeData> map = AnimeIndex.getMap();
 		for(int i=0; i<modelArray.length; i++)
 		{
-			AnimeData data = map.get((String)modelArray[i]);
+			AnimeData data = map.get(modelArray[i]);
 			if(AnimeIndex.filtro==0)
 			{
 				dato = data.getAnimeType();

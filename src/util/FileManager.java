@@ -98,8 +98,7 @@ public class FileManager
 					line.close();
 			}
 			return fansub;
-		}
-			
+		}			
 		else
 			{
 			 try {

@@ -51,10 +51,10 @@ public class UtilEvent
 			                JMenuItem remove = new JMenuItem("Rimuovi dalle Esclusioni");
 			                remove.addActionListener(new ActionListener() {
 			                    public void actionPerformed(ActionEvent e) {
-			                    	AnimeIndex.exclusionAnime.remove((String)list.getSelectedValue());
+			                    	AnimeIndex.exclusionAnime.remove(list.getSelectedValue());
 			                    }
 			                });
-			                if (AnimeIndex.exclusionAnime.containsKey((String)list.getSelectedValue()))
+			                if (AnimeIndex.exclusionAnime.containsKey(list.getSelectedValue()))
 			                	menu.add(remove);
 			                else
 			                	menu.add(add);
@@ -337,8 +337,6 @@ public class UtilEvent
 				int key = e.getKeyChar();
 				if (key == KeyEvent.VK_BACK_SPACE || key == KeyEvent.VK_DELETE)
 				{
-					String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
-
 					SortedListModel model = AnimeIndex.getModel();
 					SortedListModel secondModel = null;
 					SortedListModel thirdModel = null;

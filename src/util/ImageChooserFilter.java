@@ -26,9 +26,7 @@ public class ImageChooserFilter extends FileFilter {
 					int height = image.getHeight ();
 					
 					if ( width == 225 && height == 310)
-						return true;
-					else
-						return false;								
+						return true;								
 				} catch (IOException e) {
 					e.printStackTrace();
 					return false;
