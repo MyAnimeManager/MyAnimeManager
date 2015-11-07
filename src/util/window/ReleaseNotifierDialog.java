@@ -25,6 +25,7 @@ import javax.swing.event.ListSelectionListener;
 
 import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
+import util.ConnectionManager;
 import util.SortedListModel;
 import util.task.ReleasedAnimeTask;
 
@@ -45,6 +46,8 @@ public class ReleaseNotifierDialog extends JDialog {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				
+				System.out.println(ovaReleased.firstElement());
+				
 				if(!ReleasedAnimeTask.enableOav)
 					ovaReleasedList.setEnabled(false);
 				else
@@ -57,12 +60,7 @@ public class ReleaseNotifierDialog extends JDialog {
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
-				GregorianCalendar calendar = new GregorianCalendar();
-				int currentDay = calendar.get(Calendar.DATE);
-				int currentMonth = calendar.get(Calendar.MONTH)+1;
-				int currentYear = calendar.get(Calendar.YEAR);
-				String date = currentDay + "/" + currentMonth + "/" + currentYear;
-				AnimeIndex.appProp.setProperty("Date_Release", date);
+				AnimeIndex.appProp.setProperty("Date_Release", AnimeIndex.today());
 			}
 		});
 		setModal(true);

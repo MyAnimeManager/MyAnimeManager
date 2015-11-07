@@ -1132,6 +1132,8 @@ public class AnimeInformation extends JPanel {
 							AnimeIndex.shiftsRegister.put(name, type);
 						if (AnimeIndex.sessionAddedAnime.contains(name))
 							AnimeIndex.sessionAddedAnimeImagesShiftsRegister.put(name, FileManager.getImageFolderPath() + "Completed" + File.separator + name + ".png");
+						if (AnimeIndex.exitDateMap.containsKey(name))
+							AnimeIndex.exitDateMap.remove(name);
 						AnimeIndex.animeInformation.minusButton.setEnabled(false);
 						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
 						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
@@ -1296,6 +1298,8 @@ public class AnimeInformation extends JPanel {
 							AnimeIndex.shiftsRegister.put(name, type);
 						if (AnimeIndex.sessionAddedAnime.contains(name))
 							AnimeIndex.sessionAddedAnimeImagesShiftsRegister.put(name, FileManager.getImageFolderPath() + "Completed to See" + File.separator + name + ".png");
+						if (AnimeIndex.exitDateMap.containsKey(name))
+							AnimeIndex.exitDateMap.remove(name);
 						AnimeIndex.animeInformation.minusButton.setEnabled(true);
 						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);

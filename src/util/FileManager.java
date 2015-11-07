@@ -12,8 +12,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -354,15 +352,14 @@ public class FileManager
 		wishlistFile.getParentFile().mkdirs();
 		BufferedWriter output;
 		// data --> stringa
-		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
 		try 
 		{
 			output = new BufferedWriter(new OutputStreamWriter(
 				    new FileOutputStream(wishlistFile), "UTF-8"));
 			
-			for (Map.Entry<String,Date> entry : AnimeIndex.exitDateMap.entrySet())
+			for (Map.Entry<String,String> entry : AnimeIndex.exitDateMap.entrySet())
 			{
-				output.write(entry.getKey() + "||" + sd.format(entry.getValue()));
+				output.write(entry.getKey() + "||" + entry.getValue());
 				output.write(System.lineSeparator());
 			}
 			output.close();
@@ -374,7 +371,6 @@ public class FileManager
 	public static void loadDateMap()
 	{
 		File exclusionFile = new File(ANIME_PATH + "date.anaconda");
-		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
 		if (exclusionFile.isFile()) 
 		{
 			Scanner scan = null;
@@ -388,8 +384,7 @@ public class FileManager
 					line = new Scanner(excludedAnime);
 					line.useDelimiter("\\|\\|");
 					String name = line.next();
-					String dateString = line.next();
-					Date date = sd.parse(dateString);
+					String date = line.next();
 					AnimeIndex.exitDateMap.put(name,date);
 				}							
 			} 

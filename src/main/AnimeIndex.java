@@ -127,7 +127,7 @@ public class AnimeIndex extends JFrame
 	public static TreeMap<String,Integer> wishlistMap = new TreeMap<String,Integer>();
 	public static TreeMap<String,String> shiftsRegister = new TreeMap<String,String>();
 	public static TreeMap<String,boolean[]> exclusionAnime =  new TreeMap<String,boolean[]>();
-	public static TreeMap<String,Date> exitDateMap = new TreeMap<String,Date>();
+	public static TreeMap<String,String> exitDateMap = new TreeMap<String,String>();
 	public static TreeMap<String,String> sessionAddedAnimeImagesShiftsRegister = new TreeMap<String,String>(); 
 	
 	public static ArrayList<String> completedSessionAnime = new ArrayList();
@@ -2043,6 +2043,9 @@ public class AnimeIndex extends JFrame
 						if(sessionAddedAnime.contains(name))
 							sessionAddedAnime.remove(name);
 						
+						if(exitDateMap.containsKey(name))
+							exitDateMap.remove(name);
+						
 						if (!list.isSelectionEmpty())					
 							deleteButton.setEnabled(true);
 						else
@@ -3412,24 +3415,24 @@ public class AnimeIndex extends JFrame
 		}
 	}
 	
-	public Date calendarToDate(GregorianCalendar calendar)
-	{
-		int currentDay = calendar.get(Calendar.DATE);
-		int currentMonth = calendar.get(Calendar.MONTH)+1;
-		int currentYear = calendar.get(Calendar.YEAR);
-		String dateString = currentDay + "/" + currentMonth + "/" + currentYear;
-		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = null;
-		try
-		{
-			date = sd.parse(dateString);
-		}
-		catch (ParseException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return date;
-	}
+//	public Date calendarToDate(GregorianCalendar calendar)
+//	{
+//		int currentDay = calendar.get(Calendar.DATE);
+//		int currentMonth = calendar.get(Calendar.MONTH)+1;
+//		int currentYear = calendar.get(Calendar.YEAR);
+//		String dateString = currentDay + "/" + currentMonth + "/" + currentYear;
+//		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+//		Date date = null;
+//		try
+//		{
+//			date = sd.parse(dateString);
+//		}
+//		catch (ParseException e)
+//		{
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return date;
+//	}
 }
 
