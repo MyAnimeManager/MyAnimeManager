@@ -8,10 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -25,7 +22,6 @@ import javax.swing.event.ListSelectionListener;
 
 import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
-import util.ConnectionManager;
 import util.SortedListModel;
 import util.task.ReleasedAnimeTask;
 

@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
 
@@ -88,7 +89,7 @@ import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
-//TODO ReleasedAnimeTask esclusione ??/??/???? 
+//TODO finire rn
 
 public class AnimeIndex extends JFrame
 {
@@ -446,6 +447,12 @@ public class AnimeIndex extends JFrame
 				if (shouldCancel == 0)
 				{
 				try {
+					for (Map.Entry<String,AnimeData> entry : ovaMap.entrySet())
+					{
+						if(exitDateMap.containsKey(entry.getKey()))
+							exitDateMap.remove(entry.getKey());
+					}
+					FileManager.saveDateMap();
 					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "ova.anaconda"));
 					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Ova"));
 				} catch (IOException e1) {
@@ -472,6 +479,12 @@ public class AnimeIndex extends JFrame
 				if (shouldCancel == 0)
 				{
 				try {
+					for (Map.Entry<String,AnimeData> entry : ovaMap.entrySet())
+					{
+						if(exitDateMap.containsKey(entry.getKey()))
+							exitDateMap.remove(entry.getKey());
+					}
+					FileManager.saveDateMap();
 					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "film.anaconda"));
 					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Film"));
 				} catch (IOException e1) {
@@ -3416,25 +3429,5 @@ public class AnimeIndex extends JFrame
 			}
 		}
 	}
-	
-//	public Date calendarToDate(GregorianCalendar calendar)
-//	{
-//		int currentDay = calendar.get(Calendar.DATE);
-//		int currentMonth = calendar.get(Calendar.MONTH)+1;
-//		int currentYear = calendar.get(Calendar.YEAR);
-//		String dateString = currentDay + "/" + currentMonth + "/" + currentYear;
-//		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-//		Date date = null;
-//		try
-//		{
-//			date = sd.parse(dateString);
-//		}
-//		catch (ParseException e)
-//		{
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return date;
-//	}
 }
 
