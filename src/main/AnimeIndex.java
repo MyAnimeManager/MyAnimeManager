@@ -3411,5 +3411,25 @@ public class AnimeIndex extends JFrame
 			}
 		}
 	}
+	
+	public Date calendarToDate(GregorianCalendar calendar)
+	{
+		int currentDay = calendar.get(Calendar.DATE);
+		int currentMonth = calendar.get(Calendar.MONTH)+1;
+		int currentYear = calendar.get(Calendar.YEAR);
+		String dateString = currentDay + "/" + currentMonth + "/" + currentYear;
+		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = null;
+		try
+		{
+			date = sd.parse(dateString);
+		}
+		catch (ParseException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return date;
+	}
 }
 
