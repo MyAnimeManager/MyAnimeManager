@@ -28,7 +28,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -2138,15 +2137,18 @@ public class AnimeIndex extends JFrame
 	public void addToFansub(String fansub)
 	
 	{
-		String[] oldList = fansubList;
-		String[] newList = new String[oldList.length + 1];
-		for (int i = 0; i < oldList.length; i++)
+		if (fansubList != null)
 		{
-			newList[i] = oldList[i];
+			String[] oldList = fansubList;
+			String[] newList = new String[oldList.length + 1];
+			for (int i = 0; i < oldList.length; i++)
+			{
+				newList[i] = oldList[i];
+			}
+	
+			newList[oldList.length] = fansub; 
+			fansubList = newList;
 		}
-
-		newList[oldList.length] = fansub; 
-		fansubList = newList;
 	}
 	
 	public static void setFansubList(Object[] arrayToSet)
