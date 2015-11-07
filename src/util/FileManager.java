@@ -207,7 +207,7 @@ public class FileManager
 			Scanner scan = null;
 			Scanner line = null;
 			try {
-				scan = new Scanner(exclusionFile);
+				scan = new Scanner(exclusionFile, "UTF-8");
 				
 				while (scan.hasNextLine())
 				{
@@ -280,7 +280,7 @@ public class FileManager
 			Scanner scan = null;
 			Scanner line = null;
 			try {
-				scan = new Scanner(wishlistFile);
+				scan = new Scanner(wishlistFile, "UTF-8");
 				
 				while (scan.hasNextLine())
 				{
@@ -376,7 +376,7 @@ public class FileManager
 			Scanner scan = null;
 			Scanner line = null;
 			try {
-				scan = new Scanner(exclusionFile);
+				scan = new Scanner(exclusionFile, "UTF-8");
 				
 				while (scan.hasNextLine())
 				{
