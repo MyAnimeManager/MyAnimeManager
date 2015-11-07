@@ -1407,7 +1407,8 @@ public class AnimeInformation extends JPanel {
 	
 	public static void setFansubComboBox()
 	{
-		fansubComboBox.setModel(new DefaultComboBoxModel(AnimeIndex.getFansubList()));
+		if (AnimeIndex.getFansubList() != null)
+			fansubComboBox.setModel(new DefaultComboBoxModel(AnimeIndex.getFansubList()));
 	}
 	
 	public void setNote(String note)
