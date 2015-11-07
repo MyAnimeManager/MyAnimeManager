@@ -16,7 +16,7 @@ Sono presenti inoltre collegamenti alle piattaforme più diffuse come AnimeClick
 
 Alcuni aspetti grafici del programma possono essere personalizzati dall'utente.
 
-Potete accedere alla wiki dal pulsante a lato o cliccando [qui](https://github.com/MyAnimeManager/MyAnimeManager/wiki).
+Per maggiori dettagli potete consultare la [Wiki](https://github.com/MyAnimeManager/MyAnimeManager/wiki) ufficiale.
 
 ### Licenza
 My Anime Manager è coperto da licenza "GNU GPL 3". Per maggiori informazioni: [License](https://github.com/MyAnimeManager/MyAnimeManager/blob/master/resources/License.txt).
