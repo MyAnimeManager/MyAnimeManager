@@ -554,7 +554,8 @@ public class AddAnimeDialog extends JDialog
 						gbc_fansubComboBox.gridwidth = 5;
 						gbc_fansubComboBox.gridx = 1;
 						gbc_fansubComboBox.gridy = 5;
-						fansubComboBox.setModel(new DefaultComboBoxModel(AnimeIndex.getFansubList()));
+						if(AnimeIndex.getFansubList()!=null)
+							fansubComboBox.setModel(new DefaultComboBoxModel(AnimeIndex.getFansubList()));
 						dataPanel.add(fansubComboBox, gbc_fansubComboBox);
 						fansubComboBox.setSelectedItem("?????");
 					}

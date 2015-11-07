@@ -109,7 +109,7 @@ public class WishlistDialog extends JDialog
 							}
 						}
 					});
-					wishlist.setFont(null);
+					wishlist.setFont(AnimeIndex.segui.deriveFont(12f));
 					wishlist.setBorder(UIManager.getBorder("CheckBox.border"));
 					wishlistPane.setViewportView(wishlist);
 				}
@@ -121,6 +121,7 @@ public class WishlistDialog extends JDialog
 				cardPane.add(wishlistSearchPane, "wishlistSearch");
 				{
 					wishlistSearch = new JList(wishListSearchModel);
+					wishlistSearch.setFont(AnimeIndex.segui.deriveFont(12f));
 					wishlistSearch.addListSelectionListener(new ListSelectionListener() {
 						public void valueChanged(ListSelectionEvent e) {
 							if (wishListSearchModel.contains("Nessun Anime Corrispondete"))

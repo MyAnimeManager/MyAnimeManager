@@ -46,7 +46,11 @@ public class ReleaseNotifierDialog extends JDialog {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				
-				System.out.println(ovaReleased.firstElement());
+				Object[] exitarr = AnimeIndex.exitDateMap.keySet().toArray();
+				for(int i = 0; i<exitarr.length; i++)
+					System.out.println(exitarr[i]);
+				System.out.println("");
+				System.out.println(AnimeIndex.appProp.getProperty("Date_Release"));
 				
 				if(!ReleasedAnimeTask.enableOav)
 					ovaReleasedList.setEnabled(false);
@@ -159,12 +163,7 @@ public class ReleaseNotifierDialog extends JDialog {
 			JButton btnOk = new JButton("OK");
 			btnOk.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					GregorianCalendar calendar = new GregorianCalendar();
-					int currentDay = calendar.get(Calendar.DATE);
-					int currentMonth = calendar.get(Calendar.MONTH)+1;
-					int currentYear = calendar.get(Calendar.YEAR);
-					String date = currentDay + "/" + currentMonth + "/" + currentYear;
-					AnimeIndex.appProp.setProperty("Date_Release", date);
+					AnimeIndex.appProp.setProperty("Date_Release", AnimeIndex.today());
 					JButton butt = (JButton) e.getSource();
 					JDialog dialog = (JDialog) butt.getTopLevelAncestor();
 					dialog.dispose();

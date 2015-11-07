@@ -347,15 +347,15 @@ public class FileManager
 	//Treemap date
 	public static void saveDateMap()
 	{
-		File wishlistFile = new File(ANIME_PATH + "date.anaconda");
-		wishlistFile.delete();
-		wishlistFile.getParentFile().mkdirs();
+		File dateFile = new File(ANIME_PATH + "date.anaconda");
+		dateFile.delete();
+		dateFile.getParentFile().mkdirs();
 		BufferedWriter output;
 		// data --> stringa
 		try 
 		{
 			output = new BufferedWriter(new OutputStreamWriter(
-				    new FileOutputStream(wishlistFile), "UTF-8"));
+				    new FileOutputStream(dateFile), "UTF-8"));
 			
 			for (Map.Entry<String,String> entry : AnimeIndex.exitDateMap.entrySet())
 			{
