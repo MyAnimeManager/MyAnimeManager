@@ -1704,7 +1704,7 @@ public class AddAnimeDialog extends JDialog
 		AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
 	}
 	
-	private static ArrayList<String> getArrayList(String listName)
+	public static ArrayList<String> getArrayList(String listName)
 	{
 		ArrayList<String> arrayList = null;
 		if (listName.equalsIgnoreCase("anime completati"))
@@ -1720,7 +1720,7 @@ public class AddAnimeDialog extends JDialog
 		return arrayList;
 	}
 	
-	private static ArrayList getDeletedArrayList(String listName)
+	public static ArrayList getDeletedArrayList(String listName)
 	{
 		ArrayList<String> arrayList = null;
 		if (listName.equalsIgnoreCase("anime completati"))

@@ -367,13 +367,18 @@ public class SuggestionDialog extends JDialog {
 				"", "", animeType, releaseDate, finishDate, durationEp, false); 
 		JList list = AddAnimeDialog.getJList(listName);
 		SortedListModel model = AddAnimeDialog.getModel(listName);
-		TreeMap map = AddAnimeDialog.getMap(listName);
+		TreeMap<String,AnimeData> map = AddAnimeDialog.getMap(listName);
 		if (!map.containsKey(name))
 		{
 			AnimeIndex.shouldUpdate = false;
 			AnimeIndex.sessionAddedAnime.add(name);
 			map.put(name, data);
 			model.addElement(name);
+			if (AddAnimeDialog.getDeletedArrayList(listName).contains(map.get(name).getImagePath(listName)))
+			{
+				AddAnimeDialog.getDeletedArrayList(listName).remove(map.get(name).getImagePath(listName));
+			}
+			AddAnimeDialog.getArrayList(listName).add(map.get(name).getImagePath(listName));
 			AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 			list.clearSelection();
 			list.setSelectedValue(name, true);
