@@ -216,7 +216,7 @@ public class SuggestionDialog extends JDialog {
 		WishlistDialog.wishlist.setEnabled(true);
 		WishlistDialog.wishlistSearch.setEnabled(true);
 		SuggestionDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-		SuggestionDialog.this.dispose();
+//		SuggestionDialog.this.dispose();
 	}
 
 	private PropertyChangeListener OpenCloseListener(int suggestionPaneNumber)
@@ -381,6 +381,6 @@ public class SuggestionDialog extends JDialog {
 			
 		}
 		SuggestionDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-		SuggestionDialog.this.dispose();
+//		SuggestionDialog.this.dispose();
 	}
 }

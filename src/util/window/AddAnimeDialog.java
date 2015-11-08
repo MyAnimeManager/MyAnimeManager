@@ -1830,7 +1830,6 @@ public class AddAnimeDialog extends JDialog
 		updateControlList(list);
 		AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
 		restorePreviousCheck();
-//FIXME
 		AnimeIndex.lastSelection = anime;
 		AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
