@@ -89,7 +89,6 @@ import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
-//TODO finire rn
 
 public class AnimeIndex extends JFrame
 {
@@ -159,7 +158,7 @@ public class AnimeIndex extends JFrame
 	public static Font segui;
 	public static String addToPreviousList;
 	public static WishlistDialog wishlistDialog;
-	public static boolean openReleaseDialog;
+	public static boolean openReleaseDialog = false;
 	public static boolean activeUpdate;
 	public static String lastSelection;
 	

@@ -61,7 +61,6 @@ public class ReleasedAnimeTask extends SwingWorker
 							if (animeDate.before(today)||animeDate.equals(today))
 							{	
 								ReleaseNotifierDialog.ovaReleased.addElement(name);
-								AnimeIndex.exitDateMap.put(name, oggi);
 							}
 						}
 					}
@@ -139,6 +138,20 @@ public class ReleasedAnimeTask extends SwingWorker
 				}
 				else
 					animeDate = AnimeIndex.getDate(releaseDate);
+				
+				if(AnimeIndex.openReleaseDialog == true)
+				{
+					if(AnimeIndex.exitDateMap.containsKey(name))
+					{
+						if(AnimeIndex.getDate(AnimeIndex.exitDateMap.get(name)).equals(today))
+						{
+							if (animeDate.before(today)||animeDate.equals(today))
+							{	
+								ReleaseNotifierDialog.filmReleased.addElement(name);
+							}
+						}
+					}
+				}
 				
 				if(lastControlDate!=null)
 				{
