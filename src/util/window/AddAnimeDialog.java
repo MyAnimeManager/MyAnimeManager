@@ -1509,9 +1509,9 @@ public class AddAnimeDialog extends JDialog
 			model.addElement(name);
 			if (getDeletedArrayList(listName).contains(map.get(name).getImagePath(listName)))
 			{
-				getArrayList(listName).add(map.get(name).getImagePath(listName));
 				getDeletedArrayList(listName).remove(map.get(name).getImagePath(listName));
 			}
+			getArrayList(listName).add(map.get(name).getImagePath(listName));
 			AnimeIndex.shouldUpdate = false;
 			AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 			list.clearSelection();
@@ -1578,9 +1578,9 @@ public class AddAnimeDialog extends JDialog
 				model.addElement(name);
 				if (getDeletedArrayList(listName).contains(map.get(name).getImagePath(listName)))
 				{
-					getArrayList(listName).add(map.get(name).getImagePath(listName));
 					getDeletedArrayList(listName).remove(map.get(name).getImagePath(listName));
 				}
+				getArrayList(listName).add(map.get(name).getImagePath(listName));
 				AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 				list.clearSelection();
 				list.setSelectedValue(name, true);	
