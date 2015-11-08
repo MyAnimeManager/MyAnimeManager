@@ -279,7 +279,7 @@ public class AnimeIndex extends JFrame
 					{
 						sessionNumber = 0;
 						String[] array = { "Si!", "Non ora...", "Non ricordarmelo più" };
-						int choiche = JOptionPane.showOptionDialog(AnimeIndex.mainFrame, "Se ti piace  MY ANIME MANAGER  sosotienici con una libera donazione!", "Avviso!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, array, "Si!");
+						int choiche = JOptionPane.showOptionDialog(AnimeIndex.mainFrame, "Se ti piace  MY ANIME MANAGER  fallo conoscere ai tuoi amici!!\n\rE se vuoi, sostienici con una libera donazione!", "Supporta My Anime Manager !!!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, array, "Si!");
 						if (choiche == 0)
 						{
 							String link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RFJLMVCQYZEQG";
@@ -291,10 +291,10 @@ public class AnimeIndex extends JFrame
 							}
 						}
 						else if (choiche == 1)
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info > Crediti\"");
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" > \"Crediti\"");
 						else if (choiche == 2)
 						{
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "\n\rOk, non te lo chiederemo più.\n\r\n\r\n\rMa ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info > Crediti\"");
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "\n\rOk, non te lo chiederemo più.\n\r\n\r\n\rMa ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" > \"Crediti\"");
 							appProp.setProperty("Ask_for_donation", "false");
 						}
 						
