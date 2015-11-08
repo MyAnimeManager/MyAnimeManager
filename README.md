@@ -19,8 +19,8 @@ Alcuni aspetti grafici del programma possono essere personalizzati dall'utente.
 Per maggiori dettagli potete consultare la [Wiki](https://github.com/MyAnimeManager/MyAnimeManager/wiki) ufficiale.
 
 ### Installazione
-######Prerequisiti
-My Anime Manager richiede una versione di Java 8 o superiore. Potete torvare la guida all'installazione di Java 8 nella [Wiki](https://github.com/MyAnimeManager/MyAnimeManager/wiki/Installazione-Java-8).
+#####Prerequisiti
+My Anime Manager richiede una versione di Java 8 o superiore. Potete trovare la guida all'installazione di Java 8 nella [Wiki](https://github.com/MyAnimeManager/MyAnimeManager/wiki/Installazione-Java-8).
 
 ### Licenza
 My Anime Manager è coperto da licenza "GNU GPL 3". Per maggiori informazioni: [License](https://github.com/MyAnimeManager/MyAnimeManager/blob/master/resources/License.txt).
