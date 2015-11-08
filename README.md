@@ -1,18 +1,18 @@
 # My Anime Manager
 ### Informazioni
-My Anime Manager Ã¨ un programma che consente di gestire anime e visualizzare i dati degli anime memorizzati in modo facile e veloce.
+My Anime Manager è un programma che consente di gestire anime e visualizzare i dati degli anime memorizzati in modo facile e veloce.
 
 Le liste attualmente disponibili sono: Anime Completati, Anime in Corso, OAV, Film e Completi da Vedere. Il programma dispone delle funzioni di cerca e di filtraggio per visualizzare sottocategorie e/o anime particolari.
 
-E' stato implementato un sistema di controllo che verifica lo stato degli anime inseriti e/o che si stanno inserendo cosÃ¬ da avere sempre i dati piÃ¹ recenti ed essere sempre informati sulle ultime uscite. L'utente puÃ² comunque personalizzare i dati degli anime a sua discrezioine qualora ritenesse i dati importati non veritieri.
+E' stato implementato un sistema di controllo che verifica lo stato degli anime inseriti e/o che si stanno inserendo così da avere sempre i dati più recenti ed essere sempre informati sulle ultime uscite. L'utente può comunque personalizzare i dati degli anime a sua discrezioine qualora ritenesse i dati importati non veritieri.
 
-L'aggiunta da web permette di inserire anime nelle liste e di importare tutti i dati piÃ¹ recenti molto rapidamente.
+L'aggiunta da web permette di inserire anime nelle liste e di importare tutti i dati più recenti molto rapidamente.
 
 L'utente ha a disposizione anche una Wishlist per gli anime che desidera vedere ma che ancora non sono disponibili. 
 
-Ad ogni anime Ã¨ associabile un fansub con link per aprire velocemente la relativa pagina web.
+Ad ogni anime è associabile un fansub con link per aprire velocemente la relativa pagina web.
 
-Sono presenti inoltre collegamenti alle piattaforme piÃ¹ diffuse come AnimeClick, MyAnimeList, AniList, AniChart e altre ancora.
+Sono presenti inoltre collegamenti alle piattaforme più diffuse come AnimeClick, MyAnimeList, AniList, AniChart e altre ancora.
 
 Alcuni aspetti grafici del programma possono essere personalizzati dall'utente.
 
@@ -25,7 +25,7 @@ My Anime Manager richiede una versione di Java 8 o superiore. Potete trovare la 
 
 
 ### Licenza
-My Anime Manager Ã¨ coperto da licenza "GNU GPL 3". Per maggiori informazioni: [License](https://github.com/MyAnimeManager/MyAnimeManager/blob/master/resources/License.txt).
+My Anime Manager è coperto da licenza "GNU GPL 3". Per maggiori informazioni: [License](https://github.com/MyAnimeManager/MyAnimeManager/blob/master/resources/License.txt).
 
 
 ### Bug, Richieste e Suggerimenti
