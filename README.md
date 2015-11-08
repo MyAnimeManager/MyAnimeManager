@@ -21,7 +21,7 @@ Per maggiori dettagli potete consultare la [Wiki](https://github.com/MyAnimeMana
 ### Installazione
 Scaricate [MyAnimeManager_Setup.exe](https://github.com/MyAnimeManager/MyAnimeManager/releases). Terminato il download avviate l'installer e se il filtro SmartScreen di Windows vi lancia una segnalazione cliccate su *Ulteriori informazini* e poi su *Esegui comunque*. Seguite le istruzioni dell'installer e *My Anime Manager* sarà installato con successo nel vostro pc.
 #####Prerequisiti
-My Anime Manager richiede una versione di Java 8 o superiore. Potete trovare la guida all'installazione di Java 8 nella [Wiki](https://github.com/MyAnimeManager/MyAnimeManager/wiki/Installazione-Java-8).
+My Anime Manager richiede la versione di Java 8 o superiore. Potete trovare la guida all'installazione di Java 8 nella [Wiki](https://github.com/MyAnimeManager/MyAnimeManager/wiki/Installazione-Java-8).
 
 
 ### Licenza
