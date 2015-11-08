@@ -2103,24 +2103,28 @@ public class AnimeIndex extends JFrame
 	    });
 	    setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon3.png")));
 		buttonPanel.add(setFilterButton, BorderLayout.NORTH);
-		
 		fansubList = FileManager.loadFansubList();
-		animeInformation = new AnimeInformation();
-		mainFrame.add(animeInformation, BorderLayout.CENTER);
+		if(fansubList==null)
+			fansubList = FileManager.loadFansubList();
 		addToFansub("?????");
 		
 		if(!fansubMap.containsKey("Dynit"))
 		{
+			addToFansub("Dynit");
 			fansubMap.put("Dynit", "");
 		}
 		if(!fansubMap.containsKey("Yamato Animation"))
 		{
+			addToFansub("Yamato Animation");
 			fansubMap.put("Yamato Animation", "");
 		}
 		if(!fansubMap.containsKey("Crunchyroll"))
 		{
+			addToFansub("Crunchyroll");
 			fansubMap.put("Crunchyroll", "");
 		}
+		animeInformation = new AnimeInformation();
+		mainFrame.add(animeInformation, BorderLayout.CENTER);
 		AnimeIndex.animeInformation.setFansubComboBox();
 		animeInformation.setBlank();
 		if (appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Last list"))
