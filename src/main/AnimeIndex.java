@@ -680,7 +680,7 @@ public class AnimeIndex extends JFrame
 		JMenu mnVisualizza = new JMenu("Visualizza");
 		menuBar.add(mnVisualizza);
 		
-		JMenuItem mntmNuoveUscite = new JMenuItem("Nuove Uscite");
+		JMenuItem mntmNuoveUscite = new JMenuItem("Ultime Uscite");
 		mntmNuoveUscite.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/new_icon.png")));
 		mntmNuoveUscite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

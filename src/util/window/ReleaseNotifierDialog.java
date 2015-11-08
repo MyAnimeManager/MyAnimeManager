@@ -45,7 +45,6 @@ public class ReleaseNotifierDialog extends JDialog {
 				Object[] exitarr = AnimeIndex.exitDateMap.keySet().toArray();
 				for(int i = 0; i<exitarr.length; i++)
 					System.out.println(exitarr[i]);
-				System.out.println("");
 				System.out.println(AnimeIndex.appProp.getProperty("Date_Release"));
 				
 				if(!ReleasedAnimeTask.enableOav)

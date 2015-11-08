@@ -52,6 +52,21 @@ public class ReleasedAnimeTask extends SwingWorker
 				else
 					animeDate = AnimeIndex.getDate(releaseDate);
 				
+				if(AnimeIndex.openReleaseDialog == true)
+				{
+					if(AnimeIndex.exitDateMap.containsKey(name))
+					{
+						if(AnimeIndex.getDate(AnimeIndex.exitDateMap.get(name)).equals(today))
+						{
+							if (animeDate.before(today)||animeDate.equals(today))
+							{	
+								ReleaseNotifierDialog.ovaReleased.addElement(name);
+								AnimeIndex.exitDateMap.put(name, oggi);
+							}
+						}
+					}
+				}
+				
 				if(lastControlDate!=null)
 				{
 					if(animeDate.after(lastControlDate))
