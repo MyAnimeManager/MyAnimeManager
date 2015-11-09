@@ -867,12 +867,36 @@ public class AnimeIndex extends JFrame
 		mnAnichart.add(mnRedanimedatabase);
 		
 		JMenuItem mntmRadForum = new JMenuItem("RAD Forum");
+		mntmRadForum.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/RAD.png")));
+		mntmRadForum.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String link = "http://redanimedatabase.forumcommunity.net/";
+				try {
+					URI uriLink = new URI(link);
+					Desktop.getDesktop().browse(uriLink);
+				} catch (URISyntaxException a) {
+				} catch (IOException a) {
+			}
+			}
+		});
 		mnRedanimedatabase.add(mntmRadForum);
 		
 		JSeparator separator_20 = new JSeparator();
 		mnRedanimedatabase.add(separator_20);
 		
 		JMenuItem mntmRadNews = new JMenuItem("RAD News");
+		mntmRadNews.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/RAD.png")));
+		mntmRadNews.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String link = "http://www.redanimedatabase.it/";
+				try {
+					URI uriLink = new URI(link);
+					Desktop.getDesktop().browse(uriLink);
+				} catch (URISyntaxException a) {
+				} catch (IOException a) {
+			}
+			}
+		});
 		mnRedanimedatabase.add(mntmRadNews);
 		
 		JMenu mnInfo = new JMenu("Info");
