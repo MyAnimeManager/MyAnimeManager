@@ -859,6 +859,22 @@ public class AnimeIndex extends JFrame
 		mnAnichart.add(separator_3);
 		mnAnichart.add(mntmAnidb);
 		
+		JSeparator separator_19 = new JSeparator();
+		mnAnichart.add(separator_19);
+		
+		JMenu mnRedanimedatabase = new JMenu("RedAnimeDatabase");
+		mnRedanimedatabase.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/RAD.png")));
+		mnAnichart.add(mnRedanimedatabase);
+		
+		JMenuItem mntmRadForum = new JMenuItem("RAD Forum");
+		mnRedanimedatabase.add(mntmRadForum);
+		
+		JSeparator separator_20 = new JSeparator();
+		mnRedanimedatabase.add(separator_20);
+		
+		JMenuItem mntmRadNews = new JMenuItem("RAD News");
+		mnRedanimedatabase.add(mntmRadNews);
+		
 		JMenu mnInfo = new JMenu("Info");
 		menuBar.add(mnInfo);
 		
