@@ -24,7 +24,7 @@ import util.Filters;
 public class SetFilterDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	public static final ButtonGroup filterGroup = new ButtonGroup();
+	public final ButtonGroup filterGroup = new ButtonGroup();
 	private JCheckBox blueray;
 	private JCheckBox sospese;
 	private JCheckBox acquistate;
@@ -207,7 +207,7 @@ public class SetFilterDialog extends JDialog {
 				JButton okButton = new JButton("Applica");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(filterGroup.getSelection() != null && !filterGroup.getSelection().isSelected())
+						if(filterGroup.getSelection() != null)
 						{
 							AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon1.png")));
 							Filters.toFileteredList();
