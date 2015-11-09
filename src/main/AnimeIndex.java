@@ -45,6 +45,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
@@ -2088,6 +2089,29 @@ public class AnimeIndex extends JFrame
 		buttonPanel.add(addButton, BorderLayout.SOUTH);
 		
 	    setFilterButton = new JButton("Filtro");
+	    setFilterButton.addMouseListener(new MouseAdapter() {
+	    	@Override
+	    	public void mouseClicked(MouseEvent e) {
+	    		if ( SwingUtilities.isRightMouseButton(e) )
+		        {
+	    			JPopupMenu menu = new JPopupMenu();
+	                JMenuItem removeAllFilter = new JMenuItem("Elimina tutti i filtri");
+	                removeAllFilter.addActionListener(new ActionListener() {
+	                    public void actionPerformed(ActionEvent e) {
+	                    	for (int i = 0; i < AnimeIndex.filterArray.length; i++)
+								AnimeIndex.filterArray[i] = false;
+							AnimeIndex.filtro=9;
+							AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon3.png")));
+							String listName = AnimeIndex.getList();
+							CardLayout cl = (CardLayout)(AnimeIndex.cardContainer.getLayout());
+					        cl.show(AnimeIndex.cardContainer, listName);
+	                    }
+	                });
+	                menu.add(removeAllFilter);
+	                menu.show(AnimeIndex.setFilterButton, e.getX(),e.getY());
+		        }
+	    	}
+	    });
 	    setFilterButton.setToolTipText("Filtri per la lista corrente");
 	    setFilterButton.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
@@ -2488,6 +2512,7 @@ public class AnimeIndex extends JFrame
 			animeInformation.setFinishDate(data.getFinishDate());
 			animeInformation.setDay(data.getDay());
 			animeInformation.setType(data.getAnimeType());
+			animeInformation.setNote(data.getNote());
 			String listName = getList();
 			String path = data.getImagePath(listName);
 			File file = new File(path);
@@ -2531,6 +2556,7 @@ public class AnimeIndex extends JFrame
 			animeInformation.setFinishDate(data.getFinishDate());
 			animeInformation.setDay(data.getDay());
 			animeInformation.setType(data.getAnimeType());
+			animeInformation.setNote(data.getNote());
 			String listName = getList();
 			String path = data.getImagePath(listName);
 			File file = new File(path);
