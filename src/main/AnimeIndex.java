@@ -83,7 +83,6 @@ import util.window.AnimeInformation;
 import util.window.CreditDialog;
 import util.window.ExitSaveDialog;
 import util.window.PreferenceDialog;
-import util.window.ReleaseNotifierDialog;
 import util.window.SetFilterDialog;
 import util.window.SuggestionDialog;
 import util.window.ThanksDialog;
