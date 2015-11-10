@@ -83,8 +83,10 @@ import util.window.AnimeInformation;
 import util.window.CreditDialog;
 import util.window.ExitSaveDialog;
 import util.window.PreferenceDialog;
+import util.window.ReleaseNotifierDialog;
 import util.window.SetFilterDialog;
 import util.window.SuggestionDialog;
+import util.window.ThanksDialog;
 import util.window.UpdateDialog;
 import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
@@ -862,29 +864,16 @@ public class AnimeIndex extends JFrame
 		JSeparator separator_19 = new JSeparator();
 		mnAnichart.add(separator_19);
 		
-		JMenu mnRedanimedatabase = new JMenu("RedAnimeDatabase");
-		mnRedanimedatabase.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/RAD.png")));
-		mnAnichart.add(mnRedanimedatabase);
+		JMenu mnNewMenu = new JMenu("RedAnimeDatabase");
+		mnAnichart.add(mnNewMenu);
+		mnNewMenu.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/RAD.png")));
 		
 		JMenuItem mntmRadForum = new JMenuItem("RAD Forum");
+		mnNewMenu.add(mntmRadForum);
 		mntmRadForum.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/RAD.png")));
-		mntmRadForum.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String link = "http://redanimedatabase.forumcommunity.net/";
-				try {
-					URI uriLink = new URI(link);
-					Desktop.getDesktop().browse(uriLink);
-				} catch (URISyntaxException a) {
-				} catch (IOException a) {
-			}
-			}
-		});
-		mnRedanimedatabase.add(mntmRadForum);
-		
-		JSeparator separator_20 = new JSeparator();
-		mnRedanimedatabase.add(separator_20);
 		
 		JMenuItem mntmRadNews = new JMenuItem("RAD News");
+		mnNewMenu.add(mntmRadNews);
 		mntmRadNews.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/RAD.png")));
 		mntmRadNews.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -897,7 +886,17 @@ public class AnimeIndex extends JFrame
 			}
 			}
 		});
-		mnRedanimedatabase.add(mntmRadNews);
+		mntmRadForum.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String link = "http://redanimedatabase.forumcommunity.net/";
+				try {
+					URI uriLink = new URI(link);
+					Desktop.getDesktop().browse(uriLink);
+				} catch (URISyntaxException a) {
+				} catch (IOException a) {
+			}
+			}
+		});
 		
 		JMenu mnInfo = new JMenu("Info");
 		menuBar.add(mnInfo);
@@ -940,6 +939,20 @@ public class AnimeIndex extends JFrame
 		mnInfo.add(separator_1);
 		if (AnimeIndex.colorProp.getProperty("Menu_color") != null && !AnimeIndex.colorProp.getProperty("Menu_color").equalsIgnoreCase("null"))
 			mnInfo.setBackground(new Color(Integer.parseInt(colorProp.getProperty("Menu_color"))));
+		
+		JMenuItem mntmRingraziamenti = new JMenuItem("Ringraziamenti");
+		mntmRingraziamenti.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/partners-icon.png")));
+		mntmRingraziamenti.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ThanksDialog thanks = new ThanksDialog();
+				thanks.setLocationRelativeTo(AnimeIndex.mainFrame);
+				thanks.setVisible(true);
+			}
+		});
+		mnInfo.add(mntmRingraziamenti);
+		
+		JSeparator separator_20 = new JSeparator();
+		mnInfo.add(separator_20);
 		
 		JMenuItem mntmProposte = new JMenuItem("Segnalazioni");
 		mntmProposte.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/bug-128.png")));
@@ -1245,6 +1258,8 @@ public class AnimeIndex extends JFrame
 				}
 				if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 					AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+				else
+					AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 			}
 			String link = (String)animeInformation.fansubComboBox.getSelectedItem();
 			if(link!=null && !link.isEmpty())
@@ -1319,6 +1334,8 @@ public class AnimeIndex extends JFrame
 					}
 					if(airingMap.get(name).getLink() !=null && !airingMap.get(name).getLink().isEmpty())
 						AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+					else
+						AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 				}
 				String link = (String)animeInformation.fansubComboBox.getSelectedItem();
 				if(link!=null && !link.isEmpty())
@@ -1391,6 +1408,8 @@ public class AnimeIndex extends JFrame
 					}
 					if(ovaMap.get(name).getLink() !=null && !ovaMap.get(name).getLink().isEmpty())
 						AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+					else
+						AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 				}
 				String link = (String)animeInformation.fansubComboBox.getSelectedItem();
 				if(link!=null && !link.isEmpty())
@@ -1400,7 +1419,7 @@ public class AnimeIndex extends JFrame
 				}
 				
 				autoDataCheck();
-				setAnimeInformationFields();
+//				setAnimeInformationFields();
 			}
 		});
 		ovaScroll.setViewportView(ovaList);
@@ -1463,6 +1482,8 @@ public class AnimeIndex extends JFrame
 					}
 					if(filmMap.get(name).getLink() !=null && !filmMap.get(name).getLink().isEmpty())
 						AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+					else
+						AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 				}
 				String link = (String)animeInformation.fansubComboBox.getSelectedItem();
 				if(link!=null && !link.isEmpty())
@@ -1472,7 +1493,7 @@ public class AnimeIndex extends JFrame
 				}
 				
 				autoDataCheck();
-				setAnimeInformationFields();
+//				setAnimeInformationFields();
 			}
 		});
 		filmScroll.setViewportView(filmList);
@@ -1535,6 +1556,8 @@ public class AnimeIndex extends JFrame
 					}
 					if(completedToSeeMap.get(name).getLink() !=null && !completedToSeeMap.get(name).getLink().isEmpty())
 						AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+					else
+						AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 				}
 				String link = (String)animeInformation.fansubComboBox.getSelectedItem();
 				if(link!=null && !link.isEmpty())
@@ -1599,9 +1622,11 @@ public class AnimeIndex extends JFrame
 						}
 						if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 							AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+						else
+							AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 					}
-						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
-						if(link!=null && !link.isEmpty())
+					String link = (String)animeInformation.fansubComboBox.getSelectedItem();
+					if(link!=null && !link.isEmpty())
 					{
 						if(fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
 							AnimeIndex.animeInformation.fansubButton.setEnabled(true);
@@ -1642,6 +1667,8 @@ public class AnimeIndex extends JFrame
 							}
 							if(airingMap.get(name).getLink() !=null && !airingMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+							else
+								AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 						}
 						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
 						if(link!=null && !link.isEmpty())
@@ -1686,6 +1713,8 @@ public class AnimeIndex extends JFrame
 							}
 							if(ovaMap.get(name).getLink() !=null && !ovaMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+							else
+								AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 						}
 						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
 						if(link!=null && !link.isEmpty())
@@ -1696,7 +1725,7 @@ public class AnimeIndex extends JFrame
 					}
 					else if(cBox.equalsIgnoreCase("Film"))
 					{
-						setAnimeInformationFields();
+//						setAnimeInformationFields();
 						AnimeIndex.animeInformation.minusButton.setEnabled(true);
 						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
@@ -1730,6 +1759,8 @@ public class AnimeIndex extends JFrame
 							}
 							if(filmMap.get(name).getLink() !=null && !filmMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+							else
+								AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 						}
 						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
 						if(link!=null && !link.isEmpty())
@@ -1773,6 +1804,8 @@ public class AnimeIndex extends JFrame
 							}
 							if(completedToSeeMap.get(name).getLink() !=null && !completedToSeeMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+							else
+								AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 						}
 						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
 						if(link!=null && !link.isEmpty())
@@ -1782,7 +1815,7 @@ public class AnimeIndex extends JFrame
 						}
 					}
 				autoDataCheck();
-				setAnimeInformationFields();
+//				setAnimeInformationFields();
 			}
 		});
 		searchList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1843,6 +1876,8 @@ public class AnimeIndex extends JFrame
 						}
 						if(completedMap.get(name).getLink() !=null && !completedMap.get(name).getLink().isEmpty())
 							AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+						else
+							AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 					}
 						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
 						if(link!=null && !link.isEmpty())
@@ -1886,6 +1921,8 @@ public class AnimeIndex extends JFrame
 							}
 							if(airingMap.get(name).getLink() !=null && !airingMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+							else
+								AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 						}
 						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
 						if(link!=null && !link.isEmpty())
@@ -1930,6 +1967,8 @@ public class AnimeIndex extends JFrame
 							}
 							if(ovaMap.get(name).getLink() !=null && !ovaMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+							else
+								AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 						}
 						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
 						if(link!=null && !link.isEmpty())
@@ -1940,7 +1979,7 @@ public class AnimeIndex extends JFrame
 					}
 					else if(cBox.equalsIgnoreCase("Film"))
 					{
-						setAnimeInformationFields();
+//						setAnimeInformationFields();
 						AnimeIndex.animeInformation.minusButton.setEnabled(true);
 						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
@@ -1974,6 +2013,8 @@ public class AnimeIndex extends JFrame
 							}
 							if(filmMap.get(name).getLink() !=null && !filmMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+							else
+								AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 						}
 						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
 						if(link!=null && !link.isEmpty())
@@ -2017,6 +2058,8 @@ public class AnimeIndex extends JFrame
 							}
 							if(completedToSeeMap.get(name).getLink() !=null && !completedToSeeMap.get(name).getLink().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(true);
+							else
+								AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 						}
 						String link = (String)animeInformation.fansubComboBox.getSelectedItem();
 						if(link!=null && !link.isEmpty())
@@ -2026,7 +2069,7 @@ public class AnimeIndex extends JFrame
 						}
 					}
 				autoDataCheck();
-				setAnimeInformationFields();
+//				setAnimeInformationFields();
 			}
 		});
 		filterList.setSize(new Dimension(138, 233));
@@ -2824,7 +2867,7 @@ public class AnimeIndex extends JFrame
 					startDay = "??/??/"+oldData.getReleaseDate().trim().substring(6, 10);
 				else
 					startDay = oldData.getReleaseDate().trim();
-				AnimeIndex.setAnimeInformationFields();
+//				AnimeIndex.setAnimeInformationFields();
 			}
 			if (oldData.getReleaseDate().endsWith(" ") || oldData.getReleaseDate().startsWith(" "))
 				startDay = oldData.getReleaseDate().trim();
@@ -2885,7 +2928,7 @@ public class AnimeIndex extends JFrame
 					endDay ="??/??/"+oldData.getFinishDate().trim().substring(6, 10);
 				else
 					endDay = oldData.getFinishDate().trim();
-				AnimeIndex.setAnimeInformationFields();
+//				AnimeIndex.setAnimeInformationFields();
 			}
 			if (oldData.getFinishDate().endsWith(" ") || oldData.getFinishDate().startsWith(" "))
 				endDay = oldData.getFinishDate().trim();
@@ -2964,539 +3007,539 @@ public class AnimeIndex extends JFrame
 		}
 	}
 
-	public static void setAnimeInformationFields()
-	{
-		if(!animeInformation.totalEpisodeText.getText().equals("??") && !animeInformation.currentEpisodeField.getText().isEmpty() && !animeInformation.totalEpisodeText.getText().isEmpty())
-		{
-			int totEp = Integer.parseInt(animeInformation.totalEpisodeText.getText());
-			int currEp = Integer.parseInt(animeInformation.currentEpisodeField.getText());
-				
-			if (currEp < totEp)
-			{			
-				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
-				{
-					if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-						animeInformation.exitDaycomboBox.setSelectedItem("?????");
-					animeInformation.exitDaycomboBox.setEnabled(true);
-				}
-			}
-			
-			if (currEp == 0)
-			{
-				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
-				{
-					if(Integer.parseInt(animeInformation.totalEpisodeText.getText())>1)
-					{
-						try{
-							if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
-							{
-								animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-								animeInformation.exitDaycomboBox.setEnabled(false);
-							}
-						}catch(ParseException e){
-							String data = animeInformation.releaseDateField.getText();
-							if(data.equals("??/??/????"))
-							{}
-							else if(data.contains("??/??/"))
-							{
-								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
-								{
-									animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-									animeInformation.exitDaycomboBox.setEnabled(false);
-								}
-							}
-							else if(data.contains("??/"))
-							{
-								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
-								{
-									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
-									{
-										animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-										animeInformation.exitDaycomboBox.setEnabled(false);
-									}
-								}
-							}
-						}
-					}
-					else
-					{
-						try{
-							if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
-							{
-								animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-								animeInformation.exitDaycomboBox.setEnabled(false);
-							}
-						}catch(ParseException e){
-							String data = animeInformation.releaseDateField.getText();
-							if(data.equals("??/??/????"))
-							{}
-							else if(data.contains("??/??/"))
-							{
-								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
-								{
-									animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-									animeInformation.exitDaycomboBox.setEnabled(false);
-								}
-							}
-							else if(data.contains("??/"))
-							{
-								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
-								{
-									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
-									{
-										animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-										animeInformation.exitDaycomboBox.setEnabled(false);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			if(currEp==1)
-			{
-				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
-				{
-					if(Integer.parseInt(animeInformation.totalEpisodeText.getText())>1)
-					{
-						try{
-							if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
-							{
-								animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-								animeInformation.exitDaycomboBox.setEnabled(false);
-							}
-						}catch(ParseException e){
-							String data = animeInformation.releaseDateField.getText();
-							if(data.equals("??/??/????"))
-							{}
-							else if(data.contains("??/??/"))
-							{
-								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
-								{
-									animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-									animeInformation.exitDaycomboBox.setEnabled(false);
-								}
-							}
-							else if(data.contains("??/"))
-							{
-								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
-								{
-									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
-									{
-										animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-										animeInformation.exitDaycomboBox.setEnabled(false);
-									}
-								}
-							}
-						}
-					}
-				}
-			}			
-			if (currEp == totEp)
-			{
-				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
-				{
-					try{
-						if(getDate(animeInformation.finishDateField.getText()).before(getDate(today())))
-						{
-							animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-							animeInformation.exitDaycomboBox.setEnabled(false);
-						}
-					}catch(ParseException e){
-						String data = animeInformation.finishDateField.getText();
-						if(data.equals("??/??/????"))
-						{}
-						else if(data.contains("??/??/"))
-						{
-							if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
-							{
-								animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-								animeInformation.exitDaycomboBox.setEnabled(false);
-							}
-						}
-						else if(data.contains("??/"))
-						{
-							if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
-							{
-								if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
-								{
-									animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-									animeInformation.exitDaycomboBox.setEnabled(false);
-								}
-							}
-						}
-					}
-				}
-			}
-			try{
-				if(getDate(animeInformation.finishDateField.getText()).before(getDate(today())))
-				{
-					if(totEp>1 && currEp<totEp)
-					{
-						animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-						animeInformation.exitDaycomboBox.setEnabled(false);
-					}
-					else
-					{
-						animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-						animeInformation.exitDaycomboBox.setEnabled(false);
-					}
-				}
-			}catch(ParseException e){
-				String data = animeInformation.finishDateField.getText();
-				if(data.equals("??/??/????"))
-				{}
-				else if(data.contains("??/??/"))
-				{
-					if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
-					{
-						if(totEp>1 && currEp<totEp)
-						{
-							animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-							animeInformation.exitDaycomboBox.setEnabled(false);
-						}
-						else
-						{
-							animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-							animeInformation.exitDaycomboBox.setEnabled(false);
-						}
-					}
-				}
-				else if(data.contains("??/"))
-				{
-					if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
-					{
-						if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
-						{
-							if(totEp>1 && currEp<totEp)
-							{
-								animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-								animeInformation.exitDaycomboBox.setEnabled(false);
-							}
-							else
-							{
-								animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-								animeInformation.exitDaycomboBox.setEnabled(false);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	public static void setAnimeInformationFields(int currEp, int totEp)
-	{
-		if(!(currEp+"").equals("??") && !(currEp+"").isEmpty() && !(totEp+"").isEmpty())
-		{
-			if (currEp < totEp)
-			{			
-				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
-				{
-					if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-						animeInformation.exitDaycomboBox.setSelectedItem("?????");
-					animeInformation.exitDaycomboBox.setEnabled(true);
-				}
-			}
-			
-			if (currEp == 0)
-			{
-				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
-				{
-					if(totEp>1)
-					{
-						try{
-							if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
-							{
-								animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-								animeInformation.exitDaycomboBox.setEnabled(false);
-							}
-							else
-							{
-								if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-									animeInformation.exitDaycomboBox.setSelectedItem("?????");
-								animeInformation.exitDaycomboBox.setEnabled(true);
-							}
-						}catch(ParseException e){
-							String data = animeInformation.releaseDateField.getText();
-							if(data.equals("??/??/????"))
-							{}
-							else if(data.contains("??/??/"))
-							{
-								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
-								{
-									animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-									animeInformation.exitDaycomboBox.setEnabled(false);
-								}
-								else
-								{
-									if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-										animeInformation.exitDaycomboBox.setSelectedItem("?????");
-									animeInformation.exitDaycomboBox.setEnabled(true);
-								}
-							}
-							else if(data.contains("??/"))
-							{
-								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
-								{
-									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
-									{
-										animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-										animeInformation.exitDaycomboBox.setEnabled(false);
-									}
-									else
-									{
-										if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-											animeInformation.exitDaycomboBox.setSelectedItem("?????");
-										animeInformation.exitDaycomboBox.setEnabled(true);
-									}
-								}
-								else
-								{
-									if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-										animeInformation.exitDaycomboBox.setSelectedItem("?????");
-									animeInformation.exitDaycomboBox.setEnabled(true);
-								}
-							}
-						}
-					}
-					else
-					{
-						try{
-							if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
-							{
-								animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-								animeInformation.exitDaycomboBox.setEnabled(false);
-							}
-							else
-							{
-								if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-									animeInformation.exitDaycomboBox.setSelectedItem("?????");
-								animeInformation.exitDaycomboBox.setEnabled(true);
-							}
-						}catch(ParseException e){
-							String data = animeInformation.releaseDateField.getText();
-							if(data.equals("??/??/????"))
-							{}
-							else if(data.contains("??/??/"))
-							{
-								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
-								{
-									animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-									animeInformation.exitDaycomboBox.setEnabled(false);
-								}
-								else
-								{
-									if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-										animeInformation.exitDaycomboBox.setSelectedItem("?????");
-									animeInformation.exitDaycomboBox.setEnabled(true);
-								}
-							}
-							else if(data.contains("??/"))
-							{
-								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
-								{
-									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
-									{
-										animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-										animeInformation.exitDaycomboBox.setEnabled(false);
-									}
-									else
-									{
-										if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-											animeInformation.exitDaycomboBox.setSelectedItem("?????");
-										animeInformation.exitDaycomboBox.setEnabled(true);
-									}
-								}
-								else
-								{
-									if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-										animeInformation.exitDaycomboBox.setSelectedItem("?????");
-									animeInformation.exitDaycomboBox.setEnabled(true);
-								}
-							}
-						}
-					}
-				}
-			}
-			if(currEp==1)
-			{
-				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
-				{
-					if(totEp>1)
-					{
-						try{
-							if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
-							{
-								animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-								animeInformation.exitDaycomboBox.setEnabled(false);
-							}
-							else
-							{
-								if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-									animeInformation.exitDaycomboBox.setSelectedItem("?????");
-								animeInformation.exitDaycomboBox.setEnabled(true);
-							}
-						}catch(ParseException e){
-							String data = animeInformation.releaseDateField.getText();
-							if(data.equals("??/??/????"))
-							{}
-							else if(data.contains("??/??/"))
-							{
-								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
-								{
-									animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-									animeInformation.exitDaycomboBox.setEnabled(false);
-								}
-								else
-								{
-									if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-										animeInformation.exitDaycomboBox.setSelectedItem("?????");
-									animeInformation.exitDaycomboBox.setEnabled(true);
-								}
-							}
-							else if(data.contains("??/"))
-							{
-								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
-								{
-									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
-									{
-										animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-										animeInformation.exitDaycomboBox.setEnabled(false);
-									}
-									else
-									{
-										if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-											animeInformation.exitDaycomboBox.setSelectedItem("?????");
-										animeInformation.exitDaycomboBox.setEnabled(true);
-									}
-								}
-								else
-								{
-									if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-										animeInformation.exitDaycomboBox.setSelectedItem("?????");
-									animeInformation.exitDaycomboBox.setEnabled(true);
-								}
-							}
-						}
-					}
-				}
-			}			
-			if (currEp == totEp)
-			{
-				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
-				{
-					try{
-						if(getDate(animeInformation.finishDateField.getText()).before(getDate(today())))
-						{
-							animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-							animeInformation.exitDaycomboBox.setEnabled(false);
-						}
-						else
-						{
-							if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-								animeInformation.exitDaycomboBox.setSelectedItem("?????");
-							animeInformation.exitDaycomboBox.setEnabled(true);
-						}
-					}catch(ParseException e){
-						String data = animeInformation.finishDateField.getText();
-						if(data.equals("??/??/????"))
-						{}
-						else if(data.contains("??/??/"))
-						{
-							if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
-							{
-								animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-								animeInformation.exitDaycomboBox.setEnabled(false);
-							}
-							else
-							{
-								if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-									animeInformation.exitDaycomboBox.setSelectedItem("?????");
-								animeInformation.exitDaycomboBox.setEnabled(true);
-							}
-						}
-						else if(data.contains("??/"))
-						{
-							if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
-							{
-								if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
-								{
-									animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-									animeInformation.exitDaycomboBox.setEnabled(false);
-								}
-								else
-								{
-									if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-										animeInformation.exitDaycomboBox.setSelectedItem("?????");
-									animeInformation.exitDaycomboBox.setEnabled(true);
-								}
-							}
-							else
-							{
-								if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
-									animeInformation.exitDaycomboBox.setSelectedItem("?????");
-								animeInformation.exitDaycomboBox.setEnabled(true);
-							}
-						}
-					}
-				}
-			}
-			try{
-				if(getDate(animeInformation.finishDateField.getText()).before(getDate(today())))
-				{
-					if(totEp>1 && currEp<totEp)
-					{
-						animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-						animeInformation.exitDaycomboBox.setEnabled(false);
-					}
-					else
-					{
-						animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-						animeInformation.exitDaycomboBox.setEnabled(false);
-					}
-				}
-			}catch(ParseException e){
-				String data = animeInformation.finishDateField.getText();
-				if(data.equals("??/??/????"))
-				{}
-				else if(data.contains("??/??/"))
-				{
-					if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
-					{
-						if(totEp>1 && currEp<totEp)
-						{
-							animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-							animeInformation.exitDaycomboBox.setEnabled(false);
-						}
-						else
-						{
-							animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-							animeInformation.exitDaycomboBox.setEnabled(false);
-						}
-					}
-				}
-				else if(data.contains("??/"))
-				{
-					if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
-					{
-						if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
-						{
-							if(totEp>1 && currEp<totEp)
-							{
-								animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
-								animeInformation.exitDaycomboBox.setEnabled(false);
-							}
-							else
-							{
-								animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
-								animeInformation.exitDaycomboBox.setEnabled(false);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+//	public static void setAnimeInformationFields()
+//	{
+//		if(!animeInformation.totalEpisodeText.getText().equals("??") && !animeInformation.currentEpisodeField.getText().isEmpty() && !animeInformation.totalEpisodeText.getText().isEmpty())
+//		{
+//			int totEp = Integer.parseInt(animeInformation.totalEpisodeText.getText());
+//			int currEp = Integer.parseInt(animeInformation.currentEpisodeField.getText());
+//				
+//			if (currEp < totEp)
+//			{			
+//				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+//				{
+//					if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//						animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//					animeInformation.exitDaycomboBox.setEnabled(true);
+//				}
+//			}
+//			
+//			if (currEp == 0)
+//			{
+//				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+//				{
+//					if(Integer.parseInt(animeInformation.totalEpisodeText.getText())>1)
+//					{
+//						try{
+//							if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
+//							{
+//								animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//								animeInformation.exitDaycomboBox.setEnabled(false);
+//							}
+//						}catch(ParseException e){
+//							String data = animeInformation.releaseDateField.getText();
+//							if(data.equals("??/??/????"))
+//							{}
+//							else if(data.contains("??/??/"))
+//							{
+//								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
+//								{
+//									animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//									animeInformation.exitDaycomboBox.setEnabled(false);
+//								}
+//							}
+//							else if(data.contains("??/"))
+//							{
+//								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
+//								{
+//									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+//									{
+//										animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//										animeInformation.exitDaycomboBox.setEnabled(false);
+//									}
+//								}
+//							}
+//						}
+//					}
+//					else
+//					{
+//						try{
+//							if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
+//							{
+//								animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//								animeInformation.exitDaycomboBox.setEnabled(false);
+//							}
+//						}catch(ParseException e){
+//							String data = animeInformation.releaseDateField.getText();
+//							if(data.equals("??/??/????"))
+//							{}
+//							else if(data.contains("??/??/"))
+//							{
+//								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
+//								{
+//									animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//									animeInformation.exitDaycomboBox.setEnabled(false);
+//								}
+//							}
+//							else if(data.contains("??/"))
+//							{
+//								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
+//								{
+//									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+//									{
+//										animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//										animeInformation.exitDaycomboBox.setEnabled(false);
+//									}
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//			if(currEp==1)
+//			{
+//				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+//				{
+//					if(Integer.parseInt(animeInformation.totalEpisodeText.getText())>1)
+//					{
+//						try{
+//							if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
+//							{
+//								animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//								animeInformation.exitDaycomboBox.setEnabled(false);
+//							}
+//						}catch(ParseException e){
+//							String data = animeInformation.releaseDateField.getText();
+//							if(data.equals("??/??/????"))
+//							{}
+//							else if(data.contains("??/??/"))
+//							{
+//								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
+//								{
+//									animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//									animeInformation.exitDaycomboBox.setEnabled(false);
+//								}
+//							}
+//							else if(data.contains("??/"))
+//							{
+//								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
+//								{
+//									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+//									{
+//										animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//										animeInformation.exitDaycomboBox.setEnabled(false);
+//									}
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}			
+//			if (currEp == totEp)
+//			{
+//				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+//				{
+//					try{
+//						if(getDate(animeInformation.finishDateField.getText()).before(getDate(today())))
+//						{
+//							animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//							animeInformation.exitDaycomboBox.setEnabled(false);
+//						}
+//					}catch(ParseException e){
+//						String data = animeInformation.finishDateField.getText();
+//						if(data.equals("??/??/????"))
+//						{}
+//						else if(data.contains("??/??/"))
+//						{
+//							if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
+//							{
+//								animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//								animeInformation.exitDaycomboBox.setEnabled(false);
+//							}
+//						}
+//						else if(data.contains("??/"))
+//						{
+//							if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
+//							{
+//								if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+//								{
+//									animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//									animeInformation.exitDaycomboBox.setEnabled(false);
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//			try{
+//				if(getDate(animeInformation.finishDateField.getText()).before(getDate(today())))
+//				{
+//					if(totEp>1 && currEp<totEp)
+//					{
+//						animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//						animeInformation.exitDaycomboBox.setEnabled(false);
+//					}
+//					else
+//					{
+//						animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//						animeInformation.exitDaycomboBox.setEnabled(false);
+//					}
+//				}
+//			}catch(ParseException e){
+//				String data = animeInformation.finishDateField.getText();
+//				if(data.equals("??/??/????"))
+//				{}
+//				else if(data.contains("??/??/"))
+//				{
+//					if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
+//					{
+//						if(totEp>1 && currEp<totEp)
+//						{
+//							animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//							animeInformation.exitDaycomboBox.setEnabled(false);
+//						}
+//						else
+//						{
+//							animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//							animeInformation.exitDaycomboBox.setEnabled(false);
+//						}
+//					}
+//				}
+//				else if(data.contains("??/"))
+//				{
+//					if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
+//					{
+//						if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+//						{
+//							if(totEp>1 && currEp<totEp)
+//							{
+//								animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//								animeInformation.exitDaycomboBox.setEnabled(false);
+//							}
+//							else
+//							{
+//								animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//								animeInformation.exitDaycomboBox.setEnabled(false);
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+//	
+//	public static void setAnimeInformationFields(int currEp, int totEp)
+//	{
+//		if(!(currEp+"").equals("??") && !(currEp+"").isEmpty() && !(totEp+"").isEmpty())
+//		{
+//			if (currEp < totEp)
+//			{			
+//				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+//				{
+//					if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//						animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//					animeInformation.exitDaycomboBox.setEnabled(true);
+//				}
+//			}
+//			
+//			if (currEp == 0)
+//			{
+//				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+//				{
+//					if(totEp>1)
+//					{
+//						try{
+//							if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
+//							{
+//								animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//								animeInformation.exitDaycomboBox.setEnabled(false);
+//							}
+//							else
+//							{
+//								if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//									animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//								animeInformation.exitDaycomboBox.setEnabled(true);
+//							}
+//						}catch(ParseException e){
+//							String data = animeInformation.releaseDateField.getText();
+//							if(data.equals("??/??/????"))
+//							{}
+//							else if(data.contains("??/??/"))
+//							{
+//								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
+//								{
+//									animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//									animeInformation.exitDaycomboBox.setEnabled(false);
+//								}
+//								else
+//								{
+//									if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//										animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//									animeInformation.exitDaycomboBox.setEnabled(true);
+//								}
+//							}
+//							else if(data.contains("??/"))
+//							{
+//								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
+//								{
+//									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+//									{
+//										animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//										animeInformation.exitDaycomboBox.setEnabled(false);
+//									}
+//									else
+//									{
+//										if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//											animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//										animeInformation.exitDaycomboBox.setEnabled(true);
+//									}
+//								}
+//								else
+//								{
+//									if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//										animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//									animeInformation.exitDaycomboBox.setEnabled(true);
+//								}
+//							}
+//						}
+//					}
+//					else
+//					{
+//						try{
+//							if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
+//							{
+//								animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//								animeInformation.exitDaycomboBox.setEnabled(false);
+//							}
+//							else
+//							{
+//								if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//									animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//								animeInformation.exitDaycomboBox.setEnabled(true);
+//							}
+//						}catch(ParseException e){
+//							String data = animeInformation.releaseDateField.getText();
+//							if(data.equals("??/??/????"))
+//							{}
+//							else if(data.contains("??/??/"))
+//							{
+//								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
+//								{
+//									animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//									animeInformation.exitDaycomboBox.setEnabled(false);
+//								}
+//								else
+//								{
+//									if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//										animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//									animeInformation.exitDaycomboBox.setEnabled(true);
+//								}
+//							}
+//							else if(data.contains("??/"))
+//							{
+//								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
+//								{
+//									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+//									{
+//										animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//										animeInformation.exitDaycomboBox.setEnabled(false);
+//									}
+//									else
+//									{
+//										if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//											animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//										animeInformation.exitDaycomboBox.setEnabled(true);
+//									}
+//								}
+//								else
+//								{
+//									if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//										animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//									animeInformation.exitDaycomboBox.setEnabled(true);
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//			if(currEp==1)
+//			{
+//				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+//				{
+//					if(totEp>1)
+//					{
+//						try{
+//							if(getDate(animeInformation.releaseDateField.getText()).before(getDate(today())))
+//							{
+//								animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//								animeInformation.exitDaycomboBox.setEnabled(false);
+//							}
+//							else
+//							{
+//								if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//									animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//								animeInformation.exitDaycomboBox.setEnabled(true);
+//							}
+//						}catch(ParseException e){
+//							String data = animeInformation.releaseDateField.getText();
+//							if(data.equals("??/??/????"))
+//							{}
+//							else if(data.contains("??/??/"))
+//							{
+//								if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
+//								{
+//									animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//									animeInformation.exitDaycomboBox.setEnabled(false);
+//								}
+//								else
+//								{
+//									if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//										animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//									animeInformation.exitDaycomboBox.setEnabled(true);
+//								}
+//							}
+//							else if(data.contains("??/"))
+//							{
+//								if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
+//								{
+//									if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+//									{
+//										animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//										animeInformation.exitDaycomboBox.setEnabled(false);
+//									}
+//									else
+//									{
+//										if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//											animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//										animeInformation.exitDaycomboBox.setEnabled(true);
+//									}
+//								}
+//								else
+//								{
+//									if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//										animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//									animeInformation.exitDaycomboBox.setEnabled(true);
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}			
+//			if (currEp == totEp)
+//			{
+//				if(AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+//				{
+//					try{
+//						if(getDate(animeInformation.finishDateField.getText()).before(getDate(today())))
+//						{
+//							animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//							animeInformation.exitDaycomboBox.setEnabled(false);
+//						}
+//						else
+//						{
+//							if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//								animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//							animeInformation.exitDaycomboBox.setEnabled(true);
+//						}
+//					}catch(ParseException e){
+//						String data = animeInformation.finishDateField.getText();
+//						if(data.equals("??/??/????"))
+//						{}
+//						else if(data.contains("??/??/"))
+//						{
+//							if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
+//							{
+//								animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//								animeInformation.exitDaycomboBox.setEnabled(false);
+//							}
+//							else
+//							{
+//								if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//									animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//								animeInformation.exitDaycomboBox.setEnabled(true);
+//							}
+//						}
+//						else if(data.contains("??/"))
+//						{
+//							if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
+//							{
+//								if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+//								{
+//									animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//									animeInformation.exitDaycomboBox.setEnabled(false);
+//								}
+//								else
+//								{
+//									if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//										animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//									animeInformation.exitDaycomboBox.setEnabled(true);
+//								}
+//							}
+//							else
+//							{
+//								if(animeInformation.exitDaycomboBox.getSelectedItem().equals("?????")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Rilasciato")||animeInformation.exitDaycomboBox.getSelectedItem().equals("Concluso"))
+//									animeInformation.exitDaycomboBox.setSelectedItem("?????");
+//								animeInformation.exitDaycomboBox.setEnabled(true);
+//							}
+//						}
+//					}
+//				}
+//			}
+//			try{
+//				if(getDate(animeInformation.finishDateField.getText()).before(getDate(today())))
+//				{
+//					if(totEp>1 && currEp<totEp)
+//					{
+//						animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//						animeInformation.exitDaycomboBox.setEnabled(false);
+//					}
+//					else
+//					{
+//						animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//						animeInformation.exitDaycomboBox.setEnabled(false);
+//					}
+//				}
+//			}catch(ParseException e){
+//				String data = animeInformation.finishDateField.getText();
+//				if(data.equals("??/??/????"))
+//				{}
+//				else if(data.contains("??/??/"))
+//				{
+//					if(Integer.parseInt(data.substring(6, 10)) < new GregorianCalendar().get(Calendar.YEAR))
+//					{
+//						if(totEp>1 && currEp<totEp)
+//						{
+//							animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//							animeInformation.exitDaycomboBox.setEnabled(false);
+//						}
+//						else
+//						{
+//							animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//							animeInformation.exitDaycomboBox.setEnabled(false);
+//						}
+//					}
+//				}
+//				else if(data.contains("??/"))
+//				{
+//					if(Integer.parseInt(data.substring(6, 10)) <= new GregorianCalendar().get(Calendar.YEAR))
+//					{
+//						if(Integer.parseInt(data.substring(3, 5)) < (new GregorianCalendar().get(Calendar.MONTH)+1))
+//						{
+//							if(totEp>1 && currEp<totEp)
+//							{
+//								animeInformation.exitDaycomboBox.setSelectedItem("Rilasciato");
+//								animeInformation.exitDaycomboBox.setEnabled(false);
+//							}
+//							else
+//							{
+//								animeInformation.exitDaycomboBox.setSelectedItem("Concluso");
+//								animeInformation.exitDaycomboBox.setEnabled(false);
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
 }
 

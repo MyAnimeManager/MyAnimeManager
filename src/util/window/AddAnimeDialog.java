@@ -117,7 +117,7 @@ public class AddAnimeDialog extends JDialog
 			}
 			@Override
 			public void windowClosed(WindowEvent e) {
-				AnimeIndex.setAnimeInformationFields();
+//				AnimeIndex.setAnimeInformationFields();
 			}
 		});
 		setTitle("Aggiungi anime");

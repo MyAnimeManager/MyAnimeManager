@@ -197,7 +197,7 @@ public class AnimeInformation extends JPanel {
 							}
 						}
 						currentEpisodeField.setText(Integer.toString(num));
-						AnimeIndex.setAnimeInformationFields();
+//						AnimeIndex.setAnimeInformationFields();
 					}
 			}
 		});
@@ -290,7 +290,7 @@ public class AnimeInformation extends JPanel {
 						plusButton.setEnabled(false);
 						finishedButton.setEnabled(true);
 					}
-					AnimeIndex.setAnimeInformationFields(currEp, totEp);
+//					AnimeIndex.setAnimeInformationFields(currEp, totEp);
 				}
 			}
 		});
@@ -351,7 +351,7 @@ public class AnimeInformation extends JPanel {
 										exitDaycomboBox.setSelectedItem("?????");
 										exitDaycomboBox.setEnabled(true);
 									}
-								AnimeIndex.setAnimeInformationFields();
+//								AnimeIndex.setAnimeInformationFields();
 							}
 					}
 				}
@@ -399,7 +399,7 @@ public class AnimeInformation extends JPanel {
 					finishedButton.setEnabled(true);
 				if (Integer.parseInt(totalEpisodeText.getText()) > Integer.parseInt(currentEpisodeField.getText()) && !plusButton.isEnabled())
 					plusButton.setEnabled(true);
-				AnimeIndex.setAnimeInformationFields();
+//				AnimeIndex.setAnimeInformationFields();
 			}
 		});
 		totalEpisodeText.addKeyListener(new KeyAdapter() {
@@ -407,20 +407,20 @@ public class AnimeInformation extends JPanel {
 			@Override
 			public void keyTyped(KeyEvent e)
 			{
-				if (!currentEpisodeField.getText().contains("?") && !totalEpisodeText.getText().contains("?"))
-				{
-					char key = e.getKeyChar();
-					int totEp = 0;
-					if (Character.isDigit(key) && !totalEpisodeText.getText().isEmpty())
-						totEp = Integer.parseInt(totalEpisodeText.getText() + key);
-					else if (!totalEpisodeText.getText().isEmpty())
-						totEp = Integer.parseInt(totalEpisodeText.getText());
-					else if (Character.isDigit(key) && totalEpisodeText.getText().isEmpty())
-						totEp = Integer.parseInt(key + "");
-					int currEp = Integer.parseInt(currentEpisodeField.getText());
-					
-					AnimeIndex.setAnimeInformationFields(currEp, totEp);
-				}
+//				if (!currentEpisodeField.getText().contains("?") && !totalEpisodeText.getText().contains("?"))
+//				{
+//					char key = e.getKeyChar();
+//					int totEp = 0;
+//					if (Character.isDigit(key) && !totalEpisodeText.getText().isEmpty())
+//						totEp = Integer.parseInt(totalEpisodeText.getText() + key);
+//					else if (!totalEpisodeText.getText().isEmpty())
+//						totEp = Integer.parseInt(totalEpisodeText.getText());
+//					else if (Character.isDigit(key) && totalEpisodeText.getText().isEmpty())
+//						totEp = Integer.parseInt(key + "");
+//					int currEp = Integer.parseInt(currentEpisodeField.getText());
+//					
+//					AnimeIndex.setAnimeInformationFields(currEp, totEp);
+//				}
 			}
 		});
 		totalEpisodeText.setMinimumSize(new Dimension(43, 23));
@@ -666,7 +666,7 @@ public class AnimeInformation extends JPanel {
 							releaseDateField.setText("??/??/"+releaseDateField.getText().trim().substring(6, 10));
 						else
 							releaseDateField.setText(releaseDateField.getText().trim());
-						AnimeIndex.setAnimeInformationFields();
+//						AnimeIndex.setAnimeInformationFields();
 					}
 				}
 			}
@@ -722,7 +722,7 @@ public class AnimeInformation extends JPanel {
 							finishDateField.setText("??/??/"+finishDateField.getText().trim().substring(6, 10));
 						else
 							finishDateField.setText(finishDateField.getText().trim());
-						AnimeIndex.setAnimeInformationFields();
+//						AnimeIndex.setAnimeInformationFields();
 					}
 				}
 			}
@@ -746,7 +746,7 @@ public class AnimeInformation extends JPanel {
 		exitDaycomboBox = new JComboBox();
 		exitDaycomboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AnimeIndex.setAnimeInformationFields();
+//				AnimeIndex.setAnimeInformationFields();
 			}
 		});
 		exitDaycomboBox.setEnabled(false);
