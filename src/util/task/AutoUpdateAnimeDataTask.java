@@ -21,7 +21,6 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 	{
 		if (AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true"))
 		{
-			System.out.println("prova");
 			ConnectionManager.ConnectAndGetToken();
 			String nome = "";
 			if (AnimeIndex.filtro != 9)

@@ -189,7 +189,6 @@ public class ConnectionManager
 				e1.printStackTrace();
 			} 
 	    }
-		//TODO fixare problema delle "
 //		result = StringEscapeUtils.unescapeJava(result);
 		JSONObject json = new JSONObject(result);
 		return json;

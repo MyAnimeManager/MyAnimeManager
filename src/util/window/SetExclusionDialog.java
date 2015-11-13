@@ -530,11 +530,28 @@ public class SetExclusionDialog extends JDialog {
 						name = (String) listToExclude.getSelectedValue();
 					else
 						name = (String) searchListToExclude.getSelectedValue();
+
+					if (AnimeIndex.completedMap.containsKey(name))
+					{			
+						comboBox.setSelectedItem("Anime Completati");
+					}
+					if (AnimeIndex.airingMap.containsKey(name))
+					{
+						comboBox.setSelectedItem("Anime in Corso");
+					}
+					if (AnimeIndex.ovaMap.containsKey(name))
+					{
+						comboBox.setSelectedItem("OAV");
+					}
+					if (AnimeIndex.filmMap.containsKey(name))
+					{
+						comboBox.setSelectedItem("Film");
+					}
+					if (AnimeIndex.completedToSeeMap.containsKey(name))
+					{
+						comboBox.setSelectedItem("Completi Da Vedere");
+					}
 					
-					checkSessionAnime.add(name);
-					if(exclusionSessionAnime.containsKey(name))
-						exclusionSessionAnime.remove(name);
-					excludedModel.removeElement(name);
 					String type = (String) comboBox.getSelectedItem();
 					if (type.equalsIgnoreCase("anime completati"))
 					{
@@ -575,27 +592,11 @@ public class SetExclusionDialog extends JDialog {
 							totalModel.addElement(name);
 						}
 					}
-					
-					if (AnimeIndex.completedMap.containsKey(name))
-					{			
-						comboBox.setSelectedItem("Anime Completati");
-					}
-					if (AnimeIndex.airingMap.containsKey(name))
-					{
-						comboBox.setSelectedItem("Anime in Corso");
-					}
-					if (AnimeIndex.ovaMap.containsKey(name))
-					{
-						comboBox.setSelectedItem("OAV");
-					}
-					if (AnimeIndex.filmMap.containsKey(name))
-					{
-						comboBox.setSelectedItem("Film");
-					}
-					if (AnimeIndex.completedToSeeMap.containsKey(name))
-					{
-						comboBox.setSelectedItem("Completi Da Vedere");
-					}
+
+					checkSessionAnime.add(name);
+					if(exclusionSessionAnime.containsKey(name))
+						exclusionSessionAnime.remove(name);
+					excludedModel.removeElement(name);
 					
 					listToExclude.clearSelection();
 					searchListToExclude.clearSelection();
