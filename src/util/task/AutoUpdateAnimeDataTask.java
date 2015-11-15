@@ -5,8 +5,6 @@ import java.util.TreeMap;
 
 import javax.swing.SwingWorker;
 
-import org.json.JSONObject;
-
 import main.AnimeIndex;
 import util.AnimeData;
 import util.ConnectionManager;
@@ -40,17 +38,17 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 			if (!AnimeIndex.exclusionAnime.containsKey(name))
 			{				
 				int id = Integer.parseInt(oldData.getId());
-				JSONObject data = ConnectionManager.getAnimeInformation(id);
+				String data = ConnectionManager.parseAnimeData(id);
 				
-				String totalEp = Integer.toString(data.getInt("total_episodes"));
+				String totalEp = ConnectionManager.getAnimeData("total_episodes", data);
 				if(totalEp.equals("null")||totalEp.equals("0"))
 					totalEp = "??";
-				String duration = Integer.toString(data.getInt("duration"));
+				String duration = ConnectionManager.getAnimeData("duration", data);
 				if(duration.equals("null")||duration.equals("0"))
 					duration = "?? min";
 				else
 					duration += " min";
-				String startDate = data.getString("start_date");
+				String startDate = ConnectionManager.getAnimeData("start_date", data);
 				if (startDate.equals("null"))
 					startDate = "??/??/????";
 				else if(startDate.length()==4)
@@ -74,7 +72,7 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 					finishDate = startDate;
 				else
 				{
-					finishDate = data.getString("end_date");
+					finishDate = ConnectionManager.getAnimeData("end_date", data);
 					if (finishDate.equals("null"))
 						finishDate = "??/??/????";
 					else if(finishDate.length()==4)
@@ -96,9 +94,9 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 				
 				String type = (String)AnimeIndex.animeInformation.typeComboBox.getSelectedItem();
 				if(!type.equals("Blu-ray"))
-					type = data.getString("type");
+					type = ConnectionManager.getAnimeData("type", data);
 				
-				String imageLink = data.getString("image_url_lge");
+				String imageLink = ConnectionManager.getAnimeData("image_url_lge", data);
 				imageLink = imageLink.replaceAll("\\\\/", "/");
 				String imageName = name.replaceAll("\\\\", "_");
 				imageName = imageName.replaceAll("/", "_");
@@ -143,18 +141,18 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 				int id = Integer.parseInt(oldData.getId());
 				
 				boolean[] exclusionArray = AnimeIndex.exclusionAnime.get(name);
-				JSONObject dataAni = ConnectionManager.getAnimeInformation(id);
+				String data = ConnectionManager.parseAnimeData(id);
 				
 				if(exclusionArray[1]==false)
 				{
-					totalEp = Integer.toString(dataAni.getInt("total_episodes"));
+					totalEp = ConnectionManager.getAnimeData("total_episodes", data);
 					if(totalEp.equals("null")||totalEp.equals("0"))
 						totalEp = "??";
 				}
 				
 				if(exclusionArray[2]==false)
 				{
-					 duration = Integer.toString(dataAni.getInt("duration"));
+					 duration = ConnectionManager.getAnimeData("duration", data);
 					if(duration.equals("null")||duration.equals("0"))
 						duration = "?? min";
 					else
@@ -163,7 +161,7 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 				
 				if (exclusionArray[3]==false)
 				{
-					startDate = dataAni.getString("start_date");
+					startDate = ConnectionManager.getAnimeData("start_date", data);
 					
 					if (startDate.equals("null"))
 						startDate = "??/??/????";
@@ -192,7 +190,7 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 							finishDate = startDate;
 						else
 						{
-							startDate = dataAni.getString("start_date");
+							startDate = ConnectionManager.getAnimeData("start_date", data);
 							
 							if (startDate.equals("null"))
 								startDate = "??/??/????";
@@ -216,7 +214,7 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 					}
 					else
 					{
-						finishDate = dataAni.getString("end_date");
+						finishDate = ConnectionManager.getAnimeData("end_date", data);
 						
 						if (finishDate.equals("null"))
 							finishDate = "??/??/????";
@@ -240,12 +238,12 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 				
 				if(exclusionArray[5]==false && !type.equalsIgnoreCase("Blu-ray"))
 				{
-					type = dataAni.getString("type");
+					type = ConnectionManager.getAnimeData("type", data);
 				}
 
 				if (exclusionArray[0]==false)
 				{
-					String imageLink = dataAni.getString("image_url_lge");
+					String imageLink = ConnectionManager.getAnimeData("image_url_lge", data);
 					imageLink = imageLink.replaceAll("\\\\/", "/");
 					String imageName = name.replaceAll("\\\\", "_");
 					imageName = imageName.replaceAll("/", "_");

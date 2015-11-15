@@ -29,8 +29,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import org.json.JSONObject;
-
 import main.AnimeIndex;
 import util.AnimeData;
 import util.ConnectionManager;
@@ -47,8 +45,8 @@ public class SuggestionDialog extends JDialog {
 	private SuggestionTaskPane suggestionFive = new SuggestionTaskPane();
 	private SuggestionTaskPane[] taskPaneArray = {suggestionOne, suggestionTwo, suggestionThree, suggestionFuor, suggestionFive};
 	private JButton btnClose;
-	private String[] linkArray = new String[5];
-	private String[] idArray = new String[5];
+	private static String[] linkArray = new String[5];
+	private static String[] idArray = new String[5];
 	public SuggestionWaitDialog waitDialog = new SuggestionWaitDialog();
 	private JButton btnOpen;
 	private JButton btnAdd;
@@ -210,8 +208,8 @@ public class SuggestionDialog extends JDialog {
 		{
 			e.printStackTrace();
 		}
-		JSONObject dataAni = ConnectionManager.getAnimeInformation(Integer.parseInt(id));
-		String name = dataAni.getString("title_romaji");
+		String dataAni = ConnectionManager.parseAnimeData(Integer.parseInt(id));
+		String name = ConnectionManager.getAnimeData("title_romaji", dataAni);
 		
 		AnimeIndex.wishlistDialog.wishListModel.addElement(name);
 		AnimeIndex.wishlistMap.put(name, Integer.parseInt(id));
@@ -290,15 +288,15 @@ public class SuggestionDialog extends JDialog {
 		{
 			e.printStackTrace();
 		}
-		JSONObject dataAni = ConnectionManager.getAnimeInformation(Integer.parseInt(id));
-		String name = dataAni.getString("title_romaji");
-		String totEp = Integer.toString(dataAni.getInt("total_episodes"));
+		String dataAni = ConnectionManager.parseAnimeData(Integer.parseInt(id));
+		String name = ConnectionManager.getAnimeData("title_romaji", dataAni);
+		String totEp = ConnectionManager.getAnimeData("total_episodes", dataAni);
 		String currentEp = "1";
 		String fansub = "";
-		String animeType = dataAni.getString("type");
-		String releaseDate = dataAni.getString("start_date");
-		String finishDate = dataAni.getString("end_date");
-		String durationEp = Integer.toString(dataAni.getInt("duration"));
+		String animeType = ConnectionManager.getAnimeData("type", dataAni);
+		String releaseDate = ConnectionManager.getAnimeData("start_date", dataAni);
+		String finishDate = ConnectionManager.getAnimeData("end_date", dataAni);
+		String durationEp = ConnectionManager.getAnimeData("duration", dataAni);
 		if(totEp != null && !totEp.isEmpty())
 		{
 			if(totEp.equals("null")||totEp.equals("0"))

@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.json.JSONObject;
 
 public class ConnectionManager
 {
@@ -150,8 +149,21 @@ public class ConnectionManager
 	 * ottiene la risposta contentente tutte le informazioni
 	 * @param id l'id dell'anime di cui si vogliono le informazioni
 	 */
+	public static String parseAnimeData(int id)
+	{	
+		String result="";
+		String animeInformation = getAnimeInformation(id);
+		Scanner sc1 = new Scanner(animeInformation);		
+		sc1.useDelimiter("\",\"|\\{\"|\"\\}|\":\"|\":|,\"|\\}|\\},\\{\"");
+		while (sc1.hasNext())
+		{
+			result += sc1.next() + "\r\n";
+		}
+	    sc1.close();
+		return result;
+	}
 	
-	public static JSONObject getAnimeInformation(int animeID)
+	private static String getAnimeInformation(int animeID)
 	{
 		URL url; // The URL to read
 		HttpURLConnection conn = null; // The actual connection to the web page
@@ -189,8 +201,28 @@ public class ConnectionManager
 				e1.printStackTrace();
 			} 
 	    }
-//		result = StringEscapeUtils.unescapeJava(result);
-		JSONObject json = new JSONObject(result);
-		return json;
+		result = StringEscapeUtils.unescapeJava(result);
+		return result;
+	}
+	/**
+	 * Prende i dati richiesti da una stringa contenente la risposta di anilist ottenuta con il metodo parseAnimeData di questa stessa classe
+	 * @param dataToGet il dato richiesto
+	 * @param animeData la stringa contenente la rispsota di anilist
+	 */
+	public static String getAnimeData(String dataToGet, String animeData)
+	{
+		String data = null;
+		Scanner sc = new Scanner(animeData);
+		
+		while (sc.hasNextLine())
+		{
+			String word = sc.nextLine();
+			if (word.equalsIgnoreCase(dataToGet))
+			{
+				data = sc.nextLine();
+			}
+		}
+		sc.close();
+		return data;
 	}
 }

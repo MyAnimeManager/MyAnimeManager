@@ -46,8 +46,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.AbstractDocument;
 
-import org.json.JSONObject;
-
 import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
 import util.AnimeData;
@@ -1602,7 +1600,7 @@ public class AddAnimeDialog extends JDialog
 		
 	}
 	
-	public static String addSaveImage(String name, JSONObject dataAni, String list)
+	public static String addSaveImage(String name, String dataAni, String list)
 	{
 		String folder = "";
 		if (list.equalsIgnoreCase("anime completati"))
@@ -1615,7 +1613,7 @@ public class AddAnimeDialog extends JDialog
 			folder = "Film";
 		else if (list.equalsIgnoreCase("completi da vedere"))
 			folder = "Completed To See";
-		String imageLink = dataAni.getString("image_url_lge");
+		String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
 		imageLink = imageLink.replaceAll("\\\\/", "/");
 		String imageName = name.replaceAll("\\\\", "_");
 		imageName = imageName.replaceAll("/", "_");
@@ -1744,25 +1742,16 @@ public class AddAnimeDialog extends JDialog
 		AnimeIndex.addToPreviousList = (String)listToAddAniComboBox.getSelectedItem();
 		String anime = (String) searchedList.getSelectedValue();
 		int id = animeSearched.get(anime);
-		JSONObject dataAni = ConnectionManager.getAnimeInformation(id);
-		
-		String name = dataAni.getString("title_romaji");
-		String totEp = Integer.toString(dataAni.getInt("total_episodes"));
+		String dataAni = ConnectionManager.parseAnimeData(id);
+	
+		String name = ConnectionManager.getAnimeData("title_romaji", dataAni);
+		String totEp = ConnectionManager.getAnimeData("total_episodes", dataAni);
 		String currentEp = "1";
 		String fansub = "";
-		String animeType = dataAni.getString("type");
-		String releaseDate = dataAni.getString("start_date");
-		String finishDate = dataAni.getString("end_date");
-		String durationEp = Integer.toString(dataAni.getInt("duration"));
-	
-//		String name = ConnectionManager.getAnimeData("title_romaji", dataAni);
-//		String totEp = ConnectionManager.getAnimeData("total_episodes", dataAni);
-//		String currentEp = "1";
-//		String fansub = "";
-//		String animeType = ConnectionManager.getAnimeData("type", dataAni);
-//		String releaseDate = ConnectionManager.getAnimeData("start_date", dataAni);
-//		String finishDate = ConnectionManager.getAnimeData("end_date", dataAni);
-//		String durationEp = ConnectionManager.getAnimeData("duration", dataAni);
+		String animeType = ConnectionManager.getAnimeData("type", dataAni);
+		String releaseDate = ConnectionManager.getAnimeData("start_date", dataAni);
+		String finishDate = ConnectionManager.getAnimeData("end_date", dataAni);
+		String durationEp = ConnectionManager.getAnimeData("duration", dataAni);
 		
 		if(totEp != null && !totEp.isEmpty())
 		{

@@ -21,10 +21,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/substance-swingx-7.3.1-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="lib/org.json-20150729.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/MyAnimeManager/lib/org.json-20150729-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

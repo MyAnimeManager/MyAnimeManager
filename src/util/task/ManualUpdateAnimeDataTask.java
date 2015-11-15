@@ -5,8 +5,6 @@ import java.util.TreeMap;
 
 import javax.swing.SwingWorker;
 
-import org.json.JSONObject;
-
 import main.AnimeIndex;
 import util.AnimeData;
 import util.ConnectionManager;
@@ -49,18 +47,18 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 			String type = oldData.getAnimeType();
 			int id = Integer.parseInt(oldData.getId());
 			
-			JSONObject dataAni = ConnectionManager.getAnimeInformation(id);
+			String data = ConnectionManager.parseAnimeData(id);
 			
 			if(exclusionArray[1])
 			{
-				totalEp = Integer.toString(dataAni.getInt("total_episodes"));
+				totalEp = ConnectionManager.getAnimeData("total_episodes", data);
 				if(totalEp.equals("null")||totalEp.equals("0"))
 					totalEp = "??";
 			}
 			
 			if(exclusionArray[2])
 			{
-				 duration = Integer.toString(dataAni.getInt("duration"));
+				 duration = ConnectionManager.getAnimeData("duration", data);
 				if(duration.equals("null")||duration.equals("0"))
 					duration = "?? min";
 				else
@@ -69,7 +67,7 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 			
 			if (exclusionArray[3])
 			{
-				startDate = dataAni.getString("start_date");
+				startDate = ConnectionManager.getAnimeData("start_date", data);
 				
 				if (startDate.equals("null"))
 					startDate = "??/??/????";
@@ -96,7 +94,7 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 				{	
 					if (exclusionArray[3]==false)
 					{
-						startDate = dataAni.getString("start_date");
+						startDate = ConnectionManager.getAnimeData("start_date", data);
 						
 						if (startDate.equals("null"))
 							startDate = "??/??/????";
@@ -120,7 +118,7 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 				}
 				else
 				{
-					finishDate = dataAni.getString("end_date");
+					finishDate = ConnectionManager.getAnimeData("end_date", data);
 					
 					if (finishDate.equals("null"))
 						finishDate = "??/??/????";
@@ -144,12 +142,12 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 			
 			if(exclusionArray[5])
 			{
-				type = dataAni.getString("type");
+				type = ConnectionManager.getAnimeData("type", data);
 			}
 
 			if (exclusionArray[0])
 			{
-				String imageLink = dataAni.getString("image_url_lge");
+				String imageLink = ConnectionManager.getAnimeData("image_url_lge", data);
 				imageLink = imageLink.replaceAll("\\\\/", "/");
 				String imageName = name.replaceAll("\\\\", "_");
 				imageName = imageName.replaceAll("/", "_");
