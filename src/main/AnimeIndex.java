@@ -2245,7 +2245,6 @@ public class AnimeIndex extends JFrame
 		else if (appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Daily"))
 		{
 			animeTypeComboBox.setSelectedItem("Anime in Corso");
-			Filters.setFilter(8);
 		}
 		else
 		{
