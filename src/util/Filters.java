@@ -434,73 +434,73 @@ public class Filters {
 				String giorno = "";
 				dato=data.getDay();
 				GregorianCalendar calendar = new GregorianCalendar();
-				GregorianCalendar c = new GregorianCalendar();
-				if(!dato.equalsIgnoreCase("?????") && !dato.equalsIgnoreCase("Concluso") && !dato.equalsIgnoreCase("Sospesa") && !dato.equalsIgnoreCase("Irregolare"))
+//				GregorianCalendar c = new GregorianCalendar();
+				if(!dato.equalsIgnoreCase("?????") && !dato.equalsIgnoreCase("Concluso") && !dato.equalsIgnoreCase("Sospesa") && !dato.equalsIgnoreCase("Irregolare") && !dato.equalsIgnoreCase("Rilasciato"))
 				{
-				int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
-				if (currentDay == Calendar.SUNDAY)
-					giorno = "Domenica";
-				else if (currentDay == Calendar.MONDAY)
-					giorno = "Lunedì";
-				else if (currentDay == Calendar.TUESDAY)
-					giorno = "Martedì";
-				else if (currentDay == Calendar.WEDNESDAY)
-					giorno = "Mercoledì";
-				else if (currentDay == Calendar.THURSDAY)
-					giorno = "Giovedì";
-				else if (currentDay == Calendar.FRIDAY)
-					giorno = "Venerdì";
-				else if (currentDay == Calendar.SATURDAY)
-					giorno = "Sabato";
-				
-				if(dato.equalsIgnoreCase(giorno))
-					AnimeIndex.filterModel.addElement((String)modelArray[i]);
-				}
-				else
-				{
-					if(!data.getReleaseDate().equalsIgnoreCase("??/??/????") && !data.getReleaseDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getReleaseDate().substring(0, 3).equalsIgnoreCase("??/") && (data.getCurrentEpisode().equalsIgnoreCase("??") || data.getCurrentEpisode().equalsIgnoreCase("0") || data.getCurrentEpisode().equalsIgnoreCase("1")))
-					{
-						int currentDay = calendar.get(Calendar.DATE);
-						int currentMonth = calendar.get(Calendar.MONTH)+1;
-						int currentYear = calendar.get(Calendar.YEAR);
-						String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
-						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-						try {
-							calendar.setTime(sdf.parse(currentData));
-						} catch (java.text.ParseException e) {
-							e.printStackTrace();
-						}
-						String animeData = data.getReleaseDate();
-						try {
-							c.setTime(sdf.parse(animeData));
-						} catch (java.text.ParseException e) {
-							e.printStackTrace();
-						}
-						if(c.equals(calendar))
-							AnimeIndex.filterModel.addElement((String)modelArray[i]);
-					}
-					else if (!data.getFinishDate().equalsIgnoreCase("??/??/????") && !data.getFinishDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getFinishDate().substring(0, 3).equalsIgnoreCase("??/"))
-					{
-						int currentDay = calendar.get(Calendar.DATE);
-						int currentMonth = calendar.get(Calendar.MONTH)+1;
-						int currentYear = calendar.get(Calendar.YEAR);
-						String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
-						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-						try {
-							calendar.setTime(sdf.parse(currentData));
-						} catch (java.text.ParseException e) {
-							e.printStackTrace();
-						}
-						String animeData = data.getFinishDate();
-						try {
-							c.setTime(sdf.parse(animeData));
-						} catch (java.text.ParseException e) {
-							e.printStackTrace();
-						}
-					}
-					if(c.equals(calendar))
+					int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
+					if (currentDay == Calendar.SUNDAY)
+						giorno = "Domenica";
+					else if (currentDay == Calendar.MONDAY)
+						giorno = "Lunedì";
+					else if (currentDay == Calendar.TUESDAY)
+						giorno = "Martedì";
+					else if (currentDay == Calendar.WEDNESDAY)
+						giorno = "Mercoledì";
+					else if (currentDay == Calendar.THURSDAY)
+						giorno = "Giovedì";
+					else if (currentDay == Calendar.FRIDAY)
+						giorno = "Venerdì";
+					else if (currentDay == Calendar.SATURDAY)
+						giorno = "Sabato";
+					
+					if(dato.equalsIgnoreCase(giorno))
 						AnimeIndex.filterModel.addElement((String)modelArray[i]);
 				}
+//				else
+//				{
+//					if(!data.getReleaseDate().equalsIgnoreCase("??/??/????") && !data.getReleaseDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getReleaseDate().substring(0, 3).equalsIgnoreCase("??/") && (data.getCurrentEpisode().equalsIgnoreCase("??") || data.getCurrentEpisode().equalsIgnoreCase("0") || data.getCurrentEpisode().equalsIgnoreCase("1")))
+//					{
+//						int currentDay = calendar.get(Calendar.DATE);
+//						int currentMonth = calendar.get(Calendar.MONTH)+1;
+//						int currentYear = calendar.get(Calendar.YEAR);
+//						String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
+//						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//						try {
+//							calendar.setTime(sdf.parse(currentData));
+//						} catch (java.text.ParseException e) {
+//							e.printStackTrace();
+//						}
+//						String animeData = data.getReleaseDate();
+//						try {
+//							c.setTime(sdf.parse(animeData));
+//						} catch (java.text.ParseException e) {
+//							e.printStackTrace();
+//						}
+//						if(c.equals(calendar))
+//							AnimeIndex.filterModel.addElement((String)modelArray[i]);
+//					}
+//					else if (!data.getFinishDate().equalsIgnoreCase("??/??/????") && !data.getFinishDate().substring(0, 6).equalsIgnoreCase("??/??/") && !data.getFinishDate().substring(0, 3).equalsIgnoreCase("??/"))
+//					{
+//						int currentDay = calendar.get(Calendar.DATE);
+//						int currentMonth = calendar.get(Calendar.MONTH)+1;
+//						int currentYear = calendar.get(Calendar.YEAR);
+//						String currentData = currentDay + "/" + currentMonth + "/" + currentYear;
+//						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//						try {
+//							calendar.setTime(sdf.parse(currentData));
+//						} catch (java.text.ParseException e) {
+//							e.printStackTrace();
+//						}
+//						String animeData = data.getFinishDate();
+//						try {
+//							c.setTime(sdf.parse(animeData));
+//						} catch (java.text.ParseException e) {
+//							e.printStackTrace();
+//						}
+//					}
+//					if(c.equals(calendar))
+//						AnimeIndex.filterModel.addElement((String)modelArray[i]);
+//				}
 			}
 		}
 		if (AnimeIndex.filterModel.isEmpty())
