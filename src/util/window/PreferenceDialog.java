@@ -34,13 +34,13 @@ public class PreferenceDialog extends JDialog
 {
 
 	private final JPanel contentPanel = new JPanel();
-	public static final ButtonGroup listGroup = new ButtonGroup();
+	public final ButtonGroup listGroup = new ButtonGroup();
 	private JCheckBox rdbtnLastList;
 	private JCheckBox rdbtnChooseList;
 	private JCheckBox chckbxDailyRelease;
 	private JComboBox choosedList;
-	public static JButton dataCheckButton;
-	public static SetExclusionDialog exclusionDialog;
+	public JButton dataCheckButton;
+	public SetExclusionDialog exclusionDialog;
 	private JCheckBox chckbxApriWishlist;
 
 	/**

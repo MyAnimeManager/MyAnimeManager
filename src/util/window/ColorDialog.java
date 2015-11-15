@@ -35,18 +35,17 @@ public class ColorDialog extends JDialog
 {
 
 	private final JPanel contentPanel = new JPanel();
-	private static ColorDialog dialog;
-	private static boolean changed = false;
-	public static int panelColor;
-	public static int buttonColor;
-	public static int textFieldColor;
-	public static int labelColor;
-	public static int checkBoxColor;
-	public static int menuColor;
-	public static int listColor;
-	public static int separatorColor;
-	public static int progressBarColor;
-	public static int comboBoxColor;
+	private boolean changed = false;
+	public int panelColor;
+	public int buttonColor;
+	public int textFieldColor;
+	public int labelColor;
+	public int checkBoxColor;
+	public int menuColor;
+	public int listColor;
+	public int separatorColor;
+	public int progressBarColor;
+	public int comboBoxColor;
 
 
 	/**
@@ -344,8 +343,8 @@ public class ColorDialog extends JDialog
 				JButton btnTest = new JButton("Test");
 				btnTest.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						TestDialog test = new TestDialog();
-						test.setLocationRelativeTo(ColorDialog.dialog);
+						TestDialog test = new TestDialog(panelColor, buttonColor, textFieldColor, labelColor, checkBoxColor, listColor, separatorColor, progressBarColor, comboBoxColor);
+						test.setLocationRelativeTo(ColorDialog.this);
 						test.setVisible(true);
 					}
 				});
@@ -405,10 +404,10 @@ public class ColorDialog extends JDialog
 		}
 	}
 
-	private static int customize(JComponent componen)
+	private int customize(JComponent componen)
 	{		
 				CustomizingDialog dial = new CustomizingDialog(componen);
-				dial.setLocationRelativeTo(ColorDialog.dialog);
+				dial.setLocationRelativeTo(ColorDialog.this);
 				dial.setVisible(true);
 				int colorRGB = dial.color;
 				return colorRGB;

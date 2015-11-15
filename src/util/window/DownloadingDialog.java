@@ -53,10 +53,18 @@ public class DownloadingDialog extends JDialog
 		
 		task.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
+				if (evt.getPropertyName().equals("progress"))
+				{
 				int progress = task.getProgress();
 				progressBar.setValue(progress);
 				if (task.totalSize != 0)
 					lblDownloadInCorso.setText("Scaricati " + ((task.currentSize/1024)) + "/" + ((task.totalSize/1024)) +" Kb");
+				}
+				else if (evt.getPropertyName().equals("state"))
+					{
+						if(evt.getNewValue().toString().equalsIgnoreCase("done"))
+							DownloadingDialog.this.dispose();
+					}
 			}
 		});
 

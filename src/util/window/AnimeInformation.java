@@ -652,7 +652,7 @@ public class AnimeInformation extends JPanel {
 					{
 						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
 						
-						if (e.getOppositeComponent().equals(WishlistDialog.btnAggiungiAnime) || e.getOppositeComponent().equals(WishlistDialog.btnDeleteAnime) || e.getOppositeComponent().equals(WishlistDialog.btnID) || e.getOppositeComponent().equals(WishlistDialog.comboBox) || e.getOppositeComponent().equals(WishlistDialog.searchBar) || e.getOppositeComponent().equals(WishlistDialog.wishlist) || e.getOppositeComponent().equals(WishlistDialog.wishlistSearch))
+						if (e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnAggiungiAnime) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnDeleteAnime) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnID) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.comboBox) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.searchBar) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.wishlist) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.wishlistSearch))
 							releaseDateField.requestFocus();
 						else
 							releaseDateField.requestFocusInWindow();
@@ -709,7 +709,7 @@ public class AnimeInformation extends JPanel {
 					if (finishDateField.getText().trim().length() != 10 && !finishDateField.getText().trim().isEmpty())
 					{
 						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-						if (e.getOppositeComponent().equals(WishlistDialog.btnAggiungiAnime) || e.getOppositeComponent().equals(WishlistDialog.btnDeleteAnime) || e.getOppositeComponent().equals(WishlistDialog.btnID) || e.getOppositeComponent().equals(WishlistDialog.comboBox) || e.getOppositeComponent().equals(WishlistDialog.searchBar) || e.getOppositeComponent().equals(WishlistDialog.wishlist) || e.getOppositeComponent().equals(WishlistDialog.wishlistSearch))
+						if (e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnAggiungiAnime) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnDeleteAnime) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnID) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.comboBox) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.searchBar) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.wishlist) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.wishlistSearch))
 							releaseDateField.requestFocus();
 						else
 							releaseDateField.requestFocusInWindow();
@@ -959,9 +959,9 @@ public class AnimeInformation extends JPanel {
 									boolean[] exc = {true,true,true,true,true,true};
 									AnimeIndex.exclusionAnime.put(lblAnimeName.getText(), exc);
 									selectExcludedAnimeAtWindowOpened=true;
-									PreferenceDialog.exclusionDialog = new SetExclusionDialog();
-									PreferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
-									PreferenceDialog.exclusionDialog.setVisible(true);
+									AnimeIndex.preferenceDialog.exclusionDialog = new SetExclusionDialog();
+									AnimeIndex.preferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
+									AnimeIndex.preferenceDialog.exclusionDialog.setVisible(true);
 								}
 							});
 							JMenuItem remove = new JMenuItem("Rimuovi dalle Esclusioni");

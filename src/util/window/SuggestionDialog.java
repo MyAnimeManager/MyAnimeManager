@@ -47,8 +47,8 @@ public class SuggestionDialog extends JDialog {
 	private SuggestionTaskPane suggestionFive = new SuggestionTaskPane();
 	private SuggestionTaskPane[] taskPaneArray = {suggestionOne, suggestionTwo, suggestionThree, suggestionFuor, suggestionFive};
 	private JButton btnClose;
-	private static String[] linkArray = new String[5];
-	private static String[] idArray = new String[5];
+	private String[] linkArray = new String[5];
+	private String[] idArray = new String[5];
 	public SuggestionWaitDialog waitDialog = new SuggestionWaitDialog();
 	private JButton btnOpen;
 	private JButton btnAdd;
@@ -199,8 +199,8 @@ public class SuggestionDialog extends JDialog {
 	private void addToWishlist(String id)
 	{
 		SuggestionDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-		if (WishlistDialog.wishListModel.contains("Nessun Anime Corrispondente"))
-			WishlistDialog.wishListModel.removeElement("Nessun Anime Corrispondente");
+		if (AnimeIndex.wishlistDialog.wishListModel.contains("Nessun Anime Corrispondente"))
+			AnimeIndex.wishlistDialog.wishListModel.removeElement("Nessun Anime Corrispondente");
 		
 		try
 		{
@@ -213,10 +213,10 @@ public class SuggestionDialog extends JDialog {
 		JSONObject dataAni = ConnectionManager.getAnimeInformation(Integer.parseInt(id));
 		String name = dataAni.getString("title_romaji");
 		
-		WishlistDialog.wishListModel.addElement(name);
+		AnimeIndex.wishlistDialog.wishListModel.addElement(name);
 		AnimeIndex.wishlistMap.put(name, Integer.parseInt(id));
-		WishlistDialog.wishlist.setEnabled(true);
-		WishlistDialog.wishlistSearch.setEnabled(true);
+		AnimeIndex.wishlistDialog.wishlist.setEnabled(true);
+		AnimeIndex.wishlistDialog.wishlistSearch.setEnabled(true);
 		SuggestionDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 //		SuggestionDialog.this.dispose();
 	}

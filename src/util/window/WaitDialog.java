@@ -49,8 +49,12 @@ public class WaitDialog extends JDialog
 		
 		task.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				if (evt.getNewValue().equals("DONE"))
-					WaitDialog.this.dispose();
+				if (evt.getPropertyName().equals("state"))
+				{
+					if(evt.getNewValue().toString().equalsIgnoreCase("done"))
+						WaitDialog.this.dispose();
+				}
+
 			}
 		});
 		

@@ -12,12 +12,13 @@ public class ReleasedAnimeTask extends SwingWorker
 {
 	public static boolean enableFilm;
 	public static boolean enableOav;
+	private ReleaseNotifierDialog dial;
 	
 	@Override
 	protected Object doInBackground() throws Exception
 	{
-		ReleaseNotifierDialog.ovaReleased.clear();
-		ReleaseNotifierDialog.filmReleased.clear();
+		dial.ovaReleased.clear();
+		dial.filmReleased.clear();
 		String oggi = AnimeIndex.today();
 		GregorianCalendar today = AnimeIndex.getDate(oggi);
 		GregorianCalendar lastControlDate = null;
@@ -60,7 +61,7 @@ public class ReleasedAnimeTask extends SwingWorker
 						{
 							if (animeDate.before(today)||animeDate.equals(today))
 							{	
-								ReleaseNotifierDialog.ovaReleased.addElement(name);
+								dial.ovaReleased.addElement(name);
 							}
 						}
 					}
@@ -76,7 +77,7 @@ public class ReleasedAnimeTask extends SwingWorker
 							{
 								if (animeDate.before(today)||animeDate.equals(today))
 								{	
-									ReleaseNotifierDialog.ovaReleased.addElement(name);
+									dial.ovaReleased.addElement(name);
 									AnimeIndex.exitDateMap.put(name, oggi);
 								}
 							}
@@ -85,7 +86,7 @@ public class ReleasedAnimeTask extends SwingWorker
 						{
 							if (animeDate.before(today)||animeDate.equals(today))
 							{	
-								ReleaseNotifierDialog.ovaReleased.addElement(name);
+								dial.ovaReleased.addElement(name);
 								AnimeIndex.exitDateMap.put(name, oggi);
 							}
 						}
@@ -99,7 +100,7 @@ public class ReleasedAnimeTask extends SwingWorker
 						{
 							if (animeDate.before(today)||animeDate.equals(today))
 							{	
-								ReleaseNotifierDialog.ovaReleased.addElement(name);
+								dial.ovaReleased.addElement(name);
 								AnimeIndex.exitDateMap.put(name, oggi);
 							}
 						}
@@ -108,7 +109,7 @@ public class ReleasedAnimeTask extends SwingWorker
 					{
 						if (animeDate.before(today)||animeDate.equals(today))
 						{	
-							ReleaseNotifierDialog.ovaReleased.addElement(name);
+							dial.ovaReleased.addElement(name);
 							AnimeIndex.exitDateMap.put(name, oggi);
 						}
 					}
@@ -147,7 +148,7 @@ public class ReleasedAnimeTask extends SwingWorker
 						{
 							if (animeDate.before(today)||animeDate.equals(today))
 							{	
-								ReleaseNotifierDialog.filmReleased.addElement(name);
+								dial.filmReleased.addElement(name);
 							}
 						}
 					}
@@ -163,7 +164,7 @@ public class ReleasedAnimeTask extends SwingWorker
 							{
 								if (animeDate.before(today)||animeDate.equals(today))
 								{	
-									ReleaseNotifierDialog.filmReleased.addElement(name);
+									dial.filmReleased.addElement(name);
 									AnimeIndex.exitDateMap.put(name, oggi);
 								}
 							}
@@ -172,7 +173,7 @@ public class ReleasedAnimeTask extends SwingWorker
 						{
 							if (animeDate.before(today)||animeDate.equals(today))
 							{	
-								ReleaseNotifierDialog.filmReleased.addElement(name);
+								dial.filmReleased.addElement(name);
 								AnimeIndex.exitDateMap.put(name, oggi);
 							}
 						}
@@ -186,7 +187,7 @@ public class ReleasedAnimeTask extends SwingWorker
 						{
 							if (animeDate.before(today)||animeDate.equals(today))
 							{	
-								ReleaseNotifierDialog.filmReleased.addElement(name);
+								dial.filmReleased.addElement(name);
 								AnimeIndex.exitDateMap.put(name, oggi);
 							}
 						}
@@ -195,7 +196,7 @@ public class ReleasedAnimeTask extends SwingWorker
 					{
 						if (animeDate.before(today)||animeDate.equals(today))
 						{	
-							ReleaseNotifierDialog.filmReleased.addElement(name);
+							dial.filmReleased.addElement(name);
 							AnimeIndex.exitDateMap.put(name, oggi);
 						}
 					}
@@ -204,16 +205,16 @@ public class ReleasedAnimeTask extends SwingWorker
 				e.printStackTrace();
 			}
 		}
-		if (ReleaseNotifierDialog.ovaReleased.isEmpty())
+		if (dial.ovaReleased.isEmpty())
 		{
-			ReleaseNotifierDialog.ovaReleased.addElement("Nessun Anime Rilasciato");
+			dial.ovaReleased.addElement("Nessun Anime Rilasciato");
 			enableOav = false;
 		}
 		else
 			enableOav = true;
-		if (ReleaseNotifierDialog.filmReleased.isEmpty())
+		if (dial.filmReleased.isEmpty())
 		{
-			ReleaseNotifierDialog.filmReleased.addElement("Nessun Anime Rilasciato");
+			dial.filmReleased.addElement("Nessun Anime Rilasciato");
 			enableFilm = false;
 		}
 		else
@@ -224,16 +225,16 @@ public class ReleasedAnimeTask extends SwingWorker
 	@Override
 	protected void done()
 	{
-		if (!ReleaseNotifierDialog.ovaReleased.contains("Nessun Anime Rilasciato") || !ReleaseNotifierDialog.filmReleased.contains("Nessun Anime Rilasciato"))
+		if (!dial.ovaReleased.contains("Nessun Anime Rilasciato") || !dial.filmReleased.contains("Nessun Anime Rilasciato"))
 		{
-			ReleaseNotifierDialog dial = new ReleaseNotifierDialog();
+			dial = new ReleaseNotifierDialog();
 			dial.setLocationRelativeTo(AnimeIndex.mainFrame);
 			dial.setVisible(true);
 		}
 		else if (AnimeIndex.openReleaseDialog==true)
 		{
 			AnimeIndex.openReleaseDialog = false;
-			ReleaseNotifierDialog dial = new ReleaseNotifierDialog();
+			dial = new ReleaseNotifierDialog();
 			dial.setLocationRelativeTo(AnimeIndex.mainFrame);
 			dial.setVisible(true);
 		}

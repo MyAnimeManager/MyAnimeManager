@@ -16,7 +16,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
 import main.AnimeIndex;
-import util.window.PreferenceDialog;
 import util.window.SetExclusionDialog;
 
 public class UtilEvent
@@ -43,9 +42,9 @@ public class UtilEvent
 			                    	boolean[] exc = {true,true,true,true,true,true};
 									AnimeIndex.exclusionAnime.put(AnimeIndex.animeInformation.lblAnimeName.getText(), exc);
 									AnimeIndex.animeInformation.selectExcludedAnimeAtWindowOpened=true;
-			                    	PreferenceDialog.exclusionDialog = new SetExclusionDialog();
-									PreferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
-									PreferenceDialog.exclusionDialog.setVisible(true);
+									AnimeIndex.preferenceDialog.exclusionDialog = new SetExclusionDialog();
+									AnimeIndex.preferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
+									AnimeIndex.preferenceDialog.exclusionDialog.setVisible(true);
 			                    }
 			                });
 			                JMenuItem remove = new JMenuItem("Rimuovi dalle Esclusioni");

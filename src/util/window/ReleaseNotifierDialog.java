@@ -9,6 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -27,10 +28,10 @@ import util.task.ReleasedAnimeTask;
 
 public class ReleaseNotifierDialog extends JDialog {
 	
-	public static SortedListModel ovaReleased = new SortedListModel();
-	public static SortedListModel filmReleased = new SortedListModel();
-	public static JList ovaReleasedList;
-	public static JList filmReleasedList;
+	public SortedListModel ovaReleased = new SortedListModel();
+	public SortedListModel filmReleased = new SortedListModel();
+	public JList ovaReleasedList;
+	public JList filmReleasedList;
 	private JButton btnApriSelezionato;
 
 	/**

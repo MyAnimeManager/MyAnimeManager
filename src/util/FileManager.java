@@ -17,7 +17,6 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 import main.AnimeIndex;
-import util.window.WishlistDialog;
 
 
 public class FileManager
@@ -292,7 +291,7 @@ public class FileManager
 					
 						String name = line.next();
 						int id = line.nextInt();
-						WishlistDialog.wishListModel.addElement(name);
+						AnimeIndex.wishlistDialog.wishListModel.addElement(name);
 						AnimeIndex.wishlistMap.put(name, id);
 				}							
 			} 
@@ -330,7 +329,7 @@ public class FileManager
 			output = new BufferedWriter(new OutputStreamWriter(
 				    new FileOutputStream(wishlistFile), "UTF-8"));
 			
-			Object[] wishListArray = WishlistDialog.wishListModel.toArray();
+			Object[] wishListArray = AnimeIndex.wishlistDialog.wishListModel.toArray();
 			for (int i = 0; i < wishListArray.length; i++)
 				{
 					String name = (String) wishListArray[i];

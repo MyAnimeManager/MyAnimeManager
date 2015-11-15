@@ -26,8 +26,8 @@ import util.PatternFilter;
 public class SetLinkDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	public static JTextField linkField;
-	public static JTextField linkNameField;
+	public JTextField linkField;
+	public JTextField linkNameField;
 	
 	/**
 	 * Create the dialog.

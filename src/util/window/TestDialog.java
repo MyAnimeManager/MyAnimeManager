@@ -30,31 +30,17 @@ public class TestDialog extends JDialog
 	private final JPanel contentPanel = new JPanel();
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args)
-	{
-		try {
-			TestDialog dialog = new TestDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
-	public TestDialog()
+	public TestDialog(int panelColor, int buttonColor, int textFieldColor, int labelColor, int checkBoxColor, int listColor, int separatorColor, int progressBarColor, int comboBoxColor)
 	{
 		setResizable(false);
 		setModal(true);
 		setBounds(100, 100, 450, 365);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		if (ColorDialog.panelColor != 0)
-			contentPanel.setBackground(new Color(ColorDialog.panelColor));
+		if (panelColor != 0)
+			contentPanel.setBackground(new Color(panelColor));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0};
@@ -64,8 +50,8 @@ public class TestDialog extends JDialog
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JButton btnNewButton = new JButton("Prova");
-			if (ColorDialog.buttonColor != 0)
-				btnNewButton.setBackground(new Color(ColorDialog.buttonColor));
+			if (buttonColor != 0)
+				btnNewButton.setBackground(new Color(buttonColor));
 			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 			gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
 			gbc_btnNewButton.gridx = 0;
@@ -74,8 +60,8 @@ public class TestDialog extends JDialog
 		}
 		{
 			JTextField textField = new JTextField();
-			if (ColorDialog.textFieldColor != 0)
-				textField.setBackground(new Color(ColorDialog.textFieldColor));
+			if (textFieldColor != 0)
+				textField.setBackground(new Color(textFieldColor));
 			GridBagConstraints gbc_textField = new GridBagConstraints();
 			gbc_textField.insets = new Insets(0, 0, 5, 0);
 			gbc_textField.fill = GridBagConstraints.HORIZONTAL;
@@ -86,8 +72,8 @@ public class TestDialog extends JDialog
 		}
 		{
 			JSeparator separator = new JSeparator();
-			if (ColorDialog.separatorColor != 0)
-			separator.setBackground(new Color(ColorDialog.separatorColor));
+			if (separatorColor != 0)
+			separator.setBackground(new Color(separatorColor));
 			GridBagConstraints gbc_separator = new GridBagConstraints();
 			gbc_separator.fill = GridBagConstraints.BOTH;
 			gbc_separator.insets = new Insets(0, 0, 5, 0);
@@ -97,8 +83,8 @@ public class TestDialog extends JDialog
 		}
 		{
 			JComboBox comboBox = new JComboBox();
-			if (ColorDialog.comboBoxColor != 0)
-			comboBox.setBackground(new Color(ColorDialog.comboBoxColor));
+			if (comboBoxColor != 0)
+			comboBox.setBackground(new Color(comboBoxColor));
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"Prova 1", "Prova 2"}));
 			GridBagConstraints gbc_comboBox = new GridBagConstraints();
 			gbc_comboBox.insets = new Insets(0, 0, 5, 0);
@@ -109,8 +95,8 @@ public class TestDialog extends JDialog
 		}
 		{
 			JCheckBox chckbxNewCheckBox = new JCheckBox("Prova");
-			if (ColorDialog.checkBoxColor != 0)
-			chckbxNewCheckBox.setBackground(new Color(ColorDialog.checkBoxColor));
+			if (checkBoxColor != 0)
+			chckbxNewCheckBox.setBackground(new Color(checkBoxColor));
 			GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
 			gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 0);
 			gbc_chckbxNewCheckBox.gridx = 0;
@@ -119,8 +105,8 @@ public class TestDialog extends JDialog
 		}
 		{
 			JProgressBar progressBar = new JProgressBar();
-			if (ColorDialog.progressBarColor != 0)
-			progressBar.setBackground(new Color(ColorDialog.progressBarColor));
+			if (progressBarColor != 0)
+			progressBar.setBackground(new Color(progressBarColor));
 			progressBar.setIndeterminate(true);
 			GridBagConstraints gbc_progressBar = new GridBagConstraints();
 			gbc_progressBar.insets = new Insets(0, 0, 5, 0);
@@ -130,8 +116,8 @@ public class TestDialog extends JDialog
 		}
 		{
 			JLabel Prova = new JLabel("Prova");
-			if (ColorDialog.labelColor != 0)
-			Prova.setForeground(new Color(ColorDialog.labelColor));
+			if (labelColor != 0)
+			Prova.setForeground(new Color(labelColor));
 			GridBagConstraints gbc_Prova = new GridBagConstraints();
 			gbc_Prova.insets = new Insets(0, 0, 5, 0);
 			gbc_Prova.gridx = 0;
@@ -140,8 +126,8 @@ public class TestDialog extends JDialog
 		}
 		{
 			JList list = new JList();
-			if (ColorDialog.listColor != 0)
-			list.setBackground(new Color(ColorDialog.listColor));
+			if (listColor != 0)
+			list.setBackground(new Color(listColor));
 			list.setModel(new AbstractListModel() {
 				String[] values = new String[] {"Prova 1", "Prova 2", "Prova 3"};
 				public int getSize() {

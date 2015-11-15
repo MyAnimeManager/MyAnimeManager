@@ -94,7 +94,7 @@ import util.window.WishlistDialog;
 
 public class AnimeIndex extends JFrame
 {
-	public static final String VERSION = "1.0.0";
+	public static final String VERSION = "1.2.0";
 	public static final String CURRENT_VERSION = "MyAnimeManager.exe";
 	public static final String NEW_VERSION = "MyAnimeManager_Setup.exe";
 	public static JPanel mainFrame;
@@ -159,7 +159,6 @@ public class AnimeIndex extends JFrame
 	public static int filtro = 9;
 	public static Font segui;
 	public static String addToPreviousList;
-	public static WishlistDialog wishlistDialog;
 	public static boolean openReleaseDialog = false;
 	public static boolean activeUpdate;
 	public static String lastSelection;
@@ -173,6 +172,8 @@ public class AnimeIndex extends JFrame
 	public static Properties appProp;
 	public static Properties colorProp;
 	
+	public static WishlistDialog wishlistDialog;
+	public static PreferenceDialog preferenceDialog;
 	
 	public static Thread appThread;
 	public static boolean shouldUpdate = true;
@@ -323,9 +324,9 @@ public class AnimeIndex extends JFrame
 		mntmPreferenze.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/System-Preferences-icon.png")));
 		mntmPreferenze.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PreferenceDialog preference = new PreferenceDialog();
-				preference.setLocationRelativeTo(mainFrame);
-				preference.setVisible(true);
+				preferenceDialog = new PreferenceDialog();
+				preferenceDialog.setLocationRelativeTo(mainFrame);
+				preferenceDialog.setVisible(true);
 			}
 		});
 		mnMenu.add(mntmPreferenze);
@@ -546,8 +547,8 @@ public class AnimeIndex extends JFrame
 					e1.printStackTrace();
 				}
 				
-				WishlistDialog.wishListModel.clear();
-				WishlistDialog.wishListSearchModel.clear();
+				AnimeIndex.wishlistDialog.wishListModel.clear();
+				AnimeIndex.wishlistDialog.wishListSearchModel.clear();
 				
 				wishlistMap.clear();
 				
@@ -582,7 +583,7 @@ public class AnimeIndex extends JFrame
 				fansubList = newFansub;
 				
 				exclusionAnime.clear();
-				WishlistDialog.wishListModel.clear();
+				AnimeIndex.wishlistDialog.wishListModel.clear();
 				
 				JList list = getJList();
 				list.clearSelection();

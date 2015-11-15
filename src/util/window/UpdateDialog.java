@@ -35,7 +35,7 @@ import util.FileManager;
 	    private JPanel pan2;
 	    private JLabel lblNewLabel;
 	    private JLabel lblNovit;
-	    public static DownloadingDialog dial; 
+	    public DownloadingDialog dial; 
 
 	    public UpdateDialog(String info) {
 	    	super(AnimeIndex.frame,true);

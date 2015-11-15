@@ -15,7 +15,6 @@ import javax.swing.SwingWorker;
 import main.AnimeIndex;
 import util.FileManager;
 import util.Updater;
-import util.window.UpdateDialog;
 
 public class DownloadUpdateTask extends SwingWorker
 {    
@@ -40,7 +39,7 @@ public class DownloadUpdateTask extends SwingWorker
 	@Override
 	protected void done()
 	{
-		UpdateDialog.dial.dispose();
+//		UpdateDialog.dial.dispose();
 	}
 	
 	public void downloadUpdate(URL fileUrl, String destinationFile) {
