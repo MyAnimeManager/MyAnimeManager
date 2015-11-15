@@ -645,8 +645,7 @@ public class AnimeIndex extends JFrame
 					if(!exclusionAnime.containsKey(name))
 					{	
 						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.\n\rAl fine di mantenere la modifica\n\rl'immagine di questo anime è stata aggiunta alla lista\n\rdelle esclusioni dal Controllo Dati Automatico.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
-						boolean[] exc = exclusionAnime.get(name);
-						exc[0] = true;
+						boolean[] exc = {true,false,false,false,false,false};
 						exclusionAnime.put(name, exc);
 					}
 					else
@@ -663,14 +662,15 @@ public class AnimeIndex extends JFrame
 					}
 					TreeMap<String,AnimeData> map = AnimeIndex.getMap();
 					String list = AnimeIndex.getList();
-					AnimeData data = map.get(name);
-					String path = data.getImagePath(list);
-					File imgFile = new File(path);
-					if(imgFile.exists())
-						AnimeIndex.animeInformation.setImage(path);
-					else
-						AnimeIndex.animeInformation.setImage("default");				
-			}
+					AnimeData oldData = map.get(name);
+					String path = oldData.getImagePath(list);
+					AnimeIndex.animeInformation.setImage(path);
+					if(!oldData.getImageName().equalsIgnoreCase(imageName))
+					{
+						AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), oldData.getNote(), imageName+".png", oldData.getDay(), oldData.getId(), oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
+						map.put(name, newData);
+					}
+				}
 				}
 				}
 				else
@@ -2140,6 +2140,9 @@ public class AnimeIndex extends JFrame
 						
 						if(exitDateMap.containsKey(name))
 							exitDateMap.remove(name);
+						
+						if(exclusionAnime.containsKey(name))
+							exclusionAnime.remove(name);
 						
 						if (!list.isSelectionEmpty())					
 							deleteButton.setEnabled(true);
