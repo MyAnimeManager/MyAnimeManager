@@ -68,6 +68,7 @@ import util.ExternalProgram;
 import util.FileManager;
 import util.Filters;
 import util.ImageChooserFilter;
+import util.MAMUtil;
 import util.SearchBar;
 import util.SortedListModel;
 import util.Updater;
@@ -783,7 +784,10 @@ public class AnimeIndex extends JFrame
 					URI uriLink = new URI(link);
 					Desktop.getDesktop().browse(uriLink);
 				} catch (URISyntaxException a) {
+					
 				} catch (IOException a) {
+					System.out.println("errore");
+					MAMUtil.writeLog(a);
 			}
 			}
 		});
