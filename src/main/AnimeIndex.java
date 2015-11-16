@@ -177,6 +177,7 @@ public class AnimeIndex extends JFrame
 	 */
 	public static void main(String[] args)
 	{
+		MAMUtil.createLogDirectory();
 		appProp = AnimeIndexProperties.createProperties();
 		colorProp = ColorProperties.createProperties();
 		EventQueue.invokeLater(new Runnable() {
@@ -778,9 +779,8 @@ public class AnimeIndex extends JFrame
 					URI uriLink = new URI(link);
 					Desktop.getDesktop().browse(uriLink);
 				} catch (URISyntaxException a) {
-					
+					MAMUtil.writeLog(a);
 				} catch (IOException a) {
-					System.out.println("errore");
 					MAMUtil.writeLog(a);
 			}
 			}

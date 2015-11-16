@@ -20,13 +20,22 @@ import main.AnimeIndex;
 
 public class MAMUtil {
 	
+	public static void createLogDirectory()
+	{
+		File logDirectory = new File(FileManager.getAppDataPath() + File.separator + "log" + File.separator);
+		if (!logDirectory.exists())
+		{
+			logDirectory.mkdirs();
+		}
+	}
+	
 	public static void writeLog(Exception e)
 	{
 		String fileName = "log_" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "_" + (Calendar.getInstance().get(Calendar.MONTH) + 1) + "_" + Calendar.getInstance().get(Calendar.YEAR)+ ".txt";
 		FileWriter fw = null;
 		try
 		{
-			fw = new FileWriter (FileManager.getAppDataPath() + File.separator + fileName, true);
+			fw = new FileWriter (FileManager.getAppDataPath() + File.separator + "log" + File.separator + fileName, true);
 			PrintWriter pw = new PrintWriter (fw);
 			pw.println("-------------------------------------------------------------------------");
 			e.printStackTrace (pw);	
