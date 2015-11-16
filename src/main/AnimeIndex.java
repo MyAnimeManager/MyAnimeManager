@@ -2578,7 +2578,7 @@ public class AnimeIndex extends JFrame
 		{
 			model = MAMUtil.getModel();
 		}
-		if(!model.contains(lastSelection))
+		if(lastSelection != null && !model.contains(lastSelection))
 		{
 			if(AnimeIndex.filtro!=9)
 			{
