@@ -968,7 +968,7 @@ public class AnimeInformation extends JPanel {
 				{
 					String name = lblAnimeName.getText();
 					if (AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true") && !AnimeIndex.exclusionAnime.containsKey(name))
-						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "I dati di questo anime sono già stati\n\raggiornati dal Controllo Dati Automatico.", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "I dati di questo anime sono già stati\n\raggiornati dal \"Controllo Dati Automatico\".", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 					else
 					{
 						FieldExclusionDialog exclusions = new FieldExclusionDialog();
