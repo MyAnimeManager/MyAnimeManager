@@ -11,6 +11,7 @@ import javax.swing.Timer;
 
 import main.AnimeIndex;
 import util.FileManager;
+import util.Filters;
 
 public class LoadingTask extends SwingWorker
 {
@@ -36,6 +37,11 @@ public class LoadingTask extends SwingWorker
 		AnimeIndex.ovaModel.update();
 		AnimeIndex.filmModel.update();
 		AnimeIndex.completedToSeeModel.update();
+		
+		if (AnimeIndex.appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Daily"))
+		{
+			Filters.setFilter(8);
+		}
 		
 		if(AnimeIndex.appProp.getProperty("Open_Wishlist").equalsIgnoreCase("true"))
 		{
