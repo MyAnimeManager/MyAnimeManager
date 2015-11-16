@@ -21,6 +21,7 @@ import javax.swing.text.AbstractDocument;
 
 import main.AnimeIndex;
 import util.AnimeData;
+import util.MAMUtil;
 import util.PatternFilter;
 
 public class SetLinkDialog extends JDialog {
@@ -116,7 +117,7 @@ public class SetLinkDialog extends JDialog {
 								else
 									AnimeIndex.animeInformation.setLinkButton.setText("Link");
 								
-								TreeMap<String,AnimeData> map = AnimeIndex.getMap();
+								TreeMap<String,AnimeData> map = MAMUtil.getMap();
 								String name = AnimeIndex.animeInformation.lblAnimeName.getText();
 								AnimeData oldData = map.get(name);
 								AnimeData data = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
@@ -146,8 +147,8 @@ public class SetLinkDialog extends JDialog {
 								AnimeIndex.animeInformation.setLinkButton.setText("Imposta Link");
 								linkNameField.setText("");
 								linkField.setText("");
-								JList list = AnimeIndex.getJList();
-								TreeMap<String,AnimeData> map = AnimeIndex.getMap();
+								JList list = MAMUtil.getJList();
+								TreeMap<String,AnimeData> map = MAMUtil.getMap();
 								String name = (String) list.getSelectedValue();
 								AnimeData oldData = map.get(name);
 								AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 

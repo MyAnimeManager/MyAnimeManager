@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 
 import main.AnimeIndex;
 import util.Filters;
+import util.MAMUtil;
 
 public class SetFilterDialog extends JDialog {
 
@@ -232,7 +233,7 @@ public class SetFilterDialog extends JDialog {
 						AnimeIndex.filtro=9;
 						filterGroup.clearSelection();
 						AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon3.png")));
-						String listName = AnimeIndex.getList();
+						String listName = MAMUtil.getList();
 						CardLayout cl = (CardLayout)(AnimeIndex.cardContainer.getLayout());
 				        cl.show(AnimeIndex.cardContainer, listName);
 						JButton but = (JButton) e.getSource();

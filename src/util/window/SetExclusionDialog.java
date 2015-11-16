@@ -42,6 +42,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import main.AnimeIndex;
+import util.MAMUtil;
 import util.SearchBar;
 import util.SortedListModel;
 
@@ -86,7 +87,7 @@ public class SetExclusionDialog extends JDialog {
 			public void windowOpened(WindowEvent arg0) {
 				cancelButton.requestFocusInWindow();
 				comboBox.setSelectedItem(AnimeIndex.animeTypeComboBox.getSelectedItem());
-				changeModel(AnimeIndex.getModel());
+				changeModel(MAMUtil.getModel());
 				if(AnimeIndex.animeInformation.selectExcludedAnimeAtWindowOpened==true)
 				{
 					listToExclude.setSelectedValue(AnimeIndex.animeInformation.lblAnimeName.getText(), true);

@@ -9,6 +9,7 @@ import main.AnimeIndex;
 import util.AnimeData;
 import util.ConnectionManager;
 import util.FileManager;
+import util.MAMUtil;
 import util.window.AnimeInformation;
 
 public class ManualUpdateAnimeDataTask extends SwingWorker
@@ -29,15 +30,15 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 			if (AnimeIndex.filtro != 9)
 			{
 				nome = (String) AnimeIndex.filterList.getSelectedValue();
-				AnimeIndex.getJList().setSelectedValue(nome, true);
+				MAMUtil.getJList().setSelectedValue(nome, true);
 			}
 			if (!AnimeIndex.searchBar.getText().isEmpty())
 			{
 				nome = (String) AnimeIndex.searchList.getSelectedValue();
-				AnimeIndex.getJList().setSelectedValue(nome, true);
+				MAMUtil.getJList().setSelectedValue(nome, true);
 			}
-			String name = (String) AnimeIndex.getJList().getSelectedValue();
-			TreeMap<String, AnimeData> map = AnimeIndex.getMap();
+			String name = (String) MAMUtil.getJList().getSelectedValue();
+			TreeMap<String, AnimeData> map = MAMUtil.getMap();
 			AnimeData oldData = map.get(name);
 			
 			String totalEp = oldData.getTotalEpisode();
@@ -157,7 +158,7 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 				imageName = imageName.replaceAll("\"", "_");
 				imageName = imageName.replaceAll(">", "_");
 				imageName = imageName.replaceAll("<", "_");
-				String list = AnimeIndex.getList();
+				String list = MAMUtil.getList();
 				if (list.equalsIgnoreCase("anime completati"))
 					FileManager.saveImage(imageLink, imageName, "Completed");
 				if (list.equalsIgnoreCase("anime in corso"))

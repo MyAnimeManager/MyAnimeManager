@@ -26,10 +26,10 @@ public class Filters {
 		}
 		if(AnimeIndex.filtro!=9)
 		{
-		Object[] modelArray = AnimeIndex.getModel().toArray();
+		Object[] modelArray = MAMUtil.getModel().toArray();
 		AnimeIndex.filterModel.clear();
 		String dato="";
-		TreeMap<String,AnimeData> map = AnimeIndex.getMap();
+		TreeMap<String,AnimeData> map = MAMUtil.getMap();
 		for(int i=0; i<modelArray.length; i++)
 		{
 			AnimeData data = map.get(modelArray[i]);
@@ -532,7 +532,7 @@ public class Filters {
 		for(int j = 0; j<9; j++)
 			AnimeIndex.filterArray[j]=false;
 		AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon3.png")));
-		String listName = AnimeIndex.getList();
+		String listName = MAMUtil.getList();
 		CardLayout cl = (CardLayout)(AnimeIndex.cardContainer.getLayout());
         cl.show(AnimeIndex.cardContainer, listName);
 	}

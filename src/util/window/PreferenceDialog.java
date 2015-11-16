@@ -29,6 +29,7 @@ import javax.swing.border.EmptyBorder;
 import main.AnimeIndex;
 import util.FileManager;
 import util.ImageChooserFilter;
+import util.MAMUtil;
 
 public class PreferenceDialog extends JDialog
 {
@@ -150,7 +151,7 @@ public class PreferenceDialog extends JDialog
 						if (rdbtnLastList.isSelected())
 						{
 							AnimeIndex.appProp.setProperty("List_to_visualize_at_start", "Last list");
-							AnimeIndex.appProp.setProperty("Last_list", AnimeIndex.getList());
+							AnimeIndex.appProp.setProperty("Last_list", MAMUtil.getList());
 						}
 						else if (rdbtnChooseList.isSelected())
 						{
@@ -354,7 +355,7 @@ public class PreferenceDialog extends JDialog
 					try{
 						FileManager.deleteData(img);
 						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Immagine iniziale rimossa.", "Eliminazione completata", JOptionPane.INFORMATION_MESSAGE);
-						if(AnimeIndex.getJList().isSelectionEmpty())
+						if(MAMUtil.getJList().isSelectionEmpty())
 							AnimeIndex.animeInformation.animeImage.setIcon(new ImageIcon(ImageIO.read(ClassLoader.getSystemResource("image/default.png"))));						
 					}catch(IOException e1)
 					{	e1.getStackTrace();}}}

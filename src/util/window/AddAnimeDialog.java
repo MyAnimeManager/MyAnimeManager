@@ -52,6 +52,7 @@ import util.AnimeData;
 import util.ConnectionManager;
 import util.FileManager;
 import util.Filters;
+import util.MAMUtil;
 import util.PatternFilter;
 import util.SearchBar;
 import util.SortedListModel;
@@ -1009,8 +1010,8 @@ public class AddAnimeDialog extends JDialog
 			}
 		}
 		
-		listToAddAniComboBox.setSelectedItem(AnimeIndex.getList());
-		listToAdd.setSelectedItem(AnimeIndex.getList());
+		listToAddAniComboBox.setSelectedItem(MAMUtil.getList());
+		listToAdd.setSelectedItem(MAMUtil.getList());
 		
 		if (AnimeIndex.appProp.getProperty("List_to_Check").equalsIgnoreCase("all"))
 		{

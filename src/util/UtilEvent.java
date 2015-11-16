@@ -63,7 +63,7 @@ public class UtilEvent
 					
 					else if (e.getSource().equals(AnimeIndex.animeInformation.animeImage))
 					{
-						JList list = AnimeIndex.getJList();
+						JList list = MAMUtil.getJList();
 						if (!list.isSelectionEmpty())
 						{
 							String name = (String) list.getSelectedValue();
@@ -107,7 +107,7 @@ public class UtilEvent
 					
 					else if (e.getSource().equals(AnimeIndex.animeInformation.totalEpisodeText))
 					{
-						JList list = AnimeIndex.getJList();
+						JList list = MAMUtil.getJList();
 						if (!list.isSelectionEmpty())
 						{
 							String name = (String) list.getSelectedValue();
@@ -151,7 +151,7 @@ public class UtilEvent
 					
 					else if (e.getSource().equals(AnimeIndex.animeInformation.durationField))
 					{
-						JList list = AnimeIndex.getJList();
+						JList list = MAMUtil.getJList();
 						if (!list.isSelectionEmpty())
 						{
 							String name = (String) list.getSelectedValue();
@@ -195,7 +195,7 @@ public class UtilEvent
 					
 					else if (e.getSource().equals(AnimeIndex.animeInformation.releaseDateField))
 					{
-						JList list = AnimeIndex.getJList();
+						JList list = MAMUtil.getJList();
 						if (!list.isSelectionEmpty())
 						{
 							String name = (String) list.getSelectedValue();
@@ -238,7 +238,7 @@ public class UtilEvent
 					}
 					else if (e.getSource().equals(AnimeIndex.animeInformation.finishDateField))
 					{
-						JList list = AnimeIndex.getJList();
+						JList list = MAMUtil.getJList();
 						if (!list.isSelectionEmpty())
 						{
 							String name = (String) list.getSelectedValue();
@@ -281,7 +281,7 @@ public class UtilEvent
 					}
 					else if (e.getSource().equals(AnimeIndex.animeInformation.typeComboBox))
 					{
-						JList list = AnimeIndex.getJList();
+						JList list = MAMUtil.getJList();
 						if (!list.isSelectionEmpty())
 						{
 							String name = (String) list.getSelectedValue();
@@ -336,12 +336,12 @@ public class UtilEvent
 				int key = e.getKeyChar();
 				if (key == KeyEvent.VK_BACK_SPACE || key == KeyEvent.VK_DELETE)
 				{
-					SortedListModel model = AnimeIndex.getModel();
+					SortedListModel model = MAMUtil.getModel();
 					SortedListModel secondModel = null;
 					SortedListModel thirdModel = null;
 					JList list = null;
 					if (AnimeIndex.searchBar.getText().isEmpty() && AnimeIndex.filtro == 9)
-						list = AnimeIndex.getJList();
+						list = MAMUtil.getJList();
 					else if (AnimeIndex.searchBar.getText().isEmpty() && AnimeIndex.filtro != 9)
 					{
 						list = AnimeIndex.filterList;
@@ -361,9 +361,9 @@ public class UtilEvent
 					
 					if (!list.isSelectionEmpty())
 					{
-						String listName = AnimeIndex.getList();
-						TreeMap<String,AnimeData> map = AnimeIndex.getMap();
-						ArrayList<String> arrayList = AnimeIndex.getDeletedAnimeArray();
+						String listName = MAMUtil.getList();
+						TreeMap<String,AnimeData> map = MAMUtil.getMap();
+						ArrayList<String> arrayList = MAMUtil.getDeletedAnimeArray();
 						int index = list.getSelectedIndex();
 						String name = (String) list.getSelectedValue();
 						model.removeElement(name);

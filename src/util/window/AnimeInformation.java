@@ -49,6 +49,7 @@ import main.AnimeIndex;
 import util.AnimeData;
 import util.FileManager;
 import util.Filters;
+import util.MAMUtil;
 import util.PatternFilter;
 import util.SortedListModel;
 import util.UtilEvent;
@@ -135,31 +136,6 @@ public class AnimeInformation extends JPanel {
 		{
 			e1.printStackTrace();
 		}
-		
-		// lblEpisode = new JLabel();
-		// if
-		// (AnimeIndex.appProp.getProperty("Show_episode_to_see").equals("true"))
-		// {
-		// lblEpisode.setText("Episodio da vedere :\r\n");
-		// }
-		// else
-		// {
-		// lblEpisode.setText("Ultimo episodio :\r\n");
-		// }
-		// animeImage = new JLabel(new ImageIcon(image));
-		// animeImage.setBorder(new LineBorder(new Color(40, 40, 40), 3, true));
-		// GridBagConstraints gbc_animeImage = new GridBagConstraints();
-		// gbc_animeImage.gridheight = 8;
-		// gbc_animeImage.insets = new Insets(0, 0, 5, 5);
-		// gbc_animeImage.gridx = 1;
-		// gbc_animeImage.gridy = 1;
-		// add(animeImage, gbc_animeImage);
-		// GridBagConstraints gbc_lblEpisode = new GridBagConstraints();
-		// gbc_lblEpisode.anchor = GridBagConstraints.WEST;
-		// gbc_lblEpisode.insets = new Insets(0, 0, 5, 5);
-		// gbc_lblEpisode.gridx = 8;
-		// gbc_lblEpisode.gridy = 2;
-		// add(lblEpisode, gbc_lblEpisode);
 		
 		plusButton = new JButton("");
 		plusButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/plus12.png")));
@@ -346,7 +322,7 @@ public class AnimeInformation extends JPanel {
 									finishedButton.setEnabled(false);
 								}
 								if (num == maxnum - 1 && Integer.parseInt(totalEpisodeText.getText()) > 1)
-									if (AnimeIndex.getList().equalsIgnoreCase("OAV") || AnimeIndex.getList().equalsIgnoreCase("Film"))
+									if (MAMUtil.getList().equalsIgnoreCase("OAV") || MAMUtil.getList().equalsIgnoreCase("Film"))
 									{
 										exitDaycomboBox.setSelectedItem("?????");
 										exitDaycomboBox.setEnabled(true);
@@ -781,7 +757,7 @@ public class AnimeInformation extends JPanel {
 					String nome = lblAnimeName.getText();
 					if (!nome.equalsIgnoreCase("Anime"))
 					{
-						TreeMap<String, AnimeData> map1 = AnimeIndex.getMap();
+						TreeMap<String, AnimeData> map1 = MAMUtil.getMap();
 						AnimeData old1 = map1.get(nome);
 						if (old1.getBd() == false)
 							if (bdType.equalsIgnoreCase("blu-ray"))
@@ -808,9 +784,9 @@ public class AnimeInformation extends JPanel {
 											AnimeIndex.filterList.setSelectedValue(name, true);
 										
 										if (AnimeIndex.filtro != 9 && !name.equals("Anime"))
-											AnimeIndex.getJList().setSelectedValue(name, true);
+											MAMUtil.getJList().setSelectedValue(name, true);
 										if (!AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
-											AnimeIndex.getJList().setSelectedValue(name, true);
+											MAMUtil.getJList().setSelectedValue(name, true);
 										SortedListModel model = null;
 										JList list = null;
 										TreeMap<String, AnimeData> map = null;
@@ -945,7 +921,7 @@ public class AnimeInformation extends JPanel {
 			{
 				if (!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length() == 10 && releaseDateField.getText().trim().length() == 10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length() == 10 && finishDateField.getText().trim().length() == 10)
 				{
-					JList list = AnimeIndex.getJList();
+					JList list = MAMUtil.getJList();
 					if (!list.isSelectionEmpty())
 						if (SwingUtilities.isRightMouseButton(e))
 						{
@@ -1059,9 +1035,9 @@ public class AnimeInformation extends JPanel {
 							AnimeIndex.filterList.setSelectedValue(name, true);
 						
 						if (AnimeIndex.filtro != 9 && !name.equals("Anime"))
-							AnimeIndex.getJList().setSelectedValue(name, true);
+							MAMUtil.getJList().setSelectedValue(name, true);
 						if (!AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
-							AnimeIndex.getJList().setSelectedValue(name, true);
+							MAMUtil.getJList().setSelectedValue(name, true);
 						String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
 						
 						SortedListModel model = null;
@@ -1168,8 +1144,8 @@ public class AnimeInformation extends JPanel {
 			{
 				if (!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length() == 10 && releaseDateField.getText().trim().length() == 10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length() == 10 && finishDateField.getText().trim().length() == 10)
 				{
-					String anime = (String) AnimeIndex.getJList().getSelectedValue();
-					AnimeData data = (AnimeData) AnimeIndex.getMap().get(anime);
+					String anime = (String) MAMUtil.getJList().getSelectedValue();
+					AnimeData data = (AnimeData) MAMUtil.getMap().get(anime);
 					String link = "https://anilist.co/anime/" + data.getId();
 					if (!link.isEmpty())
 						try
@@ -1225,9 +1201,9 @@ public class AnimeInformation extends JPanel {
 							AnimeIndex.filterList.setSelectedValue(name, true);
 						
 						if (AnimeIndex.filtro != 9 && !name.equals("Anime"))
-							AnimeIndex.getJList().setSelectedValue(name, true);
+							MAMUtil.getJList().setSelectedValue(name, true);
 						if (!AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
-							AnimeIndex.getJList().setSelectedValue(name, true);
+							MAMUtil.getJList().setSelectedValue(name, true);
 						String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
 						
 						SortedListModel model = null;
@@ -1334,8 +1310,8 @@ public class AnimeInformation extends JPanel {
 	
 	public void setBlank()
 	{
-		AnimeIndex.getJList().clearSelection();
-		if (AnimeIndex.getJList().isSelectionEmpty())
+		MAMUtil.getJList().clearSelection();
+		if (MAMUtil.getJList().isSelectionEmpty())
 		{
 			lblAnimeName.setText("Anime");
 			currentEpisodeField.setText("??");

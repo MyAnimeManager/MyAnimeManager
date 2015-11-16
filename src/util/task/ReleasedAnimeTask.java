@@ -6,6 +6,7 @@ import javax.swing.SwingWorker;
 
 import main.AnimeIndex;
 import util.AnimeData;
+import util.MAMUtil;
 import util.window.ReleaseNotifierDialog;
 
 public class ReleasedAnimeTask extends SwingWorker
@@ -19,13 +20,13 @@ public class ReleasedAnimeTask extends SwingWorker
 	{
 		dial.ovaReleased.clear();
 		dial.filmReleased.clear();
-		String oggi = AnimeIndex.today();
-		GregorianCalendar today = AnimeIndex.getDate(oggi);
+		String oggi = MAMUtil.today();
+		GregorianCalendar today = MAMUtil.getDate(oggi);
 		GregorianCalendar lastControlDate = null;
 		if(!AnimeIndex.appProp.getProperty("Date_Release").equalsIgnoreCase("none"))
 		{
 			try {
-				lastControlDate = AnimeIndex.getDate(AnimeIndex.appProp.getProperty("Date_Release"));
+				lastControlDate = MAMUtil.getDate(AnimeIndex.appProp.getProperty("Date_Release"));
 			} catch (java.text.ParseException e) {
 				e.printStackTrace();
 			}
@@ -41,23 +42,23 @@ public class ReleasedAnimeTask extends SwingWorker
 			String secondaryReleaseDate = data.getReleaseDate();
 			
 			try {
-				if(releaseDate.contains("?") || today.before(AnimeIndex.getDate(releaseDate)))
+				if(releaseDate.contains("?") || today.before(MAMUtil.getDate(releaseDate)))
 				{
 					try
 					{
-						animeDate = AnimeIndex.getDate(secondaryReleaseDate);
+						animeDate = MAMUtil.getDate(secondaryReleaseDate);
 					}
 					catch (java.text.ParseException e){
 					}
 				}
 				else
-					animeDate = AnimeIndex.getDate(releaseDate);
+					animeDate = MAMUtil.getDate(releaseDate);
 				
 				if(AnimeIndex.openReleaseDialog == true)
 				{
 					if(AnimeIndex.exitDateMap.containsKey(name))
 					{
-						if(AnimeIndex.getDate(AnimeIndex.exitDateMap.get(name)).equals(today))
+						if(MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).equals(today))
 						{
 							if (animeDate.before(today)||animeDate.equals(today))
 							{	
@@ -73,7 +74,7 @@ public class ReleasedAnimeTask extends SwingWorker
 					{
 						if(AnimeIndex.exitDateMap.containsKey(name))
 						{
-							if(AnimeIndex.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
+							if(MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
 							{
 								if (animeDate.before(today)||animeDate.equals(today))
 								{	
@@ -96,7 +97,7 @@ public class ReleasedAnimeTask extends SwingWorker
 				{
 					if(AnimeIndex.exitDateMap.containsKey(name))
 					{
-						if(AnimeIndex.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
+						if(MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
 						{
 							if (animeDate.before(today)||animeDate.equals(today))
 							{	
@@ -128,23 +129,23 @@ public class ReleasedAnimeTask extends SwingWorker
 			String secondaryReleaseDate = data.getReleaseDate();
 			
 			try {
-				if(releaseDate.contains("?") || today.before(AnimeIndex.getDate(releaseDate)))
+				if(releaseDate.contains("?") || today.before(MAMUtil.getDate(releaseDate)))
 				{
 					try
 					{
-						animeDate = AnimeIndex.getDate(secondaryReleaseDate);
+						animeDate = MAMUtil.getDate(secondaryReleaseDate);
 					}
 					catch (java.text.ParseException e){
 					}
 				}
 				else
-					animeDate = AnimeIndex.getDate(releaseDate);
+					animeDate = MAMUtil.getDate(releaseDate);
 				
 				if(AnimeIndex.openReleaseDialog == true)
 				{
 					if(AnimeIndex.exitDateMap.containsKey(name))
 					{
-						if(AnimeIndex.getDate(AnimeIndex.exitDateMap.get(name)).equals(today))
+						if(MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).equals(today))
 						{
 							if (animeDate.before(today)||animeDate.equals(today))
 							{	
@@ -160,7 +161,7 @@ public class ReleasedAnimeTask extends SwingWorker
 					{
 						if(AnimeIndex.exitDateMap.containsKey(name))
 						{
-							if(AnimeIndex.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
+							if(MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
 							{
 								if (animeDate.before(today)||animeDate.equals(today))
 								{	
@@ -183,7 +184,7 @@ public class ReleasedAnimeTask extends SwingWorker
 				{
 					if(AnimeIndex.exitDateMap.containsKey(name))
 					{
-						if(AnimeIndex.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
+						if(MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
 						{
 							if (animeDate.before(today)||animeDate.equals(today))
 							{	

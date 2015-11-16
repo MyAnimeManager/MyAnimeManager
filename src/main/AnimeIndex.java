@@ -7,7 +7,6 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,14 +20,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -201,7 +195,7 @@ public class AnimeIndex extends JFrame
 				try {
 					
 					ColorProperties.setColor(colorProp);
-					segui = segui();
+					segui = MAMUtil.segui();
 					frame = new AnimeIndex();
 					frame.setVisible(true);
 					wishlistDialog = new WishlistDialog();
@@ -586,7 +580,7 @@ public class AnimeIndex extends JFrame
 				exclusionAnime.clear();
 				AnimeIndex.wishlistDialog.wishListModel.clear();
 				
-				JList list = getJList();
+				JList list = MAMUtil.getJList();
 				list.clearSelection();
 				animeInformation.fansubComboBox.removeAllItems();
 				animeInformation.setBlank();
@@ -630,7 +624,7 @@ public class AnimeIndex extends JFrame
 					imageName = imageName.replaceAll("\"", "_");
 					imageName = imageName.replaceAll(">", "_");
 					imageName = imageName.replaceAll("<", "_");
-					String listName = AnimeIndex.getList();
+					String listName = MAMUtil.getList();
 					String folder = "";
 					if (listName.equalsIgnoreCase("anime completati"))
 						folder = "Completed";
@@ -661,8 +655,8 @@ public class AnimeIndex extends JFrame
 						else
 							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
 					}
-					TreeMap<String,AnimeData> map = AnimeIndex.getMap();
-					String list = AnimeIndex.getList();
+					TreeMap<String,AnimeData> map = MAMUtil.getMap();
+					String list = MAMUtil.getList();
 					AnimeData oldData = map.get(name);
 					String path = oldData.getImagePath(list);
 					AnimeIndex.animeInformation.setImage(path);
@@ -1073,7 +1067,7 @@ public class AnimeIndex extends JFrame
 		        	searchBar.setText("");
 		        	}
 		        AnimeIndex.animeInformation.setBlank();
-		        String type = getList();
+		        String type = MAMUtil.getList();
 		        list = type;
 		        appProp.setProperty("Last_list", type);
 		        if(type.equalsIgnoreCase("anime completati"))
@@ -1115,12 +1109,12 @@ public class AnimeIndex extends JFrame
 			public void insertUpdate(DocumentEvent e)
 			{
 				saveModifiedInformation();
-				getJList().clearSelection();
+				MAMUtil.getJList().clearSelection();
 				searchList.clearSelection();
 				String search = searchBar.getText();
 				SortedListModel model=null;
 				if(filtro==9)
-					model = getModel();
+					model = MAMUtil.getModel();
 				else
 					model = filterModel;
 				CardLayout cl = (CardLayout)(cardContainer.getLayout());
@@ -1135,11 +1129,11 @@ public class AnimeIndex extends JFrame
 				SortedListModel model = null;
 				String search = searchBar.getText();
 				JList list = new JList();
-				list=getJList();
+				list=MAMUtil.getJList();
 				list.clearSelection();
 				if(filtro==9)
 				{
-					String listName = getList();
+					String listName = MAMUtil.getList();
 					
 					if (listName.equalsIgnoreCase("anime completati"))
 					{	
@@ -2098,12 +2092,12 @@ public class AnimeIndex extends JFrame
 					if(choiche == JOptionPane.YES_OPTION)
 					{
 								
-						SortedListModel model = getModel();
+						SortedListModel model = MAMUtil.getModel();
 						SortedListModel secondModel = null;
 						SortedListModel thirdModel = null;
 						JList list = null;
 						if (searchBar.getText().isEmpty() && filtro == 9)
-							list = getJList();
+							list = MAMUtil.getJList();
 						else if (searchBar.getText().isEmpty() && filtro != 9)
 						{
 							list = filterList;
@@ -2121,9 +2115,9 @@ public class AnimeIndex extends JFrame
 							secondModel = searchModel;
 						}
 						
-						String listName = getList();
-						TreeMap<String,AnimeData> map = getMap();
-						ArrayList<String> arrayList = getDeletedAnimeArray();
+						String listName = MAMUtil.getList();
+						TreeMap<String,AnimeData> map = MAMUtil.getMap();
+						ArrayList<String> arrayList = MAMUtil.getDeletedAnimeArray();
 						int index = list.getSelectedIndex();
 						String name = (String) list.getSelectedValue();
 						model.removeElement(name);
@@ -2192,7 +2186,7 @@ public class AnimeIndex extends JFrame
 								AnimeIndex.filterArray[i] = false;
 							AnimeIndex.filtro=9;
 							AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon3.png")));
-							String listName = AnimeIndex.getList();
+							String listName = MAMUtil.getList();
 							CardLayout cl = (CardLayout)(AnimeIndex.cardContainer.getLayout());
 					        cl.show(AnimeIndex.cardContainer, listName);
 	                    }
@@ -2291,16 +2285,6 @@ public class AnimeIndex extends JFrame
 		AnimeInformation.setFansubComboBox();
 	}
 	
-	public void addToAnime(String animeName)
-	{
-		completedModel.addElement(animeName);
-	}
-	
-	public static String getList()
-	{
-		return (String) animeTypeComboBox.getSelectedItem();
-	}
-	
 	public void SearchInList(String searchedVal, SortedListModel modelToSearch) 
 	{
 		Object[] mainArray = modelToSearch.toArray();			
@@ -2320,117 +2304,6 @@ public class AnimeIndex extends JFrame
 		}
 		}
 
-	public static JList getJList()
-	{
-		JList list= null;
-			String listName = getList();
-			if (listName.equalsIgnoreCase("anime completati"))
-			{	
-				list = AnimeIndex.completedList;						
-			}				
-			else if (listName.equalsIgnoreCase("anime in corso"))
-			{
-				list = AnimeIndex.airingList;
-			}
-			else if (listName.equalsIgnoreCase("oav"))
-			{
-				list = AnimeIndex.ovaList;
-			}
-			else if (listName.equalsIgnoreCase("film"))
-			{
-				list = AnimeIndex.filmList;
-			}
-			else if (listName.equalsIgnoreCase("completi da vedere"))
-			{
-				list = AnimeIndex.completedToSeeList;
-			}
-			
-		return list;
-	}
-	
-	public static TreeMap getMap()
-	{
-		String listName = getList();
-		TreeMap map= null;
-		if (listName.equalsIgnoreCase("anime completati"))
-		{	
-			map = AnimeIndex.completedMap;						
-		}				
-		else if (listName.equalsIgnoreCase("anime in corso"))
-		{
-			map = AnimeIndex.airingMap;
-		}
-		else if (listName.equalsIgnoreCase("oav"))
-		{
-			map = AnimeIndex.ovaMap;
-		}
-		else if (listName.equalsIgnoreCase("film"))
-		{
-			map = AnimeIndex.filmMap;
-		}
-		else if (listName.equalsIgnoreCase("completi da vedere"))
-		{
-			map = AnimeIndex.completedToSeeMap;
-		}
-		return map;
-	}
-	
-	public static SortedListModel getModel()
-	{
-		SortedListModel model= null;
-			String listName = getList();
-			if (listName.equalsIgnoreCase("anime completati"))
-			{	
-				model = AnimeIndex.completedModel;						
-			}				
-			else if (listName.equalsIgnoreCase("anime in corso"))
-			{
-				model = AnimeIndex.airingModel;
-			}
-			else if (listName.equalsIgnoreCase("oav"))
-			{
-				model = AnimeIndex.ovaModel;
-			}
-			else if (listName.equalsIgnoreCase("film"))
-			{
-				model = AnimeIndex.filmModel;
-			}
-			else if (listName.equalsIgnoreCase("completi da vedere"))
-			{
-				model = AnimeIndex.completedToSeeModel;
-			}
-			
-		return model;
-	}
-	
-	public static ArrayList<String> getDeletedAnimeArray()
-	{
-		String listName = getList();
-		ArrayList<String> arrayList= null;
-		if (listName.equalsIgnoreCase("anime completati"))
-		{	
-			arrayList = AnimeIndex.completedDeletedAnime;						
-		}				
-		else if (listName.equalsIgnoreCase("anime in corso"))
-		{
-			arrayList = AnimeIndex.airingDeletedAnime;
-		}
-		else if (listName.equalsIgnoreCase("oav"))
-		{
-			arrayList = AnimeIndex.ovaDeletedAnime;
-		}
-		else if (listName.equalsIgnoreCase("film"))
-		{
-			arrayList = AnimeIndex.filmDeletedAnime;
-		}
-		else if (listName.equalsIgnoreCase("completi da vedere"))
-		{
-			arrayList = AnimeIndex.completedToSeeDeletedAnime;
-		}
-		
-		return arrayList;
-	}
-
 	public static void saveModifiedInformation()
 	{
 		if(!animeInformation.lblAnimeName.getText().equalsIgnoreCase("Anime"))
@@ -2447,7 +2320,7 @@ public class AnimeIndex extends JFrame
 			String finishDate = animeInformation.finishDateField.getText();
 			String durationEp = animeInformation.durationField.getText();
 			
-			String list = AnimeIndex.getList();
+			String list = MAMUtil.getList();
 			if (list.equalsIgnoreCase("Anime Completati"))
 				{
 				String image = AnimeIndex.completedMap.get(name).getImageName();
@@ -2568,7 +2441,7 @@ public class AnimeIndex extends JFrame
 	
 	private void applyListSelectionChange(JList jList)
 	{
-		selectionList.add((String)getJList().getSelectedValue());
+		selectionList.add((String)MAMUtil.getJList().getSelectedValue());
 		try
 		{
 			saveModifiedInformation();
@@ -2580,7 +2453,7 @@ public class AnimeIndex extends JFrame
 			String anime = (String) list.getSelectedValue();
 			if (anime != null || !jList.isSelectionEmpty())
 			{
-			TreeMap<String,AnimeData> map = getMap();			
+			TreeMap<String,AnimeData> map = MAMUtil.getMap();			
 			AnimeData data = map.get(anime);
 			animeInformation.setAnimeName(anime);
 			animeInformation.setCurrentEp(data.getCurrentEpisode());
@@ -2602,7 +2475,7 @@ public class AnimeIndex extends JFrame
 			animeInformation.setDay(data.getDay());
 			animeInformation.setType(data.getAnimeType());
 			animeInformation.setNote(data.getNote());
-			String listName = getList();
+			String listName = MAMUtil.getList();
 			String path = data.getImagePath(listName);
 			File file = new File(path);
 			if (file.exists())
@@ -2624,7 +2497,7 @@ public class AnimeIndex extends JFrame
 		String anime = (String) list.getSelectedValue();
 		if (anime != null || !jList.isSelectionEmpty())
 		{	
-			TreeMap<String,AnimeData> map = getMap();
+			TreeMap<String,AnimeData> map = MAMUtil.getMap();
 			AnimeData data = map.get(anime);
 			animeInformation.setAnimeName(anime);
 			animeInformation.setCurrentEp(data.getCurrentEpisode());
@@ -2646,7 +2519,7 @@ public class AnimeIndex extends JFrame
 			animeInformation.setDay(data.getDay());
 			animeInformation.setType(data.getAnimeType());
 			animeInformation.setNote(data.getNote());
-			String listName = getList();
+			String listName = MAMUtil.getList();
 			String path = data.getImagePath(listName);
 			File file = new File(path);
 			if (file.exists())
@@ -2675,46 +2548,6 @@ public class AnimeIndex extends JFrame
 		}
 	}
 		
-	private static Font segui()
-	{
-		InputStream is = AnimeIndex.class.getResourceAsStream("/font/seguisym.ttf");
-		Font font = null;
-		try {
-			font = Font.createFont(Font.TRUETYPE_FONT,is);
-		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
-		} finally{ //fix me
-			try
-			{
-				is.close();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		return font;
-	}
-		
-	public static String today()
-	{
-		GregorianCalendar today = new GregorianCalendar();
-		int currentDay = today.get(Calendar.DATE);
-		int currentMonth = today.get(Calendar.MONTH)+1;
-		int currentYear = today.get(Calendar.YEAR);
-		String date = currentDay + "/" + currentMonth + "/" + currentYear;
-		
-		return date;
-	}
-	
-	public static GregorianCalendar getDate(String date) throws ParseException
-	{
-		GregorianCalendar day = new GregorianCalendar();
-		SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/yyyy"); // the day of the week abbreviated
-		day.setTime(simpleDateformat.parse(date));
-		return day;
-	}
-	
 	private static void controlFields()
 	{
 		if(lastSelection == null)
@@ -2729,7 +2562,7 @@ public class AnimeIndex extends JFrame
 			}
 			if(AnimeIndex.searchBar.getText().isEmpty() && filtro == 9)
 			{
-				lastSelection = (String) getJList().getSelectedValue();
+				lastSelection = (String) MAMUtil.getJList().getSelectedValue();
 			}
 		}
 		SortedListModel model = null;
@@ -2743,7 +2576,7 @@ public class AnimeIndex extends JFrame
 		}
 		if(AnimeIndex.searchBar.getText().isEmpty() && filtro == 9)
 		{
-			model = getModel();
+			model = MAMUtil.getModel();
 		}
 		if(!model.contains(lastSelection))
 		{
@@ -2757,7 +2590,7 @@ public class AnimeIndex extends JFrame
 			}
 			if(AnimeIndex.searchBar.getText().isEmpty() && filtro == 9)
 			{
-				lastSelection = (String) getJList().getSelectedValue();
+				lastSelection = (String) MAMUtil.getJList().getSelectedValue();
 			}
 		}
 
@@ -2834,7 +2667,7 @@ public class AnimeIndex extends JFrame
 					}
 					if(AnimeIndex.searchBar.getText().isEmpty() && filtro==9)
 					{
-						lista = getJList();
+						lista = MAMUtil.getJList();
 					}
 					int i = 0;
 					if(!exclusionAnime.containsKey(lastSelection))
@@ -2895,7 +2728,7 @@ public class AnimeIndex extends JFrame
 					}
 					if(AnimeIndex.searchBar.getText().isEmpty() && filtro==9)
 					{
-						lista = getJList();
+						lista = MAMUtil.getJList();
 					}
 					int i = 0;
 					if(!exclusionAnime.containsKey(lastSelection))
@@ -2976,7 +2809,7 @@ public class AnimeIndex extends JFrame
 						endDay, oldData.getDurationEp(), oldData.getBd());
 			}
 			if(newData!=null)
-				getMap().put(lastSelection, newData);
+				MAMUtil.getMap().put(lastSelection, newData);
 			
 			if(AnimeIndex.filtro!=9)
 			{
@@ -2988,7 +2821,7 @@ public class AnimeIndex extends JFrame
 			}
 			if(AnimeIndex.searchBar.getText().isEmpty() && filtro == 9)
 			{
-				lastSelection = (String) getJList().getSelectedValue();
+				lastSelection = (String) MAMUtil.getJList().getSelectedValue();
 			}
 		}
 	}

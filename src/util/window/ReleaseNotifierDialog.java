@@ -23,6 +23,7 @@ import javax.swing.event.ListSelectionListener;
 
 import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
+import util.MAMUtil;
 import util.SortedListModel;
 import util.task.ReleasedAnimeTask;
 
@@ -55,7 +56,7 @@ public class ReleaseNotifierDialog extends JDialog {
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
-				AnimeIndex.appProp.setProperty("Date_Release", AnimeIndex.today());
+				AnimeIndex.appProp.setProperty("Date_Release", MAMUtil.today());
 			}
 		});
 		setModal(true);
@@ -154,7 +155,7 @@ public class ReleaseNotifierDialog extends JDialog {
 			JButton btnOk = new JButton("OK");
 			btnOk.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					AnimeIndex.appProp.setProperty("Date_Release", AnimeIndex.today());
+					AnimeIndex.appProp.setProperty("Date_Release", MAMUtil.today());
 					JButton butt = (JButton) e.getSource();
 					JDialog dialog = (JDialog) butt.getTopLevelAncestor();
 					dialog.dispose();
