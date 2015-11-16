@@ -29,8 +29,8 @@ import util.task.ReleasedAnimeTask;
 
 public class ReleaseNotifierDialog extends JDialog {
 	
-	public SortedListModel ovaReleased = new SortedListModel();
-	public SortedListModel filmReleased = new SortedListModel();
+	public static SortedListModel ovaReleased = new SortedListModel();
+	public static SortedListModel filmReleased = new SortedListModel();
 	public JList ovaReleasedList;
 	public JList filmReleasedList;
 	private JButton btnApriSelezionato;
