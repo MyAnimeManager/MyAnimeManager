@@ -21,6 +21,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/substance-swingx-7.3.1-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="lib/jl1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/jl1.0.1.jar" sourcepath="lib/jlayer-1.0.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/MyAnimeManager/lib/jlayer-1.0.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
