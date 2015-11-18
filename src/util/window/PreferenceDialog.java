@@ -458,7 +458,7 @@ public class PreferenceDialog extends JDialog
 		{
 			File folder = new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "log" + File.separator);
 			long space = getFolderSize(folder) / 1024;
-			JLabel lblFileDiLog = new JLabel("File di Log: (" + space + "Kb)");
+			JLabel lblFileDiLog = new JLabel("File di Log : (0Kb)");
 			GridBagConstraints gbc_lblFileDiLog = new GridBagConstraints();
 			gbc_lblFileDiLog.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblFileDiLog.insets = new Insets(0, 0, 5, 5);
