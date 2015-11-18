@@ -96,6 +96,11 @@ public class AnimeIndex extends JFrame
 	public static JPanel cardContainer;
 	public static AnimeInformation animeInformation;
 	public static AnimeIndex frame;
+	public static WishlistDialog wishlistDialog;
+	public static PreferenceDialog preferenceDialog;
+	public static SuggestionDialog suggestionDial;
+	public static AddAnimeDialog animeDialog;
+	public static AddFansubDialog fansubDialog;
 	
 	public static JList completedToSeeList;
 	public static JList filmList;
@@ -113,7 +118,6 @@ public class AnimeIndex extends JFrame
 	public static SortedListModel searchModel = new SortedListModel();
 	public static SortedListModel filterModel = new SortedListModel();
 	
-	private static String[] fansubList = {};
 	public static TreeMap<String,String> fansubMap = new TreeMap<String,String>();
 	public static TreeMap<String,AnimeData> completedMap = new TreeMap<String,AnimeData>();
 	public static TreeMap<String,AnimeData> airingMap = new TreeMap<String,AnimeData>();
@@ -140,15 +144,13 @@ public class AnimeIndex extends JFrame
 	public static ArrayList<String> completedToSeeDeletedAnime = new ArrayList();
 	
 	private static ArrayList<String> selectionList = new ArrayList();
-	
-	public static SuggestionDialog suggestionDial;
+		
 	private JButton addButton;
 	public static JButton deleteButton;
 	public static JComboBox animeTypeComboBox;
-	public static AddAnimeDialog animeDialog;
-	public static SearchBar searchBar;
-	public static AddFansubDialog fansubDialog;
+	public static SearchBar searchBar;	
 	public static JButton setFilterButton;
+	
 	private String list;
 	public static boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
 	public static int filtro = 9;
@@ -167,8 +169,7 @@ public class AnimeIndex extends JFrame
 	public static Properties appProp;
 	public static Properties colorProp;
 	
-	public static WishlistDialog wishlistDialog;
-	public static PreferenceDialog preferenceDialog;
+
 	
 	public static Thread appThread;
 	public static boolean shouldUpdate = true;
@@ -351,14 +352,12 @@ public class AnimeIndex extends JFrame
 					e1.printStackTrace();
 				}
 				
-				String[] newFansub = {};
-				fansubList = newFansub;
 				fansubMap.clear();
 				animeInformation.fansubComboBox.removeAllItems();
-				addToFansub("?????");
-				addToFansub("Dynit");
-				addToFansub("Yamato Animation");
-				addToFansub("Crunchyroll");
+				if(!fansubMap.containsKey("?????"))
+				{
+					fansubMap.put("?????", "");
+				}
 				if(!fansubMap.containsKey("Dynit"))
 				{
 					fansubMap.put("Dynit", "");
@@ -371,7 +370,7 @@ public class AnimeIndex extends JFrame
 				{
 					fansubMap.put("Crunchyroll", "");
 				}
-				animeInformation.setFansubComboBox();
+				animeInformation.setFansubComboBox();//TODO
 				animeInformation.setBlank();
 				JOptionPane.showMessageDialog(mainFrame, "Fansub eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				}
@@ -575,16 +574,33 @@ public class AnimeIndex extends JFrame
 				filmMap.clear();
 				ovaMap.clear();
 
-				String[] newFansub = {};
-				fansubList = newFansub;
+				fansubMap.clear();
+				animeInformation.fansubComboBox.removeAllItems();
+				if(!fansubMap.containsKey("?????"))
+				{
+					fansubMap.put("?????", "");
+				}
+				if(!fansubMap.containsKey("Dynit"))
+				{
+					fansubMap.put("Dynit", "");
+				}
+				if(!fansubMap.containsKey("Yamato Animation"))
+				{
+					fansubMap.put("Yamato Animation", "");
+				}
+				if(!fansubMap.containsKey("Crunchyroll"))
+				{
+					fansubMap.put("Crunchyroll", "");
+				}
+				animeInformation.setFansubComboBox();
+				animeInformation.fansubComboBox.removeAllItems();
+				animeInformation.setBlank();
 				
 				exclusionAnime.clear();
 				AnimeIndex.wishlistDialog.wishListModel.clear();
 				
 				JList list = MAMUtil.getJList();
 				list.clearSelection();
-				animeInformation.fansubComboBox.removeAllItems();
-				animeInformation.setBlank();
 				JOptionPane.showMessageDialog(mainFrame, "Dati eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				ExternalProgram restart = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + "MAMRestart.jar");
 				restart.run();
@@ -2211,26 +2227,7 @@ public class AnimeIndex extends JFrame
 	    });
 	    setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon3.png")));
 		buttonPanel.add(setFilterButton, BorderLayout.NORTH);
-		fansubList = FileManager.loadFansubList();
-		if(fansubList==null)
-			fansubList = FileManager.loadFansubList();
-		addToFansub("?????");
-		
-		if(!fansubMap.containsKey("Dynit"))
-		{
-			addToFansub("Dynit");
-			fansubMap.put("Dynit", "");
-		}
-		if(!fansubMap.containsKey("Yamato Animation"))
-		{
-			addToFansub("Yamato Animation");
-			fansubMap.put("Yamato Animation", "");
-		}
-		if(!fansubMap.containsKey("Crunchyroll"))
-		{
-			addToFansub("Crunchyroll");
-			fansubMap.put("Crunchyroll", "");
-		}
+				
 		animeInformation = new AnimeInformation();
 		mainFrame.add(animeInformation, BorderLayout.CENTER);
 		AnimeIndex.animeInformation.setFansubComboBox();
@@ -2254,37 +2251,26 @@ public class AnimeIndex extends JFrame
 
 	public static  String[] getFansubList()
 	{
-		return fansubList;
+		return fansubMap.keySet().toArray(new String[0]);
 	}
-	
-	public void addToFansub(String fansub)
-	
-	{
-		if (fansubList != null)
-		{
-			String[] oldList = fansubList;
-			String[] newList = new String[oldList.length + 1];
-			for (int i = 0; i < oldList.length; i++)
-			{
-				newList[i] = oldList[i];
-			}
-	
-			newList[oldList.length] = fansub; 
-			fansubList = newList;
-		}
-	}
-	
-	public static void setFansubList(Object[] arrayToSet)
-	{
-		String[] fansubArray = new String[arrayToSet.length];
-		for (int i = 0; i < fansubArray.length; i++) {
-			if (arrayToSet[i]!= null)
-				fansubArray[i] = arrayToSet[i].toString();
-		}
-		fansubList = fansubArray;
-		AnimeInformation.setFansubComboBox();
-	}
-	
+	//TODO
+//	public void addToFansub(String fansub)
+//	
+//	{
+//		if (fansubList != null)
+//		{
+//			String[] oldList = fansubList;
+//			String[] newList = new String[oldList.length + 1];
+//			for (int i = 0; i < oldList.length; i++)
+//			{
+//				newList[i] = oldList[i];
+//			}
+//	
+//			newList[oldList.length] = fansub; 
+//			fansubList = newList;
+//		}
+//	}
+		
 	public void SearchInList(String searchedVal, SortedListModel modelToSearch) 
 	{
 		Object[] mainArray = modelToSearch.toArray();			

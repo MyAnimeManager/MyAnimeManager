@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.TreeMap;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -27,18 +26,19 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.AbstractDocument;
 
-import main.AnimeIndex;
-import util.PatternFilter;
-
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+
+import main.AnimeIndex;
+import util.PatternFilter;
+import util.SortedListModel;
 public class AddFansubDialog extends JDialog
 {
 
 	private final JPanel contentPanel = new JPanel();
 	private JList fansubList;
-	private DefaultListModel fansubModel;
+	private SortedListModel fansubModel;
 	private JButton deleteButton;
 	private JTextField linkAddField;
 	private JTextField fansubAddField;
@@ -148,7 +148,7 @@ public class AddFansubDialog extends JDialog
 			scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 			scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 			{
-				fansubModel = new DefaultListModel();
+				fansubModel = new SortedListModel();
 				String[] fansub = AnimeIndex.getFansubList();
 				for (int i = 0; i < fansub.length; i++) {
 					fansubModel.addElement(fansub[i]);
@@ -291,9 +291,7 @@ public class AddFansubDialog extends JDialog
 						//salva fansub
 						if (!fansubModel.isEmpty())
 						{
-						Object[] fansub = fansubModel.toArray();
 						String previousFansub = (String) AnimeIndex.animeInformation.fansubComboBox.getSelectedItem();
-					    AnimeIndex.setFansubList(fansub);
 					    setFansubMap(fansubMap);
 					    AnimeIndex.animeInformation.fansubComboBox.setSelectedItem(previousFansub);
 						String link = AnimeIndex.fansubMap.get(AnimeIndex.animeInformation.fansubComboBox.getSelectedItem());

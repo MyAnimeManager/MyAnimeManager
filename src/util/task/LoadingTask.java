@@ -19,6 +19,8 @@ public class LoadingTask extends SwingWorker
 	@Override
 	protected Object doInBackground() throws Exception
 	{
+		FileManager.loadFansubList();
+		AnimeIndex.animeInformation.setFansubComboBox();
 		FileManager.loadExclusionList();
 		FileManager.loadAnime("completed.anaconda" , AnimeIndex.completedModel, AnimeIndex.completedMap);
 		FileManager.loadAnime("airing.anaconda", AnimeIndex.airingModel, AnimeIndex.airingMap);

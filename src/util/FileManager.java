@@ -49,38 +49,24 @@ public class FileManager
 
 	}
 	
-	public static String[] loadFansubList()
+	public static void loadFansubList()
 	{
 		File fansubFile = new File(FANSUB_PATH);
 		if (fansubFile.isFile()) 
 		{
 			Scanner scan = null;
 			Scanner line = null;
-			String[] fansub = null;
 			try {
 				scan = new Scanner(fansubFile);
-				int fansubNum = 0;
-				try {
-					fansubNum = countLines(fansubFile);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-				fansub = new String[fansubNum];
-				int i = 0;
 				while (scan.hasNextLine())
 				{
 					String all = scan.nextLine();
 					line = new Scanner(all);
 					line.useDelimiter("\\|\\|");
 					String fansubString = line.next();
-					if (!(fansubString.isEmpty()))
-					{
-					fansub[i] = fansubString;
-					i++;
-					}
 					String fansubLink = line.next();
 					AnimeIndex.fansubMap.put(fansubString, fansubLink);
+					addDefaultFansub();
 				}
 				
 				
@@ -94,20 +80,18 @@ public class FileManager
 				if (line != null)
 					line.close();
 			}
-			return fansub;
 		}
-		
-		try {
-			fansubFile.getParentFile().mkdirs();
-			fansubFile.createNewFile();
-		 	} 
-		 catch (IOException e) 
-		 	{
-			e.printStackTrace();
-			}
-		 return null;
-
-		
+		else
+		{
+			try {
+				fansubFile.getParentFile().mkdirs();
+				fansubFile.createNewFile();
+			 	} 
+			 catch (IOException e) 
+			 	{
+				e.printStackTrace();
+				}
+		}
 	}
 	
 	//anime
@@ -410,23 +394,27 @@ public class FileManager
 	
 	//util
 	
-	private static int countLines(File file) throws IOException {
-	    int lines = 0;
-
-	    FileInputStream fis = new FileInputStream(file);
-	    byte[] buffer = new byte[8 * 1024]; // BUFFER_SIZE = 8 * 1024
-	    int read;
-
-	    while ((read = fis.read(buffer)) != -1) {
-	        for (int i = 0; i < read; i++) {
-	            if (buffer[i] == '\n') lines++;
-	        }
-	    }
-
-	    fis.close();
-	    return lines;
+	private static void addDefaultFansub()
+	{
+		if(!AnimeIndex.fansubMap.containsKey("?????"))
+		{
+			AnimeIndex.fansubMap.put("?????", "");
+		}		
+		if(!AnimeIndex.fansubMap.containsKey("Dynit"))
+		{
+			AnimeIndex.fansubMap.put("Dynit", "");
+		}
+		if(!AnimeIndex.fansubMap.containsKey("Yamato Animation"))
+		{
+			AnimeIndex.fansubMap.put("Yamato Animation", "");
+		}
+		if(!AnimeIndex.fansubMap.containsKey("Crunchyroll"))
+		{
+			AnimeIndex.fansubMap.put("Crunchyroll", "");
+		}
+		
 	}
-
+	
 	public static void saveImage(String imageUrl, String destinationFile, String folderName) {
 	    URL url;
 		try {

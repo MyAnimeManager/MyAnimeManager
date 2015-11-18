@@ -1514,10 +1514,11 @@ public class AddAnimeDialog extends JDialog
 			}
 			getArrayList(listName).add(map.get(name).getImagePath(listName));
 			AnimeIndex.shouldUpdate = false;
-			AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+			AnimeIndex.animeTypeComboBox.setSelectedItem(listName);			
 			list.clearSelection();
 			list.setSelectedValue(name, true);	
 			AnimeIndex.shouldUpdate = true;
+			AnimeIndex.animeInformation.fansubComboBox.setSelectedItem("?????");
 			
 		}
 		
@@ -1583,8 +1584,11 @@ public class AddAnimeDialog extends JDialog
 				}
 				getArrayList(listName).add(map.get(name).getImagePath(listName));
 				AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+				AnimeIndex.shouldUpdate = false;
 				list.clearSelection();
-				list.setSelectedValue(name, true);	
+				list.setSelectedValue(name, true);
+				AnimeIndex.shouldUpdate = true;
+				AnimeIndex.animeInformation.fansubComboBox.setSelectedItem("?????");
 
 			}
 			
