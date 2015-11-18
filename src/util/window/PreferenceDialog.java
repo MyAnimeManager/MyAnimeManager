@@ -401,7 +401,7 @@ public class PreferenceDialog extends JDialog
 							chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 							chooser.setDialogTitle("Esporta in...");
 							
-							int returnVal = chooser.showDialog(AnimeIndex.mainFrame, "Imposta");
+							int returnVal = chooser.showDialog(AnimeIndex.mainFrame, "Esporta");
 							
 							if (returnVal == JFileChooser.APPROVE_OPTION)
 							{
