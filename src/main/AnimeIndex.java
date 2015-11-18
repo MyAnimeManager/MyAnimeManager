@@ -370,7 +370,7 @@ public class AnimeIndex extends JFrame
 				{
 					fansubMap.put("Crunchyroll", "");
 				}
-				animeInformation.setFansubComboBox();//TODO
+				animeInformation.setFansubComboBox();
 				animeInformation.setBlank();
 				JOptionPane.showMessageDialog(mainFrame, "Fansub eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				}
@@ -2253,23 +2253,6 @@ public class AnimeIndex extends JFrame
 	{
 		return fansubMap.keySet().toArray(new String[0]);
 	}
-	//TODO
-//	public void addToFansub(String fansub)
-//	
-//	{
-//		if (fansubList != null)
-//		{
-//			String[] oldList = fansubList;
-//			String[] newList = new String[oldList.length + 1];
-//			for (int i = 0; i < oldList.length; i++)
-//			{
-//				newList[i] = oldList[i];
-//			}
-//	
-//			newList[oldList.length] = fansub; 
-//			fansubList = newList;
-//		}
-//	}
 		
 	public void SearchInList(String searchedVal, SortedListModel modelToSearch) 
 	{
