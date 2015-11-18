@@ -1,11 +1,13 @@
 package util.task;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 
@@ -34,11 +36,15 @@ public class LoadingTask extends SwingWorker
 
 	protected void done()
 	{
-		AnimeIndex.completedModel.update();
-		AnimeIndex.airingModel.update();
-		AnimeIndex.ovaModel.update();
-		AnimeIndex.filmModel.update();
-		AnimeIndex.completedToSeeModel.update();
+		SwingUtilities.invokeLater(new Runnable(){
+			public void run()
+			{		
+			AnimeIndex.completedModel.update();
+			AnimeIndex.airingModel.update();
+			AnimeIndex.ovaModel.update();
+			AnimeIndex.filmModel.update();
+			AnimeIndex.completedToSeeModel.update();}
+		});
 		
 		if (AnimeIndex.appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Daily"))
 		{
