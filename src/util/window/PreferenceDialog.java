@@ -26,6 +26,8 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.border.EmptyBorder;
 
+import org.apache.commons.io.FileUtils;
+
 import main.AnimeIndex;
 import util.FileManager;
 import util.ImageChooserFilter;
@@ -43,6 +45,8 @@ public class PreferenceDialog extends JDialog
 	public JButton dataCheckButton;
 	public SetExclusionDialog exclusionDialog;
 	private JCheckBox chckbxApriWishlist;
+	private JButton btnEsporta;
+	private JButton btnCancella;
 
 	/**
 	 * Create the dialog.
@@ -54,15 +58,15 @@ public class PreferenceDialog extends JDialog
 		setTitle("Preferenze");
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 380, 291);
+		setBounds(100, 100, 380, 325);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.EAST);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{197, 90, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblListToVisualize = new JLabel("Lista da visualizzare all'avvio :");
@@ -371,10 +375,111 @@ public class PreferenceDialog extends JDialog
 		{
 			JSeparator separator = new JSeparator();
 			GridBagConstraints gbc_separator = new GridBagConstraints();
+			gbc_separator.insets = new Insets(0, 0, 5, 0);
 			gbc_separator.fill = GridBagConstraints.BOTH;
 			gbc_separator.gridwidth = 3;
 			gbc_separator.gridx = 0;
 			gbc_separator.gridy = 10;
+			contentPanel.add(separator, gbc_separator);
+		}
+		{
+			btnEsporta = new JButton("Esporta");
+			btnEsporta.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					File folder = new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "log" + File.separator);
+					File[] fileList = folder.listFiles();
+					if (fileList.length == 0)
+						JOptionPane.showMessageDialog(PreferenceDialog.this, "Nessun file di log esistente", "Errore", JOptionPane.WARNING_MESSAGE);
+					else
+					{
+						Object file = JOptionPane.showInputDialog(PreferenceDialog.this, "Quale file vuoi esportare?", "Esportazione", JOptionPane.QUESTION_MESSAGE, null, fileList, fileList[0]);
+						if (file != null && file instanceof File)
+						{
+							File choosedFile = (File)file;
+							JFileChooser chooser = new JFileChooser(System.getProperty("user.home") + File.separator + "Desktop");
+							chooser.setMultiSelectionEnabled(false);
+							chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+							chooser.setDialogTitle("Esporta in...");
+							
+							int returnVal = chooser.showDialog(AnimeIndex.mainFrame, "Imposta");
+							
+							if (returnVal == JFileChooser.APPROVE_OPTION)
+							{
+								File destination = chooser.getSelectedFile();
+								try
+								{
+									FileUtils.copyFileToDirectory(choosedFile, destination);
+								}
+								catch (IOException e1)
+								{
+									MAMUtil.writeLog(e1);
+									e1.printStackTrace();
+								}
+							}
+						}
+					}
+				}
+			});
+			GridBagConstraints gbc_btnEsporta = new GridBagConstraints();
+			gbc_btnEsporta.fill = GridBagConstraints.HORIZONTAL;
+			gbc_btnEsporta.insets = new Insets(0, 0, 5, 5);
+			gbc_btnEsporta.gridx = 1;
+			gbc_btnEsporta.gridy = 11;
+			contentPanel.add(btnEsporta, gbc_btnEsporta);
+		}
+		{
+			btnCancella = new JButton("Cancella");
+			btnCancella.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					int choiche = JOptionPane.showConfirmDialog(PreferenceDialog.this, "Vuoi rimuovere tutti i file di log?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if (choiche == JOptionPane.YES_OPTION)
+							{
+								try
+								{
+									FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "log" + File.separator));
+									btnCancella.setEnabled(false);
+									btnEsporta.setEnabled(false);
+								}
+								catch (IOException e1)
+								{
+									MAMUtil.writeLog(e1);
+									e1.printStackTrace();
+								}
+							}
+				}
+			});
+			GridBagConstraints gbc_btnCancella = new GridBagConstraints();
+			gbc_btnCancella.insets = new Insets(0, 0, 5, 0);
+			gbc_btnCancella.fill = GridBagConstraints.HORIZONTAL;
+			gbc_btnCancella.gridx = 2;
+			gbc_btnCancella.gridy = 11;
+			contentPanel.add(btnCancella, gbc_btnCancella);
+		}
+		{
+			File folder = new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "log" + File.separator);
+			long space = getFolderSize(folder) / 1024;
+			JLabel lblFileDiLog = new JLabel("File di Log: (" + space + "Kb)");
+			GridBagConstraints gbc_lblFileDiLog = new GridBagConstraints();
+			gbc_lblFileDiLog.fill = GridBagConstraints.HORIZONTAL;
+			gbc_lblFileDiLog.insets = new Insets(0, 0, 5, 5);
+			gbc_lblFileDiLog.gridx = 0;
+			gbc_lblFileDiLog.gridy = 11;
+			contentPanel.add(lblFileDiLog, gbc_lblFileDiLog);
+			if (space == 0)
+			{
+				btnEsporta.setEnabled(false);
+				btnCancella.setEnabled(false);
+			}
+		}
+		
+		{
+			JSeparator separator = new JSeparator();
+			GridBagConstraints gbc_separator = new GridBagConstraints();
+			gbc_separator.fill = GridBagConstraints.BOTH;
+			gbc_separator.gridwidth = 3;
+			gbc_separator.insets = new Insets(0, 0, 0, 5);
+			gbc_separator.gridx = 0;
+			gbc_separator.gridy = 12;
 			contentPanel.add(separator, gbc_separator);
 		}
 		
@@ -404,6 +509,26 @@ public class PreferenceDialog extends JDialog
 			chckbxApriWishlist.setSelected(true);
 		else
 			chckbxApriWishlist.setSelected(false);
+	}
+	
+	private long getFolderSize(File folder)
+	{
+		long size = 0;
+		if(folder.isDirectory())
+    	{		 
+    		if(folder.list().length > 0)		 		 
+    		{
+        	   File[] files = folder.listFiles();
+ 
+        	   for (File file : files) 
+        	   {
+        	     size += file.length();
+        	   }
+    		}
+ 
+    	}
+
+		return size;
 	}
 
 }
