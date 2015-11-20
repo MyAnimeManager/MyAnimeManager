@@ -77,6 +77,7 @@ import util.window.AddFansubDialog;
 import util.window.AnimeInformation;
 import util.window.CreditDialog;
 import util.window.ExitSaveDialog;
+import util.window.NewsBoardDialog;
 import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
 import util.window.SuggestionDialog;
@@ -101,6 +102,7 @@ public class AnimeIndex extends JFrame
 	public static SuggestionDialog suggestionDial;
 	public static AddAnimeDialog animeDialog;
 	public static AddFansubDialog fansubDialog;
+	public static NewsBoardDialog newsBoardDialog;
 	
 	public static JList completedToSeeList;
 	public static JList filmList;
@@ -201,6 +203,7 @@ public class AnimeIndex extends JFrame
 					frame = new AnimeIndex();
 					frame.setVisible(true);
 					wishlistDialog = new WishlistDialog();
+					newsBoardDialog = new NewsBoardDialog();
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -220,6 +223,8 @@ public class AnimeIndex extends JFrame
 			public void componentMoved(ComponentEvent e) {
 				if (wishlistDialog.isShowing())
 					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 181,AnimeIndex.mainFrame.getLocationOnScreen().y);
+				if (newsBoardDialog.isShowing())
+					newsBoardDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x, AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight());
 			}
 		});
 		setTitle("My Anime Manager");
@@ -725,6 +730,44 @@ public class AnimeIndex extends JFrame
 		JMenuItem mntmWishlist = new JMenuItem("WishList");
 		mntmWishlist.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/wishlist_256.png")));
 		mnVisualizza.add(mntmWishlist);
+		
+		JSeparator separator_21 = new JSeparator();
+		mnVisualizza.add(separator_21);
+		
+		JMenuItem mntmNewsboard = new JMenuItem("NewsBoard");
+		mntmNewsboard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!newsBoardDialog.isShowing())
+				{
+					newsBoardDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 1,AnimeIndex.mainFrame.getLocationOnScreen().y + + AnimeIndex.mainFrame.getHeight() - newsBoardDialog.getHeight());
+					newsBoardDialog.setVisible(true);
+					 new Timer(1, new ActionListener() {
+			               public void actionPerformed(ActionEvent e) {
+			            	   AnimeIndex.mainFrame.requestFocus();
+			            	   newsBoardDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 1, newsBoardDialog.getLocationOnScreen().y + 1);
+			            	   if (newsBoardDialog.getLocationOnScreen().y == AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight()) {
+			                     ((Timer) e.getSource()).stop();
+			            }
+			               }
+			            }).start();
+				}
+				else
+				{
+					new Timer(1, new ActionListener() {
+			               public void actionPerformed(ActionEvent e) {
+
+			            	   newsBoardDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 1, newsBoardDialog.getLocationOnScreen().y - 1);
+			            	   AnimeIndex.mainFrame.requestFocus();
+			            	   if (newsBoardDialog.getLocationOnScreen().y == (AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight() - newsBoardDialog.getHeight())) {
+			                     ((Timer) e.getSource()).stop();
+			                     newsBoardDialog.dispose();
+			            }
+			               }
+			            }).start();
+				}
+			}
+		});
+		mnVisualizza.add(mntmNewsboard);
 		mntmWishlist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
 				if (!wishlistDialog.isShowing())

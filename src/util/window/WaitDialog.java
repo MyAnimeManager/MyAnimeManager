@@ -3,6 +3,8 @@ package util.window;
 import java.awt.Cursor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -11,8 +13,6 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 
 import net.miginfocom.swing.MigLayout;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 
 public class WaitDialog extends JDialog
 {
