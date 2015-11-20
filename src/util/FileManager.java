@@ -412,7 +412,10 @@ public class FileManager
 		{
 			AnimeIndex.fansubMap.put("Crunchyroll", "");
 		}
-		
+		if(!AnimeIndex.fansubMap.containsKey("RAD"))
+		{
+			AnimeIndex.fansubMap.put("RAD", "www.redanimedatabase.forumcommunity.net/");
+		}
 	}
 	
 	public static void saveImage(String imageUrl, String destinationFile, String folderName) {
