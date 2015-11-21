@@ -47,6 +47,7 @@ public class PreferenceDialog extends JDialog
 	private JCheckBox chckbxApriWishlist;
 	private JButton btnEsporta;
 	private JButton btnCancella;
+	private JLabel lblFileDiLog;
 
 	/**
 	 * Create the dialog.
@@ -439,6 +440,7 @@ public class PreferenceDialog extends JDialog
 									FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "log" + File.separator));
 									btnCancella.setEnabled(false);
 									btnEsporta.setEnabled(false);
+									lblFileDiLog.setText("File di Log : (0Kb)");
 								}
 								catch (IOException e1)
 								{
@@ -458,7 +460,7 @@ public class PreferenceDialog extends JDialog
 		{
 			File folder = new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "log" + File.separator);
 			long space = getFolderSize(folder) / 1024;
-			JLabel lblFileDiLog = new JLabel("File di Log : (0Kb)");
+			lblFileDiLog = new JLabel("File di Log : ("+space+"Kb)");
 			GridBagConstraints gbc_lblFileDiLog = new GridBagConstraints();
 			gbc_lblFileDiLog.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblFileDiLog.insets = new Insets(0, 0, 5, 5);
@@ -525,10 +527,7 @@ public class PreferenceDialog extends JDialog
         	     size += file.length();
         	   }
     		}
- 
     	}
-
 		return size;
 	}
-
 }

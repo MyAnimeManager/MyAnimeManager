@@ -1,6 +1,7 @@
 package util.window;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -13,6 +14,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import util.MAMUtil;
 
@@ -27,7 +29,7 @@ public class MusicDialog extends JDialog {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setResizable(false);
 		setFont(MAMUtil.segui().deriveFont(12f));
-		setBounds(100, 100, 533, 433);
+		setBounds(100, 100, 533, 439);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -48,6 +50,7 @@ public class MusicDialog extends JDialog {
 			contentPanel.add(scrollPane, gbc_scrollPane);
 			{
 				JTree tree = new JTree();
+				tree.setFont(MAMUtil.segui().deriveFont(12f));
 				scrollPane.setViewportView(tree);
 			}
 		}
@@ -68,6 +71,7 @@ public class MusicDialog extends JDialog {
 			panel.setLayout(gbl_panel);
 			{
 				JLabel lblTitle = new JLabel("title");
+				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
 				GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 				gbc_lblTitle.gridwidth = 3;
 				gbc_lblTitle.fill = GridBagConstraints.HORIZONTAL;
@@ -78,6 +82,7 @@ public class MusicDialog extends JDialog {
 			}
 			{
 				JLabel lblImage = new JLabel("image");
+				lblImage.setBorder(new LineBorder(new Color(40, 40, 40), 2, true));
 				GridBagConstraints gbc_lblImage = new GridBagConstraints();
 				gbc_lblImage.gridwidth = 3;
 				gbc_lblImage.fill = GridBagConstraints.HORIZONTAL;
@@ -117,7 +122,6 @@ public class MusicDialog extends JDialog {
 		{
 			JLabel lblCurrentTime = new JLabel("current time");
 			GridBagConstraints gbc_lblCurrentTime = new GridBagConstraints();
-			gbc_lblCurrentTime.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblCurrentTime.insets = new Insets(0, 0, 0, 5);
 			gbc_lblCurrentTime.gridx = 2;
 			gbc_lblCurrentTime.gridy = 1;
@@ -135,7 +139,6 @@ public class MusicDialog extends JDialog {
 		{
 			JLabel lblTotalTime = new JLabel("total time");
 			GridBagConstraints gbc_lblTotalTime = new GridBagConstraints();
-			gbc_lblTotalTime.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblTotalTime.gridx = 4;
 			gbc_lblTotalTime.gridy = 1;
 			contentPanel.add(lblTotalTime, gbc_lblTotalTime);

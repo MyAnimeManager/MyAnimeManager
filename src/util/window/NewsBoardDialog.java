@@ -62,7 +62,7 @@ public class NewsBoardDialog extends JDialog {
 
 				            	   NewsBoardDialog.this.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x,  NewsBoardDialog.this.getLocationOnScreen().y - 1);
 				            	   AnimeIndex.mainFrame.requestFocus();
-				            	   if ( NewsBoardDialog.this.getLocationOnScreen().y == (AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight() -  NewsBoardDialog.this.getHeight())) {
+				            	   if ( NewsBoardDialog.this.getLocationOnScreen().y == (AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight() - NewsBoardDialog.this.getHeight())) {
 				                     ((Timer) e.getSource()).stop();
 				                     NewsBoardDialog.this.dispose();
 				            }
