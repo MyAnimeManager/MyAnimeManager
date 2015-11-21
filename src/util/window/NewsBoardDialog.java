@@ -28,7 +28,7 @@ public class NewsBoardDialog extends JDialog {
 	
 	/**
 	 * Create the dialog.
-	 */
+	 */ 
 	public NewsBoardDialog()
 	{
 		super(AnimeIndex.frame, false);
