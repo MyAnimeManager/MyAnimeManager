@@ -1,8 +1,7 @@
 package util.window;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
+import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -10,20 +9,22 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 
+import util.MAMUtil;
 import main.AnimeIndex;
 import util.task.NewsTask;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.GridLayout;
 
 
 public class NewsBoardDialog extends JDialog {
 	
 	private final JPanel contentPanel = new JPanel();
-	private JTextPane textPane;
+	private static JTextPane textPane;
 	
 	/**
 	 * Create the dialog.
@@ -39,9 +40,11 @@ public class NewsBoardDialog extends JDialog {
 			}
 		});
 		setUndecorated(true);
-		setBounds(100, 100, AnimeIndex.mainFrame.getWidth() + 2, 100);
+		setType(Type.UTILITY);
+		setBounds(100, 100, AnimeIndex.mainFrame.getWidth()+1, 100);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setBorder(new MatteBorder(0, 0, 0, 0, new Color(0, 0, 0)));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
@@ -57,10 +60,10 @@ public class NewsBoardDialog extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Chiudi");
+				JButton okButton = new JButton("\u2191 \u2191 \u2191 \u2191 \u2191");
+				okButton.setFont(MAMUtil.segui().deriveFont(12f));
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						new Timer(1, new ActionListener() {
@@ -68,7 +71,7 @@ public class NewsBoardDialog extends JDialog {
 
 				            	   NewsBoardDialog.this.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x,  NewsBoardDialog.this.getLocationOnScreen().y - 1);
 				            	   AnimeIndex.mainFrame.requestFocus();
-				            	   if ( NewsBoardDialog.this.getLocationOnScreen().y == (AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight() -  NewsBoardDialog.this.getHeight())) {
+				            	   if ( NewsBoardDialog.this.getLocationOnScreen().y == (AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight() - NewsBoardDialog.this.getHeight())) {
 				                     ((Timer) e.getSource()).stop();
 				                     NewsBoardDialog.this.dispose();
 				            }
@@ -76,6 +79,7 @@ public class NewsBoardDialog extends JDialog {
 				            }).start();
 					}
 				});
+				buttonPane.setLayout(new GridLayout(0, 1, 0, 0));
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}

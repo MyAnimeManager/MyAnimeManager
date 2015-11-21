@@ -1,10 +1,20 @@
 package util.window;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -13,28 +23,49 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import util.MAMUtil;
+import util.task.MusicTask;
 
 
 public class MusicDialog extends JDialog {
 	
 	private final JPanel contentPanel = new JPanel();
+	private JLabel lblImage;
+	private MusicTask tsk;
+	public static boolean isRunning;
 	
 	public MusicDialog()
 	{
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MusicDialog.class.getResource("/image/Headp.png")));
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				BufferedImage image = null;
+				try
+				{
+					image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
+				}
+				catch (IOException e1)
+				{
+					e1.printStackTrace();
+				}
+				lblImage.setIcon(new ImageIcon(image));
+			}
+		});
 		setTitle("My Anime Musics");
-		setModalityType(ModalityType.APPLICATION_MODAL);
 		setResizable(false);
+		setModalityType(ModalityType.DOCUMENT_MODAL);
 		setFont(MAMUtil.segui().deriveFont(12f));
-		setBounds(100, 100, 533, 442);
+		setBounds(100, 100, 534, 448);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{87, 93, 0, 0};
+		gbl_contentPanel.columnWidths = new int[]{87, 93, 71, 193, 0, 0};
 		gbl_contentPanel.rowHeights = new int[]{354, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPanel.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
@@ -48,13 +79,14 @@ public class MusicDialog extends JDialog {
 			contentPanel.add(scrollPane, gbc_scrollPane);
 			{
 				JTree tree = new JTree();
+				tree.setFont(MAMUtil.segui().deriveFont(12f));
 				scrollPane.setViewportView(tree);
 			}
 		}
 		{
 			JPanel panel = new JPanel();
 			GridBagConstraints gbc_panel = new GridBagConstraints();
-			gbc_panel.gridheight = 2;
+			gbc_panel.gridwidth = 3;
 			gbc_panel.insets = new Insets(0, 0, 5, 0);
 			gbc_panel.fill = GridBagConstraints.BOTH;
 			gbc_panel.gridx = 2;
@@ -62,22 +94,23 @@ public class MusicDialog extends JDialog {
 			contentPanel.add(panel, gbc_panel);
 			GridBagLayout gbl_panel = new GridBagLayout();
 			gbl_panel.columnWidths = new int[]{70, 195, 70, 0};
-			gbl_panel.rowHeights = new int[]{14, 335, 14, 23, 0};
+			gbl_panel.rowHeights = new int[]{14, 335, 14, 0};
 			gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			{
 				JLabel lblTitle = new JLabel("title");
+				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
 				GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 				gbc_lblTitle.gridwidth = 3;
-				gbc_lblTitle.fill = GridBagConstraints.HORIZONTAL;
 				gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
 				gbc_lblTitle.gridx = 0;
 				gbc_lblTitle.gridy = 0;
 				panel.add(lblTitle, gbc_lblTitle);
 			}
 			{
-				JLabel lblImage = new JLabel("image");
+				lblImage = new JLabel("");
+				lblImage.setBorder(new LineBorder(new Color(40, 40, 40), 2, true));
 				GridBagConstraints gbc_lblImage = new GridBagConstraints();
 				gbc_lblImage.gridwidth = 3;
 				gbc_lblImage.fill = GridBagConstraints.HORIZONTAL;
@@ -89,40 +122,17 @@ public class MusicDialog extends JDialog {
 			{
 				JProgressBar progressBar = new JProgressBar();
 				GridBagConstraints gbc_progressBar = new GridBagConstraints();
+				gbc_progressBar.anchor = GridBagConstraints.NORTH;
 				gbc_progressBar.gridwidth = 3;
-				gbc_progressBar.fill = GridBagConstraints.BOTH;
-				gbc_progressBar.insets = new Insets(0, 0, 5, 5);
+				gbc_progressBar.fill = GridBagConstraints.HORIZONTAL;
 				gbc_progressBar.gridx = 0;
 				gbc_progressBar.gridy = 2;
 				panel.add(progressBar, gbc_progressBar);
 			}
-			{
-				JLabel lblCurrentTime = new JLabel("current time");
-				GridBagConstraints gbc_lblCurrentTime = new GridBagConstraints();
-				gbc_lblCurrentTime.insets = new Insets(0, 0, 0, 5);
-				gbc_lblCurrentTime.gridx = 0;
-				gbc_lblCurrentTime.gridy = 3;
-				panel.add(lblCurrentTime, gbc_lblCurrentTime);
-			}
-			{
-				JButton btnPlaypause = new JButton("play/pause");
-				GridBagConstraints gbc_btnPlaypause = new GridBagConstraints();
-				gbc_btnPlaypause.insets = new Insets(0, 0, 0, 5);
-				gbc_btnPlaypause.fill = GridBagConstraints.BOTH;
-				gbc_btnPlaypause.gridx = 1;
-				gbc_btnPlaypause.gridy = 3;
-				panel.add(btnPlaypause, gbc_btnPlaypause);
-			}
-			{
-				JLabel lblTotalTime = new JLabel("total time");
-				GridBagConstraints gbc_lblTotalTime = new GridBagConstraints();
-				gbc_lblTotalTime.gridx = 2;
-				gbc_lblTotalTime.gridy = 3;
-				panel.add(lblTotalTime, gbc_lblTotalTime);
-			}
 		}
 		{
 			JButton btnLoad = new JButton("Ascolta");
+			btnLoad.setToolTipText("Carica il brano per ascoltarlo");
 			GridBagConstraints gbc_btnLoad = new GridBagConstraints();
 			gbc_btnLoad.fill = GridBagConstraints.HORIZONTAL;
 			gbc_btnLoad.insets = new Insets(0, 0, 0, 5);
@@ -132,12 +142,51 @@ public class MusicDialog extends JDialog {
 		}
 		{
 			JButton btnSave = new JButton("Salva");
+			btnSave.setToolTipText("Salva i brani che preferisci");
 			GridBagConstraints gbc_btnSave = new GridBagConstraints();
 			gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
 			gbc_btnSave.insets = new Insets(0, 0, 0, 5);
 			gbc_btnSave.gridx = 1;
 			gbc_btnSave.gridy = 1;
 			contentPanel.add(btnSave, gbc_btnSave);
+		}
+		{
+			JLabel lblCurrentTime = new JLabel("current time");
+			GridBagConstraints gbc_lblCurrentTime = new GridBagConstraints();
+			gbc_lblCurrentTime.insets = new Insets(0, 0, 0, 5);
+			gbc_lblCurrentTime.gridx = 2;
+			gbc_lblCurrentTime.gridy = 1;
+			contentPanel.add(lblCurrentTime, gbc_lblCurrentTime);
+		}
+		{
+			JButton btnPlaypause = new JButton("play/pause");
+			btnPlaypause.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					tsk = new MusicTask();
+					if(isRunning==false)
+					{	
+						tsk.execute();
+					}
+					else
+					{
+						tsk.player.stop();
+						isRunning=false;
+					}
+				}
+			});
+			GridBagConstraints gbc_btnPlaypause = new GridBagConstraints();
+			gbc_btnPlaypause.fill = GridBagConstraints.HORIZONTAL;
+			gbc_btnPlaypause.insets = new Insets(0, 0, 0, 5);
+			gbc_btnPlaypause.gridx = 3;
+			gbc_btnPlaypause.gridy = 1;
+			contentPanel.add(btnPlaypause, gbc_btnPlaypause);
+		}
+		{
+			JLabel lblTotalTime = new JLabel("total time");
+			GridBagConstraints gbc_lblTotalTime = new GridBagConstraints();
+			gbc_lblTotalTime.gridx = 4;
+			gbc_lblTotalTime.gridy = 1;
+			contentPanel.add(lblTotalTime, gbc_lblTotalTime);
 		}
 	}
 	

@@ -77,6 +77,7 @@ import util.window.AddFansubDialog;
 import util.window.AnimeInformation;
 import util.window.CreditDialog;
 import util.window.ExitSaveDialog;
+import util.window.MusicDialog;
 import util.window.NewsBoardDialog;
 import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
@@ -768,6 +769,20 @@ public class AnimeIndex extends JFrame
 			}
 		});
 		mnVisualizza.add(mntmNewsboard);
+		
+		JSeparator separator_22 = new JSeparator();
+		mnVisualizza.add(separator_22);
+		
+		JMenuItem mntmMyanimemusics = new JMenuItem("My Anime Musics");
+		mntmMyanimemusics.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/Headph.png")));
+		mntmMyanimemusics.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MusicDialog MyAnimeMusics = new MusicDialog();
+				MyAnimeMusics.setLocationRelativeTo(mainFrame);
+				MyAnimeMusics.setVisible(true);
+			}
+		});
+		mnVisualizza.add(mntmMyanimemusics);
 		mntmWishlist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
 				if (!wishlistDialog.isShowing())
