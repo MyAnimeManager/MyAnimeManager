@@ -26,21 +26,23 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 import main.AnimeIndex;
 
 import org.apache.commons.io.FileUtils;
 
-import javazoom.jl.player.advanced.AdvancedPlayer;
 import util.MAMUtil;
-import util.task.MusicTask;
+
 
 public class MusicDialog extends JDialog {
 	
 	private final JPanel contentPanel = new JPanel();
-	public static AdvancedPlayer player;
+	private Player player;
 	private boolean loopActive;
 	private JLabel lblImage;
 	private JButton btnPlaypause;
@@ -51,6 +53,8 @@ public class MusicDialog extends JDialog {
 	private String currentMusicPath;
 	private long pauseLocation;
 	private long songTotalLength;
+	private Timer timer;
+	private JProgressBar progressBar;
 	
 	public MusicDialog()
 	{
@@ -74,6 +78,7 @@ public class MusicDialog extends JDialog {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				stop();
+				timer.stop();
 			}
 		});
 		setTitle("My Anime Musics");
@@ -141,7 +146,7 @@ public class MusicDialog extends JDialog {
 				panel.add(lblImage, gbc_lblImage);
 			}
 			{
-				JProgressBar progressBar = new JProgressBar();
+				progressBar = new JProgressBar();
 				GridBagConstraints gbc_progressBar = new GridBagConstraints();
 				gbc_progressBar.anchor = GridBagConstraints.NORTH;
 				gbc_progressBar.gridwidth = 3;
@@ -206,10 +211,31 @@ public class MusicDialog extends JDialog {
 						play("C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Lucky☆Star\\Motteke! Sailor Fuku.mp3");
 						isRunning=true;
 						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
+						progressBar.setMaximum((int) songTotalLength);
+                        timer = new Timer(100, new ActionListener()
+                                {
+                                    public void actionPerformed(ActionEvent e)
+                                    {
+                                        double current = 0;
+                                        try
+                                        {
+                                            current = songTotalLength - fis.available();
+                                        }
+                                        catch (IOException e1)
+                                        {
+                                            MAMUtil.writeLog(e1);
+                                            e1.printStackTrace();
+                                        }
+                                        progressBar.setValue((int) current);
+                                    }
+                                    
+                                });
+                        timer.start();
 					}
 					else if(!isPaused)
 					{
 						pause();
+						timer.stop();
 						isRunning=false;
 						isPaused=true;
 						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));
@@ -217,6 +243,7 @@ public class MusicDialog extends JDialog {
 					else if(!isRunning && isPaused)
 					{
 						resume();
+						timer.start();
 						isRunning=true;
 						isPaused=false;
 						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
@@ -257,7 +284,9 @@ public class MusicDialog extends JDialog {
 		btnRestart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				stop();
+				timer.stop();
 				play(currentMusicPath);
+				timer.start();
 				isRunning=true;
 				isPaused=false;
 				btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
@@ -295,19 +324,34 @@ public class MusicDialog extends JDialog {
 	}
 	private void play(String path)
 	{
-		
 		try{
 			fis = new FileInputStream(path);
 			buff = new BufferedInputStream(fis);
-		    player = new AdvancedPlayer(buff);
+		    player = new Player(buff);
 		    currentMusicPath = path+"";
 		    songTotalLength=fis.available();
-		    run();
 			}
 			catch(Exception exc){
 				MAMUtil.writeLog(exc);
 			    exc.printStackTrace();
 			}
+		new Thread()
+		{
+			public void run()
+			{
+				try
+				{
+					player.play();
+					if(player.isComplete()&&loopActive==true)
+						play(currentMusicPath);
+				}
+				catch (JavaLayerException e)
+				{
+					MAMUtil.writeLog(e);
+					e.printStackTrace();
+				}
+			}
+		}.start();
 	}
 	private void pause()
 	{
@@ -329,11 +373,8 @@ public class MusicDialog extends JDialog {
 	private void resume()
 	{
 		try{
-			fis = new FileInputStream(currentMusicPath);
-			buff = new BufferedInputStream(fis);
-		    player = new AdvancedPlayer(buff);
+			play(currentMusicPath);
 		    fis.skip(songTotalLength-pauseLocation);
-		    run();
 			}
 		catch(Exception exc){
 			MAMUtil.writeLog(exc);
@@ -360,10 +401,5 @@ public class MusicDialog extends JDialog {
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
 		}
-	}
-	private void run()
-	{
-		MusicTask tsk = new MusicTask();
-		tsk.execute();
 	}
 }
