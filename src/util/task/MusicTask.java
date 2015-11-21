@@ -2,9 +2,7 @@ package util.task;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
-
 import javax.swing.SwingWorker;
-
 import util.window.MusicDialog;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
