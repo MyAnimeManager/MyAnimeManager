@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -15,28 +17,47 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import util.MAMUtil;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 
 public class MusicDialog extends JDialog {
 	
 	private final JPanel contentPanel = new JPanel();
+	private JLabel lblImage;
 	
 	public MusicDialog()
 	{
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				BufferedImage image = null;
+				try
+				{
+					image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
+				}
+				catch (IOException e1)
+				{
+					e1.printStackTrace();
+				}
+				lblImage.setIcon(new ImageIcon(image));
+			}
+		});
 		setTitle("My Anime Musics");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setResizable(false);
 		setFont(MAMUtil.segui().deriveFont(12f));
-		setBounds(100, 100, 533, 439);
+		setBounds(100, 100, 534, 439);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{87, 93, 71, 193, 0, 0};
 		gbl_contentPanel.rowHeights = new int[]{354, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPanel.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
@@ -81,7 +102,7 @@ public class MusicDialog extends JDialog {
 				panel.add(lblTitle, gbc_lblTitle);
 			}
 			{
-				JLabel lblImage = new JLabel("image");
+				lblImage = new JLabel("");
 				lblImage.setBorder(new LineBorder(new Color(40, 40, 40), 2, true));
 				GridBagConstraints gbc_lblImage = new GridBagConstraints();
 				gbc_lblImage.gridwidth = 3;
