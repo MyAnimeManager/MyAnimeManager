@@ -64,12 +64,10 @@ public class MusicDialog extends JDialog {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				BufferedImage image = null;
-				try
-				{
+				try{
 					image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
 				}
-				catch (IOException e1)
-				{
+				catch (IOException e1){
 					MAMUtil.writeLog(e1);
 					e1.printStackTrace();
 				}
@@ -78,7 +76,8 @@ public class MusicDialog extends JDialog {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				stop();
-				timer.stop();
+				if(timer!=null)
+					timer.stop();
 			}
 		});
 		setTitle("My Anime Musics");
@@ -125,7 +124,7 @@ public class MusicDialog extends JDialog {
 			gbl_panel.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			{
-				JLabel lblTitle = new JLabel("title");
+				JLabel lblTitle = new JLabel("TITLE");//max 38 char
 				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
 				GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 				gbc_lblTitle.gridwidth = 3;
@@ -181,12 +180,10 @@ public class MusicDialog extends JDialog {
 					if (returnVal == JFileChooser.APPROVE_OPTION)
 					{
 						File destination = chooser.getSelectedFile();
-						try
-						{
+						try{
 							FileUtils.copyFileToDirectory(choosedFile, destination);
 						}
-						catch (IOException e1)
-						{
+						catch (IOException e1){
 							MAMUtil.writeLog(e1);
 							e1.printStackTrace();
 						}
@@ -217,14 +214,11 @@ public class MusicDialog extends JDialog {
                                     public void actionPerformed(ActionEvent e)
                                     {
                                         double current = 0;
-                                        try
-                                        {
+                                        try{
                                             current = songTotalLength - fis.available();
                                         }
-                                        catch (IOException e1)
-                                        {
-                                            MAMUtil.writeLog(e1);
-                                            e1.printStackTrace();
+                                        catch (IOException e1){
+                                            timer.stop();
                                         }
                                         progressBar.setValue((int) current);
                                     }
@@ -339,14 +333,14 @@ public class MusicDialog extends JDialog {
 		{
 			public void run()
 			{
-				try
-				{
+				try{
 					player.play();
 					if(player.isComplete()&&loopActive==true)
 						play(currentMusicPath);
+					if(loopActive==false)
+						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));			
 				}
-				catch (JavaLayerException e)
-				{
+				catch (JavaLayerException e){
 					MAMUtil.writeLog(e);
 					e.printStackTrace();
 				}
@@ -355,8 +349,7 @@ public class MusicDialog extends JDialog {
 	}
 	private void pause()
 	{
-		try
-		{
+		try{
 			pauseLocation = fis.available();
 			player.close();
 			if(fis!=null)
@@ -364,8 +357,7 @@ public class MusicDialog extends JDialog {
 			if(buff!=null)
 				buff.close();
 		}
-		catch (IOException e)
-		{
+		catch (IOException e){
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
 		}
@@ -389,15 +381,13 @@ public class MusicDialog extends JDialog {
 			isRunning=false;
 			isPaused=true;
 		}
-		try
-		{
+		try{
 			if(fis!=null)
 				fis.close();
 			if(buff!=null)
 				buff.close();
 		}
-		catch (IOException e)
-		{
+		catch (IOException e){
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
 		}
