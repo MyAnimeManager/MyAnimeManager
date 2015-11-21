@@ -39,7 +39,6 @@ public class MusicDialog extends JDialog {
 	
 	public MusicDialog()
 	{
-		super(AnimeIndex.frame, false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MusicDialog.class.getResource("/image/Headp.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override

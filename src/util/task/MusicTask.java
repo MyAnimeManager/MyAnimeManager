@@ -8,14 +8,12 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 
 public class MusicTask extends SwingWorker{
 	
-	public static String packNumber;
-	int pausedOnFrame=0;
-	public AdvancedPlayer player;
-	
+	private AdvancedPlayer player;
+
 	@Override
 	protected Object doInBackground() throws Exception
 	{
-		try{
+	try{
 			FileInputStream fis = null;
 		    BufferedInputStream buff = null;
 			if(MusicDialog.isRunning==false)
