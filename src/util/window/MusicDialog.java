@@ -5,6 +5,13 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -17,18 +24,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
 import util.MAMUtil;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.awt.Toolkit;
+import util.task.MusicTask;
 
 
 public class MusicDialog extends JDialog {
 	
 	private final JPanel contentPanel = new JPanel();
 	private JLabel lblImage;
+	private MusicTask tsk;
+	public static boolean isRunning;
 	
 	public MusicDialog()
 	{
@@ -154,6 +160,20 @@ public class MusicDialog extends JDialog {
 		}
 		{
 			JButton btnPlaypause = new JButton("play/pause");
+			btnPlaypause.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					tsk = new MusicTask();
+					if(isRunning==false)
+					{	
+						tsk.execute();
+					}
+					else
+					{
+						tsk.player.stop();
+						isRunning=false;
+					}
+				}
+			});
 			GridBagConstraints gbc_btnPlaypause = new GridBagConstraints();
 			gbc_btnPlaypause.fill = GridBagConstraints.HORIZONTAL;
 			gbc_btnPlaypause.insets = new Insets(0, 0, 0, 5);

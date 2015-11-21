@@ -22,7 +22,7 @@ import java.awt.GridLayout;
 public class NewsBoardDialog extends JDialog {
 	
 	private final JPanel contentPanel = new JPanel();
-	private JTextPane textPane;
+	private static JTextPane textPane;
 	
 	/**
 	 * Create the dialog.
