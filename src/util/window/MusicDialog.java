@@ -25,6 +25,7 @@ import javax.swing.JTree;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import main.AnimeIndex;
 import util.MAMUtil;
 import util.task.MusicTask;
 
@@ -38,6 +39,7 @@ public class MusicDialog extends JDialog {
 	
 	public MusicDialog()
 	{
+		super(AnimeIndex.frame, false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MusicDialog.class.getResource("/image/Headp.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -56,7 +58,6 @@ public class MusicDialog extends JDialog {
 		});
 		setTitle("My Anime Musics");
 		setResizable(false);
-		setModalityType(ModalityType.DOCUMENT_MODAL);
 		setFont(MAMUtil.segui().deriveFont(12f));
 		setBounds(100, 100, 534, 448);
 		getContentPane().setLayout(new BorderLayout());
@@ -163,15 +164,7 @@ public class MusicDialog extends JDialog {
 			btnPlaypause.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					tsk = new MusicTask();
-					if(isRunning==false)
-					{	
-						tsk.execute();
-					}
-					else
-					{
-						tsk.player.stop();
-						isRunning=false;
-					}
+					tsk.execute();
 				}
 			});
 			GridBagConstraints gbc_btnPlaypause = new GridBagConstraints();

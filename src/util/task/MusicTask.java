@@ -16,11 +16,23 @@ public class MusicTask extends SwingWorker{
 	protected Object doInBackground() throws Exception
 	{
 		try{
-		    FileInputStream fis = new FileInputStream("C:\\Users\\Denis\\Desktop\\Extra\\Soundtrack\\OP\\MP3\\02. Red Alert Carpet.mp3");
-		    BufferedInputStream buff = new BufferedInputStream(fis);
-		    player = new AdvancedPlayer(buff);
-		    MusicDialog.isRunning = true;
-		    player.play();
+			FileInputStream fis = null;
+		    BufferedInputStream buff = null;
+			if(MusicDialog.isRunning==false)
+			{
+			    fis = new FileInputStream("C:\\Users\\Denis\\Desktop\\Extra\\Soundtrack\\OP\\MP3\\02. Red Alert Carpet.mp3");
+			    buff = new BufferedInputStream(fis);
+			    player = new AdvancedPlayer(buff);
+			    MusicDialog.isRunning = true;
+			    player.play();
+			}
+			else
+			{
+				player.stop();
+				MusicDialog.isRunning = false;
+			}
+			fis.close();
+		    buff.close();
 		}
 		catch(Exception exc){
 		    exc.printStackTrace();
@@ -30,6 +42,7 @@ public class MusicTask extends SwingWorker{
 	
 	@Override
 	public void done()
-	{}	
+	{
+	}	
 }	
 

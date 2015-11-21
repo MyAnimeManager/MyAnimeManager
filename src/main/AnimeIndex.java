@@ -104,6 +104,7 @@ public class AnimeIndex extends JFrame
 	public static AddAnimeDialog animeDialog;
 	public static AddFansubDialog fansubDialog;
 	public static NewsBoardDialog newsBoardDialog;
+	public static MusicDialog MyAnimeMusics;
 	
 	public static JList completedToSeeList;
 	public static JList filmList;
@@ -205,6 +206,7 @@ public class AnimeIndex extends JFrame
 					frame.setVisible(true);
 					wishlistDialog = new WishlistDialog();
 					newsBoardDialog = new NewsBoardDialog();
+					
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -777,9 +779,15 @@ public class AnimeIndex extends JFrame
 		mntmMyanimemusics.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/Headph.png")));
 		mntmMyanimemusics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MusicDialog MyAnimeMusics = new MusicDialog();
-				MyAnimeMusics.setLocationRelativeTo(mainFrame);
-				MyAnimeMusics.setVisible(true);
+					
+					if(MyAnimeMusics!=null && MyAnimeMusics.isVisible())
+					{
+						MyAnimeMusics.dispose();
+					}
+				
+					MyAnimeMusics = new MusicDialog();
+					MyAnimeMusics.setLocationRelativeTo(mainFrame);
+					MyAnimeMusics.setVisible(true);
 			}
 		});
 		mnVisualizza.add(mntmMyanimemusics);
