@@ -774,6 +774,7 @@ public class AnimeIndex extends JFrame
 		mnVisualizza.add(separator_22);
 		
 		JMenuItem mntmMyanimemusics = new JMenuItem("My Anime Musics");
+		mntmMyanimemusics.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/Headph.png")));
 		mntmMyanimemusics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MusicDialog MyAnimeMusics = new MusicDialog();

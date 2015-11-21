@@ -22,6 +22,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.awt.Toolkit;
+import java.awt.Dialog.ModalityType;
 
 
 public class MusicDialog extends JDialog {
@@ -31,6 +33,7 @@ public class MusicDialog extends JDialog {
 	
 	public MusicDialog()
 	{
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MusicDialog.class.getResource("/image/Headp.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -47,10 +50,10 @@ public class MusicDialog extends JDialog {
 			}
 		});
 		setTitle("My Anime Musics");
-		setModalityType(ModalityType.APPLICATION_MODAL);
 		setResizable(false);
+		setModalityType(ModalityType.DOCUMENT_MODAL);
 		setFont(MAMUtil.segui().deriveFont(12f));
-		setBounds(100, 100, 534, 439);
+		setBounds(100, 100, 534, 448);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -88,14 +91,13 @@ public class MusicDialog extends JDialog {
 			gbl_panel.columnWidths = new int[]{70, 195, 70, 0};
 			gbl_panel.rowHeights = new int[]{14, 335, 14, 0};
 			gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			{
 				JLabel lblTitle = new JLabel("title");
 				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
 				GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 				gbc_lblTitle.gridwidth = 3;
-				gbc_lblTitle.fill = GridBagConstraints.HORIZONTAL;
 				gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
 				gbc_lblTitle.gridx = 0;
 				gbc_lblTitle.gridy = 0;
@@ -115,8 +117,9 @@ public class MusicDialog extends JDialog {
 			{
 				JProgressBar progressBar = new JProgressBar();
 				GridBagConstraints gbc_progressBar = new GridBagConstraints();
+				gbc_progressBar.anchor = GridBagConstraints.NORTH;
 				gbc_progressBar.gridwidth = 3;
-				gbc_progressBar.fill = GridBagConstraints.BOTH;
+				gbc_progressBar.fill = GridBagConstraints.HORIZONTAL;
 				gbc_progressBar.gridx = 0;
 				gbc_progressBar.gridy = 2;
 				panel.add(progressBar, gbc_progressBar);
@@ -124,6 +127,7 @@ public class MusicDialog extends JDialog {
 		}
 		{
 			JButton btnLoad = new JButton("Ascolta");
+			btnLoad.setToolTipText("Carica il brano per ascoltarlo");
 			GridBagConstraints gbc_btnLoad = new GridBagConstraints();
 			gbc_btnLoad.fill = GridBagConstraints.HORIZONTAL;
 			gbc_btnLoad.insets = new Insets(0, 0, 0, 5);
@@ -133,6 +137,7 @@ public class MusicDialog extends JDialog {
 		}
 		{
 			JButton btnSave = new JButton("Salva");
+			btnSave.setToolTipText("Salva i brani che preferisci");
 			GridBagConstraints gbc_btnSave = new GridBagConstraints();
 			gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
 			gbc_btnSave.insets = new Insets(0, 0, 0, 5);
