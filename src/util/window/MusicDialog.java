@@ -27,14 +27,14 @@ public class MusicDialog extends JDialog {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setResizable(false);
 		setFont(MAMUtil.segui().deriveFont(12f));
-		setBounds(100, 100, 533, 442);
+		setBounds(100, 100, 533, 433);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{87, 93, 0, 0};
+		gbl_contentPanel.columnWidths = new int[]{87, 93, 71, 193, 0, 0};
 		gbl_contentPanel.rowHeights = new int[]{354, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPanel.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
@@ -54,7 +54,7 @@ public class MusicDialog extends JDialog {
 		{
 			JPanel panel = new JPanel();
 			GridBagConstraints gbc_panel = new GridBagConstraints();
-			gbc_panel.gridheight = 2;
+			gbc_panel.gridwidth = 3;
 			gbc_panel.insets = new Insets(0, 0, 5, 0);
 			gbc_panel.fill = GridBagConstraints.BOTH;
 			gbc_panel.gridx = 2;
@@ -62,9 +62,9 @@ public class MusicDialog extends JDialog {
 			contentPanel.add(panel, gbc_panel);
 			GridBagLayout gbl_panel = new GridBagLayout();
 			gbl_panel.columnWidths = new int[]{70, 195, 70, 0};
-			gbl_panel.rowHeights = new int[]{14, 335, 14, 23, 0};
+			gbl_panel.rowHeights = new int[]{14, 335, 14, 0};
 			gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			{
 				JLabel lblTitle = new JLabel("title");
@@ -91,34 +91,9 @@ public class MusicDialog extends JDialog {
 				GridBagConstraints gbc_progressBar = new GridBagConstraints();
 				gbc_progressBar.gridwidth = 3;
 				gbc_progressBar.fill = GridBagConstraints.BOTH;
-				gbc_progressBar.insets = new Insets(0, 0, 5, 5);
 				gbc_progressBar.gridx = 0;
 				gbc_progressBar.gridy = 2;
 				panel.add(progressBar, gbc_progressBar);
-			}
-			{
-				JLabel lblCurrentTime = new JLabel("current time");
-				GridBagConstraints gbc_lblCurrentTime = new GridBagConstraints();
-				gbc_lblCurrentTime.insets = new Insets(0, 0, 0, 5);
-				gbc_lblCurrentTime.gridx = 0;
-				gbc_lblCurrentTime.gridy = 3;
-				panel.add(lblCurrentTime, gbc_lblCurrentTime);
-			}
-			{
-				JButton btnPlaypause = new JButton("play/pause");
-				GridBagConstraints gbc_btnPlaypause = new GridBagConstraints();
-				gbc_btnPlaypause.insets = new Insets(0, 0, 0, 5);
-				gbc_btnPlaypause.fill = GridBagConstraints.BOTH;
-				gbc_btnPlaypause.gridx = 1;
-				gbc_btnPlaypause.gridy = 3;
-				panel.add(btnPlaypause, gbc_btnPlaypause);
-			}
-			{
-				JLabel lblTotalTime = new JLabel("total time");
-				GridBagConstraints gbc_lblTotalTime = new GridBagConstraints();
-				gbc_lblTotalTime.gridx = 2;
-				gbc_lblTotalTime.gridy = 3;
-				panel.add(lblTotalTime, gbc_lblTotalTime);
 			}
 		}
 		{
@@ -138,6 +113,32 @@ public class MusicDialog extends JDialog {
 			gbc_btnSave.gridx = 1;
 			gbc_btnSave.gridy = 1;
 			contentPanel.add(btnSave, gbc_btnSave);
+		}
+		{
+			JLabel lblCurrentTime = new JLabel("current time");
+			GridBagConstraints gbc_lblCurrentTime = new GridBagConstraints();
+			gbc_lblCurrentTime.fill = GridBagConstraints.HORIZONTAL;
+			gbc_lblCurrentTime.insets = new Insets(0, 0, 0, 5);
+			gbc_lblCurrentTime.gridx = 2;
+			gbc_lblCurrentTime.gridy = 1;
+			contentPanel.add(lblCurrentTime, gbc_lblCurrentTime);
+		}
+		{
+			JButton btnPlaypause = new JButton("play/pause");
+			GridBagConstraints gbc_btnPlaypause = new GridBagConstraints();
+			gbc_btnPlaypause.fill = GridBagConstraints.HORIZONTAL;
+			gbc_btnPlaypause.insets = new Insets(0, 0, 0, 5);
+			gbc_btnPlaypause.gridx = 3;
+			gbc_btnPlaypause.gridy = 1;
+			contentPanel.add(btnPlaypause, gbc_btnPlaypause);
+		}
+		{
+			JLabel lblTotalTime = new JLabel("total time");
+			GridBagConstraints gbc_lblTotalTime = new GridBagConstraints();
+			gbc_lblTotalTime.fill = GridBagConstraints.HORIZONTAL;
+			gbc_lblTotalTime.gridx = 4;
+			gbc_lblTotalTime.gridy = 1;
+			contentPanel.add(lblTotalTime, gbc_lblTotalTime);
 		}
 	}
 	
