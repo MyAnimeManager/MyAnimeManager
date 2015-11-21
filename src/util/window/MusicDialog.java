@@ -23,7 +23,6 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.awt.Toolkit;
-import java.awt.Dialog.ModalityType;
 
 
 public class MusicDialog extends JDialog {
