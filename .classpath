@@ -47,5 +47,10 @@
 	<classpathentry kind="lib" path="lib/xercesImpl-2.11.0.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="lib" path="lib/jsoup-1.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/jaudiotagger-2.0.3.jar" sourcepath="lib/jaudiotagger-2.0.3-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/MyAnimeManager/lib/jaudiotagger-2.0.3-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -38,6 +38,8 @@ import main.AnimeIndex;
 import org.apache.commons.io.FileUtils;
 
 import util.MAMUtil;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class MusicDialog extends JDialog {
@@ -157,6 +159,19 @@ public class MusicDialog extends JDialog {
 			}
 			{
 				progressBar = new JProgressBar();
+				progressBar.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						pause();
+						progressBar.setValue(e.getX());
+						long selectedPoint = (long)(progressBar.getPercentComplete()*100);
+						pauseLocation = songTotalLength*selectedPoint/100;
+						resume();
+						isRunning=true;
+						isPaused=false;
+						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
+					}
+				});
 				GridBagConstraints gbc_progressBar = new GridBagConstraints();
 				gbc_progressBar.anchor = GridBagConstraints.NORTH;
 				gbc_progressBar.gridwidth = 3;
