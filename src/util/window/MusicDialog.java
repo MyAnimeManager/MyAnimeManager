@@ -2,6 +2,7 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -46,6 +47,7 @@ public class MusicDialog extends JDialog {
 	private boolean loopActive;
 	private JLabel lblImage;
 	private JButton btnPlaypause;
+	private JButton btnRestart;
 	private FileInputStream fis;
 	private BufferedInputStream buff;
 	private boolean isRunning;
@@ -58,18 +60,22 @@ public class MusicDialog extends JDialog {
 	
 	public MusicDialog()
 	{
-		//super(AnimeIndex.frame, false);
+		super(AnimeIndex.frame, false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MusicDialog.class.getResource("/image/Headp.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				BufferedImage image = null;
-				try
-				{
-					image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
+				try{
+					if(AnimeIndex.appProp.getProperty("Session_Number").equalsIgnoreCase("0"))
+						image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
+					else if((Integer.parseInt(AnimeIndex.appProp.getProperty("Session_Number"))%2)==0)
+						image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
+					else
+						image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone...png"));
+					
 				}
-				catch (IOException e1)
-				{
+				catch (IOException e1){
 					MAMUtil.writeLog(e1);
 					e1.printStackTrace();
 				}
@@ -78,7 +84,8 @@ public class MusicDialog extends JDialog {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				stop();
-				timer.stop();
+				if(timer!=null)
+					timer.stop();
 			}
 		});
 		setTitle("My Anime Musics");
@@ -105,8 +112,11 @@ public class MusicDialog extends JDialog {
 			contentPanel.add(scrollPane, gbc_scrollPane);
 			{
 				JTree tree = new JTree();
+				tree.setShowsRootHandles(false);
 				tree.setFont(MAMUtil.segui().deriveFont(12f));
 				scrollPane.setViewportView(tree);
+				scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+				scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 			}
 		}
 		{
@@ -125,7 +135,7 @@ public class MusicDialog extends JDialog {
 			gbl_panel.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			{
-				JLabel lblTitle = new JLabel("title");
+				JLabel lblTitle = new JLabel("TITLE");//max 38 char
 				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
 				GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 				gbc_lblTitle.gridwidth = 3;
@@ -170,7 +180,7 @@ public class MusicDialog extends JDialog {
 			JButton btnSave = new JButton("Salva");
 			btnSave.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					File choosedFile = new File("C:\\Users\\Samu\\Desktop\\video musica immagini\\Braumix.mp3");
+					File choosedFile = new File("C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Taimadou Gakuen 35 Shiken Shoutai\\Calling my Twilight.mp3");
 					JFileChooser chooser = new JFileChooser(System.getProperty("user.home") + File.separator + "Desktop");
 					chooser.setMultiSelectionEnabled(false);
 					chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -181,12 +191,10 @@ public class MusicDialog extends JDialog {
 					if (returnVal == JFileChooser.APPROVE_OPTION)
 					{
 						File destination = chooser.getSelectedFile();
-						try
-						{
+						try{
 							FileUtils.copyFileToDirectory(choosedFile, destination);
 						}
-						catch (IOException e1)
-						{
+						catch (IOException e1){
 							MAMUtil.writeLog(e1);
 							e1.printStackTrace();
 						}
@@ -203,13 +211,15 @@ public class MusicDialog extends JDialog {
 		}
 		{
 			btnPlaypause = new JButton("");
+			btnPlaypause.setToolTipText("Play/Pausa");
 			btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));
 			btnPlaypause.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(!isRunning && !isPaused)
 					{
-						play("C:\\Users\\Samu\\Desktop\\video musica immagini\\Braumix.mp3");
+						play("C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Taimadou Gakuen 35 Shiken Shoutai\\Calling my Twilight.mp3");
 						isRunning=true;
+						btnRestart.setEnabled(true);
 						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
 						progressBar.setMaximum((int) songTotalLength);
                         timer = new Timer(100, new ActionListener()
@@ -217,14 +227,11 @@ public class MusicDialog extends JDialog {
                                     public void actionPerformed(ActionEvent e)
                                     {
                                         double current = 0;
-                                        try
-                                        {
+                                        try{
                                             current = songTotalLength - fis.available();
                                         }
-                                        catch (IOException e1)
-                                        {
-                                            MAMUtil.writeLog(e1);
-                                            e1.printStackTrace();
+                                        catch (IOException e1){
+                                            timer.stop();
                                         }
                                         progressBar.setValue((int) current);
                                     }
@@ -252,6 +259,7 @@ public class MusicDialog extends JDialog {
 			});
 			{
 				JButton btnPrev = new JButton("");
+				btnPrev.setToolTipText("Brano precedente");
 				btnPrev.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/rev_icon.png")));
 				GridBagConstraints gbc_btnPrev = new GridBagConstraints();
 				gbc_btnPrev.fill = GridBagConstraints.HORIZONTAL;
@@ -270,6 +278,7 @@ public class MusicDialog extends JDialog {
 		{
 			{
 				JButton btnSucc = new JButton("");
+				btnSucc.setToolTipText("Brano successivo");
 				btnSucc.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/forward_icon.png")));
 				GridBagConstraints gbc_btnSucc = new GridBagConstraints();
 				gbc_btnSucc.insets = new Insets(0, 0, 0, 5);
@@ -279,7 +288,9 @@ public class MusicDialog extends JDialog {
 				contentPanel.add(btnSucc, gbc_btnSucc);
 			}
 		}
-		JButton btnRestart = new JButton("");
+		btnRestart = new JButton("");
+		btnRestart.setEnabled(false);
+		btnRestart.setToolTipText("Ricomincia");
 		btnRestart.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/restart.png")));
 		btnRestart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -300,6 +311,7 @@ public class MusicDialog extends JDialog {
 		contentPanel.add(btnRestart, gbc_btnRestart);
 		{
 			JButton btnLoop = new JButton("");
+			btnLoop.setToolTipText("Loop");
 			btnLoop.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/loop.png")));
 			btnLoop.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -339,14 +351,14 @@ public class MusicDialog extends JDialog {
 		{
 			public void run()
 			{
-				try
-				{
+				try{
 					player.play();
 					if(player.isComplete()&&loopActive==true)
 						play(currentMusicPath);
+					if(loopActive==false)
+						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));			
 				}
-				catch (JavaLayerException e)
-				{
+				catch (JavaLayerException e){
 					MAMUtil.writeLog(e);
 					e.printStackTrace();
 				}
@@ -355,8 +367,7 @@ public class MusicDialog extends JDialog {
 	}
 	private void pause()
 	{
-		try
-		{
+		try{
 			pauseLocation = fis.available();
 			player.close();
 			if(fis!=null)
@@ -364,8 +375,7 @@ public class MusicDialog extends JDialog {
 			if(buff!=null)
 				buff.close();
 		}
-		catch (IOException e)
-		{
+		catch (IOException e){
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
 		}
@@ -389,15 +399,13 @@ public class MusicDialog extends JDialog {
 			isRunning=false;
 			isPaused=true;
 		}
-		try
-		{
+		try{
 			if(fis!=null)
 				fis.close();
 			if(buff!=null)
 				buff.close();
 		}
-		catch (IOException e)
-		{
+		catch (IOException e){
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
 		}

@@ -173,8 +173,6 @@ public class AnimeIndex extends JFrame
 	public static Properties appProp;
 	public static Properties colorProp;
 	
-
-	
 	public static Thread appThread;
 	public static boolean shouldUpdate = true;
 	/**
@@ -199,15 +197,12 @@ public class AnimeIndex extends JFrame
 			          System.out.println("Substance Graphite failed to initialize");
 			        }
 				try {
-					
 					ColorProperties.setColor(colorProp);
 					segui = MAMUtil.segui();
 					frame = new AnimeIndex();
 					frame.setVisible(true);
 					wishlistDialog = new WishlistDialog();
-					newsBoardDialog = new NewsBoardDialog();
-					
-					
+					newsBoardDialog = new NewsBoardDialog();				
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -255,8 +250,7 @@ public class AnimeIndex extends JFrame
 						exitDialog.setVisible(true);
 					}
 					AnimeIndex.mainFrame.requestFocusInWindow();
-				}
-				
+				}	
 			}
 			@Override
 			public void windowOpened(WindowEvent arg0) {
@@ -305,7 +299,6 @@ public class AnimeIndex extends JFrame
 							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "\n\rOk, non te lo chiederemo più.\n\r\n\r\n\rMa ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" > \"Crediti\"");
 							appProp.setProperty("Ask_for_donation", "false");
 						}
-						
 					}
 					appProp.setProperty("Session_Number", Integer.toString(sessionNumber));
 				}
@@ -780,14 +773,14 @@ public class AnimeIndex extends JFrame
 		mntmMyanimemusics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					
-					if(MyAnimeMusics!=null && MyAnimeMusics.isVisible())
-					{
-						MyAnimeMusics.dispose();
-					}
-				
-					MyAnimeMusics = new MusicDialog();
-					MyAnimeMusics.setLocationRelativeTo(mainFrame);
-					MyAnimeMusics.setVisible(true);
+				if(MyAnimeMusics!=null && MyAnimeMusics.isVisible())
+				{
+					MyAnimeMusics.dispose();
+				}
+			
+				MyAnimeMusics = new MusicDialog();
+				MyAnimeMusics.setLocationRelativeTo(mainFrame);
+				MyAnimeMusics.setVisible(true);
 			}
 		});
 		mnVisualizza.add(mntmMyanimemusics);
@@ -1086,20 +1079,20 @@ public class AnimeIndex extends JFrame
 		});
 		mntmControlloAggiornamenti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					String updatedVersion = null;
-					try {
-						updatedVersion = Updater.getLatestVersion();
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
-					if (updatedVersion.equalsIgnoreCase(VERSION))
-						JOptionPane.showMessageDialog(mainFrame, "Nessun Aggiornamento Trovato", "Aggiornamento", JOptionPane.INFORMATION_MESSAGE);
-					else
-					{
-					UpdateDialog update = new UpdateDialog(Updater.getWhatsNew());
-					update.setLocationRelativeTo(AnimeIndex.mainFrame);
-					update.setVisible(true);
-					}
+				String updatedVersion = null;
+				try {
+					updatedVersion = Updater.getLatestVersion();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				if (updatedVersion.equalsIgnoreCase(VERSION))
+					JOptionPane.showMessageDialog(mainFrame, "Nessun Aggiornamento Trovato", "Aggiornamento", JOptionPane.INFORMATION_MESSAGE);
+				else
+				{
+				UpdateDialog update = new UpdateDialog(Updater.getWhatsNew());
+				update.setLocationRelativeTo(AnimeIndex.mainFrame);
+				update.setVisible(true);
+				}
 			}
 		});
 		mntmAnichart.addActionListener(new ActionListener() {
@@ -1258,10 +1251,10 @@ public class AnimeIndex extends JFrame
 					model = filterModel;
 					if (!search.isEmpty())
 					{	
-					searchList.setEnabled(true);
-					CardLayout cl = (CardLayout)(cardContainer.getLayout());
-			        cl.show(cardContainer, "Ricerca");
-					SearchInList(search, model);
+						searchList.setEnabled(true);
+						CardLayout cl = (CardLayout)(cardContainer.getLayout());
+				        cl.show(cardContainer, "Ricerca");
+						SearchInList(search, model);
 					}
 					else
 					{
