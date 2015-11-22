@@ -180,7 +180,7 @@ public class MusicDialog extends JDialog {
 			JButton btnSave = new JButton("Salva");
 			btnSave.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					File choosedFile = new File("C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Lucky☆Star\\Motteke! Sailor Fuku.mp3");
+					File choosedFile = new File("C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Taimadou Gakuen 35 Shiken Shoutai\\Calling my Twilight.mp3");
 					JFileChooser chooser = new JFileChooser(System.getProperty("user.home") + File.separator + "Desktop");
 					chooser.setMultiSelectionEnabled(false);
 					chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -217,7 +217,7 @@ public class MusicDialog extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					if(!isRunning && !isPaused)
 					{
-						play("C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Lucky☆Star\\Motteke! Sailor Fuku.mp3");
+						play("C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Taimadou Gakuen 35 Shiken Shoutai\\Calling my Twilight.mp3");
 						isRunning=true;
 						btnRestart.setEnabled(true);
 						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
