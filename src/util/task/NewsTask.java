@@ -82,8 +82,9 @@ public class NewsTask extends SwingWorker {
         System.out.println("--------------------------");
 //        System.out.println(div.asText()); prende i nomi
         HtmlOrderedList orderedList = div.getFirstByXPath("//ol");
-        List<?> linkList = orderedList.getByXPath("//a//@href");
-        System.out.println(linkList.get(0));
+        System.out.println(orderedList.asXml());
+        List<?> linkList = orderedList.getByXPath("//a[@target='_blank']");
+        System.out.println(linkList.get(1));
         
 //        System.out.println(orderedList.asXml());
         news += orderedList.asXml();
