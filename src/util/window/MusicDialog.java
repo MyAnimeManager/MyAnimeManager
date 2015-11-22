@@ -36,6 +36,10 @@ import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+import main.AnimeIndex;
+
 import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -45,16 +49,14 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
-import org.jaudiotagger.tag.TagField;
-import org.jaudiotagger.tag.datatype.DataTypes;
-import org.jaudiotagger.tag.id3.ID3v23Frame;
-import org.jaudiotagger.tag.id3.ID3v23Tag;
-import org.jaudiotagger.tag.id3.framebody.FrameBodyAPIC;
 
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-import main.AnimeIndex;
 import util.MAMUtil;
+import util.Scroller;
+
+import com.mpatric.mp3agic.ID3v2;
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
 
 
 
@@ -70,7 +72,7 @@ public class MusicDialog extends JDialog {
 	private BufferedInputStream buff;
 	private boolean isRunning;
 	private boolean isPaused;
-	private String currentMusicPath = "C:\\Users\\Samu\\Desktop\\video musica immagini\\A Genesis - nano.mp3";
+	private String currentMusicPath = "C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\One Punch Man\\THE HERO !! ~Ikareru Kobushi ni Hi wo Tsukero~.mp3";
 	private long pauseLocation;
 	private long songTotalLength;
 	private Timer timer;
@@ -154,6 +156,17 @@ public class MusicDialog extends JDialog {
 			gbl_panel.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			{
+				lblImage = new JLabel("");
+				lblImage.setBorder(new LineBorder(new Color(40, 40, 40), 2, true));
+				GridBagConstraints gbc_lblImage = new GridBagConstraints();
+				gbc_lblImage.gridwidth = 3;
+				gbc_lblImage.fill = GridBagConstraints.HORIZONTAL;
+				gbc_lblImage.insets = new Insets(0, 0, 5, 0);
+				gbc_lblImage.gridx = 0;
+				gbc_lblImage.gridy = 1;
+				panel.add(lblImage, gbc_lblImage);
+			}
+			{
 				JLabel lblTitle = new JLabel("TITLE");//max 38 char
 				AudioFile f = null;
 				try
@@ -161,23 +174,31 @@ public class MusicDialog extends JDialog {
 					File music = new File(currentMusicPath);
 					f = AudioFileIO.read(music);
 					Tag tag = f.getTag();
+					String title = tag.getFirst(FieldKey.TITLE);
+					if(title.length()<=38)
+						lblTitle.setText(title);
+					else
+						Scroller ttl = new Scroller(title);
 					
+					Mp3File song = new Mp3File(currentMusicPath);
+					ID3v2 id3v2tag = song.getId3v2Tag();
+					byte[] imageData = id3v2tag.getAlbumImage();
+					BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageData));
+					ImageIcon icon = new ImageIcon(img);
+					lblImage.setIcon(icon);
 					
-					lblTitle.setText(tag.getFirst(FieldKey.TITLE));
-					
-					ID3v23Tag id3v23Tag = (ID3v23Tag)tag;
-					TagField coverArtField =
-					id3v23Tag.getFirstField(org.jaudiotagger.tag.id3.ID3v23FieldKey.COVER_ART.getFieldName());
-					FrameBodyAPIC body = (FrameBodyAPIC)((ID3v23Frame)coverArtField).getBody();
-					byte[] imageRawData = (byte[])body.getObjectValue(DataTypes.OBJ_PICTURE_DATA);
-					BufferedImage bi = ImageIO.read(ImageIO.createImageInputStream(new
-					ByteArrayInputStream(imageRawData)));
-					
-//					byte[] imageData = tag.getFirstField(FieldKey.COVER_ART).getRawContent();
-//					BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageData));
-					
-					
-					lblImage.setIcon(new ImageIcon(bi));
+				}
+				catch (UnsupportedTagException e1)
+				{
+					// TODO Auto-generated catch block
+					MAMUtil.writeLog(e1);
+					e1.printStackTrace();
+				}
+				catch (InvalidDataException e1)
+				{
+					// TODO Auto-generated catch block
+					MAMUtil.writeLog(e1);
+					e1.printStackTrace();
 				}
 				catch (CannotReadException e1)
 				{
@@ -215,17 +236,6 @@ public class MusicDialog extends JDialog {
 				gbc_lblTitle.gridx = 0;
 				gbc_lblTitle.gridy = 0;
 				panel.add(lblTitle, gbc_lblTitle);
-			}
-			{
-				lblImage = new JLabel("");
-				lblImage.setBorder(new LineBorder(new Color(40, 40, 40), 2, true));
-				GridBagConstraints gbc_lblImage = new GridBagConstraints();
-				gbc_lblImage.gridwidth = 3;
-				gbc_lblImage.fill = GridBagConstraints.HORIZONTAL;
-				gbc_lblImage.insets = new Insets(0, 0, 5, 0);
-				gbc_lblImage.gridx = 0;
-				gbc_lblImage.gridy = 1;
-				panel.add(lblImage, gbc_lblImage);
 			}
 			{
 				progressBar = new JProgressBar();

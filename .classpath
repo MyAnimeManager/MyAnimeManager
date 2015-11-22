@@ -52,5 +52,10 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/MyAnimeManager/lib/jaudiotagger-2.0.3-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/mp3agic-0.8.1.jar" sourcepath="lib/mp3agic-0.8.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/MyAnimeManager/lib/mp3agic-0.8.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
