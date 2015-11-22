@@ -72,7 +72,7 @@ public class MusicDialog extends JDialog {
 	private BufferedInputStream buff;
 	private boolean isRunning;
 	private boolean isPaused;
-	private String currentMusicPath = "C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\One Punch Man\\THE HERO !! ~Ikareru Kobushi ni Hi wo Tsukero~.mp3";
+	private String currentMusicPath = "C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Sfondamento dei Cieli Gurren Lagann\\Rap wa Kan no Tamashii da! Muri wo Toushite Douri wo Kettobasu! Ore Tachi dai Gurren Dan no Theme wo Mimi no Ana Kappo Jitte yo~ Kukiki Yagare!!.mp3";
 	private long pauseLocation;
 	private long songTotalLength;
 	private Timer timer;
@@ -178,7 +178,19 @@ public class MusicDialog extends JDialog {
 					if(title.length()<=38)
 						lblTitle.setText(title);
 					else
-						Scroller ttl = new Scroller(title);
+						{
+							Timer tim = new Timer(100, new ActionListener()//TODO nn va
+	                        {
+	                            public void actionPerformed(ActionEvent e)
+	                            {
+	                            	char c = title.charAt(0);
+							        String rest = title.substring(1);
+							        String ttl = rest + c;
+							        lblTitle.setText(ttl);
+	                            }
+	                        });
+							tim.start();
+						}
 					
 					Mp3File song = new Mp3File(currentMusicPath);
 					ID3v2 id3v2tag = song.getId3v2Tag();
