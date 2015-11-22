@@ -67,7 +67,6 @@ public class NewsTask extends SwingWorker {
         System.out.println(((HtmlAnchor)linkList.get(i)).getAttribute("href"));      
         map.put(((HtmlAnchor)linkList.get(i)).asText(), ((HtmlAnchor)linkList.get(i)).getAttribute("href"));
         }
-
         }
         catch (Exception e)
         {

@@ -21,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -34,9 +35,7 @@ import javax.swing.JTree;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-import main.AnimeIndex;
+
 import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -46,6 +45,15 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
+import org.jaudiotagger.tag.TagField;
+import org.jaudiotagger.tag.datatype.DataTypes;
+import org.jaudiotagger.tag.id3.ID3v23Frame;
+import org.jaudiotagger.tag.id3.ID3v23Tag;
+import org.jaudiotagger.tag.id3.framebody.FrameBodyAPIC;
+
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+import main.AnimeIndex;
 import util.MAMUtil;
 
 
@@ -55,14 +63,14 @@ public class MusicDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private Player player;
 	private boolean loopActive;
-	private JLabel lblImage;
+	private JLabel lblImage = new JLabel();
 	private JButton btnPlaypause;
 	private JButton btnRestart;
 	private FileInputStream fis;
 	private BufferedInputStream buff;
 	private boolean isRunning;
 	private boolean isPaused;
-	private String currentMusicPath = "C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Taimadou Gakuen 35 Shiken Shoutai\\Calling my Twilight.mp3";
+	private String currentMusicPath = "C:\\Users\\Samu\\Desktop\\video musica immagini\\A Genesis - nano.mp3";
 	private long pauseLocation;
 	private long songTotalLength;
 	private Timer timer;
@@ -153,10 +161,23 @@ public class MusicDialog extends JDialog {
 					File music = new File(currentMusicPath);
 					f = AudioFileIO.read(music);
 					Tag tag = f.getTag();
+					
+					
 					lblTitle.setText(tag.getFirst(FieldKey.TITLE));
-					byte[] imageData = tag.getFirstField(FieldKey.COVER_ART).getRawContent();
-					BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageData));
-					lblImage.setIcon(new ImageIcon(img));
+					
+					ID3v23Tag id3v23Tag = (ID3v23Tag)tag;
+					TagField coverArtField =
+					id3v23Tag.getFirstField(org.jaudiotagger.tag.id3.ID3v23FieldKey.COVER_ART.getFieldName());
+					FrameBodyAPIC body = (FrameBodyAPIC)((ID3v23Frame)coverArtField).getBody();
+					byte[] imageRawData = (byte[])body.getObjectValue(DataTypes.OBJ_PICTURE_DATA);
+					BufferedImage bi = ImageIO.read(ImageIO.createImageInputStream(new
+					ByteArrayInputStream(imageRawData)));
+					
+//					byte[] imageData = tag.getFirstField(FieldKey.COVER_ART).getRawContent();
+//					BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageData));
+					
+					
+					lblImage.setIcon(new ImageIcon(bi));
 				}
 				catch (CannotReadException e1)
 				{
