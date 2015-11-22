@@ -21,7 +21,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,11 +34,9 @@ import javax.swing.JTree;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import main.AnimeIndex;
-
 import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -49,10 +46,8 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
-
 import util.MAMUtil;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 
 public class MusicDialog extends JDialog {
@@ -159,7 +154,7 @@ public class MusicDialog extends JDialog {
 					f = AudioFileIO.read(music);
 					Tag tag = f.getTag();
 					lblTitle.setText(tag.getFirst(FieldKey.TITLE));
-					byte[] imageData = tag.getFirstField((FieldKey.COVER_ART)).getRawContent();
+					byte[] imageData = tag.getFirstField(FieldKey.COVER_ART).getRawContent();
 					BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageData));
 					lblImage.setIcon(new ImageIcon(img));
 				}
