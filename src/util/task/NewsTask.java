@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.swing.SwingWorker;
 
+import org.apache.commons.logging.LogFactory;
+
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
@@ -39,6 +41,7 @@ public class NewsTask extends SwingWorker {
 	{
         java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(java.util.logging.Level.OFF); /* comment out to turn off annoying htmlunit warnings */
         java.util.logging.Logger.getLogger("org.apache.http.client.protocol.ResponseProcessCookies").setLevel(java.util.logging.Level.OFF);
+        LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
         WebClient webClient = null;
         try
         {
@@ -55,16 +58,9 @@ public class NewsTask extends SwingWorker {
         HtmlPage page = webClient.getPage(url);
         webClient.waitForBackgroundJavaScriptStartingBefore(20 * 1000); /* will wait JavaScript to execute up to 30s */
         //get divs which have a 'class' attribute of 'mainbg'
-        HtmlDivision div = page.getFirstByXPath("//div[@class='mainbg']");
-
-        System.out.println("--------------------------");
-        
+        HtmlDivision div = page.getFirstByXPath("//div[@class='mainbg']");        
         HtmlOrderedList orderedList = div.getFirstByXPath("//ol");
-        
-        System.out.println(orderedList.asXml());
-
         List<?> linkList = orderedList.getByXPath("//ol/li//a[@target='_blank']");
-
         for (int i = 0; i < linkList.size(); i++)
         {
         System.out.println(((HtmlAnchor)linkList.get(i)).asText());
@@ -78,6 +74,7 @@ public class NewsTask extends SwingWorker {
         	System.out.println("Errore");
         }
         webClient.close();
+        System.out.println("NewsBoard Completata");
     }
 	
 }
