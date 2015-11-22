@@ -12,11 +12,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 import util.MAMUtil;
+import util.task.NewsTask;
 import main.AnimeIndex;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class NewsBoardDialog extends JDialog {
 	
@@ -26,6 +29,13 @@ public class NewsBoardDialog extends JDialog {
 	public NewsBoardDialog()
 	{
 		super(AnimeIndex.frame, false);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				NewsTask task = new NewsTask();
+				task.execute();
+			}
+		});
 		setUndecorated(true);
 		setType(Type.UTILITY);
 		setBounds(100, 100, AnimeIndex.mainFrame.getWidth()+1, 100);
