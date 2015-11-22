@@ -2,6 +2,7 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -46,6 +47,7 @@ public class MusicDialog extends JDialog {
 	private boolean loopActive;
 	private JLabel lblImage;
 	private JButton btnPlaypause;
+	private JButton btnRestart;
 	private FileInputStream fis;
 	private BufferedInputStream buff;
 	private boolean isRunning;
@@ -58,14 +60,20 @@ public class MusicDialog extends JDialog {
 	
 	public MusicDialog()
 	{
-		//super(AnimeIndex.frame, false);
+		super(AnimeIndex.frame, false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MusicDialog.class.getResource("/image/Headp.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				BufferedImage image = null;
 				try{
-					image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
+					if(AnimeIndex.appProp.getProperty("Session_Number").equalsIgnoreCase("0"))
+						image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
+					else if((Integer.parseInt(AnimeIndex.appProp.getProperty("Session_Number"))%2)==0)
+						image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
+					else
+						image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone...png"));
+					
 				}
 				catch (IOException e1){
 					MAMUtil.writeLog(e1);
@@ -104,8 +112,11 @@ public class MusicDialog extends JDialog {
 			contentPanel.add(scrollPane, gbc_scrollPane);
 			{
 				JTree tree = new JTree();
+				tree.setShowsRootHandles(false);
 				tree.setFont(MAMUtil.segui().deriveFont(12f));
 				scrollPane.setViewportView(tree);
+				scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+				scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 			}
 		}
 		{
@@ -208,6 +219,7 @@ public class MusicDialog extends JDialog {
 					{
 						play("C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Lucky☆Star\\Motteke! Sailor Fuku.mp3");
 						isRunning=true;
+						btnRestart.setEnabled(true);
 						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
 						progressBar.setMaximum((int) songTotalLength);
                         timer = new Timer(100, new ActionListener()
@@ -276,7 +288,8 @@ public class MusicDialog extends JDialog {
 				contentPanel.add(btnSucc, gbc_btnSucc);
 			}
 		}
-		JButton btnRestart = new JButton("");
+		btnRestart = new JButton("");
+		btnRestart.setEnabled(false);
 		btnRestart.setToolTipText("Ricomincia");
 		btnRestart.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/restart.png")));
 		btnRestart.addActionListener(new ActionListener() {
