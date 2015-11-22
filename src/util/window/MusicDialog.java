@@ -200,6 +200,7 @@ public class MusicDialog extends JDialog {
 		}
 		{
 			btnPlaypause = new JButton("");
+			btnPlaypause.setToolTipText("Play/Pausa");
 			btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));
 			btnPlaypause.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -246,6 +247,7 @@ public class MusicDialog extends JDialog {
 			});
 			{
 				JButton btnPrev = new JButton("");
+				btnPrev.setToolTipText("Brano precedente");
 				btnPrev.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/rev_icon.png")));
 				GridBagConstraints gbc_btnPrev = new GridBagConstraints();
 				gbc_btnPrev.fill = GridBagConstraints.HORIZONTAL;
@@ -264,6 +266,7 @@ public class MusicDialog extends JDialog {
 		{
 			{
 				JButton btnSucc = new JButton("");
+				btnSucc.setToolTipText("Brano successivo");
 				btnSucc.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/forward_icon.png")));
 				GridBagConstraints gbc_btnSucc = new GridBagConstraints();
 				gbc_btnSucc.insets = new Insets(0, 0, 0, 5);
@@ -274,6 +277,7 @@ public class MusicDialog extends JDialog {
 			}
 		}
 		JButton btnRestart = new JButton("");
+		btnRestart.setToolTipText("Ricomincia");
 		btnRestart.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/restart.png")));
 		btnRestart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -294,6 +298,7 @@ public class MusicDialog extends JDialog {
 		contentPanel.add(btnRestart, gbc_btnRestart);
 		{
 			JButton btnLoop = new JButton("");
+			btnLoop.setToolTipText("Loop");
 			btnLoop.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/loop.png")));
 			btnLoop.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
