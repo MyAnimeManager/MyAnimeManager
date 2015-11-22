@@ -1,13 +1,21 @@
 package util.task;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+
 import javax.swing.SwingWorker;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.InteractivePage;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
+import com.gargoylesoftware.htmlunit.ScriptException;
+import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlOrderedList;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
 
 import main.AnimeIndex;
 
@@ -38,17 +46,46 @@ public class NewsTask extends SwingWorker {
          webClient = new WebClient(BrowserVersion.CHROME);
          webClient.getOptions().setJavaScriptEnabled(true);
          webClient.getOptions().setThrowExceptionOnScriptError(false);
+         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
          webClient.getOptions().setCssEnabled(false);
-        webClient.setAjaxController(new NicelyResynchronizingAjaxController());
+         webClient.setCssErrorHandler(new SilentCssErrorHandler());    
+         webClient.setAjaxController(new NicelyResynchronizingAjaxController());
+         webClient.setJavaScriptErrorListener(new JavaScriptErrorListener(){
+
+ 			@Override
+ 			public void loadScriptError(InteractivePage arg0, URL arg1, Exception arg2)
+ 			{	
+ 			}
+
+ 			@Override
+ 			public void malformedScriptURL(InteractivePage arg0, String arg1, MalformedURLException arg2)
+ 			{	
+ 			}
+
+ 			@Override
+ 			public void scriptException(InteractivePage arg0, ScriptException arg1)
+ 			{
+ 			}
+
+ 			@Override
+ 			public void timeoutError(InteractivePage arg0, long arg1, long arg2)
+ 			{
+ 			}});
+
         String url = RAD_URL;
         System.out.println("Loading page now: "+url);
         HtmlPage page = webClient.getPage(url);
-        webClient.waitForBackgroundJavaScript(20 * 1000); /* will wait JavaScript to execute up to 30s */
+        webClient.waitForBackgroundJavaScriptStartingBefore(20 * 1000); /* will wait JavaScript to execute up to 30s */
         //get divs which have a 'class' attribute of 'mainbg'
         HtmlDivision div = page.getFirstByXPath("//div[@class='mainbg']");
 
         System.out.println("--------------------------");
+//        System.out.println(div.asText()); prende i nomi
         HtmlOrderedList orderedList = div.getFirstByXPath("//ol");
+        List<?> linkList = orderedList.getByXPath("//a//@href");
+        System.out.println(linkList.get(0));
+        
+//        System.out.println(orderedList.asXml());
         news += orderedList.asXml();
 
         }

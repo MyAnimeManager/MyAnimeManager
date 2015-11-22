@@ -6,7 +6,7 @@ import javax.swing.SwingWorker;
 import main.AnimeIndex;
 import util.SuggestionHelper;
 
-public class NewSuggestionsNotifier extends SwingWorker{
+public class NewSuggestionsNotifierTask extends SwingWorker{
 	
 	public static String packNumber;
 	
