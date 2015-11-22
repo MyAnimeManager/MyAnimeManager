@@ -9,13 +9,18 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -36,10 +41,18 @@ import javazoom.jl.player.Player;
 import main.AnimeIndex;
 
 import org.apache.commons.io.FileUtils;
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.tag.FieldKey;
+import org.jaudiotagger.tag.Tag;
+import org.jaudiotagger.tag.TagException;
 
 import util.MAMUtil;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 
 public class MusicDialog extends JDialog {
@@ -54,7 +67,7 @@ public class MusicDialog extends JDialog {
 	private BufferedInputStream buff;
 	private boolean isRunning;
 	private boolean isPaused;
-	private String currentMusicPath;
+	private String currentMusicPath = "C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Taimadou Gakuen 35 Shiken Shoutai\\Calling my Twilight.mp3";
 	private long pauseLocation;
 	private long songTotalLength;
 	private Timer timer;
@@ -63,6 +76,7 @@ public class MusicDialog extends JDialog {
 	public MusicDialog()
 	{
 		super(AnimeIndex.frame, false);
+		Logger.getLogger("org.jaudiotagger").setLevel(Level.OFF);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MusicDialog.class.getResource("/image/Headp.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -138,6 +152,46 @@ public class MusicDialog extends JDialog {
 			panel.setLayout(gbl_panel);
 			{
 				JLabel lblTitle = new JLabel("TITLE");//max 38 char
+				AudioFile f = null;
+				try
+				{
+					File music = new File(currentMusicPath);
+					f = AudioFileIO.read(music);
+					Tag tag = f.getTag();
+					lblTitle.setText(tag.getFirst(FieldKey.TITLE));
+					byte[] imageData = tag.getFirstField((FieldKey.COVER_ART)).getRawContent();
+					BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageData));
+					lblImage.setIcon(new ImageIcon(img));
+				}
+				catch (CannotReadException e1)
+				{
+					MAMUtil.writeLog(e1);
+					e1.printStackTrace();
+				}
+				catch (IOException e1)
+				{
+					// TODO Auto-generated catch block
+					MAMUtil.writeLog(e1);
+					e1.printStackTrace();
+				}
+				catch (TagException e1)
+				{
+					// TODO Auto-generated catch block
+					MAMUtil.writeLog(e1);
+					e1.printStackTrace();
+				}
+				catch (ReadOnlyFileException e1)
+				{
+					// TODO Auto-generated catch block
+					MAMUtil.writeLog(e1);
+					e1.printStackTrace();
+				}
+				catch (InvalidAudioFrameException e1)
+				{
+					// TODO Auto-generated catch block
+					MAMUtil.writeLog(e1);
+					e1.printStackTrace();
+				}
 				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
 				GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 				gbc_lblTitle.gridwidth = 3;
@@ -162,11 +216,12 @@ public class MusicDialog extends JDialog {
 				progressBar.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseReleased(MouseEvent e) {
-						pause();
-						progressBar.setValue(e.getX());
-						long selectedPoint = (long)(progressBar.getPercentComplete()*100);
-						pauseLocation = songTotalLength*selectedPoint/100;
+						stop();
+						timer.stop();
+						pauseLocation = songTotalLength - (e.getX()*songTotalLength/progressBar.getWidth());
+						progressBar.setValue((int)pauseLocation);
 						resume();
+						timer.start();
 						isRunning=true;
 						isPaused=false;
 						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
@@ -195,7 +250,7 @@ public class MusicDialog extends JDialog {
 			JButton btnSave = new JButton("Salva");
 			btnSave.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					File choosedFile = new File("C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Taimadou Gakuen 35 Shiken Shoutai\\Calling my Twilight.mp3");
+					File choosedFile = new File(currentMusicPath);
 					JFileChooser chooser = new JFileChooser(System.getProperty("user.home") + File.separator + "Desktop");
 					chooser.setMultiSelectionEnabled(false);
 					chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -232,7 +287,7 @@ public class MusicDialog extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					if(!isRunning && !isPaused)
 					{
-						play("C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Taimadou Gakuen 35 Shiken Shoutai\\Calling my Twilight.mp3");
+						play(currentMusicPath);
 						isRunning=true;
 						btnRestart.setEnabled(true);
 						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
@@ -355,7 +410,6 @@ public class MusicDialog extends JDialog {
 			fis = new FileInputStream(path);
 			buff = new BufferedInputStream(fis);
 		    player = new Player(buff);
-		    currentMusicPath = path+"";
 		    songTotalLength=fis.available();
 			}
 			catch(Exception exc){
