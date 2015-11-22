@@ -16,7 +16,7 @@ import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URI;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -24,6 +24,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
@@ -31,12 +32,11 @@ import javax.swing.border.MatteBorder;
 import main.AnimeIndex;
 import util.MAMUtil;
 import util.task.NewsTask;
-import javax.swing.SwingConstants;
 
 public class NewsBoardDialog extends JDialog {
 	
 	private final JPanel contentPanel = new JPanel();
-	private HashMap<String,String> animeMap;
+	private LinkedHashMap<String,String> animeMap;
 	NewsTask task = new NewsTask();
 	private JPanel newsPanel;
 	
@@ -121,7 +121,7 @@ public class NewsBoardDialog extends JDialog {
 		});
 	}
 	
-	public void setMap(HashMap<String,String> newsMap)
+	public void setMap(LinkedHashMap<String,String> newsMap)
 	{
 		animeMap = newsMap;
 	}

@@ -1,6 +1,6 @@
 package util.task;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.swing.SwingWorker;
@@ -23,7 +23,7 @@ import main.AnimeIndex;
 public class NewsTask extends SwingWorker {
 	
 	private final String RAD_URL = "http://redanimedatabase.forumcommunity.net/";
-	private HashMap<String,String> map = new HashMap<String,String>(); 
+	private LinkedHashMap<String,String> map = new LinkedHashMap<String,String>(); 
 	
 	@Override
 	protected Object doInBackground() throws Exception
