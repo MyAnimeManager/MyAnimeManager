@@ -203,7 +203,7 @@ public class NewsBoardDialog extends JDialog {
 			}
 			if (name.contains("Download e Streaming"))
 			{
-				nameLabel.setForeground(Color.BLUE);
+				nameLabel.setForeground(new Color(0,65,255));
 			}
 			else if (name.contains("Reading Online"))
 			{
