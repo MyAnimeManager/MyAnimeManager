@@ -735,13 +735,14 @@ public class AnimeIndex extends JFrame
 			public void actionPerformed(ActionEvent e) {
 				if (!newsBoardDialog.isShowing())
 				{
-					newsBoardDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 1,AnimeIndex.mainFrame.getLocationOnScreen().y + + AnimeIndex.mainFrame.getHeight() - newsBoardDialog.getHeight());
+					newsBoardDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 1,AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight());
 					newsBoardDialog.setVisible(true);
 					 new Timer(1, new ActionListener() {
+		            	   int size = 0;
 			               public void actionPerformed(ActionEvent e) {
 			            	   AnimeIndex.mainFrame.requestFocus();
-			            	   newsBoardDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 1, newsBoardDialog.getLocationOnScreen().y + 1);
-			            	   if (newsBoardDialog.getLocationOnScreen().y == AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight()) {
+			            	   newsBoardDialog.setSize(795, size++);
+			            	   if (newsBoardDialog.getHeight() == 100) {
 			                     ((Timer) e.getSource()).stop();
 			            }
 			               }
