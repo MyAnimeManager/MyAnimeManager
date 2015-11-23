@@ -65,7 +65,7 @@ public class MusicDialog extends JDialog {
 	private BufferedInputStream buff;
 	private boolean isRunning;
 	private boolean isPaused;
-	private String currentMusicPath = "C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Sfondamento dei Cieli Gurren Lagann\\Rap wa Kan no Tamashii da! Muri wo Toushite Douri wo Kettobasu! Ore Tachi dai Gurren Dan no Theme wo Mimi no Ana Kappo Jitte yo~ Kukiki Yagare!!.mp3";
+	private String currentMusicPath = "C:\\Users\\Samu\\Desktop\\video musica immagini\\A Genesis - nano.mp3";
 	private long pauseLocation;
 	private long songTotalLength;
 	private Timer timer;
@@ -109,25 +109,14 @@ public class MusicDialog extends JDialog {
 		setTitle("My Anime Musics");
 		setResizable(false);
 		setFont(MAMUtil.segui().deriveFont(12f));
-		setBounds(100, 100, 534, 448);
+		setBounds(100, 100, 419, 448);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{87, 93, 27, 114, 33, 65, 38, 0};
-		gbl_contentPanel.rowHeights = new int[]{354, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-		contentPanel.setLayout(gbl_contentPanel);
+		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
 			JScrollPane scrollPane = new JScrollPane();
-			GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-			gbc_scrollPane.gridwidth = 2;
-			gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-			gbc_scrollPane.fill = GridBagConstraints.BOTH;
-			gbc_scrollPane.gridx = 0;
-			gbc_scrollPane.gridy = 0;
-			contentPanel.add(scrollPane, gbc_scrollPane);
+			contentPanel.add(scrollPane, BorderLayout.WEST);
 			{
 				JTree tree = new JTree();
 				tree.setShowsRootHandles(false);
@@ -139,39 +128,21 @@ public class MusicDialog extends JDialog {
 		}
 		{
 			JPanel panel = new JPanel();
-			GridBagConstraints gbc_panel = new GridBagConstraints();
-			gbc_panel.gridwidth = 5;
-			gbc_panel.insets = new Insets(0, 0, 5, 0);
-			gbc_panel.fill = GridBagConstraints.BOTH;
-			gbc_panel.gridx = 2;
-			gbc_panel.gridy = 0;
-			contentPanel.add(panel, gbc_panel);
-			GridBagLayout gbl_panel = new GridBagLayout();
-			gbl_panel.columnWidths = new int[]{70, 195, 70, 0};
-			gbl_panel.rowHeights = new int[]{14, 335, 14, 0};
-			gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-			gbl_panel.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-			panel.setLayout(gbl_panel);
+			contentPanel.add(panel, BorderLayout.CENTER);
+			panel.setLayout(new BorderLayout(0, 0));
+			{
+				JPanel panel_1 = new JPanel();
+				panel.add(panel_1, BorderLayout.NORTH);
+				lblTitle = new JLabel("TITLE");//max 38 char
+				panel_1.add(lblTitle);
+				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
+			}
 			{
 				lblImage = new JLabel("");
 				lblImage.setBorder(new LineBorder(new Color(40, 40, 40), 2, true));
-				GridBagConstraints gbc_lblImage = new GridBagConstraints();
-				gbc_lblImage.gridwidth = 3;
-				gbc_lblImage.fill = GridBagConstraints.HORIZONTAL;
-				gbc_lblImage.insets = new Insets(0, 0, 5, 0);
-				gbc_lblImage.gridx = 0;
-				gbc_lblImage.gridy = 1;
-				panel.add(lblImage, gbc_lblImage);
+				panel.add(lblImage, BorderLayout.CENTER);
 			}
 			{
-				lblTitle = new JLabel("TITLE");//max 38 char
-				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
-				GridBagConstraints gbc_lblTitle = new GridBagConstraints();
-				gbc_lblTitle.gridwidth = 3;
-				gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
-				gbc_lblTitle.gridx = 0;
-				gbc_lblTitle.gridy = 0;
-				panel.add(lblTitle, gbc_lblTitle);
 				AudioFile f = null;
 				try
 				{
@@ -273,71 +244,107 @@ public class MusicDialog extends JDialog {
 						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
 					}
 				});
-				GridBagConstraints gbc_progressBar = new GridBagConstraints();
-				gbc_progressBar.anchor = GridBagConstraints.NORTH;
-				gbc_progressBar.gridwidth = 3;
-				gbc_progressBar.fill = GridBagConstraints.HORIZONTAL;
-				gbc_progressBar.gridx = 0;
-				gbc_progressBar.gridy = 2;
-				panel.add(progressBar, gbc_progressBar);
+				panel.add(progressBar, BorderLayout.SOUTH);
 			}
 		}
 		{
-			JButton btnLoad = new JButton("Ascolta");
-			btnLoad.setToolTipText("Carica il brano per ascoltarlo");
-			GridBagConstraints gbc_btnLoad = new GridBagConstraints();
-			gbc_btnLoad.fill = GridBagConstraints.HORIZONTAL;
-			gbc_btnLoad.insets = new Insets(0, 0, 0, 5);
-			gbc_btnLoad.gridx = 0;
-			gbc_btnLoad.gridy = 1;
-			contentPanel.add(btnLoad, gbc_btnLoad);
-		}
-		{
-			JButton btnSave = new JButton("Salva");
-			btnSave.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					File choosedFile = new File(currentMusicPath);
-					JFileChooser chooser = new JFileChooser(System.getProperty("user.home") + File.separator + "Desktop");
-					chooser.setMultiSelectionEnabled(false);
-					chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-					chooser.setDialogTitle("Salva in...");
-					
-					int returnVal = chooser.showDialog(AnimeIndex.mainFrame, "Salva");
-					
-					if (returnVal == JFileChooser.APPROVE_OPTION)
-					{
-						File destination = chooser.getSelectedFile();
-						try{
-							FileUtils.copyFileToDirectory(choosedFile, destination);
-						}
-						catch (IOException e1){
-							MAMUtil.writeLog(e1);
-							e1.printStackTrace();
+			JPanel panel = new JPanel();
+			contentPanel.add(panel, BorderLayout.SOUTH);
+			{
+				JButton btnLoad = new JButton("Ascolta");
+				panel.add(btnLoad);
+				btnLoad.setToolTipText("Carica il brano per ascoltarlo");
+			}
+			{
+				JButton btnSave = new JButton("Salva");
+				panel.add(btnSave);
+				btnSave.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						File choosedFile = new File(currentMusicPath);
+						JFileChooser chooser = new JFileChooser(System.getProperty("user.home") + File.separator + "Desktop");
+						chooser.setMultiSelectionEnabled(false);
+						chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+						chooser.setDialogTitle("Salva in...");
+						
+						int returnVal = chooser.showDialog(AnimeIndex.mainFrame, "Salva");
+						
+						if (returnVal == JFileChooser.APPROVE_OPTION)
+						{
+							File destination = chooser.getSelectedFile();
+							try{
+								FileUtils.copyFileToDirectory(choosedFile, destination);
+							}
+							catch (IOException e1){
+								MAMUtil.writeLog(e1);
+								e1.printStackTrace();
+							}
 						}
 					}
+				});
+				btnSave.setToolTipText("Salva i brani che preferisci");
+			}
+			{
+				JButton btnPrev = new JButton("");
+				panel.add(btnPrev);
+				btnPrev.setToolTipText("Brano precedente");
+				btnPrev.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/rev_icon.png")));
+			}
+			{
+				btnPlaypause = new JButton("");
+				panel.add(btnPlaypause);
+				btnPlaypause.setToolTipText("Play/Pausa");
+				btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));
+				{
+					JButton btnSucc = new JButton("");
+					panel.add(btnSucc);
+					btnSucc.setToolTipText("Brano successivo");
+					btnSucc.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/forward_icon.png")));
 				}
-			});
-			btnSave.setToolTipText("Salva i brani che preferisci");
-			GridBagConstraints gbc_btnSave = new GridBagConstraints();
-			gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
-			gbc_btnSave.insets = new Insets(0, 0, 0, 5);
-			gbc_btnSave.gridx = 1;
-			gbc_btnSave.gridy = 1;
-			contentPanel.add(btnSave, gbc_btnSave);
-		}
-		{
-			btnPlaypause = new JButton("");
-			btnPlaypause.setToolTipText("Play/Pausa");
-			btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));
-			btnPlaypause.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if(!isRunning && !isPaused)
-					{
+				btnRestart = new JButton("");
+				panel.add(btnRestart);
+				btnRestart.setEnabled(false);
+				btnRestart.setToolTipText("Ricomincia");
+				btnRestart.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/restart.png")));
+				{
+					JButton btnLoop = new JButton("");
+					panel.add(btnLoop);
+					btnLoop.setToolTipText("Loop");
+					btnLoop.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/loop.png")));
+					btnLoop.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if(loopActive==false)
+							{
+								btnLoop.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/loop_red.png")));
+								loopActive=true;
+							}
+							else if(loopActive==true)
+							{
+								btnLoop.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/loop.png")));
+								loopActive=false;
+							}
+						}
+					});
+				}
+				btnRestart.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						stop();
+						timer.stop();
 						play(currentMusicPath);
+						timer.start();
 						isRunning=true;
-						btnRestart.setEnabled(true);
+						isPaused=false;
 						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
-						progressBar.setMaximum((int) songTotalLength);
+					}
+				});
+				btnPlaypause.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(!isRunning && !isPaused)
+						{
+							play(currentMusicPath);
+							isRunning=true;
+							btnRestart.setEnabled(true);
+							btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
+							progressBar.setMaximum((int) songTotalLength);
                         timer = new Timer(100, new ActionListener()
                                 {
                                     public void actionPerformed(ActionEvent e)
@@ -354,100 +361,28 @@ public class MusicDialog extends JDialog {
                                     
                                 });
                         timer.start();
+						}
+						else if(!isPaused)
+						{
+							pause();
+							timer.stop();
+							isRunning=false;
+							isPaused=true;
+							btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));
+						}
+						else if(!isRunning && isPaused)
+						{
+							resume();
+							timer.start();
+							isRunning=true;
+							isPaused=false;
+							btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
+						}
 					}
-					else if(!isPaused)
-					{
-						pause();
-						timer.stop();
-						isRunning=false;
-						isPaused=true;
-						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));
-					}
-					else if(!isRunning && isPaused)
-					{
-						resume();
-						timer.start();
-						isRunning=true;
-						isPaused=false;
-						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
-					}
-				}
-			});
-			{
-				JButton btnPrev = new JButton("");
-				btnPrev.setToolTipText("Brano precedente");
-				btnPrev.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/rev_icon.png")));
-				GridBagConstraints gbc_btnPrev = new GridBagConstraints();
-				gbc_btnPrev.fill = GridBagConstraints.HORIZONTAL;
-				gbc_btnPrev.insets = new Insets(0, 0, 0, 5);
-				gbc_btnPrev.gridx = 2;
-				gbc_btnPrev.gridy = 1;
-				contentPanel.add(btnPrev, gbc_btnPrev);
-			}
-			GridBagConstraints gbc_btnPlaypause = new GridBagConstraints();
-			gbc_btnPlaypause.fill = GridBagConstraints.HORIZONTAL;
-			gbc_btnPlaypause.insets = new Insets(0, 0, 0, 5);
-			gbc_btnPlaypause.gridx = 3;
-			gbc_btnPlaypause.gridy = 1;
-			contentPanel.add(btnPlaypause, gbc_btnPlaypause);
-		}
-		{
-			{
-				JButton btnSucc = new JButton("");
-				btnSucc.setToolTipText("Brano successivo");
-				btnSucc.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/forward_icon.png")));
-				GridBagConstraints gbc_btnSucc = new GridBagConstraints();
-				gbc_btnSucc.insets = new Insets(0, 0, 0, 5);
-				gbc_btnSucc.fill = GridBagConstraints.HORIZONTAL;
-				gbc_btnSucc.gridx = 4;
-				gbc_btnSucc.gridy = 1;
-				contentPanel.add(btnSucc, gbc_btnSucc);
+				});
 			}
 		}
-		btnRestart = new JButton("");
-		btnRestart.setEnabled(false);
-		btnRestart.setToolTipText("Ricomincia");
-		btnRestart.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/restart.png")));
-		btnRestart.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				stop();
-				timer.stop();
-				play(currentMusicPath);
-				timer.start();
-				isRunning=true;
-				isPaused=false;
-				btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
-			}
-		});
-		GridBagConstraints gbc_btnRestart = new GridBagConstraints();
-		gbc_btnRestart.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnRestart.insets = new Insets(0, 0, 0, 5);
-		gbc_btnRestart.gridx = 5;
-		gbc_btnRestart.gridy = 1;
-		contentPanel.add(btnRestart, gbc_btnRestart);
 		{
-			JButton btnLoop = new JButton("");
-			btnLoop.setToolTipText("Loop");
-			btnLoop.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/loop.png")));
-			btnLoop.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if(loopActive==false)
-					{
-						btnLoop.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/loop_red.png")));
-						loopActive=true;
-					}
-					else if(loopActive==true)
-					{
-						btnLoop.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/loop.png")));
-						loopActive=false;
-					}
-				}
-			});
-			GridBagConstraints gbc_btnLoop = new GridBagConstraints();
-			gbc_btnLoop.fill = GridBagConstraints.HORIZONTAL;
-			gbc_btnLoop.gridx = 6;
-			gbc_btnLoop.gridy = 1;
-			contentPanel.add(btnLoop, gbc_btnLoop);
 		}
 	}
 	private void play(String path)
