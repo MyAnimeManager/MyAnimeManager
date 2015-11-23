@@ -18,7 +18,6 @@ import java.beans.PropertyChangeListener;
 import java.net.URI;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -28,7 +27,6 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.MatteBorder;
-
 import main.AnimeIndex;
 import util.MAMUtil;
 import util.task.NewsTask;
@@ -133,6 +131,7 @@ public class NewsBoardDialog extends JDialog {
 								{
 									if(evt.getNewValue().toString().equalsIgnoreCase("started"))
 									{
+										titleLabel.setIcon(null);
 										titleLabel.setText("Aggiornamento Dati...");
 										updateButton.setEnabled(false);
 									}
@@ -166,6 +165,7 @@ public class NewsBoardDialog extends JDialog {
 				{
 					if(evt.getNewValue().toString().equalsIgnoreCase("started"))
 					{
+						titleLabel.setIcon(null);
 						titleLabel.setText("Caricamento Dati...");
 						updateButton.setEnabled(false);
 					}
@@ -237,9 +237,7 @@ public class NewsBoardDialog extends JDialog {
 		MouseAdapter mouse = new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
-					
-					try
+				try
 					{
 						URI uriLink = new URI(link);
 						Desktop.getDesktop().browse(uriLink);
@@ -249,11 +247,9 @@ public class NewsBoardDialog extends JDialog {
 						MAMUtil.writeLog(e1);
 						e1.printStackTrace();
 					}
-
 			}
 		};
 		
 		return mouse;
 	}
-	
 }
