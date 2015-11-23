@@ -56,15 +56,13 @@ public class NewsTask extends SwingWorker {
         String url = RAD_URL;
         System.out.println("Loading page now: "+url);
         HtmlPage page = webClient.getPage(url);
-        webClient.waitForBackgroundJavaScriptStartingBefore(20 * 1000); /* will wait JavaScript to execute up to 30s */
+        webClient.waitForBackgroundJavaScriptStartingBefore(5 * 1000); /* will wait JavaScript to execute up to 30s */
         //get divs which have a 'class' attribute of 'mainbg'
         HtmlDivision div = page.getFirstByXPath("//div[@class='mainbg']");        
         HtmlOrderedList orderedList = div.getFirstByXPath("//ol");
         List<?> linkList = orderedList.getByXPath("//ol/li//a[@target='_blank']");
         for (int i = 0; i < linkList.size(); i++)
-        {
-        System.out.println(((HtmlAnchor)linkList.get(i)).asText());
-        System.out.println(((HtmlAnchor)linkList.get(i)).getAttribute("href"));      
+        {   
         map.put(((HtmlAnchor)linkList.get(i)).asText(), ((HtmlAnchor)linkList.get(i)).getAttribute("href"));
         }
         }

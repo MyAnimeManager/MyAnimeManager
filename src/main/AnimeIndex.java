@@ -788,14 +788,20 @@ public class AnimeIndex extends JFrame
 			public void actionPerformed(ActionEvent e) {				
 				if (!wishlistDialog.isShowing())
 				{
+					wishlistDialog.setIgnoreRepaint(true);
 					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x ,AnimeIndex.mainFrame.getLocationOnScreen().y);
+					wishlistDialog.setSize(0, 471);
 					wishlistDialog.setVisible(true);
 					 new Timer(1, new ActionListener() {
+						int size = 0;
 			               public void actionPerformed(ActionEvent e) {
 			            	   AnimeIndex.mainFrame.requestFocus();
-			            	   wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
+			            	   wishlistDialog.setBounds(wishlistDialog.getLocationOnScreen().x - 1,  AnimeIndex.mainFrame.getLocationOnScreen().y, size++, 471);
+//			            	   wishlistDialog.setSize(size++ , 471);
+//			            	   wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
 			            	   if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 181) {
-			                     ((Timer) e.getSource()).stop();
+			            		   wishlistDialog.setIgnoreRepaint(false);
+			            		   ((Timer) e.getSource()).stop();
 			            }
 			               }
 			            }).start();
