@@ -109,7 +109,7 @@ public class MusicDialog extends JDialog {
 		setTitle("My Anime Musics");
 		setResizable(false);
 		setFont(MAMUtil.segui().deriveFont(12f));
-		setBounds(100, 100, 419, 448);
+		setBounds(100, 100, 487, 448);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -119,6 +119,9 @@ public class MusicDialog extends JDialog {
 			contentPanel.add(scrollPane, BorderLayout.WEST);
 			{
 				JTree tree = new JTree();
+				tree.setMaximumSize(new Dimension(125, 64));
+				tree.setPreferredSize(new Dimension(125, 64));
+				tree.setMinimumSize(new Dimension(125, 64));
 				tree.setShowsRootHandles(false);
 				tree.setFont(MAMUtil.segui().deriveFont(12f));
 				scrollPane.setViewportView(tree);
