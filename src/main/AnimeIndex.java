@@ -306,7 +306,7 @@ public class AnimeIndex extends JFrame
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		//setBounds(100, 100, 700, 385);
-		setBounds((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() /5, (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() /7, 800, 520);
+		setBounds((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() /5, ((int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() /7)-15, 800, 520);
 		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2));
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -742,7 +742,7 @@ public class AnimeIndex extends JFrame
 			               public void actionPerformed(ActionEvent e) {
 			            	   AnimeIndex.mainFrame.requestFocus();
 			            	   newsBoardDialog.setSize(795, size++);
-			            	   if (newsBoardDialog.getHeight() == 100) {
+			            	   if (newsBoardDialog.getHeight() == 125) {
 			                     ((Timer) e.getSource()).stop();
 			            }
 			               }

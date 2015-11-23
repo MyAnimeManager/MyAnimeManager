@@ -54,7 +54,7 @@ public class NewsBoardDialog extends JDialog {
 		});
 		setUndecorated(true);
 		setType(Type.UTILITY);
-		setBounds(100, 100, 795, 100);
+		setBounds(100, 100, 795, 125);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new MatteBorder(1, 0, 0, 0, new Color(0, 0, 0)));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -81,7 +81,7 @@ public class NewsBoardDialog extends JDialog {
 			flowLayout.setVgap(0);
 			contentPanel.add(titlePanel, BorderLayout.NORTH);
 			{
-				titleLabel = new JLabel("Red Anime Database Newsboard");
+				titleLabel = new JLabel("");
 				titlePanel.add(titleLabel);
 				titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 				titleLabel.setOpaque(true);
@@ -94,7 +94,7 @@ public class NewsBoardDialog extends JDialog {
 			{
 				GridBagLayout gbl_buttonPane = new GridBagLayout();
 				gbl_buttonPane.columnWidths = new int[]{397, 0, 0};
-				gbl_buttonPane.rowHeights = new int[]{25, 0};
+				gbl_buttonPane.rowHeights = new int[]{8, 0};
 				gbl_buttonPane.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 				gbl_buttonPane.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 				buttonPane.setLayout(gbl_buttonPane);
@@ -139,7 +139,8 @@ public class NewsBoardDialog extends JDialog {
 									if(evt.getNewValue().toString().equalsIgnoreCase("done"))
 									{
 										setNews();
-										titleLabel.setText("Red Anime Database Newsboard");
+										titleLabel.setText("");
+										titleLabel.setIcon(new ImageIcon(NewsBoardDialog.class.getResource("/image/rdlogos.png")));
 										updateButton.setEnabled(true);
 									}
 								}
@@ -149,7 +150,7 @@ public class NewsBoardDialog extends JDialog {
 						task.execute();
 					}
 				});
-				updateButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/refresh-icon15.png")));
+				updateButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/refresh-icon16.png")));
 				GridBagConstraints gbc_updateButton = new GridBagConstraints();
 				gbc_updateButton.fill = GridBagConstraints.VERTICAL;
 				gbc_updateButton.gridx = 1;
@@ -165,13 +166,14 @@ public class NewsBoardDialog extends JDialog {
 				{
 					if(evt.getNewValue().toString().equalsIgnoreCase("started"))
 					{
-						titleLabel.setText("Aggiornamento Dati...");
+						titleLabel.setText("Caricamento Dati...");
 						updateButton.setEnabled(false);
 					}
 					if(evt.getNewValue().toString().equalsIgnoreCase("done"))
 					{
 						setNews();
-						titleLabel.setText("Red Anime Database Newsboard");
+						titleLabel.setText("");
+						titleLabel.setIcon(new ImageIcon(NewsBoardDialog.class.getResource("/image/rdlogos.png")));
 						updateButton.setEnabled(true);
 					}
 				}

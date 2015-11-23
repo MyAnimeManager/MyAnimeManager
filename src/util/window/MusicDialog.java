@@ -21,7 +21,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,11 +34,9 @@ import javax.swing.JTree;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import main.AnimeIndex;
-
 import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -49,16 +46,11 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
-
 import util.MAMUtil;
-import util.Scroller;
-
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
-
-
 
 public class MusicDialog extends JDialog {
 	
@@ -66,6 +58,7 @@ public class MusicDialog extends JDialog {
 	private Player player;
 	private boolean loopActive;
 	private JLabel lblImage = new JLabel();
+	private JLabel lblTitle;
 	private JButton btnPlaypause;
 	private JButton btnRestart;
 	private FileInputStream fis;
@@ -77,6 +70,7 @@ public class MusicDialog extends JDialog {
 	private long songTotalLength;
 	private Timer timer;
 	private JProgressBar progressBar;
+	private String title;
 	
 	public MusicDialog()
 	{
@@ -167,14 +161,14 @@ public class MusicDialog extends JDialog {
 				panel.add(lblImage, gbc_lblImage);
 			}
 			{
-				JLabel lblTitle = new JLabel("TITLE");//max 38 char
+				lblTitle = new JLabel("TITLE");//max 38 char
 				AudioFile f = null;
 				try
 				{
 					File music = new File(currentMusicPath);
 					f = AudioFileIO.read(music);
 					Tag tag = f.getTag();
-					String title = tag.getFirst(FieldKey.TITLE);
+					title = tag.getFirst(FieldKey.TITLE);
 					if(title.length()<=38)
 						lblTitle.setText(title);
 					else
@@ -185,8 +179,8 @@ public class MusicDialog extends JDialog {
 	                            {
 	                            	char c = title.charAt(0);
 							        String rest = title.substring(1);
-							        String ttl = rest + c;
-							        lblTitle.setText(ttl);
+							        title = rest + c;
+							        lblTitle.setText(title);
 	                            }
 	                        });
 							tim.start();
