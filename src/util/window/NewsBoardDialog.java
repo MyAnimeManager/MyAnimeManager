@@ -143,7 +143,6 @@ public class NewsBoardDialog extends JDialog {
 										updateButton.setEnabled(true);
 									}
 								}
-
 							}
 						});
 						task.execute();
@@ -155,8 +154,7 @@ public class NewsBoardDialog extends JDialog {
 				gbc_updateButton.gridx = 1;
 				gbc_updateButton.gridy = 0;
 				buttonPane.add(updateButton, gbc_updateButton);
-			}
-			
+			}			
 		}
 		
 		task.addPropertyChangeListener(new PropertyChangeListener() {
@@ -177,7 +175,6 @@ public class NewsBoardDialog extends JDialog {
 						updateButton.setEnabled(true);
 					}
 				}
-
 			}
 		});
 	}
