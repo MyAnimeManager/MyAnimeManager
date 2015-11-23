@@ -69,8 +69,11 @@ public class MusicDialog extends JDialog {
 	private long pauseLocation;
 	private long songTotalLength;
 	private Timer timer;
+	private Timer tim;
 	private JProgressBar progressBar;
 	private String title;
+	private String ttl;
+	private int index;
 	
 	public MusicDialog()
 	{
@@ -162,6 +165,13 @@ public class MusicDialog extends JDialog {
 			}
 			{
 				lblTitle = new JLabel("TITLE");//max 38 char
+				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
+				GridBagConstraints gbc_lblTitle = new GridBagConstraints();
+				gbc_lblTitle.gridwidth = 3;
+				gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
+				gbc_lblTitle.gridx = 0;
+				gbc_lblTitle.gridy = 0;
+				panel.add(lblTitle, gbc_lblTitle);
 				AudioFile f = null;
 				try
 				{
@@ -173,14 +183,25 @@ public class MusicDialog extends JDialog {
 						lblTitle.setText(title);
 					else
 						{
-							Timer tim = new Timer(100, new ActionListener()//TODO nn va
+						int n = title.length();
+						StringBuilder sb = new StringBuilder(n);
+				        for (int i = 0; i < n; i++) {
+				            sb.append(' ');
+				        }
+				        ttl = sb+title+sb;
+							tim = new Timer(1000/12, new ActionListener()
 	                        {
 	                            public void actionPerformed(ActionEvent e)
 	                            {
-	                            	char c = title.charAt(0);
-							        String rest = title.substring(1);
-							        title = rest + c;
-							        lblTitle.setText(title);
+	                            	 index++;
+	                                 if (index > ttl.length() - n) {
+	                                     index = 0;
+	                                 }
+	                                 lblTitle.setText(ttl.substring(index, index + n));
+//	                            	char c = title.charAt(0);
+//							        String rest = title.substring(1);
+//							        title = rest + c;
+//							        lblTitle.setText(title);
 	                            }
 	                        });
 							tim.start();
@@ -235,13 +256,6 @@ public class MusicDialog extends JDialog {
 					MAMUtil.writeLog(e1);
 					e1.printStackTrace();
 				}
-				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
-				GridBagConstraints gbc_lblTitle = new GridBagConstraints();
-				gbc_lblTitle.gridwidth = 3;
-				gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
-				gbc_lblTitle.gridx = 0;
-				gbc_lblTitle.gridy = 0;
-				panel.add(lblTitle, gbc_lblTitle);
 			}
 			{
 				progressBar = new JProgressBar();
