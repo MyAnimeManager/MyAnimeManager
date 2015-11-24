@@ -51,6 +51,7 @@ import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
+import javax.swing.JTabbedPane;
 
 public class MusicDialog extends JDialog {
 	
@@ -65,7 +66,7 @@ public class MusicDialog extends JDialog {
 	private BufferedInputStream buff;
 	private boolean isRunning;
 	private boolean isPaused;
-	private String currentMusicPath = "C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Sfondamento dei Cieli Gurren Lagann\\Rap wa Kan no Tamashii da! Muri wo Toushite Douri wo Kettobasu! Ore Tachi dai Gurren Dan no Theme wo Mimi no Ana Kappo Jitte yo~ Kukiki Yagare!!.mp3";
+	private String currentMusicPath = "C:\\Users\\Samu\\Desktop\\video musica immagini\\A Genesis - nano.mp3";
 	private long pauseLocation;
 	private long songTotalLength;
 	private Timer timer;
@@ -78,6 +79,8 @@ public class MusicDialog extends JDialog {
 	private JButton btnSave;
 	private JButton btnPrev;
 	private JButton btnSucc;
+	private JTabbedPane tabbedPane;
+	private JPanel playlistPanel;
 	
 	public MusicDialog()
 	{
@@ -119,29 +122,14 @@ public class MusicDialog extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(4, 4));
 		{
-			JScrollPane scrollPane = new JScrollPane();
-			contentPanel.add(scrollPane, BorderLayout.WEST);
+			JPanel dataPanel = new JPanel();
+			contentPanel.add(dataPanel, BorderLayout.CENTER);
+			dataPanel.setLayout(new BorderLayout(0, 3));
 			{
-				JTree tree = new JTree();
-				tree.setMaximumSize(new Dimension(171, 64));
-				tree.setPreferredSize(new Dimension(171, 64));
-				tree.setMinimumSize(new Dimension(171, 64));
-				tree.setShowsRootHandles(false);
-				tree.setFont(MAMUtil.segui().deriveFont(12f));
-				scrollPane.setViewportView(tree);
-				scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
-				scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
-			}
-		}
-		{
-			JPanel panel = new JPanel();
-			contentPanel.add(panel, BorderLayout.CENTER);
-			panel.setLayout(new BorderLayout(0, 3));
-			{
-				JPanel panel_1 = new JPanel();
-				panel.add(panel_1, BorderLayout.NORTH);
+				JPanel titlePanel = new JPanel();
+				dataPanel.add(titlePanel, BorderLayout.NORTH);
 				lblTitle = new JLabel("TITLE");//max 37 char
-				panel_1.add(lblTitle);
+				titlePanel.add(lblTitle);
 				setMusicTrack();
 				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
 			}
@@ -151,7 +139,7 @@ public class MusicDialog extends JDialog {
 				lblImage.setMinimumSize(new Dimension(335, 335));
 				lblImage.setPreferredSize(new Dimension(335, 335));
 				lblImage.setBorder(new LineBorder(new Color(40, 40, 40), 2, true));
-				panel.add(lblImage, BorderLayout.CENTER);
+				dataPanel.add(lblImage, BorderLayout.CENTER);
 			}
 			{
 				progressBar = new JProgressBar();
@@ -169,19 +157,19 @@ public class MusicDialog extends JDialog {
 						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
 					}
 				});
-				panel.add(progressBar, BorderLayout.SOUTH);
+				dataPanel.add(progressBar, BorderLayout.SOUTH);
 			}
 		}
 		{
-			JPanel panel = new JPanel();
-			contentPanel.add(panel, BorderLayout.SOUTH);
+			JPanel buttonPanel = new JPanel();
+			contentPanel.add(buttonPanel, BorderLayout.SOUTH);
 			{
-				GridBagLayout gbl_panel = new GridBagLayout();
-				gbl_panel.columnWidths = new int[]{89, 89, 45, 114, 45, 80, 54, 0};
-				gbl_panel.rowHeights = new int[]{23, 0};
-				gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-				gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-				panel.setLayout(gbl_panel);
+				GridBagLayout gbl_buttonPanel = new GridBagLayout();
+				gbl_buttonPanel.columnWidths = new int[]{89, 89, 45, 114, 45, 80, 54, 0};
+				gbl_buttonPanel.rowHeights = new int[]{23, 0};
+				gbl_buttonPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+				gbl_buttonPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+				buttonPanel.setLayout(gbl_buttonPanel);
 				{
 					btnSucc = new JButton("");
 					btnSucc.setToolTipText("Brano successivo");
@@ -196,7 +184,7 @@ public class MusicDialog extends JDialog {
 				gbc_btnLoad.insets = new Insets(0, 0, 0, 5);
 				gbc_btnLoad.gridx = 0;
 				gbc_btnLoad.gridy = 0;
-				panel.add(btnLoad, gbc_btnLoad);
+				buttonPanel.add(btnLoad, gbc_btnLoad);
 				{
 					btnPrev = new JButton("");
 					btnPrev.setToolTipText("Brano precedente");
@@ -234,13 +222,13 @@ public class MusicDialog extends JDialog {
 				gbc_btnSave.insets = new Insets(0, 0, 0, 5);
 				gbc_btnSave.gridx = 1;
 				gbc_btnSave.gridy = 0;
-				panel.add(btnSave, gbc_btnSave);
+				buttonPanel.add(btnSave, gbc_btnSave);
 				GridBagConstraints gbc_btnPrev = new GridBagConstraints();
 				gbc_btnPrev.fill = GridBagConstraints.BOTH;
 				gbc_btnPrev.insets = new Insets(0, 0, 0, 5);
 				gbc_btnPrev.gridx = 2;
 				gbc_btnPrev.gridy = 0;
-				panel.add(btnPrev, gbc_btnPrev);
+				buttonPanel.add(btnPrev, gbc_btnPrev);
 				{
 					btnPlaypause = new JButton("");
 					btnPlaypause.setToolTipText("Play/Pausa");
@@ -295,13 +283,13 @@ public class MusicDialog extends JDialog {
 				gbc_btnPlaypause.insets = new Insets(0, 0, 0, 5);
 				gbc_btnPlaypause.gridx = 3;
 				gbc_btnPlaypause.gridy = 0;
-				panel.add(btnPlaypause, gbc_btnPlaypause);
+				buttonPanel.add(btnPlaypause, gbc_btnPlaypause);
 				GridBagConstraints gbc_btnSucc = new GridBagConstraints();
 				gbc_btnSucc.fill = GridBagConstraints.BOTH;
 				gbc_btnSucc.insets = new Insets(0, 0, 0, 5);
 				gbc_btnSucc.gridx = 4;
 				gbc_btnSucc.gridy = 0;
-				panel.add(btnSucc, gbc_btnSucc);
+				buttonPanel.add(btnSucc, gbc_btnSucc);
 				btnRestart = new JButton("");
 				btnRestart.setEnabled(false);
 				btnRestart.setToolTipText("Ricomincia");
@@ -322,7 +310,7 @@ public class MusicDialog extends JDialog {
 				gbc_btnRestart.insets = new Insets(0, 0, 0, 5);
 				gbc_btnRestart.gridx = 5;
 				gbc_btnRestart.gridy = 0;
-				panel.add(btnRestart, gbc_btnRestart);
+				buttonPanel.add(btnRestart, gbc_btnRestart);
 				JButton btnLoop = new JButton("");
 				btnLoop.setToolTipText("Loop");
 				btnLoop.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/loop.png")));
@@ -330,7 +318,30 @@ public class MusicDialog extends JDialog {
 				gbc_btnLoop.fill = GridBagConstraints.BOTH;
 				gbc_btnLoop.gridx = 6;
 				gbc_btnLoop.gridy = 0;
-				panel.add(btnLoop, gbc_btnLoop);
+				buttonPanel.add(btnLoop, gbc_btnLoop);
+				{
+					tabbedPane = new JTabbedPane();
+					contentPanel.add(tabbedPane, BorderLayout.WEST);
+					{
+						JScrollPane scrollPane = new JScrollPane();
+						tabbedPane.addTab("Brani", null, scrollPane, null);
+						{
+							JTree tree = new JTree();
+							tree.setMaximumSize(new Dimension(171, 64));
+							tree.setPreferredSize(new Dimension(171, 64));
+							tree.setMinimumSize(new Dimension(171, 64));
+							tree.setShowsRootHandles(false);
+							tree.setFont(MAMUtil.segui().deriveFont(12f));
+							scrollPane.setViewportView(tree);
+							{
+								playlistPanel = new JPanel();
+								tabbedPane.addTab("Playlist", null, playlistPanel, null);
+							}
+							scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+							scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
+						}
+					}
+				}
 				btnLoop.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(loopActive==false)
