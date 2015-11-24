@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -52,9 +51,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
-
 import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.ColorProperties;
@@ -94,6 +91,7 @@ public class AnimeIndex extends JFrame
 	public static final String VERSION = "1.0.0";
 	public static final String CURRENT_VERSION = "MyAnimeManager.exe";
 	public static final String NEW_VERSION = "MyAnimeManager_Setup.exe";
+	
 	public static JPanel mainFrame;
 	public static JPanel cardContainer;
 	public static AnimeInformation animeInformation;
@@ -140,41 +138,38 @@ public class AnimeIndex extends JFrame
 	public static ArrayList<String> filmSessionAnime = new ArrayList();
 	public static ArrayList<String> completedToSeeSessionAnime = new ArrayList();
 	public static ArrayList<String> sessionAddedAnime = new ArrayList();
-	
 	public static ArrayList<String> completedDeletedAnime = new ArrayList();
 	public static ArrayList<String> airingDeletedAnime = new ArrayList();
 	public static ArrayList<String> ovaDeletedAnime = new ArrayList();
 	public static ArrayList<String> filmDeletedAnime = new ArrayList();
 	public static ArrayList<String> completedToSeeDeletedAnime = new ArrayList();
 	
-	private static ArrayList<String> selectionList = new ArrayList();
-		
+	private static ArrayList<String> selectionList = new ArrayList();	
 	private JButton addButton;
+	private String list;
+	
 	public static JButton deleteButton;
 	public static JComboBox animeTypeComboBox;
 	public static SearchBar searchBar;	
 	public static JButton setFilterButton;
-	
-	private String list;
-	public static boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
-	public static int filtro = 9;
-	public static Font segui;
 	public static String addToPreviousList;
-	public static boolean openReleaseDialog = false;
-	public static boolean activeUpdate;
-	public static String lastSelection;
-	
+	public static String lastSelection;	
 	public static String currentEpisodeNumber;
 	public static String totalEpNumber;
 	public static String durata;
 	public static String startDate;
 	public static String endDate;
+	public static boolean[] filterArray = {false, false, false, false, false, false, false, false, false};
+	public static boolean openReleaseDialog = false;
+	public static boolean shouldUpdate = true;
+	public static boolean activeUpdate;
+	public static int filtro = 9;
 	
 	public static Properties appProp;
 	public static Properties colorProp;
-	
+	public static Font segui;
 	public static Thread appThread;
-	public static boolean shouldUpdate = true;
+	
 	/**
 	 * Launch the application.
 	 */
