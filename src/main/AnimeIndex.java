@@ -751,14 +751,15 @@ public class AnimeIndex extends JFrame
 				else
 				{
 					new Timer(1, new ActionListener() {
+						int size = 125;
 			               public void actionPerformed(ActionEvent e) {
-
-			            	   newsBoardDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 1, newsBoardDialog.getLocationOnScreen().y - 1);
+			            	   newsBoardDialog.setSize(795, size--);
 			            	   AnimeIndex.mainFrame.requestFocus();
-			            	   if (newsBoardDialog.getLocationOnScreen().y == (AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight() - newsBoardDialog.getHeight())) {
+			            	   if (newsBoardDialog.getHeight() == 0) 
+			            	   {
 			                     ((Timer) e.getSource()).stop();
 			                     newsBoardDialog.dispose();
-			            }
+			            	   }
 			               }
 			            }).start();
 				}
@@ -789,26 +790,18 @@ public class AnimeIndex extends JFrame
 			public void actionPerformed(ActionEvent e) {				
 				if (!wishlistDialog.isShowing())
 				{
-					wishlistDialog.setIgnoreRepaint(true);
 					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x ,AnimeIndex.mainFrame.getLocationOnScreen().y);
-					wishlistDialog.setSize(0, 471);
 					wishlistDialog.setVisible(true);
 					 new Timer(1, new ActionListener() {
-						int size = 0;
 			               public void actionPerformed(ActionEvent e) {
 			            	   AnimeIndex.mainFrame.requestFocus();
-			            	   wishlistDialog.setBounds(wishlistDialog.getLocationOnScreen().x - 1,  AnimeIndex.mainFrame.getLocationOnScreen().y, size++, 471);
-//			            	   wishlistDialog.setSize(size++ , 471);
-//			            	   wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
+			            	   wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
 			            	   if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 181) {
-			            		   wishlistDialog.setIgnoreRepaint(false);
 			            		   ((Timer) e.getSource()).stop();
 			            }
 			               }
 			            }).start();
 					 
-//					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 175,AnimeIndex.mainFrame.getLocationOnScreen().y);
-//					wishlistDialog.setVisible(true);
 				}
 				else
 				{

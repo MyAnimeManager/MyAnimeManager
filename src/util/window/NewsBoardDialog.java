@@ -102,14 +102,15 @@ public class NewsBoardDialog extends JDialog {
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					new Timer(1, new ActionListener() {
+						int size = 125;
 			               public void actionPerformed(ActionEvent e) {
-
-			            	   NewsBoardDialog.this.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x,  NewsBoardDialog.this.getLocationOnScreen().y - 1);
+			            	   NewsBoardDialog.this.setSize(795, size--);
 			            	   AnimeIndex.mainFrame.requestFocus();
-			            	   if ( NewsBoardDialog.this.getLocationOnScreen().y == (AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight() - NewsBoardDialog.this.getHeight())) {
+			            	   if (NewsBoardDialog.this.getHeight() == 0) 
+			            	   {
 			                     ((Timer) e.getSource()).stop();
-			                     AnimeIndex.newsBoardDialog.dispose();
-			            }
+			                     NewsBoardDialog.this.dispose();
+			            	   }
 			               }
 			            }).start();
 				}
