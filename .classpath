@@ -57,5 +57,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/MyAnimeManager/lib/mp3agic-0.8.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/MEGA Api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
