@@ -52,6 +52,7 @@ import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import javax.swing.JTabbedPane;
+import java.awt.FlowLayout;
 
 public class MusicDialog extends JDialog {
 	
@@ -129,6 +130,9 @@ public class MusicDialog extends JDialog {
 			dataPanel.setLayout(new BorderLayout(0, 3));
 			{
 				JPanel titlePanel = new JPanel();
+				FlowLayout flowLayout = (FlowLayout) titlePanel.getLayout();
+				flowLayout.setVgap(0);
+				flowLayout.setHgap(0);
 				dataPanel.add(titlePanel, BorderLayout.NORTH);
 				lblTitle = new JLabel("TITLE");//max 37 char
 				titlePanel.add(lblTitle);
