@@ -81,6 +81,8 @@ public class MusicDialog extends JDialog {
 	private JButton btnSucc;
 	private JTabbedPane tabbedPane;
 	private JPanel playlistPanel;
+	private JPanel panel;
+	private JButton btnElimina;
 	
 	public MusicDialog()
 	{
@@ -143,6 +145,7 @@ public class MusicDialog extends JDialog {
 			}
 			{
 				progressBar = new JProgressBar();
+				progressBar.setStringPainted(true);
 				progressBar.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseReleased(MouseEvent e) {
@@ -323,22 +326,31 @@ public class MusicDialog extends JDialog {
 					tabbedPane = new JTabbedPane();
 					contentPanel.add(tabbedPane, BorderLayout.WEST);
 					{
+						panel = new JPanel();
+						tabbedPane.addTab("Brani", null, panel, null);
+						panel.setLayout(new BorderLayout(0, 0));
 						JScrollPane scrollPane = new JScrollPane();
-						tabbedPane.addTab("Brani", null, scrollPane, null);
+						panel.add(scrollPane);
+						JTree tree = new JTree();
+						tree.setMaximumSize(new Dimension(171, 64));
+						tree.setPreferredSize(new Dimension(171, 64));
+						tree.setMinimumSize(new Dimension(171, 64));
+						tree.setShowsRootHandles(false);
+						tree.setFont(MAMUtil.segui().deriveFont(12f));
+						scrollPane.setViewportView(tree);
 						{
-							JTree tree = new JTree();
-							tree.setMaximumSize(new Dimension(171, 64));
-							tree.setPreferredSize(new Dimension(171, 64));
-							tree.setMinimumSize(new Dimension(171, 64));
-							tree.setShowsRootHandles(false);
-							tree.setFont(MAMUtil.segui().deriveFont(12f));
-							scrollPane.setViewportView(tree);
+							btnElimina = new JButton("Elimina");
+							panel.add(btnElimina, BorderLayout.SOUTH);
+						}
+						scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+						scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
+					}
+					{
+						{
 							{
 								playlistPanel = new JPanel();
 								tabbedPane.addTab("Playlist", null, playlistPanel, null);
 							}
-							scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
-							scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 						}
 					}
 				}
