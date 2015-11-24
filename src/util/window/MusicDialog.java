@@ -142,6 +142,7 @@ public class MusicDialog extends JDialog {
 				panel.add(panel_1, BorderLayout.NORTH);
 				lblTitle = new JLabel("TITLE");//max 37 char
 				panel_1.add(lblTitle);
+				setMusicTrack();
 				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
 			}
 			{
@@ -151,88 +152,6 @@ public class MusicDialog extends JDialog {
 				lblImage.setPreferredSize(new Dimension(335, 335));
 				lblImage.setBorder(new LineBorder(new Color(40, 40, 40), 2, true));
 				panel.add(lblImage, BorderLayout.CENTER);
-			}
-			{
-				AudioFile f = null;
-				try
-				{
-					File music = new File(currentMusicPath);
-					f = AudioFileIO.read(music);
-					Tag tag = f.getTag();
-					title = tag.getFirst(FieldKey.TITLE);
-					if(title.length()<=37)
-						lblTitle.setText(title);
-					else
-						{
-						int n = title.length();
-						StringBuilder sb = new StringBuilder(n);
-				        for (int i = 0; i < n; i++) {
-				            sb.append(' ');
-				        }
-				        ttl = sb+title+sb;
-							tim = new Timer(1000/12, new ActionListener()
-	                        {
-	                            public void actionPerformed(ActionEvent e)
-	                            {
-	                            	 index++;
-	                                 if (index > ttl.length() - n) {
-	                                     index = 0;
-	                                 }
-	                                 lblTitle.setText(ttl.substring(index, index + n));
-	                            }
-	                        });
-							tim.start();
-						}
-					
-					Mp3File song = new Mp3File(currentMusicPath);
-					ID3v2 id3v2tag = song.getId3v2Tag();
-					byte[] imageData = id3v2tag.getAlbumImage();
-					BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageData));
-					ImageIcon icon = new ImageIcon(img);
-					lblImage.setIcon(icon);
-					
-				}
-				catch (UnsupportedTagException e1)
-				{
-					// TODO Auto-generated catch block
-					MAMUtil.writeLog(e1);
-					e1.printStackTrace();
-				}
-				catch (InvalidDataException e1)
-				{
-					// TODO Auto-generated catch block
-					MAMUtil.writeLog(e1);
-					e1.printStackTrace();
-				}
-				catch (CannotReadException e1)
-				{
-					MAMUtil.writeLog(e1);
-					e1.printStackTrace();
-				}
-				catch (IOException e1)
-				{
-					// TODO Auto-generated catch block
-					MAMUtil.writeLog(e1);
-					e1.printStackTrace();
-				}
-				catch (TagException e1)
-				{
-					// TODO Auto-generated catch block
-					MAMUtil.writeLog(e1);
-					e1.printStackTrace();
-				}
-				catch (ReadOnlyFileException e1)
-				{
-					// TODO Auto-generated catch block
-					MAMUtil.writeLog(e1);
-					e1.printStackTrace();
-				}
-				catch (InvalidAudioFrameException e1)
-				{
-					// TODO Auto-generated catch block
-					MAMUtil.writeLog(e1);
-					e1.printStackTrace();
-				}
 			}
 			{
 				progressBar = new JProgressBar();
@@ -503,6 +422,117 @@ public class MusicDialog extends JDialog {
 		catch (IOException e){
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
+		}
+	}
+	private void setMusicTrack()
+	{
+		AudioFile f = null;
+		try
+		{
+			Mp3File song = new Mp3File(currentMusicPath);
+			File music = new File(currentMusicPath);
+			f = AudioFileIO.read(music);
+			Tag tag = f.getTag();
+			String currentTag;
+			currentTag = tag.getFirst(FieldKey.TITLE);
+			if(!currentTag.isEmpty())
+				title = currentTag;
+			else
+			{
+				title = music.getName();
+				title = title.substring(0, title.length()-4);
+			}
+						
+			currentTag = tag.getFirst(FieldKey.ARTIST);
+			if(!currentTag.isEmpty())
+				title +="  .:::.  " + currentTag;
+			
+			currentTag = tag.getFirst(FieldKey.ALBUM_ARTIST);
+			if(!currentTag.isEmpty())
+				title +="  .:::.  " + currentTag;
+			
+			currentTag = tag.getFirst(FieldKey.ALBUM);
+			if(!currentTag.isEmpty())
+				title +="  .:::.  " + currentTag;
+			
+			int bitrate = song.getBitrate();
+			if(!(bitrate+"").isEmpty())
+				title +="  .:::.  " + bitrate + " Kbps";
+			
+			long duration = song.getLengthInSeconds();
+			if(!(duration+"").isEmpty())
+			{
+				if(((duration/60)+"").length()<2)
+					title +="  .:::.  0" + duration/60 + ":" + duration%60;
+				else
+					title +="  .:::.  " + duration/60 + ":" + duration%60;
+			}
+			
+			if(title.length()<=37)
+				lblTitle.setText(title);
+			else
+				{
+				int n = title.length();
+				StringBuilder sb = new StringBuilder(n);
+		        for (int i = 0; i < n; i++) {
+		            sb.append(' ');
+		        }
+		        ttl = sb+title+sb;
+					tim = new Timer(1000/12, new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                        	 index++;
+                             if (index > ttl.length() - n) {
+                                 index = 0;
+                             }
+                             lblTitle.setText(ttl.substring(index, index + n));
+                        }
+                    });
+					tim.start();
+				}
+			
+			ID3v2 id3v2tag = song.getId3v2Tag();
+			byte[] imageData = id3v2tag.getAlbumImage();
+			BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageData));
+			ImageIcon icon = new ImageIcon(img);
+			lblImage.setIcon(icon);
+			
+		}
+		catch (UnsupportedTagException e1)
+		{
+			MAMUtil.writeLog(e1);
+			e1.printStackTrace();
+		}
+		catch (InvalidDataException e1)
+		{
+			MAMUtil.writeLog(e1);
+			e1.printStackTrace();
+		}
+		catch (CannotReadException e1)
+		{
+			MAMUtil.writeLog(e1);
+			e1.printStackTrace();
+		}
+		catch (IOException e1)
+		{
+			MAMUtil.writeLog(e1);
+			e1.printStackTrace();
+		}
+		catch (TagException e1)
+		{
+			MAMUtil.writeLog(e1);
+			e1.printStackTrace();
+		}
+		catch (ReadOnlyFileException e1)
+		{
+			MAMUtil.writeLog(e1);
+			e1.printStackTrace();
+		}
+		catch (InvalidAudioFrameException e1)
+		{
+			MAMUtil.writeLog(e1);
+			e1.printStackTrace();
 		}
 	}
 }

@@ -45,6 +45,7 @@ public class PreferenceDialog extends JDialog
 	public JButton dataCheckButton;
 	public SetExclusionDialog exclusionDialog;
 	private JCheckBox chckbxApriWishlist;
+	private JCheckBox chckbxApriNewsboard;
 	private JButton btnEsporta;
 	private JButton btnCancella;
 	private JLabel lblFileDiLog;
@@ -111,6 +112,7 @@ public class PreferenceDialog extends JDialog
 				{
 					chckbxApriWishlist = new JCheckBox("Apri Wishlist");
 					GridBagConstraints gbc_chckbxApriWishlist = new GridBagConstraints();
+					gbc_chckbxApriWishlist.anchor = GridBagConstraints.WEST;
 					gbc_chckbxApriWishlist.gridwidth = 2;
 					gbc_chckbxApriWishlist.insets = new Insets(0, 0, 5, 0);
 					gbc_chckbxApriWishlist.gridx = 1;
@@ -125,6 +127,16 @@ public class PreferenceDialog extends JDialog
 				contentPanel.add(rdbtnLastList, gbc_rdbtnLastList);
 			}
 			listGroup.add(rdbtnLastList);
+			{
+				chckbxApriNewsboard = new JCheckBox("Apri NewsBoard");
+				GridBagConstraints gbc_chckbxApriNewsboard = new GridBagConstraints();
+				gbc_chckbxApriNewsboard.anchor = GridBagConstraints.WEST;
+				gbc_chckbxApriNewsboard.gridwidth = 2;
+				gbc_chckbxApriNewsboard.insets = new Insets(0, 0, 5, 5);
+				gbc_chckbxApriNewsboard.gridx = 1;
+				gbc_chckbxApriNewsboard.gridy = 2;
+				contentPanel.add(chckbxApriNewsboard, gbc_chckbxApriNewsboard);
+			}
 			GridBagConstraints gbc_rdbtnChooseList = new GridBagConstraints();
 			gbc_rdbtnChooseList.fill = GridBagConstraints.HORIZONTAL;
 			gbc_rdbtnChooseList.insets = new Insets(0, 0, 5, 5);
@@ -176,6 +188,13 @@ public class PreferenceDialog extends JDialog
 						}
 						else
 							AnimeIndex.appProp.setProperty("Open_Wishlist", "false");
+						
+						if(chckbxApriNewsboard.isSelected())
+						{
+							AnimeIndex.appProp.setProperty("Open_NewsBoard", "true");
+						}
+						else
+							AnimeIndex.appProp.setProperty("Open_NewsBoard", "false");
 						
 						JButton but = (JButton) e.getSource();
 						JDialog dialog = (JDialog) but.getTopLevelAncestor();
@@ -479,7 +498,6 @@ public class PreferenceDialog extends JDialog
 			GridBagConstraints gbc_separator = new GridBagConstraints();
 			gbc_separator.fill = GridBagConstraints.BOTH;
 			gbc_separator.gridwidth = 3;
-			gbc_separator.insets = new Insets(0, 0, 0, 5);
 			gbc_separator.gridx = 0;
 			gbc_separator.gridy = 12;
 			contentPanel.add(separator, gbc_separator);
@@ -511,6 +529,11 @@ public class PreferenceDialog extends JDialog
 			chckbxApriWishlist.setSelected(true);
 		else
 			chckbxApriWishlist.setSelected(false);
+		
+		if(AnimeIndex.appProp.getProperty("Open_NewsBoard").equals("true"))
+			chckbxApriNewsboard.setSelected(true);
+		else
+			chckbxApriNewsboard.setSelected(false);
 	}
 	
 	private long getFolderSize(File folder)

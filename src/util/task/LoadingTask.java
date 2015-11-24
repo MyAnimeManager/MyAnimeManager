@@ -64,6 +64,25 @@ public class LoadingTask extends SwingWorker
 	               }
 	            }).start();
 		}
+		
+		if(AnimeIndex.appProp.getProperty("Open_NewsBoard").equalsIgnoreCase("true"))
+		{
+			if (!AnimeIndex.newsBoardDialog.isShowing())
+			{
+				AnimeIndex.newsBoardDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 1,AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight());
+				AnimeIndex.newsBoardDialog.setVisible(true);
+				 new Timer(1, new ActionListener() {
+	            	   int size = 0;
+		               public void actionPerformed(ActionEvent e) {
+		            	   AnimeIndex.mainFrame.requestFocus();
+		            	   AnimeIndex.newsBoardDialog.setSize(795, size++);
+		            	   if (AnimeIndex.newsBoardDialog.getHeight() == 125) {
+		                     ((Timer) e.getSource()).stop();
+		            }
+		               }
+		            }).start();
+			}
+		}
 			
 		String dataRelease = AnimeIndex.appProp.getProperty("Date_Release");	 	
 		if(dataRelease.equalsIgnoreCase("none"))
