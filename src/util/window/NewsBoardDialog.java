@@ -195,8 +195,12 @@ public class NewsBoardDialog extends JDialog {
 		{
 			String name = entry.getKey();
 			String link = entry.getValue();
-			JLabel nameLabel = new JLabel(name);
 			
+			if(name.endsWith(" By"))
+				name = name.substring(0, name.length()-3);
+			
+			JLabel nameLabel = new JLabel(name);
+					
 			if ((row%2) == 0)
 			{
 				nameLabel.setOpaque(true);

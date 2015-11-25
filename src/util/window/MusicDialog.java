@@ -565,7 +565,7 @@ public class MusicDialog extends JDialog {
 			if(title.length()<=37)
 				lblTitle.setText(title);
 			else
-				{
+			{
 				int n = title.length();
 				String sb = "";
 		        for (int i = 0; i < n; i++) {
@@ -585,7 +585,7 @@ public class MusicDialog extends JDialog {
                         }
                     });
 					tim.start();
-				}
+			}
 			
 			ID3v2 id3v2tag = song.getId3v2Tag();
 			byte[] imageData = id3v2tag.getAlbumImage();
