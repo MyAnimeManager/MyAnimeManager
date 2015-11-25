@@ -24,7 +24,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -39,12 +38,9 @@ import javax.swing.JTree;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import main.AnimeIndex;
-import nz.mega.sdk.MegaApiSwing;
-
 import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -54,20 +50,13 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
-
-import util.FileManager;
 import util.MAMUtil;
-
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
 public class MusicDialog extends JDialog {
-	
-	private static final String APP_KEY = "kxBixCRa";
-	private MegaApiSwing megaApiJava = null;
-	private static final String CACHE_PATH = FileManager.getAppDataPath()+"Mega_Cache";
 	
 	private final JPanel contentPanel = new JPanel();
 	private Player player;
@@ -80,7 +69,7 @@ public class MusicDialog extends JDialog {
 	private BufferedInputStream buff;
 	private boolean isRunning;
 	private boolean isPaused;
-	private String currentMusicPath = "C:\\Users\\Samu\\Desktop\\video musica immagini\\A Genesis - nano.mp3";
+	private String currentMusicPath = "C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Sfondamento dei Cieli Gurren Lagann\\''Libera me'' from hell.mp3";
 	private long pauseLocation;
 	private long songTotalLength;
 	private Timer timer;
@@ -88,7 +77,6 @@ public class MusicDialog extends JDialog {
 	private JProgressBar progressBar;
 	private String title;
 	private String ttl;
-	private int index;
 	private JButton btnLoad;
 	private JButton btnSave;
 	private JButton btnPrev;
@@ -101,6 +89,8 @@ public class MusicDialog extends JDialog {
 	private JButton btnInPlaylist;
 	private JScrollPane playlistScrollPane;
 	private JTree playlistTree;
+	private long duration;
+	private String time = "";
 	
 	public MusicDialog()
 	{
@@ -146,25 +136,6 @@ public class MusicDialog extends JDialog {
 			contentPanel.add(dataPanel, BorderLayout.CENTER);
 			dataPanel.setLayout(new BorderLayout(0, 3));
 			{
-				JPanel titlePanel = new JPanel();
-				FlowLayout flowLayout = (FlowLayout) titlePanel.getLayout();
-				flowLayout.setVgap(1);
-				flowLayout.setHgap(0);
-				dataPanel.add(titlePanel, BorderLayout.NORTH);
-				lblTitle = new JLabel("TITLE");//max 37 char
-				titlePanel.add(lblTitle);
-				setMusicTrack();
-				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
-			}
-			{
-				lblImage = new JLabel("");
-				lblImage.setMaximumSize(new Dimension(335, 335));
-				lblImage.setMinimumSize(new Dimension(335, 335));
-				lblImage.setPreferredSize(new Dimension(335, 335));
-				lblImage.setBorder(new LineBorder(new Color(40, 40, 40), 2, true));
-				dataPanel.add(lblImage, BorderLayout.CENTER);
-			}
-			{
 				progressBar = new JProgressBar();
 				progressBar.setFont(new Font("Tahoma", Font.PLAIN, 10));
 				progressBar.setStringPainted(true);
@@ -183,6 +154,25 @@ public class MusicDialog extends JDialog {
 					}
 				});
 				dataPanel.add(progressBar, BorderLayout.SOUTH);
+			}
+			{
+				JPanel titlePanel = new JPanel();
+				FlowLayout flowLayout = (FlowLayout) titlePanel.getLayout();
+				flowLayout.setVgap(1);
+				flowLayout.setHgap(0);
+				dataPanel.add(titlePanel, BorderLayout.NORTH);
+				lblTitle = new JLabel("TITLE");//max 37 char
+				titlePanel.add(lblTitle);
+				setMusicTrack();
+				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
+			}
+			{
+				lblImage = new JLabel("");
+				lblImage.setMaximumSize(new Dimension(335, 335));
+				lblImage.setMinimumSize(new Dimension(335, 335));
+				lblImage.setPreferredSize(new Dimension(335, 335));
+				lblImage.setBorder(new LineBorder(new Color(40, 40, 40), 2, true));
+				dataPanel.add(lblImage, BorderLayout.CENTER);
 			}
 		}
 		{
@@ -270,9 +260,30 @@ public class MusicDialog extends JDialog {
                                 {
                                     public void actionPerformed(ActionEvent e)
                                     {
-                                        double current = 0;
+                                        long current = 0;
+                                        long currentTime = 0;
                                         try{
                                             current = songTotalLength - fis.available();
+                                            if(!(duration+"").isEmpty())
+                                            {
+	                                            String t ="";
+	                							currentTime = current*duration/songTotalLength;
+	                							if(((currentTime/60)+"").length()<2)
+	                							{
+	                								if(((currentTime%60)+"").length()<2)
+	                									t = "0" + currentTime/60 + ":0" + currentTime%60 + " / " + time;
+	                								else
+	                									t = "0" + currentTime/60 + ":" + currentTime%60 + " / " + time;
+	                							}
+	                							else
+	                							{
+	                								if(((currentTime%60)+"").length()<2)
+	                									t = currentTime/60 + ":0" + currentTime%60 + " / " + time;
+	                								else
+	                									t = currentTime/60 + ":" + currentTime%60 + " / " + time;
+	                							}
+	                    						progressBar.setString(t);
+                                            }
                                         }
                                         catch (IOException e1){
                                             timer.stop();
@@ -523,10 +534,6 @@ public class MusicDialog extends JDialog {
 			if(!currentTag.isEmpty())
 				title +="  .:::.  " + currentTag;
 			
-			currentTag = tag.getFirst(FieldKey.ALBUM_ARTIST);
-			if(!currentTag.isEmpty())
-				title +="  .:::.  " + currentTag;
-			
 			currentTag = tag.getFirst(FieldKey.ALBUM);
 			if(!currentTag.isEmpty())
 				title +="  .:::.  " + currentTag;
@@ -535,27 +542,39 @@ public class MusicDialog extends JDialog {
 			if(!(bitrate+"").isEmpty())
 				title +="  .:::.  " + bitrate + " Kbps";
 			
-			long duration = song.getLengthInSeconds();
+			duration = song.getLengthInSeconds();
 			if(!(duration+"").isEmpty())
 			{
 				if(((duration/60)+"").length()<2)
-					title +="  .:::.  0" + duration/60 + ":" + duration%60;
+				{
+					if(((duration%60)+"").length()<2)
+						time = "0" + duration/60 + ":0" + duration%60;
+					else
+						time = "0" + duration/60 + ":" + duration%60;
+				}
 				else
-					title +="  .:::.  " + duration/60 + ":" + duration%60;
+				{
+					if(((duration%60)+"").length()<2)
+						time = duration/60 + ":0" + duration%60;
+					else
+						time = duration/60 + ":" + duration%60;
+				}
 			}
+			progressBar.setString(time);
 			
 			if(title.length()<=37)
 				lblTitle.setText(title);
 			else
 				{
 				int n = title.length();
-				StringBuilder sb = new StringBuilder(n);
+				String sb = "";
 		        for (int i = 0; i < n; i++) {
-		            sb.append(' ');
+		            sb+=' ';
 		        }
 		        ttl = sb+title+sb;
 					tim = new Timer(1000/12, new ActionListener()
                     {
+						private int index;
                         public void actionPerformed(ActionEvent e)
                         {
                         	 index++;
@@ -610,12 +629,5 @@ public class MusicDialog extends JDialog {
 			MAMUtil.writeLog(e1);
 			e1.printStackTrace();
 		}
-	}
-	private void connectToMega()
-	{
-		this.megaApiJava = new MegaApiSwing(APP_KEY, "My Anime Manager", CACHE_PATH);
-		//TODO usa il metodo epr connettersi alla cartella pubblica, non mettere i dati di login
-		megaApiJava.login("myanimemanagerproject@gmail.com", "MAMProject");
-		megaApiJava.fetchNodes();
 	}
 }
