@@ -53,6 +53,8 @@ import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import javax.swing.JTabbedPane;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 
 public class MusicDialog extends JDialog {
 	
@@ -84,6 +86,10 @@ public class MusicDialog extends JDialog {
 	private JPanel playlistPanel;
 	private JPanel panel;
 	private JButton btnElimina;
+	private JPanel panel_1;
+	private JButton btnInPlaylist;
+	private JScrollPane playlistScrollPane;
+	private JTree playlistTree;
 	
 	public MusicDialog()
 	{
@@ -119,7 +125,7 @@ public class MusicDialog extends JDialog {
 		setTitle("My Anime Musics");
 		setResizable(false);
 		setFont(MAMUtil.segui().deriveFont(12f));
-		setBounds(100, 100, 532, 448);
+		setBounds(100, 100, 540, 448);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -131,7 +137,7 @@ public class MusicDialog extends JDialog {
 			{
 				JPanel titlePanel = new JPanel();
 				FlowLayout flowLayout = (FlowLayout) titlePanel.getLayout();
-				flowLayout.setVgap(0);
+				flowLayout.setVgap(1);
 				flowLayout.setHgap(0);
 				dataPanel.add(titlePanel, BorderLayout.NORTH);
 				lblTitle = new JLabel("TITLE");//max 37 char
@@ -149,6 +155,7 @@ public class MusicDialog extends JDialog {
 			}
 			{
 				progressBar = new JProgressBar();
+				progressBar.setFont(new Font("Tahoma", Font.PLAIN, 10));
 				progressBar.setStringPainted(true);
 				progressBar.addMouseListener(new MouseAdapter() {
 					@Override
@@ -172,7 +179,7 @@ public class MusicDialog extends JDialog {
 			contentPanel.add(buttonPanel, BorderLayout.SOUTH);
 			{
 				GridBagLayout gbl_buttonPanel = new GridBagLayout();
-				gbl_buttonPanel.columnWidths = new int[]{89, 89, 45, 114, 45, 80, 54, 0};
+				gbl_buttonPanel.columnWidths = new int[]{93, 93, 45, 114, 45, 80, 54, 0};
 				gbl_buttonPanel.rowHeights = new int[]{23, 0};
 				gbl_buttonPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 				gbl_buttonPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
@@ -183,22 +190,27 @@ public class MusicDialog extends JDialog {
 					btnSucc.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/forward_icon.png")));
 				}
 				{
-					btnLoad = new JButton("Ascolta");
-					btnLoad.setToolTipText("Carica il brano per ascoltarlo");
-				}
-				GridBagConstraints gbc_btnLoad = new GridBagConstraints();
-				gbc_btnLoad.fill = GridBagConstraints.BOTH;
-				gbc_btnLoad.insets = new Insets(0, 0, 0, 5);
-				gbc_btnLoad.gridx = 0;
-				gbc_btnLoad.gridy = 0;
-				buttonPanel.add(btnLoad, gbc_btnLoad);
-				{
 					btnPrev = new JButton("");
 					btnPrev.setToolTipText("Brano precedente");
 					btnPrev.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/rev_icon.png")));
 				}
 				{
-					btnSave = new JButton("Salva");
+					btnElimina = new JButton("Elimina");
+					GridBagConstraints gbc_btnElimina = new GridBagConstraints();
+					gbc_btnElimina.fill = GridBagConstraints.BOTH;
+					gbc_btnElimina.insets = new Insets(0, 0, 0, 5);
+					gbc_btnElimina.gridx = 0;
+					gbc_btnElimina.gridy = 0;
+					buttonPanel.add(btnElimina, gbc_btnElimina);
+				}
+				{
+					btnSave = new JButton("Esporta");
+					GridBagConstraints gbc_btnSave = new GridBagConstraints();
+					gbc_btnSave.fill = GridBagConstraints.BOTH;
+					gbc_btnSave.insets = new Insets(0, 0, 0, 5);
+					gbc_btnSave.gridx = 1;
+					gbc_btnSave.gridy = 0;
+					buttonPanel.add(btnSave, gbc_btnSave);
 					btnSave.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							File choosedFile = new File(currentMusicPath);
@@ -224,12 +236,6 @@ public class MusicDialog extends JDialog {
 					});
 					btnSave.setToolTipText("Salva i brani che preferisci");
 				}
-				GridBagConstraints gbc_btnSave = new GridBagConstraints();
-				gbc_btnSave.fill = GridBagConstraints.BOTH;
-				gbc_btnSave.insets = new Insets(0, 0, 0, 5);
-				gbc_btnSave.gridx = 1;
-				gbc_btnSave.gridy = 0;
-				buttonPanel.add(btnSave, gbc_btnSave);
 				GridBagConstraints gbc_btnPrev = new GridBagConstraints();
 				gbc_btnPrev.fill = GridBagConstraints.BOTH;
 				gbc_btnPrev.insets = new Insets(0, 0, 0, 5);
@@ -332,19 +338,30 @@ public class MusicDialog extends JDialog {
 					{
 						panel = new JPanel();
 						tabbedPane.addTab("Brani", null, panel, null);
-						panel.setLayout(new BorderLayout(0, 0));
+						panel.setLayout(new BorderLayout(10, 0));
 						JScrollPane scrollPane = new JScrollPane();
 						panel.add(scrollPane);
 						JTree tree = new JTree();
+						tree.setRootVisible(false);
 						tree.setMaximumSize(new Dimension(171, 64));
 						tree.setPreferredSize(new Dimension(171, 64));
 						tree.setMinimumSize(new Dimension(171, 64));
-						tree.setShowsRootHandles(false);
+						tree.setShowsRootHandles(true);
 						tree.setFont(MAMUtil.segui().deriveFont(12f));
 						scrollPane.setViewportView(tree);
 						{
-							btnElimina = new JButton("Elimina");
-							panel.add(btnElimina, BorderLayout.SOUTH);
+							panel_1 = new JPanel();
+							panel.add(panel_1, BorderLayout.SOUTH);
+							{
+								btnLoad = new JButton("Scarica");
+								btnLoad.setToolTipText("Carica il brano per ascoltarlo");
+							}
+							{
+								btnInPlaylist = new JButton("In Playlist");
+							}
+							panel_1.setLayout(new GridLayout(0, 2, 0, 0));
+							panel_1.add(btnLoad);
+							panel_1.add(btnInPlaylist);
 						}
 						scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 						scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
@@ -354,6 +371,27 @@ public class MusicDialog extends JDialog {
 							{
 								playlistPanel = new JPanel();
 								tabbedPane.addTab("Playlist", null, playlistPanel, null);
+								GridBagLayout gbl_playlistPanel = new GridBagLayout();
+								gbl_playlistPanel.columnWidths = new int[]{0, 0};
+								gbl_playlistPanel.rowHeights = new int[]{0, 0};
+								gbl_playlistPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+								gbl_playlistPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+								playlistPanel.setLayout(gbl_playlistPanel);
+								{
+									playlistScrollPane = new JScrollPane();
+									GridBagConstraints gbc_playlistScrollPane = new GridBagConstraints();
+									gbc_playlistScrollPane.fill = GridBagConstraints.BOTH;
+									gbc_playlistScrollPane.gridx = 0;
+									gbc_playlistScrollPane.gridy = 0;
+									playlistPanel.add(playlistScrollPane, gbc_playlistScrollPane);
+									{
+										playlistTree = new JTree();
+										playlistTree.setFont(MAMUtil.segui().deriveFont(12f));
+										playlistTree.setShowsRootHandles(true);
+										playlistTree.setRootVisible(false);
+										playlistScrollPane.setViewportView(playlistTree);
+									}
+								}
 							}
 						}
 					}
