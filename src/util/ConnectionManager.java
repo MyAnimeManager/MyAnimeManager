@@ -35,7 +35,7 @@ public class ConnectionManager
 					conn = (HttpURLConnection) url.openConnection();
 					conn.setDoOutput(true);
 					conn.setRequestMethod("POST");
-					conn.setRequestProperty("User-Agent", "My Anime Index/1.0");
+					conn.setRequestProperty("User-Agent", "My Anime Manager");
 					conn.setRequestProperty("Content-Type",
 							"application/x-www-form-urlencoded");
 					rr = new BufferedReader(new InputStreamReader(
@@ -118,7 +118,7 @@ public class ConnectionManager
 		    conn = (HttpURLConnection) url.openConnection();
 	        conn.setDoOutput(true);
 	        conn.setRequestMethod("GET");
-	        conn.setRequestProperty("User-Agent", "My Anime Index/1.0");
+	        conn.setRequestProperty("User-Agent", "My Anime Manager");
 	        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 	        rr = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
 	        while ((line = rr.readLine()) != null) {
@@ -175,7 +175,7 @@ public class ConnectionManager
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setRequestMethod("GET");
-			conn.setRequestProperty("User-Agent", "My Anime Index/1.0");
+			conn.setRequestProperty("User-Agent", "My Anime Manager");
 			conn.setRequestProperty("Content-Type",
 					"application/x-www-form-urlencoded");
 			rr = new BufferedReader(new InputStreamReader(

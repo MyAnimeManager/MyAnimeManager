@@ -3,8 +3,11 @@ package util.window;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -21,6 +24,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,13 +34,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import main.AnimeIndex;
+import nz.mega.sdk.MegaApiSwing;
+
 import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -46,17 +54,20 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
+
+import util.FileManager;
 import util.MAMUtil;
+
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
-import javax.swing.JTabbedPane;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
 
 public class MusicDialog extends JDialog {
+	
+	private static final String APP_KEY = "kxBixCRa";
+	private MegaApiSwing megaApiJava = null;
+	private static final String CHACE_PATH = FileManager.getAppDataPath()+"Mega_Chace";
 	
 	private final JPanel contentPanel = new JPanel();
 	private Player player;
@@ -599,5 +610,11 @@ public class MusicDialog extends JDialog {
 			MAMUtil.writeLog(e1);
 			e1.printStackTrace();
 		}
+	}
+	private void connectToMega()
+	{
+		this.megaApiJava = new MegaApiSwing(APP_KEY, "My Anime Manager", CHACE_PATH);
+		megaApiJava.login("myanimemanagerproject@gmail.com", "MAMProject");
+		megaApiJava.fetchNodes();
 	}
 }
