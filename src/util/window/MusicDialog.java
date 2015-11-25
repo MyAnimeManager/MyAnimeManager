@@ -67,7 +67,7 @@ public class MusicDialog extends JDialog {
 	
 	private static final String APP_KEY = "kxBixCRa";
 	private MegaApiSwing megaApiJava = null;
-	private static final String CHACE_PATH = FileManager.getAppDataPath()+"Mega_Chace";
+	private static final String CACHE_PATH = FileManager.getAppDataPath()+"Mega_Cache";
 	
 	private final JPanel contentPanel = new JPanel();
 	private Player player;
@@ -613,7 +613,8 @@ public class MusicDialog extends JDialog {
 	}
 	private void connectToMega()
 	{
-		this.megaApiJava = new MegaApiSwing(APP_KEY, "My Anime Manager", CHACE_PATH);
+		this.megaApiJava = new MegaApiSwing(APP_KEY, "My Anime Manager", CACHE_PATH);
+		//TODO usa il metodo epr connettersi alla cartella pubblica, non mettere i dati di login
 		megaApiJava.login("myanimemanagerproject@gmail.com", "MAMProject");
 		megaApiJava.fetchNodes();
 	}
