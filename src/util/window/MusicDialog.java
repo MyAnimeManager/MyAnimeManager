@@ -12,15 +12,12 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
-import java.awt.Transparency;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -45,10 +42,6 @@ import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-import main.AnimeIndex;
-
 import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -59,12 +52,14 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 
-import util.MAMUtil;
-
-import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
+
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+import main.AnimeIndex;
+import util.MAMUtil;
 
 public class MusicDialog extends JDialog {
 	
@@ -79,7 +74,7 @@ public class MusicDialog extends JDialog {
 	private BufferedInputStream buff;
 	private boolean isRunning;
 	private boolean isPaused;
-	private String currentMusicPath = "C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Sfondamento dei Cieli Gurren Lagann\\''Libera me'' from hell.mp3";
+	private String currentMusicPath = "C:\\Users\\Samu\\Desktop\\video musica immagini\\A Genesis - nano.mp3";
 	private long pauseLocation;
 	private long songTotalLength;
 	private Timer timer;
@@ -177,7 +172,6 @@ public class MusicDialog extends JDialog {
 				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
 			}
 			{
-				lblImage = new JLabel("");
 				lblImage.setMaximumSize(new Dimension(335, 335));
 				lblImage.setMinimumSize(new Dimension(335, 335));
 				lblImage.setPreferredSize(new Dimension(335, 335));
@@ -596,7 +590,6 @@ public class MusicDialog extends JDialog {
                 });
 				tim.start();
 			}
-			
 			lblImage.setIcon(new ImageIcon(resizeImg(ImageIO.read(new ByteArrayInputStream(song.getId3v2Tag().getAlbumImage())), 335, 335)));
 			
 		}
@@ -636,6 +629,7 @@ public class MusicDialog extends JDialog {
 			e1.printStackTrace();
 		}
 	}
+	//Il problema era che il label veniva creato due volte, di conseguenza si resettava. Era creato una volta dove dichiari le variabili d'ambiente, e l'altra dove gli settavi le dimensioni ecc.
 	public static BufferedImage resizeImg(BufferedImage img, int newW, int newH)
     {
 	    int w = img.getWidth();
@@ -645,7 +639,7 @@ public class MusicDialog extends JDialog {
 	    g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
 	            RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 	    g.drawImage(img, 0, 0, newW, newH, 0, 0, w, h, null);
-	    g.dispose();
+	    g.dispose(); 
 	    return dimg;      
 	}
 }
