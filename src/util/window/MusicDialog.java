@@ -78,14 +78,12 @@ public class MusicDialog extends JDialog {
 	private BufferedInputStream buff;
 	private boolean isRunning;
 	private boolean isPaused;
-	private String currentMusicPath = "C:\\Users\\Samu\\Desktop\\video musica immagini\\A Genesis - nano.mp3";
+	private String currentMusicPath = "C:\\Users\\Denis\\Desktop\\A Genesis - nano.mp3";
 	private long pauseLocation;
 	private long songTotalLength;
 	private Timer timer;
-	private Timer tim;
 	private JProgressBar progressBar;
 	private String title;
-	private String ttl;
 	private JButton btnLoad;
 	private JButton btnSave;
 	private JButton btnPrev;
@@ -142,9 +140,11 @@ public class MusicDialog extends JDialog {
 					public void mouseReleased(MouseEvent e) {
 						stop();
 						timer.stop();
+						String t = progressBar.getString();
 						pauseLocation = songTotalLength - (e.getX()*songTotalLength/progressBar.getWidth());
 						progressBar.setValue((int)pauseLocation);
 						resume();
+						progressBar.setString(t);
 						timer.start();
 						isRunning=true;
 						isPaused=false;
@@ -155,6 +155,7 @@ public class MusicDialog extends JDialog {
 			}
 			lblTitle = new JMarqueeLabel("TITLE");
 			lblTitle.setScrollDirection(0);
+			lblTitle.setSpeed(15);
 			lblTitle.setPreferredSize(new Dimension(24, 17));
 			lblTitle.setMinimumSize(new Dimension(24, 17));
 			lblTitle.setMaximumSize(new Dimension(24, 17));
