@@ -1,10 +1,7 @@
 package util;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileFilter;
  
 /* ImageFilter.java is used by FileChooserDemo2.java. */
@@ -20,22 +17,9 @@ public class ImageChooserFilter extends FileFilter {
         if (extension != null) {
             if (extension.equals("tiff") || extension.equals("tif") || extension.equals("gif") || extension.equals("jpeg") || extension.equals("jpg") || extension.equals("png")) 
             {
-            	try {
-					BufferedImage image = ImageIO.read(f);
-					int width = image.getWidth ();
-					int height = image.getHeight ();
-					
-					if ( width == 225 && height == 310)
-						return true;								
-				} catch (IOException e) {
-					e.printStackTrace();
-					return false;
-				}  
-            } 
-            else 
-            {
-                return false;
+            	return true;
             }
+			return false;
         }
  
         return false;
