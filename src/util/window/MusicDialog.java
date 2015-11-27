@@ -66,6 +66,7 @@ import util.task.GoogleDriveDownloadTask;
 public class MusicDialog extends JDialog {
 	//Lasciamelo che cosi non devo ogni volta fare copia e incolla
 	//"C:\\Users\\Samu\\Desktop\\video musica immagini\\A Genesis - nano.mp3";
+	//"C:\\Users\\Denis\\Desktop\\A Genesis - nano.mp3";
 	private final JPanel contentPanel = new JPanel();
 	private Player player;
 	private boolean loopActive;
@@ -77,7 +78,7 @@ public class MusicDialog extends JDialog {
 	private BufferedInputStream buff;
 	private boolean isRunning;
 	private boolean isPaused;
-	private String currentMusicPath = "C:\\Users\\Samu\\Desktop\\video musica immagini\\A Genesis - nano.mp3";
+	private String currentMusicPath = "C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Fate ⁄ Stay Night⠆Unlimited Blade Works\\FateStay Night Unlimited Blade Works - OP full - Brave Shine.mp3";
 	private long pauseLocation;
 	private long songTotalLength;
 	private Timer timer;
@@ -109,7 +110,7 @@ public class MusicDialog extends JDialog {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-//TODO			setDefoultImage();
+//TODO			setDefaultImage();
 				DriveFileFetcherTask task = new DriveFileFetcherTask();
 				task.execute();
 			}
@@ -617,7 +618,7 @@ public class MusicDialog extends JDialog {
 			if(img!=null)
 				lblImage.setIcon(new ImageIcon(MAMUtil.getScaledImage(ImageIO.read(new ByteArrayInputStream(img)), 335, 335)));
 			else
-				setDefoultImage();
+				setDefaultImage();
 		}
 		catch (UnsupportedTagException e1)
 		{
@@ -655,7 +656,7 @@ public class MusicDialog extends JDialog {
 			e1.printStackTrace();
 		}
 	}
-	private void setDefoultImage()
+	private void setDefaultImage()
 	{
 		BufferedImage image = null;
 		try{
