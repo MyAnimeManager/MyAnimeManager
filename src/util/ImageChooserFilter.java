@@ -21,7 +21,6 @@ public class ImageChooserFilter extends FileFilter {
             }
 			return false;
         }
- 
         return false;
     }
  
