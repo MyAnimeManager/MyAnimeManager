@@ -374,7 +374,7 @@ public class MusicDialog extends JDialog {
 								btnLoad = new JButton("Scarica");
 								btnLoad.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
-										GoogleDriveDownloadTask task = new GoogleDriveDownloadTask();
+										GoogleDriveDownloadTask task = new GoogleDriveDownloadTask("A Genesis - nano.mp3");
 										task.addPropertyChangeListener(new PropertyChangeListener() {
 											public void propertyChange(PropertyChangeEvent evt) {
 												if (evt.getPropertyName().equals("progress"))

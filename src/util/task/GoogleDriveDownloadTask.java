@@ -6,13 +6,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
-import java.util.List;
 
 import javax.swing.SwingWorker;
 
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
-import com.google.api.services.drive.model.FileList;
 
 import util.DriveUtil;
 import util.MAMUtil;
@@ -21,11 +19,19 @@ import util.MAMUtil;
 public class GoogleDriveDownloadTask extends SwingWorker {
 	
 	public double fileSize;
+	private String fileName;
+	
+	
+	public GoogleDriveDownloadTask(String fileName)
+	{
+		this.fileName = fileName;
+	}
 	
 	@Override
 	protected Object doInBackground() throws Exception
 	{
-		downloadFileWithStream();
+		if (fileName != null)
+			downloadFileWithStream();
 		return null;
 	}
 	
@@ -33,40 +39,23 @@ public class GoogleDriveDownloadTask extends SwingWorker {
 	{
 		
 		Drive service = DriveUtil.getDriveService();
-		
-		FileList result = service.files().list()
-	             .setMaxResults(10)
-	             .execute();
-	        List<File> files = result.getItems();
-	        if (files == null || files.size() == 0) 
-	        {
-	            System.out.println("No files found.");
-	        } 
-	        else 
-	        {
-	            System.out.println("Files:");
-	            for (File file : files) {
-	                System.out.printf("%s (%s)\n", file.getTitle(), file.getId());
-	                System.out.println("inizio");
-	                
-			        if (file.getDownloadUrl() != null && file.getDownloadUrl().length() > 0) {
-			          try {
-			        	  fileSize = file.getFileSize();
-			            // uses alt=media query parameter to request content
-			            return service.files().get(file.getId()).executeMediaAsInputStream();
-			          } catch (IOException e) {
-			            // An error occurred.
-			            e.printStackTrace();
-			            return null;
-			          }
-			        }
-					// The file doesn't have any content stored on Drive.
-			          return null;
-			      }
-    
-	        }
+		File file = DriveUtil.getFileByName(service, fileName);
+        System.out.printf("%s (%s)\n", file.getTitle(), file.getId());
+        System.out.println("inizio");
+        
+        if (file.getDownloadUrl() != null && file.getDownloadUrl().length() > 0) 
+        {
+		      try {
+		      fileSize = file.getFileSize();
+		      return service.files().get(file.getId()).executeMediaAsInputStream();
+		      } 
+		      catch (IOException e) {
+		        e.printStackTrace();
+		        return null;
+		      }
+        }
 	        
-	        return null;
+    	return null;
     }
 	
 	private void download(InputStream is, String destinationFile) {

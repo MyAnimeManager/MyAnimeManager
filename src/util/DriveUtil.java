@@ -64,16 +64,9 @@ public class DriveUtil {
             for (File file : files) {
             	if (!file.getMimeType().equalsIgnoreCase(FOLDER_MIME))
             	{
-            		System.out.printf("%s (%s)\n", file.getTitle(), getFirstParentName(service, file));
             		fileParentMap.put(file.getTitle(), getFirstParentName(service, file));
             	}
-            	else
-            	{
-            		System.out.printf("%s (%s)\n", file.getTitle(), file.getId());
-            	}
-            		
-                
-
+            		                
             }
         }
 		return fileParentMap;
@@ -107,6 +100,26 @@ public class DriveUtil {
         }
 		
 		return "File non trovato";
+	}
+	
+	public static File getFileByName(Drive service, String fileName) throws IOException
+	{
+		System.out.println("Inizio ricerca");
+		FileList result = service.files().list().setQ("title = '" + fileName + "'").execute();
+		List<File> files = result.getItems();
+		if (files == null || files.size() == 0) 
+        {
+            System.out.println("No files found.");
+        } 
+		else 
+        {
+            for (File file : files) 
+            {
+            	return file;
+            }
+        }
+		
+		return null;
 	}
 }
 
