@@ -370,14 +370,13 @@ public class MusicDialog extends JDialog {
 								btnLoad = new JButton("Scarica");
 								btnLoad.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
-										//TODO fai delle prove cambiando il booleano e vedi quale ti piace di più.
 										GoogleDriveDownload task = new GoogleDriveDownload(false);
 										task.addPropertyChangeListener(new PropertyChangeListener() {
 											public void propertyChange(PropertyChangeEvent evt) {
 												if (evt.getPropertyName().equals("progress"))
 												{
-												int progress = task.getProgress();
-												progressBar.setValue(progress);
+													int progress = task.getProgress();
+													progressBar.setValue(progress);
 												}
 											}
 										});
