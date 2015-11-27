@@ -60,7 +60,7 @@ import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import main.AnimeIndex;
 import util.MAMUtil;
-import util.task.GoogleDriveDownload;
+import util.task.GoogleDriveDownloadTask;
 
 public class MusicDialog extends JDialog {
 	//Lasciamelo che cosi non devo ogni volta fare copia e incolla
@@ -370,13 +370,24 @@ public class MusicDialog extends JDialog {
 								btnLoad = new JButton("Scarica");
 								btnLoad.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
-										GoogleDriveDownload task = new GoogleDriveDownload(false);
+										GoogleDriveDownloadTask task = new GoogleDriveDownloadTask();
 										task.addPropertyChangeListener(new PropertyChangeListener() {
 											public void propertyChange(PropertyChangeEvent evt) {
 												if (evt.getPropertyName().equals("progress"))
 												{
 													int progress = task.getProgress();
 													progressBar.setValue(progress);
+												}
+												if (evt.getPropertyName().equals("state"))
+												{
+													if(evt.getNewValue().toString().equalsIgnoreCase("done"))
+														{
+															btnLoad.setEnabled(true);
+														}
+													if(evt.getNewValue().toString().equalsIgnoreCase("started"))
+													{
+														btnLoad.setEnabled(false);
+													}
 												}
 											}
 										});
