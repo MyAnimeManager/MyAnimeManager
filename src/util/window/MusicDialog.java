@@ -657,7 +657,6 @@ public class MusicDialog extends JDialog {
 	private void createSongsTree(TreeMap<String, String> albumMap)
 	{
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-		DefaultTreeModel model = new DefaultTreeModel(root);
 		for (Map.Entry<String,String> entry : albumMap.entrySet())
 		{
 			String album = entry.getValue();
@@ -668,7 +667,8 @@ public class MusicDialog extends JDialog {
 			DefaultMutableTreeNode songNode = new DefaultMutableTreeNode(song);
 			if(!albumNode.isNodeChild(songNode))
 				albumNode.add(songNode);
-		}			
+		}
+		DefaultTreeModel model = new DefaultTreeModel(root);
 		songsTree.setModel(model);
 	}
 }
