@@ -3,7 +3,6 @@ package util.window;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -59,6 +58,7 @@ import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import main.AnimeIndex;
+import util.JMarqueeLabel;
 import util.MAMUtil;
 import util.task.DriveFileFetcherTask;
 import util.task.GoogleDriveDownloadTask;
@@ -71,14 +71,14 @@ public class MusicDialog extends JDialog {
 	private Player player;
 	private boolean loopActive;
 	private JLabel lblImage = new JLabel();
-	private JLabel lblTitle;
+	private JMarqueeLabel lblTitle;
 	private JButton btnPlaypause;
 	private JButton btnRestart;
 	private FileInputStream fis;
 	private BufferedInputStream buff;
 	private boolean isRunning;
 	private boolean isPaused;
-	private String currentMusicPath = "C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Fate ⁄ Stay Night⠆Unlimited Blade Works\\FateStay Night Unlimited Blade Works - OP full - Brave Shine.mp3";
+	private String currentMusicPath = "C:\\Users\\Samu\\Desktop\\video musica immagini\\A Genesis - nano.mp3";
 	private long pauseLocation;
 	private long songTotalLength;
 	private Timer timer;
@@ -123,7 +123,7 @@ public class MusicDialog extends JDialog {
 		});
 		setTitle("My Anime Musics");
 		setResizable(false);
-		setFont(MAMUtil.segui().deriveFont(12f));
+		setFont(AnimeIndex.segui.deriveFont(12f));
 		setBounds(100, 100, 540, 448);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -153,16 +153,15 @@ public class MusicDialog extends JDialog {
 				});
 				dataPanel.add(progressBar, BorderLayout.SOUTH);
 			}
+			lblTitle = new JMarqueeLabel("TITLE");
+			lblTitle.setScrollDirection(0);
+			lblTitle.setPreferredSize(new Dimension(24, 17));
+			lblTitle.setMinimumSize(new Dimension(24, 17));
+			lblTitle.setMaximumSize(new Dimension(24, 17));
+			lblTitle.setTextFont(AnimeIndex.segui.deriveFont(12f));
+			dataPanel.add(lblTitle, BorderLayout.NORTH);
 			{
-				JPanel titlePanel = new JPanel();
-				FlowLayout flowLayout = (FlowLayout) titlePanel.getLayout();
-				flowLayout.setVgap(1);
-				flowLayout.setHgap(0);
-				dataPanel.add(titlePanel, BorderLayout.NORTH);
-				lblTitle = new JLabel("TITLE");//max 37 char
-				titlePanel.add(lblTitle);
 				setMusicTrack();
-				lblTitle.setFont(MAMUtil.segui().deriveFont(12f));
 			}
 			{
 				lblImage.setMaximumSize(new Dimension(335, 335));
@@ -366,7 +365,7 @@ public class MusicDialog extends JDialog {
 						tree.setPreferredSize(new Dimension(171, 64));
 						tree.setMinimumSize(new Dimension(171, 64));
 						tree.setShowsRootHandles(true);
-						tree.setFont(MAMUtil.segui().deriveFont(12f));
+						tree.setFont(AnimeIndex.segui.deriveFont(12f));
 						scrollPane.setViewportView(tree);
 						{
 							panel_1 = new JPanel();
@@ -434,7 +433,7 @@ public class MusicDialog extends JDialog {
 									playlistPanel.add(playlistScrollPane, gbc_playlistScrollPane);
 									{
 										playlistTree = new JTree();
-										playlistTree.setFont(MAMUtil.segui().deriveFont(12f));
+										playlistTree.setFont(AnimeIndex.segui.deriveFont(12f));
 										playlistTree.setShowsRootHandles(true);
 										playlistTree.setRootVisible(false);
 										playlistScrollPane.setViewportView(playlistTree);
@@ -588,32 +587,8 @@ public class MusicDialog extends JDialog {
 						time = duration/60 + ":" + duration%60;
 				}
 			}
+			lblTitle.setText(title);
 			progressBar.setString(time);
-			
-			if(title.length()<=37)
-				lblTitle.setText(title);
-			else
-			{
-				int n = title.length();
-				String sb = "";
-		        for (int i = 0; i < n; i++) {
-		            sb+=' ';
-		        }
-		        ttl = sb+title+sb;
-				tim = new Timer(1000/12, new ActionListener()
-                {
-					private int index;
-                    public void actionPerformed(ActionEvent e)
-                    {
-                    	 index++;
-                         if (index > ttl.length() - n) {
-                             index = 0;
-                         }
-                         lblTitle.setText(ttl.substring(index, index + n));
-                    }
-                });
-				tim.start();
-			}
 			byte[] img = song.getId3v2Tag().getAlbumImage();
 			if(img!=null)
 				lblImage.setIcon(new ImageIcon(MAMUtil.getScaledImage(ImageIO.read(new ByteArrayInputStream(img)), 335, 335)));
