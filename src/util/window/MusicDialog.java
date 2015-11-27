@@ -381,11 +381,14 @@ public class MusicDialog extends JDialog {
 												if (evt.getPropertyName().equals("state"))
 												{
 													if(evt.getNewValue().toString().equalsIgnoreCase("done"))
-														{
-															btnLoad.setEnabled(true);
-														}
+													{
+														btnLoad.setEnabled(true);
+														progressBar.setString("Download Completato");
+													}
 													if(evt.getNewValue().toString().equalsIgnoreCase("started"))
 													{
+														progressBar.setValue(0);
+														progressBar.setString(null);
 														btnLoad.setEnabled(false);
 													}
 												}
