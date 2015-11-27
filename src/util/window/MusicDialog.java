@@ -60,6 +60,7 @@ import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import main.AnimeIndex;
 import util.MAMUtil;
+import util.task.DriveFileFetcherTask;
 import util.task.GoogleDriveDownloadTask;
 
 public class MusicDialog extends JDialog {
@@ -109,6 +110,8 @@ public class MusicDialog extends JDialog {
 			@Override
 			public void windowOpened(WindowEvent e) {
 //TODO			setDefoultImage();
+				DriveFileFetcherTask task = new DriveFileFetcherTask();
+				task.execute();
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {

@@ -14,7 +14,7 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 
-import util.DriveQuickstart;
+import util.DriveUtil;
 import util.MAMUtil;
 
 
@@ -32,7 +32,7 @@ public class GoogleDriveDownloadTask extends SwingWorker {
 	private InputStream downloadFile() throws IOException, GeneralSecurityException, URISyntaxException 
 	{
 		
-		Drive service = DriveQuickstart.getDriveService(GoogleDriveDownloadTask.class.getResource("/My Anime Manager drive.p12").toURI());
+		Drive service = DriveUtil.getDriveService();
 		
 		FileList result = service.files().list()
 	             .setMaxResults(10)
