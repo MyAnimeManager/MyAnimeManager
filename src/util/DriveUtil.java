@@ -81,27 +81,7 @@ public class DriveUtil {
 		String parentName = parentFile.getTitle();
 		return parentName;
 	}
-	
-	public static String getFileIdByName(Drive service, String fileName) throws IOException
-	{
-		System.out.println("inizio ricerca");
-		FileList result = service.files().list().setQ("title = '" + fileName + "'").execute();
-		List<File> files = result.getItems();
-		if (files == null || files.size() == 0) 
-        {
-            System.out.println("No files found.");
-        } 
-		else 
-        {
-            for (File file : files) 
-            {
-            	return file.getId();
-            }
-        }
 		
-		return "File non trovato";
-	}
-	
 	public static File getFileByName(Drive service, String fileName) throws IOException
 	{
 		System.out.println("Inizio ricerca");
