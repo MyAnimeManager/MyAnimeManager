@@ -17,6 +17,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -24,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -38,9 +41,7 @@ import javax.swing.JTree;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-import main.AnimeIndex;
+
 import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -50,13 +51,20 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
-import util.MAMUtil;
+
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+import main.AnimeIndex;
+import util.MAMUtil;
+import util.task.GoogleDriveDownload;
+
 public class MusicDialog extends JDialog {
-	
+	//Lasciamelo che cosi non devo ogni volta fare copia e incolla
+	//"C:\\Users\\Samu\\Desktop\\video musica immagini\\A Genesis - nano.mp3";
 	private final JPanel contentPanel = new JPanel();
 	private Player player;
 	private boolean loopActive;
@@ -68,7 +76,7 @@ public class MusicDialog extends JDialog {
 	private BufferedInputStream buff;
 	private boolean isRunning;
 	private boolean isPaused;
-	private String currentMusicPath = "C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Sfondamento dei Cieli Gurren Lagann\\''Libera me'' from hell.mp3";
+	private String currentMusicPath = "C:\\Users\\Samu\\Desktop\\video musica immagini\\A Genesis - nano.mp3";
 	private long pauseLocation;
 	private long songTotalLength;
 	private Timer timer;
@@ -360,6 +368,22 @@ public class MusicDialog extends JDialog {
 							panel.add(panel_1, BorderLayout.SOUTH);
 							{
 								btnLoad = new JButton("Scarica");
+								btnLoad.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										//TODO fai delle prove cambiando il booleano e vedi quale ti piace di pi�.
+										GoogleDriveDownload task = new GoogleDriveDownload(false);
+										task.addPropertyChangeListener(new PropertyChangeListener() {
+											public void propertyChange(PropertyChangeEvent evt) {
+												if (evt.getPropertyName().equals("progress"))
+												{
+												int progress = task.getProgress();
+												progressBar.setValue(progress);
+												}
+											}
+										});
+										task.execute();
+									}
+								});
 								btnLoad.setToolTipText("Carica il brano per ascoltarlo");
 							}
 							{
