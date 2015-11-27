@@ -6,6 +6,7 @@ import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInsta
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -19,7 +20,10 @@ import com.google.api.services.drive.Drive;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
+import java.security.KeyStore.PrivateKeyEntry;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DriveQuickstart {
@@ -62,24 +66,27 @@ public class DriveQuickstart {
      * @throws IOException
      */
     public static Credential authorize() throws IOException {
-        // Load client secrets.
-        InputStream in =
-            DriveQuickstart.class.getResourceAsStream("/client_secret.json");
-        GoogleClientSecrets clientSecrets =
-            GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+//        // Load client secrets.
+//        InputStream in =
+//            DriveQuickstart.class.getResourceAsStream("/client_secret.json");
+//        GoogleClientSecrets clientSecrets =
+//            GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+//
+//        // Build flow and trigger user authorization request.
+//        GoogleAuthorizationCodeFlow flow =
+//                new GoogleAuthorizationCodeFlow.Builder(
+//                        HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+//                .setDataStoreFactory(DATA_STORE_FACTORY)
+//                .setAccessType("offline")
+//                .build();
+//        Credential credential = new AuthorizationCodeInstalledApp(
+//            flow, new LocalServerReceiver()).authorize("user");
+//        System.out.println(
+//                "Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
+    	InputStream resourceAsStream = DriveQuickstart.class.getClassLoader().getResourceAsStream("Google-Play-Android-Developer.json");
 
-        // Build flow and trigger user authorization request.
-        GoogleAuthorizationCodeFlow flow =
-                new GoogleAuthorizationCodeFlow.Builder(
-                        HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(DATA_STORE_FACTORY)
-                .setAccessType("offline")
-                .build();
-        Credential credential = new AuthorizationCodeInstalledApp(
-            flow, new LocalServerReceiver()).authorize("user");
-        System.out.println(
-                "Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
-        return credential;
+    	GoogleCredential credential = GoogleCredential.fromStream(resourceAsStream);
+    	return credential;
     }
 
     /**

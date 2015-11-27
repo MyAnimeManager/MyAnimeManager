@@ -102,7 +102,7 @@ public class MusicDialog extends JDialog {
 		super(AnimeIndex.frame, false);
 		Logger.getLogger("org.jaudiotagger").setLevel(Level.OFF);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MusicDialog.class.getResource("/image/Headp.png")));
-		addWindowListener(new WindowAdapter() {
+		addWindowListener(new WindowAdapter() { 
 			@Override
 			public void windowOpened(WindowEvent e) {
 //				BufferedImage image = null;
