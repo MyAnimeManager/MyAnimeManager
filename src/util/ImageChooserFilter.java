@@ -27,7 +27,7 @@ public class ImageChooserFilter extends FileFilter {
  
     //The description of this filter
     public String getDescription() {
-        return "225 x 310 pixel";
+        return "Tutte le Immagini";
     }
     
     public static String getExtension(File f) {
