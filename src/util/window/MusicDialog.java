@@ -23,6 +23,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,6 +42,12 @@ import javax.swing.JTree;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+import main.AnimeIndex;
 
 import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
@@ -50,18 +58,14 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
-
-import com.mpatric.mp3agic.InvalidDataException;
-import com.mpatric.mp3agic.Mp3File;
-import com.mpatric.mp3agic.UnsupportedTagException;
-
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-import main.AnimeIndex;
 import util.JMarqueeLabel;
 import util.MAMUtil;
 import util.task.DriveFileFetcherTask;
 import util.task.GoogleDriveDownloadTask;
+
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
 
 public class MusicDialog extends JDialog {
 	//Lasciamelo che cosi non devo ogni volta fare copia e incolla
@@ -95,6 +99,7 @@ public class MusicDialog extends JDialog {
 	private JPanel panel_1;
 	private JButton btnInPlaylist;
 	private JScrollPane playlistScrollPane;
+	private JTree songsTree;
 	private JTree playlistTree;
 	private long duration;
 	private String time = "";
@@ -360,14 +365,14 @@ public class MusicDialog extends JDialog {
 						panel.setLayout(new BorderLayout(10, 0));
 						JScrollPane scrollPane = new JScrollPane();
 						panel.add(scrollPane);
-						JTree tree = new JTree();
-						tree.setRootVisible(false);
-						tree.setMaximumSize(new Dimension(171, 64));
-						tree.setPreferredSize(new Dimension(171, 64));
-						tree.setMinimumSize(new Dimension(171, 64));
-						tree.setShowsRootHandles(true);
-						tree.setFont(AnimeIndex.segui.deriveFont(12f));
-						scrollPane.setViewportView(tree);
+						songsTree = new JTree();
+						songsTree.setRootVisible(false);
+						songsTree.setMaximumSize(new Dimension(171, 64));
+						songsTree.setPreferredSize(new Dimension(171, 64));
+						songsTree.setMinimumSize(new Dimension(171, 64));
+						songsTree.setShowsRootHandles(true);
+						songsTree.setFont(AnimeIndex.segui.deriveFont(12f));
+						scrollPane.setViewportView(songsTree);
 						{
 							panel_1 = new JPanel();
 							panel.add(panel_1, BorderLayout.SOUTH);
@@ -648,5 +653,22 @@ public class MusicDialog extends JDialog {
 			e1.printStackTrace();
 		}
 		lblImage.setIcon(new ImageIcon(image));
+	}
+	private void createSongsTree(TreeMap<String, String> albumMap)
+	{
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
+		DefaultTreeModel model = new DefaultTreeModel(root);
+		for (Map.Entry<String,String> entry : albumMap.entrySet())
+		{
+			String album = entry.getValue();
+			DefaultMutableTreeNode albumNode = new DefaultMutableTreeNode(album);
+			if(!root.isNodeChild(albumNode))
+				root.add(albumNode);
+			String song = entry.getKey();
+			DefaultMutableTreeNode songNode = new DefaultMutableTreeNode(song);
+			if(!albumNode.isNodeChild(songNode))
+				albumNode.add(songNode);
+		}			
+		songsTree.setModel(model);
 	}
 }
