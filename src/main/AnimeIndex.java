@@ -621,7 +621,6 @@ public class AnimeIndex extends JFrame
 				fc.setMultiSelectionEnabled(false);
 				fc.addChoosableFileFilter(new ImageChooserFilter());
 				fc.setAcceptAllFileFilterUsed(false);
-
 				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Imposta");
 				
 				if (returnVal == JFileChooser.APPROVE_OPTION)
