@@ -649,7 +649,7 @@ public class AnimeIndex extends JFrame
 						folder = "Film";
 					else if (listName.equalsIgnoreCase("completi da vedere"))
 						folder = "Completed to See";
-					FileManager.saveNewImage(dir, imageName, folder);
+					FileManager.saveScaledImage(dir, imageName, folder);
 					if(!exclusionAnime.containsKey(name))
 					{	
 						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.\n\rAl fine di mantenere la modifica\n\rl'immagine di questo anime è stata aggiunta alla lista\n\rdelle esclusioni dal Controllo Dati Automatico.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);

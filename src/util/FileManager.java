@@ -1,5 +1,6 @@
 package util;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +16,8 @@ import java.net.URLConnection;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
+
+import javax.imageio.ImageIO;
 
 import main.AnimeIndex;
 
@@ -529,7 +532,64 @@ public class FileManager
 		    	else
 		    		file.delete();
     }
-	 
+	 public static void saveScaledImage(String imageUrl, String destinationFile, String folderName)
+	 {
+		File url;
+		try {
+			url = new File(imageUrl);
+			InputStream is = new FileInputStream(url);
+		    OutputStream os = new FileOutputStream(IMAGE_PATH + folderName + File.separator + destinationFile +".png");
+
+			    byte[] b = new byte[2048];
+			    int length;
+
+			    while ((length = is.read(b)) != -1) {
+			        os.write(b, 0, length);
+			    }
+
+		    is.close();
+		    os.close();
+			url = new File(IMAGE_PATH + folderName + File.separator + destinationFile +".png");
+			BufferedImage buffer = MAMUtil.getScaledImage(ImageIO.read(url), 225, 310);
+			ImageIO.write(buffer, "png", url);
+		}catch (FileNotFoundException e) {
+			File file = new File(IMAGE_PATH + folderName + File.separator);
+			file.mkdirs();
+			saveScaledImage(imageUrl ,destinationFile, folderName);
+		}
+			catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	 public static void saveDefaultScaledImage(String imageUrl, String destinationFile) 
+		{
+		    File url;
+			try {
+				url = new File(imageUrl);
+				InputStream is = new FileInputStream(url);
+			    OutputStream os = new FileOutputStream(DEFAULT_IMAGE_PATH + destinationFile +".png");
+
+				    byte[] b = new byte[2048];
+				    int length;
+				    
+				    while ((length = is.read(b)) != -1) {
+				        os.write(b, 0, length);
+				    }
+			    is.close();
+			    os.close();
+			    url = new File(DEFAULT_IMAGE_PATH + destinationFile +".png");
+				BufferedImage buffer = MAMUtil.getScaledImage(ImageIO.read(url), 225, 310);
+				ImageIO.write(buffer, "png", url);
+				        
+			}catch (FileNotFoundException e) {
+				File file = new File(DEFAULT_IMAGE_PATH);
+				file.mkdirs();
+				saveDefaultScaledImage(imageUrl ,destinationFile);
+			}
+				catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	 public static void moveImage(String imgPathFrom, String folderTo, String imgName)
 	 {
 		 File url = new File(imgPathFrom);

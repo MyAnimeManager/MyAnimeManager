@@ -5,12 +5,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +24,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -41,7 +38,9 @@ import javax.swing.JTree;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+import main.AnimeIndex;
 import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -51,15 +50,10 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
-
+import util.MAMUtil;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
-
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-import main.AnimeIndex;
-import util.MAMUtil;
 
 public class MusicDialog extends JDialog {
 	
@@ -74,7 +68,7 @@ public class MusicDialog extends JDialog {
 	private BufferedInputStream buff;
 	private boolean isRunning;
 	private boolean isPaused;
-	private String currentMusicPath = "C:\\Users\\Samu\\Desktop\\video musica immagini\\A Genesis - nano.mp3";
+	private String currentMusicPath = "C:\\Users\\Denis\\Music\\♫OpEd Musics♫\\Sfondamento dei Cieli Gurren Lagann\\''Libera me'' from hell.mp3";
 	private long pauseLocation;
 	private long songTotalLength;
 	private Timer timer;
@@ -102,24 +96,10 @@ public class MusicDialog extends JDialog {
 		super(AnimeIndex.frame, false);
 		Logger.getLogger("org.jaudiotagger").setLevel(Level.OFF);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MusicDialog.class.getResource("/image/Headp.png")));
-		addWindowListener(new WindowAdapter() { 
+		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-//				BufferedImage image = null;
-//				try{
-//					if(AnimeIndex.appProp.getProperty("Session_Number").equalsIgnoreCase("0"))
-//						image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
-//					else if((Integer.parseInt(AnimeIndex.appProp.getProperty("Session_Number"))%2)==0)
-//						image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
-//					else
-//						image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone...png"));
-//					
-//				}
-//				catch (IOException e1){
-//					MAMUtil.writeLog(e1);
-//					e1.printStackTrace();
-//				}
-//				lblImage.setIcon(new ImageIcon(image));
+//TODO			setDefoultImage();
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -461,7 +441,9 @@ public class MusicDialog extends JDialog {
 					if(player.isComplete()&&loopActive==true)
 						play(currentMusicPath);
 					if(loopActive==false)
-						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));			
+					{	btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));
+						progressBar.setString(time);
+					}
 				}
 				catch (JavaLayerException e){
 					MAMUtil.writeLog(e);
@@ -590,8 +572,11 @@ public class MusicDialog extends JDialog {
                 });
 				tim.start();
 			}
-			lblImage.setIcon(new ImageIcon(resizeImg(ImageIO.read(new ByteArrayInputStream(song.getId3v2Tag().getAlbumImage())), 335, 335)));
-			
+			byte[] img = song.getId3v2Tag().getAlbumImage();
+			if(img!=null)
+				lblImage.setIcon(new ImageIcon(MAMUtil.getScaledImage(ImageIO.read(new ByteArrayInputStream(img)), 335, 335)));
+			else
+				setDefoultImage();
 		}
 		catch (UnsupportedTagException e1)
 		{
@@ -629,17 +614,21 @@ public class MusicDialog extends JDialog {
 			e1.printStackTrace();
 		}
 	}
-	//Il problema era che il label veniva creato due volte, di conseguenza si resettava. Era creato una volta dove dichiari le variabili d'ambiente, e l'altra dove gli settavi le dimensioni ecc.
-	public static BufferedImage resizeImg(BufferedImage img, int newW, int newH)
-    {
-	    int w = img.getWidth();
-	    int h = img.getHeight();
-	    BufferedImage dimg = new BufferedImage(newW, newH, img.getType());
-	    Graphics2D g = dimg.createGraphics();
-	    g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-	            RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-	    g.drawImage(img, 0, 0, newW, newH, 0, 0, w, h, null);
-	    g.dispose(); 
-	    return dimg;      
+	private void setDefoultImage()
+	{
+		BufferedImage image = null;
+		try{
+			if(AnimeIndex.appProp.getProperty("Session_Number").equalsIgnoreCase("0"))
+				image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
+			else if((Integer.parseInt(AnimeIndex.appProp.getProperty("Session_Number"))%2)==0)
+				image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
+			else
+				image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone...png"));
+		}
+		catch (IOException e1){
+			MAMUtil.writeLog(e1);
+			e1.printStackTrace();
+		}
+		lblImage.setIcon(new ImageIcon(image));
 	}
 }

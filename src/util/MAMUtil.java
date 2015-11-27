@@ -2,6 +2,7 @@ package util;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,6 +18,9 @@ import java.util.TreeMap;
 import javax.swing.JList;
 
 import main.AnimeIndex;
+
+import org.imgscalr.Scalr;
+import org.imgscalr.Scalr.Method;
 
 public class MAMUtil {
 	
@@ -204,5 +208,17 @@ public class MAMUtil {
 		day.setTime(simpleDateformat.parse(date));
 		return day;
 	}
-
+	
+	public static BufferedImage getScaledImage(BufferedImage image, int width, int height)
+	{
+		image = Scalr.resize(image, Method.ULTRA_QUALITY, width, height);
+		return image;
+//	    int imageWidth  = image.getWidth();
+//	    int imageHeight = image.getHeight();
+//	    double scaleX = (double)width/imageWidth;
+//	    double scaleY = (double)height/imageHeight;
+//	    AffineTransform scaleTransform = AffineTransform.getScaleInstance(scaleX, scaleY);
+//	    AffineTransformOp bilinearScaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
+//	    return bilinearScaleOp.filter(image, new BufferedImage(width, height, image.getType()));
+	}
 }
