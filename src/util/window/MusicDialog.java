@@ -377,6 +377,8 @@ public class MusicDialog extends JDialog {
 								}
 							}
 						));
+						songsTree.putClientProperty("JTree.lineStyle", "Angled");
+						songsTree.setCellRenderer(new JTreeIcons());
 						songsTree.setRootVisible(false);
 						songsTree.setMaximumSize(new Dimension(171, 64));
 						songsTree.setPreferredSize(new Dimension(171, 64));
@@ -683,11 +685,5 @@ public class MusicDialog extends JDialog {
 		}
 		songsTreeModel = new DefaultTreeModel(root);
 		songsTree.setModel(songsTreeModel);
-		setTreeIcon(songsTree);
-	}
-	private void setTreeIcon(JTree tree)
-	{
-		tree.putClientProperty("JTree.lineStyle", "Angled");
-		tree.setCellRenderer(new JTreeIcons());
 	}
 }
