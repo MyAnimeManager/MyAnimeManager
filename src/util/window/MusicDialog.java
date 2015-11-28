@@ -117,9 +117,18 @@ public class MusicDialog extends JDialog {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-//TODO			setDefaultImage();
-				createSongsTree(AnimeIndex.fansubMap);
+				setDefaultImage();
 				DriveFileFetcherTask task = new DriveFileFetcherTask();
+				task.addPropertyChangeListener(new PropertyChangeListener() {
+					public void propertyChange(PropertyChangeEvent evt) {
+						if (evt.getPropertyName().equals("state"))
+						{
+							if(evt.getNewValue().toString().equalsIgnoreCase("done"))
+								createSongsTree(songsMap);
+						}
+
+					}
+				});
 				task.execute();
 			}
 			@Override
