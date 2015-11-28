@@ -106,7 +106,7 @@ public class MusicDialog extends JDialog {
 	private long duration;
 	private String time = "";
 	private DefaultTreeModel songsTreeModel;
-	public TreeMap<String,String> songsMap = new TreeMap<String,String>();
+	public TreeMap<String,String> songsMap;
 	
 	public MusicDialog()
 	{
