@@ -102,7 +102,7 @@ public class AnimeIndex extends JFrame
 	public static AddAnimeDialog animeDialog;
 	public static AddFansubDialog fansubDialog;
 	public static NewsBoardDialog newsBoardDialog;
-	public static MusicDialog MyAnimeMusics;
+	public static MusicDialog musicDialog;
 	
 	public static JList completedToSeeList;
 	public static JList filmList;
@@ -769,14 +769,14 @@ public class AnimeIndex extends JFrame
 		mntmMyanimemusics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					
-				if(MyAnimeMusics!=null && MyAnimeMusics.isVisible())
+				if(musicDialog!=null && musicDialog.isVisible())
 				{
-					MyAnimeMusics.dispose();
+					musicDialog.dispose();
 				}
 			
-				MyAnimeMusics = new MusicDialog();
-				MyAnimeMusics.setLocationRelativeTo(mainFrame);
-				MyAnimeMusics.setVisible(true);
+				musicDialog = new MusicDialog();
+				musicDialog.setLocationRelativeTo(mainFrame);
+				musicDialog.setVisible(true);
 			}
 		});
 		mnVisualizza.add(mntmMyanimemusics);
