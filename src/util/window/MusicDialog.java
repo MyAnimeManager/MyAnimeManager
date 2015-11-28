@@ -2,7 +2,6 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -24,7 +23,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -45,9 +43,7 @@ import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeCellRenderer;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
@@ -64,6 +60,7 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 
 import util.JMarqueeLabel;
+import util.JTreeIcons;
 import util.MAMUtil;
 import util.task.DriveFileFetcherTask;
 import util.task.GoogleDriveDownloadTask;
@@ -76,7 +73,6 @@ public class MusicDialog extends JDialog {
 	//Lasciamelo che cosi non devo ogni volta fare copia e incolla
 	//"C:\\Users\\Samu\\Desktop\\video musica immagini\\A Genesis - nano.mp3";
 	//"C:\\Users\\Denis\\Desktop\\A Genesis - nano.mp3";
-	private static final String MUSICS_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Musica" + File.separator;
 	private final JPanel contentPanel = new JPanel();
 	private Player player;
 	private boolean loopActive;
@@ -691,103 +687,7 @@ public class MusicDialog extends JDialog {
 	}
 	private void setTreeIcon(JTree tree)
 	{
-		songsTree.putClientProperty("JTree.lineStyle", "Angled");
-		ImageIcon present = new ImageIcon(MusicDialog.class.getResource("/image/DeleteRed.png"));
-		ImageIcon absent = new ImageIcon(MusicDialog.class.getResource("/image/DeleteRed.png"));
-		ImageIcon notAll = new ImageIcon(MusicDialog.class.getResource("/image/DeleteRed.png"));
-		ImageIcon[] icons = {present, absent, notAll};
-	    DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
-	    setIconNode(tree, songsTreeModel.getRoot(), renderer, icons);
-
-	}
-	 public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus)
-	 {
-	 	ImageIcon present = new ImageIcon(MusicDialog.class.getResource("/image/DeleteRed.png"));
-		ImageIcon absent = new ImageIcon(MusicDialog.class.getResource("/image/DeleteRed.png"));
-		ImageIcon notAll = new ImageIcon(MusicDialog.class.getResource("/image/DeleteRed.png"));
-    	if(leaf)
-    	{
-    		if(new File(MUSICS_PATH+value+".mp3").isFile())
-    			setIcon(present);
-    		else
-    			renderer.setIcon(icons[1]);
-    		
-    		tree.setCellRenderer(renderer);
-    	}
-    	else
-    	{
-    		int albumChildNum = songsTreeModel.getChildCount(currentNode);
-    		int count = 0;
-    		for(int j=0; j<albumChildNum; j++)
-    		{
-    			Object currentSongNode = songsTreeModel.getChild(currentNode, j);
-    			if(new File(MUSICS_PATH+currentSongNode+".mp3").isFile())
-    			{
-    				count+=1;
-    			}
-    		}
-    		if(count == albumChildNum-1)
-    		{
-    			renderer.setIcon(icons[0]);
-    		}
-    		else if(count == 0)
-    		{
-    			renderer.setIcon(icons[1]);
-    		}
-    		else
-    		{
-    			renderer.setIcon(icons[2]);
-    		}
-    		tree.setCellRenderer(renderer);
-    		
-    		setIconNode(tree, currentNode, renderer, icons);
-    	}
-    }
-
-
-	private void setIconNode(JTree tree, Object node, DefaultTreeCellRenderer renderer, ImageIcon[] icons)
-	{
-		int childNum = songsTreeModel.getChildCount(node);
-	    for(int i=0; i<childNum; i++)
-	    {	
-	    	Object currentNode = songsTreeModel.getChild(node, i);
-	    	if(songsTreeModel.isLeaf(currentNode))
-	    	{
-	    		if(new File(MUSICS_PATH+currentNode+".mp3").isFile())
-	    			renderer.setIcon(icons[0]);
-	    		else
-	    			renderer.setIcon(icons[1]);
-	    		
-	    		tree.setCellRenderer(renderer);
-	    	}
-	    	else
-	    	{
-	    		int albumChildNum = songsTreeModel.getChildCount(currentNode);
-	    		int count = 0;
-	    		for(int j=0; j<albumChildNum; j++)
-	    		{
-	    			Object currentSongNode = songsTreeModel.getChild(currentNode, j);
-	    			if(new File(MUSICS_PATH+currentSongNode+".mp3").isFile())
-	    			{
-	    				count+=1;
-	    			}
-	    		}
-	    		if(count == albumChildNum-1)
-	    		{
-	    			renderer.setIcon(icons[0]);
-	    		}
-	    		else if(count == 0)
-	    		{
-	    			renderer.setIcon(icons[1]);
-	    		}
-	    		else
-	    		{
-	    			renderer.setIcon(icons[2]);
-	    		}
-	    		tree.setCellRenderer(renderer);
-	    		
-	    		setIconNode(tree, currentNode, renderer, icons);
-	    	}
-	    }
+		tree.putClientProperty("JTree.lineStyle", "Angled");
+		tree.setCellRenderer(new JTreeIcons());
 	}
 }
