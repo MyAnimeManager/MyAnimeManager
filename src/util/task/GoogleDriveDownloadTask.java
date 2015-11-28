@@ -4,12 +4,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
-import java.security.GeneralSecurityException;
 
 import javax.swing.SwingWorker;
 
-import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 
 import util.DriveUtil;
@@ -35,11 +32,9 @@ public class GoogleDriveDownloadTask extends SwingWorker {
 		return null;
 	}
 	
-	private InputStream downloadFile() throws IOException, GeneralSecurityException, URISyntaxException 
+	private InputStream downloadFile() throws IOException
 	{
-		
-		Drive service = DriveUtil.getDriveService();
-		File file = DriveUtil.getFileByName(service, fileName);
+		File file = DriveUtil.getFileByName(fileName);
         System.out.printf("%s (%s)\n", file.getTitle(), file.getId());
         System.out.println("inizio");
         
@@ -47,7 +42,7 @@ public class GoogleDriveDownloadTask extends SwingWorker {
         {
 		      try {
 		      fileSize = file.getFileSize();
-		      return service.files().get(file.getId()).executeMediaAsInputStream();
+		      return DriveUtil.service.files().get(file.getId()).executeMediaAsInputStream();
 		      } 
 		      catch (IOException e) {
 		        e.printStackTrace();

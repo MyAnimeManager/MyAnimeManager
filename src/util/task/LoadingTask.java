@@ -2,6 +2,9 @@ package util.task;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -11,8 +14,10 @@ import javax.swing.SwingWorker;
 import javax.swing.Timer;
 
 import main.AnimeIndex;
+import util.DriveUtil;
 import util.FileManager;
 import util.Filters;
+import util.MAMUtil;
 
 public class LoadingTask extends SwingWorker
 {
@@ -112,6 +117,25 @@ public class LoadingTask extends SwingWorker
 				ReleasedAnimeTask task = new ReleasedAnimeTask();
 				task.execute();
 			}
+		}
+		try
+		{
+			DriveUtil.getDriveService();
+		}
+		catch (GeneralSecurityException e)
+		{
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
+		}
+		catch (URISyntaxException e)
+		{
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
 		}
 	}
 }

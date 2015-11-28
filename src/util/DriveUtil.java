@@ -24,6 +24,7 @@ public class DriveUtil {
     /** Global instance of the scopes required by this quickstart. */
     private static final List<String> SCOPES = Arrays.asList(DriveScopes.DRIVE);
     private static final String FOLDER_MIME = "application/vnd.google-apps.folder"; 
+    public static Drive service;
      
     /**
      * Build and return an authorized Drive client service.
@@ -31,7 +32,7 @@ public class DriveUtil {
      * @throws IOException
      * @throws URISyntaxException 
      */
-	public static Drive getDriveService() throws GeneralSecurityException,
+	public static void getDriveService() throws GeneralSecurityException,
 	IOException, URISyntaxException {
 	HttpTransport httpTransport = new NetHttpTransport();
 	JacksonFactory jsonFactory = new JacksonFactory();
@@ -45,11 +46,11 @@ public class DriveUtil {
 	      new java.io.File(DriveUtil.class.getResource("/My Anime Manager drive.p12").toURI()))
 	  .build();
 	Drive service = new Drive.Builder(httpTransport, jsonFactory, null)
-	  .setHttpRequestInitializer(credential).setApplicationName("appl name").build();
-	return service;
+	  .setHttpRequestInitializer(credential).setApplicationName("My Anime Manager").build();
+	DriveUtil.service = service;
 	}
 	
-	public static TreeMap<String, String> getAllChildren(Drive service) throws Exception
+	public static TreeMap<String, String> getAllChildren() throws Exception
 	{
 		TreeMap<String,String> fileParentMap = new TreeMap<String,String>();
 		FileList result = service.files().list().execute();
@@ -64,7 +65,7 @@ public class DriveUtil {
             for (File file : files) {
             	if (!file.getMimeType().equalsIgnoreCase(FOLDER_MIME))
             	{
-            		fileParentMap.put(file.getTitle(), getFirstParentName(service, file));
+            		fileParentMap.put(file.getTitle(), getFirstParentName(file));
             	}
             		                
             }
@@ -72,7 +73,7 @@ public class DriveUtil {
 		return fileParentMap;
 	}
 	
-	private static String getFirstParentName(Drive service, File file) throws IOException
+	private static String getFirstParentName(File file) throws IOException
 	{
 		List<ParentReference> parentList = file.getParents();
 		ParentReference parentRef = parentList.get(0);
@@ -82,7 +83,7 @@ public class DriveUtil {
 		return parentName;
 	}
 		
-	public static File getFileByName(Drive service, String fileName) throws IOException
+	public static File getFileByName(String fileName) throws IOException
 	{
 		System.out.println("Inizio ricerca");
 		FileList result = service.files().list().setQ("title = '" + fileName + "'").execute();
