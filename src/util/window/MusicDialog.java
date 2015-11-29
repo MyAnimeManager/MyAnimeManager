@@ -172,7 +172,8 @@ public class MusicDialog extends JDialog {
 						progressBar.setValue((int)pauseLocation);
 						resume();
 						progressBar.setString(t);
-						timer.start();
+						if(timer!=null)
+							timer.start();
 						isRunning=true;
 						isPaused=false;
 						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
