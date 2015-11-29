@@ -300,7 +300,6 @@ public class AnimeIndex extends JFrame
 			}
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		//setBounds(100, 100, 700, 385);
 		setBounds((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() /5, ((int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() /7)-22, 800, 520);
 		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2));
 		
