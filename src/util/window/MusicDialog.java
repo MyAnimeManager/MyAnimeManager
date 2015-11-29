@@ -623,7 +623,7 @@ public class MusicDialog extends JDialog {
 			{
 				try{
 					player.play();
-					if(!prevSong.get(prevSong.size()-1).equals(path))
+					if(!prevSong.isEmpty() && !prevSong.get(prevSong.size()-1).equals(path))
 						prevSong.add(path);
 					if(player.isComplete()&&loopActive==true)
 						play(currentMusicPath);
@@ -673,7 +673,7 @@ public class MusicDialog extends JDialog {
 		{
 			player.close();
 			isRunning=false;
-			isPaused=false;
+			isPaused=true;
 		}
 		try{
 			if(fis!=null)
