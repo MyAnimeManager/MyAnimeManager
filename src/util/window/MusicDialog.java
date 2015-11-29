@@ -691,15 +691,13 @@ public class MusicDialog extends JDialog {
 			
 			ArrayList<String> song = entry.getValue();
 			for (String songName : song)
-			DefaultMutableTreeNode songNode = new DefaultMutableTreeNode(songName);
-			if(!albumNode.isNodeChild(songNode))
 			{
+				DefaultMutableTreeNode songNode = new DefaultMutableTreeNode(songName);
 				albumNode.add(songNode);
 			}
 		}
 		songsTreeModel = new DefaultTreeModel(root);
 		songsTree.setModel(songsTreeModel);
-		songsTree.putClientProperty("JTree.lineStyle", "Angled");
 		songsTree.setCellRenderer(new JTreeIcons());
 	}
 }
