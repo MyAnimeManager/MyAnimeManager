@@ -2,6 +2,7 @@ package util;
 
 import java.awt.Component;
 import java.io.File;
+
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -11,7 +12,7 @@ import util.window.MusicDialog;
 
 public class JTreeIcons extends DefaultTreeCellRenderer {
 	
-	private static final String MUSICS_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Musica" + File.separator;
+	private static final String MUSICS_PATH = System.getProperty("user.home") + File.separator + "Desktop" + File.separator;
 	private ImageIcon present = new ImageIcon(MusicDialog.class.getResource("/image/accept.png"));
 	private ImageIcon absent = new ImageIcon(MusicDialog.class.getResource("/image/DeleteRed.png"));
 	private ImageIcon notAll = new ImageIcon(MusicDialog.class.getResource("/image/notAll.png"));
