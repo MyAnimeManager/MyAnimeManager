@@ -32,10 +32,11 @@ public class JTreeIcons extends DefaultTreeCellRenderer {
     	{
     		int albumChildNum = currentNode.getChildCount();
     		int count = 0;
+    		System.out.println(albumChildNum);
     		for(int j=0; j<albumChildNum; j++)
     		{
-    			currentNode = (DefaultMutableTreeNode)currentNode.getChildAt(j);
-    			if(new File(MUSICS_PATH+currentNode.getUserObject()+".mp3").exists())
+    			DefaultMutableTreeNode childNode = (DefaultMutableTreeNode)currentNode.getChildAt(j);
+    			if(new File(MUSICS_PATH+childNode.getUserObject()+".mp3").exists())
     			{
     				count++;
     			}
