@@ -98,7 +98,7 @@ public class DriveUtil {
 				for (ChildReference childSubFolder : childrenSubFolder) 
 				{
 					String childSubFolderName = service.files().get(childSubFolder.getId()).execute().getTitle();
-					childList.add(childSubFolderName);
+					childList.add(childSubFolderName.substring(0, childSubFolderName.length() - 4));
 				}
 				String childName = service.files().get(child.getId()).execute().getTitle();
             		fileParentMap.put(childName ,childList);
