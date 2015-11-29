@@ -164,19 +164,22 @@ public class MusicDialog extends JDialog {
 				progressBar.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseReleased(MouseEvent e) {
-						stop();
-						if(timer!=null)
-							timer.stop();
-						String t = progressBar.getString();
-						pauseLocation = songTotalLength - (e.getX()*songTotalLength/progressBar.getWidth());
-						progressBar.setValue((int)pauseLocation);
-						resume();
-						progressBar.setString(t);
-						if(timer!=null)
-							timer.start();
-						isRunning=true;
-						isPaused=false;
-						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
+						if(isRunning || isPaused)
+						{
+							stop();
+							if(timer!=null)
+								timer.stop();
+							String t = progressBar.getString();
+							pauseLocation = songTotalLength - (e.getX()*songTotalLength/progressBar.getWidth());
+							progressBar.setValue((int)pauseLocation);
+							resume();
+							progressBar.setString(t);
+							if(timer!=null)
+								timer.start();
+							isRunning=true;
+							isPaused=false;
+							btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
+						}
 					}
 				});
 				dataPanel.add(progressBar, BorderLayout.SOUTH);
@@ -516,6 +519,7 @@ public class MusicDialog extends JDialog {
 												{
 													if(evt.getNewValue().toString().equalsIgnoreCase("done"))
 													{
+														songsTree.setCellRenderer(new JTreeIcons());
 														btnLoad.setEnabled(true);
 														if(prevSong.size()>1)
 															btnPrev.setEnabled(true);
