@@ -73,6 +73,8 @@ public class MusicDialog extends JDialog {
 	//Lasciamelo che cosi non devo ogni volta fare copia e incolla
 	//"C:\\Users\\Samu\\Desktop\\video musica immagini\\A Genesis - nano.mp3";
 	//"C:\\Users\\Denis\\Desktop\\A Genesis - nano.mp3";
+	//System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Musica" + File.separator;
+	private static final String MUSICS_PATH = System.getProperty("user.home") + File.separator + "Desktop" + File.separator;
 	private final JPanel contentPanel = new JPanel();
 	private Player player;
 	private boolean loopActive;
@@ -180,9 +182,6 @@ public class MusicDialog extends JDialog {
 			lblTitle.setMaximumSize(new Dimension(24, 17));
 			lblTitle.setTextFont(AnimeIndex.segui.deriveFont(12f));
 			dataPanel.add(lblTitle, BorderLayout.NORTH);
-			{
-				setMusicTrack();
-			}
 			{
 				lblImage.setMaximumSize(new Dimension(335, 335));
 				lblImage.setMinimumSize(new Dimension(335, 335));
@@ -401,7 +400,8 @@ public class MusicDialog extends JDialog {
 								btnLoad = new JButton("Scarica");
 								btnLoad.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
-										GoogleDriveDownloadTask task = new GoogleDriveDownloadTask("A Genesis - nano.mp3");
+										String musicName = ((DefaultMutableTreeNode)songsTree.getLastSelectedPathComponent()).getUserObject()+".mp3";
+										GoogleDriveDownloadTask task = new GoogleDriveDownloadTask(musicName);
 										task.addPropertyChangeListener(new PropertyChangeListener() {
 											public void propertyChange(PropertyChangeEvent evt) {
 												if (evt.getPropertyName().equals("progress"))
@@ -414,7 +414,7 @@ public class MusicDialog extends JDialog {
 													if(evt.getNewValue().toString().equalsIgnoreCase("done"))
 													{
 														btnLoad.setEnabled(true);
-														progressBar.setString("Download Completato");
+														setMusicTrack(MUSICS_PATH+musicName);
 													}
 													if(evt.getNewValue().toString().equalsIgnoreCase("started"))
 													{
@@ -567,8 +567,9 @@ public class MusicDialog extends JDialog {
 			e.printStackTrace();
 		}
 	}
-	private void setMusicTrack()
+	private void setMusicTrack(String path)
 	{
+		currentMusicPath = path;
 		AudioFile f = null;
 		try
 		{

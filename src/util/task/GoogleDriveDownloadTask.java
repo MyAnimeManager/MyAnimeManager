@@ -81,7 +81,7 @@ public class GoogleDriveDownloadTask extends SwingWorker {
 		try
 		{
 			InputStream is = downloadFile();
-			download(is, System.getProperty("user.home") + java.io.File.separator + "Desktop" + java.io.File.separator + "A genesis - nano.mp3");
+			download(is, System.getProperty("user.home") + java.io.File.separator + "Desktop" + java.io.File.separator + fileName + ".mp3");
 		}
 		catch (Exception e)
 		{

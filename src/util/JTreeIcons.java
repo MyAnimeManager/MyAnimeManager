@@ -12,9 +12,9 @@ import util.window.MusicDialog;
 public class JTreeIcons extends DefaultTreeCellRenderer {
 	
 	private static final String MUSICS_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Musica" + File.separator;
-	private ImageIcon present = new ImageIcon(MusicDialog.class.getResource("/image/DeleteRed.png"));
+	private ImageIcon present = new ImageIcon(MusicDialog.class.getResource("/image/accept.png"));
 	private ImageIcon absent = new ImageIcon(MusicDialog.class.getResource("/image/DeleteRed.png"));
-	private ImageIcon notAll = new ImageIcon(MusicDialog.class.getResource("/image/DeleteRed.png"));
+	private ImageIcon notAll = new ImageIcon(MusicDialog.class.getResource("/image/notAll.png"));
 
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
         super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
