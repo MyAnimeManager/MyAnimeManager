@@ -36,16 +36,12 @@ public class LoadingTask extends SwingWorker
 	}
 
 	protected void done()
-	{
-		SwingUtilities.invokeLater(new Runnable(){
-			public void run()
-			{		
+	{	
 			AnimeIndex.completedModel.update();
 			AnimeIndex.airingModel.update();
 			AnimeIndex.ovaModel.update();
 			AnimeIndex.filmModel.update();
-			AnimeIndex.completedToSeeModel.update();}
-		});
+			AnimeIndex.completedToSeeModel.update();
 		
 		if (AnimeIndex.appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Daily"))
 		{
