@@ -34,7 +34,16 @@ public class GoogleDriveDownloadTask extends SwingWorker {
  
 	public GoogleDriveDownloadTask(ArrayList<String> fileList)
 	{
-		this.fileList = fileList;
+		ArrayList<String> fileToDownloadList = new ArrayList<String>();
+		for (String fileName : fileList)
+		{
+			java.io.File song = new java.io.File(FileManager.getAppDataPath() + "Musica" + java.io.File.separator + fileName + ".mp3");
+			if (!song.exists())
+			{
+				fileToDownloadList.add(fileName);
+			}
+		}
+		this.fileList = fileToDownloadList;
 		this.totalFileNumber = fileList.size();
 	}
 	
@@ -42,10 +51,6 @@ public class GoogleDriveDownloadTask extends SwingWorker {
 	protected Object doInBackground() throws Exception
 	{
 		fileNumber = 1;
-		for (String fileName : fileList)
-		{
-			System.out.println(fileName);
-		}
 		for (String fileName : fileList)
 		{
 		if (fileName != null)
