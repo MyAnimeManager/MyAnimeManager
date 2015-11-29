@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -561,6 +562,69 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
+	 
+	 public static void loadPlayList()
+		{
+			File playlistFile = new File(APPDATA_PATH + "playlist.anaconda");
+			if (playlistFile.isFile()) 
+			{
+				Scanner scan = null;
+				try {
+					scan = new Scanner(playlistFile, "UTF-8");
+					
+					while (scan.hasNextLine())
+					{
+						
+						String wishListLine = scan.nextLine();
+						
+						//TODO aggiungi all'array list che vuoi wishlistLine
+					}							
+				} 
+				catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} 
+				finally
+				{
+					scan.close();
+				}
+			}
+				
+			else
+				{
+				 try {
+					 playlistFile.createNewFile();
+				 	} 
+				 catch (IOException e) 
+				 	{
+					e.printStackTrace();
+					}
+				}
+		}
+		
+		public static void savePlayList()
+		{
+			File wishlistFile = new File(ANIME_PATH + "playlist.anaconda");
+			wishlistFile.delete();
+			wishlistFile.getParentFile().mkdirs();
+			BufferedWriter output;
+			try 
+			{
+				output = new BufferedWriter(new OutputStreamWriter(
+					    new FileOutputStream(wishlistFile), "UTF-8"));
+				
+				//TODO al posto di playlist array dentro al for metti l'array da cui vuoi salvare. Cancella la riga dove faccio new ArrayList, che non serve
+				ArrayList<String> playListArray = new ArrayList<String>();
+				for (String name : playListArray)
+					{
+						output.write(name);
+						output.write(System.lineSeparator());
+					}
+				output.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	 public static void saveDefaultScaledImage(String imageUrl, String destinationFile) 
 		{
 		    File url;
