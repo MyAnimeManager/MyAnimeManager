@@ -680,19 +680,18 @@ public class MusicDialog extends JDialog {
 		}
 		lblImage.setIcon(new ImageIcon(image));
 	}
-	private void createSongsTree(TreeMap<String, String> albumMap)
+	private void createSongsTree(TreeMap<String, ArrayList<String>> albumMap)
 	{
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-		for (Map.Entry<String,String> entry : albumMap.entrySet())
+		for (Map.Entry<String,ArrayList<String>> entry : albumMap.entrySet())
 		{
-			String album = entry.getValue();
+			String album = entry.getKey();
 			DefaultMutableTreeNode albumNode = new DefaultMutableTreeNode(album);
-			if(!root.isNodeChild(albumNode))
-			{
-				root.add(albumNode);
-			}
-			String song = entry.getKey();
-			DefaultMutableTreeNode songNode = new DefaultMutableTreeNode(song);
+			root.add(albumNode);
+			
+			ArrayList<String> song = entry.getValue();
+			for (String songName : song)
+			DefaultMutableTreeNode songNode = new DefaultMutableTreeNode(songName);
 			if(!albumNode.isNodeChild(songNode))
 			{
 				albumNode.add(songNode);
