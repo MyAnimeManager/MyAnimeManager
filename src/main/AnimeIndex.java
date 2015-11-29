@@ -18,14 +18,20 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -51,7 +57,9 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
+
 import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.ColorProperties;
@@ -251,6 +259,51 @@ public class AnimeIndex extends JFrame
 			public void windowOpened(WindowEvent arg0) {
 				LoadingTask loadTask = new LoadingTask();
 				loadTask.execute();
+				loadTask.addPropertyChangeListener(new PropertyChangeListener() {
+					public void propertyChange(PropertyChangeEvent evt) {
+						if (evt.getPropertyName().equals("state"))
+						{
+							if(evt.getNewValue().toString().equalsIgnoreCase("done"))
+							{
+								String dataRelease = AnimeIndex.appProp.getProperty("Date_Release");	 	
+								if(dataRelease.equalsIgnoreCase("none"))
+								{
+									ReleasedAnimeTask task = new ReleasedAnimeTask();
+									task.execute();
+								}
+								else
+								{
+									Date date = new Date();
+									SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the day of the week abbreviated
+									String day = simpleDateformat.format(date);
+									GregorianCalendar calendar = new GregorianCalendar();
+									try {
+										calendar.setTime(simpleDateformat.parse(day));
+									} catch (java.text.ParseException e) {
+										e.printStackTrace();
+									}
+									GregorianCalendar c = new GregorianCalendar();
+									try {
+										c.setTime(simpleDateformat.parse(dataRelease));
+									} catch (java.text.ParseException e) {
+										e.printStackTrace();
+									}
+									if(c.before(calendar))
+									{
+										ReleasedAnimeTask task = new ReleasedAnimeTask();
+										task.execute();
+									}
+								}
+							}
+							
+							if (AnimeIndex.appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Daily"))
+							{
+								Filters.setFilter(8);
+							}
+						}
+
+					}
+				});
 				File file = new File(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
 				if(file.isFile())
 					file.delete();
@@ -300,7 +353,6 @@ public class AnimeIndex extends JFrame
 			}
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		//setBounds(100, 100, 700, 385);
 		setBounds((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() /5, ((int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() /7)-22, 800, 520);
 		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2));
 		

@@ -65,7 +65,9 @@ public class DriveUtil {
             for (File file : files) {
             	if (!file.getMimeType().equalsIgnoreCase(FOLDER_MIME))
             	{
-            		fileParentMap.put(file.getTitle(), getFirstParentName(file));
+            		String title = file.getTitle();
+            		String name = title.substring(0, title.length()-4);
+            		fileParentMap.put(name , getFirstParentName(file));
             	}
             		                
             }
