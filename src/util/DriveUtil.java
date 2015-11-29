@@ -4,6 +4,7 @@ package util;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.TreeMap;
@@ -14,6 +15,8 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
+import com.google.api.services.drive.model.ChildList;
+import com.google.api.services.drive.model.ChildReference;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.google.api.services.drive.model.ParentReference;
@@ -61,7 +64,6 @@ public class DriveUtil {
         } 
 		else 
         {
-            System.out.println("Files:");
             for (File file : files) {
             	if (!file.getMimeType().equalsIgnoreCase(FOLDER_MIME))
             	{
@@ -72,6 +74,37 @@ public class DriveUtil {
             		                
             }
         }
+		return fileParentMap;
+	}
+	
+	public static TreeMap<String,ArrayList<String>> getMusicFolderChildren() throws IOException
+	{
+		TreeMap<String,ArrayList<String>> fileParentMap = new TreeMap<String,ArrayList<String>>();
+		String musicFolderId = getFileByName("Musica").getId();
+		ChildList result = service.children().list(musicFolderId).execute();
+		List<ChildReference> children = result.getItems();
+		
+		if (children == null || children.size() == 0) 
+        {
+            System.out.println("No files found.");
+        }
+		else
+		{
+			for (ChildReference child : children) 
+			{
+				ArrayList<String> childList = new ArrayList<String>();
+				ChildList resultSubFolder = service.children().list(child.getId()).execute();
+				List<ChildReference> childrenSubFolder = resultSubFolder.getItems();
+				for (ChildReference childSubFolder : childrenSubFolder) 
+				{
+					String childSubFolderName = service.files().get(childSubFolder.getId()).execute().getTitle();
+					childList.add(childSubFolderName);
+				}
+				String childName = service.files().get(child.getId()).execute().getTitle();
+            		fileParentMap.put(childName ,childList);
+            		                
+            }	                
+		}
 		return fileParentMap;
 	}
 	

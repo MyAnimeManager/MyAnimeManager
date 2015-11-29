@@ -1,5 +1,6 @@
 package util.task;
 
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 import javax.swing.SwingWorker;
@@ -10,11 +11,11 @@ import util.DriveUtil;
 
 public class DriveFileFetcherTask extends SwingWorker {
 	
-	private TreeMap<String,String> map;
+	private TreeMap<String,ArrayList<String>> map;
 	@Override
 	protected Object doInBackground() throws Exception
 	{
-		map = DriveUtil.getAllChildren();
+		map = DriveUtil.getMusicFolderChildren();
 		return null;
 	}
 	

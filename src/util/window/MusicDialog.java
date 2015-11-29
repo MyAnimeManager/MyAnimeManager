@@ -23,6 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -108,7 +109,7 @@ public class MusicDialog extends JDialog {
 	private long duration;
 	private String time = "";
 	private DefaultTreeModel songsTreeModel;
-	public TreeMap<String,String> songsMap;
+	public TreeMap<String,ArrayList<String>> songsMap;
 	
 	public MusicDialog()
 	{
