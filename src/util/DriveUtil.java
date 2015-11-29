@@ -120,7 +120,6 @@ public class DriveUtil {
 		
 	public static File getFileByName(String fileName) throws IOException
 	{
-		System.out.println("Inizio ricerca");
 		FileList result = service.files().list().setQ("title = '" + fileName + "'").execute();
 		List<File> files = result.getItems();
 		if (files == null || files.size() == 0) 

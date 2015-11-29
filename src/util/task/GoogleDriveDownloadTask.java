@@ -17,6 +17,8 @@ import util.MAMUtil;
 public class GoogleDriveDownloadTask extends SwingWorker {
 	
 	public double fileSize;
+	public int fileNumber;
+	public int totalFileNumber;
 	private ArrayList<String> fileList;
 	
 	
@@ -25,19 +27,31 @@ public class GoogleDriveDownloadTask extends SwingWorker {
 		ArrayList<String> fileList = new ArrayList<String>();
 		fileList.add(fileName);
 		this.fileList = fileList;
+		this.totalFileNumber = 1;
 	}
  
 	public GoogleDriveDownloadTask(ArrayList<String> fileList)
 	{
 		this.fileList = fileList;
+		this.totalFileNumber = fileList.size();
 	}
 	
 	@Override
 	protected Object doInBackground() throws Exception
 	{
+		fileNumber = 1;
 		for (String fileName : fileList)
+		{
+			System.out.println(fileName);
+		}
+		for (String fileName : fileList)
+		{
 		if (fileName != null)
-			downloadFileWithStream(fileName);
+			downloadFileWithStream(fileName + ".mp3");
+		setProgress(0);
+		if (fileNumber < totalFileNumber)
+			fileNumber++;
+		}
 		return null;
 	}
 	
@@ -90,7 +104,7 @@ public class GoogleDriveDownloadTask extends SwingWorker {
 		try
 		{
 			InputStream is = downloadFile(fileName);
-			download(is, System.getProperty("user.home") + java.io.File.separator + "Desktop" + java.io.File.separator + fileName +".mp3");
+			download(is, System.getProperty("user.home") + java.io.File.separator + "Desktop" + java.io.File.separator + fileName);
 		}
 		catch (Exception e)
 		{
