@@ -402,8 +402,16 @@ public class MusicDialog extends JDialog {
 								btnLoad = new JButton("Scarica");
 								btnLoad.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
-										String musicName = ((DefaultMutableTreeNode)songsTree.getLastSelectedPathComponent()).getUserObject()+".mp3";
-										GoogleDriveDownloadTask task = new GoogleDriveDownloadTask(musicName);
+										String musicName = (((DefaultMutableTreeNode)songsTree.getLastSelectedPathComponent()).getUserObject()).toString();
+	                                    GoogleDriveDownloadTask task;
+                                        if (songsMap.containsKey(musicName))
+                                        {
+                                        	task = new GoogleDriveDownloadTask(songsMap.get(musicName));
+                                        }
+                                        else
+                                        {
+                                        	task = new GoogleDriveDownloadTask(musicName);
+                                        }
 										task.addPropertyChangeListener(new PropertyChangeListener() {
 											public void propertyChange(PropertyChangeEvent evt) {
 												if (evt.getPropertyName().equals("progress"))
@@ -523,6 +531,47 @@ public class MusicDialog extends JDialog {
 				}
 			}
 		}.start();
+	}
+	private void playAlbum(ArrayList<String>songs)
+	{
+		for (String songName : songs)
+		{
+			if(songName!=null && new File(MUSICS_PATH+songName+".mp3").isFile())
+			{
+				try{
+					fis = new FileInputStream(MUSICS_PATH+songName+".mp3");
+					buff = new BufferedInputStream(fis);
+				    player = new Player(buff);
+				    songTotalLength=fis.available();
+			    }
+				catch(Exception exc){
+					MAMUtil.writeLog(exc);
+					exc.printStackTrace();
+				}
+				new Thread()
+				{
+					public void run()
+					{
+						try{
+							player.play();
+							if(player.isComplete()&&loopActive==true)
+								play(currentMusicPath);
+							
+							if(loopActive==false)
+							{	
+								btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));
+								if(!isPaused)
+									progressBar.setString(time);
+							}
+						}
+						catch (JavaLayerException e){
+							MAMUtil.writeLog(e);
+							e.printStackTrace();
+						}
+					}
+				}.start();
+			}
+		}
 	}
 	private void pause()
 	{
