@@ -222,6 +222,8 @@ public class MusicDialog extends JDialog {
 								stop();
 								timer.stop();
 							}
+							if(prevSong.size()==1 && currentMusicPath.equalsIgnoreCase(prevSong.get(0)))
+								prevSong.remove(0);
 							prevSong.add(currentMusicPath);
 							setMusicTrack(succSong.remove(succSong.size()-1));
 							btnPrev.setEnabled(true);
@@ -242,6 +244,8 @@ public class MusicDialog extends JDialog {
 								stop();
 								timer.stop();
 							}
+							if(succSong.size()==1 && currentMusicPath.equalsIgnoreCase(succSong.get(0)))
+								succSong.remove(0);
 							succSong.add(currentMusicPath);
 							setMusicTrack(prevSong.remove(prevSong.size()-1));
 							btnSucc.setEnabled(true);
@@ -311,6 +315,13 @@ public class MusicDialog extends JDialog {
 						public void actionPerformed(ActionEvent e) {
 							if(!isRunning && !isPaused)
 							{
+								if(!prevSong.isEmpty())
+								{
+									if(!prevSong.get(prevSong.size()-1).equals(currentMusicPath))
+										prevSong.add(currentMusicPath);
+								}
+								else
+									prevSong.add(currentMusicPath);
 								play(currentMusicPath);
 								isRunning=true;
 								if(prevSong.size()>1)
@@ -505,6 +516,7 @@ public class MusicDialog extends JDialog {
 							panel.add(panel_1, BorderLayout.SOUTH);
 							{
 								btnLoad = new JButton("Scarica");
+								btnLoad.setEnabled(false);
 								btnLoad.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										btnLoad.setEnabled(false);
@@ -644,13 +656,6 @@ public class MusicDialog extends JDialog {
 			{
 				try{
 					player.play();
-					if(!prevSong.isEmpty())
-					{
-						if(!prevSong.get(prevSong.size()-1).equals(path))
-							prevSong.add(path);
-					}
-					else
-						prevSong.add(path);
 					if(player.isComplete()&&loopActive==true)
 						play(currentMusicPath);
 					if(loopActive==false)
