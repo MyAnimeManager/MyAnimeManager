@@ -40,7 +40,6 @@ public class JTreeIcons extends DefaultTreeCellRenderer {
     				count++;
     			}
     		}
-    		System.out.println(albumChildNum);
     		if(count == albumChildNum)
     		{
     			setIcon(present);
