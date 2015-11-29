@@ -5,9 +5,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
@@ -86,36 +83,6 @@ public class LoadingTask extends SwingWorker
 		            }
 		               }
 		            }).start();
-			}
-		}
-			
-		String dataRelease = AnimeIndex.appProp.getProperty("Date_Release");	 	
-		if(dataRelease.equalsIgnoreCase("none"))
-		{
-			ReleasedAnimeTask task = new ReleasedAnimeTask();
-			task.execute();
-		}
-		else
-		{
-			Date date = new Date();
-			SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the day of the week abbreviated
-			String day = simpleDateformat.format(date);
-			GregorianCalendar calendar = new GregorianCalendar();
-			try {
-				calendar.setTime(simpleDateformat.parse(day));
-			} catch (java.text.ParseException e) {
-				e.printStackTrace();
-			}
-			GregorianCalendar c = new GregorianCalendar();
-			try {
-				c.setTime(simpleDateformat.parse(dataRelease));
-			} catch (java.text.ParseException e) {
-				e.printStackTrace();
-			}
-			if(c.before(calendar))
-			{
-				ReleasedAnimeTask task = new ReleasedAnimeTask();
-				task.execute();
 			}
 		}
 		try
