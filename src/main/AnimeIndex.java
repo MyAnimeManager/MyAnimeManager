@@ -295,6 +295,11 @@ public class AnimeIndex extends JFrame
 									}
 								}
 							}
+							
+							if (AnimeIndex.appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Daily"))
+							{
+								Filters.setFilter(8);
+							}
 						}
 
 					}
