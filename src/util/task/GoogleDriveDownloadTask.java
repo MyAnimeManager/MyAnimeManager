@@ -1,5 +1,6 @@
 package util.task;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +12,7 @@ import javax.swing.SwingWorker;
 import com.google.api.services.drive.model.File;
 
 import util.DriveUtil;
+import util.FileManager;
 import util.MAMUtil;
 
 
@@ -94,7 +96,13 @@ public class GoogleDriveDownloadTask extends SwingWorker {
 			    is.close();
 			    os.close();
 		}
-			catch (Exception e) {
+			catch (FileNotFoundException e) {
+				java.io.File file = new java.io.File(FileManager.getAppDataPath() + java.io.File.separator + "Musica" + java.io.File.separator);
+				file.mkdirs();
+				download(is ,destinationFile);
+		}
+		catch (Exception e) {
+			MAMUtil.writeLog(e);
 			e.printStackTrace();
 		}
 	}
@@ -104,11 +112,10 @@ public class GoogleDriveDownloadTask extends SwingWorker {
 		try
 		{
 			InputStream is = downloadFile(fileName);
-			download(is, System.getProperty("user.home") + java.io.File.separator + "Desktop" + java.io.File.separator + fileName);
+			download(is,FileManager.getAppDataPath() + java.io.File.separator + "Musica" + java.io.File.separator + fileName);
 		}
 		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
 		}

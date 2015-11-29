@@ -1405,6 +1405,7 @@ public class AnimeIndex extends JFrame
 		airingAnimeScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		
 		airingList = new JList(airingModel);
+		airingList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		airingList.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -1479,6 +1480,7 @@ public class AnimeIndex extends JFrame
 		
 		
 		ovaList = new JList(ovaModel);
+		ovaList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		ovaList.addKeyListener(UtilEvent.cancDeleteAnime());
 		ovaList.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		ovaList.setFont(segui.deriveFont(12f));
@@ -1553,6 +1555,7 @@ public class AnimeIndex extends JFrame
 		filmScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		
 		filmList = new JList(filmModel);
+		filmList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		filmList.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -1627,6 +1630,7 @@ public class AnimeIndex extends JFrame
 		completedToSeeScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		
 		completedToSeeList = new JList(completedToSeeModel);
+		completedToSeeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		completedToSeeList.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
