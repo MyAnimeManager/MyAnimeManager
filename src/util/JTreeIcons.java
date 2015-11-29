@@ -20,7 +20,7 @@ public class JTreeIcons extends DefaultTreeCellRenderer {
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
         super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
         
-        DefaultMutableTreeNode currentNode = new DefaultMutableTreeNode(value);
+        DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)value;
         if(leaf)
     	{
     		if(new File(MUSICS_PATH+currentNode.getUserObject()+".mp3").isFile())
@@ -35,12 +35,13 @@ public class JTreeIcons extends DefaultTreeCellRenderer {
     		for(int j=0; j<albumChildNum; j++)
     		{
     			currentNode = (DefaultMutableTreeNode)currentNode.getChildAt(j);
-    			if(new File(MUSICS_PATH+currentNode.getUserObject()+".mp3").isFile())
+    			if(new File(MUSICS_PATH+currentNode.getUserObject()+".mp3").exists())
     			{
-    				count+=1;
+    				count++;
     			}
     		}
-    		if(count == albumChildNum-1)
+    		System.out.println(albumChildNum);
+    		if(count == albumChildNum)
     		{
     			setIcon(present);
     		}
@@ -52,6 +53,7 @@ public class JTreeIcons extends DefaultTreeCellRenderer {
     		{
     			setIcon(notAll);
     		}
+
     	}
         return this;
     }
