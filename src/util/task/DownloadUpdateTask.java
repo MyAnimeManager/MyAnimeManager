@@ -65,7 +65,7 @@ public class DownloadUpdateTask extends SwingWorker
 			    is.close();
 			    os.close();
 		}catch (FileNotFoundException e) {
-			File file = new File(FileManager.getAppDataPath() + File.separator + "Update" + File.separator);
+			File file = new File(FileManager.getAppDataPath() + "Update" + File.separator);
 			file.mkdirs();
 			downloadUpdate(fileUrl ,destinationFile);
 		}

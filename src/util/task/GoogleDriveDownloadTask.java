@@ -97,7 +97,7 @@ public class GoogleDriveDownloadTask extends SwingWorker {
 			    os.close();
 		}
 			catch (FileNotFoundException e) {
-				java.io.File file = new java.io.File(FileManager.getAppDataPath() + java.io.File.separator + "Musica" + java.io.File.separator);
+				java.io.File file = new java.io.File(FileManager.getAppDataPath() + "Musica" + java.io.File.separator);
 				file.mkdirs();
 				download(is ,destinationFile);
 		}
