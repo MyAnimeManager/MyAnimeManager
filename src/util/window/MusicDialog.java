@@ -121,6 +121,7 @@ public class MusicDialog extends JDialog {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				setDefaultImage();
+				progressBar.setString("");
 				DriveFileFetcherTask task = new DriveFileFetcherTask();
 				task.addPropertyChangeListener(new PropertyChangeListener() {
 					public void propertyChange(PropertyChangeEvent evt) {
@@ -175,7 +176,7 @@ public class MusicDialog extends JDialog {
 				});
 				dataPanel.add(progressBar, BorderLayout.SOUTH);
 			}
-			lblTitle = new JMarqueeLabel("TITLE");
+			lblTitle = new JMarqueeLabel("");
 			lblTitle.setScrollDirection(0);
 			lblTitle.setSpeed(15);
 			lblTitle.setPreferredSize(new Dimension(24, 17));
@@ -555,7 +556,7 @@ public class MusicDialog extends JDialog {
 		{
 			player.close();
 			isRunning=false;
-			isPaused=true;
+			isPaused=false;
 		}
 		try{
 			if(fis!=null)
@@ -681,8 +682,6 @@ public class MusicDialog extends JDialog {
 	}
 	private void createSongsTree(TreeMap<String, String> albumMap)
 	{
-		int albumsCount = 0;
-		int songsCount = 0;
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
 		for (Map.Entry<String,String> entry : albumMap.entrySet())
 		{
@@ -690,15 +689,13 @@ public class MusicDialog extends JDialog {
 			DefaultMutableTreeNode albumNode = new DefaultMutableTreeNode(album);
 			if(!root.isNodeChild(albumNode))
 			{
-				root.insert(albumNode, albumsCount);
-				albumsCount+=1;
+				root.add(albumNode);
 			}
 			String song = entry.getKey();
 			DefaultMutableTreeNode songNode = new DefaultMutableTreeNode(song);
 			if(!albumNode.isNodeChild(songNode))
 			{
-				albumNode.insert(songNode, songsCount);
-				songsCount+=1;
+				albumNode.add(songNode);
 			}
 		}
 		songsTreeModel = new DefaultTreeModel(root);
