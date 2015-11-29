@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
@@ -117,6 +118,7 @@ public class MusicDialog extends JDialog {
 	public MusicDialog()
 	{
 		super(AnimeIndex.frame, false);
+		LogManager.getLogManager().reset();
 		Logger.getLogger("org.jaudiotagger").setLevel(Level.OFF);
 		Logger.getLogger("org.jaudiotagger").setUseParentHandlers(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MusicDialog.class.getResource("/image/Headp.png")));
