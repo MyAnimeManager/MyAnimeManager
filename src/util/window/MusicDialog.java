@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -45,11 +44,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import main.AnimeIndex;
-
 import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -59,13 +56,11 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
-
 import util.JMarqueeLabel;
 import util.JTreeIcons;
 import util.MAMUtil;
 import util.task.DriveFileFetcherTask;
 import util.task.GoogleDriveDownloadTask;
-
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
@@ -418,18 +413,26 @@ public class MusicDialog extends JDialog {
 												{
 													int progress = task.getProgress();
 													progressBar.setValue(progress);
+													progressBar.setString("Download File " + task.fileNumber + "/" + task.totalFileNumber +" : " + ((int)(progressBar.getPercentComplete() * 100)) + "%");
 												}
 												if (evt.getPropertyName().equals("state"))
 												{
 													if(evt.getNewValue().toString().equalsIgnoreCase("done"))
 													{
 														btnLoad.setEnabled(true);
-														setMusicTrack(MUSICS_PATH+musicName);
+														if(songsMap.containsKey(musicName))
+														{
+															ArrayList<String> songs = songsMap.get(musicName);
+															if(songs!= null)
+																setMusicTrack(MUSICS_PATH+songs.get(0)+".mp3");
+														}
+														else
+															setMusicTrack(MUSICS_PATH+musicName+".mp3");
 													}
 													if(evt.getNewValue().toString().equalsIgnoreCase("started"))
 													{
 														progressBar.setValue(0);
-														progressBar.setString(null);
+														progressBar.setString("Download File " + task.fileNumber + "/" + task.totalFileNumber +" : " + ((int)(progressBar.getPercentComplete() * 100)) + "%");
 														btnLoad.setEnabled(false);
 													}
 												}
@@ -531,47 +534,6 @@ public class MusicDialog extends JDialog {
 				}
 			}
 		}.start();
-	}
-	private void playAlbum(ArrayList<String>songs)
-	{
-		for (String songName : songs)
-		{
-			if(songName!=null && new File(MUSICS_PATH+songName+".mp3").isFile())
-			{
-				try{
-					fis = new FileInputStream(MUSICS_PATH+songName+".mp3");
-					buff = new BufferedInputStream(fis);
-				    player = new Player(buff);
-				    songTotalLength=fis.available();
-			    }
-				catch(Exception exc){
-					MAMUtil.writeLog(exc);
-					exc.printStackTrace();
-				}
-				new Thread()
-				{
-					public void run()
-					{
-						try{
-							player.play();
-							if(player.isComplete()&&loopActive==true)
-								play(currentMusicPath);
-							
-							if(loopActive==false)
-							{	
-								btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));
-								if(!isPaused)
-									progressBar.setString(time);
-							}
-						}
-						catch (JavaLayerException e){
-							MAMUtil.writeLog(e);
-							e.printStackTrace();
-						}
-					}
-				}.start();
-			}
-		}
 	}
 	private void pause()
 	{
