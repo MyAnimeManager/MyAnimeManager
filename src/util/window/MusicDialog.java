@@ -76,7 +76,7 @@ import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
 public class MusicDialog extends JDialog {
-	
+//TODO risolvere problemi prev succ	
 	public TreeMap<String,ArrayList<String>> songsMap;
 	private static final String MUSICS_PATH = FileManager.getAppDataPath() + "Musica" + File.separator;
 	private final JPanel contentPanel = new JPanel();
@@ -315,6 +315,8 @@ public class MusicDialog extends JDialog {
 								isRunning=true;
 								if(prevSong.size()>1)
 									btnPrev.setEnabled(true);
+								if(!succSong.isEmpty())
+									btnSucc.setEnabled(true);
 								btnRestart.setEnabled(true);
 								btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
 								progressBar.setMaximum((int) songTotalLength);
@@ -446,13 +448,32 @@ public class MusicDialog extends JDialog {
 								}
 								else
 								{
+									if(!prevSong.isEmpty())
+										btnPrev.setEnabled(true);
+									if(!succSong.isEmpty())
+										btnSucc.setEnabled(true);
 									if(new File(MUSICS_PATH+name+".mp3").isFile())
 									{
+										if((isPaused || isRunning) && !(MUSICS_PATH+name+".mp3").equalsIgnoreCase(currentMusicPath))
+										{
+											stop();
+											timer.stop();
+										}
+										progressBar.setValue(0);
 										setMusicTrack(MUSICS_PATH+name+".mp3");
 										btnLoad.setEnabled(false);
 									}
 									else
 									{
+										if((isPaused || isRunning))
+										{
+											stop();
+											timer.stop();
+										}
+										progressBar.setString("");
+										progressBar.setValue(0);
+										lblTitle.setText("");
+										setDefaultImage();
 										btnLoad.setEnabled(true);
 										btnPlaypause.setEnabled(false);
 										btnElimina.setEnabled(false);
@@ -523,9 +544,9 @@ public class MusicDialog extends JDialog {
 													{
 														songsTree.setCellRenderer(new JTreeIcons());
 														btnLoad.setEnabled(true);
-														if(prevSong.size()>1)
+														if(!prevSong.isEmpty())
 															btnPrev.setEnabled(true);
-														if(succSong.size()>1)
+														if(!succSong.isEmpty())
 															btnSucc.setEnabled(true);
 														if(songsMap.containsKey(musicName))
 														{
@@ -623,7 +644,12 @@ public class MusicDialog extends JDialog {
 			{
 				try{
 					player.play();
-					if(!prevSong.isEmpty() && !prevSong.get(prevSong.size()-1).equals(path))
+					if(!prevSong.isEmpty())
+					{
+						if(!prevSong.get(prevSong.size()-1).equals(path))
+							prevSong.add(path);
+					}
+					else
 						prevSong.add(path);
 					if(player.isComplete()&&loopActive==true)
 						play(currentMusicPath);
@@ -673,7 +699,7 @@ public class MusicDialog extends JDialog {
 		{
 			player.close();
 			isRunning=false;
-			isPaused=true;
+			isPaused=false;
 		}
 		try{
 			if(fis!=null)
