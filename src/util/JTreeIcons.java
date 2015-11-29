@@ -32,7 +32,6 @@ public class JTreeIcons extends DefaultTreeCellRenderer {
     	{
     		int albumChildNum = currentNode.getChildCount();
     		int count = 0;
-    		System.out.println(albumChildNum);
     		for(int j=0; j<albumChildNum; j++)
     		{
     			DefaultMutableTreeNode childNode = (DefaultMutableTreeNode)currentNode.getChildAt(j);
