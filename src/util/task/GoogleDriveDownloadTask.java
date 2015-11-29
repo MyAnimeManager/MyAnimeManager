@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import javax.swing.SwingWorker;
 
@@ -16,23 +17,31 @@ import util.MAMUtil;
 public class GoogleDriveDownloadTask extends SwingWorker {
 	
 	public double fileSize;
-	private String fileName;
+	private ArrayList<String> fileList;
 	
 	
 	public GoogleDriveDownloadTask(String fileName)
 	{
-		this.fileName = fileName;
+		ArrayList<String> fileList = new ArrayList<String>();
+		fileList.add(fileName);
+		this.fileList = fileList;
+	}
+ 
+	public GoogleDriveDownloadTask(ArrayList<String> fileList)
+	{
+		this.fileList = fileList;
 	}
 	
 	@Override
 	protected Object doInBackground() throws Exception
 	{
+		for (String fileName : fileList)
 		if (fileName != null)
-			downloadFileWithStream();
+			downloadFileWithStream(fileName);
 		return null;
 	}
 	
-	private InputStream downloadFile() throws IOException
+	private InputStream downloadFile(String fileName) throws IOException
 	{
 		File file = DriveUtil.getFileByName(fileName);
         System.out.printf("%s (%s)\n", file.getTitle(), file.getId());
@@ -76,12 +85,12 @@ public class GoogleDriveDownloadTask extends SwingWorker {
 		}
 	}
 	
-	private void downloadFileWithStream()
+	private void downloadFileWithStream(String fileName)
 	{
 		try
 		{
-			InputStream is = downloadFile();
-			download(is, System.getProperty("user.home") + java.io.File.separator + "Desktop" + java.io.File.separator + fileName);
+			InputStream is = downloadFile(fileName);
+			download(is, System.getProperty("user.home") + java.io.File.separator + "Desktop" + java.io.File.separator + fileName +".mp3");
 		}
 		catch (Exception e)
 		{
