@@ -653,6 +653,8 @@ public class MusicDialog extends JDialog {
 					{
 						setMusicTrack(MUSICS_PATH+list.get(i)+".mp3");
 						play(currentMusicPath);
+						isRunning=true;
+						isPaused=false;
 						cont++;
 					}
 					try
