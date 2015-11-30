@@ -48,6 +48,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import javazoom.jl.decoder.JavaLayerException;
@@ -635,7 +636,7 @@ public class MusicDialog extends JDialog {
 	
 	private void playFromList()
 	{	
-		if (tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()).equalsIgnoreCase("Brani"))
+		if (!tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()).equalsIgnoreCase("Brani"))
 		{
 			new Thread()
 			{
@@ -836,6 +837,16 @@ public class MusicDialog extends JDialog {
 				lblImage.setIcon(new ImageIcon(MAMUtil.getScaledImage(ImageIO.read(new ByteArrayInputStream(img)), 335, 335)));
 			else
 				setDefaultImage();
+			if (!tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()).equalsIgnoreCase("Brani"))
+			{
+				if(!userPlayList.isEmpty())
+					playlistTree.setSelectionPath(new TreePath(userPlayList.get(userPlayListCounter)));
+			}
+			else
+			{
+				if(!songList.isEmpty())
+					songsTree.setSelectionPath(new TreePath(songList.get(counter)));
+			}
 			btnPlaypause.setEnabled(true);
 			btnElimina.setEnabled(true);
 			btnInPlaylist.setEnabled(true);

@@ -97,7 +97,7 @@ public class NewsBoardDialog extends JDialog {
 				gbl_buttonPane.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 				buttonPane.setLayout(gbl_buttonPane);
 			}
-			JButton okButton = new JButton("\u2191 \u2191 \u2191 \u2191 \u2191");
+			JButton okButton = new JButton("         \u2191 \u2191 \u2191 \u2191 \u2191");
 			okButton.setFont(MAMUtil.segui().deriveFont(12f));
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

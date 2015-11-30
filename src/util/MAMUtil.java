@@ -224,8 +224,7 @@ public class MAMUtil {
 
 	public static boolean christmas()
 	{
-		System.out.println(today());
-		if (today().equalsIgnoreCase("1/12/2015"))
+		if (today().equalsIgnoreCase("25/12/2015"))
 			return true;
 		return false;
 	}
