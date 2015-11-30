@@ -111,9 +111,11 @@ public class MusicDialog extends JDialog {
 	private JTree playlistTree;
 	private long duration;
 	private String time = "";
+	private int counter = 0;
 	private DefaultTreeModel songsTreeModel;
 	private ArrayList<String> prevSong = new ArrayList<String>();
 	private ArrayList<String> succSong = new ArrayList<String>();
+	private ArrayList<String> songList = new ArrayList<String>();
 	
 	public MusicDialog()
 	{
@@ -638,6 +640,34 @@ public class MusicDialog extends JDialog {
 		}
 	}
 	
+	private void playFromList(ArrayList<String> list, int i, int count)
+	{
+		new Thread()
+		{
+			public void run()
+			{
+				while(count<list.size())
+				{
+					if(!isRunning && !isPaused)
+					{
+						setMusicTrack(MUSICS_PATH+list.get(i)+".mp3");
+						play(currentMusicPath);
+						count++;
+					}
+					try
+					{
+						sleep(1000L);
+					}
+					catch (InterruptedException e)
+					{
+						MAMUtil.writeLog(e);
+						e.printStackTrace();
+					}
+				}
+			}
+		}.start();
+	}
+	
 	private void play(String path)
 	{
 		try{
@@ -660,6 +690,11 @@ public class MusicDialog extends JDialog {
 						play(currentMusicPath);
 					if(loopActive==false)
 					{	
+						if(player.isComplete())
+						{
+							isRunning=false;
+							isPaused=false;
+						}
 						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));
 						if(!isPaused)
 							progressBar.setString(time);
