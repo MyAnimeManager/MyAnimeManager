@@ -646,13 +646,14 @@ public class MusicDialog extends JDialog {
 		{
 			public void run()
 			{
-				while(count<list.size())
+				int cont = count;
+				while(cont<list.size())
 				{
 					if(!isRunning && !isPaused)
 					{
 						setMusicTrack(MUSICS_PATH+list.get(i)+".mp3");
 						play(currentMusicPath);
-						count++;
+						cont++;
 					}
 					try
 					{
