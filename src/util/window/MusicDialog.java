@@ -112,10 +112,12 @@ public class MusicDialog extends JDialog {
 	private long duration;
 	private String time = "";
 	private int counter = 0;
+	private int userPlayListCounter = 0;
 	private DefaultTreeModel songsTreeModel;
 	private ArrayList<String> prevSong = new ArrayList<String>();
 	private ArrayList<String> succSong = new ArrayList<String>();
 	private ArrayList<String> songList = new ArrayList<String>();
+	private ArrayList<String> userPlayList = new ArrayList<String>();
 	
 	public MusicDialog()
 	{
@@ -180,8 +182,6 @@ public class MusicDialog extends JDialog {
 							progressBar.setString(t);
 							if(timer!=null)
 								timer.start();
-							isRunning=true;
-							isPaused=false;
 							btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
 						}
 					}
@@ -325,7 +325,6 @@ public class MusicDialog extends JDialog {
 								else
 									prevSong.add(currentMusicPath);
 								play(currentMusicPath);
-								isRunning=true;
 								if(prevSong.size()>1)
 									btnPrev.setEnabled(true);
 								if(!succSong.isEmpty())
@@ -375,16 +374,12 @@ public class MusicDialog extends JDialog {
 							{
 								pause();
 								timer.stop();
-								isRunning=false;
-								isPaused=true;
 								btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));
 							}
 							else if(!isRunning && isPaused)
 							{
 								resume();
 								timer.start();
-								isRunning=true;
-								isPaused=false;
 								btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
 							}
 						}
@@ -412,8 +407,6 @@ public class MusicDialog extends JDialog {
 						timer.stop();
 						play(currentMusicPath);
 						timer.start();
-						isRunning=true;
-						isPaused=false;
 						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
 					}
 				});
@@ -640,38 +633,62 @@ public class MusicDialog extends JDialog {
 		}
 	}
 	
-	private void playFromList(ArrayList<String> list, int count)
-	{
-		
+	private void playFromList()
+	{	
 		if (tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()).equalsIgnoreCase("Brani"))
 		{
-			// fai copia e incolla del thread. fai l'eslse e rifai copia e incolla e cambai solo i valori di list e count, ma mettici i valori di calsse altrimenti non li setta, ma setterebbe la variabili create nuove.
-		}
-		new Thread()
-		{
-			public void run()
+			new Thread()
 			{
-				while(cont<list.size())
+				public void run()
 				{
-					if(!isRunning && !isPaused)
+					while(userPlayListCounter<userPlayList.size())
 					{
-						setMusicTrack(MUSICS_PATH+list.get(i)+".mp3");
-						play(currentMusicPath);
-						isRunning=true;
-						isPaused=false;
-					}
-					try
-					{
-						sleep(1000L);
-					}
-					catch (InterruptedException e)
-					{
-						MAMUtil.writeLog(e);
-						e.printStackTrace();
+						if(!isRunning && !isPaused)
+						{
+							setMusicTrack(MUSICS_PATH+userPlayList.get(userPlayListCounter)+".mp3");
+							play(currentMusicPath);
+							userPlayListCounter++;
+						}
+						try
+						{
+							sleep(1000L);
+						}
+						catch (InterruptedException e)
+						{
+							MAMUtil.writeLog(e);
+							e.printStackTrace();
+						}
 					}
 				}
-			}
-		}.start();
+			}.start();
+		}
+		else
+		{
+			new Thread()
+			{
+				public void run()
+				{
+					while(counter<songList.size())
+					{
+						if(!isRunning && !isPaused)
+						{
+							setMusicTrack(MUSICS_PATH+songList.get(counter)+".mp3");
+							play(currentMusicPath);
+							counter++;
+						}
+						try
+						{
+							sleep(1000L);
+						}
+						catch (InterruptedException e)
+						{
+							MAMUtil.writeLog(e);
+							e.printStackTrace();
+						}
+					}
+				}
+			}.start();
+		}
 	}
 	
 	private void play(String path)
@@ -691,6 +708,8 @@ public class MusicDialog extends JDialog {
 			public void run()
 			{
 				try{
+					isRunning=true;
+					isPaused=false;
 					player.play();
 					if(player.isComplete()&&loopActive==true)
 						play(currentMusicPath);
@@ -718,6 +737,8 @@ public class MusicDialog extends JDialog {
 		try{
 			pauseLocation = fis.available();
 			player.close();
+			isRunning=false;
+			isPaused=true;
 			if(fis!=null)
 				fis.close();
 			if(buff!=null)
@@ -744,9 +765,9 @@ public class MusicDialog extends JDialog {
 		if(player!=null)
 		{
 			player.close();
-			isRunning=false;
-			isPaused=false;
 		}
+		isRunning=false;
+		isPaused=false;
 		try{
 			if(fis!=null)
 				fis.close();
