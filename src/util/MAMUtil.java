@@ -17,10 +17,10 @@ import java.util.TreeMap;
 
 import javax.swing.JList;
 
-import main.AnimeIndex;
-
 import org.imgscalr.Scalr;
 import org.imgscalr.Scalr.Method;
+
+import main.AnimeIndex;
 
 public class MAMUtil {
 	
@@ -220,5 +220,13 @@ public class MAMUtil {
 //	    AffineTransform scaleTransform = AffineTransform.getScaleInstance(scaleX, scaleY);
 //	    AffineTransformOp bilinearScaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
 //	    return bilinearScaleOp.filter(image, new BufferedImage(width, height, image.getType()));
+	}
+
+	public static boolean christmas()
+	{
+		System.out.println(today());
+		if (today().equalsIgnoreCase("1/12/2015"))
+				return true;
+		return false;
 	}
 }

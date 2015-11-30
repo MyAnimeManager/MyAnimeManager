@@ -80,6 +80,7 @@ import util.task.ReleasedAnimeTask;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
 import util.window.AnimeInformation;
+import util.window.ChristmasDialog;
 import util.window.CreditDialog;
 import util.window.ExitSaveDialog;
 import util.window.MusicDialog;
@@ -294,12 +295,20 @@ public class AnimeIndex extends JFrame
 										task.execute();
 									}
 								}
+								
+								if (AnimeIndex.appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Daily"))
+								{
+									Filters.setFilter(8);
+								}
+								
+								if (MAMUtil.christmas())
+								{
+									ChristmasDialog dial = new ChristmasDialog();
+									dial.setLocationRelativeTo(AnimeIndex.this);
+									dial.setVisible(true);
+								}
 							}
 							
-							if (AnimeIndex.appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Daily"))
-							{
-								Filters.setFilter(8);
-							}
 						}
 
 					}
