@@ -640,13 +640,17 @@ public class MusicDialog extends JDialog {
 		}
 	}
 	
-	private void playFromList(ArrayList<String> list, int i, int count)
+	private void playFromList(ArrayList<String> list, int count)
 	{
+		
+		if (tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()).equalsIgnoreCase("Brani"))
+		{
+			// fai copia e incolla del thread. fai l'eslse e rifai copia e incolla e cambai solo i valori di list e count, ma mettici i valori di calsse altrimenti non li setta, ma setterebbe la variabili create nuove.
+		}
 		new Thread()
 		{
 			public void run()
 			{
-				int cont = count;
 				while(cont<list.size())
 				{
 					if(!isRunning && !isPaused)
@@ -655,7 +659,6 @@ public class MusicDialog extends JDialog {
 						play(currentMusicPath);
 						isRunning=true;
 						isPaused=false;
-						cont++;
 					}
 					try
 					{
