@@ -225,12 +225,9 @@ public class MusicDialog extends JDialog {
 								stop();
 								timer.stop();
 							}
-							if(prevSong.size()==1 && currentMusicPath.equalsIgnoreCase(prevSong.get(0)))
-								prevSong.remove(0);
-							prevSong.add(currentMusicPath);
-							setMusicTrack(succSong.remove(succSong.size()-1));
+							setMusicTrack(songList.get(counter++));
 							btnPrev.setEnabled(true);
-							if(succSong.isEmpty())
+							if(counter==songList.size()-1)
 								btnSucc.setEnabled(false);
 						}
 					});
@@ -247,12 +244,9 @@ public class MusicDialog extends JDialog {
 								stop();
 								timer.stop();
 							}
-							if(succSong.size()==1 && currentMusicPath.equalsIgnoreCase(succSong.get(0)))
-								succSong.remove(0);
-							succSong.add(currentMusicPath);
-							setMusicTrack(prevSong.remove(prevSong.size()-1));
+							setMusicTrack(songList.get(counter--));
 							btnSucc.setEnabled(true);
-							if(prevSong.isEmpty())
+							if(counter==0)
 								btnPrev.setEnabled(false);
 						}
 					});
@@ -318,17 +312,14 @@ public class MusicDialog extends JDialog {
 						public void actionPerformed(ActionEvent e) {
 							if(!isRunning && !isPaused)
 							{
-								if(!prevSong.isEmpty())
-								{
-									if(!prevSong.get(prevSong.size()-1).equals(currentMusicPath))
-										prevSong.add(currentMusicPath);
-								}
-								else
-									prevSong.add(currentMusicPath);
+								if(!songList.isEmpty() && songList.contains(currentMusicPath))
+									songList.remove(currentMusicPath);
+								songList.add(currentMusicPath);
+								counter++;
 								play(currentMusicPath);
-								if(prevSong.size()>1)
+								if(songList.size()>1)
 									btnPrev.setEnabled(true);
-								if(!succSong.isEmpty())
+								if(counter<songList.size())
 									btnSucc.setEnabled(true);
 								btnRestart.setEnabled(true);
 								btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
@@ -813,44 +804,11 @@ public class MusicDialog extends JDialog {
 				title +="  .:::.  " + bitrate + " Kbps";
 			
 			duration = song.getLengthInSeconds();
-			if(!(duration+"").isEmpty())
-			{
-				if(((duration/60)+"").length()<2)
-				{
-					if(((duration%60)+"").length()<2)
-						time = "0" + duration/60 + ":0" + duration%60;
-					else
-						time = "0" + duration/60 + ":" + duration%60;
-				}
-				else
-				{
-					if(((duration%60)+"").length()<2)
-						time = duration/60 + ":0" + duration%60;
-					else
-						time = duration/60 + ":" + duration%60;
-				}
-			}
-			lblTitle.setText(title);
-			progressBar.setString(time);
 			byte[] img = song.getId3v2Tag().getAlbumImage();
 			if(img!=null)
 				lblImage.setIcon(new ImageIcon(MAMUtil.getScaledImage(ImageIO.read(new ByteArrayInputStream(img)), 335, 335)));
 			else
 				setDefaultImage();
-			if (!tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()).equalsIgnoreCase("Brani"))
-			{
-				if(!userPlayList.isEmpty())
-					playlistTree.setSelectionPath(new TreePath(userPlayList.get(userPlayListCounter)));
-			}
-			else
-			{
-				if(!songList.isEmpty())
-					songsTree.setSelectionPath(new TreePath(songList.get(counter)));
-			}
-			btnPlaypause.setEnabled(true);
-			btnElimina.setEnabled(true);
-			btnInPlaylist.setEnabled(true);
-			btnSave.setEnabled(true);
 		}
 		catch (UnsupportedTagException e1)
 		{
@@ -887,6 +845,39 @@ public class MusicDialog extends JDialog {
 			MAMUtil.writeLog(e1);
 			e1.printStackTrace();
 		}
+		if(!(duration+"").isEmpty())
+		{
+			if(((duration/60)+"").length()<2)
+			{
+				if(((duration%60)+"").length()<2)
+					time = "0" + duration/60 + ":0" + duration%60;
+				else
+					time = "0" + duration/60 + ":" + duration%60;
+			}
+			else
+			{
+				if(((duration%60)+"").length()<2)
+					time = duration/60 + ":0" + duration%60;
+				else
+					time = duration/60 + ":" + duration%60;
+			}
+		}
+		lblTitle.setText(title);
+		progressBar.setString(time);
+//		if (!tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()).equalsIgnoreCase("Brani"))
+//		{
+//			if(!userPlayList.isEmpty())
+//				playlistTree.setSelectionPath(new TreePath(userPlayList.get(userPlayListCounter)));
+//		}
+//		else
+//		{
+//			if(!songList.isEmpty())
+//				songsTree.setSelectionPath(new TreePath(songList.get(counter)));
+//		}
+		btnPlaypause.setEnabled(true);
+		btnElimina.setEnabled(true);
+		btnInPlaylist.setEnabled(true);
+		btnSave.setEnabled(true);
 	}
 	private void setDefaultImage()
 	{
