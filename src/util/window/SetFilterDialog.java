@@ -22,7 +22,8 @@ import main.AnimeIndex;
 import util.Filters;
 import util.MAMUtil;
 
-public class SetFilterDialog extends JDialog {
+public class SetFilterDialog extends JDialog
+{
 
 	private final JPanel contentPanel = new JPanel();
 	public final ButtonGroup filterGroup = new ButtonGroup();
@@ -39,8 +40,9 @@ public class SetFilterDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public SetFilterDialog() {
-		super(AnimeIndex.frame,true);
+	public SetFilterDialog()
+	{
+		super(AnimeIndex.frame, true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(SetFilterDialog.class.getResource("/image/ellipse_icon1.png")));
 		setResizable(false);
 		setModal(true);
@@ -52,15 +54,18 @@ public class SetFilterDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWidths = new int[] { 0, 0, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
+		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			blueray = new JCheckBox("Blu-Ray");
 			blueray.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
 						AnimeIndex.filterArray[i] = false;
 					AnimeIndex.filterArray[0] = true;
@@ -76,7 +81,10 @@ public class SetFilterDialog extends JDialog {
 		{
 			oavRilasciati = new JCheckBox("OAV Rilasciati");
 			oavRilasciati.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
 						AnimeIndex.filterArray[i] = false;
 					AnimeIndex.filterArray[4] = true;
@@ -92,7 +100,10 @@ public class SetFilterDialog extends JDialog {
 		{
 			sospese = new JCheckBox("Sospese");
 			sospese.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
 						AnimeIndex.filterArray[i] = false;
 					AnimeIndex.filterArray[1] = true;
@@ -108,7 +119,10 @@ public class SetFilterDialog extends JDialog {
 		{
 			oavInUscita = new JCheckBox("OAV in Uscita");
 			oavInUscita.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
 						AnimeIndex.filterArray[i] = false;
 					AnimeIndex.filterArray[5] = true;
@@ -124,7 +138,10 @@ public class SetFilterDialog extends JDialog {
 		{
 			irregolari = new JCheckBox("Irregolari");
 			irregolari.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
 						AnimeIndex.filterArray[i] = false;
 					AnimeIndex.filterArray[2] = true;
@@ -140,7 +157,10 @@ public class SetFilterDialog extends JDialog {
 		{
 			filmRilasciati = new JCheckBox("Film Rilasciati");
 			filmRilasciati.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
 						AnimeIndex.filterArray[i] = false;
 					AnimeIndex.filterArray[6] = true;
@@ -156,7 +176,10 @@ public class SetFilterDialog extends JDialog {
 		{
 			acquistate = new JCheckBox("Acquistate");
 			acquistate.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
 						AnimeIndex.filterArray[i] = false;
 					AnimeIndex.filterArray[3] = true;
@@ -172,7 +195,10 @@ public class SetFilterDialog extends JDialog {
 		{
 			filmInUscita = new JCheckBox("Film in Uscita");
 			filmInUscita.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
 						AnimeIndex.filterArray[i] = false;
 					AnimeIndex.filterArray[7] = true;
@@ -188,7 +214,10 @@ public class SetFilterDialog extends JDialog {
 		{
 			usciteDelGiorno = new JCheckBox("Uscite del Giorno");
 			usciteDelGiorno.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					for (int i = 0; i < AnimeIndex.filterArray.length; i++)
 						AnimeIndex.filterArray[i] = false;
 					AnimeIndex.filterArray[8] = true;
@@ -207,14 +236,17 @@ public class SetFilterDialog extends JDialog {
 			{
 				JButton okButton = new JButton("Applica");
 				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if(filterGroup.getSelection() != null)
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						if (filterGroup.getSelection() != null)
 						{
 							AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon1.png")));
 							Filters.toFileteredList();
-							CardLayout cl = (CardLayout)(AnimeIndex.cardContainer.getLayout());
-					        cl.show(AnimeIndex.cardContainer, "Filtri");
-						}				
+							CardLayout cl = (CardLayout) (AnimeIndex.cardContainer.getLayout());
+							cl.show(AnimeIndex.cardContainer, "Filtri");
+						}
 						JButton but = (JButton) e.getSource();
 						JDialog dialog = (JDialog) but.getTopLevelAncestor();
 						dialog.dispose();
@@ -227,15 +259,18 @@ public class SetFilterDialog extends JDialog {
 			{
 				JButton cancelButton = new JButton("Rimuovi");
 				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {						
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						for (int i = 0; i < AnimeIndex.filterArray.length; i++)
 							AnimeIndex.filterArray[i] = false;
-						AnimeIndex.filtro=9;
+						AnimeIndex.filtro = 9;
 						filterGroup.clearSelection();
 						AnimeIndex.setFilterButton.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/ellipse_icon3.png")));
 						String listName = MAMUtil.getList();
-						CardLayout cl = (CardLayout)(AnimeIndex.cardContainer.getLayout());
-				        cl.show(AnimeIndex.cardContainer, listName);
+						CardLayout cl = (CardLayout) (AnimeIndex.cardContainer.getLayout());
+						cl.show(AnimeIndex.cardContainer, listName);
 						JButton but = (JButton) e.getSource();
 						JDialog dialog = (JDialog) but.getTopLevelAncestor();
 						dialog.dispose();
@@ -254,14 +289,10 @@ public class SetFilterDialog extends JDialog {
 		filterGroup.add(irregolari);
 		filterGroup.add(usciteDelGiorno);
 		filterGroup.add(acquistate);
-		
-		JCheckBox[] buttonArray ={blueray, sospese, irregolari, acquistate, oavRilasciati, oavInUscita ,filmRilasciati, filmInUscita, usciteDelGiorno};
+
+		JCheckBox[] buttonArray = { blueray, sospese, irregolari, acquistate, oavRilasciati, oavInUscita, filmRilasciati, filmInUscita, usciteDelGiorno };
 		for (int i = 0; i < AnimeIndex.filterArray.length; i++)
-		{
 			if (AnimeIndex.filterArray[i])
-			{
 				buttonArray[i].setSelected(true);
-			}
-		}
 	}
 }

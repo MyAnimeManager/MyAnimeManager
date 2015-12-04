@@ -8,60 +8,74 @@ import java.util.TreeSet;
 
 import javax.swing.AbstractListModel;
 
-public class SortedListModel extends AbstractListModel {
-  SortedSet<String> model;
+public class SortedListModel extends AbstractListModel
+{
 
-  public SortedListModel() {
-    model = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
-  }
+	SortedSet<String> model;
 
-  public int getSize() {
-    return model.size();
-  }
+	public SortedListModel()
+	{
+		model = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+	}
 
-  public Object getElementAt(int index) {
-    return model.toArray()[index];
-  }
+	@Override
+	public int getSize()
+	{
+		return model.size();
+	}
 
-  public void addElement(String element) {
-    if (model.add(element)) {
-      fireContentsChanged(this, 0, getSize());
-  }
-}
-  public void addAll(String elements[]) {
-    Collection<String> c = Arrays.asList(elements);
-    model.addAll(c);
-    fireContentsChanged(this, 0, getSize());
-  }
+	@Override
+	public Object getElementAt(int index)
+	{
+		return model.toArray()[index];
+	}
 
-  public void clear() {
-    model.clear();
-    fireContentsChanged(this, 0, getSize());
-  }
+	public void addElement(String element)
+	{
+		if (model.add(element))
+			fireContentsChanged(this, 0, getSize());
+	}
 
-  public boolean contains(Object element) {
-    return model.contains(element);
-  }
+	public void addAll(String elements[])
+	{
+		Collection<String> c = Arrays.asList(elements);
+		model.addAll(c);
+		fireContentsChanged(this, 0, getSize());
+	}
 
-  public Object firstElement() {
-    return model.first();
-  }
+	public void clear()
+	{
+		model.clear();
+		fireContentsChanged(this, 0, getSize());
+	}
 
-  public Iterator iterator() {
-    return model.iterator();
-  }
+	public boolean contains(Object element)
+	{
+		return model.contains(element);
+	}
 
-  public Object lastElement() {
-    return model.last();
-  }
+	public Object firstElement()
+	{
+		return model.first();
+	}
 
-  public boolean removeElement(Object element) {
-    boolean removed = model.remove(element);
-    if (removed) {
-      fireContentsChanged(this, 0, getSize());
-    }
-    return removed;
-  }
+	public Iterator iterator()
+	{
+		return model.iterator();
+	}
+
+	public Object lastElement()
+	{
+		return model.last();
+	}
+
+	public boolean removeElement(Object element)
+	{
+		boolean removed = model.remove(element);
+		if (removed)
+			fireContentsChanged(this, 0, getSize());
+		return removed;
+	}
 
 	public boolean isEmpty()
 	{
@@ -69,26 +83,25 @@ public class SortedListModel extends AbstractListModel {
 			return true;
 		return false;
 	}
-	
+
 	public Object[] toArray()
 	{
 		Object[] array = model.toArray();
 		return array;
 	}
-	
+
 	public boolean removeElementAt(int index)
 	{
-		Object object = getElementAt(index); 
+		Object object = getElementAt(index);
 		boolean removed = model.remove(object);
-		    if (removed) {
-		      fireContentsChanged(this, 0, getSize());
-		    }
-		    return removed;	
+		if (removed)
+			fireContentsChanged(this, 0, getSize());
+		return removed;
 	}
-	
+
 	public void update()
 	{
 		fireContentsChanged(this, 0, getSize());
 	}
-	
-	}
+
+}

@@ -33,6 +33,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import main.AnimeIndex;
 import util.PatternFilter;
 import util.SortedListModel;
+
 public class AddFansubDialog extends JDialog
 {
 
@@ -42,7 +43,7 @@ public class AddFansubDialog extends JDialog
 	private JButton deleteButton;
 	private JTextField linkAddField;
 	private JTextField fansubAddField;
-	private TreeMap<String,String> fansubMap = new TreeMap<String,String>();
+	private TreeMap<String, String> fansubMap = new TreeMap<String, String>();
 	private JButton addButton;
 
 	/**
@@ -50,10 +51,10 @@ public class AddFansubDialog extends JDialog
 	 */
 	public AddFansubDialog()
 	{
-		super(AnimeIndex.frame,true);
+		super(AnimeIndex.frame, true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AddFansubDialog.class.getResource("/image/Aegisub.png")));
 		fansubMap.putAll(AnimeIndex.fansubMap);
-		
+
 		setResizable(false);
 		setType(Type.POPUP);
 		setTitle("Fansub");
@@ -67,48 +68,47 @@ public class AddFansubDialog extends JDialog
 		{
 			JPanel optionPanel = new JPanel();
 			contentPanel.add(optionPanel, BorderLayout.WEST);
-			optionPanel.setLayout(new FormLayout(new ColumnSpec[] {
-					ColumnSpec.decode("73px"),},
-				new RowSpec[] {
-					RowSpec.decode("89px"),
-					RowSpec.decode("117px"),}));
+			optionPanel.setLayout(new FormLayout(new ColumnSpec[] { ColumnSpec.decode("73px"), }, new RowSpec[] { RowSpec.decode("89px"), RowSpec.decode("117px"), }));
 			{
 				addButton = new JButton("Aggiungi");
 				addButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						String text = addButton.getText();
 						if (text.equalsIgnoreCase("aggiungi"))
-							{
+						{
 							String newFansub = fansubAddField.getText();
 							String newLink = linkAddField.getText();
 							if ((newFansub != null && !newFansub.isEmpty()))
 							{
-							fansubModel.addElement(fansubAddField.getText());
-							fansubMap.put(newFansub, newLink);
-						    fansubAddField.setText("");
-						    fansubAddField.setEnabled(true);
-						    linkAddField.setText("");
-						    linkAddField.setEnabled(true);
+								fansubModel.addElement(fansubAddField.getText());
+								fansubMap.put(newFansub, newLink);
+								fansubAddField.setText("");
+								fansubAddField.setEnabled(true);
+								linkAddField.setText("");
+								linkAddField.setEnabled(true);
 							}
 							else
 								JOptionPane.showMessageDialog(contentPanel, "Nome non inserito", "Errore!", JOptionPane.ERROR_MESSAGE);
-							}
-						
+						}
+
 						else
 						{
 							String newFansub = fansubAddField.getText();
 							String newLink = linkAddField.getText();
-					
-								fansubMap.remove(newFansub);
-								fansubMap.put(newFansub, newLink);
-								
+
+							fansubMap.remove(newFansub);
+							fansubMap.put(newFansub, newLink);
+
 							fansubAddField.setText("");
-						    linkAddField.setText("");
-						    fansubList.clearSelection();
-						    deleteButton.setEnabled(false);
-						    addButton.setText("Aggiungi");
-						    fansubAddField.setEnabled(true);
-						    linkAddField.setEnabled(true);
+							linkAddField.setText("");
+							fansubList.clearSelection();
+							deleteButton.setEnabled(false);
+							addButton.setText("Aggiungi");
+							fansubAddField.setEnabled(true);
+							linkAddField.setEnabled(true);
 						}
 					}
 				});
@@ -118,24 +118,28 @@ public class AddFansubDialog extends JDialog
 				deleteButton = new JButton("Elimina");
 				deleteButton.setEnabled(false);
 				deleteButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						if (!fansubList.isSelectionEmpty())
 						{
 							Object element = fansubList.getSelectedValue();
-							if ( element != null) {
-							    fansubModel.removeElement(element);
-							    fansubMap.remove(element);
-							    deleteButton.setEnabled(false);
-//							    Object[] fansub = fansubModel.toArray();
-//							    AnimeIndex.setFansubList(fansub); 
-							    fansubAddField.setText("");
-							    fansubAddField.setEnabled(true);
-							    linkAddField.setText("");
-							    linkAddField.setEnabled(true);
-							    addButton.setText("Aggiungi");
+							if (element != null)
+							{
+								fansubModel.removeElement(element);
+								fansubMap.remove(element);
+								deleteButton.setEnabled(false);
+								// Object[] fansub = fansubModel.toArray();
+								// AnimeIndex.setFansubList(fansub);
+								fansubAddField.setText("");
+								fansubAddField.setEnabled(true);
+								linkAddField.setText("");
+								linkAddField.setEnabled(true);
+								addButton.setText("Aggiungi");
 							}
-							
-						}						
+
+						}
 					}
 				});
 				deleteButton.setVerticalAlignment(SwingConstants.TOP);
@@ -150,26 +154,28 @@ public class AddFansubDialog extends JDialog
 			{
 				fansubModel = new SortedListModel();
 				String[] fansub = AnimeIndex.getFansubList();
-				for (int i = 0; i < fansub.length; i++) {
+				for (int i = 0; i < fansub.length; i++)
 					fansubModel.addElement(fansub[i]);
-				}
 				fansubList = new JList(fansubModel);
 				fansubList.addListSelectionListener(new ListSelectionListener() {
-					public void valueChanged(ListSelectionEvent arg0) {
+
+					@Override
+					public void valueChanged(ListSelectionEvent arg0)
+					{
 						if (!fansubList.isSelectionEmpty() && !fansubList.getSelectedValue().equals("?????"))
 						{
-						linkAddField.setEnabled(true);
-						deleteButton.setEnabled(true);
-						addButton.setText("Salva");
-						String fansub = (String) fansubList.getSelectedValue();
-						String link = fansubMap.get(fansub);
-						fansubAddField.setText(fansub);
-						linkAddField.setText(link);
-						fansubAddField.setEnabled(false);
+							linkAddField.setEnabled(true);
+							deleteButton.setEnabled(true);
+							addButton.setText("Salva");
+							String fansub = (String) fansubList.getSelectedValue();
+							String link = fansubMap.get(fansub);
+							fansubAddField.setText(fansub);
+							linkAddField.setText(link);
+							fansubAddField.setEnabled(false);
 						}
-						if(!fansubList.isSelectionEmpty() && fansubList.getSelectedValue()!=null)
+						if (!fansubList.isSelectionEmpty() && fansubList.getSelectedValue() != null)
 						{
-							if(fansubList.getSelectedValue().equals("?????"))
+							if (fansubList.getSelectedValue().equals("?????"))
 							{
 								deleteButton.setEnabled(false);
 								linkAddField.setEnabled(false);
@@ -178,7 +184,7 @@ public class AddFansubDialog extends JDialog
 								fansubAddField.setText("????");
 								linkAddField.setText("");
 							}
-							if(fansubList.getSelectedValue().equals("Dynit")||fansubList.getSelectedValue().equals("Yamato Animation")||fansubList.getSelectedValue().equals("Crunchyroll"))
+							if (fansubList.getSelectedValue().equals("Dynit") || fansubList.getSelectedValue().equals("Yamato Animation") || fansubList.getSelectedValue().equals("Crunchyroll"))
 							{
 								deleteButton.setEnabled(false);
 								linkAddField.setEnabled(true);
@@ -189,7 +195,7 @@ public class AddFansubDialog extends JDialog
 					}
 				});
 				fansubList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				
+
 				scrollPane.setViewportView(fansubList);
 			}
 		}
@@ -197,10 +203,10 @@ public class AddFansubDialog extends JDialog
 			JPanel fansubPanel = new JPanel();
 			contentPanel.add(fansubPanel, BorderLayout.SOUTH);
 			GridBagLayout gbl_fansubPanel = new GridBagLayout();
-			gbl_fansubPanel.columnWidths = new int[]{42, 37, 0};
-			gbl_fansubPanel.rowHeights = new int[]{20, 0, 0};
-			gbl_fansubPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-			gbl_fansubPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+			gbl_fansubPanel.columnWidths = new int[] { 42, 37, 0 };
+			gbl_fansubPanel.rowHeights = new int[] { 20, 0, 0 };
+			gbl_fansubPanel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+			gbl_fansubPanel.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 			fansubPanel.setLayout(gbl_fansubPanel);
 			{
 				JLabel lblNome = new JLabel("Nome : ");
@@ -216,7 +222,7 @@ public class AddFansubDialog extends JDialog
 				fansubAddField.setPreferredSize(new Dimension(120, 23));
 				fansubAddField.setMinimumSize(new Dimension(120, 23));
 				fansubAddField.setColumns(20);
-				((AbstractDocument)fansubAddField.getDocument()).setDocumentFilter( new PatternFilter("[\\p{IsAlphabetic}\\p{IsDigit}\\p{IsWhite_Space}]{0,17}"));
+				((AbstractDocument) fansubAddField.getDocument()).setDocumentFilter(new PatternFilter("[\\p{IsAlphabetic}\\p{IsDigit}\\p{IsWhite_Space}]{0,17}"));
 				GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 				gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
 				gbc_textField_1.insets = new Insets(0, 0, 5, 0);
@@ -254,56 +260,56 @@ public class AddFansubDialog extends JDialog
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						//aggiunta fansub se è presente un fansub su ok
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						// aggiunta fansub se è presente un fansub su ok
 						String text = addButton.getText();
 						if (text.equalsIgnoreCase("aggiungi"))
-							{
+						{
 							String newFansub = fansubAddField.getText();
 							String newLink = linkAddField.getText();
 							if ((newFansub != null && !newFansub.isEmpty()))
 							{
-							fansubModel.addElement(fansubAddField.getText());
-							fansubMap.put(newFansub, newLink);
-						    fansubAddField.setText("");
-						    fansubAddField.setEnabled(true);
-						    linkAddField.setText("");
-						    linkAddField.setEnabled(true);
+								fansubModel.addElement(fansubAddField.getText());
+								fansubMap.put(newFansub, newLink);
+								fansubAddField.setText("");
+								fansubAddField.setEnabled(true);
+								linkAddField.setText("");
+								linkAddField.setEnabled(true);
 							}
-							}
+						}
 						else
 						{
 							String newFansub = fansubAddField.getText();
 							String newLink = linkAddField.getText();
-					
-								fansubMap.remove(newFansub);
-								fansubMap.put(newFansub, newLink);
-								
+
+							fansubMap.remove(newFansub);
+							fansubMap.put(newFansub, newLink);
+
 							fansubAddField.setText("");
-						    linkAddField.setText("");
-						    fansubList.clearSelection();
-						    deleteButton.setEnabled(false);
-						    addButton.setText("Aggiungi");
-						    fansubAddField.setEnabled(true);
-						    linkAddField.setEnabled(true);
-						}
-						
-						//salva fansub
-						if (!fansubModel.isEmpty())
-						{
-						String previousFansub = (String) AnimeIndex.animeInformation.fansubComboBox.getSelectedItem();
-					    setFansubMap(fansubMap);
-					    AnimeIndex.animeInformation.fansubComboBox.setSelectedItem(previousFansub);
-						String link = AnimeIndex.fansubMap.get(AnimeIndex.animeInformation.fansubComboBox.getSelectedItem());
-						if (link != null && !link.isEmpty())
-						{
-							AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+							linkAddField.setText("");
+							fansubList.clearSelection();
+							deleteButton.setEnabled(false);
+							addButton.setText("Aggiungi");
+							fansubAddField.setEnabled(true);
+							linkAddField.setEnabled(true);
 						}
 
-						else
-							AnimeIndex.animeInformation.fansubButton.setEnabled(false);
+						// salva fansub
+						if (!fansubModel.isEmpty())
+						{
+							String previousFansub = (String) AnimeInformation.fansubComboBox.getSelectedItem();
+							setFansubMap(fansubMap);
+							AnimeInformation.fansubComboBox.setSelectedItem(previousFansub);
+							String link = AnimeIndex.fansubMap.get(AnimeInformation.fansubComboBox.getSelectedItem());
+							if (link != null && !link.isEmpty())
+								AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+							else
+								AnimeIndex.animeInformation.fansubButton.setEnabled(false);
 						}
-						
+
 						JButton but = (JButton) e.getSource();
 						JDialog dialog = (JDialog) but.getTopLevelAncestor();
 						dialog.dispose();
@@ -316,7 +322,10 @@ public class AddFansubDialog extends JDialog
 			{
 				JButton cancelButton = new JButton("Annulla");
 				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						JButton but = (JButton) e.getSource();
 						JDialog dialog = (JDialog) but.getTopLevelAncestor();
 						dialog.dispose();
@@ -327,8 +336,8 @@ public class AddFansubDialog extends JDialog
 			}
 		}
 	}
-	
-	public static void setFansubMap(TreeMap<String, String> fansubMap) 
+
+	public static void setFansubMap(TreeMap<String, String> fansubMap)
 	{
 		AnimeIndex.fansubMap.clear();
 		AnimeIndex.fansubMap.putAll(fansubMap);

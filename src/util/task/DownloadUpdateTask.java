@@ -18,10 +18,11 @@ import util.MAMUtil;
 import util.Updater;
 
 public class DownloadUpdateTask extends SwingWorker
-{    
+{
+
 	public int totalSize;
 	public int currentSize = 0;
-	
+
 	@Override
 	protected Void doInBackground() throws Exception
 	{
@@ -30,47 +31,53 @@ public class DownloadUpdateTask extends SwingWorker
 	}
 
 	private void downloadFile(String link) throws MalformedURLException, IOException
-    {
+	{
 		String file = FileManager.getAppDataPath() + File.separator + "Update" + File.separator + AnimeIndex.NEW_VERSION;
 		URL url = new URL(link);
-//		FileUtils.copyURLToFile(url, file);
+		// FileUtils.copyURLToFile(url, file);
 		downloadUpdate(url, file);
-    }
-	
+	}
+
 	@Override
 	protected void done()
 	{
-//		UpdateDialog.dial.dispose();
+		// UpdateDialog.dial.dispose();
 	}
-	
-	public void downloadUpdate(URL fileUrl, String destinationFile) {
-//	    URL url;
-		try {
-//			url = new URL(fileUrl);
-			URLConnection conn =fileUrl.openConnection();
+
+	public void downloadUpdate(URL fileUrl, String destinationFile)
+	{
+		// URL url;
+		try
+		{
+			// url = new URL(fileUrl);
+			URLConnection conn = fileUrl.openConnection();
 			conn.setRequestProperty("User-Agent", "My Anime Index");
 			totalSize = conn.getContentLength();
 			InputStream is = conn.getInputStream();
-		    OutputStream os = new FileOutputStream(destinationFile);
+			OutputStream os = new FileOutputStream(destinationFile);
 
-			    byte[] b = new byte[4096];
-			    int length;
-			    this.setProgress(0);
-			    
-			    while ((length = is.read(b)) != -1) {
-			        os.write(b, 0, length);
-			        currentSize += length;
-			        setProgress((int)(((double)currentSize/(double)totalSize) * 100));
-			    }
+			byte[] b = new byte[4096];
+			int length;
+			this.setProgress(0);
 
-			    is.close();
-			    os.close();
-		}catch (FileNotFoundException e) {
+			while ((length = is.read(b)) != -1)
+			{
+				os.write(b, 0, length);
+				currentSize += length;
+				setProgress((int) (((double) currentSize / (double) totalSize) * 100));
+			}
+
+			is.close();
+			os.close();
+		}
+		catch (FileNotFoundException e)
+		{
 			File file = new File(FileManager.getAppDataPath() + "Update" + File.separator);
 			file.mkdirs();
-			downloadUpdate(fileUrl ,destinationFile);
+			downloadUpdate(fileUrl, destinationFile);
 		}
-			catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			MAMUtil.writeLog(e);
 		}

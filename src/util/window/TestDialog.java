@@ -1,4 +1,5 @@
 package util.window;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -23,7 +24,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
-
 public class TestDialog extends JDialog
 {
 
@@ -43,10 +43,10 @@ public class TestDialog extends JDialog
 			contentPanel.setBackground(new Color(panelColor));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWidths = new int[] { 0, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_contentPanel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JButton btnNewButton = new JButton("Prova");
@@ -73,7 +73,7 @@ public class TestDialog extends JDialog
 		{
 			JSeparator separator = new JSeparator();
 			if (separatorColor != 0)
-			separator.setBackground(new Color(separatorColor));
+				separator.setBackground(new Color(separatorColor));
 			GridBagConstraints gbc_separator = new GridBagConstraints();
 			gbc_separator.fill = GridBagConstraints.BOTH;
 			gbc_separator.insets = new Insets(0, 0, 5, 0);
@@ -84,8 +84,8 @@ public class TestDialog extends JDialog
 		{
 			JComboBox comboBox = new JComboBox();
 			if (comboBoxColor != 0)
-			comboBox.setBackground(new Color(comboBoxColor));
-			comboBox.setModel(new DefaultComboBoxModel(new String[] {"Prova 1", "Prova 2"}));
+				comboBox.setBackground(new Color(comboBoxColor));
+			comboBox.setModel(new DefaultComboBoxModel(new String[] { "Prova 1", "Prova 2" }));
 			GridBagConstraints gbc_comboBox = new GridBagConstraints();
 			gbc_comboBox.insets = new Insets(0, 0, 5, 0);
 			gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -96,7 +96,7 @@ public class TestDialog extends JDialog
 		{
 			JCheckBox chckbxNewCheckBox = new JCheckBox("Prova");
 			if (checkBoxColor != 0)
-			chckbxNewCheckBox.setBackground(new Color(checkBoxColor));
+				chckbxNewCheckBox.setBackground(new Color(checkBoxColor));
 			GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
 			gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 0);
 			gbc_chckbxNewCheckBox.gridx = 0;
@@ -106,7 +106,7 @@ public class TestDialog extends JDialog
 		{
 			JProgressBar progressBar = new JProgressBar();
 			if (progressBarColor != 0)
-			progressBar.setBackground(new Color(progressBarColor));
+				progressBar.setBackground(new Color(progressBarColor));
 			progressBar.setIndeterminate(true);
 			GridBagConstraints gbc_progressBar = new GridBagConstraints();
 			gbc_progressBar.insets = new Insets(0, 0, 5, 0);
@@ -117,7 +117,7 @@ public class TestDialog extends JDialog
 		{
 			JLabel Prova = new JLabel("Prova");
 			if (labelColor != 0)
-			Prova.setForeground(new Color(labelColor));
+				Prova.setForeground(new Color(labelColor));
 			GridBagConstraints gbc_Prova = new GridBagConstraints();
 			gbc_Prova.insets = new Insets(0, 0, 5, 0);
 			gbc_Prova.gridx = 0;
@@ -127,13 +127,20 @@ public class TestDialog extends JDialog
 		{
 			JList list = new JList();
 			if (listColor != 0)
-			list.setBackground(new Color(listColor));
+				list.setBackground(new Color(listColor));
 			list.setModel(new AbstractListModel() {
-				String[] values = new String[] {"Prova 1", "Prova 2", "Prova 3"};
-				public int getSize() {
+
+				String[] values = new String[] { "Prova 1", "Prova 2", "Prova 3" };
+
+				@Override
+				public int getSize()
+				{
 					return values.length;
 				}
-				public Object getElementAt(int index) {
+
+				@Override
+				public Object getElementAt(int index)
+				{
 					return values[index];
 				}
 			});
@@ -151,7 +158,10 @@ public class TestDialog extends JDialog
 			{
 				JButton cancelButton = new JButton("Chiudi");
 				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						TestDialog.this.dispose();
 					}
 				});

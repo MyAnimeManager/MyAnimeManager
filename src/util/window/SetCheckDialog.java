@@ -19,7 +19,8 @@ import javax.swing.border.EmptyBorder;
 
 import main.AnimeIndex;
 
-public class SetCheckDialog extends JDialog {
+public class SetCheckDialog extends JDialog
+{
 
 	private final JPanel contentPanel = new JPanel();
 	private JCheckBox checkCompleted;
@@ -33,34 +34,38 @@ public class SetCheckDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public SetCheckDialog() {
-		super(AnimeIndex.frame,true);
+	public SetCheckDialog()
+	{
+		super(AnimeIndex.frame, true);
 		setTitle("Liste da Controllare");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);
-//		setAlwaysOnTop(true);
+		// setAlwaysOnTop(true);
 		setResizable(false);
 		setBounds(100, 100, 232, 198);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWidths = new int[] { 0, 0, 0, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
+		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
-	
+
 		{
 			checkCompleted = new JCheckBox("Anime Completati");
 			checkCompleted.addItemListener(new ItemListener() {
-				public void itemStateChanged(ItemEvent arg0) {
-					if(checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
+
+				@Override
+				public void itemStateChanged(ItemEvent arg0)
+				{
+					if (checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
 					{
 						allCheckButton.setEnabled(false);
 						noneCheckButton.setEnabled(true);
 					}
-					if(!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
+					if (!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
 					{
 						noneCheckButton.setEnabled(false);
 						allCheckButton.setEnabled(true);
@@ -84,21 +89,24 @@ public class SetCheckDialog extends JDialog {
 			contentPanel.add(separator, gbc_separator);
 		}
 		{
-		    checkAiring = new JCheckBox("Anime in Corso");
-		    checkAiring.addItemListener(new ItemListener() {
-		    	public void itemStateChanged(ItemEvent e) {
-		    		if(checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
-		    		{
-		    			allCheckButton.setEnabled(false);
-		    			noneCheckButton.setEnabled(true);
-		    		}
-		    		if(!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
-		    		{
-		    			noneCheckButton.setEnabled(false);
-		    			allCheckButton.setEnabled(true);
-		    		}
-		    	}
-		    });
+			checkAiring = new JCheckBox("Anime in Corso");
+			checkAiring.addItemListener(new ItemListener() {
+
+				@Override
+				public void itemStateChanged(ItemEvent e)
+				{
+					if (checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
+					{
+						allCheckButton.setEnabled(false);
+						noneCheckButton.setEnabled(true);
+					}
+					if (!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
+					{
+						noneCheckButton.setEnabled(false);
+						allCheckButton.setEnabled(true);
+					}
+				}
+			});
 			GridBagConstraints gbc_checkAiring = new GridBagConstraints();
 			gbc_checkAiring.anchor = GridBagConstraints.WEST;
 			gbc_checkAiring.insets = new Insets(0, 0, 5, 5);
@@ -109,7 +117,10 @@ public class SetCheckDialog extends JDialog {
 		{
 			allCheckButton = new JButton("Tutte");
 			allCheckButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0)
+				{
 					checkCompleted.setSelected(true);
 					checkAiring.setSelected(true);
 					checkOAV.setSelected(true);
@@ -127,21 +138,24 @@ public class SetCheckDialog extends JDialog {
 			contentPanel.add(allCheckButton, gbc_allCheckButton);
 		}
 		{
-		    checkOAV = new JCheckBox("OAV");
-		    checkOAV.addItemListener(new ItemListener() {
-		    	public void itemStateChanged(ItemEvent e) {
-		    		if(checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
-		    		{
-		    			allCheckButton.setEnabled(false);
-		    			noneCheckButton.setEnabled(true);
-		    		}
-		    		if(!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
-		    		{
-		    			noneCheckButton.setEnabled(false);
-		    			allCheckButton.setEnabled(true);
-		    		}
-		    	}
-		    });
+			checkOAV = new JCheckBox("OAV");
+			checkOAV.addItemListener(new ItemListener() {
+
+				@Override
+				public void itemStateChanged(ItemEvent e)
+				{
+					if (checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
+					{
+						allCheckButton.setEnabled(false);
+						noneCheckButton.setEnabled(true);
+					}
+					if (!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
+					{
+						noneCheckButton.setEnabled(false);
+						allCheckButton.setEnabled(true);
+					}
+				}
+			});
 			GridBagConstraints gbc_checkOAV = new GridBagConstraints();
 			gbc_checkOAV.anchor = GridBagConstraints.WEST;
 			gbc_checkOAV.insets = new Insets(0, 0, 5, 5);
@@ -152,13 +166,16 @@ public class SetCheckDialog extends JDialog {
 		{
 			checkFilm = new JCheckBox("Film");
 			checkFilm.addItemListener(new ItemListener() {
-				public void itemStateChanged(ItemEvent e) {
-					if(checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
+
+				@Override
+				public void itemStateChanged(ItemEvent e)
+				{
+					if (checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
 					{
 						allCheckButton.setEnabled(false);
 						noneCheckButton.setEnabled(true);
 					}
-					if(!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
+					if (!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
 					{
 						noneCheckButton.setEnabled(false);
 						allCheckButton.setEnabled(true);
@@ -175,7 +192,10 @@ public class SetCheckDialog extends JDialog {
 		{
 			noneCheckButton = new JButton("Nessuna");
 			noneCheckButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					checkCompleted.setSelected(false);
 					checkAiring.setSelected(false);
 					checkOAV.setSelected(false);
@@ -195,13 +215,16 @@ public class SetCheckDialog extends JDialog {
 		{
 			checkToSee = new JCheckBox("Completi da Vedere");
 			checkToSee.addItemListener(new ItemListener() {
-				public void itemStateChanged(ItemEvent e) {
-					if(checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
+
+				@Override
+				public void itemStateChanged(ItemEvent e)
+				{
+					if (checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
 					{
 						allCheckButton.setEnabled(false);
 						noneCheckButton.setEnabled(true);
 					}
-					if(!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
+					if (!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
 					{
 						noneCheckButton.setEnabled(false);
 						allCheckButton.setEnabled(true);
@@ -222,17 +245,20 @@ public class SetCheckDialog extends JDialog {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if(checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
-						{	
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						if (checkCompleted.isSelected() && checkAiring.isSelected() && checkOAV.isSelected() && checkFilm.isSelected() && checkToSee.isSelected())
+						{
 							AddAnimeDialog.checkToggleButton.setText("Tutte le Liste");
 							AddAnimeDialog.checkToggleButton.setSelected(true);
 							AddAnimeDialog.listSlectionToggleButton.setText("Tutte le Liste");
 							AddAnimeDialog.listSlectionToggleButton.setSelected(true);
 							AddAnimeDialog.checkCompletedList = AddAnimeDialog.checkAiringList = AddAnimeDialog.checkOAVList = AddAnimeDialog.checkFilmList = AddAnimeDialog.checkToSeeList = true;
 							AnimeIndex.appProp.setProperty("List_to_Check", "All");
-					    }
-						else if(!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
+						}
+						else if (!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
 						{
 							AddAnimeDialog.checkToggleButton.setText("Nessuna Lista");
 							AddAnimeDialog.checkToggleButton.setSelected(false);
@@ -241,7 +267,7 @@ public class SetCheckDialog extends JDialog {
 							AddAnimeDialog.checkCompletedList = AddAnimeDialog.checkAiringList = AddAnimeDialog.checkOAVList = AddAnimeDialog.checkFilmList = AddAnimeDialog.checkToSeeList = false;
 							AnimeIndex.appProp.setProperty("List_to_Check", "None");
 						}
-						else if(checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
+						else if (checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
 						{
 							AddAnimeDialog.checkToggleButton.setText("Anime Completati");
 							AddAnimeDialog.checkToggleButton.setSelected(true);
@@ -251,7 +277,7 @@ public class SetCheckDialog extends JDialog {
 							AddAnimeDialog.checkAiringList = AddAnimeDialog.checkOAVList = AddAnimeDialog.checkFilmList = AddAnimeDialog.checkToSeeList = false;
 							AnimeIndex.appProp.setProperty("List_to_Check", "Anime Completati");
 						}
-						else if(!checkCompleted.isSelected() && checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
+						else if (!checkCompleted.isSelected() && checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
 						{
 							AddAnimeDialog.checkToggleButton.setText("Anime in Corso");
 							AddAnimeDialog.checkToggleButton.setSelected(true);
@@ -261,7 +287,7 @@ public class SetCheckDialog extends JDialog {
 							AddAnimeDialog.checkCompletedList = AddAnimeDialog.checkOAVList = AddAnimeDialog.checkFilmList = AddAnimeDialog.checkToSeeList = false;
 							AnimeIndex.appProp.setProperty("List_to_Check", "Anime in Corso");
 						}
-						else if(!checkCompleted.isSelected() && !checkAiring.isSelected() && checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
+						else if (!checkCompleted.isSelected() && !checkAiring.isSelected() && checkOAV.isSelected() && !checkFilm.isSelected() && !checkToSee.isSelected())
 						{
 							AddAnimeDialog.checkToggleButton.setText("OAV");
 							AddAnimeDialog.checkToggleButton.setSelected(true);
@@ -271,7 +297,7 @@ public class SetCheckDialog extends JDialog {
 							AddAnimeDialog.checkCompletedList = AddAnimeDialog.checkAiringList = AddAnimeDialog.checkFilmList = AddAnimeDialog.checkToSeeList = false;
 							AnimeIndex.appProp.setProperty("List_to_Check", "OAV");
 						}
-						else if(!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && checkFilm.isSelected() && !checkToSee.isSelected())
+						else if (!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && checkFilm.isSelected() && !checkToSee.isSelected())
 						{
 							AddAnimeDialog.checkToggleButton.setText("Film");
 							AddAnimeDialog.checkToggleButton.setSelected(true);
@@ -281,7 +307,7 @@ public class SetCheckDialog extends JDialog {
 							AddAnimeDialog.checkCompletedList = AddAnimeDialog.checkAiringList = AddAnimeDialog.checkOAVList = AddAnimeDialog.checkToSeeList = false;
 							AnimeIndex.appProp.setProperty("List_to_Check", "Film");
 						}
-						else if(!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && checkToSee.isSelected())
+						else if (!checkCompleted.isSelected() && !checkAiring.isSelected() && !checkOAV.isSelected() && !checkFilm.isSelected() && checkToSee.isSelected())
 						{
 							AddAnimeDialog.checkToggleButton.setText("Completi da Vedere");
 							AddAnimeDialog.checkToggleButton.setSelected(true);
@@ -297,32 +323,32 @@ public class SetCheckDialog extends JDialog {
 							AddAnimeDialog.checkToggleButton.setSelected(true);
 							AddAnimeDialog.listSlectionToggleButton.setText("Più Liste");
 							AddAnimeDialog.listSlectionToggleButton.setSelected(true);
-							
-							if(checkCompleted.isSelected())
+
+							if (checkCompleted.isSelected())
 								AddAnimeDialog.checkCompletedList = true;
 							else
 								AddAnimeDialog.checkCompletedList = false;
-							
-							if(checkAiring.isSelected())
+
+							if (checkAiring.isSelected())
 								AddAnimeDialog.checkAiringList = true;
 							else
 								AddAnimeDialog.checkAiringList = false;
-							
-							if(checkOAV.isSelected())
+
+							if (checkOAV.isSelected())
 								AddAnimeDialog.checkOAVList = true;
 							else
 								AddAnimeDialog.checkOAVList = false;
-							
-							if(checkFilm.isSelected())
+
+							if (checkFilm.isSelected())
 								AddAnimeDialog.checkFilmList = true;
 							else
 								AddAnimeDialog.checkFilmList = false;
-							
-							if(checkToSee.isSelected())
+
+							if (checkToSee.isSelected())
 								AddAnimeDialog.checkToSeeList = true;
 							else
 								AddAnimeDialog.checkToSeeList = false;
-							
+
 							AnimeIndex.appProp.setProperty("List_to_Check", "Multi Check");
 						}
 						JButton but = (JButton) e.getSource();
@@ -337,8 +363,11 @@ public class SetCheckDialog extends JDialog {
 			{
 				JButton cancelButton = new JButton("Annulla");
 				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if(AddAnimeDialog.checkToggleButton.getText().equalsIgnoreCase("Nessuna Lista"))
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						if (AddAnimeDialog.checkToggleButton.getText().equalsIgnoreCase("Nessuna Lista"))
 							AddAnimeDialog.checkToggleButton.setSelected(false);
 						else
 							AddAnimeDialog.checkToggleButton.setSelected(true);
@@ -351,22 +380,22 @@ public class SetCheckDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		
+
 		if (AnimeIndex.appProp.getProperty("List_to_Check").equalsIgnoreCase("all"))
 		{
-			checkCompleted.setSelected(true); 
+			checkCompleted.setSelected(true);
 			checkAiring.setSelected(true);
 			checkOAV.setSelected(true);
-			checkFilm.setSelected(true); 
+			checkFilm.setSelected(true);
 			checkToSee.setSelected(true);
 			allCheckButton.setEnabled(false);
 		}
 		else if (AddAnimeDialog.checkCompletedList == false && AddAnimeDialog.checkAiringList == false && AddAnimeDialog.checkOAVList == false && AddAnimeDialog.checkFilmList == false && AddAnimeDialog.checkToSeeList == false)
 		{
-			checkCompleted.setSelected(false); 
+			checkCompleted.setSelected(false);
 			checkAiring.setSelected(false);
 			checkOAV.setSelected(false);
-			checkFilm.setSelected(false); 
+			checkFilm.setSelected(false);
 			checkToSee.setSelected(false);
 			noneCheckButton.setEnabled(false);
 		}
@@ -376,22 +405,22 @@ public class SetCheckDialog extends JDialog {
 				checkCompleted.setSelected(true);
 			else
 				checkCompleted.setSelected(false);
-			
+
 			if (AddAnimeDialog.checkAiringList)
 				checkAiring.setSelected(true);
 			else
 				checkAiring.setSelected(false);
-			
+
 			if (AddAnimeDialog.checkOAVList)
 				checkOAV.setSelected(true);
 			else
 				checkOAV.setSelected(false);
-			
+
 			if (AddAnimeDialog.checkFilmList)
 				checkFilm.setSelected(true);
 			else
 				checkFilm.setSelected(false);
-			
+
 			if (AddAnimeDialog.checkToSeeList)
 				checkToSee.setSelected(true);
 			else

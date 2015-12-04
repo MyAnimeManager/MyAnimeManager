@@ -55,7 +55,7 @@ public class PreferenceDialog extends JDialog
 	 */
 	public PreferenceDialog()
 	{
-		super(AnimeIndex.frame,true);
+		super(AnimeIndex.frame, true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PreferenceDialog.class.getResource("/image/System-Preferences-icon.png")));
 		setTitle("Preferenze");
 		setResizable(false);
@@ -65,10 +65,10 @@ public class PreferenceDialog extends JDialog
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.EAST);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{197, 90, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWidths = new int[] { 197, 90, 0, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_contentPanel.columnWeights = new double[] { 1.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblListToVisualize = new JLabel("Lista da visualizzare all'avvio :");
@@ -82,14 +82,20 @@ public class PreferenceDialog extends JDialog
 		{
 			rdbtnChooseList = new JCheckBox("Scegli Lista :");
 			rdbtnChooseList.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					choosedList.setEnabled(true);
 				}
 			});
 			{
 				rdbtnLastList = new JCheckBox("Ultima Lista Visualizzata");
 				rdbtnLastList.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						choosedList.setEnabled(false);
 					}
 				});
@@ -97,7 +103,10 @@ public class PreferenceDialog extends JDialog
 					chckbxDailyRelease = new JCheckBox("Uscite del Giorno");
 					chckbxDailyRelease.setToolTipText("Visualizza le uscite del giorno applicando automaticamente il filtro alle liste");
 					chckbxDailyRelease.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent arg0) {
+
+						@Override
+						public void actionPerformed(ActionEvent arg0)
+						{
 							choosedList.setEnabled(false);
 						}
 					});
@@ -153,7 +162,7 @@ public class PreferenceDialog extends JDialog
 			gbc_choosedList.gridx = 1;
 			gbc_choosedList.gridy = 3;
 			contentPanel.add(choosedList, gbc_choosedList);
-			choosedList.setModel(new DefaultComboBoxModel(new String[] {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere","Uscite del Giorno"}));
+			choosedList.setModel(new DefaultComboBoxModel(new String[] { "Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere", "Uscite del Giorno" }));
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -164,7 +173,10 @@ public class PreferenceDialog extends JDialog
 			{
 				JButton okButton = new JButton("Salva");
 				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						if (rdbtnLastList.isSelected())
 						{
 							AnimeIndex.appProp.setProperty("List_to_visualize_at_start", "Last list");
@@ -181,21 +193,17 @@ public class PreferenceDialog extends JDialog
 							AnimeIndex.appProp.setProperty("List_to_visualize_at_start", "Daily");
 							AnimeIndex.appProp.setProperty("Last_list", "---");
 						}
-						
-						if(chckbxApriWishlist.isSelected())
-						{
+
+						if (chckbxApriWishlist.isSelected())
 							AnimeIndex.appProp.setProperty("Open_Wishlist", "true");
-						}
 						else
 							AnimeIndex.appProp.setProperty("Open_Wishlist", "false");
-						
-						if(chckbxApriNewsboard.isSelected())
-						{
+
+						if (chckbxApriNewsboard.isSelected())
 							AnimeIndex.appProp.setProperty("Open_NewsBoard", "true");
-						}
 						else
 							AnimeIndex.appProp.setProperty("Open_NewsBoard", "false");
-						
+
 						JButton but = (JButton) e.getSource();
 						JDialog dialog = (JDialog) but.getTopLevelAncestor();
 						dialog.dispose();
@@ -207,7 +215,10 @@ public class PreferenceDialog extends JDialog
 			{
 				JButton cancelButton = new JButton("Annulla");
 				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						JButton but = (JButton) e.getSource();
 						JDialog dialog = (JDialog) but.getTopLevelAncestor();
 						dialog.dispose();
@@ -239,8 +250,11 @@ public class PreferenceDialog extends JDialog
 		{
 			dataCheckButton = new JButton("Disattiva");
 			dataCheckButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true"))
+
+				@Override
+				public void actionPerformed(ActionEvent arg0)
+				{
+					if (AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true"))
 					{
 						AnimeIndex.appProp.setProperty("Update_system", "false");
 						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Controllo Dati Automatico:    DISATTIVATO", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
@@ -250,7 +264,7 @@ public class PreferenceDialog extends JDialog
 					else
 					{
 						int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "Il controllo utilizza Internet.\n\rAssicurarsi che la rete sia disponibile.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-						if(shouldCancel==0)
+						if (shouldCancel == 0)
 						{
 							AnimeIndex.appProp.setProperty("Update_system", "true");
 							dataCheckButton.setText("Disattiva");
@@ -269,7 +283,10 @@ public class PreferenceDialog extends JDialog
 		{
 			JButton btnEsclusioni = new JButton("Esclusioni");
 			btnEsclusioni.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0)
+				{
 					exclusionDialog = new SetExclusionDialog();
 					exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
 					exclusionDialog.setVisible(true);
@@ -313,7 +330,10 @@ public class PreferenceDialog extends JDialog
 		}
 		JButton btnColor = new JButton("Personalizza");
 		btnColor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
 				ColorDialog dial = new ColorDialog();
 				dial.setLocationRelativeTo(AnimeIndex.mainFrame);
 				dial.setVisible(true);
@@ -339,23 +359,26 @@ public class PreferenceDialog extends JDialog
 		}
 		JButton DefaultImageButton = new JButton("Sfoglia");
 		DefaultImageButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
 				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
 				JFileChooser fc = new JFileChooser(chooserDir);
 				fc.setMultiSelectionEnabled(false);
 				fc.addChoosableFileFilter(new ImageChooserFilter());
 				fc.setAcceptAllFileFilterUsed(false);
 				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Imposta");
-				
+
 				if (returnVal == JFileChooser.APPROVE_OPTION)
 				{
 					File file = fc.getSelectedFile();
 					String dir = file.getPath();
-					
+
 					FileManager.saveDefaultScaledImage(dir, "default");
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
 					AnimeIndex.animeInformation.setBlank();
-									
+
 				}
 			}
 		});
@@ -368,20 +391,29 @@ public class PreferenceDialog extends JDialog
 		{
 			JButton removeDefaultImage = new JButton("Rimuovi");
 			removeDefaultImage.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					File img = new File(FileManager.getDefaultImageFolderPath());
-					if(img.isDirectory()==false)
+					if (img.isDirectory() == false)
 						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessuna immagine iniziale trovata.", "Errore!", JOptionPane.ERROR_MESSAGE);
-					else{
-					int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "L'immagine iniziale impostata dall'utente sara' eliminata.\n\rL'operazione non potra' essere annullata.", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-					if(shouldCancel==0){
-					try{
-						FileManager.deleteData(img);
-						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Immagine iniziale rimossa.", "Eliminazione completata", JOptionPane.INFORMATION_MESSAGE);
-						if(MAMUtil.getJList().isSelectionEmpty())
-							AnimeIndex.animeInformation.animeImage.setIcon(new ImageIcon(ImageIO.read(ClassLoader.getSystemResource("image/default.png"))));						
-					}catch(IOException e1)
-					{	e1.getStackTrace();}}}
+					else
+					{
+						int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "L'immagine iniziale impostata dall'utente sara' eliminata.\n\rL'operazione non potra' essere annullata.", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						if (shouldCancel == 0)
+							try
+							{
+								FileManager.deleteData(img);
+								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Immagine iniziale rimossa.", "Eliminazione completata", JOptionPane.INFORMATION_MESSAGE);
+								if (MAMUtil.getJList().isSelectionEmpty())
+									AnimeIndex.animeInformation.animeImage.setIcon(new ImageIcon(ImageIO.read(ClassLoader.getSystemResource("image/default.png"))));
+							}
+							catch (IOException e1)
+							{
+								e1.getStackTrace();
+							}
+					}
 				}
 			});
 			GridBagConstraints gbc_removeDefaultImage = new GridBagConstraints();
@@ -404,7 +436,10 @@ public class PreferenceDialog extends JDialog
 		{
 			btnEsporta = new JButton("Esporta");
 			btnEsporta.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					File folder = new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "log" + File.separator);
 					File[] fileList = folder.listFiles();
 					if (fileList.length == 0)
@@ -414,14 +449,14 @@ public class PreferenceDialog extends JDialog
 						Object file = JOptionPane.showInputDialog(PreferenceDialog.this, "Quale file vuoi esportare?", "Esportazione", JOptionPane.QUESTION_MESSAGE, null, fileList, fileList[0]);
 						if (file != null && file instanceof File)
 						{
-							File choosedFile = (File)file;
+							File choosedFile = (File) file;
 							JFileChooser chooser = new JFileChooser(System.getProperty("user.home") + File.separator + "Desktop");
 							chooser.setMultiSelectionEnabled(false);
 							chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 							chooser.setDialogTitle("Esporta in...");
-							
+
 							int returnVal = chooser.showDialog(AnimeIndex.mainFrame, "Esporta");
-							
+
 							if (returnVal == JFileChooser.APPROVE_OPTION)
 							{
 								File destination = chooser.getSelectedFile();
@@ -449,23 +484,24 @@ public class PreferenceDialog extends JDialog
 		{
 			btnCancella = new JButton("Cancella");
 			btnCancella.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					int choiche = JOptionPane.showConfirmDialog(PreferenceDialog.this, "Vuoi rimuovere tutti i file di log?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (choiche == JOptionPane.YES_OPTION)
-							{
-								try
-								{
-									FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "log" + File.separator));
-									btnCancella.setEnabled(false);
-									btnEsporta.setEnabled(false);
-									lblFileDiLog.setText("File di Log : (0Kb)");
-								}
-								catch (IOException e1)
-								{
-									MAMUtil.writeLog(e1);
-									e1.printStackTrace();
-								}
-							}
+						try
+						{
+							FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "log" + File.separator));
+							btnCancella.setEnabled(false);
+							btnEsporta.setEnabled(false);
+							lblFileDiLog.setText("File di Log : (0Kb)");
+						}
+						catch (IOException e1)
+						{
+							MAMUtil.writeLog(e1);
+							e1.printStackTrace();
+						}
 				}
 			});
 			GridBagConstraints gbc_btnCancella = new GridBagConstraints();
@@ -478,7 +514,7 @@ public class PreferenceDialog extends JDialog
 		{
 			File folder = new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "log" + File.separator);
 			long space = getFolderSize(folder) / 1024;
-			lblFileDiLog = new JLabel("File di Log : ("+space+"Kb)");
+			lblFileDiLog = new JLabel("File di Log : (" + space + "Kb)");
 			GridBagConstraints gbc_lblFileDiLog = new GridBagConstraints();
 			gbc_lblFileDiLog.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblFileDiLog.insets = new Insets(0, 0, 5, 5);
@@ -491,7 +527,7 @@ public class PreferenceDialog extends JDialog
 				btnCancella.setEnabled(false);
 			}
 		}
-		
+
 		{
 			JSeparator separator = new JSeparator();
 			GridBagConstraints gbc_separator = new GridBagConstraints();
@@ -501,7 +537,7 @@ public class PreferenceDialog extends JDialog
 			gbc_separator.gridy = 12;
 			contentPanel.add(separator, gbc_separator);
 		}
-		
+
 		String listPreference = AnimeIndex.appProp.getProperty("List_to_visualize_at_start");
 		if (listPreference.equalsIgnoreCase("last list"))
 		{
@@ -516,40 +552,34 @@ public class PreferenceDialog extends JDialog
 			choosedList.setSelectedItem("Anime in Corso");
 		}
 		else
-		{
 			rdbtnChooseList.setSelected(true);
-		}
-		if(AnimeIndex.appProp.getProperty("Update_system").equals("true"))
+		if (AnimeIndex.appProp.getProperty("Update_system").equals("true"))
 			dataCheckButton.setText("Disattiva");
 		else
 			dataCheckButton.setText("Attiva");
-		
-		if(AnimeIndex.appProp.getProperty("Open_Wishlist").equals("true"))
+
+		if (AnimeIndex.appProp.getProperty("Open_Wishlist").equals("true"))
 			chckbxApriWishlist.setSelected(true);
 		else
 			chckbxApriWishlist.setSelected(false);
-		
-		if(AnimeIndex.appProp.getProperty("Open_NewsBoard").equals("true"))
+
+		if (AnimeIndex.appProp.getProperty("Open_NewsBoard").equals("true"))
 			chckbxApriNewsboard.setSelected(true);
 		else
 			chckbxApriNewsboard.setSelected(false);
 	}
-	
+
 	private long getFolderSize(File folder)
 	{
 		long size = 0;
-		if(folder.isDirectory())
-    	{		 
-    		if(folder.list().length > 0)		 		 
-    		{
-        	   File[] files = folder.listFiles();
- 
-        	   for (File file : files) 
-        	   {
-        	     size += file.length();
-        	   }
-    		}
-    	}
+		if (folder.isDirectory())
+			if (folder.list().length > 0)
+			{
+				File[] files = folder.listFiles();
+
+				for (File file : files)
+					size += file.length();
+			}
 		return size;
 	}
 }

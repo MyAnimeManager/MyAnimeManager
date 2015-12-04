@@ -1,4 +1,5 @@
 package util.window;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -22,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import main.AnimeIndex;
@@ -29,7 +31,6 @@ import util.AnimeIndexProperties;
 import util.ColorProperties;
 import util.ExternalProgram;
 import util.FileManager;
-
 
 public class ColorDialog extends JDialog
 {
@@ -47,7 +48,6 @@ public class ColorDialog extends JDialog
 	public int progressBarColor;
 	public int comboBoxColor;
 
-
 	/**
 	 * Create the dialog.
 	 */
@@ -55,17 +55,17 @@ public class ColorDialog extends JDialog
 	{
 		setResizable(false);
 		setModal(true);
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setTitle("Personalizzazione Colori");
 		setBounds(100, 100, 404, 226);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWidths = new int[] { 0, 0, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
+		gbl_contentPanel.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JButton btnSfondo = new JButton("Sfondo");
@@ -75,14 +75,17 @@ public class ColorDialog extends JDialog
 				btnSfondo.setBackground(new Color(panelColor));
 			}
 			btnSfondo.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					JPanel panel = new JPanel();
 					int color = customize(panel);
 					if (color != 0)
 					{
-					btnSfondo.setBackground(new Color(color));
-					panelColor = color;
-					changed = true;
+						btnSfondo.setBackground(new Color(color));
+						panelColor = color;
+						changed = true;
 					}
 				}
 			});
@@ -101,16 +104,19 @@ public class ColorDialog extends JDialog
 				btnBottoni.setBackground(new Color(buttonColor));
 			}
 			btnBottoni.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					JButton butt = new JButton("Prova");
 					int color = customize(butt);
 					if (color != 0)
 					{
-					btnBottoni.setBackground(new Color(color));
-					buttonColor = color;
-					changed = true;
+						btnBottoni.setBackground(new Color(color));
+						buttonColor = color;
+						changed = true;
 					}
-					
+
 				}
 			});
 			GridBagConstraints gbc_btnBottoni = new GridBagConstraints();
@@ -128,14 +134,17 @@ public class ColorDialog extends JDialog
 				btnCampiDiInput.setBackground(new Color(textFieldColor));
 			}
 			btnCampiDiInput.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					JTextField text = new JTextField();
 					int color = customize(text);
 					if (color != 0)
 					{
-					btnCampiDiInput.setBackground(new Color(color));
-					textFieldColor = color;
-					changed = true;
+						btnCampiDiInput.setBackground(new Color(color));
+						textFieldColor = color;
+						changed = true;
 					}
 				}
 			});
@@ -154,14 +163,17 @@ public class ColorDialog extends JDialog
 				btnLabel.setBackground(new Color(labelColor));
 			}
 			btnLabel.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					JLabel label = new JLabel("Prova");
 					int color = customize(label);
 					if (color != 0)
 					{
 						btnLabel.setBackground(new Color(color));
-					labelColor = color;
-					changed = true;
+						labelColor = color;
+						changed = true;
 					}
 				}
 			});
@@ -175,19 +187,22 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnCheckbox = new JButton("CheckBox");
 			if (AnimeIndex.colorProp.getProperty("CheckBox_color") != null && !AnimeIndex.colorProp.getProperty("CheckBox_color").equalsIgnoreCase("null"))
-				{
+			{
 				checkBoxColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("CheckBox_color"));
-				btnCheckbox.setBackground(new Color(checkBoxColor));				
-				}
+				btnCheckbox.setBackground(new Color(checkBoxColor));
+			}
 			btnCheckbox.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					JCheckBox checkBox = new JCheckBox();
 					int color = customize(checkBox);
 					if (color != 0)
 					{
-					btnCheckbox.setBackground(new Color(color));
-					checkBoxColor = color;
-					changed = true;
+						btnCheckbox.setBackground(new Color(color));
+						checkBoxColor = color;
+						changed = true;
 					}
 				}
 			});
@@ -201,21 +216,24 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnMenu = new JButton("Menu");
 			if (AnimeIndex.colorProp.getProperty("Menu_color") != null && !AnimeIndex.colorProp.getProperty("Menu_color").equalsIgnoreCase("null"))
-				{
+			{
 				menuColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("Menu_color"));
 				btnMenu.setBackground(new Color(menuColor));
-				}
+			}
 			btnMenu.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					JPanel panel = new JPanel();
 					int color = customize(panel);
 					if (color != 0)
 					{
-					btnMenu.setBackground(new Color(color));
-					menuColor = color;
-					changed = true;
+						btnMenu.setBackground(new Color(color));
+						menuColor = color;
+						changed = true;
 					}
-					
+
 				}
 			});
 			GridBagConstraints gbc_btnRadiobox = new GridBagConstraints();
@@ -228,12 +246,15 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnListe = new JButton("Liste");
 			if (AnimeIndex.colorProp.getProperty("List_color") != null && !AnimeIndex.colorProp.getProperty("List_color").equalsIgnoreCase("null"))
-				{
+			{
 				listColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("List_color"));
-				btnListe.setBackground(new Color(listColor));			
-				}
+				btnListe.setBackground(new Color(listColor));
+			}
 			btnListe.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					DefaultListModel model = new DefaultListModel();
 					model.addElement("Prova 1");
 					model.addElement("Prova 2");
@@ -243,9 +264,9 @@ public class ColorDialog extends JDialog
 					int color = customize(list);
 					if (color != 0)
 					{
-					btnListe.setBackground(new Color(color));
-					listColor = color;
-					changed = true;
+						btnListe.setBackground(new Color(color));
+						listColor = color;
+						changed = true;
 					}
 				}
 			});
@@ -259,19 +280,22 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnSeparatori = new JButton("Separatori");
 			if (AnimeIndex.colorProp.getProperty("Separator_color") != null && !AnimeIndex.colorProp.getProperty("Separator_color").equalsIgnoreCase("null"))
-				{
+			{
 				separatorColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("Separator_color"));
 				btnSeparatori.setBackground(new Color(separatorColor));
-				}
+			}
 			btnSeparatori.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					JPanel panel = new JPanel();
 					int color = customize(panel);
 					if (color != 0)
 					{
-					btnSeparatori.setBackground(new Color(color));
-					separatorColor = color;
-					changed = true;
+						btnSeparatori.setBackground(new Color(color));
+						separatorColor = color;
+						changed = true;
 					}
 				}
 			});
@@ -285,21 +309,24 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnBarreDiCaricamento = new JButton("Barre di Caricamento");
 			if (AnimeIndex.colorProp.getProperty("ProgressBar_color") != null && !AnimeIndex.colorProp.getProperty("ProgressBar_color").equalsIgnoreCase("null"))
-				{
+			{
 				progressBarColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("ProgressBar_color"));
 				btnBarreDiCaricamento.setBackground(new Color(progressBarColor));
-				}
+			}
 			btnBarreDiCaricamento.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					JProgressBar bar = new JProgressBar();
 					bar.setIndeterminate(true);
 					bar.setOrientation(SwingConstants.VERTICAL);
 					int color = customize(bar);
 					if (color != 0)
 					{
-					btnBarreDiCaricamento.setBackground(new Color(color));
-					progressBarColor = color;
-					changed = true;
+						btnBarreDiCaricamento.setBackground(new Color(color));
+						progressBarColor = color;
+						changed = true;
 					}
 				}
 			});
@@ -313,19 +340,22 @@ public class ColorDialog extends JDialog
 		{
 			JButton btnListeADiscesa = new JButton("Liste a Discesa");
 			if (AnimeIndex.colorProp.getProperty("ComboBox_color") != null && !AnimeIndex.colorProp.getProperty("ComboBox_color").equalsIgnoreCase("null"))
-				{
+			{
 				comboBoxColor = Integer.parseInt(AnimeIndex.colorProp.getProperty("ComboBox_color"));
 				btnListeADiscesa.setBackground(new Color(comboBoxColor));
-				}
+			}
 			btnListeADiscesa.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					JComboBox comboBox = new JComboBox();
 					int color = customize(comboBox);
 					if (color != 0)
 					{
-					btnListeADiscesa.setBackground(new Color(color));
-					comboBoxColor = color;
-					changed = true;
+						btnListeADiscesa.setBackground(new Color(color));
+						comboBoxColor = color;
+						changed = true;
 					}
 				}
 			});
@@ -342,7 +372,10 @@ public class ColorDialog extends JDialog
 			{
 				JButton btnTest = new JButton("Test");
 				btnTest.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						TestDialog test = new TestDialog(panelColor, buttonColor, textFieldColor, labelColor, checkBoxColor, listColor, separatorColor, progressBarColor, comboBoxColor);
 						test.setLocationRelativeTo(ColorDialog.this);
 						test.setVisible(true);
@@ -353,7 +386,10 @@ public class ColorDialog extends JDialog
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						if (changed)
 						{
 							int choiche = JOptionPane.showConfirmDialog(ColorDialog.this, "Per applicare le modifiche è necessario un riavvio. Riavviare ora?", "Riavvio richiesto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -361,7 +397,7 @@ public class ColorDialog extends JDialog
 							{
 								saveColor();
 								saveData();
-								ExternalProgram restart = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + "MAMRestart.jar");
+								ExternalProgram restart = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "MAMRestart.jar");
 								restart.run();
 							}
 							else
@@ -374,13 +410,16 @@ public class ColorDialog extends JDialog
 				{
 					JButton btnReset = new JButton("Reset");
 					btnReset.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
+
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
 							AnimeIndex.colorProp.clear();
 							int choiche = JOptionPane.showConfirmDialog(ColorDialog.this, "Per applicare le modifiche è necessario un riavvio. Riavviare ora?", "Riavvio richiesto", JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
 							if (choiche == 0)
 							{
 								saveData();
-								ExternalProgram restart = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager"+ File.separator + "MAMRestart.jar");
+								ExternalProgram restart = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "MAMRestart.jar");
 								restart.run();
 							}
 						}
@@ -394,7 +433,10 @@ public class ColorDialog extends JDialog
 			{
 				JButton cancelButton = new JButton("Annulla");
 				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						ColorDialog.this.dispose();
 					}
 				});
@@ -405,12 +447,12 @@ public class ColorDialog extends JDialog
 	}
 
 	private int customize(JComponent componen)
-	{		
-				CustomizingDialog dial = new CustomizingDialog(componen);
-				dial.setLocationRelativeTo(ColorDialog.this);
-				dial.setVisible(true);
-				int colorRGB = dial.color;
-				return colorRGB;
+	{
+		CustomizingDialog dial = new CustomizingDialog(componen);
+		dial.setLocationRelativeTo(ColorDialog.this);
+		dial.setVisible(true);
+		int colorRGB = dial.color;
+		return colorRGB;
 
 	}
 
@@ -427,6 +469,7 @@ public class ColorDialog extends JDialog
 		AnimeIndex.colorProp.setProperty("ProgressBar_color", Integer.toString(progressBarColor));
 		AnimeIndex.colorProp.setProperty("ComboBox_color", Integer.toString(comboBoxColor));
 	}
+
 	private static void saveData()
 	{
 		FileManager.saveAnimeList("completed.anaconda", AnimeIndex.completedMap);
@@ -436,7 +479,7 @@ public class ColorDialog extends JDialog
 		FileManager.saveAnimeList("toSee.anaconda", AnimeIndex.completedToSeeMap);
 		FileManager.saveWishList();
 		FileManager.saveExclusionList();
-		
+
 		ExitSaveDialog.deleteUselessImage(AnimeIndex.completedDeletedAnime);
 		ExitSaveDialog.deleteUselessImage(AnimeIndex.airingDeletedAnime);
 		ExitSaveDialog.deleteUselessImage(AnimeIndex.ovaDeletedAnime);

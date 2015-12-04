@@ -36,14 +36,13 @@ public class CreditDialog extends JDialog
 
 	private final JPanel contentPanel = new JPanel();
 
-
 	/**
 	 * Create the dialog.
 	 */
 	public CreditDialog()
 	{
-		super(AnimeIndex.frame,true);
-		setTitle("My Anime Manager  v"+AnimeIndex.VERSION);
+		super(AnimeIndex.frame, true);
+		setTitle("My Anime Manager  v" + AnimeIndex.VERSION);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CreditDialog.class.getResource("/image/icon.png")));
 		setResizable(false);
 		setBounds(100, 100, 450, 317);
@@ -51,10 +50,10 @@ public class CreditDialog extends JDialog
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, -28, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 98, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, -28, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 98, 0, 0, 0 };
+		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblNewLabel_1 = new JLabel("\u2022 Versione :");
@@ -69,25 +68,33 @@ public class CreditDialog extends JDialog
 			JLabel label = new JLabel("");
 			label.setForeground(SystemColor.textHighlight);
 			label.addMouseListener(new MouseAdapter() {
+
 				@Override
-				public void mouseEntered(MouseEvent e) {
+				public void mouseEntered(MouseEvent e)
+				{
 					label.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				}
 
 				@Override
-				public void mouseClicked(MouseEvent e) {
+				public void mouseClicked(MouseEvent e)
+				{
 					String link = "https://github.com/MyAnimeManager/MyAnimeManager#my-anime-manager";
-					try {
+					try
+					{
 						URI uriLink = new URI(link);
 						Desktop.getDesktop().browse(uriLink);
-					} catch (URISyntaxException a) {
-					} catch (IOException a) {
-				}
+					}
+					catch (URISyntaxException a)
+					{
+					}
+					catch (IOException a)
+					{
+					}
 				}
 			});
 			label.setFont(new Font("Tahoma", Font.PLAIN, 11));
-//			label.setForeground(Color.RED);
-			label.setText("My Anime Manager   v"+AnimeIndex.VERSION);
+			// label.setForeground(Color.RED);
+			label.setText("My Anime Manager   v" + AnimeIndex.VERSION);
 			GridBagConstraints gbc_label = new GridBagConstraints();
 			gbc_label.gridwidth = 9;
 			gbc_label.insets = new Insets(0, 0, 5, 0);
@@ -118,7 +125,7 @@ public class CreditDialog extends JDialog
 			JLabel txtpnTestoDiProva = new JLabel();
 			txtpnTestoDiProva.setOpaque(false);
 			txtpnTestoDiProva.setBorder(null);
-			txtpnTestoDiProva.setBackground(new Color(19,19,19));
+			txtpnTestoDiProva.setBackground(new Color(19, 19, 19));
 			txtpnTestoDiProva.setText("\u2022 Sviluppato da :     ");
 			GridBagConstraints gbc_txtpnTestoDiProva = new GridBagConstraints();
 			gbc_txtpnTestoDiProva.anchor = GridBagConstraints.WEST;
@@ -133,20 +140,28 @@ public class CreditDialog extends JDialog
 			{
 				JLabel patreonLabel = new JLabel("");
 				patreonLabel.addMouseListener(new MouseAdapter() {
+
 					@Override
-					public void mouseEntered(MouseEvent e) {
+					public void mouseEntered(MouseEvent e)
+					{
 						patreonLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 					}
 
 					@Override
-					public void mouseReleased(MouseEvent e) {
+					public void mouseReleased(MouseEvent e)
+					{
 						String link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RFJLMVCQYZEQG";
-						try {
+						try
+						{
 							URI uriLink = new URI(link);
 							Desktop.getDesktop().browse(uriLink);
-						} catch (URISyntaxException a) {
-						} catch (IOException a) {
-					}
+						}
+						catch (URISyntaxException a)
+						{
+						}
+						catch (IOException a)
+						{
+						}
 					}
 				});
 				{
@@ -234,20 +249,28 @@ public class CreditDialog extends JDialog
 					gbc_label.gridy = 5;
 					contentPanel.add(label, gbc_label);
 					label.addMouseListener(new MouseAdapter() {
+
 						@Override
-						public void mouseEntered(MouseEvent e) {
+						public void mouseEntered(MouseEvent e)
+						{
 							label.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						}
 
 						@Override
-						public void mouseReleased(MouseEvent e) {
+						public void mouseReleased(MouseEvent e)
+						{
 							String link = "https://github.com/MyAnimeManager/MyAnimeManager#contatti";
-							try {
+							try
+							{
 								URI uriLink = new URI(link);
 								Desktop.getDesktop().browse(uriLink);
-							} catch (URISyntaxException a) {
-							} catch (IOException a) {
-						}
+							}
+							catch (URISyntaxException a)
+							{
+							}
+							catch (IOException a)
+							{
+							}
 						}
 					});
 				}
@@ -273,12 +296,16 @@ public class CreditDialog extends JDialog
 					lblNewLabel_3.setIcon(new ImageIcon(CreditDialog.class.getResource("/image/gplv3.png")));
 					lblNewLabel_3.setForeground(Color.ORANGE);
 					lblNewLabel_3.addMouseListener(new MouseAdapter() {
+
 						@Override
-						public void mouseEntered(MouseEvent e) {
+						public void mouseEntered(MouseEvent e)
+						{
 							lblNewLabel_3.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						}
+
 						@Override
-						public void mouseClicked(MouseEvent e) {
+						public void mouseClicked(MouseEvent e)
+						{
 							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Copyright (C) <2015>   <Yesod30, iTTo>\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see http://www.gnu.org/licenses/.", "GNU License", JOptionPane.INFORMATION_MESSAGE);
 						}
 					});
@@ -330,7 +357,10 @@ public class CreditDialog extends JDialog
 		}
 		JButton btnOk = new JButton("OK");
 		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
 				JButton butt = (JButton) e.getSource();
 				JDialog dial = (JDialog) butt.getTopLevelAncestor();
 				dial.dispose();

@@ -4,6 +4,7 @@ import java.io.File;
 
 public class AnimeData
 {
+
 	String currentEpisode;
 	String totalEpisode;
 	String fansub;
@@ -18,13 +19,11 @@ public class AnimeData
 	String finishDate;
 	String durationEp;
 	Boolean bd;
-	//tipo anime, data di inizio e fine
+	// tipo anime, data di inizio e fine
 
 	private final static String IMAGE_PATH = FileManager.getImageFolderPath();
-		
-	public AnimeData(String currentEpisode, String totalEpisode, String fansub, String note, String image, 
-					 String day, String id, String linkName, String link, String animeType, String releaseDate, 
-					 String finishDate, String durationEp, Boolean bd)
+
+	public AnimeData(String currentEpisode, String totalEpisode, String fansub, String note, String image, String day, String id, String linkName, String link, String animeType, String releaseDate, String finishDate, String durationEp, Boolean bd)
 	{
 		this.currentEpisode = currentEpisode;
 		this.totalEpisode = totalEpisode;
@@ -41,7 +40,7 @@ public class AnimeData
 		this.durationEp = durationEp;
 		this.bd = bd;
 	}
-	
+
 	public String getLinkName()
 	{
 		return linkName;
@@ -91,7 +90,7 @@ public class AnimeData
 	{
 		return imageName;
 	}
-	
+
 	public String getImagePath(String listName)
 	{
 		String folder = "";
@@ -105,7 +104,7 @@ public class AnimeData
 			folder = "Film";
 		else if (listName.equalsIgnoreCase("completi da vedere"))
 			folder = "Completed to See";
-		
+
 		return IMAGE_PATH + folder + File.separator + this.getImageName();
 	}
 
@@ -113,7 +112,7 @@ public class AnimeData
 	{
 		return day;
 	}
-	
+
 	public String getId()
 	{
 		return id;
@@ -123,10 +122,13 @@ public class AnimeData
 	{
 		return durationEp;
 	}
+
 	public boolean getBd()
 	{
 		return bd;
 	}
+
+	@Override
 	public String toString()
 	{
 		String string = this.getCurrentEpisode() + "||" + this.getTotalEpisode() + "||" + this.getFansub() + "||" + this.getNote() + "||" + this.getImageName() + "||" + this.getDay() + "||" + this.getId() + "||" + this.getLinkName() + "||" + this.getLink() + "||" + this.getAnimeType() + "||" + this.getReleaseDate() + "||" + this.getFinishDate() + "||" + this.getDurationEp() + "||" + this.getBd();

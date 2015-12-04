@@ -42,35 +42,37 @@ public class FieldExclusionDialog extends JDialog
 		setResizable(false);
 		setTitle("Campi da aggiornare");
 		addWindowListener(new WindowAdapter() {
+
 			@Override
-			public void windowOpened(WindowEvent e) {
-				
-				if(AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("false"))
+			public void windowOpened(WindowEvent e)
+			{
+
+				if (AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("false"))
 				{
 					String name = AnimeIndex.animeInformation.lblAnimeName.getText();
-					if(AnimeIndex.exclusionAnime.containsKey(name))
+					if (AnimeIndex.exclusionAnime.containsKey(name))
 					{
 						boolean[] exc = AnimeIndex.exclusionAnime.get(name);
-						
-						if (exc[1]!=true)
+
+						if (exc[1] != true)
 							totalEpCheckBox.setSelected(true);
-						
-						if (exc[2]!=true)
+
+						if (exc[2] != true)
 							durationCheckBox.setSelected(true);
-						
-						if (exc[3]!=true)
+
+						if (exc[3] != true)
 							startDateCheckBox.setSelected(true);
-						
-						if (exc[4]!=true)
+
+						if (exc[4] != true)
 							finishDateCheckBox.setSelected(true);
-						
-						if (exc[5]!=true)
+
+						if (exc[5] != true)
 							typeCheckBox.setSelected(true);
-						
-						if (exc[0]!=true)
+
+						if (exc[0] != true)
 							imageCheckBox.setSelected(true);
-						
-						if(AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
+
+						if (AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
 						{
 							typeCheckBox.setSelected(false);
 							typeCheckBox.setEnabled(false);
@@ -84,7 +86,7 @@ public class FieldExclusionDialog extends JDialog
 						finishDateCheckBox.setSelected(true);
 						typeCheckBox.setSelected(true);
 						imageCheckBox.setSelected(true);
-						if(AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
+						if (AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
 						{
 							typeCheckBox.setSelected(false);
 							typeCheckBox.setEnabled(false);
@@ -95,26 +97,26 @@ public class FieldExclusionDialog extends JDialog
 				{
 					String name = AnimeIndex.animeInformation.lblAnimeName.getText();
 					boolean[] exc = AnimeIndex.exclusionAnime.get(name);
-					
-					if (exc[1]==false)
+
+					if (exc[1] == false)
 						totalEpCheckBox.setSelected(true);
-					
-					if (exc[2]==false)
+
+					if (exc[2] == false)
 						durationCheckBox.setSelected(true);
-					
-					if (exc[3]==false)
+
+					if (exc[3] == false)
 						startDateCheckBox.setSelected(true);
-					
-					if (exc[4]==false)
+
+					if (exc[4] == false)
 						finishDateCheckBox.setSelected(true);
-					
-					if (exc[5]==false)
+
+					if (exc[5] == false)
 						typeCheckBox.setSelected(true);
-					
-					if (exc[0]==false)
+
+					if (exc[0] == false)
 						imageCheckBox.setSelected(true);
-					
-					if(AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
+
+					if (AnimeIndex.animeInformation.typeComboBox.getSelectedItem().equals("Blu-ray"))
 					{
 						typeCheckBox.setSelected(false);
 						typeCheckBox.setEnabled(false);
@@ -127,10 +129,10 @@ public class FieldExclusionDialog extends JDialog
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.NORTH);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 43, 0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 19, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWidths = new int[] { 0, 43, 0, 0, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 19, 0 };
+		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			durationCheckBox = new JCheckBox("Durata");
@@ -197,11 +199,14 @@ public class FieldExclusionDialog extends JDialog
 			JButton okButton = new JButton("Aggiorna");
 			panel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+
 					FieldExclusionDialog.this.dispose();
-					boolean[] exclusion = {imageCheckBox.isSelected(), totalEpCheckBox.isSelected(), durationCheckBox.isSelected(), startDateCheckBox.isSelected(), finishDateCheckBox.isSelected(), typeCheckBox.isSelected()};
-					AnimeInformation.dial = new UpdatingAnimeDataDialog(exclusion);	
+					boolean[] exclusion = { imageCheckBox.isSelected(), totalEpCheckBox.isSelected(), durationCheckBox.isSelected(), startDateCheckBox.isSelected(), finishDateCheckBox.isSelected(), typeCheckBox.isSelected() };
+					AnimeInformation.dial = new UpdatingAnimeDataDialog(exclusion);
 					AnimeInformation.dial.setLocationRelativeTo(AnimeIndex.mainFrame);
 					AnimeInformation.dial.setVisible(true);
 				}
@@ -212,7 +217,10 @@ public class FieldExclusionDialog extends JDialog
 				cancelButton = new JButton("Annulla");
 				panel.add(cancelButton);
 				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						FieldExclusionDialog.this.dispose();
 					}
 				});

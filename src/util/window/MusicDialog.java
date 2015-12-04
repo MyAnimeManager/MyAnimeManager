@@ -71,11 +71,11 @@ import util.task.GoogleDriveDownloadTask;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
-import javax.swing.ScrollPaneConstants;
 
-public class MusicDialog extends JDialog {
+public class MusicDialog extends JDialog
+{
 
-	public TreeMap<String,ArrayList<String>> songsMap;
+	public TreeMap<String, ArrayList<String>> songsMap;
 	private static final String MUSICS_PATH = FileManager.getAppDataPath() + "Musica" + File.separator;
 	private final JPanel contentPanel = new JPanel();
 	private Player player;
@@ -114,7 +114,7 @@ public class MusicDialog extends JDialog {
 	private DefaultTreeModel songsTreeModel;
 	private ArrayList<String> songList = new ArrayList<String>();
 	private ArrayList<String> userPlayList = new ArrayList<String>();
-	
+
 	public MusicDialog()
 	{
 		super(AnimeIndex.frame, false);
@@ -123,27 +123,32 @@ public class MusicDialog extends JDialog {
 		Logger.getLogger("org.jaudiotagger").setUseParentHandlers(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MusicDialog.class.getResource("/image/Headp.png")));
 		addWindowListener(new WindowAdapter() {
+
 			@Override
-			public void windowOpened(WindowEvent e) {
+			public void windowOpened(WindowEvent e)
+			{
 				setDefaultImage();
 				progressBar.setString("");
 				DriveFileFetcherTask task = new DriveFileFetcherTask();
 				task.addPropertyChangeListener(new PropertyChangeListener() {
-					public void propertyChange(PropertyChangeEvent evt) {
-						if (evt.getPropertyName().equals("state"))
-						{
-							if(evt.getNewValue().toString().equalsIgnoreCase("done"))
-								createSongsTree(songsMap);
-						}
 
+					@Override
+					public void propertyChange(PropertyChangeEvent evt)
+					{
+						if (evt.getPropertyName().equals("state"))
+							if (evt.getNewValue().toString().equalsIgnoreCase("done"))
+								createSongsTree(songsMap);
+								
 					}
 				});
 				task.execute();
 			}
+
 			@Override
-			public void windowClosing(WindowEvent e) {
+			public void windowClosing(WindowEvent e)
+			{
 				stop();
-				if(timer!=null)
+				if (timer != null)
 					timer.stop();
 			}
 		});
@@ -164,19 +169,21 @@ public class MusicDialog extends JDialog {
 				progressBar.setFont(new Font("Tahoma", Font.PLAIN, 10));
 				progressBar.setStringPainted(true);
 				progressBar.addMouseListener(new MouseAdapter() {
+
 					@Override
-					public void mouseReleased(MouseEvent e) {
-						if(isRunning || isPaused)
+					public void mouseReleased(MouseEvent e)
+					{
+						if (isRunning || isPaused)
 						{
 							stop();
-							if(timer!=null)
+							if (timer != null)
 								timer.stop();
 							String t = progressBar.getString();
-							pauseLocation = songTotalLength - (e.getX()*songTotalLength/progressBar.getWidth());
-							progressBar.setValue((int)pauseLocation);
+							pauseLocation = songTotalLength - (e.getX() * songTotalLength / progressBar.getWidth());
+							progressBar.setValue((int) pauseLocation);
 							resume();
 							progressBar.setString(t);
-							if(timer!=null)
+							if (timer != null)
 								timer.start();
 							btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
 						}
@@ -205,42 +212,38 @@ public class MusicDialog extends JDialog {
 			contentPanel.add(buttonPanel, BorderLayout.SOUTH);
 			{
 				GridBagLayout gbl_buttonPanel = new GridBagLayout();
-				gbl_buttonPanel.columnWidths = new int[]{93, 93, 45, 114, 45, 80, 54, 0};
-				gbl_buttonPanel.rowHeights = new int[]{23, 0};
-				gbl_buttonPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-				gbl_buttonPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+				gbl_buttonPanel.columnWidths = new int[] { 93, 93, 45, 114, 45, 80, 54, 0 };
+				gbl_buttonPanel.rowHeights = new int[] { 23, 0 };
+				gbl_buttonPanel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+				gbl_buttonPanel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 				buttonPanel.setLayout(gbl_buttonPanel);
 				{
 					btnSucc = new JButton("");
 					btnSucc.setEnabled(false);
 					btnSucc.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							if(isRunning || isPaused)
+
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							if (isRunning || isPaused)
 							{
 								stop();
 								timer.stop();
 							}
 							counter++;
-							setMusicTrack(MUSICS_PATH+songList.get(counter)+".mp3");
+							setMusicTrack(MUSICS_PATH + songList.get(counter) + ".mp3");
 							if (!tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()).equalsIgnoreCase("Brani"))
 							{
-								if(!userPlayList.isEmpty())
-								{
-									playlistTree.setSelectionPath(find((DefaultMutableTreeNode)(playlistTree.getModel().getRoot()), userPlayList.get(userPlayListCounter)));
-								}
+								if (!userPlayList.isEmpty())
+									playlistTree.setSelectionPath(find((DefaultMutableTreeNode) (playlistTree.getModel().getRoot()), userPlayList.get(userPlayListCounter)));
 							}
-							else
-							{
-								if(!songList.isEmpty())
-								{
-									songsTree.setSelectionPath(find((DefaultMutableTreeNode)(songsTree.getModel().getRoot()), songList.get(counter)));
-								}
-							}
-							if(counter!=0)
+							else if (!songList.isEmpty())
+								songsTree.setSelectionPath(find((DefaultMutableTreeNode) (songsTree.getModel().getRoot()), songList.get(counter)));
+							if (counter != 0)
 								btnPrev.setEnabled(true);
 							else
 								btnPrev.setEnabled(false);
-							if(counter==songList.size()-1)
+							if (counter == songList.size() - 1)
 								btnSucc.setEnabled(false);
 						}
 					});
@@ -251,34 +254,30 @@ public class MusicDialog extends JDialog {
 					btnPrev = new JButton("");
 					btnPrev.setEnabled(false);
 					btnPrev.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							if(isRunning || isPaused)
+
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							if (isRunning || isPaused)
 							{
 								stop();
 								timer.stop();
 							}
 							counter--;
-							setMusicTrack(MUSICS_PATH+songList.get(counter)+".mp3");
+							setMusicTrack(MUSICS_PATH + songList.get(counter) + ".mp3");
 							if (!tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()).equalsIgnoreCase("Brani"))
 							{
-								if(!userPlayList.isEmpty())
-								{
-									playlistTree.setSelectionPath(find((DefaultMutableTreeNode)(playlistTree.getModel().getRoot()), userPlayList.get(userPlayListCounter)));
-								}
+								if (!userPlayList.isEmpty())
+									playlistTree.setSelectionPath(find((DefaultMutableTreeNode) (playlistTree.getModel().getRoot()), userPlayList.get(userPlayListCounter)));
 							}
-							else
-							{
-								if(!songList.isEmpty())
-								{
-									songsTree.setSelectionPath(find((DefaultMutableTreeNode)(songsTree.getModel().getRoot()), songList.get(counter)));
-								}
-							}
-							
-							if(counter==songList.size()-1)
+							else if (!songList.isEmpty())
+								songsTree.setSelectionPath(find((DefaultMutableTreeNode) (songsTree.getModel().getRoot()), songList.get(counter)));
+								
+							if (counter == songList.size() - 1)
 								btnSucc.setEnabled(false);
 							else
 								btnSucc.setEnabled(true);
-							if(counter==0)
+							if (counter == 0)
 								btnPrev.setEnabled(false);
 						}
 					});
@@ -288,23 +287,27 @@ public class MusicDialog extends JDialog {
 				{
 					btnElimina = new JButton("Elimina");
 					btnElimina.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							String musicName = (((DefaultMutableTreeNode)songsTree.getLastSelectedPathComponent()).getUserObject()).toString();
-							if(isRunning||isPaused)
+
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							String musicName = (((DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent()).getUserObject()).toString();
+							if (isRunning || isPaused)
 							{
 								stop();
 								timer.stop();
 							}
-							if(songsMap.containsKey(musicName))
+							if (songsMap.containsKey(musicName))
 							{
 								ArrayList<String> list = songsMap.get(musicName);
-								for(String song : list)
+								for (String song : list)
 									try
 									{
-										File file = new File(MUSICS_PATH+song+".mp3");
-										if(file.isFile())
-										{	FileManager.deleteData(file);
-											if(songList.contains(song))
+										File file = new File(MUSICS_PATH + song + ".mp3");
+										if (file.isFile())
+										{
+											FileManager.deleteData(file);
+											if (songList.contains(song))
 											{
 												songList.remove(song);
 												counter--;
@@ -318,13 +321,13 @@ public class MusicDialog extends JDialog {
 									}
 							}
 							else
-							{
 								try
 								{
-									File file = new File(MUSICS_PATH+musicName+".mp3");
-									if(file.isFile())
-									{	FileManager.deleteData(file);
-										if(songList.contains(musicName))
+									File file = new File(MUSICS_PATH + musicName + ".mp3");
+									if (file.isFile())
+									{
+										FileManager.deleteData(file);
+										if (songList.contains(musicName))
 										{
 											songList.remove(musicName);
 											counter--;
@@ -336,7 +339,6 @@ public class MusicDialog extends JDialog {
 									MAMUtil.writeLog(e1);
 									e1.printStackTrace();
 								}
-							}
 							btnElimina.setEnabled(false);
 							songsTree.setCellRenderer(new JTreeIcons());
 							setDefaultImage();
@@ -367,7 +369,10 @@ public class MusicDialog extends JDialog {
 					gbc_btnSave.gridy = 0;
 					buttonPanel.add(btnSave, gbc_btnSave);
 					btnSave.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
+
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
 							JFileChooser chooser = new JFileChooser(System.getProperty("user.home") + File.separator + "Desktop");
 							chooser.setMultiSelectionEnabled(false);
 							chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -375,37 +380,39 @@ public class MusicDialog extends JDialog {
 							int returnVal = chooser.showDialog(AnimeIndex.mainFrame, "Salva");
 							if (returnVal == JFileChooser.APPROVE_OPTION)
 							{
-								String musicName = (((DefaultMutableTreeNode)songsTree.getLastSelectedPathComponent()).getUserObject()).toString();
-								if(songsMap.containsKey(musicName))
+								String musicName = (((DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent()).getUserObject()).toString();
+								if (songsMap.containsKey(musicName))
 								{
 									File destination = new File(chooser.getSelectedFile() + File.separator + musicName);
-									for(String song : songsMap.get(musicName))
+									for (String song : songsMap.get(musicName))
 									{
-										File choosedFile = new File(MUSICS_PATH+song+".mp3");
-										if(choosedFile.isFile())
-										{
-											try{
+										File choosedFile = new File(MUSICS_PATH + song + ".mp3");
+										if (choosedFile.isFile())
+											try
+											{
 												FileUtils.copyFileToDirectory(choosedFile, destination);
 											}
-											catch (IOException e1){
+											catch (IOException e1)
+											{
 												MAMUtil.writeLog(e1);
 												e1.printStackTrace();
 											}
-										}
 									}
 								}
 								else
 								{
 									File destination = chooser.getSelectedFile();
-									File choosedFile = new File(MUSICS_PATH+musicName+".mp3");
-									try{
+									File choosedFile = new File(MUSICS_PATH + musicName + ".mp3");
+									try
+									{
 										FileUtils.copyFileToDirectory(choosedFile, destination);
 									}
-									catch (IOException e1){
+									catch (IOException e1)
+									{
 										MAMUtil.writeLog(e1);
 										e1.printStackTrace();
 									}
-								}	
+								}
 							}
 						}
 					});
@@ -423,58 +430,61 @@ public class MusicDialog extends JDialog {
 					btnPlaypause.setToolTipText("Play/Pausa");
 					btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));
 					btnPlaypause.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							if(!isRunning && !isPaused)
+
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							if (!isRunning && !isPaused)
 							{
 								play(currentMusicPath);
 								btnRestart.setEnabled(true);
 								btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/pause_icon.png")));
 								progressBar.setMaximum((int) songTotalLength);
-								timer = new Timer(100, new ActionListener()
-                                {
-                                    public void actionPerformed(ActionEvent e)
-                                    {
-                                        long current = 0;
-                                        long currentTime = 0;
-                                        try{
-                                            current = songTotalLength - fis.available();
-                                            if(!(duration+"").isEmpty())
-                                            {
-	                                            String t ="";
-	                							currentTime = current*duration/songTotalLength;
-	                							if(((currentTime/60)+"").length()<2)
-	                							{
-	                								if(((currentTime%60)+"").length()<2)
-	                									t = "0" + currentTime/60 + ":0" + currentTime%60 + " / " + time;
-	                								else
-	                									t = "0" + currentTime/60 + ":" + currentTime%60 + " / " + time;
-	                							}
-	                							else
-	                							{
-	                								if(((currentTime%60)+"").length()<2)
-	                									t = currentTime/60 + ":0" + currentTime%60 + " / " + time;
-	                								else
-	                									t = currentTime/60 + ":" + currentTime%60 + " / " + time;
-	                							}
-	                    						progressBar.setString(t);
-                                            }
-                                        }
-                                        catch (IOException e1){
-                                            timer.stop();
-                                        }
-                                        progressBar.setValue((int) current);
-                                    }
-                                    
-                                });
+								timer = new Timer(100, new ActionListener() {
+
+									@Override
+									public void actionPerformed(ActionEvent e)
+									{
+										long current = 0;
+										long currentTime = 0;
+										try
+										{
+											current = songTotalLength - fis.available();
+											if (!(duration + "").isEmpty())
+											{
+												String t = "";
+												currentTime = current * duration / songTotalLength;
+												if (((currentTime / 60) + "").length() < 2)
+												{
+													if (((currentTime % 60) + "").length() < 2)
+														t = "0" + currentTime / 60 + ":0" + currentTime % 60 + " / " + time;
+													else
+														t = "0" + currentTime / 60 + ":" + currentTime % 60 + " / " + time;
+												}
+												else if (((currentTime % 60) + "").length() < 2)
+													t = currentTime / 60 + ":0" + currentTime % 60 + " / " + time;
+												else
+													t = currentTime / 60 + ":" + currentTime % 60 + " / " + time;
+												progressBar.setString(t);
+											}
+										}
+										catch (IOException e1)
+										{
+											timer.stop();
+										}
+										progressBar.setValue((int) current);
+									}
+
+								});
 								timer.start();
 							}
-							else if(!isPaused && isRunning)
+							else if (!isPaused && isRunning)
 							{
 								pause();
 								timer.stop();
 								btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));
 							}
-							else if(!isRunning && isPaused)
+							else if (!isRunning && isPaused)
 							{
 								resume();
 								timer.start();
@@ -500,7 +510,10 @@ public class MusicDialog extends JDialog {
 				btnRestart.setToolTipText("Ricomincia");
 				btnRestart.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/restart.png")));
 				btnRestart.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						stop();
 						timer.stop();
 						play(currentMusicPath);
@@ -536,48 +549,52 @@ public class MusicDialog extends JDialog {
 						panel.add(scrollPane);
 						songsTree = new JTree();
 						songsTree.addMouseListener(new MouseAdapter() {
+
 							@Override
-							public void mouseReleased(MouseEvent e) {
+							public void mouseReleased(MouseEvent e)
+							{
 								Object name = null;
-								try{
-									name = ((DefaultMutableTreeNode)songsTree.getLastSelectedPathComponent()).getUserObject();
-								}catch(NullPointerException e2)
-								{}
-								if(name!=null && !songsMap.containsKey(name))
+								try
 								{
-									if(new File(MUSICS_PATH+name+".mp3").isFile())
+									name = ((DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent()).getUserObject();
+								}
+								catch (NullPointerException e2)
+								{
+								}
+								if (name != null && !songsMap.containsKey(name))
+									if (new File(MUSICS_PATH + name + ".mp3").isFile())
 									{
-										if(!songList.isEmpty() && songList.contains(name))
+										if (!songList.isEmpty() && songList.contains(name))
 											songList.remove(name);
-										songList.add((String)name);
-										counter=songList.size()-1;
-										if(counter>0)
+										songList.add((String) name);
+										counter = songList.size() - 1;
+										if (counter > 0)
 											btnPrev.setEnabled(true);
 										else
 											btnPrev.setEnabled(false);
 										btnSucc.setEnabled(false);
 									}
-								}
 							}
 						});
 						songsTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 						songsTree.addTreeSelectionListener(new TreeSelectionListener() {
-							public void valueChanged(TreeSelectionEvent e) {
-								Object name = ((DefaultMutableTreeNode)songsTree.getLastSelectedPathComponent()).getUserObject();
-								if(songsMap.containsKey(name))
+
+							@Override
+							public void valueChanged(TreeSelectionEvent e)
+							{
+								Object name = ((DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent()).getUserObject();
+								if (songsMap.containsKey(name))
 								{
 									int count = 0;
 									ArrayList<String> songList = songsMap.get(name);
 									for (String song : songList)
-									{
-										if(new File(MUSICS_PATH+song+".mp3").isFile())
+										if (new File(MUSICS_PATH + song + ".mp3").isFile())
 											count++;
-									}
-									if(count==songList.size())
+									if (count == songList.size())
 										btnLoad.setEnabled(false);
 									else
 										btnLoad.setEnabled(true);
-									if(count!=0)
+									if (count != 0)
 									{
 										btnElimina.setEnabled(true);
 										btnSave.setEnabled(true);
@@ -588,49 +605,45 @@ public class MusicDialog extends JDialog {
 										btnSave.setEnabled(false);
 									}
 								}
+								else if (new File(MUSICS_PATH + name + ".mp3").isFile())
+								{
+									if ((isPaused || isRunning) && !(MUSICS_PATH + name + ".mp3").equalsIgnoreCase(currentMusicPath))
+									{
+										stop();
+										timer.stop();
+									}
+									progressBar.setValue(0);
+									setMusicTrack(MUSICS_PATH + name + ".mp3");
+									btnLoad.setEnabled(false);
+								}
 								else
 								{
-									if(new File(MUSICS_PATH+name+".mp3").isFile())
+									if ((isPaused || isRunning))
 									{
-										if((isPaused || isRunning) && !(MUSICS_PATH+name+".mp3").equalsIgnoreCase(currentMusicPath))
-										{
-											stop();
-											timer.stop();
-										}
-										progressBar.setValue(0);
-										setMusicTrack(MUSICS_PATH+name+".mp3");
-										btnLoad.setEnabled(false);
+										stop();
+										timer.stop();
 									}
-									else
-									{
-										if((isPaused || isRunning))
-										{
-											stop();
-											timer.stop();
-										}
-										progressBar.setString("");
-										progressBar.setValue(0);
-										lblTitle.setText("");
-										setDefaultImage();
-										btnLoad.setEnabled(true);
-										btnPlaypause.setEnabled(false);
-										btnElimina.setEnabled(false);
-										btnInPlaylist.setEnabled(false);
-										btnRestart.setEnabled(false);
-										btnSave.setEnabled(false);
-										btnSucc.setEnabled(false);
-										btnPrev.setEnabled(false);
-									}	
+									progressBar.setString("");
+									progressBar.setValue(0);
+									lblTitle.setText("");
+									setDefaultImage();
+									btnLoad.setEnabled(true);
+									btnPlaypause.setEnabled(false);
+									btnElimina.setEnabled(false);
+									btnInPlaylist.setEnabled(false);
+									btnRestart.setEnabled(false);
+									btnSave.setEnabled(false);
+									btnSucc.setEnabled(false);
+									btnPrev.setEnabled(false);
 								}
 							}
 						});
-						songsTree.setModel(new DefaultTreeModel(
-							new DefaultMutableTreeNode("JTree") {
-								{
-									add(new DefaultMutableTreeNode("Caricamento in corso..."));
-								}
+						songsTree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("JTree") {
+
+							{
+								add(new DefaultMutableTreeNode("Caricamento in corso..."));
 							}
-						));
+						}));
 						songsTree.setRootVisible(false);
 						songsTree.setShowsRootHandles(true);
 						songsTree.setFont(AnimeIndex.segui.deriveFont(12f));
@@ -642,7 +655,10 @@ public class MusicDialog extends JDialog {
 								btnLoad = new JButton("Scarica");
 								btnLoad.setEnabled(false);
 								btnLoad.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent e) {
+
+									@Override
+									public void actionPerformed(ActionEvent e)
+									{
 										btnLoad.setEnabled(false);
 										btnPlaypause.setEnabled(false);
 										btnElimina.setEnabled(false);
@@ -651,63 +667,62 @@ public class MusicDialog extends JDialog {
 										btnSave.setEnabled(false);
 										btnSucc.setEnabled(false);
 										btnPrev.setEnabled(false);
-										if(isRunning || isPaused)
+										if (isRunning || isPaused)
 										{
 											stop();
 											timer.stop();
 										}
 										lblTitle.setText("");
 										setDefaultImage();
-										String musicName = (((DefaultMutableTreeNode)songsTree.getLastSelectedPathComponent()).getUserObject()).toString();
-	                                    GoogleDriveDownloadTask task;
-                                        if (songsMap.containsKey(musicName))
-                                        {
-                                        	task = new GoogleDriveDownloadTask(songsMap.get(musicName));
-                                        }
-                                        else
-                                        {
-                                        	task = new GoogleDriveDownloadTask(musicName);
-                                        }
+										String musicName = (((DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent()).getUserObject()).toString();
+										GoogleDriveDownloadTask task;
+										if (songsMap.containsKey(musicName))
+											task = new GoogleDriveDownloadTask(songsMap.get(musicName));
+										else
+											task = new GoogleDriveDownloadTask(musicName);
 										task.addPropertyChangeListener(new PropertyChangeListener() {
-											public void propertyChange(PropertyChangeEvent evt) {
+
+											@Override
+											public void propertyChange(PropertyChangeEvent evt)
+											{
 												if (evt.getPropertyName().equals("progress"))
 												{
 													int progress = task.getProgress();
 													progressBar.setValue(progress);
-													progressBar.setString("Download File " + task.fileNumber + "/" + task.totalFileNumber +" : " + ((int)(progressBar.getPercentComplete() * 100)) + "%");
+													progressBar.setString("Download File " + task.fileNumber + "/" + task.totalFileNumber + " : " + ((int) (progressBar.getPercentComplete() * 100)) + "%");
 												}
 												if (evt.getPropertyName().equals("state"))
 												{
-													if(evt.getNewValue().toString().equalsIgnoreCase("done"))
+													if (evt.getNewValue().toString().equalsIgnoreCase("done"))
 													{
 														songsTree.setCellRenderer(new JTreeIcons());
 														btnLoad.setEnabled(true);
-														if(songsMap.containsKey(musicName))
+														if (songsMap.containsKey(musicName))
 														{
 															ArrayList<String> songs = songsMap.get(musicName);
-															if(songs!= null)
+															if (songs != null)
 															{
 																String song = songs.get(0);
-																setMusicTrack(MUSICS_PATH+song+".mp3");
-																if(!songList.isEmpty() && songList.contains(song))
+																setMusicTrack(MUSICS_PATH + song + ".mp3");
+																if (!songList.isEmpty() && songList.contains(song))
 																	songList.remove(song);
 																songList.add(song);
-																counter=songList.size()-1;
-																if(counter>0)
+																counter = songList.size() - 1;
+																if (counter > 0)
 																	btnPrev.setEnabled(true);
 																else
 																	btnPrev.setEnabled(false);
 																btnSucc.setEnabled(false);
-																songsTree.setSelectionPath(find((DefaultMutableTreeNode)(songsTree.getModel().getRoot()), songList.get(counter)));
+																songsTree.setSelectionPath(find((DefaultMutableTreeNode) (songsTree.getModel().getRoot()), songList.get(counter)));
 															}
 														}
 														else
-															setMusicTrack(MUSICS_PATH+musicName+".mp3");
+															setMusicTrack(MUSICS_PATH + musicName + ".mp3");
 													}
-													if(evt.getNewValue().toString().equalsIgnoreCase("started"))
+													if (evt.getNewValue().toString().equalsIgnoreCase("started"))
 													{
 														progressBar.setValue(0);
-														progressBar.setString("Download File " + task.fileNumber + "/" + task.totalFileNumber +" : " + ((int)(progressBar.getPercentComplete() * 100)) + "%");
+														progressBar.setString("Download File " + task.fileNumber + "/" + task.totalFileNumber + " : " + ((int) (progressBar.getPercentComplete() * 100)) + "%");
 													}
 												}
 											}
@@ -732,10 +747,10 @@ public class MusicDialog extends JDialog {
 						playlistPanel = new JPanel();
 						tabbedPane.addTab("Playlist", null, playlistPanel, null);
 						GridBagLayout gbl_playlistPanel = new GridBagLayout();
-						gbl_playlistPanel.columnWidths = new int[]{0, 0};
-						gbl_playlistPanel.rowHeights = new int[]{0, 0};
-						gbl_playlistPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-						gbl_playlistPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+						gbl_playlistPanel.columnWidths = new int[] { 0, 0 };
+						gbl_playlistPanel.rowHeights = new int[] { 0, 0 };
+						gbl_playlistPanel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+						gbl_playlistPanel.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
 						playlistPanel.setLayout(gbl_playlistPanel);
 						{
 							playlistScrollPane = new JScrollPane();
@@ -752,173 +767,131 @@ public class MusicDialog extends JDialog {
 								playlistTree.setRootVisible(false);
 								playlistScrollPane.setViewportView(playlistTree);
 							}
-						}	
+						}
 					}
 				}
 				btnLoop.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if(loopActive==false)
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						if (loopActive == false)
 						{
 							btnLoop.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/loop_red.png")));
-							loopActive=true;
+							loopActive = true;
 						}
-						else if(loopActive==true)
+						else if (loopActive == true)
 						{
 							btnLoop.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/loop.png")));
-							loopActive=false;
+							loopActive = false;
 						}
 					}
 				});
 			}
 		}
 	}
-	
-	private void playFromList()
-	{	
-		if (!tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()).equalsIgnoreCase("Brani"))
-		{
-			new Thread()
-			{
-				public void run()
-				{
-					while(userPlayListCounter<userPlayList.size())
-					{
-						if(!isRunning && !isPaused)
-						{
-							setMusicTrack(MUSICS_PATH+userPlayList.get(userPlayListCounter)+".mp3");
-							play(currentMusicPath);
-							userPlayListCounter++;
-						}
-						try
-						{
-							sleep(1000L);
-						}
-						catch (InterruptedException e)
-						{
-							MAMUtil.writeLog(e);
-							e.printStackTrace();
-						}
-					}
-				}
-			}.start();
-		}
-		else
-		{
-			new Thread()
-			{
-				public void run()
-				{
-					while(counter<songList.size())
-					{
-						if(!isRunning && !isPaused)
-						{
-							setMusicTrack(MUSICS_PATH+songList.get(counter)+".mp3");
-							play(currentMusicPath);
-							counter++;
-						}
-						try
-						{
-							sleep(1000L);
-						}
-						catch (InterruptedException e)
-						{
-							MAMUtil.writeLog(e);
-							e.printStackTrace();
-						}
-					}
-				}
-			}.start();
-		}
-	}
-	
+
 	private void play(String path)
 	{
-		try{
+		try
+		{
 			fis = new FileInputStream(path);
 			buff = new BufferedInputStream(fis);
-		    player = new Player(buff);
-		    songTotalLength=fis.available();
-			}
-			catch(Exception exc){
-				MAMUtil.writeLog(exc);
-			    exc.printStackTrace();
-			}
-		new Thread()
+			player = new Player(buff);
+			songTotalLength = fis.available();
+		}
+		catch (Exception exc)
 		{
+			MAMUtil.writeLog(exc);
+			exc.printStackTrace();
+		}
+		new Thread() {
+
+			@Override
 			public void run()
 			{
-				try{
-					isRunning=true;
-					isPaused=false;
+				try
+				{
+					isRunning = true;
+					isPaused = false;
 					player.play();
-					if(player.isComplete()&&loopActive==true)
+					if (player.isComplete() && loopActive == true)
 						play(currentMusicPath);
-					if(loopActive==false)
-					{	
-						if(player.isComplete())
+					if (loopActive == false)
+					{
+						if (player.isComplete())
 						{
-							isRunning=false;
-							isPaused=false;
+							isRunning = false;
+							isPaused = false;
 						}
 						btnPlaypause.setIcon(new ImageIcon(MusicDialog.class.getResource("/image/play_icon.png")));
-						if(!isPaused)
+						if (!isPaused)
 							progressBar.setString(time);
 					}
 				}
-				catch (JavaLayerException e){
+				catch (JavaLayerException e)
+				{
 					MAMUtil.writeLog(e);
 					e.printStackTrace();
 				}
 			}
 		}.start();
 	}
+
 	private void pause()
 	{
-		try{
+		try
+		{
 			pauseLocation = fis.available();
 			player.close();
-			isRunning=false;
-			isPaused=true;
-			if(fis!=null)
+			isRunning = false;
+			isPaused = true;
+			if (fis != null)
 				fis.close();
-			if(buff!=null)
+			if (buff != null)
 				buff.close();
 		}
-		catch (IOException e){
+		catch (IOException e)
+		{
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
 		}
 	}
+
 	private void resume()
 	{
-		try{
+		try
+		{
 			play(currentMusicPath);
-		    fis.skip(songTotalLength-pauseLocation);
-			}
-		catch(Exception exc){
+			fis.skip(songTotalLength - pauseLocation);
+		}
+		catch (Exception exc)
+		{
 			MAMUtil.writeLog(exc);
-		    exc.printStackTrace();
+			exc.printStackTrace();
 		}
 	}
+
 	private void stop()
 	{
-		if(player!=null)
-		{
+		if (player != null)
 			player.close();
-		}
-		isRunning=false;
-		isPaused=false;
-		try{
-			if(fis!=null)
+		isRunning = false;
+		isPaused = false;
+		try
+		{
+			if (fis != null)
 				fis.close();
-			if(buff!=null)
+			if (buff != null)
 				buff.close();
 		}
-		catch (IOException e){
+		catch (IOException e)
+		{
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
 		}
 	}
+
 	private void setMusicTrack(String path)
 	{
 		currentMusicPath = path;
@@ -931,29 +904,29 @@ public class MusicDialog extends JDialog {
 			Tag tag = f.getTag();
 			String currentTag;
 			currentTag = tag.getFirst(FieldKey.TITLE);
-			if(!currentTag.isEmpty())
+			if (!currentTag.isEmpty())
 				title = currentTag;
 			else
 			{
 				title = music.getName();
-				title = title.substring(0, title.length()-4);
+				title = title.substring(0, title.length() - 4);
 			}
-						
+
 			currentTag = tag.getFirst(FieldKey.ARTIST);
-			if(!currentTag.isEmpty())
-				title +="  .:::.  " + currentTag;
-			
+			if (!currentTag.isEmpty())
+				title += "  .:::.  " + currentTag;
+
 			currentTag = tag.getFirst(FieldKey.ALBUM);
-			if(!currentTag.isEmpty())
-				title +="  .:::.  " + currentTag;
+			if (!currentTag.isEmpty())
+				title += "  .:::.  " + currentTag;
 
 			int bitrate = song.getBitrate();
-			if(!(bitrate+"").isEmpty())
-				title +="  .:::.  " + bitrate + " Kbps";
-			
+			if (!(bitrate + "").isEmpty())
+				title += "  .:::.  " + bitrate + " Kbps";
+
 			duration = song.getLengthInSeconds();
 			byte[] img = song.getId3v2Tag().getAlbumImage();
-			if(img!=null)
+			if (img != null)
 				lblImage.setIcon(new ImageIcon(MAMUtil.getScaledImage(ImageIO.read(new ByteArrayInputStream(img)), 335, 335)));
 			else
 				setDefaultImage();
@@ -993,23 +966,18 @@ public class MusicDialog extends JDialog {
 			MAMUtil.writeLog(e1);
 			e1.printStackTrace();
 		}
-		if(!(duration+"").isEmpty())
-		{
-			if(((duration/60)+"").length()<2)
+		if (!(duration + "").isEmpty())
+			if (((duration / 60) + "").length() < 2)
 			{
-				if(((duration%60)+"").length()<2)
-					time = "0" + duration/60 + ":0" + duration%60;
+				if (((duration % 60) + "").length() < 2)
+					time = "0" + duration / 60 + ":0" + duration % 60;
 				else
-					time = "0" + duration/60 + ":" + duration%60;
+					time = "0" + duration / 60 + ":" + duration % 60;
 			}
+			else if (((duration % 60) + "").length() < 2)
+				time = duration / 60 + ":0" + duration % 60;
 			else
-			{
-				if(((duration%60)+"").length()<2)
-					time = duration/60 + ":0" + duration%60;
-				else
-					time = duration/60 + ":" + duration%60;
-			}
-		}
+				time = duration / 60 + ":" + duration % 60;
 		lblTitle.setText(title);
 		progressBar.setValue(0);
 		progressBar.setString(time);
@@ -1018,32 +986,36 @@ public class MusicDialog extends JDialog {
 		btnInPlaylist.setEnabled(true);
 		btnSave.setEnabled(true);
 	}
+
 	private void setDefaultImage()
 	{
 		BufferedImage image = null;
-		try{
-			if(AnimeIndex.appProp.getProperty("Session_Number").equalsIgnoreCase("0"))
+		try
+		{
+			if (AnimeIndex.appProp.getProperty("Session_Number").equalsIgnoreCase("0"))
 				image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
-			else if((Integer.parseInt(AnimeIndex.appProp.getProperty("Session_Number"))%2)==0)
+			else if ((Integer.parseInt(AnimeIndex.appProp.getProperty("Session_Number")) % 2) == 0)
 				image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
 			else
 				image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone...png"));
 		}
-		catch (IOException e1){
+		catch (IOException e1)
+		{
 			MAMUtil.writeLog(e1);
 			e1.printStackTrace();
 		}
 		lblImage.setIcon(new ImageIcon(image));
 	}
+
 	private void createSongsTree(TreeMap<String, ArrayList<String>> albumMap)
 	{
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-		for (Map.Entry<String,ArrayList<String>> entry : albumMap.entrySet())
+		for (Map.Entry<String, ArrayList<String>> entry : albumMap.entrySet())
 		{
 			String album = entry.getKey();
 			DefaultMutableTreeNode albumNode = new DefaultMutableTreeNode(album);
 			root.add(albumNode);
-			
+
 			ArrayList<String> song = entry.getValue();
 			for (String songName : song)
 			{
@@ -1055,14 +1027,16 @@ public class MusicDialog extends JDialog {
 		songsTree.setModel(songsTreeModel);
 		songsTree.setCellRenderer(new JTreeIcons());
 	}
-	private TreePath find(DefaultMutableTreeNode root, String s) {
-	    Enumeration<DefaultMutableTreeNode> e = root.depthFirstEnumeration();
-	    while (e.hasMoreElements()) {
-	        DefaultMutableTreeNode node = e.nextElement();
-	        if (node.toString().equalsIgnoreCase(s)) {
-	            return new TreePath(node.getPath());
-	        }
-	    }
-	    return null;
+
+	private TreePath find(DefaultMutableTreeNode root, String s)
+	{
+		Enumeration<DefaultMutableTreeNode> e = root.depthFirstEnumeration();
+		while (e.hasMoreElements())
+		{
+			DefaultMutableTreeNode node = e.nextElement();
+			if (node.toString().equalsIgnoreCase(s))
+				return new TreePath(node.getPath());
+		}
+		return null;
 	}
 }

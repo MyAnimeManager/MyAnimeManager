@@ -5,9 +5,9 @@ import javax.swing.SwingWorker;
 import main.AnimeIndex;
 import util.SuggestionHelper;
 
+public class SuggestionFetcherTask extends SwingWorker
+{
 
-public class SuggestionFetcherTask extends SwingWorker {
-	
 	@Override
 	protected Object doInBackground() throws Exception
 	{
@@ -16,11 +16,11 @@ public class SuggestionFetcherTask extends SwingWorker {
 			AnimeIndex.suggestionDial.storeSuggestion(i, data);
 		return null;
 	}
-	
+
 	@Override
 	public void done()
 	{
 		AnimeIndex.suggestionDial.waitDialog.dispose();
 	}
-	
+
 }

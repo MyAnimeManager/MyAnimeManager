@@ -9,14 +9,17 @@ import java.util.Properties;
 
 public class AnimeIndexProperties
 {
+
 	private final static String PROPERTIES_PATH = FileManager.getAppDataPath() + "properties.properties";
 	private static Properties applicationProps;
-	public static Properties createProperties() 
+
+	public static Properties createProperties()
 	{
 		// create and load default properties
 		Properties defaultProps = new Properties();
 		FileInputStream in;
-		try {
+		try
+		{
 			in = new FileInputStream(PROPERTIES_PATH);
 			defaultProps.load(in);
 			defaultProps.setProperty("List_to_visualize_at_start", "Anime completati");
@@ -31,11 +34,12 @@ public class AnimeIndexProperties
 			defaultProps.setProperty("Suggestions_Pack_Number", "0");
 			defaultProps.setProperty("Open_NewsBoard", "false");
 			in.close();
-		} 
+		}
 		catch (FileNotFoundException fe)
 		{
 			File prop = new File(PROPERTIES_PATH);
-			try {
+			try
+			{
 				prop.getParentFile().mkdirs();
 				prop.createNewFile();
 				defaultProps.setProperty("Update_system", "false");
@@ -51,41 +55,49 @@ public class AnimeIndexProperties
 				defaultProps.setProperty("Suggestions_Pack_Number", "0");
 				defaultProps.setProperty("Open_NewsBoard", "false");
 
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				e.printStackTrace();
 				MAMUtil.writeLog(e);
 			}
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			MAMUtil.writeLog(e);
 		}
 
 		applicationProps = new Properties(defaultProps);
 
-		// now load properties 
+		// now load properties
 		// from last invocation
-		try {
+		try
+		{
 			in = new FileInputStream(PROPERTIES_PATH);
 			applicationProps.load(in);
 			in.close();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			MAMUtil.writeLog(e);
 		};
-		
+
 		return applicationProps;
 	}
-	
+
 	public static void saveProperties(Properties prop)
 	{
 		FileOutputStream out;
-		try {
+		try
+		{
 			out = new FileOutputStream(PROPERTIES_PATH);
 			prop.store(out, "---Start Option---");
 			out.close();
-		} 
-		catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 		}
 	}
 }

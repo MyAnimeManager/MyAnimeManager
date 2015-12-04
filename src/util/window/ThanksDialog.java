@@ -22,8 +22,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class ThanksDialog extends JDialog {
-	
+public class ThanksDialog extends JDialog
+{
+
 	public ThanksDialog()
 	{
 		setTitle("Ringraziamenti");
@@ -40,7 +41,10 @@ public class ThanksDialog extends JDialog {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						ThanksDialog.this.dispose();
 					}
 				});
@@ -53,10 +57,10 @@ public class ThanksDialog extends JDialog {
 			JPanel panel = new JPanel();
 			getContentPane().add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
-			gbl_panel.columnWidths = new int[]{518, 0};
-			gbl_panel.rowHeights = new int[]{0, 0, 0, 0};
-			gbl_panel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-			gbl_panel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+			gbl_panel.columnWidths = new int[] { 518, 0 };
+			gbl_panel.rowHeights = new int[] { 0, 0, 0, 0 };
+			gbl_panel.columnWeights = new double[] { 0.0, Double.MIN_VALUE };
+			gbl_panel.rowWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
 			panel.setLayout(gbl_panel);
 			{
 				Component verticalStrut = Box.createVerticalStrut(2);
@@ -77,18 +81,27 @@ public class ThanksDialog extends JDialog {
 			{
 				JLabel banner = new JLabel("");
 				banner.addMouseListener(new MouseAdapter() {
+
 					@Override
-					public void mouseEntered(MouseEvent e) {
+					public void mouseEntered(MouseEvent e)
+					{
 						banner.setCursor(new Cursor(Cursor.HAND_CURSOR));
 					}
+
 					@Override
-					public void mouseClicked(MouseEvent e) {
+					public void mouseClicked(MouseEvent e)
+					{
 						String link = "http://redanimedatabase.forumcommunity.net/";
-						try {
+						try
+						{
 							URI uriLink = new URI(link);
 							Desktop.getDesktop().browse(uriLink);
-						} catch (URISyntaxException a) {
-						} catch (IOException a) {
+						}
+						catch (URISyntaxException a)
+						{
+						}
+						catch (IOException a)
+						{
 						}
 					}
 				});
@@ -100,5 +113,5 @@ public class ThanksDialog extends JDialog {
 			}
 		}
 	}
-	
+
 }

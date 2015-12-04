@@ -22,27 +22,26 @@ import org.imgscalr.Scalr.Method;
 
 import main.AnimeIndex;
 
-public class MAMUtil {
-	
+public class MAMUtil
+{
+
 	public static void createLogDirectory()
 	{
 		File logDirectory = new File(FileManager.getAppDataPath() + File.separator + "log" + File.separator);
 		if (!logDirectory.exists())
-		{
 			logDirectory.mkdirs();
-		}
 	}
-	
+
 	public static void writeLog(Exception e)
 	{
-		String fileName = "log_" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "_" + (Calendar.getInstance().get(Calendar.MONTH) + 1) + "_" + Calendar.getInstance().get(Calendar.YEAR)+ ".txt";
+		String fileName = "log_" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "_" + (Calendar.getInstance().get(Calendar.MONTH) + 1) + "_" + Calendar.getInstance().get(Calendar.YEAR) + ".txt";
 		FileWriter fw = null;
 		try
 		{
-			fw = new FileWriter (FileManager.getAppDataPath() + File.separator + "log" + File.separator + fileName, true);
-			PrintWriter pw = new PrintWriter (fw);
+			fw = new FileWriter(FileManager.getAppDataPath() + File.separator + "log" + File.separator + fileName, true);
+			PrintWriter pw = new PrintWriter(fw);
 			pw.println("-------------------------------------------------------------------------");
-			e.printStackTrace (pw);	
+			e.printStackTrace(pw);
 			pw.println("-------------------------------------------------------------------------");
 			pw.close();
 			fw.close();
@@ -55,28 +54,18 @@ public class MAMUtil {
 
 	public static JList getJList()
 	{
-		JList list= null;
-			String listName = MAMUtil.getList();
-			if (listName.equalsIgnoreCase("anime completati"))
-			{	
-				list = AnimeIndex.completedList;						
-			}				
-			else if (listName.equalsIgnoreCase("anime in corso"))
-			{
-				list = AnimeIndex.airingList;
-			}
-			else if (listName.equalsIgnoreCase("oav"))
-			{
-				list = AnimeIndex.ovaList;
-			}
-			else if (listName.equalsIgnoreCase("film"))
-			{
-				list = AnimeIndex.filmList;
-			}
-			else if (listName.equalsIgnoreCase("completi da vedere"))
-			{
-				list = AnimeIndex.completedToSeeList;
-			}
+		JList list = null;
+		String listName = MAMUtil.getList();
+		if (listName.equalsIgnoreCase("anime completati"))
+			list = AnimeIndex.completedList;
+		else if (listName.equalsIgnoreCase("anime in corso"))
+			list = AnimeIndex.airingList;
+		else if (listName.equalsIgnoreCase("oav"))
+			list = AnimeIndex.ovaList;
+		else if (listName.equalsIgnoreCase("film"))
+			list = AnimeIndex.filmList;
+		else if (listName.equalsIgnoreCase("completi da vedere"))
+			list = AnimeIndex.completedToSeeList;
 			
 		return list;
 	}
@@ -84,54 +73,34 @@ public class MAMUtil {
 	public static TreeMap getMap()
 	{
 		String listName = MAMUtil.getList();
-		TreeMap map= null;
+		TreeMap map = null;
 		if (listName.equalsIgnoreCase("anime completati"))
-		{	
-			map = AnimeIndex.completedMap;						
-		}				
+			map = AnimeIndex.completedMap;
 		else if (listName.equalsIgnoreCase("anime in corso"))
-		{
 			map = AnimeIndex.airingMap;
-		}
 		else if (listName.equalsIgnoreCase("oav"))
-		{
 			map = AnimeIndex.ovaMap;
-		}
 		else if (listName.equalsIgnoreCase("film"))
-		{
 			map = AnimeIndex.filmMap;
-		}
 		else if (listName.equalsIgnoreCase("completi da vedere"))
-		{
 			map = AnimeIndex.completedToSeeMap;
-		}
 		return map;
 	}
 
 	public static SortedListModel getModel()
 	{
-		SortedListModel model= null;
-			String listName = MAMUtil.getList();
-			if (listName.equalsIgnoreCase("anime completati"))
-			{	
-				model = AnimeIndex.completedModel;						
-			}				
-			else if (listName.equalsIgnoreCase("anime in corso"))
-			{
-				model = AnimeIndex.airingModel;
-			}
-			else if (listName.equalsIgnoreCase("oav"))
-			{
-				model = AnimeIndex.ovaModel;
-			}
-			else if (listName.equalsIgnoreCase("film"))
-			{
-				model = AnimeIndex.filmModel;
-			}
-			else if (listName.equalsIgnoreCase("completi da vedere"))
-			{
-				model = AnimeIndex.completedToSeeModel;
-			}
+		SortedListModel model = null;
+		String listName = MAMUtil.getList();
+		if (listName.equalsIgnoreCase("anime completati"))
+			model = AnimeIndex.completedModel;
+		else if (listName.equalsIgnoreCase("anime in corso"))
+			model = AnimeIndex.airingModel;
+		else if (listName.equalsIgnoreCase("oav"))
+			model = AnimeIndex.ovaModel;
+		else if (listName.equalsIgnoreCase("film"))
+			model = AnimeIndex.filmModel;
+		else if (listName.equalsIgnoreCase("completi da vedere"))
+			model = AnimeIndex.completedToSeeModel;
 			
 		return model;
 	}
@@ -139,28 +108,18 @@ public class MAMUtil {
 	public static ArrayList<String> getDeletedAnimeArray()
 	{
 		String listName = MAMUtil.getList();
-		ArrayList<String> arrayList= null;
+		ArrayList<String> arrayList = null;
 		if (listName.equalsIgnoreCase("anime completati"))
-		{	
-			arrayList = AnimeIndex.completedDeletedAnime;						
-		}				
+			arrayList = AnimeIndex.completedDeletedAnime;
 		else if (listName.equalsIgnoreCase("anime in corso"))
-		{
 			arrayList = AnimeIndex.airingDeletedAnime;
-		}
 		else if (listName.equalsIgnoreCase("oav"))
-		{
 			arrayList = AnimeIndex.ovaDeletedAnime;
-		}
 		else if (listName.equalsIgnoreCase("film"))
-		{
 			arrayList = AnimeIndex.filmDeletedAnime;
-		}
 		else if (listName.equalsIgnoreCase("completi da vedere"))
-		{
 			arrayList = AnimeIndex.completedToSeeDeletedAnime;
-		}
-		
+			
 		return arrayList;
 	}
 
@@ -173,12 +132,17 @@ public class MAMUtil {
 	{
 		InputStream is = AnimeIndex.class.getResourceAsStream("/font/seguisym.ttf");
 		Font font = null;
-		try {
-			font = Font.createFont(Font.TRUETYPE_FONT,is);
-		} catch (FontFormatException | IOException e) {
+		try
+		{
+			font = Font.createFont(Font.TRUETYPE_FONT, is);
+		}
+		catch (FontFormatException | IOException e)
+		{
 			e.printStackTrace();
 			MAMUtil.writeLog(e);
-		} finally{ //fix me
+		}
+		finally
+		{ // fix me
 			try
 			{
 				is.close();
@@ -196,32 +160,40 @@ public class MAMUtil {
 	{
 		GregorianCalendar today = new GregorianCalendar();
 		int currentDay = today.get(Calendar.DATE);
-		int currentMonth = today.get(Calendar.MONTH)+1;
+		int currentMonth = today.get(Calendar.MONTH) + 1;
 		int currentYear = today.get(Calendar.YEAR);
 		String date = currentDay + "/" + currentMonth + "/" + currentYear;
-		
+
 		return date;
 	}
 
 	public static GregorianCalendar getDate(String date) throws ParseException
 	{
 		GregorianCalendar day = new GregorianCalendar();
-		SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/yyyy"); // the day of the week abbreviated
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/yyyy"); // the
+ // day
+ // of
+ // the
+ // week
+ // abbreviated
 		day.setTime(simpleDateformat.parse(date));
 		return day;
 	}
-	
+
 	public static BufferedImage getScaledImage(BufferedImage image, int width, int height)
 	{
 		image = Scalr.resize(image, Method.ULTRA_QUALITY, width, height);
 		return image;
-//	    int imageWidth  = image.getWidth();
-//	    int imageHeight = image.getHeight();
-//	    double scaleX = (double)width/imageWidth;
-//	    double scaleY = (double)height/imageHeight;
-//	    AffineTransform scaleTransform = AffineTransform.getScaleInstance(scaleX, scaleY);
-//	    AffineTransformOp bilinearScaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
-//	    return bilinearScaleOp.filter(image, new BufferedImage(width, height, image.getType()));
+		// int imageWidth = image.getWidth();
+		// int imageHeight = image.getHeight();
+		// double scaleX = (double)width/imageWidth;
+		// double scaleY = (double)height/imageHeight;
+		// AffineTransform scaleTransform =
+		// AffineTransform.getScaleInstance(scaleX, scaleY);
+		// AffineTransformOp bilinearScaleOp = new
+		// AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
+		// return bilinearScaleOp.filter(image, new BufferedImage(width, height,
+		// image.getType()));
 	}
 
 	public static boolean christmas()

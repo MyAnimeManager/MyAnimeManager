@@ -1,4 +1,5 @@
 package util.window;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -14,13 +15,13 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser.ColorWheelChooser;
-
 
 public class CustomizingDialog extends JDialog
 {
@@ -37,7 +38,7 @@ public class CustomizingDialog extends JDialog
 	{
 		setResizable(false);
 		setModal(true);
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 290, 250);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -49,12 +50,12 @@ public class CustomizingDialog extends JDialog
 			{
 				colorChooser = new JColorChooser();
 				colorChooser.setPreferredSize(new Dimension(180, 155));
-				AbstractColorChooserPanel panels[] = {new ColorWheelChooser()};
+				AbstractColorChooserPanel panels[] = { new ColorWheelChooser() };
 				colorChooser.setChooserPanels(panels);
-				
-//				System.out.println(Arrays.toString(colorChooser.getChooserPanels()));
+
+				// System.out.println(Arrays.toString(colorChooser.getChooserPanels()));
 				colorChooser.getSelectionModel().addChangeListener(new ChangeListener() {
-					
+
 					@Override
 					public void stateChanged(ChangeEvent e)
 					{
@@ -62,7 +63,7 @@ public class CustomizingDialog extends JDialog
 						if (component instanceof JLabel)
 							component.setForeground(colorChoosed);
 						else
-						component.setBackground(colorChoosed);
+							component.setBackground(colorChoosed);
 					}
 				});
 				panel.add(colorChooser);
@@ -70,13 +71,13 @@ public class CustomizingDialog extends JDialog
 		}
 		{
 			JPanel componentPanel = new JPanel();
-			contentPanel.add(componentPanel, BorderLayout.EAST);			
+			contentPanel.add(componentPanel, BorderLayout.EAST);
 			componentPanel.setLayout(new BorderLayout(0, 0));
 			{
 				componentPanel.add(component, BorderLayout.CENTER);
 				if (component instanceof JPanel)
 				{
-					Component area = Box.createRigidArea(new Dimension(40,40));
+					Component area = Box.createRigidArea(new Dimension(40, 40));
 					component.add(area);
 				}
 			}
@@ -96,7 +97,10 @@ public class CustomizingDialog extends JDialog
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						if (colorChoosed != null)
 							color = colorChoosed.getRGB();
 						CustomizingDialog.this.dispose();
@@ -109,7 +113,10 @@ public class CustomizingDialog extends JDialog
 			{
 				JButton cancelButton = new JButton("Annulla");
 				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						CustomizingDialog.this.dispose();
 					}
 				});

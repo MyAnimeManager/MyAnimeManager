@@ -31,22 +31,24 @@ import main.AnimeIndex;
 import util.MAMUtil;
 import util.task.NewsTask;
 
-public class NewsBoardDialog extends JDialog {
-	
+public class NewsBoardDialog extends JDialog
+{
+
 	private final JPanel contentPanel = new JPanel();
-	private LinkedHashMap<String,String> animeMap;
+	private LinkedHashMap<String, String> animeMap;
 	NewsTask task = new NewsTask();
 	private JPanel newsPanel;
 	private JLabel titleLabel;
 	private JButton updateButton;
 
-	
 	public NewsBoardDialog()
 	{
 		super(AnimeIndex.frame, false);
 		addWindowListener(new WindowAdapter() {
+
 			@Override
-			public void windowOpened(WindowEvent e) {
+			public void windowOpened(WindowEvent e)
+			{
 				task.execute();
 			}
 		});
@@ -66,10 +68,10 @@ public class NewsBoardDialog extends JDialog {
 				newsPanel.setBorder(null);
 				scrollPane.setViewportView(newsPanel);
 				GridBagLayout gbl_newsPanel = new GridBagLayout();
-				gbl_newsPanel.columnWidths = new int[]{0, 0};
-				gbl_newsPanel.rowHeights = new int[]{0, 0};
-				gbl_newsPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-				gbl_newsPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+				gbl_newsPanel.columnWidths = new int[] { 0, 0 };
+				gbl_newsPanel.rowHeights = new int[] { 0, 0 };
+				gbl_newsPanel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+				gbl_newsPanel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 				newsPanel.setLayout(gbl_newsPanel);
 			}
 		}
@@ -91,28 +93,35 @@ public class NewsBoardDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				GridBagLayout gbl_buttonPane = new GridBagLayout();
-				gbl_buttonPane.columnWidths = new int[]{397, 0, 0};
-				gbl_buttonPane.rowHeights = new int[]{8, 0};
-				gbl_buttonPane.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-				gbl_buttonPane.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+				gbl_buttonPane.columnWidths = new int[] { 397, 0, 0 };
+				gbl_buttonPane.rowHeights = new int[] { 8, 0 };
+				gbl_buttonPane.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
+				gbl_buttonPane.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 				buttonPane.setLayout(gbl_buttonPane);
 			}
 			JButton okButton = new JButton("         \u2191 \u2191 \u2191 \u2191 \u2191");
 			okButton.setFont(MAMUtil.segui().deriveFont(12f));
 			okButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					new Timer(1, new ActionListener() {
+
 						int size = 125;
-			               public void actionPerformed(ActionEvent e) {
-			            	   NewsBoardDialog.this.setSize(795, size--);
-			            	   AnimeIndex.mainFrame.requestFocus();
-			            	   if (NewsBoardDialog.this.getHeight() == 0) 
-			            	   {
-			                     ((Timer) e.getSource()).stop();
-			                     NewsBoardDialog.this.dispose();
-			            	   }
-			               }
-			            }).start();
+
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							NewsBoardDialog.this.setSize(795, size--);
+							AnimeIndex.mainFrame.requestFocus();
+							if (NewsBoardDialog.this.getHeight() == 0)
+							{
+								((Timer) e.getSource()).stop();
+								NewsBoardDialog.this.dispose();
+							}
+						}
+					}).start();
 				}
 			});
 			GridBagConstraints gbc_okButton = new GridBagConstraints();
@@ -123,20 +132,26 @@ public class NewsBoardDialog extends JDialog {
 			{
 				updateButton = new JButton();
 				updateButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
 						newsPanel.removeAll();
 						task = new NewsTask();
 						task.addPropertyChangeListener(new PropertyChangeListener() {
-							public void propertyChange(PropertyChangeEvent evt) {
+
+							@Override
+							public void propertyChange(PropertyChangeEvent evt)
+							{
 								if (evt.getPropertyName().equals("state"))
 								{
-									if(evt.getNewValue().toString().equalsIgnoreCase("started"))
+									if (evt.getNewValue().toString().equalsIgnoreCase("started"))
 									{
 										titleLabel.setIcon(null);
 										titleLabel.setText("Aggiornamento Dati...");
 										updateButton.setEnabled(false);
 									}
-									if(evt.getNewValue().toString().equalsIgnoreCase("done"))
+									if (evt.getNewValue().toString().equalsIgnoreCase("done"))
 									{
 										setNews();
 										titleLabel.setText("");
@@ -155,20 +170,23 @@ public class NewsBoardDialog extends JDialog {
 				gbc_updateButton.gridx = 1;
 				gbc_updateButton.gridy = 0;
 				buttonPane.add(updateButton, gbc_updateButton);
-			}			
+			}
 		}
-		
+
 		task.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
+
+			@Override
+			public void propertyChange(PropertyChangeEvent evt)
+			{
 				if (evt.getPropertyName().equals("state"))
 				{
-					if(evt.getNewValue().toString().equalsIgnoreCase("started"))
+					if (evt.getNewValue().toString().equalsIgnoreCase("started"))
 					{
 						titleLabel.setIcon(null);
 						titleLabel.setText("Caricamento Dati...");
 						updateButton.setEnabled(false);
 					}
-					if(evt.getNewValue().toString().equalsIgnoreCase("done"))
+					if (evt.getNewValue().toString().equalsIgnoreCase("done"))
 					{
 						setNews();
 						titleLabel.setText("");
@@ -179,12 +197,12 @@ public class NewsBoardDialog extends JDialog {
 			}
 		});
 	}
-	
-	public void setMap(LinkedHashMap<String,String> newsMap)
+
+	public void setMap(LinkedHashMap<String, String> newsMap)
 	{
 		animeMap = newsMap;
 	}
-	
+
 	private void setNews()
 	{
 		int row = 0;
@@ -195,33 +213,25 @@ public class NewsBoardDialog extends JDialog {
 		{
 			String name = entry.getKey();
 			String link = entry.getValue();
-			
-			if(name.endsWith(" By"))
-				name = name.substring(0, name.length()-3);
-			
+
+			if (name.endsWith(" By"))
+				name = name.substring(0, name.length() - 3);
+
 			JLabel nameLabel = new JLabel(name);
-					
-			if ((row%2) == 0)
+
+			if ((row % 2) == 0)
 			{
 				nameLabel.setOpaque(true);
 				nameLabel.setBackground(Color.BLACK);
 			}
 			if (name.contains("Download") || name.contains("Streaming"))
-			{
-				nameLabel.setForeground(new Color(0,65,255));
-			}
+				nameLabel.setForeground(new Color(0, 65, 255));
 			else if (name.contains("Reading Online"))
-			{
-				nameLabel.setForeground(new Color(0,180,180));
-			}
+				nameLabel.setForeground(new Color(0, 180, 180));
 			else if (name.contains("BreakingItaly"))
-			{
-				nameLabel.setForeground(new Color(0,180,0));
-			}
+				nameLabel.setForeground(new Color(0, 180, 0));
 			else
-			{
 				nameLabel.setForeground(Color.RED);
-			}
 			nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			nameLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			nameLabel.addMouseListener(getClickLink(link));
@@ -233,25 +243,27 @@ public class NewsBoardDialog extends JDialog {
 		newsPanel.revalidate();
 		newsPanel.repaint();
 	}
-	
-	private MouseAdapter getClickLink(String link)	
+
+	private MouseAdapter getClickLink(String link)
 	{
 		MouseAdapter mouse = new MouseAdapter() {
+
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e)
+			{
 				try
-					{
-						URI uriLink = new URI(link);
-						Desktop.getDesktop().browse(uriLink);
-					}
-					catch (Exception e1)
-					{
-						MAMUtil.writeLog(e1);
-						e1.printStackTrace();
-					}
+				{
+					URI uriLink = new URI(link);
+					Desktop.getDesktop().browse(uriLink);
+				}
+				catch (Exception e1)
+				{
+					MAMUtil.writeLog(e1);
+					e1.printStackTrace();
+				}
 			}
 		};
-		
+
 		return mouse;
 	}
 }

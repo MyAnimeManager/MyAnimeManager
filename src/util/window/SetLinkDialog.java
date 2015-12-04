@@ -24,17 +24,19 @@ import util.AnimeData;
 import util.MAMUtil;
 import util.PatternFilter;
 
-public class SetLinkDialog extends JDialog {
+public class SetLinkDialog extends JDialog
+{
 
 	private final JPanel contentPanel = new JPanel();
 	public JTextField linkField;
 	public JTextField linkNameField;
-	
+
 	/**
 	 * Create the dialog.
 	 */
-	public SetLinkDialog() {
-		super(AnimeIndex.frame,true);
+	public SetLinkDialog()
+	{
+		super(AnimeIndex.frame, true);
 		setType(Type.POPUP);
 		setTitle("Link");
 		setResizable(false);
@@ -45,10 +47,10 @@ public class SetLinkDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{38, 326, 0};
-		gbl_contentPanel.rowHeights = new int[]{31, 25, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWidths = new int[] { 38, 326, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 31, 25, 0 };
+		gbl_contentPanel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblUrl = new JLabel("URL :");
@@ -86,12 +88,11 @@ public class SetLinkDialog extends JDialog {
 			gbc_linkNameField.gridy = 1;
 			contentPanel.add(linkNameField, gbc_linkNameField);
 			linkNameField.setColumns(10);
-			((AbstractDocument)linkNameField.getDocument()).setDocumentFilter( new PatternFilter("[\\p{IsAlphabetic}\\p{IsDigit}\\p{IsWhite_Space}]{0,16}"));
+			((AbstractDocument) linkNameField.getDocument()).setDocumentFilter(new PatternFilter("[\\p{IsAlphabetic}\\p{IsDigit}\\p{IsWhite_Space}]{0,16}"));
 		}
-		if(AnimeIndex.animeInformation.setLinkButton.getText().equals("Imposta Link")==false){
-			if(AnimeIndex.animeInformation.setLinkButton.getText().equals("Link")==false)
+		if (AnimeIndex.animeInformation.setLinkButton.getText().equals("Imposta Link") == false)
+			if (AnimeIndex.animeInformation.setLinkButton.getText().equals("Link") == false)
 				linkNameField.setText(AnimeIndex.animeInformation.setLinkButton.getText());
-		}
 		{
 			JPanel buttonPane = new JPanel();
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
@@ -99,7 +100,10 @@ public class SetLinkDialog extends JDialog {
 				{
 					JButton cancelButton = new JButton("Annulla");
 					cancelButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
+
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
 							JButton but = (JButton) e.getSource();
 							JDialog dialog = (JDialog) but.getTopLevelAncestor();
 							dialog.dispose();
@@ -107,7 +111,10 @@ public class SetLinkDialog extends JDialog {
 					});
 					JButton saveButton = new JButton("Salva");
 					saveButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
+
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
 							AnimeIndex.animeInformation.setLink(linkField.getText());
 							if (linkField.getText() != null && !(linkField.getText().isEmpty()))
 							{
@@ -116,45 +123,40 @@ public class SetLinkDialog extends JDialog {
 									AnimeIndex.animeInformation.setLinkButton.setText(linkNameField.getText());
 								else
 									AnimeIndex.animeInformation.setLinkButton.setText("Link");
-								
-								TreeMap<String,AnimeData> map = MAMUtil.getMap();
+
+								TreeMap<String, AnimeData> map = MAMUtil.getMap();
 								String name = AnimeIndex.animeInformation.lblAnimeName.getText();
 								AnimeData oldData = map.get(name);
-								AnimeData data = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
-												oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(), AnimeIndex.animeInformation.setLinkButton.getText(), 
-												linkField.getText(), oldData.getAnimeType(), oldData.getReleaseDate(), oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
+								AnimeData data = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(), AnimeIndex.animeInformation.setLinkButton.getText(), linkField.getText(), oldData.getAnimeType(), oldData.getReleaseDate(), oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
 								map.put(name, data);
-								
+
 								JButton but = (JButton) e.getSource();
 								JDialog dialog = (JDialog) but.getTopLevelAncestor();
 								dialog.dispose();
 							}
+							else if (linkNameField.getText() == null && linkNameField.getText().isEmpty())
+								AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 							else
-							{
-								if (linkNameField.getText() == null && linkNameField.getText().isEmpty())
-									AnimeIndex.animeInformation.btnOpen.setEnabled(false);
-								else
-									JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessun link impostato.", "Errore!", JOptionPane.ERROR_MESSAGE);								
-							}
-							
+								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessun link impostato.", "Errore!", JOptionPane.ERROR_MESSAGE);
+
 						}
 					});
 					buttonPane.setLayout(new GridLayout(0, 3, 0, 0));
 					{
 						JButton btnRimuovi = new JButton("Rimuovi");
 						btnRimuovi.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
+
+							@Override
+							public void actionPerformed(ActionEvent e)
+							{
 								AnimeIndex.animeInformation.setLinkButton.setText("Imposta Link");
 								linkNameField.setText("");
 								linkField.setText("");
 								JList list = MAMUtil.getJList();
-								TreeMap<String,AnimeData> map = MAMUtil.getMap();
+								TreeMap<String, AnimeData> map = MAMUtil.getMap();
 								String name = (String) list.getSelectedValue();
 								AnimeData oldData = map.get(name);
-								AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), 
-									    oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(),
-										"", "", oldData.getAnimeType(), oldData.getReleaseDate(), 
-										oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
+								AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(), "", "", oldData.getAnimeType(), oldData.getReleaseDate(), oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
 								map.put(name, newData);
 								AnimeIndex.animeInformation.link = "";
 								AnimeIndex.animeInformation.btnOpen.setEnabled(false);
@@ -173,6 +175,7 @@ public class SetLinkDialog extends JDialog {
 			}
 		}
 	}
+
 	public String getLinkField()
 	{
 		return linkField.getText();

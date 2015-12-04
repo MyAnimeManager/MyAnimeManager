@@ -38,20 +38,22 @@ import util.SuggestionHelper;
 import util.SuggestionTaskPane;
 import util.task.SuggestionFetcherTask;
 
-public class SuggestionDialog extends JDialog {
+public class SuggestionDialog extends JDialog
+{
+
 	private SuggestionTaskPane suggestionOne = new SuggestionTaskPane();
 	private SuggestionTaskPane suggestionTwo = new SuggestionTaskPane();
 	private SuggestionTaskPane suggestionThree = new SuggestionTaskPane();
 	private SuggestionTaskPane suggestionFuor = new SuggestionTaskPane();
 	private SuggestionTaskPane suggestionFive = new SuggestionTaskPane();
-	private SuggestionTaskPane[] taskPaneArray = {suggestionOne, suggestionTwo, suggestionThree, suggestionFuor, suggestionFive};
+	private SuggestionTaskPane[] taskPaneArray = { suggestionOne, suggestionTwo, suggestionThree, suggestionFuor, suggestionFive };
 	private JButton btnClose;
 	private static String[] linkArray = new String[5];
 	private static String[] idArray = new String[5];
 	public SuggestionWaitDialog waitDialog = new SuggestionWaitDialog();
 	private JButton btnOpen;
 	private JButton btnAdd;
-	
+
 	/**
 	 * Create the dialog.
 	 */
@@ -60,8 +62,10 @@ public class SuggestionDialog extends JDialog {
 		super(AnimeIndex.frame, true);
 		setResizable(false);
 		addWindowListener(new WindowAdapter() {
+
 			@Override
-			public void windowOpened(WindowEvent e) {
+			public void windowOpened(WindowEvent e)
+			{
 				btnClose.requestFocusInWindow();
 				waitDialog.setLocationRelativeTo(SuggestionDialog.this);
 				waitDialog.setVisible(true);
@@ -78,30 +82,34 @@ public class SuggestionDialog extends JDialog {
 			fl_buttonPane.setHgap(50);
 			buttonPane.setLayout(fl_buttonPane);
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			
+
 			btnAdd = new JButton("Aggiungi");
 			btnAdd.setEnabled(false);
 			btnAdd.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					int taskPaneNumber = getSelectedTaskPane();
 					String id = idArray[taskPaneNumber];
-					String[] listArray = {"Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere", "Wishlist"};
+					String[] listArray = { "Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere", "Wishlist" };
 					String list = (String) JOptionPane.showInputDialog(SuggestionDialog.this, "A quale lista vuoi aggiungerlo", "Aggiungi a...", JOptionPane.QUESTION_MESSAGE, null, listArray, listArray[0]);
-					if(list != null)
-					{
+					if (list != null)
 						if (list.equalsIgnoreCase("wishlist"))
 							addToWishlist(id);
 						else
-							addAnimeToList(list,  id);
-					}
+							addAnimeToList(list, id);
 				}
 			});
 			buttonPane.add(btnAdd);
-			
+
 			btnOpen = new JButton("Apri");
 			btnOpen.setEnabled(false);
 			btnOpen.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					int taskPaneNumber = getSelectedTaskPane();
 					try
 					{
@@ -110,21 +118,24 @@ public class SuggestionDialog extends JDialog {
 					}
 					catch (Exception ex)
 					{
-						
+
 					}
 				}
 			});
 			buttonPane.add(btnOpen);
-			
+
 			btnClose = new JButton("Chiudi");
 			btnClose.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					SuggestionDialog.this.dispose();
 				}
 			});
 			buttonPane.add(btnClose);
 		}
-		
+
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.NORTH);
 		panel.setLayout(new BorderLayout(0, 0));
@@ -138,69 +149,69 @@ public class SuggestionDialog extends JDialog {
 				JPanel panel_1 = new JPanel();
 				scrollPane.setViewportView(panel_1);
 				GridBagLayout gbl_panel_1 = new GridBagLayout();
-				gbl_panel_1.columnWidths = new int[]{0, 0, 0};
-				gbl_panel_1.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-				gbl_panel_1.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-				gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+				gbl_panel_1.columnWidths = new int[] { 0, 0, 0 };
+				gbl_panel_1.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
+				gbl_panel_1.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
+				gbl_panel_1.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 				panel_1.setLayout(gbl_panel_1);
-				
-					suggestionOne.addPropertyChangeListener(OpenCloseListener(1));
-					GridBagConstraints gbc_suggestionOne = new GridBagConstraints();
-					gbc_suggestionOne.insets = new Insets(0, 0, 5, 5);
-					gbc_suggestionOne.fill = GridBagConstraints.HORIZONTAL;
-					gbc_suggestionOne.gridx = 0;
-					gbc_suggestionOne.gridy = 0;
-					panel_1.add(suggestionOne, gbc_suggestionOne);
-				
-					suggestionTwo.addPropertyChangeListener(OpenCloseListener(2));
-					GridBagConstraints gbc_suggestionTwo = new GridBagConstraints();
-					gbc_suggestionTwo.insets = new Insets(0, 0, 5, 5);
-					gbc_suggestionTwo.fill = GridBagConstraints.HORIZONTAL;
-					gbc_suggestionTwo.gridx = 0;
-					gbc_suggestionTwo.gridy = 1;
-					panel_1.add(suggestionTwo, gbc_suggestionTwo);
-				
-					suggestionThree.addPropertyChangeListener(OpenCloseListener(3));
-					
-					Component horizontalStrut = Box.createHorizontalStrut(0);
-					GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
-					gbc_horizontalStrut.insets = new Insets(0, 0, 5, 0);
-					gbc_horizontalStrut.gridx = 1;
-					gbc_horizontalStrut.gridy = 1;
-					panel_1.add(horizontalStrut, gbc_horizontalStrut);
-					GridBagConstraints gbc_suggestionThree = new GridBagConstraints();
-					gbc_suggestionThree.insets = new Insets(0, 0, 5, 5);
-					gbc_suggestionThree.fill = GridBagConstraints.HORIZONTAL;
-					gbc_suggestionThree.gridx = 0;
-					gbc_suggestionThree.gridy = 2;
-					panel_1.add(suggestionThree, gbc_suggestionThree);
-				
-					suggestionFuor.addPropertyChangeListener(OpenCloseListener(4));
-					GridBagConstraints gbc_suggestionFuor = new GridBagConstraints();
-					gbc_suggestionFuor.insets = new Insets(0, 0, 5, 5);
-					gbc_suggestionFuor.fill = GridBagConstraints.HORIZONTAL;
-					gbc_suggestionFuor.gridx = 0;
-					gbc_suggestionFuor.gridy = 3;
-					panel_1.add(suggestionFuor, gbc_suggestionFuor);
-				
-					suggestionFive.addPropertyChangeListener(OpenCloseListener(5));
-					GridBagConstraints gbc_suggestionFive = new GridBagConstraints();
-					gbc_suggestionFive.insets = new Insets(0, 0, 0, 5);
-					gbc_suggestionFive.fill = GridBagConstraints.HORIZONTAL;
-					gbc_suggestionFive.gridx = 0;
-					gbc_suggestionFive.gridy = 4;
-					panel_1.add(suggestionFive, gbc_suggestionFive);
-				
+
+				suggestionOne.addPropertyChangeListener(OpenCloseListener(1));
+				GridBagConstraints gbc_suggestionOne = new GridBagConstraints();
+				gbc_suggestionOne.insets = new Insets(0, 0, 5, 5);
+				gbc_suggestionOne.fill = GridBagConstraints.HORIZONTAL;
+				gbc_suggestionOne.gridx = 0;
+				gbc_suggestionOne.gridy = 0;
+				panel_1.add(suggestionOne, gbc_suggestionOne);
+
+				suggestionTwo.addPropertyChangeListener(OpenCloseListener(2));
+				GridBagConstraints gbc_suggestionTwo = new GridBagConstraints();
+				gbc_suggestionTwo.insets = new Insets(0, 0, 5, 5);
+				gbc_suggestionTwo.fill = GridBagConstraints.HORIZONTAL;
+				gbc_suggestionTwo.gridx = 0;
+				gbc_suggestionTwo.gridy = 1;
+				panel_1.add(suggestionTwo, gbc_suggestionTwo);
+
+				suggestionThree.addPropertyChangeListener(OpenCloseListener(3));
+
+				Component horizontalStrut = Box.createHorizontalStrut(0);
+				GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
+				gbc_horizontalStrut.insets = new Insets(0, 0, 5, 0);
+				gbc_horizontalStrut.gridx = 1;
+				gbc_horizontalStrut.gridy = 1;
+				panel_1.add(horizontalStrut, gbc_horizontalStrut);
+				GridBagConstraints gbc_suggestionThree = new GridBagConstraints();
+				gbc_suggestionThree.insets = new Insets(0, 0, 5, 5);
+				gbc_suggestionThree.fill = GridBagConstraints.HORIZONTAL;
+				gbc_suggestionThree.gridx = 0;
+				gbc_suggestionThree.gridy = 2;
+				panel_1.add(suggestionThree, gbc_suggestionThree);
+
+				suggestionFuor.addPropertyChangeListener(OpenCloseListener(4));
+				GridBagConstraints gbc_suggestionFuor = new GridBagConstraints();
+				gbc_suggestionFuor.insets = new Insets(0, 0, 5, 5);
+				gbc_suggestionFuor.fill = GridBagConstraints.HORIZONTAL;
+				gbc_suggestionFuor.gridx = 0;
+				gbc_suggestionFuor.gridy = 3;
+				panel_1.add(suggestionFuor, gbc_suggestionFuor);
+
+				suggestionFive.addPropertyChangeListener(OpenCloseListener(5));
+				GridBagConstraints gbc_suggestionFive = new GridBagConstraints();
+				gbc_suggestionFive.insets = new Insets(0, 0, 0, 5);
+				gbc_suggestionFive.fill = GridBagConstraints.HORIZONTAL;
+				gbc_suggestionFive.gridx = 0;
+				gbc_suggestionFive.gridy = 4;
+				panel_1.add(suggestionFive, gbc_suggestionFive);
+
 			}
 		}
 	}
-	
+
 	private void addToWishlist(String id)
 	{
 		SuggestionDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 		if (AnimeIndex.wishlistDialog.wishListModel.contains("Nessun Anime Corrispondente"))
 			AnimeIndex.wishlistDialog.wishListModel.removeElement("Nessun Anime Corrispondente");
-		
+
 		try
 		{
 			ConnectionManager.ConnectAndGetToken();
@@ -212,32 +223,33 @@ public class SuggestionDialog extends JDialog {
 		}
 		String dataAni = ConnectionManager.parseAnimeData(Integer.parseInt(id));
 		String name = ConnectionManager.getAnimeData("title_romaji", dataAni);
-		
+
 		AnimeIndex.wishlistDialog.wishListModel.addElement(name);
 		AnimeIndex.wishlistMap.put(name, Integer.parseInt(id));
 		AnimeIndex.wishlistDialog.wishlist.setEnabled(true);
 		AnimeIndex.wishlistDialog.wishlistSearch.setEnabled(true);
 		SuggestionDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-//		SuggestionDialog.this.dispose();
+		// SuggestionDialog.this.dispose();
 	}
 
 	private PropertyChangeListener OpenCloseListener(int suggestionPaneNumber)
 	{
 		PropertyChangeListener propListener = new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
+
+			@Override
+			public void propertyChange(PropertyChangeEvent evt)
+			{
 				if (evt.getPropertyName().equalsIgnoreCase("collapsed"))
 				{
 					if (!taskPaneArray[suggestionPaneNumber - 1].isCollapsed())
 					{
 						btnAdd.setEnabled(true);
 						btnOpen.setEnabled(true);
-						for (SuggestionTaskPane taskPane : taskPaneArray) 
-						{
+						for (SuggestionTaskPane taskPane : taskPaneArray)
 							if (!taskPane.equals(taskPaneArray[suggestionPaneNumber - 1]))
 								taskPane.setCollapsed(true);
-						}
 					}
-					
+
 					if (taskPaneArray[0].isCollapsed() && taskPaneArray[1].isCollapsed() && taskPaneArray[2].isCollapsed() && taskPaneArray[3].isCollapsed() && taskPaneArray[4].isCollapsed())
 					{
 						btnAdd.setEnabled(false);
@@ -248,7 +260,7 @@ public class SuggestionDialog extends JDialog {
 		};
 		return propListener;
 	}
-	
+
 	public void storeSuggestion(int suggestionNumber, String data)
 	{
 		try
@@ -257,11 +269,11 @@ public class SuggestionDialog extends JDialog {
 			String description = SuggestionHelper.getDescription(suggestionNumber + 1, data);
 			String link = SuggestionHelper.getLink(suggestionNumber + 1, data);
 			String id = SuggestionHelper.getId(suggestionNumber + 1, data);
-			
+
 			taskPaneArray[suggestionNumber].setTitle(name);
 			taskPaneArray[suggestionNumber].setText(description);
 			linkArray[suggestionNumber] = link;
-			idArray[suggestionNumber]= id;
+			idArray[suggestionNumber] = id;
 		}
 		catch (Exception e)
 		{
@@ -269,17 +281,15 @@ public class SuggestionDialog extends JDialog {
 			MAMUtil.writeLog(e);
 		}
 	}
-	
+
 	private int getSelectedTaskPane()
 	{
 		for (int i = 0; i < taskPaneArray.length; i++)
-		{
 			if (!taskPaneArray[i].isCollapsed())
 				return i;
-		}
 		return -1;
 	}
-	
+
 	private void addAnimeToList(String listName, String id)
 	{
 		SuggestionDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
@@ -301,26 +311,21 @@ public class SuggestionDialog extends JDialog {
 		String releaseDate = ConnectionManager.getAnimeData("start_date", dataAni);
 		String finishDate = ConnectionManager.getAnimeData("end_date", dataAni);
 		String durationEp = ConnectionManager.getAnimeData("duration", dataAni);
-		if(totEp != null && !totEp.isEmpty())
-		{
-			if(totEp.equals("null")||totEp.equals("0"))
+		if (totEp != null && !totEp.isEmpty())
+			if (totEp.equals("null") || totEp.equals("0"))
 				totEp = "??";
-		}
-		
+
 		if (durationEp != null && !durationEp.isEmpty())
-		{
-			if(durationEp.equals("null")||durationEp.equals("0"))
+			if (durationEp.equals("null") || durationEp.equals("0"))
 				durationEp = "?? min";
 			else
 				durationEp += " min";
-		}
 		if (releaseDate != null && !releaseDate.isEmpty())
-		{
 			if (releaseDate.equals("null"))
 				releaseDate = "??/??/????";
-			else if(releaseDate.length()==4)
+			else if (releaseDate.length() == 4)
 				releaseDate = "??/??/" + releaseDate;
-			else if(releaseDate.length()==7)
+			else if (releaseDate.length() == 7)
 			{
 				String monthStart = releaseDate.substring(5, 7);
 				String yearStart = releaseDate.substring(0, 4);
@@ -333,14 +338,13 @@ public class SuggestionDialog extends JDialog {
 				String yearStart = releaseDate.substring(0, 4);
 				releaseDate = dayStart + "/" + monthStart + "/" + yearStart;
 			}
-		}
 		if (finishDate != null && !finishDate.isEmpty())
 		{
 			if (finishDate.equals("null"))
 				finishDate = "??/??/????";
-			else if(finishDate.length()==4)
+			else if (finishDate.length() == 4)
 				finishDate = "??/??/" + finishDate;
-			else if(finishDate.length()==7)
+			else if (finishDate.length() == 7)
 			{
 				String monthEnd = finishDate.substring(5, 7);
 				String yearEnd = finishDate.substring(0, 4);
@@ -349,7 +353,7 @@ public class SuggestionDialog extends JDialog {
 			else if (finishDate.length() > 7)
 			{
 				String dayEnd = finishDate.substring(8, 10);
-				String monthEnd= finishDate.substring(5, 7);
+				String monthEnd = finishDate.substring(5, 7);
 				String yearEnd = finishDate.substring(0, 4);
 				finishDate = dayEnd + "/" + monthEnd + "/" + yearEnd;
 			}
@@ -358,7 +362,7 @@ public class SuggestionDialog extends JDialog {
 		}
 		String exitDay = "?????";
 		if (listName.equalsIgnoreCase("completi da vedere"))
-			exitDay = "Concluso";	
+			exitDay = "Concluso";
 		if (currentEp.equals(totEp))
 			AnimeIndex.animeInformation.plusButton.setEnabled(false);
 		if (listName.equalsIgnoreCase("anime completati"))
@@ -367,11 +371,10 @@ public class SuggestionDialog extends JDialog {
 			exitDay = "Concluso";
 		}
 		String imageName = AddAnimeDialog.addSaveImage(name, dataAni, listName);
-		AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png" , exitDay, id, 
-				"", "", animeType, releaseDate, finishDate, durationEp, false); 
+		AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png", exitDay, id, "", "", animeType, releaseDate, finishDate, durationEp, false);
 		JList list = AddAnimeDialog.getJList(listName);
 		SortedListModel model = AddAnimeDialog.getModel(listName);
-		TreeMap<String,AnimeData> map = AddAnimeDialog.getMap(listName);
+		TreeMap<String, AnimeData> map = AddAnimeDialog.getMap(listName);
 		if (!map.containsKey(name))
 		{
 			AnimeIndex.shouldUpdate = false;
@@ -379,17 +382,15 @@ public class SuggestionDialog extends JDialog {
 			map.put(name, data);
 			model.addElement(name);
 			if (AddAnimeDialog.getDeletedArrayList(listName).contains(map.get(name).getImagePath(listName)))
-			{
 				AddAnimeDialog.getDeletedArrayList(listName).remove(map.get(name).getImagePath(listName));
-			}
 			AddAnimeDialog.getArrayList(listName).add(map.get(name).getImagePath(listName));
 			AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 			list.clearSelection();
 			list.setSelectedValue(name, true);
 			AnimeIndex.shouldUpdate = true;
-			
+
 		}
 		SuggestionDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-//		SuggestionDialog.this.dispose();
+		// SuggestionDialog.this.dispose();
 	}
 }

@@ -16,35 +16,43 @@ public class CheckUpdateTask extends SwingWorker
 	public String doInBackground() throws Exception
 	{
 		String updatedVersion = null;
-		try {
+		try
+		{
 			updatedVersion = Updater.getLatestVersion();
-		} catch (Exception e1) {
+		}
+		catch (Exception e1)
+		{
 			e1.printStackTrace();
 			MAMUtil.writeLog(e1);
 		}
 		return updatedVersion;
 	}
-	
+
 	@Override
 	public void done()
 	{
 		String updatedVersion = null;
-		try {
+		try
+		{
 			updatedVersion = (String) get();
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e)
+		{
 			e.printStackTrace();
 			MAMUtil.writeLog(e);
-		} catch (ExecutionException e) {
+		}
+		catch (ExecutionException e)
+		{
 
 			e.printStackTrace();
 			MAMUtil.writeLog(e);
 		}
 		if (!updatedVersion.equalsIgnoreCase(AnimeIndex.VERSION))
-			{
+		{
 			UpdateDialog update = new UpdateDialog(Updater.getWhatsNew());
 			update.setLocationRelativeTo(AnimeIndex.mainFrame);
 			update.setVisible(true);
-			}
+		}
 	}
 
 }

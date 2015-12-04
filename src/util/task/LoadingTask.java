@@ -13,6 +13,7 @@ import main.AnimeIndex;
 import util.DriveUtil;
 import util.FileManager;
 import util.MAMUtil;
+import util.window.AnimeInformation;
 
 public class LoadingTask extends SwingWorker
 {
@@ -21,9 +22,9 @@ public class LoadingTask extends SwingWorker
 	protected Object doInBackground() throws Exception
 	{
 		FileManager.loadFansubList();
-		AnimeIndex.animeInformation.setFansubComboBox();
+		AnimeInformation.setFansubComboBox();
 		FileManager.loadExclusionList();
-		FileManager.loadAnime("completed.anaconda" , AnimeIndex.completedModel, AnimeIndex.completedMap);
+		FileManager.loadAnime("completed.anaconda", AnimeIndex.completedModel, AnimeIndex.completedMap);
 		FileManager.loadAnime("airing.anaconda", AnimeIndex.airingModel, AnimeIndex.airingMap);
 		FileManager.loadAnime("ova.anaconda", AnimeIndex.ovaModel, AnimeIndex.ovaMap);
 		FileManager.loadAnime("film.anaconda", AnimeIndex.filmModel, AnimeIndex.filmMap);
@@ -33,47 +34,51 @@ public class LoadingTask extends SwingWorker
 		return null;
 	}
 
+	@Override
 	protected void done()
-	{	
-			AnimeIndex.completedModel.update();
-			AnimeIndex.airingModel.update();
-			AnimeIndex.ovaModel.update();
-			AnimeIndex.filmModel.update();
-			AnimeIndex.completedToSeeModel.update();
-		
-		if(AnimeIndex.appProp.getProperty("Open_Wishlist").equalsIgnoreCase("true"))
+	{
+		AnimeIndex.completedModel.update();
+		AnimeIndex.airingModel.update();
+		AnimeIndex.ovaModel.update();
+		AnimeIndex.filmModel.update();
+		AnimeIndex.completedToSeeModel.update();
+
+		if (AnimeIndex.appProp.getProperty("Open_Wishlist").equalsIgnoreCase("true"))
 		{
-			AnimeIndex.wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x ,AnimeIndex.mainFrame.getLocationOnScreen().y);
+			AnimeIndex.wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x, AnimeIndex.mainFrame.getLocationOnScreen().y);
 			AnimeIndex.wishlistDialog.setVisible(true);
-			 new Timer(1, new ActionListener() {
-	               public void actionPerformed(ActionEvent e) {
-	            	   AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
-	            	   AnimeIndex.mainFrame.requestFocus();
-	            	   if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 181) {
-	                     ((Timer) e.getSource()).stop();
-	            }
-	               }
-	            }).start();
+			new Timer(1, new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
+					AnimeIndex.mainFrame.requestFocus();
+					if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 181)
+						((Timer) e.getSource()).stop();
+				}
+			}).start();
 		}
-		
-		if(AnimeIndex.appProp.getProperty("Open_NewsBoard").equalsIgnoreCase("true"))
-		{
+
+		if (AnimeIndex.appProp.getProperty("Open_NewsBoard").equalsIgnoreCase("true"))
 			if (!AnimeIndex.newsBoardDialog.isShowing())
 			{
-				AnimeIndex.newsBoardDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 1,AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight());
+				AnimeIndex.newsBoardDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 1, AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight());
 				AnimeIndex.newsBoardDialog.setVisible(true);
-				 new Timer(1, new ActionListener() {
-	            	   int size = 0;
-		               public void actionPerformed(ActionEvent e) {
-		            	   AnimeIndex.mainFrame.requestFocus();
-		            	   AnimeIndex.newsBoardDialog.setSize(795, size++);
-		            	   if (AnimeIndex.newsBoardDialog.getHeight() == 125) {
-		                     ((Timer) e.getSource()).stop();
-		            }
-		               }
-		            }).start();
+				new Timer(1, new ActionListener() {
+
+					int size = 0;
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						AnimeIndex.mainFrame.requestFocus();
+						AnimeIndex.newsBoardDialog.setSize(795, size++);
+						if (AnimeIndex.newsBoardDialog.getHeight() == 125)
+							((Timer) e.getSource()).stop();
+					}
+				}).start();
 			}
-		}
 		try
 		{
 			DriveUtil.getDriveService();

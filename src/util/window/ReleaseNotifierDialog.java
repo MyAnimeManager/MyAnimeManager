@@ -27,8 +27,9 @@ import util.MAMUtil;
 import util.SortedListModel;
 import util.task.ReleasedAnimeTask;
 
-public class ReleaseNotifierDialog extends JDialog {
-	
+public class ReleaseNotifierDialog extends JDialog
+{
+
 	public static SortedListModel ovaReleased = new SortedListModel();
 	public static SortedListModel filmReleased = new SortedListModel();
 	public JList ovaReleasedList;
@@ -38,24 +39,29 @@ public class ReleaseNotifierDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ReleaseNotifierDialog() {
-		super(AnimeIndex.frame,true);
+	public ReleaseNotifierDialog()
+	{
+		super(AnimeIndex.frame, true);
 		addWindowListener(new WindowAdapter() {
+
 			@Override
-			public void windowOpened(WindowEvent e) {
-								
-				if(!ReleasedAnimeTask.enableOav)
+			public void windowOpened(WindowEvent e)
+			{
+
+				if (!ReleasedAnimeTask.enableOav)
 					ovaReleasedList.setEnabled(false);
 				else
 					ovaReleasedList.setEnabled(true);
-				
-				if(!ReleasedAnimeTask.enableFilm)
+
+				if (!ReleasedAnimeTask.enableFilm)
 					filmReleasedList.setEnabled(false);
 				else
 					filmReleasedList.setEnabled(true);
 			}
+
 			@Override
-			public void windowClosing(WindowEvent e) {
+			public void windowClosing(WindowEvent e)
+			{
 				AnimeIndex.appProp.setProperty("Date_Release", MAMUtil.today());
 			}
 		});
@@ -93,9 +99,12 @@ public class ReleaseNotifierDialog extends JDialog {
 			getContentPane().add(scrollPane, "cell 0 2,grow");
 			{
 				ovaReleasedList = new JList(ovaReleased);
-				
+
 				ovaReleasedList.addListSelectionListener(new ListSelectionListener() {
-					public void valueChanged(ListSelectionEvent e) {
+
+					@Override
+					public void valueChanged(ListSelectionEvent e)
+					{
 						filmReleasedList.clearSelection();
 						btnApriSelezionato.setEnabled(true);
 					}
@@ -113,7 +122,10 @@ public class ReleaseNotifierDialog extends JDialog {
 			{
 				filmReleasedList = new JList(filmReleased);
 				filmReleasedList.addListSelectionListener(new ListSelectionListener() {
-					public void valueChanged(ListSelectionEvent e) {
+
+					@Override
+					public void valueChanged(ListSelectionEvent e)
+					{
 						ovaReleasedList.clearSelection();
 						btnApriSelezionato.setEnabled(true);
 					}
@@ -127,7 +139,10 @@ public class ReleaseNotifierDialog extends JDialog {
 			btnApriSelezionato = new JButton("Visualizza l'Anime Selezionato");
 			btnApriSelezionato.setEnabled(false);
 			btnApriSelezionato.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					if (ovaReleasedList.isSelectionEmpty() && !filmReleasedList.isSelectionEmpty())
 					{
 						String name = (String) filmReleasedList.getSelectedValue();
@@ -138,10 +153,15 @@ public class ReleaseNotifierDialog extends JDialog {
 					{
 						String name = (String) ovaReleasedList.getSelectedValue();
 						AnimeIndex.animeTypeComboBox.setSelectedItem("OAV");
-						AnimeIndex.ovaList.setSelectedValue(name, true);						
+						AnimeIndex.ovaList.setSelectedValue(name, true);
 					}
 					Date date = new Date();
-					SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the day of the week abbreviated
+					SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the
+ // day
+ // of
+ // the
+ // week
+ // abbreviated
 					String day = simpleDateformat.format(date);
 					AnimeIndex.appProp.setProperty("Date_Release", day);
 					JButton butt = (JButton) e.getSource();
@@ -154,7 +174,10 @@ public class ReleaseNotifierDialog extends JDialog {
 		{
 			JButton btnOk = new JButton("OK");
 			btnOk.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 					AnimeIndex.appProp.setProperty("Date_Release", MAMUtil.today());
 					JButton butt = (JButton) e.getSource();
 					JDialog dialog = (JDialog) butt.getTopLevelAncestor();

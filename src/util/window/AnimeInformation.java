@@ -54,8 +54,9 @@ import util.PatternFilter;
 import util.SortedListModel;
 import util.UtilEvent;
 
-public class AnimeInformation extends JPanel {
-	
+public class AnimeInformation extends JPanel
+{
+
 	public JTextField totalEpisodeText;
 	public JTextField currentEpisodeField;
 	public JButton minusButton;
@@ -90,7 +91,7 @@ public class AnimeInformation extends JPanel {
 	public JButton checkDataButton;
 	public static UpdatingAnimeDataDialog dial;
 	public boolean selectExcludedAnimeAtWindowOpened = false;
-	
+
 	/**
 	 * Create the panel.
 	 *
@@ -104,7 +105,7 @@ public class AnimeInformation extends JPanel {
 		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-		
+
 		scrollPane = new JScrollPane();
 		scrollPane.setOpaque(false);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -117,7 +118,7 @@ public class AnimeInformation extends JPanel {
 		gbc_scrollPane.gridx = 2;
 		gbc_scrollPane.gridy = 0;
 		add(scrollPane, gbc_scrollPane);
-		
+
 		lblAnimeName = new JLabel("Anime");
 		scrollPane.setViewportView(lblAnimeName);
 		// lblAnimeName.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 25));
@@ -137,14 +138,14 @@ public class AnimeInformation extends JPanel {
 			e1.printStackTrace();
 			MAMUtil.writeLog(e1);
 		}
-		
+
 		plusButton = new JButton("");
 		plusButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/plus12.png")));
 		plusButton.setSize(new Dimension(30, 30));
 		plusButton.setMaximumSize(new Dimension(30, 30));
 		plusButton.setMinimumSize(new Dimension(30, 30));
 		plusButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
@@ -159,9 +160,7 @@ public class AnimeInformation extends JPanel {
 						int num = Integer.parseInt(currentEpisodeField.getText());
 						num++;
 						if (num == 1)
-						{
 							minusButton.setEnabled(true);
-						}
 						if ((totalEpisodeText.getText()) != null && !(totalEpisodeText.getText().isEmpty()) && !totalEpisodeText.getText().equalsIgnoreCase("??"))
 						{
 							int maxnum = Integer.parseInt(totalEpisodeText.getText());
@@ -170,17 +169,17 @@ public class AnimeInformation extends JPanel {
 								plusButton.setEnabled(false);
 								String listName = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
 								if (!listName.equalsIgnoreCase("anime completati"))
-									finishedButton.setEnabled(true);								
+									finishedButton.setEnabled(true);
 							}
 						}
 						currentEpisodeField.setText(Integer.toString(num));
-//						AnimeIndex.setAnimeInformationFields();
+						// AnimeIndex.setAnimeInformationFields();
 					}
 			}
 		});
-		
+
 		lblEpisode = new JLabel("Episodio Corrente :");
-		
+
 		rigidArea = Box.createRigidArea(new Dimension(5, 20));
 		GridBagConstraints gbc_rigidArea = new GridBagConstraints();
 		gbc_rigidArea.gridheight = 12;
@@ -202,18 +201,18 @@ public class AnimeInformation extends JPanel {
 		gbc_lblEpisode.gridx = 10;
 		gbc_lblEpisode.gridy = 3;
 		add(lblEpisode, gbc_lblEpisode);
-		
+
 		// secondo numero = massimo numero a cui può arrivare
-		
+
 		currentEpisodeField = new JTextField();
 		currentEpisodeField.addFocusListener(new FocusAdapter() {
-			
+
 			@Override
 			public void focusGained(FocusEvent e)
 			{
 				AnimeIndex.currentEpisodeNumber = currentEpisodeField.getText();
 			}
-			
+
 			@Override
 			public void focusLost(FocusEvent e)
 			{
@@ -230,7 +229,7 @@ public class AnimeInformation extends JPanel {
 			}
 		});
 		currentEpisodeField.addKeyListener(new KeyAdapter() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e)
 			{
@@ -244,30 +243,30 @@ public class AnimeInformation extends JPanel {
 						currEp = Integer.parseInt(currentEpisodeField.getText());
 					else if (Character.isDigit(key) && currentEpisodeField.getText().isEmpty())
 						currEp = Integer.parseInt(key + "");
-					
+
 					int totEp = Integer.parseInt(totalEpisodeText.getText());
 					if (currEp > totEp)
 						e.consume();
-					
+
 					if (currEp < totEp)
 					{
 						minusButton.setEnabled(true);
 						plusButton.setEnabled(true);
 						finishedButton.setEnabled(false);
 					}
-					
+
 					if (currEp == 0)
 					{
 						minusButton.setEnabled(false);
 						finishedButton.setEnabled(false);
 					}
-					
+
 					if (currEp == totEp)
 					{
 						plusButton.setEnabled(false);
 						finishedButton.setEnabled(true);
 					}
-//					AnimeIndex.setAnimeInformationFields(currEp, totEp);
+					// AnimeIndex.setAnimeInformationFields(currEp, totEp);
 				}
 			}
 		});
@@ -281,7 +280,7 @@ public class AnimeInformation extends JPanel {
 		add(currentEpisodeField, gbc_currentEpisodeField);
 		currentEpisodeField.setColumns(3);
 		((AbstractDocument) currentEpisodeField.getDocument()).setDocumentFilter(new PatternFilter("\\d{0,4}||\\?{0,2}"));
-		
+
 		GridBagConstraints gbc_plusButton = new GridBagConstraints();
 		gbc_plusButton.anchor = GridBagConstraints.WEST;
 		gbc_plusButton.insets = new Insets(0, 0, 5, 5);
@@ -289,14 +288,14 @@ public class AnimeInformation extends JPanel {
 		gbc_plusButton.gridy = 3;
 		add(plusButton, gbc_plusButton);
 		plusButton.setPreferredSize(new Dimension(30, 30));
-		
+
 		minusButton = new JButton("");
 		minusButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/minus12.png")));
 		minusButton.setMinimumSize(new Dimension(30, 30));
 		minusButton.setMaximumSize(new Dimension(30, 30));
 		minusButton.setSize(new Dimension(30, 30));
 		minusButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
@@ -306,13 +305,13 @@ public class AnimeInformation extends JPanel {
 					if (num != 0)
 					{
 						num--;
-						currentEpisodeField.setText(Integer.toString(num));						
+						currentEpisodeField.setText(Integer.toString(num));
 						if (num == 0)
 						{
 							minusButton.setEnabled(false);
 							plusButton.requestFocusInWindow();
 						}
-						
+
 						if ((totalEpisodeText.getText()) != null && !(totalEpisodeText.getText().isEmpty()))
 							if (!totalEpisodeText.getText().equals("??"))
 							{
@@ -328,7 +327,7 @@ public class AnimeInformation extends JPanel {
 										exitDaycomboBox.setSelectedItem("?????");
 										exitDaycomboBox.setEnabled(true);
 									}
-//								AnimeIndex.setAnimeInformationFields();
+								// AnimeIndex.setAnimeInformationFields();
 							}
 					}
 				}
@@ -341,14 +340,14 @@ public class AnimeInformation extends JPanel {
 		gbc_minusButton.gridy = 3;
 		add(minusButton, gbc_minusButton);
 		minusButton.setPreferredSize(new Dimension(30, 30));
-		
+
 		rigidArea_1 = Box.createRigidArea(new Dimension(5, 20));
 		GridBagConstraints gbc_rigidArea_1 = new GridBagConstraints();
 		gbc_rigidArea_1.gridheight = 11;
 		gbc_rigidArea_1.gridx = 16;
 		gbc_rigidArea_1.gridy = 1;
 		add(rigidArea_1, gbc_rigidArea_1);
-		
+
 		// total episode label e text field
 		JLabel lblTotalEpisode = new JLabel("Episodi Totali :");
 		GridBagConstraints gbc_lblTotalEpisode = new GridBagConstraints();
@@ -356,17 +355,17 @@ public class AnimeInformation extends JPanel {
 		gbc_lblTotalEpisode.gridx = 10;
 		gbc_lblTotalEpisode.gridy = 4;
 		add(lblTotalEpisode, gbc_lblTotalEpisode);
-		
+
 		totalEpisodeText = new JTextField();
 		totalEpisodeText.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		totalEpisodeText.addFocusListener(new FocusAdapter() {
-			
+
 			@Override
 			public void focusGained(FocusEvent e)
 			{
 				AnimeIndex.totalEpNumber = totalEpisodeText.getText();
 			}
-			
+
 			@Override
 			public void focusLost(FocusEvent e)
 			{
@@ -376,28 +375,31 @@ public class AnimeInformation extends JPanel {
 					finishedButton.setEnabled(true);
 				if (Integer.parseInt(totalEpisodeText.getText()) > Integer.parseInt(currentEpisodeField.getText()) && !plusButton.isEnabled())
 					plusButton.setEnabled(true);
-//				AnimeIndex.setAnimeInformationFields();
+				// AnimeIndex.setAnimeInformationFields();
 			}
 		});
 		totalEpisodeText.addKeyListener(new KeyAdapter() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e)
 			{
-//				if (!currentEpisodeField.getText().contains("?") && !totalEpisodeText.getText().contains("?"))
-//				{
-//					char key = e.getKeyChar();
-//					int totEp = 0;
-//					if (Character.isDigit(key) && !totalEpisodeText.getText().isEmpty())
-//						totEp = Integer.parseInt(totalEpisodeText.getText() + key);
-//					else if (!totalEpisodeText.getText().isEmpty())
-//						totEp = Integer.parseInt(totalEpisodeText.getText());
-//					else if (Character.isDigit(key) && totalEpisodeText.getText().isEmpty())
-//						totEp = Integer.parseInt(key + "");
-//					int currEp = Integer.parseInt(currentEpisodeField.getText());
-//					
-//					AnimeIndex.setAnimeInformationFields(currEp, totEp);
-//				}
+				// if (!currentEpisodeField.getText().contains("?") &&
+				// !totalEpisodeText.getText().contains("?"))
+				// {
+				// char key = e.getKeyChar();
+				// int totEp = 0;
+				// if (Character.isDigit(key) &&
+				// !totalEpisodeText.getText().isEmpty())
+				// totEp = Integer.parseInt(totalEpisodeText.getText() + key);
+				// else if (!totalEpisodeText.getText().isEmpty())
+				// totEp = Integer.parseInt(totalEpisodeText.getText());
+				// else if (Character.isDigit(key) &&
+				// totalEpisodeText.getText().isEmpty())
+				// totEp = Integer.parseInt(key + "");
+				// int currEp = Integer.parseInt(currentEpisodeField.getText());
+				//
+				// AnimeIndex.setAnimeInformationFields(currEp, totEp);
+				// }
 			}
 		});
 		totalEpisodeText.setMinimumSize(new Dimension(43, 23));
@@ -407,11 +409,11 @@ public class AnimeInformation extends JPanel {
 		gbc_totalEpisodeText.insets = new Insets(0, 0, 5, 5);
 		gbc_totalEpisodeText.gridx = 11;
 		gbc_totalEpisodeText.gridy = 4;
-		
+
 		add(totalEpisodeText, gbc_totalEpisodeText);
 		totalEpisodeText.setColumns(3);
 		((AbstractDocument) totalEpisodeText.getDocument()).setDocumentFilter(new PatternFilter("\\d{0,4}||\\?{0,2}"));
-		
+
 		lblDurata = new JLabel("Durata :");
 		GridBagConstraints gbc_lblDurata = new GridBagConstraints();
 		gbc_lblDurata.anchor = GridBagConstraints.EAST;
@@ -420,17 +422,17 @@ public class AnimeInformation extends JPanel {
 		gbc_lblDurata.gridx = 12;
 		gbc_lblDurata.gridy = 4;
 		add(lblDurata, gbc_lblDurata);
-		
+
 		durationField = new JTextField();
 		durationField.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		durationField.addFocusListener(new FocusAdapter() {
-			
+
 			@Override
 			public void focusGained(FocusEvent e)
 			{
 				AnimeIndex.durata = durationField.getText().trim();
 			}
-			
+
 			@Override
 			public void focusLost(FocusEvent e)
 			{
@@ -458,17 +460,17 @@ public class AnimeInformation extends JPanel {
 		gbc_durationFiled.gridy = 4;
 		add(durationField, gbc_durationFiled);
 		durationField.setColumns(10);
-		
+
 		JLabel lblFansub = new JLabel("Fansub :");
 		GridBagConstraints gbc_lblFansub = new GridBagConstraints();
 		gbc_lblFansub.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFansub.gridx = 10;
 		gbc_lblFansub.gridy = 5;
 		add(lblFansub, gbc_lblFansub);
-		
+
 		fansubComboBox = new JComboBox();
 		fansubComboBox.addItemListener(new ItemListener() {
-			
+
 			@Override
 			public void itemStateChanged(ItemEvent arg0)
 			{
@@ -494,7 +496,7 @@ public class AnimeInformation extends JPanel {
 		fansubButton.setToolTipText("Apri il sito web del fansub");
 		fansubButton.setEnabled(false);
 		fansubButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
@@ -529,19 +531,19 @@ public class AnimeInformation extends JPanel {
 		gbc_fansubButton.gridx = 14;
 		gbc_fansubButton.gridy = 5;
 		add(fansubButton, gbc_fansubButton);
-		
+
 		JLabel lblFansubLink = new JLabel("Link :");
 		GridBagConstraints gbc_lblFansubLink = new GridBagConstraints();
 		gbc_lblFansubLink.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFansubLink.gridx = 10;
 		gbc_lblFansubLink.gridy = 6;
 		add(lblFansubLink, gbc_lblFansubLink);
-		
+
 		btnOpen = new JButton("Apri");
 		btnOpen.setToolTipText("Apri il link impostato");
 		btnOpen.setEnabled(false);
 		btnOpen.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
@@ -569,11 +571,11 @@ public class AnimeInformation extends JPanel {
 				}
 			}
 		});
-		
+
 		setLinkButton = new JButton("Imposta Link");
 		setLinkButton.setToolTipText("Aggiungi un link rapido");
 		setLinkButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
@@ -599,25 +601,25 @@ public class AnimeInformation extends JPanel {
 		gbc_btnOpen.gridx = 14;
 		gbc_btnOpen.gridy = 6;
 		add(btnOpen, gbc_btnOpen);
-		
+
 		lblInizio = new JLabel("Inizio :");
 		GridBagConstraints gbc_lblInizio = new GridBagConstraints();
 		gbc_lblInizio.insets = new Insets(0, 0, 5, 5);
 		gbc_lblInizio.gridx = 10;
 		gbc_lblInizio.gridy = 7;
 		add(lblInizio, gbc_lblInizio);
-		
+
 		releaseDateField = new JTextField();
 		releaseDateField.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		((AbstractDocument) releaseDateField.getDocument()).setDocumentFilter(new PatternFilter("[\\p{IsDigit}\\/\\?]{0,10}"));
 		releaseDateField.addFocusListener(new FocusAdapter() {
-			
+
 			@Override
 			public void focusGained(FocusEvent e)
 			{
 				AnimeIndex.startDate = releaseDateField.getText().trim();
 			}
-			
+
 			@Override
 			public void focusLost(FocusEvent e)
 			{
@@ -628,23 +630,20 @@ public class AnimeInformation extends JPanel {
 					if (releaseDateField.getText().trim().length() != 10 && !releaseDateField.getText().trim().isEmpty())
 					{
 						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-						
+
 						if (e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnAggiungiAnime) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnDeleteAnime) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnID) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.comboBox) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.searchBar) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.wishlist) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.wishlistSearch))
 							releaseDateField.requestFocus();
 						else
 							releaseDateField.requestFocusInWindow();
-						
+
 					}
+					else if (releaseDateField.getText().trim().substring(6, 10).equals("????"))
+						releaseDateField.setText("??/??/????");
+					else if (releaseDateField.getText().trim().substring(3, 5).equals("??"))
+						releaseDateField.setText("??/??/" + releaseDateField.getText().trim().substring(6, 10));
 					else
-					{
-						if(releaseDateField.getText().trim().substring(6, 10).equals("????"))
-							releaseDateField.setText("??/??/????");
-						else if(releaseDateField.getText().trim().substring(3, 5).equals("??"))
-							releaseDateField.setText("??/??/"+releaseDateField.getText().trim().substring(6, 10));
-						else
-							releaseDateField.setText(releaseDateField.getText().trim());
-//						AnimeIndex.setAnimeInformationFields();
-					}
+						releaseDateField.setText(releaseDateField.getText().trim());
+					// AnimeIndex.setAnimeInformationFields();
 				}
 			}
 		});
@@ -656,7 +655,7 @@ public class AnimeInformation extends JPanel {
 		gbc_releaseDateField.gridy = 7;
 		add(releaseDateField, gbc_releaseDateField);
 		releaseDateField.setColumns(10);
-		
+
 		lblFine = new JLabel("Fine :");
 		GridBagConstraints gbc_lblFine = new GridBagConstraints();
 		gbc_lblFine.anchor = GridBagConstraints.EAST;
@@ -664,18 +663,18 @@ public class AnimeInformation extends JPanel {
 		gbc_lblFine.gridx = 13;
 		gbc_lblFine.gridy = 7;
 		add(lblFine, gbc_lblFine);
-		
+
 		finishDateField = new JTextField();
 		finishDateField.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		((AbstractDocument) finishDateField.getDocument()).setDocumentFilter(new PatternFilter("[\\p{IsDigit}\\/\\?]{0,10}"));
 		finishDateField.addFocusListener(new FocusAdapter() {
-			
+
 			@Override
 			public void focusGained(FocusEvent e)
 			{
 				AnimeIndex.endDate = finishDateField.getText().trim();
 			}
-			
+
 			@Override
 			public void focusLost(FocusEvent e)
 			{
@@ -691,16 +690,13 @@ public class AnimeInformation extends JPanel {
 						else
 							releaseDateField.requestFocusInWindow();
 					}
+					else if (finishDateField.getText().trim().substring(6, 10).equals("????"))
+						finishDateField.setText("??/??/????");
+					else if (finishDateField.getText().trim().substring(3, 5).equals("??"))
+						finishDateField.setText("??/??/" + finishDateField.getText().trim().substring(6, 10));
 					else
-					{
-						if(finishDateField.getText().trim().substring(6, 10).equals("????"))
-							finishDateField.setText("??/??/????");
-						else if(finishDateField.getText().trim().substring(3, 5).equals("??"))
-							finishDateField.setText("??/??/"+finishDateField.getText().trim().substring(6, 10));
-						else
-							finishDateField.setText(finishDateField.getText().trim());
-//						AnimeIndex.setAnimeInformationFields();
-					}
+						finishDateField.setText(finishDateField.getText().trim());
+					// AnimeIndex.setAnimeInformationFields();
 				}
 			}
 		});
@@ -712,18 +708,21 @@ public class AnimeInformation extends JPanel {
 		gbc_finishDateField.gridy = 7;
 		add(finishDateField, gbc_finishDateField);
 		finishDateField.setColumns(10);
-		
+
 		lblExitDay = new JLabel("Giorno di Uscita :");
 		GridBagConstraints gbc_lblExitDay = new GridBagConstraints();
 		gbc_lblExitDay.insets = new Insets(0, 0, 5, 5);
 		gbc_lblExitDay.gridx = 10;
 		gbc_lblExitDay.gridy = 8;
 		add(lblExitDay, gbc_lblExitDay);
-		
+
 		exitDaycomboBox = new JComboBox();
 		exitDaycomboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-//				AnimeIndex.setAnimeInformationFields();
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				// AnimeIndex.setAnimeInformationFields();
 			}
 		});
 		exitDaycomboBox.setEnabled(false);
@@ -735,7 +734,7 @@ public class AnimeInformation extends JPanel {
 		gbc_exitDaycomboBox.gridx = 11;
 		gbc_exitDaycomboBox.gridy = 8;
 		add(exitDaycomboBox, gbc_exitDaycomboBox);
-		
+
 		lblTipo = new JLabel("Tipo :");
 		GridBagConstraints gbc_lblTipo = new GridBagConstraints();
 		gbc_lblTipo.anchor = GridBagConstraints.EAST;
@@ -743,11 +742,11 @@ public class AnimeInformation extends JPanel {
 		gbc_lblTipo.gridx = 13;
 		gbc_lblTipo.gridy = 8;
 		add(lblTipo, gbc_lblTipo);
-		
+
 		typeComboBox = new JComboBox();
 		typeComboBox.addMouseListener(UtilEvent.exclusionPopUpMenu());
 		typeComboBox.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
@@ -783,7 +782,7 @@ public class AnimeInformation extends JPanel {
 										AnimeIndex.saveModifiedInformation();
 										if (AnimeIndex.filtro != 9 && !AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
 											AnimeIndex.filterList.setSelectedValue(name, true);
-										
+
 										if (AnimeIndex.filtro != 9 && !name.equals("Anime"))
 											MAMUtil.getJList().setSelectedValue(name, true);
 										if (!AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
@@ -805,11 +804,11 @@ public class AnimeInformation extends JPanel {
 										}
 										AnimeData oldData = map.get(name);
 										AnimeData newData = new AnimeData("1", oldData.getTotalEpisode(), oldData.getFansub(), oldData.getNote(), oldData.getImageName(), "Irregolare", oldData.getId(), oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), oldData.getFinishDate(), oldData.getDurationEp(), true);
-										
+
 										FileManager.moveImage(oldData.getImagePath(section), "Airing", oldData.getImageName());
 										map.remove(name);
 										AnimeIndex.airingMap.put(name, newData);
-										
+
 										int index;
 										int filterIndex;
 										int searchIndex;
@@ -820,7 +819,7 @@ public class AnimeInformation extends JPanel {
 										}
 										else
 											filterIndex = -1;
-										
+
 										if (!AnimeIndex.searchBar.getText().isEmpty())
 										{
 											searchIndex = AnimeIndex.searchList.getSelectedIndex();
@@ -828,13 +827,13 @@ public class AnimeInformation extends JPanel {
 										}
 										else
 											searchIndex = -1;
-										
+
 										index = list.getSelectedIndex();
 										model.removeElementAt(index);
 										list.clearSelection();
 										if (AnimeIndex.filtro != 9 && !AnimeIndex.searchBar.getText().isEmpty())
 											AnimeIndex.filterList.clearSelection();
-										
+
 										AnimeIndex.airingModel.addElement(name);
 										if (!AnimeIndex.shiftsRegister.containsKey(name))
 											AnimeIndex.shiftsRegister.put(name, section);
@@ -844,9 +843,9 @@ public class AnimeInformation extends JPanel {
 										AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 										AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
 										AnimeIndex.animeInformation.addToSeeButton.setEnabled(true);
-										
+
 										setBlank();
-										
+
 										if (AnimeIndex.filtro != 9)
 										{
 											Filters.removeFilters();
@@ -869,7 +868,7 @@ public class AnimeInformation extends JPanel {
 									AnimeData oldData = map.get(name);
 									AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), oldData.getNote(), oldData.getImageName(), "Irregolare", oldData.getId(), oldData.getLinkName(), oldData.getLink(), "Blu-ray", oldData.getReleaseDate(), oldData.getFinishDate(), oldData.getDurationEp(), true);
 									map.put(name, newData);
-									
+
 									if (AnimeIndex.filtro != 9)
 									{
 										Filters.removeFilters();
@@ -896,7 +895,7 @@ public class AnimeInformation extends JPanel {
 				}
 			}
 		});
-		
+
 		typeComboBox.setModel(new DefaultComboBoxModel(new String[] { "?????", "TV", "Movie", "Special", "OVA", "ONA", "TV Short", "Blu-ray" }));
 		GridBagConstraints gbc_typeComboBox = new GridBagConstraints();
 		gbc_typeComboBox.gridwidth = 2;
@@ -905,7 +904,7 @@ public class AnimeInformation extends JPanel {
 		gbc_typeComboBox.gridx = 14;
 		gbc_typeComboBox.gridy = 8;
 		add(typeComboBox, gbc_typeComboBox);
-		
+
 		lblNote = new JLabel("Note :");
 		GridBagConstraints gbc_lblNote = new GridBagConstraints();
 		gbc_lblNote.anchor = GridBagConstraints.SOUTHWEST;
@@ -913,10 +912,10 @@ public class AnimeInformation extends JPanel {
 		gbc_lblNote.gridx = 10;
 		gbc_lblNote.gridy = 9;
 		add(lblNote, gbc_lblNote);
-		
+
 		checkDataButton = new JButton("");
 		checkDataButton.addMouseListener(new MouseAdapter() {
-			
+
 			@Override
 			public void mouseReleased(MouseEvent e)
 			{
@@ -929,13 +928,13 @@ public class AnimeInformation extends JPanel {
 							JPopupMenu menu = new JPopupMenu();
 							JMenuItem add = new JMenuItem("Aggiungi alle Esclusioni");
 							add.addActionListener(new ActionListener() {
-								
+
 								@Override
 								public void actionPerformed(ActionEvent e)
 								{
-									boolean[] exc = {true,true,true,true,true,true};
+									boolean[] exc = { true, true, true, true, true, true };
 									AnimeIndex.exclusionAnime.put(lblAnimeName.getText(), exc);
-									selectExcludedAnimeAtWindowOpened=true;
+									selectExcludedAnimeAtWindowOpened = true;
 									AnimeIndex.preferenceDialog.exclusionDialog = new SetExclusionDialog();
 									AnimeIndex.preferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
 									AnimeIndex.preferenceDialog.exclusionDialog.setVisible(true);
@@ -943,7 +942,7 @@ public class AnimeInformation extends JPanel {
 							});
 							JMenuItem remove = new JMenuItem("Rimuovi dalle Esclusioni");
 							remove.addActionListener(new ActionListener() {
-								
+
 								@Override
 								public void actionPerformed(ActionEvent e)
 								{
@@ -961,7 +960,7 @@ public class AnimeInformation extends JPanel {
 		});
 		checkDataButton.setToolTipText("Aggiorna i dati dell'anime");
 		checkDataButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
@@ -993,7 +992,7 @@ public class AnimeInformation extends JPanel {
 		gbc_checkDataButton.gridx = 15;
 		gbc_checkDataButton.gridy = 9;
 		add(checkDataButton, gbc_checkDataButton);
-		
+
 		JScrollPane noteScrollPane = new JScrollPane();
 		noteScrollPane.setSize(new Dimension(350, 50));
 		noteScrollPane.setMinimumSize(new Dimension(350, 50));
@@ -1006,7 +1005,7 @@ public class AnimeInformation extends JPanel {
 		gbc_noteScrollPane.gridx = 10;
 		gbc_noteScrollPane.gridy = 10;
 		add(noteScrollPane, gbc_noteScrollPane);
-		
+
 		noteTextArea = new JTextArea();
 		noteTextArea.setSize(new Dimension(350, 10));
 		noteTextArea.setMinimumSize(new Dimension(350, 50));
@@ -1016,11 +1015,11 @@ public class AnimeInformation extends JPanel {
 		noteScrollPane.setViewportView(noteTextArea);
 		noteTextArea.setLineWrap(true);
 		noteTextArea.setWrapStyleWord(true);
-		
+
 		finishedButton = new JButton("Concluso");
 		finishedButton.setEnabled(false);
 		finishedButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
@@ -1034,13 +1033,13 @@ public class AnimeInformation extends JPanel {
 					{
 						if (AnimeIndex.filtro != 9 && !AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
 							AnimeIndex.filterList.setSelectedValue(name, true);
-						
+
 						if (AnimeIndex.filtro != 9 && !name.equals("Anime"))
 							MAMUtil.getJList().setSelectedValue(name, true);
 						if (!AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
 							MAMUtil.getJList().setSelectedValue(name, true);
 						String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
-						
+
 						SortedListModel model = null;
 						JList list = null;
 						TreeMap<String, AnimeData> map = null;
@@ -1089,7 +1088,7 @@ public class AnimeInformation extends JPanel {
 						}
 						else
 							filterIndex = -1;
-						
+
 						if (!AnimeIndex.searchBar.getText().isEmpty())
 						{
 							searchIndex = AnimeIndex.searchList.getSelectedIndex();
@@ -1097,13 +1096,13 @@ public class AnimeInformation extends JPanel {
 						}
 						else
 							searchIndex = -1;
-						
+
 						index = list.getSelectedIndex();
 						model.removeElementAt(index);
 						list.clearSelection();
 						if (AnimeIndex.filtro != 9 && !AnimeIndex.searchBar.getText().isEmpty())
 							AnimeIndex.filterList.clearSelection();
-						
+
 						AnimeIndex.completedModel.addElement(name);
 						if (!AnimeIndex.shiftsRegister.containsKey(name))
 							AnimeIndex.shiftsRegister.put(name, type);
@@ -1115,31 +1114,31 @@ public class AnimeInformation extends JPanel {
 						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(false);
 						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
 						AnimeIndex.animeInformation.finishedButton.setEnabled(false);
-						
+
 						if (AnimeIndex.filtro != 9 && filterIndex - 1 >= 0)
 							AnimeIndex.filterList.setSelectedIndex(filterIndex - 1);
 						else if (AnimeIndex.filtro != 9 && filterIndex - 1 < 0)
 							AnimeIndex.animeInformation.setBlank();
-						
+
 						if (!AnimeIndex.searchBar.getText().isEmpty() && searchIndex - 1 >= 0)
 							AnimeIndex.searchList.setSelectedIndex(searchIndex - 1);
 						else if (!AnimeIndex.searchBar.getText().isEmpty() && searchIndex - 1 < 0)
 							AnimeIndex.animeInformation.setBlank();
-						
+
 						if (AnimeIndex.filtro == 9 && AnimeIndex.searchBar.getText().isEmpty() && index - 1 >= 0)
 							list.setSelectedIndex(index - 1);
 						else if (AnimeIndex.filtro == 9 && AnimeIndex.searchBar.getText().isEmpty() && index - 1 < 0)
 							AnimeIndex.animeInformation.setBlank();
-						
+
 					}
 				}
 			}
 		});
-		
+
 		btnAnilistInfo = new JButton("Pi\u00F9 Informazioni");
 		btnAnilistInfo.setToolTipText("Apri la pagina di Anilist dell'anime");
 		btnAnilistInfo.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
@@ -1168,7 +1167,7 @@ public class AnimeInformation extends JPanel {
 				}
 			}
 		});
-		
+
 		GridBagConstraints gbc_btnAnilistInfo = new GridBagConstraints();
 		gbc_btnAnilistInfo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnAnilistInfo.gridwidth = 2;
@@ -1176,17 +1175,17 @@ public class AnimeInformation extends JPanel {
 		gbc_btnAnilistInfo.gridx = 1;
 		gbc_btnAnilistInfo.gridy = 11;
 		add(btnAnilistInfo, gbc_btnAnilistInfo);
-		
+
 		GridBagConstraints gbc_finishedButton = new GridBagConstraints();
 		gbc_finishedButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_finishedButton.insets = new Insets(0, 0, 0, 5);
 		gbc_finishedButton.gridx = 10;
 		gbc_finishedButton.gridy = 11;
 		add(finishedButton, gbc_finishedButton);
-		
+
 		addToSeeButton = new JButton("Concluso da Vedere");
 		addToSeeButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
@@ -1200,13 +1199,13 @@ public class AnimeInformation extends JPanel {
 					{
 						if (AnimeIndex.filtro != 9 && !AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
 							AnimeIndex.filterList.setSelectedValue(name, true);
-						
+
 						if (AnimeIndex.filtro != 9 && !name.equals("Anime"))
 							MAMUtil.getJList().setSelectedValue(name, true);
 						if (!AnimeIndex.searchBar.getText().isEmpty() && !name.equals("Anime"))
 							MAMUtil.getJList().setSelectedValue(name, true);
 						String type = (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
-						
+
 						SortedListModel model = null;
 						JList list = null;
 						TreeMap<String, AnimeData> map = null;
@@ -1244,7 +1243,7 @@ public class AnimeInformation extends JPanel {
 						FileManager.moveImage(oldData.getImagePath(type), "Completed to See", oldData.getImageName());
 						map.remove(name);
 						AnimeIndex.completedToSeeMap.put(name, newData);
-						
+
 						int index;
 						int filterIndex;
 						int searchIndex;
@@ -1255,7 +1254,7 @@ public class AnimeInformation extends JPanel {
 						}
 						else
 							filterIndex = -1;
-						
+
 						if (!AnimeIndex.searchBar.getText().isEmpty())
 						{
 							searchIndex = AnimeIndex.searchList.getSelectedIndex();
@@ -1263,13 +1262,13 @@ public class AnimeInformation extends JPanel {
 						}
 						else
 							searchIndex = -1;
-						
+
 						index = list.getSelectedIndex();
 						model.removeElementAt(index);
 						list.clearSelection();
 						if (AnimeIndex.filtro != 9 && !AnimeIndex.searchBar.getText().isEmpty())
 							AnimeIndex.filterList.clearSelection();
-						
+
 						AnimeIndex.completedToSeeModel.addElement(name);
 						if (!AnimeIndex.shiftsRegister.containsKey(name))
 							AnimeIndex.shiftsRegister.put(name, type);
@@ -1281,17 +1280,17 @@ public class AnimeInformation extends JPanel {
 						AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 						AnimeIndex.animeInformation.totalEpisodeText.setEnabled(false);
 						AnimeIndex.animeInformation.addToSeeButton.setEnabled(false);
-						
+
 						if (AnimeIndex.filtro != 9 && filterIndex - 1 >= 0)
 							AnimeIndex.filterList.setSelectedIndex(filterIndex - 1);
 						else if (AnimeIndex.filtro != 9 && filterIndex - 1 < 0)
 							AnimeIndex.animeInformation.setBlank();
-						
+
 						if (!AnimeIndex.searchBar.getText().isEmpty() && searchIndex - 1 >= 0)
 							AnimeIndex.searchList.setSelectedIndex(searchIndex - 1);
 						else if (!AnimeIndex.searchBar.getText().isEmpty() && searchIndex - 1 < 0)
 							AnimeIndex.animeInformation.setBlank();
-						
+
 						if (AnimeIndex.filtro == 9 && AnimeIndex.searchBar.getText().isEmpty() && index - 1 >= 0)
 							list.setSelectedIndex(index - 1);
 						else if (AnimeIndex.filtro == 9 && AnimeIndex.searchBar.getText().isEmpty() && index - 1 < 0)
@@ -1308,7 +1307,7 @@ public class AnimeInformation extends JPanel {
 		gbc_addToSeeButton.gridy = 11;
 		add(addToSeeButton, gbc_addToSeeButton);
 	}
-	
+
 	public void setBlank()
 	{
 		MAMUtil.getJList().clearSelection();
@@ -1344,7 +1343,7 @@ public class AnimeInformation extends JPanel {
 			fansubComboBox.setSelectedItem("?????");
 			checkDataButton.setEnabled(false);
 			AnimeIndex.deleteButton.setEnabled(false);
-			
+
 			BufferedImage image = null;
 			try
 			{
@@ -1362,38 +1361,38 @@ public class AnimeInformation extends JPanel {
 			animeImage.setIcon(new ImageIcon(image));
 		}
 	}
-	
+
 	public void setAnimeName(String name)
 	{
 		lblAnimeName.setText(name);
 	}
-	
+
 	public void setCurrentEp(String episode)
 	{
 		currentEpisodeField.setText(episode);
 	}
-	
+
 	public void setTotalEp(String totEpisode)
 	{
 		totalEpisodeText.setText(totEpisode);
 	}
-	
+
 	public void setFansub(String fansub)
 	{
 		fansubComboBox.setSelectedItem(fansub);
 	}
-	
+
 	public static void setFansubComboBox()
 	{
 		if (AnimeIndex.getFansubList() != null)
 			fansubComboBox.setModel(new DefaultComboBoxModel(AnimeIndex.getFansubList()));
 	}
-	
+
 	public void setNote(String note)
 	{
 		noteTextArea.setText(note);
 	}
-	
+
 	public void setImage(String path)
 	{
 		try
@@ -1417,51 +1416,51 @@ public class AnimeInformation extends JPanel {
 		}
 		catch (Exception e)
 		{
-			
+
 			e.printStackTrace();
 			MAMUtil.writeLog(e);
 		}
 	}
-	
+
 	public void setDay(String day)
 	{
 		exitDaycomboBox.setSelectedItem(day);
 	}
-	
+
 	public void setLink(String linkToSet)
 	{
 		link = linkToSet;
 	}
-	
+
 	public String getLink()
 	{
 		return link;
 	}
-	
+
 	public void setDurationEp(String durationEp)
 	{
 		durationField.setText(durationEp);
 	}
-	
+
 	public void setReleaseDate(String releaseDate)
 	{
 		releaseDateField.setText(releaseDate);
 	}
-	
+
 	public void setFinishDate(String finishDate)
 	{
 		finishDateField.setText(finishDate);
 	}
-	
+
 	public void setType(String animeType)
 	{
 		typeComboBox.setSelectedItem(animeType);
 	}
-	
+
 	public void setlinkName(String linkName)
 	{
 		// if (linkName != null && !linkName.isEmpty())
 		setLinkButton.setText(linkName);
 	}
-	
+
 }
