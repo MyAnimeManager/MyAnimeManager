@@ -155,7 +155,7 @@ public class MusicDialog extends JDialog
 		setTitle("My Anime Musics");
 		setResizable(false);
 		setFont(AnimeIndex.segui.deriveFont(12f));
-		setBounds(100, 100, 540, 448);
+		setBounds(100, 100, 539, 448);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -212,7 +212,7 @@ public class MusicDialog extends JDialog
 			contentPanel.add(buttonPanel, BorderLayout.SOUTH);
 			{
 				GridBagLayout gbl_buttonPanel = new GridBagLayout();
-				gbl_buttonPanel.columnWidths = new int[] { 93, 93, 45, 114, 45, 80, 54, 0 };
+				gbl_buttonPanel.columnWidths = new int[] { 93, 93, 45, 114, 45, 80, 53, 0 };
 				gbl_buttonPanel.rowHeights = new int[] { 23, 0 };
 				gbl_buttonPanel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 				gbl_buttonPanel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
@@ -239,12 +239,22 @@ public class MusicDialog extends JDialog
 							}
 							else if (!songList.isEmpty())
 								songsTree.setSelectionPath(find((DefaultMutableTreeNode) (songsTree.getModel().getRoot()), songList.get(counter)));
-							if (counter != 0)
+							if (counter > 0 && counter<=songList.size())
+							{
 								btnPrev.setEnabled(true);
+							}
 							else
+							{
 								btnPrev.setEnabled(false);
-							if (counter == songList.size() - 1)
+							}
+							if (counter >=(-1) && counter<songList.size()-1)
+							{
+								btnSucc.setEnabled(true);
+							}
+							else
+							{
 								btnSucc.setEnabled(false);
+							}
 						}
 					});
 					btnSucc.setToolTipText("Brano successivo");
@@ -273,12 +283,22 @@ public class MusicDialog extends JDialog
 							else if (!songList.isEmpty())
 								songsTree.setSelectionPath(find((DefaultMutableTreeNode) (songsTree.getModel().getRoot()), songList.get(counter)));
 								
-							if (counter == songList.size() - 1)
-								btnSucc.setEnabled(false);
+							if (counter > 0 && counter<=songList.size())
+							{
+								btnPrev.setEnabled(true);
+							}
 							else
-								btnSucc.setEnabled(true);
-							if (counter == 0)
+							{
 								btnPrev.setEnabled(false);
+							}
+							if (counter >=(-1) && counter<songList.size()-1)
+							{
+								btnSucc.setEnabled(true);
+							}
+							else
+							{
+								btnSucc.setEnabled(false);
+							}
 						}
 					});
 					btnPrev.setToolTipText("Brano precedente");
@@ -301,6 +321,7 @@ public class MusicDialog extends JDialog
 							{
 								ArrayList<String> list = songsMap.get(musicName);
 								for (String song : list)
+								{	
 									try
 									{
 										File file = new File(MUSICS_PATH + song + ".mp3");
@@ -321,6 +342,7 @@ public class MusicDialog extends JDialog
 										MAMUtil.writeLog(e1);
 										e1.printStackTrace();
 									}
+								}
 							}
 							else
 								try
@@ -331,8 +353,10 @@ public class MusicDialog extends JDialog
 										FileManager.deleteData(file);
 										if (songList.contains(musicName))
 										{
+											int index = songList.indexOf(musicName);
+											if (index < counter)
+												counter--;
 											songList.remove(musicName);
-											counter--;
 										}
 									}
 								}
@@ -341,6 +365,22 @@ public class MusicDialog extends JDialog
 									MAMUtil.writeLog(e1);
 									e1.printStackTrace();
 								}
+							if (counter > 0 && counter<=songList.size())
+							{
+								btnPrev.setEnabled(true);
+							}
+							else
+							{
+								btnPrev.setEnabled(false);
+							}
+							if (counter >=(-1) && counter<songList.size()-1)
+							{
+								btnSucc.setEnabled(true);
+							}
+							else
+							{
+								btnSucc.setEnabled(false);
+							}	
 							btnElimina.setEnabled(false);
 							songsTree.setCellRenderer(new JTreeIcons());
 							setDefaultImage();
@@ -570,10 +610,14 @@ public class MusicDialog extends JDialog
 											songList.remove(name);
 										songList.add((String) name);
 										counter = songList.size() - 1;
-										if (counter > 0)
+										if (counter > 0 && counter<=songList.size())
+										{
 											btnPrev.setEnabled(true);
+										}
 										else
+										{
 											btnPrev.setEnabled(false);
+										}
 										btnSucc.setEnabled(false);
 									}
 							}
@@ -641,7 +685,6 @@ public class MusicDialog extends JDialog
 							}
 						});
 						songsTree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("JTree") {
-
 							{
 								add(new DefaultMutableTreeNode("Caricamento in corso..."));
 							}
@@ -710,10 +753,14 @@ public class MusicDialog extends JDialog
 																	songList.remove(song);
 																songList.add(song);
 																counter = songList.size() - 1;
-																if (counter > 0)
+																if (counter > 0 && counter<=songList.size())
+																{
 																	btnPrev.setEnabled(true);
+																}
 																else
+																{
 																	btnPrev.setEnabled(false);
+																}
 																btnSucc.setEnabled(false);
 																songsTree.setSelectionPath(find((DefaultMutableTreeNode) (songsTree.getModel().getRoot()), songList.get(counter)));
 															}
@@ -995,11 +1042,11 @@ public class MusicDialog extends JDialog
 		try
 		{
 			if (AnimeIndex.appProp.getProperty("Session_Number").equalsIgnoreCase("0"))
-				image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
-			else if ((Integer.parseInt(AnimeIndex.appProp.getProperty("Session_Number")) % 2) == 0)
-				image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
-			else
 				image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone...png"));
+			else if ((Integer.parseInt(AnimeIndex.appProp.getProperty("Session_Number")) % 2) == 0)
+				image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone...png"));
+			else
+				image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
 		}
 		catch (IOException e1)
 		{
