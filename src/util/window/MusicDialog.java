@@ -310,7 +310,9 @@ public class MusicDialog extends JDialog
 											if (songList.contains(song))
 											{
 												songList.remove(song);
-												counter--;
+												int index = songList.indexOf(song);
+												if (index < counter)
+													counter--;
 											}
 										}
 									}
