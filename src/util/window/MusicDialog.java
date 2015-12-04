@@ -71,6 +71,7 @@ import util.task.GoogleDriveDownloadTask;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
+import javax.swing.ScrollPaneConstants;
 
 public class MusicDialog extends JDialog {
 
@@ -529,6 +530,9 @@ public class MusicDialog extends JDialog {
 						tabbedPane.addTab("Brani", null, panel, null);
 						panel.setLayout(new BorderLayout(10, 0));
 						JScrollPane scrollPane = new JScrollPane();
+						scrollPane.setMaximumSize(new Dimension(172, 64));
+						scrollPane.setPreferredSize(new Dimension(172, 64));
+						scrollPane.setMinimumSize(new Dimension(172, 64));
 						panel.add(scrollPane);
 						songsTree = new JTree();
 						songsTree.addMouseListener(new MouseAdapter() {
@@ -628,9 +632,6 @@ public class MusicDialog extends JDialog {
 							}
 						));
 						songsTree.setRootVisible(false);
-						songsTree.setMaximumSize(new Dimension(171, 64));
-						songsTree.setPreferredSize(new Dimension(171, 64));
-						songsTree.setMinimumSize(new Dimension(171, 64));
 						songsTree.setShowsRootHandles(true);
 						songsTree.setFont(AnimeIndex.segui.deriveFont(12f));
 						scrollPane.setViewportView(songsTree);
