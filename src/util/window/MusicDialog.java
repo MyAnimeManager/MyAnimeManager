@@ -309,10 +309,10 @@ public class MusicDialog extends JDialog
 											FileManager.deleteData(file);
 											if (songList.contains(song))
 											{
-												songList.remove(song);
 												int index = songList.indexOf(song);
 												if (index < counter)
 													counter--;
+												songList.remove(song);
 											}
 										}
 									}
