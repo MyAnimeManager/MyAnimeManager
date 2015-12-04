@@ -52,6 +52,7 @@ public class ConnectionManager
 				catch (IOException e)
 				{
 					e.printStackTrace();
+					MAMUtil.writeLog(e);
 				}
 				//System.out.println(result); java.net.ConnectException
 				SaveAccessToken(result);
@@ -136,9 +137,13 @@ public class ConnectionManager
 						AnimeSearch(animeToSearch);
 				}
 				else
+				{
 					e.printStackTrace();
-			} catch (IOException e1) {
+					MAMUtil.writeLog(e);
+				}
 				
+			} catch (IOException e1) {
+				MAMUtil.writeLog(e1);
 				e1.printStackTrace();
 			} 
 	    }
@@ -195,10 +200,14 @@ public class ConnectionManager
 						getAnimeInformation(animeID);
 				}
 				else
+				{
 					e.printStackTrace();
+					MAMUtil.writeLog(e);
+				}
 			} catch (IOException e1) {
 				
 				e1.printStackTrace();
+				MAMUtil.writeLog(e1);
 			} 
 	    }
 		result = StringEscapeUtils.unescapeJava(result);

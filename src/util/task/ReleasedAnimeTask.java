@@ -28,6 +28,7 @@ public class ReleasedAnimeTask extends SwingWorker
 			try {
 				lastControlDate = MAMUtil.getDate(AnimeIndex.appProp.getProperty("Date_Release"));
 			} catch (java.text.ParseException e) {
+				MAMUtil.writeLog(e);
 				e.printStackTrace();
 			}
 		}
@@ -117,6 +118,7 @@ public class ReleasedAnimeTask extends SwingWorker
 				}
 			} catch (java.text.ParseException e) {
 				e.printStackTrace();
+				MAMUtil.writeLog(e);
 			}
 		}
 
@@ -204,6 +206,7 @@ public class ReleasedAnimeTask extends SwingWorker
 				}
 			} catch (java.text.ParseException e) {
 				e.printStackTrace();
+				MAMUtil.writeLog(e);
 			}
 		}
 		if (dial.ovaReleased.isEmpty())

@@ -22,6 +22,7 @@ public class ExternalProgram extends Thread{
 	        System.exit(0);
 	    }catch(Exception e){
 	        e.printStackTrace();
+	        MAMUtil.writeLog(e);
 		}
 	}
 	public void run(){
@@ -36,6 +37,7 @@ public class ExternalProgram extends Thread{
             System.exit(0);
         }catch(Exception e){
             e.printStackTrace();
+            MAMUtil.writeLog(e);
         }
 	}
 	

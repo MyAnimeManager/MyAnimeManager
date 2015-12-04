@@ -208,6 +208,7 @@ public class AnimeIndex extends JFrame
 					wishlistDialog = new WishlistDialog();
 					newsBoardDialog = new NewsBoardDialog();				
 				} catch (Exception e) {
+					MAMUtil.writeLog(e);
 					e.printStackTrace();
 				}
 			}
@@ -281,12 +282,14 @@ public class AnimeIndex extends JFrame
 									try {
 										calendar.setTime(simpleDateformat.parse(day));
 									} catch (java.text.ParseException e) {
+										MAMUtil.writeLog(e);
 										e.printStackTrace();
 									}
 									GregorianCalendar c = new GregorianCalendar();
 									try {
 										c.setTime(simpleDateformat.parse(dataRelease));
 									} catch (java.text.ParseException e) {
+										MAMUtil.writeLog(e);
 										e.printStackTrace();
 									}
 									if(c.before(calendar))
@@ -320,6 +323,7 @@ public class AnimeIndex extends JFrame
 				try {
 					newSugg.execute();
 				} catch (Exception e) {
+					MAMUtil.writeLog(e);
 					e.printStackTrace();
 				}
 				
@@ -327,6 +331,7 @@ public class AnimeIndex extends JFrame
 				try {
 					updateTask.execute();
 				} catch (Exception e) {
+					MAMUtil.writeLog(e);
 					e.printStackTrace();
 				}
 				
@@ -407,6 +412,7 @@ public class AnimeIndex extends JFrame
 					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Fansub.anaconda"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
+					MAMUtil.writeLog(e1);
 				}
 				
 				fansubMap.clear();
@@ -456,6 +462,7 @@ public class AnimeIndex extends JFrame
 					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Completed"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
+					MAMUtil.writeLog(e1);
 				}
 				completedModel.clear();
 				
@@ -479,6 +486,7 @@ public class AnimeIndex extends JFrame
 					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Airing"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
+					MAMUtil.writeLog(e1);
 				}
 				airingModel.clear();
 				
@@ -511,6 +519,7 @@ public class AnimeIndex extends JFrame
 					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Ova"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
+					MAMUtil.writeLog(e1);
 				}
 				ovaModel.clear();
 				
@@ -543,6 +552,7 @@ public class AnimeIndex extends JFrame
 					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Film"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
+					MAMUtil.writeLog(e1);
 				}
 				filmModel.clear();
 				
@@ -569,6 +579,7 @@ public class AnimeIndex extends JFrame
 					FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Completed to See"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
+					MAMUtil.writeLog(e1);
 				}
 				completedToSeeModel.clear();
 				
@@ -597,6 +608,7 @@ public class AnimeIndex extends JFrame
 					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "wishlist.anaconda"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
+					MAMUtil.writeLog(e1);
 				}
 				
 				AnimeIndex.wishlistDialog.wishListModel.clear();
@@ -618,6 +630,7 @@ public class AnimeIndex extends JFrame
 					FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
+					MAMUtil.writeLog(e1);
 				}
 				completedModel.clear();
 				airingModel.clear();
@@ -1139,6 +1152,7 @@ public class AnimeIndex extends JFrame
 					updatedVersion = Updater.getLatestVersion();
 				} catch (Exception e1) {
 					e1.printStackTrace();
+					MAMUtil.writeLog(e1);
 				}
 				if (updatedVersion.equalsIgnoreCase(VERSION))
 					JOptionPane.showMessageDialog(mainFrame, "Nessun Aggiornamento Trovato", "Aggiornamento", JOptionPane.INFORMATION_MESSAGE);
@@ -2925,6 +2939,7 @@ public class AnimeIndex extends JFrame
 		         }
 		         catch (Exception e) {
 		             e.printStackTrace();
+		             MAMUtil.writeLog(e);
 		         }
 		     }
 		 };

@@ -44,10 +44,12 @@ public class ColorProperties
 				defaultProps.put("ComboBox_color", "null");
 			} catch (IOException e) {
 				e.printStackTrace();
+				MAMUtil.writeLog(e);
 			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 
 		applicationProps = new Properties(defaultProps);
@@ -60,6 +62,7 @@ public class ColorProperties
 			in.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		};
 		return applicationProps;
 	}

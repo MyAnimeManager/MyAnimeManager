@@ -135,6 +135,7 @@ public class AnimeInformation extends JPanel {
 		catch (IOException e1)
 		{
 			e1.printStackTrace();
+			MAMUtil.writeLog(e1);
 		}
 		
 		plusButton = new JButton("");
@@ -1356,6 +1357,7 @@ public class AnimeInformation extends JPanel {
 			catch (IOException e1)
 			{
 				e1.printStackTrace();
+				MAMUtil.writeLog(e1);
 			}
 			animeImage.setIcon(new ImageIcon(image));
 		}
@@ -1417,6 +1419,7 @@ public class AnimeInformation extends JPanel {
 		{
 			
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 	}
 	

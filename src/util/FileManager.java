@@ -77,6 +77,7 @@ public class FileManager
 			} 
 			catch (FileNotFoundException e) {
 				e.printStackTrace();
+				MAMUtil.writeLog(e);
 			} 
 			finally
 			{
@@ -94,6 +95,7 @@ public class FileManager
 			 catch (IOException e) 
 			 	{
 				e.printStackTrace();
+				MAMUtil.writeLog(e);
 				}
 		}
 	}
@@ -144,6 +146,7 @@ public class FileManager
 			catch (Exception e) 
 			{
 				e.printStackTrace();
+				MAMUtil.writeLog(e);
 			}
 			if (line != null)
 				line.close();
@@ -160,6 +163,7 @@ public class FileManager
 			 catch (IOException e) 
 			 	{
 				e.printStackTrace();
+				MAMUtil.writeLog(e);
 				}
 			}
 	}
@@ -183,6 +187,7 @@ public class FileManager
 			output.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 	
 	}
@@ -256,6 +261,7 @@ public class FileManager
 			output.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 	}
 	
@@ -285,6 +291,7 @@ public class FileManager
 			} 
 			catch (FileNotFoundException e) {
 				e.printStackTrace();
+				MAMUtil.writeLog(e);
 			} 
 			finally
 			{
@@ -302,6 +309,7 @@ public class FileManager
 			 catch (IOException e) 
 			 	{
 				e.printStackTrace();
+				MAMUtil.writeLog(e);
 				}
 			}
 	}
@@ -328,6 +336,7 @@ public class FileManager
 			output.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 	}
 	
@@ -352,6 +361,7 @@ public class FileManager
 			output.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 	}
 	
@@ -447,6 +457,7 @@ public class FileManager
 		}
 			catch (Exception e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 	}
 	public static void saveDefaultImage(String imageUrl, String destinationFile) 
@@ -475,6 +486,7 @@ public class FileManager
 		}
 			catch (Exception e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 	}
 	
@@ -502,6 +514,7 @@ public class FileManager
 		}
 			catch (Exception e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 	}
 	 public static void deleteData(File file)	throws IOException
@@ -560,6 +573,7 @@ public class FileManager
 		}
 			catch (Exception e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 	}
 	 
@@ -582,6 +596,7 @@ public class FileManager
 				} 
 				catch (FileNotFoundException e) {
 					e.printStackTrace();
+					MAMUtil.writeLog(e);
 				} 
 				finally
 				{
@@ -597,6 +612,7 @@ public class FileManager
 				 catch (IOException e) 
 				 	{
 					e.printStackTrace();
+					MAMUtil.writeLog(e);
 					}
 				}
 		}
@@ -622,6 +638,7 @@ public class FileManager
 				output.close();
 			} catch (IOException e) {
 				e.printStackTrace();
+				MAMUtil.writeLog(e);
 			}
 		}
 		
@@ -652,6 +669,7 @@ public class FileManager
 			}
 				catch (Exception e) {
 				e.printStackTrace();
+				MAMUtil.writeLog(e);
 			}
 		}
 	 public static void moveImage(String imgPathFrom, String folderTo, String imgName)
@@ -680,6 +698,7 @@ public class FileManager
 				}
 					catch (Exception e) {
 					e.printStackTrace();
+					MAMUtil.writeLog(e);
 				}
 			 }finally 
 			 {
@@ -688,7 +707,9 @@ public class FileManager
 				    if(os!=null)
 				    	os.close();}
 				 catch(Exception e1){
-				 e1.printStackTrace();}
+				 e1.printStackTrace();
+				 MAMUtil.writeLog(e1);
+				 }
 			 }
 			 }finally
 			 {
@@ -696,6 +717,7 @@ public class FileManager
 					deleteData(url);
 				} catch (IOException e) {
 					e.printStackTrace();
+					MAMUtil.writeLog(e);
 				}
 			 }
 		 }

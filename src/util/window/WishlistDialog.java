@@ -38,6 +38,7 @@ import javax.swing.event.ListSelectionListener;
 
 import main.AnimeIndex;
 import util.ConnectionManager;
+import util.MAMUtil;
 import util.SearchBar;
 import util.SortedListModel;
 
@@ -287,6 +288,7 @@ public class WishlistDialog extends JDialog
 							ConnectionManager.ConnectAndGetToken();
 						} catch (ConnectException | UnknownHostException e1) {
 							e1.printStackTrace();
+							MAMUtil.writeLog(e1);
 						}
 						
 						if (name != null)

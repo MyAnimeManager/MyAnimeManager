@@ -14,6 +14,7 @@ import javax.swing.SwingWorker;
 
 import main.AnimeIndex;
 import util.FileManager;
+import util.MAMUtil;
 import util.Updater;
 
 public class DownloadUpdateTask extends SwingWorker
@@ -71,6 +72,7 @@ public class DownloadUpdateTask extends SwingWorker
 		}
 			catch (Exception e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 	}
 }

@@ -177,6 +177,7 @@ public class MAMUtil {
 			font = Font.createFont(Font.TRUETYPE_FONT,is);
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		} finally{ //fix me
 			try
 			{
@@ -185,6 +186,7 @@ public class MAMUtil {
 			catch (IOException e)
 			{
 				e.printStackTrace();
+				MAMUtil.writeLog(e);
 			}
 		}
 		return font;

@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutionException;
 import javax.swing.SwingWorker;
 
 import main.AnimeIndex;
+import util.MAMUtil;
 import util.Updater;
 import util.window.UpdateDialog;
 
@@ -19,6 +20,7 @@ public class CheckUpdateTask extends SwingWorker
 			updatedVersion = Updater.getLatestVersion();
 		} catch (Exception e1) {
 			e1.printStackTrace();
+			MAMUtil.writeLog(e1);
 		}
 		return updatedVersion;
 	}
@@ -31,9 +33,11 @@ public class CheckUpdateTask extends SwingWorker
 			updatedVersion = (String) get();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		} catch (ExecutionException e) {
 
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 		if (!updatedVersion.equalsIgnoreCase(AnimeIndex.VERSION))
 			{

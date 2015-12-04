@@ -1126,6 +1126,7 @@ public class AddAnimeDialog extends JDialog
 				catch (ParseException e)
 				{
 					e.printStackTrace();
+					MAMUtil.writeLog(e);
 				}
 				
 				if (today.before(finish) && (type.equalsIgnoreCase("tv") || type.equalsIgnoreCase("tv short")))
@@ -1179,6 +1180,7 @@ public class AddAnimeDialog extends JDialog
 				catch (ParseException e)
 				{
 					e.printStackTrace();
+					MAMUtil.writeLog(e);
 				}
 				
 				if (today.after(finish) && (type.equalsIgnoreCase("tv") || type.equalsIgnoreCase("tv short")))
@@ -1247,6 +1249,7 @@ public class AddAnimeDialog extends JDialog
 					catch (ParseException e)
 					{
 						e.printStackTrace();
+						MAMUtil.writeLog(e);
 					}
 					
 					if (today.before(finish))
@@ -1306,6 +1309,7 @@ public class AddAnimeDialog extends JDialog
 					catch (ParseException e)
 					{
 						e.printStackTrace();
+						MAMUtil.writeLog(e);
 					}
 					
 					if (today.before(finish))
@@ -1342,6 +1346,7 @@ public class AddAnimeDialog extends JDialog
 				catch (ParseException e)
 				{
 					e.printStackTrace();
+					MAMUtil.writeLog(e);
 				}
 				
 				if (today.before(finish) && (type.equalsIgnoreCase("tv") || type.equalsIgnoreCase("tv short")))

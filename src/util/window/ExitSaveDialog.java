@@ -21,6 +21,7 @@ import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.ColorProperties;
 import util.FileManager;
+import util.MAMUtil;
 
 public class ExitSaveDialog extends JDialog
 {
@@ -62,6 +63,7 @@ public class ExitSaveDialog extends JDialog
 								FileManager.saveFansubList();
 							} catch (IOException e1) {
 								e1.printStackTrace();
+								MAMUtil.writeLog(e1);
 							}
 								FileManager.saveAnimeList("completed.anaconda", AnimeIndex.completedMap);
 								FileManager.saveAnimeList("airing.anaconda", AnimeIndex.airingMap);
@@ -141,6 +143,7 @@ public class ExitSaveDialog extends JDialog
 				FileManager.deleteData(image);
 			} catch (IOException e) {
 				e.printStackTrace();
+				MAMUtil.writeLog(e);
 			}
 		}
 	}

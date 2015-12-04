@@ -53,10 +53,12 @@ public class AnimeIndexProperties
 
 			} catch (IOException e) {
 				e.printStackTrace();
+				MAMUtil.writeLog(e);
 			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 
 		applicationProps = new Properties(defaultProps);
@@ -69,6 +71,7 @@ public class AnimeIndexProperties
 			in.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		};
 		
 		return applicationProps;

@@ -32,6 +32,7 @@ import javax.swing.ScrollPaneConstants;
 import main.AnimeIndex;
 import util.AnimeData;
 import util.ConnectionManager;
+import util.MAMUtil;
 import util.SortedListModel;
 import util.SuggestionHelper;
 import util.SuggestionTaskPane;
@@ -207,6 +208,7 @@ public class SuggestionDialog extends JDialog {
 		catch (ConnectException | UnknownHostException e)
 		{
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 		String dataAni = ConnectionManager.parseAnimeData(Integer.parseInt(id));
 		String name = ConnectionManager.getAnimeData("title_romaji", dataAni);
@@ -264,6 +266,7 @@ public class SuggestionDialog extends JDialog {
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 	}
 	
@@ -287,6 +290,7 @@ public class SuggestionDialog extends JDialog {
 		catch (ConnectException | UnknownHostException e)
 		{
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 		}
 		String dataAni = ConnectionManager.parseAnimeData(Integer.parseInt(id));
 		String name = ConnectionManager.getAnimeData("title_romaji", dataAni);

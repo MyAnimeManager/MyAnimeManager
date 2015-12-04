@@ -60,6 +60,7 @@ public class SuggestionHelper {
 			rr.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+			MAMUtil.writeLog(e);
 	    }
 		result = StringEscapeUtils.unescapeJava(result);
 		return result;

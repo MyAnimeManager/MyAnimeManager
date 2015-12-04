@@ -90,6 +90,7 @@ public class Filters {
 						try {
 							calendar.setTime(sdf.parse(currentData));
 						} catch (java.text.ParseException e) {
+							MAMUtil.writeLog(e);
 							e.printStackTrace();
 						}
 						GregorianCalendar c = new GregorianCalendar();
@@ -97,6 +98,7 @@ public class Filters {
 							c.setTime(sdf.parse(animeData));
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
+							MAMUtil.writeLog(e);
 						}
 						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
 						{	if(c.before(calendar) || c.equals(calendar))
@@ -135,12 +137,14 @@ public class Filters {
 							calendar.setTime(sdf.parse(currentData));
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
+							MAMUtil.writeLog(e);
 						}
 						GregorianCalendar c = new GregorianCalendar();
 						try {
 							c.setTime(sdf.parse(animeData));
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
+							MAMUtil.writeLog(e);
 						}
 						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
 						{	if(c.before(calendar) || c.equals(calendar))
@@ -183,12 +187,14 @@ public class Filters {
 							calendar.setTime(sdf.parse(currentData));
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
+							MAMUtil.writeLog(e);
 						}
 						GregorianCalendar c = new GregorianCalendar();
 						try {
 							c.setTime(sdf.parse(animeData));
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
+							MAMUtil.writeLog(e);
 						}
 						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
 						{	if(c.after(calendar))
@@ -227,12 +233,14 @@ public class Filters {
 							calendar.setTime(sdf.parse(currentData));
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
+							MAMUtil.writeLog(e);
 						}
 						GregorianCalendar c = new GregorianCalendar();
 						try {
 							c.setTime(sdf.parse(animeData));
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
+							MAMUtil.writeLog(e);
 						}
 						if(dato.equalsIgnoreCase("OVA")||dato.equalsIgnoreCase("ONA")||dato.equalsIgnoreCase("Special"))
 						{	if(c.after(calendar))
@@ -277,12 +285,14 @@ public class Filters {
 							calendar.setTime(sdf.parse(currentData));
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
+							MAMUtil.writeLog(e);
 						}
 						GregorianCalendar c = new GregorianCalendar();
 						try {
 							c.setTime(sdf.parse(animeData));
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
+							MAMUtil.writeLog(e);
 						}
 						if(dato.equalsIgnoreCase("Movie"))
 						{	if(c.before(calendar) || c.equals(calendar))
@@ -321,12 +331,14 @@ public class Filters {
 							calendar.setTime(sdf.parse(currentData));
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
+							MAMUtil.writeLog(e);
 						}
 						GregorianCalendar c = new GregorianCalendar();
 						try {
 							c.setTime(sdf.parse(animeData));
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
+							MAMUtil.writeLog(e);
 						}
 						if(dato.equalsIgnoreCase("Movie"))
 						{	if(c.before(calendar) || c.equals(calendar))
@@ -369,12 +381,14 @@ public class Filters {
 							calendar.setTime(sdf.parse(currentData));
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
+							MAMUtil.writeLog(e);
 						}
 						GregorianCalendar c = new GregorianCalendar();
 						try {
 							c.setTime(sdf.parse(animeData));
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
+							MAMUtil.writeLog(e);
 						}
 						if(dato.equalsIgnoreCase("Movie"))
 						{	if(c.after(calendar))
@@ -413,12 +427,14 @@ public class Filters {
 							calendar.setTime(sdf.parse(currentData));
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
+							MAMUtil.writeLog(e);
 						}
 						GregorianCalendar c = new GregorianCalendar();
 						try {
 							c.setTime(sdf.parse(animeData));
 						} catch (java.text.ParseException e) {
 							e.printStackTrace();
+							MAMUtil.writeLog(e);
 						}
 						if(dato.equalsIgnoreCase("Movie"))
 						{	if(c.after(calendar))

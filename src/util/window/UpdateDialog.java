@@ -24,6 +24,7 @@ import main.AnimeIndex;
 import util.AnimeIndexProperties;
 import util.ExternalProgram;
 import util.FileManager;
+import util.MAMUtil;
 
 	public class UpdateDialog extends JDialog{
 
@@ -105,6 +106,7 @@ import util.FileManager;
 				FileManager.saveFansubList();
 			} catch (IOException e1) {
 				e1.printStackTrace();
+				MAMUtil.writeLog(e1);
 			}
 				FileManager.saveAnimeList("completed.txt", AnimeIndex.completedMap);
 				FileManager.saveAnimeList("airing.txt", AnimeIndex.airingMap);
@@ -130,6 +132,7 @@ import util.FileManager;
 				FileManager.deleteData(image);
 			} catch (IOException e) {
 				e.printStackTrace();
+				MAMUtil.writeLog(e);
 			}
 		}
 	}
