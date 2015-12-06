@@ -13,7 +13,6 @@ import util.window.MusicDialog;
 public class JTreeIcons extends DefaultTreeCellRenderer
 {
 
-	private static final String MUSICS_PATH = MAMUtil.getAppDataPath() + "Musica" + File.separator;
 	private ImageIcon present = new ImageIcon(MusicDialog.class.getResource("/image/accept.png"));
 	private ImageIcon absent = new ImageIcon(MusicDialog.class.getResource("/image/DeleteRed.png"));
 	private ImageIcon notAll = new ImageIcon(MusicDialog.class.getResource("/image/notAll.png"));
@@ -26,7 +25,7 @@ public class JTreeIcons extends DefaultTreeCellRenderer
 		DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode) value;
 		if (leaf)
 		{
-			if (new File(MUSICS_PATH + currentNode.getUserObject() + ".mp3").isFile())
+			if (new File(MAMUtil.getMusicPath() + currentNode.getUserObject() + ".mp3").isFile())
 				setIcon(present);
 			else
 				setIcon(absent);
@@ -38,7 +37,7 @@ public class JTreeIcons extends DefaultTreeCellRenderer
 			for (int j = 0; j < albumChildNum; j++)
 			{
 				DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) currentNode.getChildAt(j);
-				if (new File(MUSICS_PATH + childNode.getUserObject() + ".mp3").exists())
+				if (new File(MAMUtil.getMusicPath() + childNode.getUserObject() + ".mp3").exists())
 					count++;
 			}
 			if (count == albumChildNum)

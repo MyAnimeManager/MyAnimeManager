@@ -402,7 +402,7 @@ public class FileManager
 
 	public static void saveSongMap()
 	{
-		File songListFile = new File(MAMUtil.getMusicPath() + "music.anaconda");
+		File songListFile = new File(MAMUtil.getMusicPath() + "[[[music]]].anaconda");
 		songListFile.delete();
 		songListFile.getParentFile().mkdirs();
 		BufferedWriter output;
@@ -432,7 +432,7 @@ public class FileManager
 
 	public static void loadSongMap()
 	{
-		File musicListFile = new File(MAMUtil.getAnimeFolderPath() + "music.anaconda");
+		File musicListFile = new File(MAMUtil.getMusicPath() + "[[[music]]].anaconda");
 		if (musicListFile.isFile())
 		{
 			Scanner scan = null;

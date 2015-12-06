@@ -29,7 +29,7 @@ public class MAMUtil
 	private final static String ANIME_PATH = APPDATA_PATH + File.separator + "Anime" + File.separator;
 	private final static String IMAGE_PATH = APPDATA_PATH + "Images" + File.separator;
 	private final static String DEFAULT_IMAGE_PATH = APPDATA_PATH + "Default Image" + File.separator;
-	private static final String MUSICS_PATH = APPDATA_PATH + "Musica" + File.separator;
+	private final static String MUSICS_PATH = APPDATA_PATH + "Musica" + File.separator;
 	private final static String TEMP_DOWNLOAD_PATH = APPDATA_PATH + "Temp" + File.separator;
 
 

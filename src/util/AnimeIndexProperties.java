@@ -32,7 +32,7 @@ public class AnimeIndexProperties
 			defaultProps.setProperty("Session_Number", "0");
 			defaultProps.setProperty("Ask_for_donation", "true");
 			defaultProps.setProperty("Suggestions_Pack_Number", "0");
-			defaultProps.setProperty("Open_NewsBoard", "false");
+			defaultProps.setProperty("Open_NewsBoard", "true");
 			in.close();
 		}
 		catch (FileNotFoundException fe)
@@ -53,7 +53,7 @@ public class AnimeIndexProperties
 				defaultProps.setProperty("Session_Number", "0");
 				defaultProps.setProperty("Ask_for_donation", "true");
 				defaultProps.setProperty("Suggestions_Pack_Number", "0");
-				defaultProps.setProperty("Open_NewsBoard", "false");
+				defaultProps.setProperty("Open_NewsBoard", "true");
 
 			}
 			catch (IOException e)

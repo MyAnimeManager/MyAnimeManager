@@ -31,7 +31,6 @@ import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -58,9 +57,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
-
 import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.ColorProperties;
