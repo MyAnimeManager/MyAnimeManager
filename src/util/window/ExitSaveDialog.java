@@ -81,6 +81,16 @@ public class ExitSaveDialog extends JDialog
 							FileManager.saveExclusionList();
 							FileManager.saveDateMap();
 
+							try
+							{
+								FileManager.deleteData(new File(MAMUtil.getTempDownloadPath()));
+							}
+							catch (IOException e1)
+							{
+								MAMUtil.writeLog(e1);
+								e1.printStackTrace();
+							}
+							
 							deleteUselessImage(AnimeIndex.completedDeletedAnime);
 							deleteUselessImage(AnimeIndex.airingDeletedAnime);
 							deleteUselessImage(AnimeIndex.ovaDeletedAnime);
@@ -103,7 +113,17 @@ public class ExitSaveDialog extends JDialog
 							AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
 
 							imageShifter();
-
+							
+							try
+							{
+								FileManager.deleteData(new File(MAMUtil.getTempDownloadPath()));
+							}
+							catch (IOException e1)
+							{
+								MAMUtil.writeLog(e1);
+								e1.printStackTrace();
+							}
+							
 							deleteUselessImage(AnimeIndex.completedSessionAnime);
 							deleteUselessImage(AnimeIndex.airingSessionAnime);
 							deleteUselessImage(AnimeIndex.ovaSessionAnime);
