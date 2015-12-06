@@ -10,7 +10,7 @@ import java.util.Properties;
 public class AnimeIndexProperties
 {
 
-	private final static String PROPERTIES_PATH = FileManager.getAppDataPath() + "properties.properties";
+	private final static String PROPERTIES_PATH = MAMUtil.getAppDataPath() + "properties.properties";
 	private static Properties applicationProps;
 
 	public static Properties createProperties()

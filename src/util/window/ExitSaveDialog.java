@@ -190,7 +190,7 @@ public class ExitSaveDialog extends JDialog
 					TreeMap<String, AnimeData> map = AnimeIndex.completedMap;
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
+					imgPathTo = MAMUtil.getImageFolderPath() + folder + File.separator + nomeImg;
 					File img = new File(imgPathTo);
 					if (!imgPathFrom.equals(imgPathTo))
 						if (img.isFile() == false)
@@ -202,7 +202,7 @@ public class ExitSaveDialog extends JDialog
 					TreeMap<String, AnimeData> map = AnimeIndex.airingMap;
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
+					imgPathTo = MAMUtil.getImageFolderPath() + folder + File.separator + nomeImg;
 					File img = new File(imgPathTo);
 					if (!imgPathFrom.equals(imgPathTo))
 						if (img.isFile() == false)
@@ -214,7 +214,7 @@ public class ExitSaveDialog extends JDialog
 					TreeMap<String, AnimeData> map = AnimeIndex.ovaMap;
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
+					imgPathTo = MAMUtil.getImageFolderPath() + folder + File.separator + nomeImg;
 					File img = new File(imgPathTo);
 					if (!imgPathFrom.equals(imgPathTo))
 						if (img.isFile() == false)
@@ -226,7 +226,7 @@ public class ExitSaveDialog extends JDialog
 					TreeMap<String, AnimeData> map = AnimeIndex.filmMap;
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
+					imgPathTo = MAMUtil.getImageFolderPath() + folder + File.separator + nomeImg;
 					File img = new File(imgPathTo);
 					if (!imgPathFrom.equals(imgPathTo))
 						if (img.isFile() == false)
@@ -238,7 +238,7 @@ public class ExitSaveDialog extends JDialog
 					TreeMap<String, AnimeData> map = AnimeIndex.completedToSeeMap;
 					String imgPathFrom = map.get(name).getImagePath(type);
 					String nomeImg = map.get(name).getImageName();
-					imgPathTo = FileManager.getImageFolderPath() + folder + File.separator + nomeImg;
+					imgPathTo = MAMUtil.getImageFolderPath() + folder + File.separator + nomeImg;
 					File img = new File(imgPathTo);
 					if (!imgPathFrom.equals(imgPathTo))
 						if (img.isFile() == false)

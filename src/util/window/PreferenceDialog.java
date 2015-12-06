@@ -395,7 +395,7 @@ public class PreferenceDialog extends JDialog
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					File img = new File(FileManager.getDefaultImageFolderPath());
+					File img = new File(MAMUtil.getDefaultImageFolderPath());
 					if (img.isDirectory() == false)
 						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessuna immagine iniziale trovata.", "Errore!", JOptionPane.ERROR_MESSAGE);
 					else

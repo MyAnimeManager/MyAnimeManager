@@ -13,7 +13,6 @@ import java.net.URLConnection;
 import javax.swing.SwingWorker;
 
 import main.AnimeIndex;
-import util.FileManager;
 import util.MAMUtil;
 import util.Updater;
 
@@ -32,7 +31,7 @@ public class DownloadUpdateTask extends SwingWorker
 
 	private void downloadFile(String link) throws MalformedURLException, IOException
 	{
-		String file = FileManager.getAppDataPath() + File.separator + "Update" + File.separator + AnimeIndex.NEW_VERSION;
+		String file = MAMUtil.getAppDataPath() + File.separator + "Update" + File.separator + AnimeIndex.NEW_VERSION;
 		URL url = new URL(link);
 		// FileUtils.copyURLToFile(url, file);
 		downloadUpdate(url, file);
@@ -72,7 +71,7 @@ public class DownloadUpdateTask extends SwingWorker
 		}
 		catch (FileNotFoundException e)
 		{
-			File file = new File(FileManager.getAppDataPath() + "Update" + File.separator);
+			File file = new File(MAMUtil.getAppDataPath() + "Update" + File.separator);
 			file.mkdirs();
 			downloadUpdate(fileUrl, destinationFile);
 		}

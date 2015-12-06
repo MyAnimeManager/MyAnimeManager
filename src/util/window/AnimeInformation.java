@@ -127,7 +127,7 @@ public class AnimeInformation extends JPanel
 		BufferedImage image = null;
 		try
 		{
-			File img = new File(FileManager.getDefaultImageFolderPath() + File.separator + "default.png");
+			File img = new File(MAMUtil.getDefaultImageFolderPath() + File.separator + "default.png");
 			if (img.isFile())
 				image = ImageIO.read(img);
 			else
@@ -838,7 +838,7 @@ public class AnimeInformation extends JPanel
 										if (!AnimeIndex.shiftsRegister.containsKey(name))
 											AnimeIndex.shiftsRegister.put(name, section);
 										if (AnimeIndex.sessionAddedAnime.contains(name))
-											AnimeIndex.sessionAddedAnimeImagesShiftsRegister.put(name, FileManager.getImageFolderPath() + "Airing" + File.separator + name + ".png");
+											AnimeIndex.sessionAddedAnimeImagesShiftsRegister.put(name, MAMUtil.getImageFolderPath() + "Airing" + File.separator + name + ".png");
 										AnimeIndex.animeInformation.minusButton.setEnabled(true);
 										AnimeIndex.animeInformation.currentEpisodeField.setEnabled(true);
 										AnimeIndex.animeInformation.totalEpisodeText.setEnabled(true);
@@ -1107,7 +1107,7 @@ public class AnimeInformation extends JPanel
 						if (!AnimeIndex.shiftsRegister.containsKey(name))
 							AnimeIndex.shiftsRegister.put(name, type);
 						if (AnimeIndex.sessionAddedAnime.contains(name))
-							AnimeIndex.sessionAddedAnimeImagesShiftsRegister.put(name, FileManager.getImageFolderPath() + "Completed" + File.separator + name + ".png");
+							AnimeIndex.sessionAddedAnimeImagesShiftsRegister.put(name, MAMUtil.getImageFolderPath() + "Completed" + File.separator + name + ".png");
 						if (AnimeIndex.exitDateMap.containsKey(name))
 							AnimeIndex.exitDateMap.remove(name);
 						AnimeIndex.animeInformation.minusButton.setEnabled(false);
@@ -1273,7 +1273,7 @@ public class AnimeInformation extends JPanel
 						if (!AnimeIndex.shiftsRegister.containsKey(name))
 							AnimeIndex.shiftsRegister.put(name, type);
 						if (AnimeIndex.sessionAddedAnime.contains(name))
-							AnimeIndex.sessionAddedAnimeImagesShiftsRegister.put(name, FileManager.getImageFolderPath() + "Completed to See" + File.separator + name + ".png");
+							AnimeIndex.sessionAddedAnimeImagesShiftsRegister.put(name, MAMUtil.getImageFolderPath() + "Completed to See" + File.separator + name + ".png");
 						if (AnimeIndex.exitDateMap.containsKey(name))
 							AnimeIndex.exitDateMap.remove(name);
 						AnimeIndex.animeInformation.minusButton.setEnabled(true);
@@ -1347,7 +1347,7 @@ public class AnimeInformation extends JPanel
 			BufferedImage image = null;
 			try
 			{
-				File img = new File(FileManager.getDefaultImageFolderPath() + File.separator + "default.png");
+				File img = new File(MAMUtil.getDefaultImageFolderPath() + File.separator + "default.png");
 				if (img.isFile())
 					image = ImageIO.read(img);
 				else
@@ -1400,7 +1400,7 @@ public class AnimeInformation extends JPanel
 			BufferedImage image = null;
 			if (path.equals("deafult"))
 			{
-				File img = new File(FileManager.getDefaultImageFolderPath() + File.separator + "default.png");
+				File img = new File(MAMUtil.getDefaultImageFolderPath() + File.separator + "default.png");
 				if (img.isFile())
 					image = ImageIO.read(img);
 				else

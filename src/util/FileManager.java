@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -25,16 +26,10 @@ public class FileManager
 {
 	// private final static String PATH = System.getProperty("user.home");
 
-	private final static String APPDATA_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator;
-	private final static String FANSUB_PATH = APPDATA_PATH + "Fansub.anaconda";
-	private final static String ANIME_PATH = APPDATA_PATH + File.separator + "Anime" + File.separator;
-	private final static String IMAGE_PATH = APPDATA_PATH + "Images" + File.separator;
-	private final static String DEFAULT_IMAGE_PATH = APPDATA_PATH + "Default Image" + File.separator;
-
 	// fansub
 	public static void saveFansubList() throws IOException
 	{
-		File fansubFile = new File(FANSUB_PATH);
+		File fansubFile = new File(MAMUtil.getFansubPath());
 		fansubFile.getParentFile().mkdirs();
 		BufferedWriter output = new BufferedWriter(new FileWriter(fansubFile));
 		try
@@ -52,7 +47,7 @@ public class FileManager
 
 	public static void loadFansubList()
 	{
-		File fansubFile = new File(FANSUB_PATH);
+		File fansubFile = new File(MAMUtil.getFansubPath());
 		if (fansubFile.isFile())
 		{
 			Scanner scan = null;
@@ -101,7 +96,7 @@ public class FileManager
 
 	public static void loadAnime(String listName, SortedListModel list, TreeMap<String, AnimeData> map)
 	{
-		File fansubFile = new File(ANIME_PATH + listName);
+		File fansubFile = new File(MAMUtil.getAnimeFolderPath() + listName);
 		if (fansubFile.isFile())
 		{
 			Scanner sc = null;
@@ -165,7 +160,7 @@ public class FileManager
 
 	public static void saveAnimeList(String file, TreeMap<String, AnimeData> map)
 	{
-		File animeFile = new File(ANIME_PATH + file);
+		File animeFile = new File(MAMUtil.getAnimeFolderPath() + file);
 		animeFile.delete();
 		animeFile.getParentFile().mkdirs();
 		BufferedWriter output;
@@ -190,7 +185,7 @@ public class FileManager
 
 	public static void loadExclusionList()
 	{
-		File exclusionFile = new File(ANIME_PATH + "exclusion.anaconda");
+		File exclusionFile = new File(MAMUtil.getAnimeFolderPath() + "exclusion.anaconda");
 		if (exclusionFile.isFile())
 		{
 			Scanner scan = null;
@@ -237,7 +232,7 @@ public class FileManager
 
 	public static void saveExclusionList()
 	{
-		File exclusionFile = new File(ANIME_PATH + "exclusion.anaconda");
+		File exclusionFile = new File(MAMUtil.getAnimeFolderPath() + "exclusion.anaconda");
 		exclusionFile.delete();
 		exclusionFile.getParentFile().mkdirs();
 		BufferedWriter output;
@@ -265,7 +260,7 @@ public class FileManager
 
 	public static void loadWishList()
 	{
-		File wishlistFile = new File(ANIME_PATH + "wishlist.anaconda");
+		File wishlistFile = new File(MAMUtil.getAnimeFolderPath() + "wishlist.anaconda");
 		if (wishlistFile.isFile())
 		{
 			Scanner scan = null;
@@ -313,7 +308,7 @@ public class FileManager
 
 	public static void saveWishList()
 	{
-		File wishlistFile = new File(ANIME_PATH + "wishlist.anaconda");
+		File wishlistFile = new File(MAMUtil.getAnimeFolderPath() + "wishlist.anaconda");
 		wishlistFile.delete();
 		wishlistFile.getParentFile().mkdirs();
 		BufferedWriter output;
@@ -341,7 +336,7 @@ public class FileManager
 	// Treemap date
 	public static void saveDateMap()
 	{
-		File dateFile = new File(ANIME_PATH + "date.anaconda");
+		File dateFile = new File(MAMUtil.getAnimeFolderPath() + "date.anaconda");
 		dateFile.delete();
 		dateFile.getParentFile().mkdirs();
 		BufferedWriter output;
@@ -366,7 +361,7 @@ public class FileManager
 
 	public static void loadDateMap()
 	{
-		File exclusionFile = new File(ANIME_PATH + "date.anaconda");
+		File exclusionFile = new File(MAMUtil.getAnimeFolderPath() + "date.anaconda");
 		if (exclusionFile.isFile())
 		{
 			Scanner scan = null;
@@ -405,6 +400,80 @@ public class FileManager
 			}
 	}
 
+	public static void saveSongMap()
+	{
+		File songListFile = new File(MAMUtil.getMusicPath() + "music.anaconda");
+		songListFile.delete();
+		songListFile.getParentFile().mkdirs();
+		BufferedWriter output;
+		try
+		{
+			output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(songListFile), "UTF-8"));
+
+			for (Map.Entry<String, ArrayList<String>> entry : AnimeIndex.musicDialog.songsMap.entrySet())
+			{
+				String albumName = entry.getKey();
+				String songInAlbum = "";
+				for (String song : entry.getValue())
+				{
+					songInAlbum = songInAlbum + song + "||";
+				}
+				output.write(albumName + "||" + songInAlbum);
+				output.write(System.lineSeparator());
+			}
+			output.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+			MAMUtil.writeLog(e);
+		}
+	}
+
+	public static void loadSongMap()
+	{
+		File musicListFile = new File(MAMUtil.getAnimeFolderPath() + "music.anaconda");
+		if (musicListFile.isFile())
+		{
+			Scanner scan = null;
+			Scanner line = null;
+			try
+			{
+				scan = new Scanner(musicListFile, "UTF-8");
+
+				while (scan.hasNextLine())
+				{
+					String albumLine = scan.nextLine();
+					line = new Scanner(albumLine);
+					line.useDelimiter("\\|\\|");
+					String albumName = line.next();
+					ArrayList<String> songInAlbum = new ArrayList<String>();
+					while (line.hasNext())
+					{
+						songInAlbum.add(line.next());
+					}
+					AnimeIndex.musicDialog.songsMap.put(albumName, songInAlbum);
+				}
+			}
+			catch (Exception e)
+			{
+			}
+			finally
+			{
+				scan.close();
+				if (line != null)
+					line.close();
+			}
+		}
+		else
+			try
+			{
+				musicListFile.createNewFile();
+			}
+			catch (IOException e)
+			{
+			}
+	}
 	// util
 
 	private static void addDefaultFansub()
@@ -430,7 +499,7 @@ public class FileManager
 			URLConnection conn = url.openConnection();
 			conn.setRequestProperty("User-Agent", "My Anime Index");
 			InputStream is = conn.getInputStream();
-			OutputStream os = new FileOutputStream(IMAGE_PATH + folderName + File.separator + destinationFile + ".png");
+			OutputStream os = new FileOutputStream(MAMUtil.getImageFolderPath() + folderName + File.separator + destinationFile + ".png");
 
 			byte[] b = new byte[2048];
 			int length;
@@ -443,7 +512,7 @@ public class FileManager
 		}
 		catch (FileNotFoundException e)
 		{
-			File file = new File(IMAGE_PATH + folderName + File.separator);
+			File file = new File(MAMUtil.getImageFolderPath() + folderName + File.separator);
 			file.mkdirs();
 			saveImage(imageUrl, destinationFile, folderName);
 		}
@@ -462,7 +531,7 @@ public class FileManager
 			url = new File(imageUrl);
 
 			InputStream is = new FileInputStream(url);
-			OutputStream os = new FileOutputStream(DEFAULT_IMAGE_PATH + destinationFile + ".png");
+			OutputStream os = new FileOutputStream(MAMUtil.getDefaultImageFolderPath() + destinationFile + ".png");
 
 			byte[] b = new byte[2048];
 			int length;
@@ -476,7 +545,7 @@ public class FileManager
 		}
 		catch (FileNotFoundException e)
 		{
-			File file = new File(DEFAULT_IMAGE_PATH);
+			File file = new File(MAMUtil.getDefaultImageFolderPath());
 			file.mkdirs();
 			saveDefaultImage(imageUrl, destinationFile);
 		}
@@ -495,7 +564,7 @@ public class FileManager
 			url = new File(imageUrl);
 
 			InputStream is = new FileInputStream(url);
-			OutputStream os = new FileOutputStream(IMAGE_PATH + folderName + File.separator + destinationFile + ".png");
+			OutputStream os = new FileOutputStream(MAMUtil.getImageFolderPath() + folderName + File.separator + destinationFile + ".png");
 
 			byte[] b = new byte[2048];
 			int length;
@@ -508,7 +577,7 @@ public class FileManager
 		}
 		catch (FileNotFoundException e)
 		{
-			File file = new File(IMAGE_PATH + folderName + File.separator);
+			File file = new File(MAMUtil.getImageFolderPath() + folderName + File.separator);
 			file.mkdirs();
 			saveNewImage(imageUrl, destinationFile, folderName);
 		}
@@ -521,8 +590,8 @@ public class FileManager
 
 	public static void deleteData(File file) throws IOException
 	{
-		File program = new File(FileManager.getAppDataPath() + AnimeIndex.CURRENT_VERSION);
-		File restart = new File(FileManager.getAppDataPath() + "MAMRestart.jar");
+		File program = new File(MAMUtil.getAppDataPath() + AnimeIndex.CURRENT_VERSION);
+		File restart = new File(MAMUtil.getAppDataPath() + "MAMRestart.jar");
 		if (file.isDirectory())
 		{
 			if (file.list().length == 0)
@@ -554,7 +623,7 @@ public class FileManager
 		{
 			url = new File(imageUrl);
 			InputStream is = new FileInputStream(url);
-			OutputStream os = new FileOutputStream(IMAGE_PATH + folderName + File.separator + destinationFile + ".png");
+			OutputStream os = new FileOutputStream(MAMUtil.getImageFolderPath() + folderName + File.separator + destinationFile + ".png");
 
 			byte[] b = new byte[2048];
 			int length;
@@ -564,13 +633,13 @@ public class FileManager
 				
 			is.close();
 			os.close();
-			url = new File(IMAGE_PATH + folderName + File.separator + destinationFile + ".png");
+			url = new File(MAMUtil.getImageFolderPath() + folderName + File.separator + destinationFile + ".png");
 			BufferedImage buffer = MAMUtil.getScaledImage(ImageIO.read(url), 225, 310);
 			ImageIO.write(buffer, "png", url);
 		}
 		catch (FileNotFoundException e)
 		{
-			File file = new File(IMAGE_PATH + folderName + File.separator);
+			File file = new File(MAMUtil.getImageFolderPath() + folderName + File.separator);
 			file.mkdirs();
 			saveScaledImage(imageUrl, destinationFile, folderName);
 		}
@@ -588,7 +657,7 @@ public class FileManager
 		{
 			url = new File(imageUrl);
 			InputStream is = new FileInputStream(url);
-			OutputStream os = new FileOutputStream(DEFAULT_IMAGE_PATH + destinationFile + ".png");
+			OutputStream os = new FileOutputStream(MAMUtil.getDefaultImageFolderPath() + destinationFile + ".png");
 
 			byte[] b = new byte[2048];
 			int length;
@@ -597,14 +666,14 @@ public class FileManager
 				os.write(b, 0, length);
 			is.close();
 			os.close();
-			url = new File(DEFAULT_IMAGE_PATH + destinationFile + ".png");
+			url = new File(MAMUtil.getDefaultImageFolderPath() + destinationFile + ".png");
 			BufferedImage buffer = MAMUtil.getScaledImage(ImageIO.read(url), 225, 310);
 			ImageIO.write(buffer, "png", url);
 
 		}
 		catch (FileNotFoundException e)
 		{
-			File file = new File(DEFAULT_IMAGE_PATH);
+			File file = new File(MAMUtil.getDefaultImageFolderPath());
 			file.mkdirs();
 			saveDefaultScaledImage(imageUrl, destinationFile);
 		}
@@ -629,7 +698,7 @@ public class FileManager
 					try
 					{
 						is = new FileInputStream(url);
-						os = new FileOutputStream(IMAGE_PATH + folderTo + File.separator + imgName);
+						os = new FileOutputStream(MAMUtil.getImageFolderPath() + folderTo + File.separator + imgName);
 
 						byte[] b = new byte[2048];
 						int length;
@@ -639,7 +708,7 @@ public class FileManager
 					}
 					catch (FileNotFoundException e)
 					{
-						File file = new File(IMAGE_PATH + folderTo + File.separator);
+						File file = new File(MAMUtil.getImageFolderPath() + folderTo + File.separator);
 						file.mkdirs();
 						moveImage(imgPathFrom, folderTo, imgName);
 					}
@@ -677,25 +746,5 @@ public class FileManager
 				}
 			}
 		}
-	}
-
-	public static String getAppDataPath()
-	{
-		return APPDATA_PATH;
-	}
-
-	public static String getAnimeFolderPath()
-	{
-		return ANIME_PATH;
-	}
-
-	public static String getImageFolderPath()
-	{
-		return IMAGE_PATH;
-	}
-
-	public static String getDefaultImageFolderPath()
-	{
-		return DEFAULT_IMAGE_PATH;
 	}
 }

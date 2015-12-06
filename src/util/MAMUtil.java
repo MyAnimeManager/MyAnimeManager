@@ -24,10 +24,19 @@ import main.AnimeIndex;
 
 public class MAMUtil
 {
+	private final static String APPDATA_PATH = System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator;
+	private final static String FANSUB_PATH = APPDATA_PATH + "Fansub.anaconda";
+	private final static String ANIME_PATH = APPDATA_PATH + File.separator + "Anime" + File.separator;
+	private final static String IMAGE_PATH = APPDATA_PATH + "Images" + File.separator;
+	private final static String DEFAULT_IMAGE_PATH = APPDATA_PATH + "Default Image" + File.separator;
+	private static final String MUSICS_PATH = APPDATA_PATH + "Musica" + File.separator;
+	private final static String TEMP_DOWNLOAD_PATH = APPDATA_PATH + "Temp" + File.separator;
 
+
+	
 	public static void createLogDirectory()
 	{
-		File logDirectory = new File(FileManager.getAppDataPath() + File.separator + "log" + File.separator);
+		File logDirectory = new File(MAMUtil.getAppDataPath() + File.separator + "log" + File.separator);
 		if (!logDirectory.exists())
 			logDirectory.mkdirs();
 	}
@@ -38,7 +47,7 @@ public class MAMUtil
 		FileWriter fw = null;
 		try
 		{
-			fw = new FileWriter(FileManager.getAppDataPath() + File.separator + "log" + File.separator + fileName, true);
+			fw = new FileWriter(MAMUtil.getAppDataPath() + File.separator + "log" + File.separator + fileName, true);
 			PrintWriter pw = new PrintWriter(fw);
 			pw.println("-------------------------------------------------------------------------");
 			e.printStackTrace(pw);
@@ -201,5 +210,40 @@ public class MAMUtil
 		if (today().equalsIgnoreCase("25/12/2015"))
 			return true;
 		return false;
+	}
+
+	public static String getAppDataPath()
+	{
+		return MAMUtil.APPDATA_PATH;
+	}
+
+	public static String getAnimeFolderPath()
+	{
+		return MAMUtil.ANIME_PATH;
+	}
+
+	public static String getImageFolderPath()
+	{
+		return MAMUtil.IMAGE_PATH;
+	}
+
+	public static String getDefaultImageFolderPath()
+	{
+		return MAMUtil.DEFAULT_IMAGE_PATH;
+	}
+	
+	public static String getFansubPath()
+	{
+		return MAMUtil.FANSUB_PATH;
+	}
+	
+	public static String getMusicPath()
+	{
+		return MAMUtil.MUSICS_PATH;
+	}
+	
+	public static String getTempDownloadPath()
+	{
+		return MAMUtil.TEMP_DOWNLOAD_PATH;
 	}
 }

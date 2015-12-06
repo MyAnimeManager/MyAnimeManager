@@ -30,6 +30,7 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -39,7 +40,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
@@ -50,9 +50,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-import main.AnimeIndex;
+
 import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -62,21 +60,26 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
+
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
+
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+import main.AnimeIndex;
 import util.FileManager;
 import util.JMarqueeLabel;
 import util.JTreeIcons;
 import util.MAMUtil;
 import util.task.DriveFileFetcherTask;
 import util.task.GoogleDriveDownloadTask;
-import com.mpatric.mp3agic.InvalidDataException;
-import com.mpatric.mp3agic.Mp3File;
-import com.mpatric.mp3agic.UnsupportedTagException;
+import javax.swing.SwingConstants;
 
 public class MusicDialog extends JDialog
 {
 
 	public TreeMap<String, ArrayList<String>> songsMap;
-	private static final String MUSICS_PATH = FileManager.getAppDataPath() + "Musica" + File.separator;
 	private final JPanel contentPanel = new JPanel();
 	private Player player;
 	private boolean loopActive;
@@ -98,22 +101,18 @@ public class MusicDialog extends JDialog
 	private JButton btnSave;
 	private JButton btnPrev;
 	private JButton btnSucc;
-	private JTabbedPane tabbedPane;
-	private JPanel playlistPanel;
-	private JPanel panel;
+	private JPanel treePanel;
 	private JButton btnElimina;
-	private JPanel panel_1;
+	private JPanel treeButtonPanel;
 	private JButton btnInPlaylist;
-	private JScrollPane playlistScrollPane;
 	private JTree songsTree;
-	private JTree playlistTree;
 	private long duration;
 	private String time = "";
 	private int counter = 0;
-	private int userPlayListCounter = 0;
 	private DefaultTreeModel songsTreeModel;
 	private ArrayList<String> songList = new ArrayList<String>();
-	private ArrayList<String> userPlayList = new ArrayList<String>();
+	private JLabel lblBrani;
+	private GoogleDriveDownloadTask downloadDriveTask;
 
 	public MusicDialog()
 	{
@@ -150,6 +149,7 @@ public class MusicDialog extends JDialog
 				stop();
 				if (timer != null)
 					timer.stop();
+				downloadDriveTask.cancel(true);
 			}
 		});
 		setTitle("My Anime Musics");
@@ -231,13 +231,15 @@ public class MusicDialog extends JDialog
 								timer.stop();
 							}
 							counter++;
-							setMusicTrack(MUSICS_PATH + songList.get(counter) + ".mp3");
-							if (!tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()).equalsIgnoreCase("Brani"))
-							{
-								if (!userPlayList.isEmpty())
-									playlistTree.setSelectionPath(find((DefaultMutableTreeNode) (playlistTree.getModel().getRoot()), userPlayList.get(userPlayListCounter)));
-							}
-							else if (!songList.isEmpty())
+							setMusicTrack(MAMUtil.getMusicPath() + songList.get(counter) + ".mp3");
+//							if (!tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()).equalsIgnoreCase("Brani"))
+//							{
+//								//TODO da controllare cosa togliere
+////								if (!userPlayList.isEmpty())
+////									playlistTree.setSelectionPath(find((DefaultMutableTreeNode) (playlistTree.getModel().getRoot()), userPlayList.get(userPlayListCounter)));
+//							}
+//							else 
+							if (!songList.isEmpty())
 								songsTree.setSelectionPath(find((DefaultMutableTreeNode) (songsTree.getModel().getRoot()), songList.get(counter)));
 							if (counter > 0 && counter<=songList.size())
 							{
@@ -274,13 +276,15 @@ public class MusicDialog extends JDialog
 								timer.stop();
 							}
 							counter--;
-							setMusicTrack(MUSICS_PATH + songList.get(counter) + ".mp3");
-							if (!tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()).equalsIgnoreCase("Brani"))
-							{
-								if (!userPlayList.isEmpty())
-									playlistTree.setSelectionPath(find((DefaultMutableTreeNode) (playlistTree.getModel().getRoot()), userPlayList.get(userPlayListCounter)));
-							}
-							else if (!songList.isEmpty())
+							setMusicTrack(MAMUtil.getMusicPath() + songList.get(counter) + ".mp3");
+//							if (!tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()).equalsIgnoreCase("Brani"))
+//							{
+//								//TODO da controllare cosa togliere
+////								if (!userPlayList.isEmpty())
+////									playlistTree.setSelectionPath(find((DefaultMutableTreeNode) (playlistTree.getModel().getRoot()), userPlayList.get(userPlayListCounter)));
+//							}
+//							else 
+							if (!songList.isEmpty())
 								songsTree.setSelectionPath(find((DefaultMutableTreeNode) (songsTree.getModel().getRoot()), songList.get(counter)));
 								
 							if (counter > 0 && counter<=songList.size())
@@ -324,7 +328,7 @@ public class MusicDialog extends JDialog
 								{	
 									try
 									{
-										File file = new File(MUSICS_PATH + song + ".mp3");
+										File file = new File(MAMUtil.getMusicPath() + song + ".mp3");
 										if (file.isFile())
 										{
 											FileManager.deleteData(file);
@@ -347,7 +351,7 @@ public class MusicDialog extends JDialog
 							else
 								try
 								{
-									File file = new File(MUSICS_PATH + musicName + ".mp3");
+									File file = new File(MAMUtil.getMusicPath() + musicName + ".mp3");
 									if (file.isFile())
 									{
 										FileManager.deleteData(file);
@@ -428,7 +432,7 @@ public class MusicDialog extends JDialog
 									File destination = new File(chooser.getSelectedFile() + File.separator + musicName);
 									for (String song : songsMap.get(musicName))
 									{
-										File choosedFile = new File(MUSICS_PATH + song + ".mp3");
+										File choosedFile = new File(MAMUtil.getMusicPath() + song + ".mp3");
 										if (choosedFile.isFile())
 											try
 											{
@@ -444,7 +448,7 @@ public class MusicDialog extends JDialog
 								else
 								{
 									File destination = chooser.getSelectedFile();
-									File choosedFile = new File(MUSICS_PATH + musicName + ".mp3");
+									File choosedFile = new File(MAMUtil.getMusicPath() + musicName + ".mp3");
 									try
 									{
 										FileUtils.copyFileToDirectory(choosedFile, destination);
@@ -578,245 +582,221 @@ public class MusicDialog extends JDialog
 				gbc_btnLoop.gridy = 0;
 				buttonPanel.add(btnLoop, gbc_btnLoop);
 				{
-					tabbedPane = new JTabbedPane();
-					contentPanel.add(tabbedPane, BorderLayout.WEST);
-					{
-						panel = new JPanel();
-						tabbedPane.addTab("Brani", null, panel, null);
-						panel.setLayout(new BorderLayout(10, 0));
-						JScrollPane scrollPane = new JScrollPane();
-						scrollPane.setMaximumSize(new Dimension(172, 64));
-						scrollPane.setPreferredSize(new Dimension(172, 64));
-						scrollPane.setMinimumSize(new Dimension(172, 64));
-						panel.add(scrollPane);
-						songsTree = new JTree();
-						songsTree.addMouseListener(new MouseAdapter() {
+					treePanel = new JPanel();
+					contentPanel.add(treePanel, BorderLayout.WEST);
+					treePanel.setLayout(new BorderLayout(0, 0));
+					JScrollPane scrollPane = new JScrollPane();
+					scrollPane.setMaximumSize(new Dimension(172, 64));
+					scrollPane.setPreferredSize(new Dimension(172, 64));
+					scrollPane.setMinimumSize(new Dimension(172, 64));
+					treePanel.add(scrollPane, BorderLayout.CENTER);
+					songsTree = new JTree();
+					songsTree.addMouseListener(new MouseAdapter() {
 
-							@Override
-							public void mouseReleased(MouseEvent e)
+						@Override
+						public void mouseReleased(MouseEvent e)
+						{
+							Object name = null;
+							try
 							{
-								Object name = null;
-								try
-								{
-									name = ((DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent()).getUserObject();
-								}
-								catch (NullPointerException e2)
-								{
-								}
-								if (name != null && !songsMap.containsKey(name))
-									if (new File(MUSICS_PATH + name + ".mp3").isFile())
-									{
-										if (!songList.isEmpty() && songList.contains(name))
-											songList.remove(name);
-										songList.add((String) name);
-										counter = songList.size() - 1;
-										if (counter > 0 && counter<=songList.size())
-										{
-											btnPrev.setEnabled(true);
-										}
-										else
-										{
-											btnPrev.setEnabled(false);
-										}
-										btnSucc.setEnabled(false);
-									}
+								name = ((DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent()).getUserObject();
 							}
-						});
-						songsTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-						songsTree.addTreeSelectionListener(new TreeSelectionListener() {
-
-							@Override
-							public void valueChanged(TreeSelectionEvent e)
+							catch (NullPointerException e2)
 							{
-								Object name = ((DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent()).getUserObject();
-								if (songsMap.containsKey(name))
+							}
+							if (name != null && !songsMap.containsKey(name))
+								if (new File(MAMUtil.getMusicPath() + name + ".mp3").isFile())
 								{
-									int count = 0;
-									ArrayList<String> songList = songsMap.get(name);
-									for (String song : songList)
-										if (new File(MUSICS_PATH + song + ".mp3").isFile())
-											count++;
-									if (count == songList.size())
-										btnLoad.setEnabled(false);
-									else
-										btnLoad.setEnabled(true);
-									if (count != 0)
+									if (!songList.isEmpty() && songList.contains(name))
+										songList.remove(name);
+									songList.add((String) name);
+									counter = songList.size() - 1;
+									if (counter > 0 && counter<=songList.size())
 									{
-										btnElimina.setEnabled(true);
-										btnSave.setEnabled(true);
+										btnPrev.setEnabled(true);
 									}
 									else
 									{
-										btnElimina.setEnabled(false);
-										btnSave.setEnabled(false);
+										btnPrev.setEnabled(false);
 									}
+									btnSucc.setEnabled(false);
 								}
-								else if (new File(MUSICS_PATH + name + ".mp3").isFile())
-								{
-									if ((isPaused || isRunning) && !(MUSICS_PATH + name + ".mp3").equalsIgnoreCase(currentMusicPath))
-									{
-										stop();
-										timer.stop();
-									}
-									progressBar.setValue(0);
-									setMusicTrack(MUSICS_PATH + name + ".mp3");
+						}
+					});
+					songsTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+					songsTree.addTreeSelectionListener(new TreeSelectionListener() {
+
+						@Override
+						public void valueChanged(TreeSelectionEvent e)
+						{
+							Object name = ((DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent()).getUserObject();
+							if (songsMap.containsKey(name))
+							{
+								int count = 0;
+								ArrayList<String> songList = songsMap.get(name);
+								for (String song : songList)
+									if (new File(MAMUtil.getMusicPath() + song + ".mp3").isFile())
+										count++;
+								if (count == songList.size())
 									btnLoad.setEnabled(false);
+								else
+									btnLoad.setEnabled(true);
+								if (count != 0)
+								{
+									btnElimina.setEnabled(true);
+									btnSave.setEnabled(true);
 								}
 								else
 								{
-									if ((isPaused || isRunning))
-									{
-										stop();
-										timer.stop();
-									}
-									progressBar.setString("");
-									progressBar.setValue(0);
-									lblTitle.setText("");
-									setDefaultImage();
-									btnLoad.setEnabled(true);
-									btnPlaypause.setEnabled(false);
 									btnElimina.setEnabled(false);
-									btnInPlaylist.setEnabled(false);
-									btnRestart.setEnabled(false);
 									btnSave.setEnabled(false);
-									btnSucc.setEnabled(false);
-									btnPrev.setEnabled(false);
 								}
 							}
-						});
-						songsTree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("JTree") {
+							else if (new File(MAMUtil.getMusicPath() + name + ".mp3").isFile())
 							{
-								add(new DefaultMutableTreeNode("Caricamento in corso..."));
-							}
-						}));
-						songsTree.setRootVisible(false);
-						songsTree.setShowsRootHandles(true);
-						songsTree.setFont(AnimeIndex.segui.deriveFont(12f));
-						scrollPane.setViewportView(songsTree);
-						{
-							panel_1 = new JPanel();
-							panel.add(panel_1, BorderLayout.SOUTH);
-							{
-								btnLoad = new JButton("Scarica");
+								if ((isPaused || isRunning) && !(MAMUtil.getMusicPath() + name + ".mp3").equalsIgnoreCase(currentMusicPath))
+								{
+									stop();
+									timer.stop();
+								}
+								progressBar.setValue(0);
+								setMusicTrack(MAMUtil.getMusicPath() + name + ".mp3");
 								btnLoad.setEnabled(false);
-								btnLoad.addActionListener(new ActionListener() {
+							}
+							else
+							{
+								if ((isPaused || isRunning))
+								{
+									stop();
+									timer.stop();
+								}
+								progressBar.setString("");
+								progressBar.setValue(0);
+								lblTitle.setText("");
+								setDefaultImage();
+								btnLoad.setEnabled(true);
+								btnPlaypause.setEnabled(false);
+								btnElimina.setEnabled(false);
+								btnInPlaylist.setEnabled(false);
+								btnRestart.setEnabled(false);
+								btnSave.setEnabled(false);
+								btnSucc.setEnabled(false);
+								btnPrev.setEnabled(false);
+							}
+						}
+					});
+					//FIXME ogni volta che cambio il dialog mi cambia mettendomi getContentPane prima di add. invece di fare millemila 
+					//invocazioni di new, fai variabili momentanee per i due nodi.
+					songsTree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("JTree") 
+					{
+						{
+							add(new DefaultMutableTreeNode("Caricamento in corso..."));
+						}
+					}));
+					songsTree.setRootVisible(false);
+					songsTree.setShowsRootHandles(true);
+					songsTree.setFont(AnimeIndex.segui.deriveFont(12f));
+					scrollPane.setViewportView(songsTree);
+					scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+					scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
+					{
+						treeButtonPanel = new JPanel();
+						treePanel.add(treeButtonPanel, BorderLayout.SOUTH);
+						btnLoad = new JButton("Scarica");
+						btnLoad.setEnabled(false);
+						btnLoad.addActionListener(new ActionListener() {
+
+							@Override
+							public void actionPerformed(ActionEvent e)
+							{
+								btnLoad.setEnabled(false);
+								btnPlaypause.setEnabled(false);
+								btnElimina.setEnabled(false);
+								btnInPlaylist.setEnabled(false);
+								btnRestart.setEnabled(false);
+								btnSave.setEnabled(false);
+								btnSucc.setEnabled(false);
+								btnPrev.setEnabled(false);
+								if (isRunning || isPaused)
+								{
+									stop();
+									timer.stop();
+								}
+								lblTitle.setText("");
+								setDefaultImage();
+								String musicName = (((DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent()).getUserObject()).toString();
+								if (songsMap.containsKey(musicName))
+									downloadDriveTask = new GoogleDriveDownloadTask(songsMap.get(musicName));
+								else
+									downloadDriveTask = new GoogleDriveDownloadTask(musicName);
+								downloadDriveTask.addPropertyChangeListener(new PropertyChangeListener() {
 
 									@Override
-									public void actionPerformed(ActionEvent e)
+									public void propertyChange(PropertyChangeEvent evt)
 									{
-										btnLoad.setEnabled(false);
-										btnPlaypause.setEnabled(false);
-										btnElimina.setEnabled(false);
-										btnInPlaylist.setEnabled(false);
-										btnRestart.setEnabled(false);
-										btnSave.setEnabled(false);
-										btnSucc.setEnabled(false);
-										btnPrev.setEnabled(false);
-										if (isRunning || isPaused)
+										if (evt.getPropertyName().equals("progress"))
 										{
-											stop();
-											timer.stop();
+											int progress = downloadDriveTask.getProgress();
+											progressBar.setValue(progress);
+											progressBar.setString("Download File " + downloadDriveTask.fileNumber + "/" + downloadDriveTask.totalFileNumber + " : " + ((int) (progressBar.getPercentComplete() * 100)) + "%");
 										}
-										lblTitle.setText("");
-										setDefaultImage();
-										String musicName = (((DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent()).getUserObject()).toString();
-										GoogleDriveDownloadTask task;
-										if (songsMap.containsKey(musicName))
-											task = new GoogleDriveDownloadTask(songsMap.get(musicName));
-										else
-											task = new GoogleDriveDownloadTask(musicName);
-										task.addPropertyChangeListener(new PropertyChangeListener() {
-
-											@Override
-											public void propertyChange(PropertyChangeEvent evt)
+										if (evt.getPropertyName().equals("state"))
+										{
+											if (evt.getNewValue().toString().equalsIgnoreCase("done"))
 											{
-												if (evt.getPropertyName().equals("progress"))
+												songsTree.setCellRenderer(new JTreeIcons());
+												btnLoad.setEnabled(true);
+												if (songsMap.containsKey(musicName))
 												{
-													int progress = task.getProgress();
-													progressBar.setValue(progress);
-													progressBar.setString("Download File " + task.fileNumber + "/" + task.totalFileNumber + " : " + ((int) (progressBar.getPercentComplete() * 100)) + "%");
-												}
-												if (evt.getPropertyName().equals("state"))
-												{
-													if (evt.getNewValue().toString().equalsIgnoreCase("done"))
+													ArrayList<String> songs = songsMap.get(musicName);
+													if (songs != null)
 													{
-														songsTree.setCellRenderer(new JTreeIcons());
-														btnLoad.setEnabled(true);
-														if (songsMap.containsKey(musicName))
+														String song = songs.get(0);
+														setMusicTrack(MAMUtil.getMusicPath() + song + ".mp3");
+														if (!songList.isEmpty() && songList.contains(song))
+															songList.remove(song);
+														songList.add(song);
+														counter = songList.size() - 1;
+														if (counter > 0 && counter<=songList.size())
 														{
-															ArrayList<String> songs = songsMap.get(musicName);
-															if (songs != null)
-															{
-																String song = songs.get(0);
-																setMusicTrack(MUSICS_PATH + song + ".mp3");
-																if (!songList.isEmpty() && songList.contains(song))
-																	songList.remove(song);
-																songList.add(song);
-																counter = songList.size() - 1;
-																if (counter > 0 && counter<=songList.size())
-																{
-																	btnPrev.setEnabled(true);
-																}
-																else
-																{
-																	btnPrev.setEnabled(false);
-																}
-																btnSucc.setEnabled(false);
-																songsTree.setSelectionPath(find((DefaultMutableTreeNode) (songsTree.getModel().getRoot()), songList.get(counter)));
-															}
+															btnPrev.setEnabled(true);
 														}
 														else
-															setMusicTrack(MUSICS_PATH + musicName + ".mp3");
-													}
-													if (evt.getNewValue().toString().equalsIgnoreCase("started"))
-													{
-														progressBar.setValue(0);
-														progressBar.setString("Download File " + task.fileNumber + "/" + task.totalFileNumber + " : " + ((int) (progressBar.getPercentComplete() * 100)) + "%");
+														{
+															btnPrev.setEnabled(false);
+														}
+														btnSucc.setEnabled(false);
+														songsTree.setSelectionPath(find((DefaultMutableTreeNode) (songsTree.getModel().getRoot()), songList.get(counter)));
 													}
 												}
+												else
+													setMusicTrack(MAMUtil.getMusicPath() + musicName + ".mp3");
 											}
-										});
-										task.execute();
+											if (evt.getNewValue().toString().equalsIgnoreCase("started"))
+											{
+												progressBar.setValue(0);
+												progressBar.setString("Download File " + downloadDriveTask.fileNumber + "/" + downloadDriveTask.totalFileNumber + " : " + ((int) (progressBar.getPercentComplete() * 100)) + "%");
+											}
+										}
 									}
 								});
-								btnLoad.setToolTipText("Carica il brano per ascoltarlo");
+								downloadDriveTask.execute();
 							}
-							{
-								btnInPlaylist = new JButton("In Playlist");
-								btnInPlaylist.setEnabled(false);
-							}
-							panel_1.setLayout(new GridLayout(0, 2, 0, 0));
-							panel_1.add(btnLoad);
-							panel_1.add(btnInPlaylist);
+						});
+						btnLoad.setToolTipText("Carica il brano per ascoltarlo");
+						{
+							btnInPlaylist = new JButton("In Playlist");
+							btnInPlaylist.setEnabled(false);
 						}
-						scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
-						scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
+						treeButtonPanel.setLayout(new GridLayout(0, 2, 0, 0));
+						treeButtonPanel.add(btnLoad);
+						treeButtonPanel.add(btnInPlaylist);
 					}
 					{
-						playlistPanel = new JPanel();
-						tabbedPane.addTab("Playlist", null, playlistPanel, null);
-						GridBagLayout gbl_playlistPanel = new GridBagLayout();
-						gbl_playlistPanel.columnWidths = new int[] { 0, 0 };
-						gbl_playlistPanel.rowHeights = new int[] { 0, 0 };
-						gbl_playlistPanel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-						gbl_playlistPanel.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
-						playlistPanel.setLayout(gbl_playlistPanel);
-						{
-							playlistScrollPane = new JScrollPane();
-							GridBagConstraints gbc_playlistScrollPane = new GridBagConstraints();
-							gbc_playlistScrollPane.fill = GridBagConstraints.BOTH;
-							gbc_playlistScrollPane.gridx = 0;
-							gbc_playlistScrollPane.gridy = 0;
-							playlistPanel.add(playlistScrollPane, gbc_playlistScrollPane);
-							{
-								playlistTree = new JTree();
-								playlistTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-								playlistTree.setFont(AnimeIndex.segui.deriveFont(12f));
-								playlistTree.setShowsRootHandles(true);
-								playlistTree.setRootVisible(false);
-								playlistScrollPane.setViewportView(playlistTree);
-							}
-						}
+						lblBrani = new JLabel("Brani");
+						lblBrani.setHorizontalAlignment(SwingConstants.CENTER);
+						lblBrani.setPreferredSize(new Dimension(24, 17));
+						treePanel.add(lblBrani, BorderLayout.NORTH);
 					}
 				}
 				btnLoop.addActionListener(new ActionListener() {

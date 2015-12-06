@@ -79,7 +79,7 @@ public class UpdateDialog extends JDialog
 				dial.setLocationRelativeTo(AnimeIndex.mainFrame);
 				dial.setVisible(true);
 				save();
-				ExternalProgram ext = new ExternalProgram(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + AnimeIndex.NEW_VERSION);
+				ExternalProgram ext = new ExternalProgram(MAMUtil.getAppDataPath() + File.separator + "Update" + File.separator + AnimeIndex.NEW_VERSION);
 				ext.run();
 			}
 		});

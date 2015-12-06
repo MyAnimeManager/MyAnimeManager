@@ -345,7 +345,7 @@ public class AnimeIndex extends JFrame
 							
 					}
 				});
-				File file = new File(FileManager.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
+				File file = new File(MAMUtil.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
 				if (file.isFile())
 					file.delete();
 				NewSuggestionsNotifierTask newSugg = new NewSuggestionsNotifierTask();
@@ -504,7 +504,7 @@ public class AnimeIndex extends JFrame
 					try
 					{
 						FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "completed.anaconda"));
-						FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Completed"));
+						FileManager.deleteData(new File(MAMUtil.getImageFolderPath() + "Completed"));
 					}
 					catch (IOException e1)
 					{
@@ -534,7 +534,7 @@ public class AnimeIndex extends JFrame
 					try
 					{
 						FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "airing.anaconda"));
-						FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Airing"));
+						FileManager.deleteData(new File(MAMUtil.getImageFolderPath() + "Airing"));
 					}
 					catch (IOException e1)
 					{
@@ -571,7 +571,7 @@ public class AnimeIndex extends JFrame
 								exitDateMap.remove(entry.getKey());
 						FileManager.saveDateMap();
 						FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "ova.anaconda"));
-						FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Ova"));
+						FileManager.deleteData(new File(MAMUtil.getImageFolderPath() + "Ova"));
 					}
 					catch (IOException e1)
 					{
@@ -608,7 +608,7 @@ public class AnimeIndex extends JFrame
 								exitDateMap.remove(entry.getKey());
 						FileManager.saveDateMap();
 						FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "film.anaconda"));
-						FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Film"));
+						FileManager.deleteData(new File(MAMUtil.getImageFolderPath() + "Film"));
 					}
 					catch (IOException e1)
 					{
@@ -641,7 +641,7 @@ public class AnimeIndex extends JFrame
 					try
 					{
 						FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "toSee.anaconda"));
-						FileManager.deleteData(new File(FileManager.getImageFolderPath() + "Completed to See"));
+						FileManager.deleteData(new File(MAMUtil.getImageFolderPath() + "Completed to See"));
 					}
 					catch (IOException e1)
 					{

@@ -9,10 +9,11 @@ import java.util.ArrayList;
 
 import javax.swing.SwingWorker;
 
+import org.apache.commons.io.FileUtils;
+
 import com.google.api.services.drive.model.File;
 
 import util.DriveUtil;
-import util.FileManager;
 import util.MAMUtil;
 
 public class GoogleDriveDownloadTask extends SwingWorker
@@ -37,7 +38,7 @@ public class GoogleDriveDownloadTask extends SwingWorker
 		int fileToDownload = 0;
 		for (String fileName : fileList)
 		{
-			java.io.File song = new java.io.File(FileManager.getAppDataPath() + "Musica" + java.io.File.separator + fileName + ".mp3");
+			java.io.File song = new java.io.File(MAMUtil.getMusicPath() + fileName + ".mp3");
 			if (!song.exists())
 			{
 				fileToDownloadList.add(fileName);
@@ -54,11 +55,16 @@ public class GoogleDriveDownloadTask extends SwingWorker
 		fileNumber = 1;
 		for (String fileName : fileList)
 		{
+			if (!isCancelled())
+			{
 			if (fileName != null)
 				downloadFileWithStream(fileName + ".mp3");
 			setProgress(0);
 			if (fileNumber < totalFileNumber)
 				fileNumber++;
+			}
+			else
+				return null;
 		}
 		return null;
 	}
@@ -108,7 +114,7 @@ public class GoogleDriveDownloadTask extends SwingWorker
 		}
 		catch (FileNotFoundException e)
 		{
-			java.io.File file = new java.io.File(FileManager.getAppDataPath() + "Musica" + java.io.File.separator);
+			java.io.File file = new java.io.File(MAMUtil.getTempDownloadPath());
 			file.mkdirs();
 			download(is, destinationFile);
 		}
@@ -124,7 +130,8 @@ public class GoogleDriveDownloadTask extends SwingWorker
 		try
 		{
 			InputStream is = downloadFile(fileName);
-			download(is, FileManager.getAppDataPath() + java.io.File.separator + "Musica" + java.io.File.separator + fileName);
+			download(is, MAMUtil.getTempDownloadPath() + fileName);
+			FileUtils.moveFile(new java.io.File(MAMUtil.getTempDownloadPath() + fileName), new java.io.File(MAMUtil.getMusicPath() + fileName));
 		}
 		catch (Exception e)
 		{

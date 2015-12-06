@@ -21,7 +21,7 @@ public class AnimeData
 	Boolean bd;
 	// tipo anime, data di inizio e fine
 
-	private final static String IMAGE_PATH = FileManager.getImageFolderPath();
+	private final static String IMAGE_PATH = MAMUtil.getImageFolderPath();
 
 	public AnimeData(String currentEpisode, String totalEpisode, String fansub, String note, String image, String day, String id, String linkName, String link, String animeType, String releaseDate, String finishDate, String durationEp, Boolean bd)
 	{
