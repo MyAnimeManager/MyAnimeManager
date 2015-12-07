@@ -366,14 +366,14 @@ public class AnimeIndex extends JFrame
 					MAMUtil.writeLog(e);
 					e.printStackTrace();
 				}
-
-				if (Boolean.parseBoolean(appProp.getProperty("Ask_for_donation")))
+				
+				int sessionNumber = Integer.parseInt(appProp.getProperty("Session_Number"));
+				sessionNumber++;
+				if (sessionNumber >= 30)
 				{
-					int sessionNumber = Integer.parseInt(appProp.getProperty("Session_Number"));
-					sessionNumber++;
-					if (sessionNumber >= 30)
+					sessionNumber = 0;
+					if (Boolean.parseBoolean(appProp.getProperty("Ask_for_donation")))
 					{
-						sessionNumber = 0;
 						String[] array = { "Si!", "Non ora...", "Non ricordarmelo più" };
 						int choiche = JOptionPane.showOptionDialog(AnimeIndex.mainFrame, "Se ti piace  MY ANIME MANAGER  fallo conoscere ai tuoi amici!!\n\rE se vuoi, sostienici con una libera donazione!", "Supporta My Anime Manager !!!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, array, "Si!");
 						if (choiche == 0)
@@ -399,8 +399,8 @@ public class AnimeIndex extends JFrame
 							appProp.setProperty("Ask_for_donation", "false");
 						}
 					}
-					appProp.setProperty("Session_Number", Integer.toString(sessionNumber));
 				}
+				appProp.setProperty("Session_Number", Integer.toString(sessionNumber));
 			}
 		});
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -874,6 +874,7 @@ public class AnimeIndex extends JFrame
 		mnVisualizza.add(separator_21);
 
 		JMenuItem mntmNewsboard = new JMenuItem("NewsBoard");
+		mntmNewsboard.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/rss.png")));
 		mntmNewsboard.addActionListener(new ActionListener() {
 
 			@Override
