@@ -770,7 +770,8 @@ public class MusicDialog extends JDialog
 													if (songs != null)
 													{
 														String song = songs.get(0);
-														setMusicTrack(MAMUtil.getMusicPath() + song + ".mp3");
+														if (!downloadDriveTask.isCancelled())
+															setMusicTrack(MAMUtil.getMusicPath() + song + ".mp3");
 														if (!songList.isEmpty() && songList.contains(song))
 															songList.remove(song);
 														songList.add(song);
@@ -778,7 +779,8 @@ public class MusicDialog extends JDialog
 												}
 												else
 												{
-													setMusicTrack(MAMUtil.getMusicPath() + musicName + ".mp3");
+													if (!downloadDriveTask.isCancelled())
+														setMusicTrack(MAMUtil.getMusicPath() + musicName + ".mp3");
 													if (!songList.isEmpty() && songList.contains(musicName))
 														songList.remove(musicName);
 													songList.add(musicName);	
