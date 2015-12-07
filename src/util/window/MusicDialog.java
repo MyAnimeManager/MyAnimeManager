@@ -153,7 +153,7 @@ public class MusicDialog extends JDialog
 										songsTree.expandPath(nodePath);
 								}catch(IllegalArgumentException e)
 								{}
-								if(!btnLoad.isEnabled())
+								if(progressBar.getString().contains("Download"))
 									btnLoad.setEnabled(false);
 								FileManager.saveSongMap();
 							}
@@ -624,7 +624,7 @@ public class MusicDialog extends JDialog
 										songList.remove(name);
 									songList.add((String) name);
 									counter = songList.size() - 1;
-									if (counter > 0 && counter<=songList.size())
+									if (counter > 0)
 									{
 										btnPrev.setEnabled(true);
 									}
@@ -722,6 +722,9 @@ public class MusicDialog extends JDialog
 						treeButtonPanel = new JPanel();
 						treePanel.add(treeButtonPanel, BorderLayout.SOUTH);
 						btnLoad = new JButton("Scarica");
+						btnLoad.setMaximumSize(new Dimension(67, 20));
+						btnLoad.setMinimumSize(new Dimension(67, 20));
+						btnLoad.setPreferredSize(new Dimension(67, 20));
 						btnLoad.setEnabled(false);
 						btnLoad.addActionListener(new ActionListener() {
 
@@ -1022,9 +1025,10 @@ public class MusicDialog extends JDialog
 			else
 				time = duration / 60 + ":" + duration % 60;
 		lblTitle.setText(title);
+		if(!progressBar.getString().contains("Download"))
+			btnPlaypause.setEnabled(true);
 		progressBar.setValue(0);
 		progressBar.setString(time);
-		btnPlaypause.setEnabled(true);
 		btnElimina.setEnabled(true);
 		btnSave.setEnabled(true);
 	}
