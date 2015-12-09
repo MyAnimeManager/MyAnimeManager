@@ -24,12 +24,8 @@ public class DriveFileFetcherTask extends SwingWorker
 
 	@Override
 	protected Object doInBackground() throws Exception
-	{	long start = System.currentTimeMillis();
-	System.out.println(start);
+	{
 		map = getMusicFolderChildren();
-		long finish = System.currentTimeMillis();
-		long differerence = finish - start;
-		System.out.println(differerence);
 		return null;
 	}
 
@@ -42,10 +38,6 @@ public class DriveFileFetcherTask extends SwingWorker
 	private TreeMap<String, ArrayList<String>> getMusicFolderChildren() throws IOException
 	{
 		TreeMap<String, ArrayList<String>> fileParentMap = new TreeMap<String, ArrayList<String>>();
-//		String musicFolderId = DriveUtil.getFileByName("Musica").getId();
-//		ChildList result = DriveUtil.service.children().list(musicFolderId).execute();
-//		List<ChildReference> children = result.getItems();
-//	
 		FileList request = DriveUtil.service.files().list().setQ("mimeType = 'application/vnd.google-apps.folder' and title != 'Musica'").execute();
 		List<File> children = request.getItems();
 		if (children == null || children.size() == 0)
@@ -56,8 +48,8 @@ public class DriveFileFetcherTask extends SwingWorker
 			albumNumber = children.size();
 			for (File child : children)
 			{
-//				String childName = DriveUtil.service.files().get(child.getId()).execute().getTitle();
 				String childName = child.getTitle();
+				System.out.println(childName);
 				ArrayList<String> childList = new ArrayList<String>();
 				ChildList resultSubFolder = DriveUtil.service.children().list(child.getId()).execute();
 				List<ChildReference> childrenSubFolder = resultSubFolder.getItems();
