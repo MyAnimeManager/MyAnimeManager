@@ -68,6 +68,7 @@ public class DriveFileFetcherTask extends SwingWorker
 						String childSubFolderName = DriveUtil.service.files().get(childSubFolder.getId()).execute().getTitle();
 						childList.add(childSubFolderName.substring(0, childSubFolderName.length() - 4));
 					}
+					childList.sort(String.CASE_INSENSITIVE_ORDER);
 					fileParentMap.put(childName, childList);
 				}
 				count++;
