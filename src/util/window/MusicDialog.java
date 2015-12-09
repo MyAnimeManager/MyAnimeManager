@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Map;
-
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
@@ -49,7 +48,6 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
@@ -140,14 +138,15 @@ public class MusicDialog extends JDialog
 					{
 						if (evt.getPropertyName().equals("progress"))
 						{
-							int progress = task.getProgress();
-							progressBar.setValue(progress);
-							progressBar.setString("Scaricando dati album " + task.count + " su " + task.albumNumber);
+							setTitle("My Anime Musics - Controllo Album : " + (int)task.count + " / " + (int)task.albumNumber);
 						}
 						if (evt.getPropertyName().equals("state"))
 						{
 							if (evt.getNewValue().toString().equalsIgnoreCase("done"))
 							{
+								setTitle("My Anime Musics");
+								progressBar.setValue(0);
+								progressBar.setString("");
 								String obj = null;
 								boolean expanded = false;
 								try
@@ -724,9 +723,6 @@ public class MusicDialog extends JDialog
 						songsTree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("JTree") 
 						{{
 							add(new DefaultMutableTreeNode("Caricamento in corso..."));
-							add(new DefaultMutableTreeNode(" "));
-							add(new DefaultMutableTreeNode(" (potrebbe richiedere"));
-							add(new DefaultMutableTreeNode("       alcuni minuti)"));
 						}}));
 					}
 					songsTree.setRootVisible(false);
@@ -782,6 +778,7 @@ public class MusicDialog extends JDialog
 										{
 											if (evt.getNewValue().toString().equalsIgnoreCase("done"))
 											{
+												progressBar.setString("");
 												songsTree.setCellRenderer(new JTreeIcons());
 												btnLoad.setEnabled(true);
 												if (songsMap.containsKey(musicName))
@@ -829,7 +826,7 @@ public class MusicDialog extends JDialog
 							}
 						});
 						treeButtonPanel.setLayout(new GridLayout(0, 1, 0, 0));
-						btnLoad.setToolTipText("Carica il brano per ascoltarlo");
+						btnLoad.setToolTipText("Scarica il brano per ascoltarlo");
 						treeButtonPanel.add(btnLoad);
 					}
 				}
