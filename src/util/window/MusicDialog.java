@@ -177,7 +177,8 @@ public class MusicDialog extends JDialog
 					timer.stop();
 				if(downloadDriveTask!=null)
 					downloadDriveTask.cancel(true);
-				FileManager.saveSongMap();
+				if(!songsMap.isEmpty())
+					FileManager.saveSongMap();
 			}
 		});
 		setTitle("My Anime Musics");
