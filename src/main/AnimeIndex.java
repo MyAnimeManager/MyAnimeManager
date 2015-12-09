@@ -277,7 +277,6 @@ public class AnimeIndex extends JFrame
 			public void windowOpened(WindowEvent arg0)
 			{
 				LoadingTask loadTask = new LoadingTask();
-				loadTask.execute();
 				loadTask.addPropertyChangeListener(new PropertyChangeListener() {
 
 					@Override
@@ -295,12 +294,7 @@ public class AnimeIndex extends JFrame
 								else
 								{
 									Date date = new Date();
-									SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the
- // day
- // of
- // the
- // week
- // abbreviated
+									SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY");
 									String day = simpleDateformat.format(date);
 									GregorianCalendar calendar = new GregorianCalendar();
 									try
@@ -342,6 +336,7 @@ public class AnimeIndex extends JFrame
 							
 					}
 				});
+				loadTask.execute();
 				File file = new File(MAMUtil.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
 				if (file.isFile())
 					file.delete();
