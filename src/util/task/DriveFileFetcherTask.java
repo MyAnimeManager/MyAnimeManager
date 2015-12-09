@@ -44,7 +44,7 @@ public class DriveFileFetcherTask extends SwingWorker
 			System.out.println("No files found.");
 		else
 		{
-			count = 0;
+			count = 1;
 			albumNumber = children.size();
 			for (File child : children)
 			{
