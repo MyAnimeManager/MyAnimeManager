@@ -20,6 +20,8 @@ import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.google.api.services.drive.model.ParentReference;
 
+import main.AnimeIndex;
+
 public class DriveUtil
 {
 
@@ -63,11 +65,11 @@ public class DriveUtil
 		return fileParentMap;
 	}
 
-	public static TreeMap<String, ArrayList<String>> getMusicFolderChildren() throws IOException
+	public static void getMusicFolderChildren() throws IOException
 	{
-		TreeMap<String, ArrayList<String>> fileParentMap = new TreeMap<String, ArrayList<String>>();
+//		TreeMap<String, ArrayList<String>> fileParentMap = new TreeMap<String, ArrayList<String>>();
 		String musicFolderId = getFileByName("Musica").getId();
-		ChildList result = service.children().list(musicFolderId).setQ("mimeType = '" + FOLDER_MIME + "'").execute();
+		ChildList result = service.children().list(musicFolderId).execute();
 		List<ChildReference> children = result.getItems();
 
 		if (children == null || children.size() == 0)
@@ -75,19 +77,22 @@ public class DriveUtil
 		else
 			for (ChildReference child : children)
 			{
-				ArrayList<String> childList = new ArrayList<String>();
-				ChildList resultSubFolder = service.children().list(child.getId()).execute();
-				List<ChildReference> childrenSubFolder = resultSubFolder.getItems();
-				for (ChildReference childSubFolder : childrenSubFolder)
-				{
-					String childSubFolderName = service.files().get(childSubFolder.getId()).execute().getTitle();
-					childList.add(childSubFolderName.substring(0, childSubFolderName.length() - 4));
-				}
 				String childName = service.files().get(child.getId()).execute().getTitle();
-				fileParentMap.put(childName, childList);
+				if (AnimeIndex.musicDialog.songsMap.containsKey(childName))
+				{
+					ArrayList<String> childList = new ArrayList<String>();
+					ChildList resultSubFolder = service.children().list(child.getId()).execute();
+					List<ChildReference> childrenSubFolder = resultSubFolder.getItems();
+					for (ChildReference childSubFolder : childrenSubFolder)
+					{
+						String childSubFolderName = service.files().get(childSubFolder.getId()).execute().getTitle();
+						childList.add(childSubFolderName.substring(0, childSubFolderName.length() - 4));
+					}
+					AnimeIndex.musicDialog.songsMap.put(childName, childList);
+				}
 
 			}
-		return fileParentMap;
+//		return fileParentMap;
 	}
 
 	private static String getFirstParentName(File file) throws IOException
