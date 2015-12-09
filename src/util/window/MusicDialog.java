@@ -161,7 +161,8 @@ public class MusicDialog extends JDialog
 								{}
 								if(progressBar.getString().contains("Download"))
 									btnLoad.setEnabled(false);
-								FileManager.saveSongMap();
+								if(!songsMap.isEmpty())
+									FileManager.saveSongMap();
 							}
 						}	
 					}
