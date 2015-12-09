@@ -138,6 +138,12 @@ public class MusicDialog extends JDialog
 					@Override
 					public void propertyChange(PropertyChangeEvent evt)
 					{
+						if (evt.getPropertyName().equals("progress"))
+						{
+							int progress = task.getProgress();
+							progressBar.setValue(progress);
+							progressBar.setString("Scaricando dati album " + task.count + " su " + task.albumNumber);
+						}
 						if (evt.getPropertyName().equals("state"))
 						{
 							if (evt.getNewValue().toString().equalsIgnoreCase("done"))
