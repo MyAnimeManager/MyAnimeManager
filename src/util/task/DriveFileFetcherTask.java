@@ -9,6 +9,8 @@ import javax.swing.SwingWorker;
 
 import com.google.api.services.drive.model.ChildList;
 import com.google.api.services.drive.model.ChildReference;
+import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.FileList;
 
 import main.AnimeIndex;
 import util.DriveUtil;
@@ -22,8 +24,12 @@ public class DriveFileFetcherTask extends SwingWorker
 
 	@Override
 	protected Object doInBackground() throws Exception
-	{
+	{	long start = System.currentTimeMillis();
+	System.out.println(start);
 		map = getMusicFolderChildren();
+		long finish = System.currentTimeMillis();
+		long differerence = finish - start;
+		System.out.println(differerence);
 		return null;
 	}
 
@@ -36,19 +42,22 @@ public class DriveFileFetcherTask extends SwingWorker
 	private TreeMap<String, ArrayList<String>> getMusicFolderChildren() throws IOException
 	{
 		TreeMap<String, ArrayList<String>> fileParentMap = new TreeMap<String, ArrayList<String>>();
-		String musicFolderId = DriveUtil.getFileByName("Musica").getId();
-		ChildList result = DriveUtil.service.children().list(musicFolderId).execute();
-		List<ChildReference> children = result.getItems();
-	
+//		String musicFolderId = DriveUtil.getFileByName("Musica").getId();
+//		ChildList result = DriveUtil.service.children().list(musicFolderId).execute();
+//		List<ChildReference> children = result.getItems();
+//	
+		FileList request = DriveUtil.service.files().list().setQ("mimeType = 'application/vnd.google-apps.folder' and title != 'Musica'").execute();
+		List<File> children = request.getItems();
 		if (children == null || children.size() == 0)
 			System.out.println("No files found.");
 		else
 		{
 			count = 0;
 			albumNumber = children.size();
-			for (ChildReference child : children)
+			for (File child : children)
 			{
-				String childName = DriveUtil.service.files().get(child.getId()).execute().getTitle();
+//				String childName = DriveUtil.service.files().get(child.getId()).execute().getTitle();
+				String childName = child.getTitle();
 				if (!AnimeIndex.musicDialog.songsMap.containsKey(childName))
 				{
 					ArrayList<String> childList = new ArrayList<String>();
