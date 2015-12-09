@@ -148,14 +148,11 @@ public class MusicDialog extends JDialog
 						{
 							if (evt.getNewValue().toString().equalsIgnoreCase("done"))
 							{
-								int[] expandedNodes = null;
-								boolean[] expanded = null;
 								String obj = null;
+								boolean expanded = false;
 								try
 								{
 									obj = songsTree.getLastSelectedPathComponent().toString();
-									expandedNodes = songsTree.getSelectionRows();
-									for(int i=0; i<expandedNodes)
 									expanded = songsTree.isExpanded(songsTree.getSelectionRows()[0]);
 								}catch(NullPointerException e)
 								{}
