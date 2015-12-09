@@ -65,9 +65,9 @@ public class DriveUtil
 		return fileParentMap;
 	}
 
-	public static void getMusicFolderChildren() throws IOException
+	public static TreeMap<String, ArrayList<String>> getMusicFolderChildren() throws IOException
 	{
-//		TreeMap<String, ArrayList<String>> fileParentMap = new TreeMap<String, ArrayList<String>>();
+		TreeMap<String, ArrayList<String>> fileParentMap = new TreeMap<String, ArrayList<String>>();
 		String musicFolderId = getFileByName("Musica").getId();
 		ChildList result = service.children().list(musicFolderId).execute();
 		List<ChildReference> children = result.getItems();
@@ -78,7 +78,7 @@ public class DriveUtil
 			for (ChildReference child : children)
 			{
 				String childName = service.files().get(child.getId()).execute().getTitle();
-				if (AnimeIndex.musicDialog.songsMap.containsKey(childName))
+				if (!AnimeIndex.musicDialog.songsMap.containsKey(childName))
 				{
 					ArrayList<String> childList = new ArrayList<String>();
 					ChildList resultSubFolder = service.children().list(child.getId()).execute();
@@ -88,11 +88,11 @@ public class DriveUtil
 						String childSubFolderName = service.files().get(childSubFolder.getId()).execute().getTitle();
 						childList.add(childSubFolderName.substring(0, childSubFolderName.length() - 4));
 					}
-					AnimeIndex.musicDialog.songsMap.put(childName, childList);
+					fileParentMap.put(childName, childList);
 				}
 
 			}
-//		return fileParentMap;
+		return fileParentMap;
 	}
 
 	private static String getFirstParentName(File file) throws IOException

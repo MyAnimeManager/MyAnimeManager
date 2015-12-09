@@ -16,14 +16,14 @@ public class DriveFileFetcherTask extends SwingWorker
 	@Override
 	protected Object doInBackground() throws Exception
 	{
-		DriveUtil.getMusicFolderChildren();
+		map = DriveUtil.getMusicFolderChildren();
 		return null;
 	}
 
 	@Override
 	protected void done()
 	{
-//		AnimeIndex.musicDialog.songsMap = map;
+		AnimeIndex.musicDialog.songsMap.putAll(map);
 	}
 
 }
