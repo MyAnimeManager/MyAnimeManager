@@ -67,7 +67,7 @@ public class DriveUtil
 	{
 		TreeMap<String, ArrayList<String>> fileParentMap = new TreeMap<String, ArrayList<String>>();
 		String musicFolderId = getFileByName("Musica").getId();
-		ChildList result = service.children().list(musicFolderId).execute();
+		ChildList result = service.children().list(musicFolderId).setQ("mimeType = '" + FOLDER_MIME + "'").execute();
 		List<ChildReference> children = result.getItems();
 
 		if (children == null || children.size() == 0)
