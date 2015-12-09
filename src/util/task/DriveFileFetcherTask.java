@@ -58,19 +58,16 @@ public class DriveFileFetcherTask extends SwingWorker
 			{
 //				String childName = DriveUtil.service.files().get(child.getId()).execute().getTitle();
 				String childName = child.getTitle();
-				if (!AnimeIndex.musicDialog.songsMap.containsKey(childName))
+				ArrayList<String> childList = new ArrayList<String>();
+				ChildList resultSubFolder = DriveUtil.service.children().list(child.getId()).execute();
+				List<ChildReference> childrenSubFolder = resultSubFolder.getItems();
+				for (ChildReference childSubFolder : childrenSubFolder)
 				{
-					ArrayList<String> childList = new ArrayList<String>();
-					ChildList resultSubFolder = DriveUtil.service.children().list(child.getId()).execute();
-					List<ChildReference> childrenSubFolder = resultSubFolder.getItems();
-					for (ChildReference childSubFolder : childrenSubFolder)
-					{
-						String childSubFolderName = DriveUtil.service.files().get(childSubFolder.getId()).execute().getTitle();
-						childList.add(childSubFolderName.substring(0, childSubFolderName.length() - 4));
-					}
-					childList.sort(String.CASE_INSENSITIVE_ORDER);
-					fileParentMap.put(childName, childList);
+					String childSubFolderName = DriveUtil.service.files().get(childSubFolder.getId()).execute().getTitle();
+					childList.add(childSubFolderName.substring(0, childSubFolderName.length() - 4));
 				}
+				childList.sort(String.CASE_INSENSITIVE_ORDER);
+				fileParentMap.put(childName, childList);
 				count++;
 				int progress = (int)((count/albumNumber) * 100);
 				setProgress(progress);
