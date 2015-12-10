@@ -60,7 +60,7 @@ public class DriveUtil
 		return fileParentMap;
 	}
 
-	private static String getFirstParentName(File file) throws IOException
+	public static String getFirstParentName(File file) throws IOException
 	{
 		List<ParentReference> parentList = file.getParents();
 		ParentReference parentRef = parentList.get(0);
