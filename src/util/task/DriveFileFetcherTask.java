@@ -27,7 +27,9 @@ public class DriveFileFetcherTask extends SwingWorker
 	{
 		String date = AnimeIndex.appProp.getProperty("Last_Music_Check");
 		if (date.equalsIgnoreCase("null"))
+		{
 			map = getMusicFolderChildren();
+		}
 		else
 			updateMusicList(date);
 		return null;
@@ -65,10 +67,11 @@ public class DriveFileFetcherTask extends SwingWorker
 				childList.sort(String.CASE_INSENSITIVE_ORDER);
 				fileParentMap.put(childName, childList);
 				count++;
-				int progress = (int)((count/albumNumber) * 100);
+				int progress = (int)(((count - 1)/albumNumber) * 100);
 				setProgress(progress);
 			}
 		}
+		
 		return fileParentMap;
 	}
 	
