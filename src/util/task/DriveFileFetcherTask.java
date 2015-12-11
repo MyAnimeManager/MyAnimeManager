@@ -90,11 +90,23 @@ public class DriveFileFetcherTask extends SwingWorker
 			{
 				String songName = newSong.getTitle();
 				String albumName = DriveUtil.getFirstParentName(newSong);
+				if (AnimeIndex.musicDialog.songsMap.containsKey(albumName))
+				{
 				ArrayList<String> list = AnimeIndex.musicDialog.songsMap.get(albumName);
 				list.add(songName);
 				list.sort(String.CASE_INSENSITIVE_ORDER);
 				AnimeIndex.musicDialog.songsMap.put(albumName, list);
+				}
+				else
+				{
+					ArrayList<String> list = new ArrayList<String>();
+					list.add(songName);
+					list.sort(String.CASE_INSENSITIVE_ORDER);
+					AnimeIndex.musicDialog.songsMap.put(albumName, list);
+				}
 				count++;
+				int progress = (int)(((count - 1)/albumNumber) * 100);
+				setProgress(progress);
 			}
 		}
 		
