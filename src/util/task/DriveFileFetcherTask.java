@@ -78,6 +78,36 @@ public class DriveFileFetcherTask extends SwingWorker
 
 	private void updateMusicList(String date) throws IOException
 	{
+		ArrayList<String> newFolderSong = new ArrayList<String>();
+		//cartelle
+		FileList requestFolder = DriveUtil.service.files().list().setQ("mimeType = 'application/vnd.google-apps.folder' and modifiedDate >= '" + date + "'").execute();
+		List<File> newFolderList = requestFolder.getItems();
+		if (newFolderList == null || newFolderList.size() == 0)
+			System.out.println("No files found.");
+		else
+		{
+			count = 1;
+			albumNumber = newFolderList.size();
+			for (File newFolder : newFolderList)
+			{
+				String albumName = newFolder.getTitle();
+				ArrayList<String> list = new ArrayList<String>();
+				ChildList resultSubFolder = DriveUtil.service.children().list(newFolder.getId()).execute();
+				List<ChildReference> childrenSubFolder = resultSubFolder.getItems();
+				for (ChildReference childSubFolder : childrenSubFolder)
+				{
+					String childSubFolderName = DriveUtil.service.files().get(childSubFolder.getId()).execute().getTitle();
+					newFolderSong.add(childSubFolderName);
+					list.add(childSubFolderName.substring(0, childSubFolderName.length() - 4));
+				}
+				list.sort(String.CASE_INSENSITIVE_ORDER);
+				AnimeIndex.musicDialog.songsMap.put(albumName, list);
+				count++;
+				int progress = (int)(((count - 1)/albumNumber) * 100);
+				setProgress(progress);
+			}
+		}
+		//canzoni singole
 		FileList request = DriveUtil.service.files().list().setQ("mimeType != 'application/vnd.google-apps.folder' and modifiedDate >= '" + date + "'").execute();
 		List<File> newSongsList = request.getItems();
 		if (newSongsList == null || newSongsList.size() == 0)
@@ -89,20 +119,23 @@ public class DriveFileFetcherTask extends SwingWorker
 			for (File newSong : newSongsList)
 			{
 				String songName = newSong.getTitle();
-				String albumName = DriveUtil.getFirstParentName(newSong);
-				if (AnimeIndex.musicDialog.songsMap.containsKey(albumName))
+				if (!newFolderSong.contains(songName))
 				{
-				ArrayList<String> list = AnimeIndex.musicDialog.songsMap.get(albumName);
-				list.add(songName);
-				list.sort(String.CASE_INSENSITIVE_ORDER);
-				AnimeIndex.musicDialog.songsMap.put(albumName, list);
-				}
-				else
-				{
-					ArrayList<String> list = new ArrayList<String>();
+					String albumName = DriveUtil.getFirstParentName(newSong);
+					if (AnimeIndex.musicDialog.songsMap.containsKey(albumName))
+					{
+					ArrayList<String> list = AnimeIndex.musicDialog.songsMap.get(albumName);
 					list.add(songName);
 					list.sort(String.CASE_INSENSITIVE_ORDER);
 					AnimeIndex.musicDialog.songsMap.put(albumName, list);
+					}
+					else
+					{
+						ArrayList<String> list = new ArrayList<String>();
+						list.add(songName);
+						list.sort(String.CASE_INSENSITIVE_ORDER);
+						AnimeIndex.musicDialog.songsMap.put(albumName, list);
+					}
 				}
 				count++;
 				int progress = (int)(((count - 1)/albumNumber) * 100);
