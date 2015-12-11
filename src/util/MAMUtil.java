@@ -151,7 +151,7 @@ public class MAMUtil
 			MAMUtil.writeLog(e);
 		}
 		finally
-		{ // fix me
+		{
 			try
 			{
 				is.close();
@@ -176,16 +176,19 @@ public class MAMUtil
 		return date;
 	}
 
-	public static GregorianCalendar getDate(String date) throws ParseException
+	public static GregorianCalendar getDate(String date)
 	{
 		GregorianCalendar day = new GregorianCalendar();
-		SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/yyyy"); // the
- // day
- // of
- // the
- // week
- // abbreviated
-		day.setTime(simpleDateformat.parse(date));
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/yyyy");
+		try
+		{
+			day.setTime(simpleDateformat.parse(date));
+		}
+		catch (ParseException e)
+		{
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
+		}
 		return day;
 	}
 
