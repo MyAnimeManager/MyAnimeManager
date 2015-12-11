@@ -23,14 +23,16 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -50,7 +52,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+import main.AnimeIndex;
 import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -60,20 +64,15 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
-
-import com.mpatric.mp3agic.InvalidDataException;
-import com.mpatric.mp3agic.Mp3File;
-import com.mpatric.mp3agic.UnsupportedTagException;
-
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-import main.AnimeIndex;
 import util.FileManager;
 import util.JMarqueeLabel;
 import util.JTreeIcons;
 import util.MAMUtil;
 import util.task.DriveFileFetcherTask;
 import util.task.GoogleDriveDownloadTask;
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
 
 public class MusicDialog extends JDialog
 {
@@ -129,7 +128,6 @@ public class MusicDialog extends JDialog
 					FileManager.loadSongMap();
 					createSongsTree(songsMap);
 				}
-				progressBar.setString("");
 				DriveFileFetcherTask task = new DriveFileFetcherTask();
 				task.addPropertyChangeListener(new PropertyChangeListener() {
 
@@ -138,15 +136,13 @@ public class MusicDialog extends JDialog
 					{
 						if (evt.getPropertyName().equals("progress"))
 						{
-							setTitle("My Anime Musics - Controllo Album : " + (int)task.count + " / " + (int)task.albumNumber);
+							setTitle("My Anime Musics - Aggiornamento Dati Album : " + (int)task.count + " / " + (int)task.albumNumber);
 						}
 						if (evt.getPropertyName().equals("state"))
 						{
 							if (evt.getNewValue().toString().equalsIgnoreCase("done"))
 							{
 								setTitle("My Anime Musics");
-								progressBar.setValue(0);
-								progressBar.setString("");
 								String obj = null;
 								boolean expanded = false;
 								try
@@ -168,6 +164,13 @@ public class MusicDialog extends JDialog
 									btnLoad.setEnabled(false);
 								if(!songsMap.isEmpty())
 									FileManager.saveSongMap();
+
+								SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+							    sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+							    String t = sdf.format(new Date())+"";
+							    t = t.substring(0, 10)+"T"+t.substring(11);
+							    AnimeIndex.appProp.setProperty("Last_Music_Check", t);
+							    
 							}
 						}	
 					}
