@@ -7,9 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -20,7 +17,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
 import util.MAMUtil;
@@ -155,15 +151,7 @@ public class ReleaseNotifierDialog extends JDialog
 						AnimeIndex.animeTypeComboBox.setSelectedItem("OAV");
 						AnimeIndex.ovaList.setSelectedValue(name, true);
 					}
-					Date date = new Date();
-					SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY"); // the
- // day
- // of
- // the
- // week
- // abbreviated
-					String day = simpleDateformat.format(date);
-					AnimeIndex.appProp.setProperty("Date_Release", day);
+					AnimeIndex.appProp.setProperty("Date_Release", MAMUtil.today());
 					JButton butt = (JButton) e.getSource();
 					JDialog dialog = (JDialog) butt.getTopLevelAncestor();
 					dialog.dispose();

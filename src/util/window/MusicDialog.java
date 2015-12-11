@@ -122,6 +122,7 @@ public class MusicDialog extends JDialog
 			@Override
 			public void windowOpened(WindowEvent e)
 			{
+				progressBar.setString("");
 				setDefaultImage();
 				if(new File(MAMUtil.getMusicPath() + "[[[music]]].anaconda").isFile())
 				{
@@ -164,13 +165,11 @@ public class MusicDialog extends JDialog
 									btnLoad.setEnabled(false);
 								if(!songsMap.isEmpty())
 									FileManager.saveSongMap();
-
 								SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 							    sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 							    String t = sdf.format(new Date())+"";
 							    t = t.substring(0, 10)+"T"+t.substring(11);
-							    AnimeIndex.appProp.setProperty("Last_Music_Check", t);
-							    
+							    AnimeIndex.appProp.setProperty("Last_Music_Check", t); 
 							}
 						}	
 					}
@@ -464,6 +463,7 @@ public class MusicDialog extends JDialog
 									{
 										File choosedFile = new File(MAMUtil.getMusicPath() + song + ".mp3");
 										if (choosedFile.isFile())
+										{	
 											try
 											{
 												FileUtils.copyFileToDirectory(choosedFile, destination);
@@ -473,6 +473,7 @@ public class MusicDialog extends JDialog
 												MAMUtil.writeLog(e1);
 												e1.printStackTrace();
 											}
+										}
 									}
 								}
 								else
@@ -631,9 +632,9 @@ public class MusicDialog extends JDialog
 								name = ((DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent()).getUserObject();
 							}
 							catch (NullPointerException e2)
-							{
-							}
+							{}
 							if (name != null && !songsMap.containsKey(name))
+							{	
 								if (new File(MAMUtil.getMusicPath() + name + ".mp3").isFile())
 								{
 									if (!songList.isEmpty() && songList.contains(name))
@@ -650,6 +651,7 @@ public class MusicDialog extends JDialog
 									}
 									btnSucc.setEnabled(false);
 								}
+							}
 						}
 					});
 					songsTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);

@@ -24,9 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Properties;
@@ -293,29 +291,8 @@ public class AnimeIndex extends JFrame
 								}
 								else
 								{
-									Date date = new Date();
-									SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/YYYY");
-									String day = simpleDateformat.format(date);
-									GregorianCalendar calendar = new GregorianCalendar();
-									try
-									{
-										calendar.setTime(simpleDateformat.parse(day));
-									}
-									catch (java.text.ParseException e)
-									{
-										MAMUtil.writeLog(e);
-										e.printStackTrace();
-									}
-									GregorianCalendar c = new GregorianCalendar();
-									try
-									{
-										c.setTime(simpleDateformat.parse(dataRelease));
-									}
-									catch (java.text.ParseException e)
-									{
-										MAMUtil.writeLog(e);
-										e.printStackTrace();
-									}
+									GregorianCalendar calendar = MAMUtil.getDate(MAMUtil.today());
+									GregorianCalendar c = MAMUtil.getDate(dataRelease);
 									if (c.before(calendar))
 									{
 										ReleasedAnimeTask task = new ReleasedAnimeTask();

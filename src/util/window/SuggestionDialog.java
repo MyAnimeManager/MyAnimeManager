@@ -19,6 +19,7 @@ import java.net.ConnectException;
 import java.net.URI;
 import java.net.UnknownHostException;
 import java.util.TreeMap;
+
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -26,7 +27,9 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+
 import main.AnimeIndex;
 import util.AnimeData;
 import util.ConnectionManager;
@@ -128,15 +131,22 @@ public class SuggestionDialog extends JDialog
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
+					JTextArea textArea = new JTextArea(20, 25);
 					try
 					{
-						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, SuggestionHelper.getOldSuggestions(SuggestionHelper.getData()), "Cronologia", JOptionPane.INFORMATION_MESSAGE);
+					    textArea.setText(SuggestionHelper.getOldSuggestions(SuggestionHelper.getData()));
 					}
 					catch (Exception e1)
 					{
 						MAMUtil.writeLog(e1);
 						e1.printStackTrace();
 					}
+					textArea.setEditable(false);
+					textArea.setOpaque(false);
+					JScrollPane scrollPane = new JScrollPane(textArea);
+				    scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+					scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
+				    JOptionPane.showMessageDialog(AnimeIndex.mainFrame, scrollPane, "Cronologia Anime Consigliati", JOptionPane.PLAIN_MESSAGE);
 				}
 			});
 			buttonPane.add(btnClose);

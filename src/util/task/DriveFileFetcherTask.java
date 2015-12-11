@@ -38,7 +38,8 @@ public class DriveFileFetcherTask extends SwingWorker
 	@Override
 	protected void done()
 	{
-		AnimeIndex.musicDialog.songsMap.putAll(map);
+		if(map!=null)
+			AnimeIndex.musicDialog.songsMap.putAll(map);
 	}
 
 	private TreeMap<String, ArrayList<String>> getMusicFolderChildren() throws IOException
