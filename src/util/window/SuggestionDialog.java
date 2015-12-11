@@ -19,7 +19,6 @@ import java.net.ConnectException;
 import java.net.URI;
 import java.net.UnknownHostException;
 import java.util.TreeMap;
-
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -28,7 +27,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-
 import main.AnimeIndex;
 import util.AnimeData;
 import util.ConnectionManager;
@@ -124,13 +122,21 @@ public class SuggestionDialog extends JDialog
 			});
 			buttonPane.add(btnOpen);
 
-			btnClose = new JButton("Chiudi");
+			btnClose = new JButton("Cronologia");
 			btnClose.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					SuggestionDialog.this.dispose();
+					try
+					{
+						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, SuggestionHelper.getOldSuggestions(SuggestionHelper.getData()), "Cronologia", JOptionPane.INFORMATION_MESSAGE);
+					}
+					catch (Exception e1)
+					{
+						MAMUtil.writeLog(e1);
+						e1.printStackTrace();
+					}
 				}
 			});
 			buttonPane.add(btnClose);

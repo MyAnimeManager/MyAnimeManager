@@ -17,6 +17,12 @@ public class SuggestionHelper
 		String pack = data.substring(data.indexOf("[pack]") + 6, data.indexOf("[/pack]"));
 		return pack;
 	}
+	
+	public static String getOldSuggestions(String data) throws Exception
+	{
+		String oldSuggestions = data.substring(data.indexOf("[oldSuggestions]") + 16, data.indexOf("[/oldSuggestions]"));
+		return oldSuggestions;
+	}
 
 	public static String getSuggestion(int suggestionNumber, String data) throws Exception
 	{
