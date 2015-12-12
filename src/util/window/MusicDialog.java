@@ -1063,17 +1063,23 @@ public class MusicDialog extends JDialog
 		if(!defImgStd)
 		{
 			String img = "";
-			switch(defImgCounter % 5)
+			switch(defImgCounter % 8)
 			{
 				case 0: img = "miku_mem";
 						break;
 				case 1: img = "Headphone..";
 						break;
-				case 2: img = "hatsune-miku-vocaloid-1715";
+				case 2: img = "Hatsune-Miku-Vocaloid...";
 						break;
-				case 3: img = "hmny";
+				case 3: img = "Hatsune-Miku-Vocaloid.";
 						break;
-				case 4: img = "Headphone";
+				case 4: img = "hatsune-miku-vocaloid-1715";
+						break;
+				case 5: img = "hmny";
+						break;
+				case 6: img = "Hatsune-Miku-Vocaloid";
+						break;
+				case 7: img = "Headphone";
 						break;
 			}
 			BufferedImage image = null;
