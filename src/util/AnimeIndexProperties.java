@@ -9,8 +9,6 @@ import java.util.Properties;
 
 public class AnimeIndexProperties
 {
-
-	private final static String PROPERTIES_PATH = MAMUtil.getAppDataPath() + "properties.properties";
 	private static Properties applicationProps;
 
 	public static Properties createProperties()
@@ -20,7 +18,7 @@ public class AnimeIndexProperties
 		FileInputStream in;
 		try
 		{
-			in = new FileInputStream(PROPERTIES_PATH);
+			in = new FileInputStream(MAMUtil.getPropertiesPath());
 			defaultProps.load(in);
 			defaultProps.setProperty("List_to_visualize_at_start", "Anime completati");
 			defaultProps.setProperty("Update_system", "false");
@@ -34,11 +32,12 @@ public class AnimeIndexProperties
 			defaultProps.setProperty("Suggestions_Pack_Number", "0");
 			defaultProps.setProperty("Open_NewsBoard", "true");
 			defaultProps.setProperty("Last_Music_Check", "null");
+			defaultProps.setProperty("Music_Dialog_Default_Image_Counter", "0");
 			in.close();
 		}
 		catch (FileNotFoundException fe)
 		{
-			File prop = new File(PROPERTIES_PATH);
+			File prop = new File(MAMUtil.getPropertiesPath());
 			try
 			{
 				prop.getParentFile().mkdirs();
@@ -56,7 +55,7 @@ public class AnimeIndexProperties
 				defaultProps.setProperty("Suggestions_Pack_Number", "0");
 				defaultProps.setProperty("Open_NewsBoard", "true");
 				defaultProps.setProperty("Last_Music_Check", "null");
-
+				defaultProps.setProperty("Music_Dialog_Default_Image_Counter", "0");
 			}
 			catch (IOException e)
 			{
@@ -76,7 +75,7 @@ public class AnimeIndexProperties
 		// from last invocation
 		try
 		{
-			in = new FileInputStream(PROPERTIES_PATH);
+			in = new FileInputStream(MAMUtil.getPropertiesPath());
 			applicationProps.load(in);
 			in.close();
 		}
@@ -94,7 +93,7 @@ public class AnimeIndexProperties
 		FileOutputStream out;
 		try
 		{
-			out = new FileOutputStream(PROPERTIES_PATH);
+			out = new FileOutputStream(MAMUtil.getPropertiesPath());
 			prop.store(out, "---Start Option---");
 			out.close();
 		}

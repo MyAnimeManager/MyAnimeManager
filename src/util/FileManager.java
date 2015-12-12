@@ -592,6 +592,9 @@ public class FileManager
 	{
 		File program = new File(MAMUtil.getAppDataPath() + AnimeIndex.CURRENT_VERSION);
 		File restart = new File(MAMUtil.getAppDataPath() + "MAMRestart.jar");
+		File license = new File(MAMUtil.getAppDataPath() + "License.txt");
+		File uninstallerDat = new File(MAMUtil.getAppDataPath() + "unins000.dat");
+		File uninstaller = new File(MAMUtil.getAppDataPath() + "unins000.exe");
 		if (file.isDirectory())
 		{
 			if (file.list().length == 0)
@@ -603,14 +606,13 @@ public class FileManager
 				for (String temp : files)
 				{
 					File fileDelete = new File(file, temp);
-					if (!fileDelete.equals(program) && !fileDelete.equals(restart))
+					if (!fileDelete.equals(program) && !fileDelete.equals(restart) && !fileDelete.equals(license) && !fileDelete.equals(uninstallerDat) && !fileDelete.equals(uninstaller))
 						deleteData(fileDelete);
 
 				}
 				if (file.list().length == 0)
 					file.delete();
 			}
-
 		}
 		else
 			file.delete();

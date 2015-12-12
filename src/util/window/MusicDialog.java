@@ -109,6 +109,8 @@ public class MusicDialog extends JDialog
 	private DefaultTreeModel songsTreeModel;
 	private ArrayList<String> songList = new ArrayList<String>();
 	private GoogleDriveDownloadTask downloadDriveTask;
+	private int defImgCounter = Integer.parseInt(AnimeIndex.appProp.getProperty("Music_Dialog_Default_Image_Counter"));
+	private boolean defImgStd = false;
 
 	public MusicDialog()
 	{
@@ -187,6 +189,7 @@ public class MusicDialog extends JDialog
 					downloadDriveTask.cancel(true);
 				if(!songsMap.isEmpty())
 					FileManager.saveSongMap();
+				AnimeIndex.appProp.setProperty("Music_Dialog_Default_Image_Counter", (defImgCounter+""));
 			}
 		});
 		setTitle("My Anime Musics");
@@ -992,7 +995,10 @@ public class MusicDialog extends JDialog
 			duration = song.getLengthInSeconds();
 			byte[] img = song.getId3v2Tag().getAlbumImage();
 			if (img != null)
+			{
 				lblImage.setIcon(new ImageIcon(MAMUtil.getScaledImage(ImageIO.read(new ByteArrayInputStream(img)), 335, 335)));
+				defImgStd = false;
+			}
 			else
 				setDefaultImage();
 		}
@@ -1054,25 +1060,36 @@ public class MusicDialog extends JDialog
 
 	private void setDefaultImage()
 	{
-		BufferedImage image = null;
-		try
+		if(!defImgStd)
 		{
-			switch((Integer.parseInt(AnimeIndex.appProp.getProperty("Session_Number")) % 3))
+			String img = "";
+			switch(defImgCounter % 5)
 			{
-				case 0: image = ImageIO.read(ClassLoader.getSystemResource("image/miku_mem.png"));
+				case 0: img = "miku_mem";
 						break;
-				case 1: image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone...png"));
+				case 1: img = "Headphone..";
 						break;
-				case 2:	image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
+				case 2: img = "hatsune-miku-vocaloid-1715";
+						break;
+				case 3: img = "hmny";
+						break;
+				case 4: img = "Headphone";
 						break;
 			}
+			BufferedImage image = null;
+			try
+			{
+				image = ImageIO.read(ClassLoader.getSystemResource("image/"+img+".png"));
+			}
+			catch (IOException e1)
+			{
+				MAMUtil.writeLog(e1);
+				e1.printStackTrace();
+			}
+			defImgCounter++;
+			defImgStd = true;
+			lblImage.setIcon(new ImageIcon(image));
 		}
-		catch (IOException e1)
-		{
-			MAMUtil.writeLog(e1);
-			e1.printStackTrace();
-		}
-		lblImage.setIcon(new ImageIcon(image));
 	}
 
 	private void createSongsTree(TreeMap<String, ArrayList<String>> albumMap)

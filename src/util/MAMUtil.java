@@ -14,12 +14,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TreeMap;
-
 import javax.swing.JList;
-
 import org.imgscalr.Scalr;
 import org.imgscalr.Scalr.Method;
-
 import main.AnimeIndex;
 
 public class MAMUtil
@@ -31,6 +28,7 @@ public class MAMUtil
 	private final static String DEFAULT_IMAGE_PATH = APPDATA_PATH + "Default Image" + File.separator;
 	private final static String MUSICS_PATH = APPDATA_PATH + "Musica" + File.separator;
 	private final static String TEMP_DOWNLOAD_PATH = APPDATA_PATH + "Temp" + File.separator;
+	private final static String PROPERTIES_PATH = MAMUtil.getAppDataPath() + "properties.properties";
 
 
 	
@@ -248,5 +246,10 @@ public class MAMUtil
 	public static String getTempDownloadPath()
 	{
 		return MAMUtil.TEMP_DOWNLOAD_PATH;
+	}
+	
+	public static String getPropertiesPath()
+	{
+		return MAMUtil.PROPERTIES_PATH;
 	}
 }
