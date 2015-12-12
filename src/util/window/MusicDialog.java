@@ -77,7 +77,7 @@ import com.mpatric.mp3agic.UnsupportedTagException;
 public class MusicDialog extends JDialog
 {
 
-	public TreeMap<String, ArrayList<String>> songsMap = new TreeMap<String, ArrayList<String>>();
+	public TreeMap<String, ArrayList<String>> songsMap = new TreeMap<String, ArrayList<String>>(String.CASE_INSENSITIVE_ORDER);
 	private final JPanel contentPanel = new JPanel();
 	private Player player;
 	private boolean loopActive;

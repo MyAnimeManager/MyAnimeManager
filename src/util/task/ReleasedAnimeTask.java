@@ -1,9 +1,7 @@
 package util.task;
 
 import java.util.GregorianCalendar;
-
 import javax.swing.SwingWorker;
-
 import main.AnimeIndex;
 import util.AnimeData;
 import util.MAMUtil;
@@ -36,56 +34,62 @@ public class ReleasedAnimeTask extends SwingWorker
 			String secondaryReleaseDate = data.getReleaseDate();
 
 			if (releaseDate.contains("?") || today.before(MAMUtil.getDate(releaseDate)))
-				animeDate = MAMUtil.getDate(secondaryReleaseDate);
+			{	
+				if(!secondaryReleaseDate.contains("?"))
+					animeDate = MAMUtil.getDate(secondaryReleaseDate);
+			}
 			else
 				animeDate = MAMUtil.getDate(releaseDate);
-
-			if (AnimeIndex.openReleaseDialog == true)
-				if (AnimeIndex.exitDateMap.containsKey(name))
-					if (MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).equals(today))
-						if (animeDate.before(today) || animeDate.equals(today))
-							ReleaseNotifierDialog.ovaReleased.addElement(name);
-							
-			if (lastControlDate != null)
+			if(animeDate!=null)
 			{
-				if (animeDate.after(lastControlDate))
-				{
+				if (AnimeIndex.openReleaseDialog == true)
 					if (AnimeIndex.exitDateMap.containsKey(name))
-					{
-						if (MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
-						{
+						if (MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).equals(today))
 							if (animeDate.before(today) || animeDate.equals(today))
-							{
 								ReleaseNotifierDialog.ovaReleased.addElement(name);
-								AnimeIndex.exitDateMap.put(name, oggi);
+								
+				if (lastControlDate != null)
+				{
+					if (animeDate.after(lastControlDate))
+					{
+						if (AnimeIndex.exitDateMap.containsKey(name))
+						{
+							if (MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
+							{
+								if (animeDate.before(today) || animeDate.equals(today))
+								{
+									ReleaseNotifierDialog.ovaReleased.addElement(name);
+									AnimeIndex.exitDateMap.put(name, oggi);
+								}
 							}
 						}
-					}
-					else if (animeDate.before(today) || animeDate.equals(today))
-					{
-						ReleaseNotifierDialog.ovaReleased.addElement(name);
-						AnimeIndex.exitDateMap.put(name, oggi);
-					}
-				}
-			}
-			else if (AnimeIndex.exitDateMap.containsKey(name))
-			{
-				if (MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
-				{	
-					if (animeDate.before(today) || animeDate.equals(today))
-					{
-						ReleaseNotifierDialog.ovaReleased.addElement(name);
-						AnimeIndex.exitDateMap.put(name, oggi);
+						else if (animeDate.before(today) || animeDate.equals(today))
+						{
+							ReleaseNotifierDialog.ovaReleased.addElement(name);
+							AnimeIndex.exitDateMap.put(name, oggi);
+						}
 					}
 				}
-			}
-			else if (animeDate.before(today) || animeDate.equals(today))
-			{
-				ReleaseNotifierDialog.ovaReleased.addElement(name);
-				AnimeIndex.exitDateMap.put(name, oggi);
+				else if (AnimeIndex.exitDateMap.containsKey(name))
+				{
+					if (MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
+					{	
+						if (animeDate.before(today) || animeDate.equals(today))
+						{
+							ReleaseNotifierDialog.ovaReleased.addElement(name);
+							AnimeIndex.exitDateMap.put(name, oggi);
+						}
+					}
+				}
+				else if (animeDate.before(today) || animeDate.equals(today))
+				{
+					ReleaseNotifierDialog.ovaReleased.addElement(name);
+					AnimeIndex.exitDateMap.put(name, oggi);
+				}
 			}
 		}
-
+		
+		animeDate = null;
 		Object[] filmArray = AnimeIndex.filmModel.toArray();
 		for (int i = 0; i < filmArray.length; i++)
 		{
@@ -95,53 +99,58 @@ public class ReleasedAnimeTask extends SwingWorker
 			String secondaryReleaseDate = data.getReleaseDate();
 
 			if (releaseDate.contains("?") || today.before(MAMUtil.getDate(releaseDate)))
-				animeDate = MAMUtil.getDate(secondaryReleaseDate);
+			{
+				if(!secondaryReleaseDate.contains("?"))
+					animeDate = MAMUtil.getDate(secondaryReleaseDate);
+			}
 			else
 				animeDate = MAMUtil.getDate(releaseDate);
-
-			if (AnimeIndex.openReleaseDialog == true)
-				if (AnimeIndex.exitDateMap.containsKey(name))
-					if (MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).equals(today))
-						if (animeDate.before(today) || animeDate.equals(today))
-							ReleaseNotifierDialog.filmReleased.addElement(name);
-							
-			if (lastControlDate != null)
+			if(animeDate!=null)
 			{
-				if (animeDate.after(lastControlDate))
-				{	
+				if (AnimeIndex.openReleaseDialog == true)
 					if (AnimeIndex.exitDateMap.containsKey(name))
-					{
-						if (MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
-						{	
+						if (MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).equals(today))
 							if (animeDate.before(today) || animeDate.equals(today))
-							{
 								ReleaseNotifierDialog.filmReleased.addElement(name);
-								AnimeIndex.exitDateMap.put(name, oggi);
+								
+				if (lastControlDate != null)
+				{
+					if (animeDate.after(lastControlDate))
+					{	
+						if (AnimeIndex.exitDateMap.containsKey(name))
+						{
+							if (MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
+							{	
+								if (animeDate.before(today) || animeDate.equals(today))
+								{
+									ReleaseNotifierDialog.filmReleased.addElement(name);
+									AnimeIndex.exitDateMap.put(name, oggi);
+								}
 							}
 						}
-					}
-					else if (animeDate.before(today) || animeDate.equals(today))
-					{
-						ReleaseNotifierDialog.filmReleased.addElement(name);
-						AnimeIndex.exitDateMap.put(name, oggi);
-					}
-				}
-			}
-			else if (AnimeIndex.exitDateMap.containsKey(name))
-			{
-				if (MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
-				{	
-					if (animeDate.before(today) || animeDate.equals(today))
-					{
-						ReleaseNotifierDialog.filmReleased.addElement(name);
-						AnimeIndex.exitDateMap.put(name, oggi);
+						else if (animeDate.before(today) || animeDate.equals(today))
+						{
+							ReleaseNotifierDialog.filmReleased.addElement(name);
+							AnimeIndex.exitDateMap.put(name, oggi);
+						}
 					}
 				}
-			}
-			else if (animeDate.before(today) || animeDate.equals(today))
-			{
-				ReleaseNotifierDialog.filmReleased.addElement(name);
-				AnimeIndex.exitDateMap.put(name, oggi);
+				else if (AnimeIndex.exitDateMap.containsKey(name))
+				{
+					if (MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).before(animeDate))
+					{	
+						if (animeDate.before(today) || animeDate.equals(today))
+						{
+							ReleaseNotifierDialog.filmReleased.addElement(name);
+							AnimeIndex.exitDateMap.put(name, oggi);
+						}
+					}
+				}
+				else if (animeDate.before(today) || animeDate.equals(today))
+				{
+					ReleaseNotifierDialog.filmReleased.addElement(name);
+					AnimeIndex.exitDateMap.put(name, oggi);
+				}
 			}
 		}
 		if (ReleaseNotifierDialog.ovaReleased.isEmpty())
