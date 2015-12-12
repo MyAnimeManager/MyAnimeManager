@@ -1057,12 +1057,15 @@ public class MusicDialog extends JDialog
 		BufferedImage image = null;
 		try
 		{
-			if (AnimeIndex.appProp.getProperty("Session_Number").equalsIgnoreCase("0"))
-				image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone...png"));
-			else if ((Integer.parseInt(AnimeIndex.appProp.getProperty("Session_Number")) % 2) == 0)
-				image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone...png"));
-			else
-				image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
+			switch((Integer.parseInt(AnimeIndex.appProp.getProperty("Session_Number")) % 3))
+			{
+				case 0: image = ImageIO.read(ClassLoader.getSystemResource("image/miku_mem.png"));
+						break;
+				case 1: image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone...png"));
+						break;
+				case 2:	image = ImageIO.read(ClassLoader.getSystemResource("image/Headphone.png"));
+						break;
+			}
 		}
 		catch (IOException e1)
 		{
