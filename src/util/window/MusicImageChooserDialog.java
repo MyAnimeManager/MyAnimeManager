@@ -19,6 +19,8 @@ import java.awt.event.MouseEvent;
 import java.awt.Dimension;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 
 public class MusicImageChooserDialog extends JDialog
@@ -81,10 +83,14 @@ public class MusicImageChooserDialog extends JDialog
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
 			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setPreferredSize(new Dimension(200, 0));
+			scrollPane.setMaximumSize(new Dimension(60, 60));
 			scrollPane.setViewportBorder(new MatteBorder(0, 1, 0, 0,new Color(0, 0, 0)));
 			contentPanel.add(scrollPane, BorderLayout.WEST);
 			{
 				imageList = new JList(imageModel);
+				imageList.setPreferredSize(new Dimension(60, 60));
+				imageList.setMaximumSize(new Dimension(60, 60));
 				imageList.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -112,6 +118,11 @@ public class MusicImageChooserDialog extends JDialog
 			JPanel panel = new JPanel();
 			panel.setName("Antepriam dell'immagine selezionata");
 			contentPanel.add(panel, BorderLayout.CENTER);
+			{
+				JLabel lblAnteprimaImmagine = new JLabel("Anteprima Immagine");
+				lblAnteprimaImmagine.setHorizontalAlignment(SwingConstants.CENTER);
+				panel.add(lblAnteprimaImmagine);
+			}
 		}
 		{
 			JPanel buttonPane = new JPanel();
