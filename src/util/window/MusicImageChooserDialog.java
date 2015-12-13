@@ -2,25 +2,27 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-
-import javax.swing.DefaultListModel;
-import javax.swing.DefaultListSelectionModel;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.EmptyBorder;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.Dimension;
-import javax.swing.border.MatteBorder;
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
+
+import util.MAMUtil;
 
 
 public class MusicImageChooserDialog extends JDialog
@@ -29,8 +31,6 @@ public class MusicImageChooserDialog extends JDialog
 	private final JPanel contentPanel = new JPanel();
 	private DefaultListModel imageModel = new DefaultListModel();
 	private DefaultListModel activeModel = new DefaultListModel();
-	private JList activeList;
-	private JList imageList;
 	
 	/**
 	 * Launch the application.
@@ -76,53 +76,98 @@ public class MusicImageChooserDialog extends JDialog
 				activeModel.addElement( "X");
 			}
 		});
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 488, 356);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setPreferredSize(new Dimension(200, 0));
-			scrollPane.setMaximumSize(new Dimension(60, 60));
-			scrollPane.setViewportBorder(new MatteBorder(0, 1, 0, 0,new Color(0, 0, 0)));
-			contentPanel.add(scrollPane, BorderLayout.WEST);
+			contentPanel.add(scrollPane, BorderLayout.CENTER);
 			{
-				imageList = new JList(imageModel);
-				imageList.setPreferredSize(new Dimension(60, 60));
-				imageList.setMaximumSize(new Dimension(60, 60));
-				imageList.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						if (e.getClickCount() == 2)
-						{
-							int index = imageList.getSelectedIndex();
-							activeModel.remove(index);
-							activeModel.add(index, "V");
-						}
-					}
-				});
-				imageList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				scrollPane.setViewportView(imageList);
-			}
-			{
-				activeList = new JList(activeModel);
-				activeList.setAutoscrolls(false);
-				activeList.setMaximumSize(new Dimension(15, 4));
-				activeList.setPreferredSize(new Dimension(20, 4));
-				activeList.setSelectionModel(new DisabledItemSelectionModel());
-				scrollPane.setRowHeaderView(activeList);
+				JPanel panel = new JPanel();
+				scrollPane.setViewportView(panel);
+				GridBagLayout gbl_panel = new GridBagLayout();
+				gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0};
+				gbl_panel.rowHeights = new int[]{0, 0, 0};
+				gbl_panel.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+				gbl_panel.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+				panel.setLayout(gbl_panel);
+				{
+					JCheckBox image1 = new JCheckBox();
+					GridBagConstraints gbc_image1 = new GridBagConstraints();
+					gbc_image1.insets = new Insets(0, 0, 5, 5);
+					gbc_image1.gridx = 0;
+					gbc_image1.gridy = 0;
+					image1.setIcon(new ImageIcon(getImage("Headphone")));
+					image1.setSelectedIcon(new ImageIcon(getImage("hmny")));
+					panel.add(image1, gbc_image1);
+
+					JCheckBox image2 = new JCheckBox();
+					GridBagConstraints gbc_image2 = new GridBagConstraints();
+					gbc_image2.insets = new Insets(0, 0, 5, 5);
+					gbc_image2.gridx = 1;
+					gbc_image2.gridy = 0;
+					image2.setIcon(new ImageIcon(getImage("Headphone")));
+					image1.setSelectedIcon(new ImageIcon(getImage("hmny")));
+					panel.add(image2, gbc_image2);
+
+					JCheckBox image3 = new JCheckBox();
+					GridBagConstraints gbc_image3 = new GridBagConstraints();
+					gbc_image3.insets = new Insets(0, 0, 5, 5);
+					gbc_image3.gridx = 2;
+					gbc_image3.gridy = 0;
+					image3.setIcon(new ImageIcon(getImage("Headphone")));
+					image1.setSelectedIcon(new ImageIcon(getImage("hmny")));
+					panel.add(image3, gbc_image3);
+
+					JCheckBox image4 = new JCheckBox();
+					GridBagConstraints gbc_image4 = new GridBagConstraints();
+					gbc_image4.insets = new Insets(0, 0, 5, 0);
+					gbc_image4.gridx = 3;
+					gbc_image4.gridy = 0;
+					image4.setIcon(new ImageIcon(getImage("Headphone")));
+					image1.setSelectedIcon(new ImageIcon(getImage("hmny")));
+					panel.add(image4, gbc_image4);
+
+					JCheckBox image5 = new JCheckBox();
+					GridBagConstraints gbc_image5 = new GridBagConstraints();
+					gbc_image5.insets = new Insets(0, 0, 0, 5);
+					gbc_image5.gridx = 0;
+					gbc_image5.gridy = 1;
+					image5.setIcon(new ImageIcon(getImage("Headphone")));
+					image1.setSelectedIcon(new ImageIcon(getImage("hmny")));
+					panel.add(image5, gbc_image5);
+
+					JCheckBox image6 = new JCheckBox();
+					GridBagConstraints gbc_image6 = new GridBagConstraints();
+					gbc_image6.insets = new Insets(0, 0, 0, 5);
+					gbc_image6.gridx = 1;
+					gbc_image6.gridy = 1;
+					image6.setIcon(new ImageIcon(getImage("Headphone")));
+					image1.setSelectedIcon(new ImageIcon(getImage("hmny")));
+					panel.add(image6, gbc_image6);
+
+					JCheckBox image7 = new JCheckBox();
+					GridBagConstraints gbc_image7 = new GridBagConstraints();
+					gbc_image7.insets = new Insets(0, 0, 0, 5);
+					gbc_image7.gridx = 2;
+					gbc_image7.gridy = 1;
+					image7.setIcon(new ImageIcon(getImage("Headphone")));
+					image1.setSelectedIcon(new ImageIcon(getImage("hmny")));
+					panel.add(image7, gbc_image7);
+					
+					JCheckBox image8 = new JCheckBox();
+					GridBagConstraints gbc_image8 = new GridBagConstraints();
+					gbc_image8.gridx = 3;
+					gbc_image8.gridy = 1;
+					image8.setIcon(new ImageIcon(getImage("Headphone")));
+					image1.setSelectedIcon(new ImageIcon(getImage("hmny")));
+					panel.add(image8, gbc_image8);
 			}
 		}
 		{
-			JPanel panel = new JPanel();
-			panel.setName("Antepriam dell'immagine selezionata");
-			contentPanel.add(panel, BorderLayout.CENTER);
-			{
-				JLabel lblAnteprimaImmagine = new JLabel("Anteprima Immagine");
-				lblAnteprimaImmagine.setHorizontalAlignment(SwingConstants.CENTER);
-				panel.add(lblAnteprimaImmagine);
-			}
+			
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -140,14 +185,35 @@ public class MusicImageChooserDialog extends JDialog
 				buttonPane.add(cancelButton);
 			}
 		}
+		}
 	}
 	
-	class DisabledItemSelectionModel extends DefaultListSelectionModel {
-
-	    @Override
-	    public void setSelectionInterval(int index0, int index1) {
-	        super.setSelectionInterval(-1, -1);
-	    }
+	private BufferedImage getImage(String name)
+	{
+		File file = null;
+		try
+		{
+			file = new File(MusicImageChooserDialog.class.getResource("/image/" + name + ".png").toURI());
+		}
+		catch (URISyntaxException e2)
+		{
+			MAMUtil.writeLog(e2);
+			e2.printStackTrace();
+		}
+		BufferedImage image = null;
+		try
+		{
+			image = ImageIO.read(file);
+		}
+		catch (IOException e1)
+		{
+			MAMUtil.writeLog(e1);
+			e1.printStackTrace();
+		}
+		BufferedImage preview = MAMUtil.getScaledImage(image, 100, 100);
+		
+		return preview;
 	}
+	
 	
 }
