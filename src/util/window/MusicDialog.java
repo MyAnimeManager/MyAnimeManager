@@ -964,43 +964,12 @@ public class MusicDialog extends JDialog
 	{
 		currentMusicPath = path;
 		AudioFile f = null;
+		Mp3File song = null;
+		File music = new File(currentMusicPath);
 		try
 		{
-			Mp3File song = new Mp3File(currentMusicPath);
-			File music = new File(currentMusicPath);
+			song = new Mp3File(currentMusicPath);
 			f = AudioFileIO.read(music);
-			Tag tag = f.getTag();
-			String currentTag;
-			currentTag = tag.getFirst(FieldKey.TITLE);
-			if (!currentTag.isEmpty())
-				title = currentTag;
-			else
-			{
-				title = music.getName();
-				title = title.substring(0, title.length() - 4);
-			}
-
-			currentTag = tag.getFirst(FieldKey.ARTIST);
-			if (!currentTag.isEmpty())
-				title += "  .:::.  " + currentTag;
-
-			currentTag = tag.getFirst(FieldKey.ALBUM);
-			if (!currentTag.isEmpty())
-				title += "  .:::.  " + currentTag;
-
-			int bitrate = song.getBitrate();
-			if (!(bitrate + "").isEmpty())
-				title += "  .:::.  " + bitrate + " Kbps";
-
-			duration = song.getLengthInSeconds();
-			byte[] img = song.getId3v2Tag().getAlbumImage();
-			if (img != null)
-			{
-				lblImage.setIcon(new ImageIcon(MAMUtil.getScaledImage(ImageIO.read(new ByteArrayInputStream(img)), 335, 335)));
-				defImgStd = false;
-			}
-			else
-				setDefaultImage();
 		}
 		catch (UnsupportedTagException e1)
 		{
@@ -1037,6 +1006,48 @@ public class MusicDialog extends JDialog
 			MAMUtil.writeLog(e1);
 			e1.printStackTrace();
 		}
+		Tag tag = f.getTag();
+		String currentTag = tag.getFirst(FieldKey.TITLE);
+		if (!currentTag.isEmpty())
+			title = currentTag;
+		else
+		{
+			title = music.getName();
+			title = title.substring(0, title.length() - 4);
+		}
+
+		currentTag = tag.getFirst(FieldKey.ARTIST);
+		if (!currentTag.isEmpty())
+			title += "  .:::.  " + currentTag;
+
+		currentTag = tag.getFirst(FieldKey.ALBUM);
+		if (!currentTag.isEmpty())
+			title += "  .:::.  " + currentTag;
+
+		int bitrate = song.getBitrate();
+		if (!(bitrate + "").isEmpty())
+			title += "  .:::.  " + bitrate + " Kbps";
+
+		byte[] img = song.getId3v2Tag().getAlbumImage();
+		if (img != null)
+		{
+			ByteArrayInputStream arr = new ByteArrayInputStream(img);
+			BufferedImage bffImg = null;
+			try
+			{
+				bffImg = ImageIO.read(arr);
+			}
+			catch (IOException e)
+			{
+				MAMUtil.writeLog(e);
+				e.printStackTrace();
+			}
+			lblImage.setIcon(new ImageIcon(MAMUtil.getScaledImage(bffImg, 335, 335)));
+			defImgStd = false;
+		}
+		else
+			setDefaultImage();
+		duration = song.getLengthInSeconds();
 		if (!(duration + "").isEmpty())
 			if (((duration / 60) + "").length() < 2)
 			{

@@ -46,7 +46,14 @@ public class ReleasedAnimeTask extends SwingWorker
 					if (AnimeIndex.exitDateMap.containsKey(name))
 						if (MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).equals(today))
 							if (animeDate.before(today) || animeDate.equals(today))
+							{
 								ReleaseNotifierDialog.ovaReleased.addElement(name);
+								if(!data.getDay().equalsIgnoreCase("Rilasciato"))
+								{
+									AnimeData newData = new AnimeData(data.getCurrentEpisode(), data.getTotalEpisode(), data.getFansub(), data.getNote(), data.getImageName(), "Rilasciato", data.getId(), data.getLinkName(), data.getLink(), data.getAnimeType(), data.getReleaseDate(), data.getFinishDate(), data.getDurationEp(), data.getBd());
+									AnimeIndex.ovaMap.put(name, newData);
+								}
+							}
 								
 				if (lastControlDate != null)
 				{
@@ -60,6 +67,11 @@ public class ReleasedAnimeTask extends SwingWorker
 								{
 									ReleaseNotifierDialog.ovaReleased.addElement(name);
 									AnimeIndex.exitDateMap.put(name, oggi);
+									if(!data.getDay().equalsIgnoreCase("Rilasciato"))
+									{
+										AnimeData newData = new AnimeData(data.getCurrentEpisode(), data.getTotalEpisode(), data.getFansub(), data.getNote(), data.getImageName(), "Rilasciato", data.getId(), data.getLinkName(), data.getLink(), data.getAnimeType(), data.getReleaseDate(), data.getFinishDate(), data.getDurationEp(), data.getBd());
+										AnimeIndex.ovaMap.put(name, newData);
+									}
 								}
 							}
 						}
@@ -67,6 +79,11 @@ public class ReleasedAnimeTask extends SwingWorker
 						{
 							ReleaseNotifierDialog.ovaReleased.addElement(name);
 							AnimeIndex.exitDateMap.put(name, oggi);
+							if(!data.getDay().equalsIgnoreCase("Rilasciato"))
+							{
+								AnimeData newData = new AnimeData(data.getCurrentEpisode(), data.getTotalEpisode(), data.getFansub(), data.getNote(), data.getImageName(), "Rilasciato", data.getId(), data.getLinkName(), data.getLink(), data.getAnimeType(), data.getReleaseDate(), data.getFinishDate(), data.getDurationEp(), data.getBd());
+								AnimeIndex.ovaMap.put(name, newData);
+							}
 						}
 					}
 				}
@@ -78,6 +95,11 @@ public class ReleasedAnimeTask extends SwingWorker
 						{
 							ReleaseNotifierDialog.ovaReleased.addElement(name);
 							AnimeIndex.exitDateMap.put(name, oggi);
+							if(!data.getDay().equalsIgnoreCase("Rilasciato"))
+							{
+								AnimeData newData = new AnimeData(data.getCurrentEpisode(), data.getTotalEpisode(), data.getFansub(), data.getNote(), data.getImageName(), "Rilasciato", data.getId(), data.getLinkName(), data.getLink(), data.getAnimeType(), data.getReleaseDate(), data.getFinishDate(), data.getDurationEp(), data.getBd());
+								AnimeIndex.ovaMap.put(name, newData);
+							}
 						}
 					}
 				}
@@ -85,6 +107,11 @@ public class ReleasedAnimeTask extends SwingWorker
 				{
 					ReleaseNotifierDialog.ovaReleased.addElement(name);
 					AnimeIndex.exitDateMap.put(name, oggi);
+					if(!data.getDay().equalsIgnoreCase("Rilasciato"))
+					{
+						AnimeData newData = new AnimeData(data.getCurrentEpisode(), data.getTotalEpisode(), data.getFansub(), data.getNote(), data.getImageName(), "Rilasciato", data.getId(), data.getLinkName(), data.getLink(), data.getAnimeType(), data.getReleaseDate(), data.getFinishDate(), data.getDurationEp(), data.getBd());
+						AnimeIndex.ovaMap.put(name, newData);
+					}
 				}
 			}
 		}
@@ -111,7 +138,14 @@ public class ReleasedAnimeTask extends SwingWorker
 					if (AnimeIndex.exitDateMap.containsKey(name))
 						if (MAMUtil.getDate(AnimeIndex.exitDateMap.get(name)).equals(today))
 							if (animeDate.before(today) || animeDate.equals(today))
+							{
 								ReleaseNotifierDialog.filmReleased.addElement(name);
+								if(!data.getDay().equalsIgnoreCase("Rilasciato"))
+								{
+									AnimeData newData = new AnimeData(data.getCurrentEpisode(), data.getTotalEpisode(), data.getFansub(), data.getNote(), data.getImageName(), "Rilasciato", data.getId(), data.getLinkName(), data.getLink(), data.getAnimeType(), data.getReleaseDate(), data.getFinishDate(), data.getDurationEp(), data.getBd());
+									AnimeIndex.filmMap.put(name, newData);
+								}
+							}
 								
 				if (lastControlDate != null)
 				{
@@ -125,6 +159,11 @@ public class ReleasedAnimeTask extends SwingWorker
 								{
 									ReleaseNotifierDialog.filmReleased.addElement(name);
 									AnimeIndex.exitDateMap.put(name, oggi);
+									if(!data.getDay().equalsIgnoreCase("Rilasciato"))
+									{
+										AnimeData newData = new AnimeData(data.getCurrentEpisode(), data.getTotalEpisode(), data.getFansub(), data.getNote(), data.getImageName(), "Rilasciato", data.getId(), data.getLinkName(), data.getLink(), data.getAnimeType(), data.getReleaseDate(), data.getFinishDate(), data.getDurationEp(), data.getBd());
+										AnimeIndex.filmMap.put(name, newData);
+									}
 								}
 							}
 						}
@@ -132,6 +171,11 @@ public class ReleasedAnimeTask extends SwingWorker
 						{
 							ReleaseNotifierDialog.filmReleased.addElement(name);
 							AnimeIndex.exitDateMap.put(name, oggi);
+							if(!data.getDay().equalsIgnoreCase("Rilasciato"))
+							{
+								AnimeData newData = new AnimeData(data.getCurrentEpisode(), data.getTotalEpisode(), data.getFansub(), data.getNote(), data.getImageName(), "Rilasciato", data.getId(), data.getLinkName(), data.getLink(), data.getAnimeType(), data.getReleaseDate(), data.getFinishDate(), data.getDurationEp(), data.getBd());
+								AnimeIndex.filmMap.put(name, newData);
+							}
 						}
 					}
 				}
@@ -143,6 +187,11 @@ public class ReleasedAnimeTask extends SwingWorker
 						{
 							ReleaseNotifierDialog.filmReleased.addElement(name);
 							AnimeIndex.exitDateMap.put(name, oggi);
+							if(!data.getDay().equalsIgnoreCase("Rilasciato"))
+							{
+								AnimeData newData = new AnimeData(data.getCurrentEpisode(), data.getTotalEpisode(), data.getFansub(), data.getNote(), data.getImageName(), "Rilasciato", data.getId(), data.getLinkName(), data.getLink(), data.getAnimeType(), data.getReleaseDate(), data.getFinishDate(), data.getDurationEp(), data.getBd());
+								AnimeIndex.filmMap.put(name, newData);
+							}
 						}
 					}
 				}
@@ -150,6 +199,11 @@ public class ReleasedAnimeTask extends SwingWorker
 				{
 					ReleaseNotifierDialog.filmReleased.addElement(name);
 					AnimeIndex.exitDateMap.put(name, oggi);
+					if(!data.getDay().equalsIgnoreCase("Rilasciato"))
+					{
+						AnimeData newData = new AnimeData(data.getCurrentEpisode(), data.getTotalEpisode(), data.getFansub(), data.getNote(), data.getImageName(), "Rilasciato", data.getId(), data.getLinkName(), data.getLink(), data.getAnimeType(), data.getReleaseDate(), data.getFinishDate(), data.getDurationEp(), data.getBd());
+						AnimeIndex.filmMap.put(name, newData);
+					}
 				}
 			}
 		}
