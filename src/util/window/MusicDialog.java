@@ -139,7 +139,7 @@ public class MusicDialog extends JDialog
 					{
 						if (evt.getPropertyName().equals("progress"))
 						{
-							setTitle("My Anime Musics - Aggiornamento Dati Album : "+(((int)task.count*100/(int)task.albumNumber))+"%");
+							setTitle("My Anime Musics - Aggiornamento Dati Album : "+((int)task.count*100/(int)task.albumNumber)+"%");
 						}
 						if (evt.getPropertyName().equals("state"))
 						{
@@ -342,63 +342,71 @@ public class MusicDialog extends JDialog
 						public void actionPerformed(ActionEvent e)
 						{
 							String musicName = (((DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent()).getUserObject()).toString();
-							if (isRunning || isPaused)
-							{
-								stop();
-								timer.stop();
-							}
 							if (songsMap.containsKey(musicName))
 							{
 								ArrayList<String> list = songsMap.get(musicName);
 								for (String song : list)
 								{	
-									try
+									File file = new File(MAMUtil.getMusicPath() + song + ".mp3");
+									if (file.isFile())
 									{
-										File file = new File(MAMUtil.getMusicPath() + song + ".mp3");
-										if (file.isFile())
+										if(currentMusicPath.equals(file.getPath()))
 										{
-											FileManager.deleteData(file);
-											if (songList.contains(song))
+											if (isRunning || isPaused)
 											{
-												int index = songList.indexOf(song);
-												if(index==0 && counter==0)
-													counter--;
-												if (index < counter)
-													counter--;
-												songList.remove(song);
+												stop();
+												timer.stop();
 											}
 										}
+										try
+										{
+											FileManager.deleteData(file);
+										}
+										catch (IOException e1)
+										{
+											MAMUtil.writeLog(e1);
+											e1.printStackTrace();
+										}
+										if (songList.contains(song))
+										{
+											int index = songList.indexOf(song);
+											if(index==0 && counter==0)
+												counter--;
+											if (index < counter)
+												counter--;
+											songList.remove(song);
+										}
+									}
+								}
+							}
+							else
+							{	
+								if (isRunning || isPaused)
+								{
+									stop();
+									timer.stop();
+								}
+								File file = new File(MAMUtil.getMusicPath() + musicName + ".mp3");
+								if (file.isFile())
+								{
+									try
+									{
+										FileManager.deleteData(file);										
 									}
 									catch (IOException e1)
 									{
 										MAMUtil.writeLog(e1);
 										e1.printStackTrace();
 									}
-								}
-							}
-							else
-							{	
-								try
-								{
-									File file = new File(MAMUtil.getMusicPath() + musicName + ".mp3");
-									if (file.isFile())
+									if (songList.contains(musicName))
 									{
-										FileManager.deleteData(file);
-										if (songList.contains(musicName))
-										{
-											int index = songList.indexOf(musicName);
-											if(index==0 && counter==0)
-												counter--;
-											if (index < counter)
-												counter--;
-											songList.remove(musicName);
-										}
+										int index = songList.indexOf(musicName);
+										if(index==0 && counter==0)
+											counter--;
+										if (index < counter)
+											counter--;
+										songList.remove(musicName);
 									}
-								}
-								catch (IOException e1)
-								{
-									MAMUtil.writeLog(e1);
-									e1.printStackTrace();
 								}
 							}
 							if (counter > 0 && counter<=songList.size())
@@ -724,8 +732,6 @@ public class MusicDialog extends JDialog
 										stop();
 										timer.stop();
 									}
-									progressBar.setString("");
-									progressBar.setValue(0);
 									lblTitle.setText("");
 									setDefaultImage();
 									btnLoad.setEnabled(true);
@@ -735,6 +741,8 @@ public class MusicDialog extends JDialog
 									btnSave.setEnabled(false);
 									btnSucc.setEnabled(false);
 									btnPrev.setEnabled(false);
+									progressBar.setString("");
+									progressBar.setValue(0);
 								}
 							}
 						}
@@ -831,7 +839,7 @@ public class MusicDialog extends JDialog
 											if (evt.getNewValue().toString().equalsIgnoreCase("started"))
 											{
 												progressBar.setValue(0);
-												progressBar.setString("Download File " + downloadDriveTask.fileNumber + "/" + downloadDriveTask.totalFileNumber + " : " + ((int) (progressBar.getPercentComplete() * 100)) + "%");
+												progressBar.setString("Download File " + downloadDriveTask.fileNumber + "/" + downloadDriveTask.totalFileNumber + " : " + ((int)progressBar.getPercentComplete() * 100) + "%");
 											}
 										}
 									}
