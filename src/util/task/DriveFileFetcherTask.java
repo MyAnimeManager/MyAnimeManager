@@ -132,15 +132,15 @@ public class DriveFileFetcherTask extends SwingWorker
 					String albumName = DriveUtil.getFirstParentName(newSong);
 					if (AnimeIndex.musicDialog.songsMap.containsKey(albumName))
 					{
-					ArrayList<String> list = AnimeIndex.musicDialog.songsMap.get(albumName);
-					list.add(songName);
-					list.sort(String.CASE_INSENSITIVE_ORDER);
-					AnimeIndex.musicDialog.songsMap.put(albumName, list);
+						ArrayList<String> list = AnimeIndex.musicDialog.songsMap.get(albumName);
+						list.add(songName.substring(0, songName.length()-4));
+						list.sort(String.CASE_INSENSITIVE_ORDER);
+						AnimeIndex.musicDialog.songsMap.put(albumName, list);
 					}
 					else
 					{
 						ArrayList<String> list = new ArrayList<String>();
-						list.add(songName);
+						list.add(songName.substring(0, songName.length()-4));
 						list.sort(String.CASE_INSENSITIVE_ORDER);
 						AnimeIndex.musicDialog.songsMap.put(albumName, list);
 					}
@@ -149,8 +149,7 @@ public class DriveFileFetcherTask extends SwingWorker
 				int progress = (int)(((count - 1)/albumNumber) * 100);
 				setProgress(progress);
 			}
-		}
-		
+		}	
 	}
 	
 	private boolean getForceCheck()
@@ -178,11 +177,11 @@ public class DriveFileFetcherTask extends SwingWorker
 		}
 		result = StringEscapeUtils.unescapeJava(result);
 		String shouldReset = result.substring(result.indexOf("[resetList]") + 11, result.indexOf("[/resetList]"));
-		if (shouldReset.equalsIgnoreCase("1"))
-				return true;
-		return false;
-						
-		
+		if (!shouldReset.equalsIgnoreCase(AnimeIndex.appProp.getProperty("Reset_Music_List")))
+		{
+			AnimeIndex.appProp.setProperty("Reset_Music_List", shouldReset);
+			return true;
+		}
+		return false;	
 	}
-
 }

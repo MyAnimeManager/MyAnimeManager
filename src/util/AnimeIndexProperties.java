@@ -33,6 +33,8 @@ public class AnimeIndexProperties
 			defaultProps.setProperty("Open_NewsBoard", "true");
 			defaultProps.setProperty("Last_Music_Check", "null");
 			defaultProps.setProperty("Music_Dialog_Default_Image_Counter", "0");
+			defaultProps.setProperty("Reset_Music_List", "0");
+			defaultProps.setProperty("New_Musics", "0");
 			in.close();
 		}
 		catch (FileNotFoundException fe)
@@ -56,6 +58,8 @@ public class AnimeIndexProperties
 				defaultProps.setProperty("Open_NewsBoard", "true");
 				defaultProps.setProperty("Last_Music_Check", "null");
 				defaultProps.setProperty("Music_Dialog_Default_Image_Counter", "0");
+				defaultProps.setProperty("Reset_Music_List", "0");
+				defaultProps.setProperty("New_Musics", "0");
 			}
 			catch (IOException e)
 			{
