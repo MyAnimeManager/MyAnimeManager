@@ -71,7 +71,7 @@ import util.UtilEvent;
 import util.task.AutoUpdateAnimeDataTask;
 import util.task.CheckUpdateTask;
 import util.task.LoadingTask;
-import util.task.NewSuggestionsNotifierTask;
+import util.task.NewNotifierTask;
 import util.task.ReleasedAnimeTask;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
@@ -317,7 +317,7 @@ public class AnimeIndex extends JFrame
 				File file = new File(MAMUtil.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
 				if (file.isFile())
 					file.delete();
-				NewSuggestionsNotifierTask newSugg = new NewSuggestionsNotifierTask();
+				NewNotifierTask newSugg = new NewNotifierTask();
 				try
 				{
 					newSugg.execute();
