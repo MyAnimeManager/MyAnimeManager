@@ -139,7 +139,7 @@ public class MusicDialog extends JDialog
 					{
 						if (evt.getPropertyName().equals("progress"))
 						{
-							setTitle("My Anime Musics - Aggiornamento Dati Album : "+((int)task.count*100/(int)task.albumNumber)+"%");
+							setTitle("My Anime Musics • Aggiornamento Dati Album : "+((int)task.count*100/(int)task.albumNumber)+"%");
 						}
 						if (evt.getPropertyName().equals("state"))
 						{
@@ -716,7 +716,7 @@ public class MusicDialog extends JDialog
 								}
 								else if (new File(MAMUtil.getMusicPath() + name + ".mp3").isFile())
 								{
-									if ((isPaused || isRunning) && !(MAMUtil.getMusicPath() + name + ".mp3").equalsIgnoreCase(currentMusicPath))
+									if ((isPaused || isRunning) && !(MAMUtil.getMusicPath() + name + ".mp3").equals(currentMusicPath))
 									{
 										stop();
 										timer.stop();
