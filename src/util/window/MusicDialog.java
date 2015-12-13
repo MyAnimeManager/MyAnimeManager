@@ -139,7 +139,7 @@ public class MusicDialog extends JDialog
 					{
 						if (evt.getPropertyName().equals("progress"))
 						{
-							setTitle("My Anime Musics - Aggiornamento Dati Album : " + (int)task.count + " / " + (int)task.albumNumber);
+							setTitle("My Anime Musics - Aggiornamento Dati Album : "+(((int)task.count*100/(int)task.albumNumber))+"%");
 						}
 						if (evt.getPropertyName().equals("state"))
 						{
@@ -624,6 +624,19 @@ public class MusicDialog extends JDialog
 					scrollPane.setMinimumSize(new Dimension(172, 64));
 					treePanel.add(scrollPane, BorderLayout.CENTER);
 					songsTree = new JTree();
+					songsTree.setModel(new DefaultTreeModel(
+						new DefaultMutableTreeNode("JTree") {
+							{
+							}
+						}
+					));
+					if(!new File(MAMUtil.getMusicPath() + "[[[music]]].anaconda").isFile())
+					{
+						songsTree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("JTree") 
+						{{
+							add(new DefaultMutableTreeNode("Caricamento in corso..."));
+						}}));
+					}
 					songsTree.addMouseListener(new MouseAdapter() {
 
 						@Override
@@ -726,13 +739,6 @@ public class MusicDialog extends JDialog
 							}
 						}
 					});
-					if(!new File(MAMUtil.getMusicPath() + "[[[music]]].anaconda").isFile())
-					{
-						songsTree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("JTree") 
-						{{
-							add(new DefaultMutableTreeNode("Caricamento in corso..."));
-						}}));
-					}
 					songsTree.setRootVisible(false);
 					songsTree.setShowsRootHandles(true);
 					songsTree.setFont(AnimeIndex.segui.deriveFont(12f));
