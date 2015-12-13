@@ -1,16 +1,24 @@
 package util.task;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 import javax.swing.SwingWorker;
+
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import com.google.api.services.drive.model.ChildList;
 import com.google.api.services.drive.model.ChildReference;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import main.AnimeIndex;
 import util.DriveUtil;
+import util.MAMUtil;
 
 public class DriveFileFetcherTask extends SwingWorker
 {
@@ -23,7 +31,9 @@ public class DriveFileFetcherTask extends SwingWorker
 	protected Object doInBackground() throws Exception
 	{
 		String date = AnimeIndex.appProp.getProperty("Last_Music_Check");
-		if (date.equalsIgnoreCase("null"))
+		java.io.File musicFile = new java.io.File(MAMUtil.getMusicPath() + "[[[music]]].anaconda");
+		boolean forceCheck = getForceCheck();
+		if (!musicFile.exists() || forceCheck || date.equalsIgnoreCase("null"))
 		{
 			map = getMusicFolderChildren();
 		}
@@ -140,6 +150,38 @@ public class DriveFileFetcherTask extends SwingWorker
 				setProgress(progress);
 			}
 		}
+		
+	}
+	
+	private boolean getForceCheck()
+	{
+		URL url; // The URL to read
+		HttpURLConnection conn = null; // The actual connection to the web page
+		BufferedReader rr; // Used to read results from the web page
+		String line; // An individual line of the web page HTML
+		String result = ""; // A long string containing all the HTML
+		String address = "http://myanimemanagerupdate.webstarts.com/music.html";
+		try
+		{
+			url = new URL(address);
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setDoOutput(true);
+			rr = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+			while ((line = rr.readLine()) != null)
+				result += line;
+			rr.close();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			MAMUtil.writeLog(e);
+		}
+		result = StringEscapeUtils.unescapeJava(result);
+		String shouldReset = result.substring(result.indexOf("[resetList]") + 11, result.indexOf("[/resetList]"));
+		if (shouldReset.equalsIgnoreCase("1"))
+				return true;
+		return false;
+						
 		
 	}
 
