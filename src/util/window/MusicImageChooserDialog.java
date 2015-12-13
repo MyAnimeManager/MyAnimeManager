@@ -109,7 +109,7 @@ public class MusicImageChooserDialog extends JDialog
 					gbc_image2.gridx = 1;
 					gbc_image2.gridy = 0;
 					image2.setIcon(new ImageIcon(getImage("Headphone")));
-					image1.setSelectedIcon(new ImageIcon(getImage("hmny")));
+					image2.setSelectedIcon(new ImageIcon(getImage("hmny")));
 					panel.add(image2, gbc_image2);
 
 					JCheckBox image3 = new JCheckBox();
@@ -118,7 +118,7 @@ public class MusicImageChooserDialog extends JDialog
 					gbc_image3.gridx = 2;
 					gbc_image3.gridy = 0;
 					image3.setIcon(new ImageIcon(getImage("Headphone")));
-					image1.setSelectedIcon(new ImageIcon(getImage("hmny")));
+					image3.setSelectedIcon(new ImageIcon(getImage("hmny")));
 					panel.add(image3, gbc_image3);
 
 					JCheckBox image4 = new JCheckBox();
@@ -127,7 +127,7 @@ public class MusicImageChooserDialog extends JDialog
 					gbc_image4.gridx = 3;
 					gbc_image4.gridy = 0;
 					image4.setIcon(new ImageIcon(getImage("Headphone")));
-					image1.setSelectedIcon(new ImageIcon(getImage("hmny")));
+					image4.setSelectedIcon(new ImageIcon(getImage("hmny")));
 					panel.add(image4, gbc_image4);
 
 					JCheckBox image5 = new JCheckBox();
@@ -136,7 +136,7 @@ public class MusicImageChooserDialog extends JDialog
 					gbc_image5.gridx = 0;
 					gbc_image5.gridy = 1;
 					image5.setIcon(new ImageIcon(getImage("Headphone")));
-					image1.setSelectedIcon(new ImageIcon(getImage("hmny")));
+					image5.setSelectedIcon(new ImageIcon(getImage("hmny")));
 					panel.add(image5, gbc_image5);
 
 					JCheckBox image6 = new JCheckBox();
@@ -145,7 +145,7 @@ public class MusicImageChooserDialog extends JDialog
 					gbc_image6.gridx = 1;
 					gbc_image6.gridy = 1;
 					image6.setIcon(new ImageIcon(getImage("Headphone")));
-					image1.setSelectedIcon(new ImageIcon(getImage("hmny")));
+					image6.setSelectedIcon(new ImageIcon(getImage("hmny")));
 					panel.add(image6, gbc_image6);
 
 					JCheckBox image7 = new JCheckBox();
@@ -154,7 +154,7 @@ public class MusicImageChooserDialog extends JDialog
 					gbc_image7.gridx = 2;
 					gbc_image7.gridy = 1;
 					image7.setIcon(new ImageIcon(getImage("Headphone")));
-					image1.setSelectedIcon(new ImageIcon(getImage("hmny")));
+					image7.setSelectedIcon(new ImageIcon(getImage("hmny")));
 					panel.add(image7, gbc_image7);
 					
 					JCheckBox image8 = new JCheckBox();
@@ -162,7 +162,7 @@ public class MusicImageChooserDialog extends JDialog
 					gbc_image8.gridx = 3;
 					gbc_image8.gridy = 1;
 					image8.setIcon(new ImageIcon(getImage("Headphone")));
-					image1.setSelectedIcon(new ImageIcon(getImage("hmny")));
+					image8.setSelectedIcon(new ImageIcon(getImage("hmny")));
 					panel.add(image8, gbc_image8);
 			}
 		}
