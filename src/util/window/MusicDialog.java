@@ -1069,9 +1069,9 @@ public class MusicDialog extends JDialog
 						break;
 				case 1: img = "Headphone..";
 						break;
-				case 2: img = "Hatsune-Miku-Vocaloid...";
+				case 2: img = "Hatsune-Miku-Vocaloid..";
 						break;
-				case 3: img = "Hatsune-Miku-Vocaloid.";
+				case 3: img = "Hatsune-Miku-Vocaloid...";
 						break;
 				case 4: img = "hatsune-miku-vocaloid-1715";
 						break;
