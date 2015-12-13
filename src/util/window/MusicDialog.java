@@ -790,10 +790,11 @@ public class MusicDialog extends JDialog
 									@Override
 									public void propertyChange(PropertyChangeEvent evt)
 									{
+
 										if (evt.getPropertyName().equals("progress"))
-										{
-											progressBar.setString("Download File " + downloadDriveTask.fileNumber + "/" + downloadDriveTask.totalFileNumber + " : " + ((int) (progressBar.getPercentComplete() * 100)) + "%");
+										{	
 											progressBar.setValue(downloadDriveTask.getProgress());
+											progressBar.setString("Download File " + downloadDriveTask.fileNumber + "/" + downloadDriveTask.totalFileNumber + " : " + ((int) (progressBar.getPercentComplete() * 100)) + "%");
 										}
 										if (evt.getPropertyName().equals("state"))
 										{
@@ -838,8 +839,10 @@ public class MusicDialog extends JDialog
 											if (evt.getNewValue().toString().equalsIgnoreCase("started"))
 											{
 												progressBar.setValue(0);
+												progressBar.setMaximum(100);
 												progressBar.setString("Download File " + downloadDriveTask.fileNumber + "/" + downloadDriveTask.totalFileNumber + " : " + ((int)progressBar.getPercentComplete() * 100) + "%");
 											}
+											
 										}
 									}
 								});
