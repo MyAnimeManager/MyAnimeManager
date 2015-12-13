@@ -38,7 +38,7 @@ public class NewNotifierTask extends SwingWorker
 			AnimeIndex.appProp.setProperty("Suggestions_Pack_Number", packNumber);
 		}
 		if (newSongs)
-			JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nuove musiche sono disponibili\n\rin \"My Anime Music\" !!!", "Nuove Musiche !!!", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nuove musiche sono disponibili in \"My Anime Musics\" !!!", "Nuove Musiche !!!", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	private boolean newSongs()
