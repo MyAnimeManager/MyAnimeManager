@@ -792,9 +792,8 @@ public class MusicDialog extends JDialog
 									{
 										if (evt.getPropertyName().equals("progress"))
 										{
-											int progress = downloadDriveTask.getProgress();
-											progressBar.setValue(progress);
 											progressBar.setString("Download File " + downloadDriveTask.fileNumber + "/" + downloadDriveTask.totalFileNumber + " : " + ((int) (progressBar.getPercentComplete() * 100)) + "%");
+											progressBar.setValue(downloadDriveTask.getProgress());
 										}
 										if (evt.getPropertyName().equals("state"))
 										{
