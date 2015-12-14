@@ -632,19 +632,10 @@ public class MusicDialog extends JDialog
 					scrollPane.setMinimumSize(new Dimension(172, 64));
 					treePanel.add(scrollPane, BorderLayout.CENTER);
 					songsTree = new JTree();
-					songsTree.setModel(new DefaultTreeModel(
-						new DefaultMutableTreeNode("JTree") {
-							{
-							}
-						}
-					));
-					if(!new File(MAMUtil.getMusicPath() + "[[[music]]].anaconda").isFile())
-					{
-						songsTree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("JTree") 
-						{{
-							add(new DefaultMutableTreeNode("Caricamento in corso..."));
-						}}));
-					}
+					songsTree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("JTree") 
+					{{
+						add(new DefaultMutableTreeNode("Caricamento in corso..."));
+					}}));
 					songsTree.addMouseListener(new MouseAdapter() {
 
 						@Override
@@ -684,34 +675,53 @@ public class MusicDialog extends JDialog
 						@Override
 						public void valueChanged(TreeSelectionEvent e)
 						{
+							DefaultMutableTreeNode node = null;
 							Object name = null;
 							try
 							{
-								name = ((DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent()).getUserObject();
+								node = (DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent();
+								name = node.getUserObject();
 							}catch(NullPointerException e1)
 							{}
 							if(name!=null)
 							{
 								if (songsMap.containsKey(name))
 								{
-									int count = 0;
-									ArrayList<String> songList = songsMap.get(name);
-									for (String song : songList)
-										if (new File(MAMUtil.getMusicPath() + song + ".mp3").isFile())
-											count++;
-									if (count == songList.size())
-										btnLoad.setEnabled(false);
-									else if (!progressBar.getString().contains("Download"))
-										btnLoad.setEnabled(true);
-									if (count != 0)
+									if(node.isLeaf())
 									{
-										btnElimina.setEnabled(true);
-										btnSave.setEnabled(true);
+										if (new File(MAMUtil.getMusicPath() + name + ".mp3").isFile())
+										{
+											if ((isPaused || isRunning) && !(MAMUtil.getMusicPath() + name + ".mp3").equals(currentMusicPath))
+											{
+												stop();
+												timer.stop();
+											}
+											progressBar.setValue(0);
+											setMusicTrack(MAMUtil.getMusicPath() + name + ".mp3");
+											btnLoad.setEnabled(false);
+										}
 									}
 									else
 									{
-										btnElimina.setEnabled(false);
-										btnSave.setEnabled(false);
+										int count = 0;
+										ArrayList<String> songList = songsMap.get(name);
+										for (String song : songList)
+											if (new File(MAMUtil.getMusicPath() + song + ".mp3").isFile())
+												count++;
+										if (count == songList.size())
+											btnLoad.setEnabled(false);
+										else if (!progressBar.getString().contains("Download"))
+											btnLoad.setEnabled(true);
+										if (count != 0)
+										{
+											btnElimina.setEnabled(true);
+											btnSave.setEnabled(true);
+										}
+										else
+										{
+											btnElimina.setEnabled(false);
+											btnSave.setEnabled(false);
+										}
 									}
 								}
 								else if (new File(MAMUtil.getMusicPath() + name + ".mp3").isFile())
