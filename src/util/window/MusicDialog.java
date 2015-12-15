@@ -1130,11 +1130,11 @@ public class MusicDialog extends JDialog
 	{
 		if(!defImgStd)
 		{
-			String img = defImgArr[defImgCounter % defImgArr.length];
+			String img = "image/"+defImgArr[defImgCounter % defImgArr.length]+".png";
 			BufferedImage image = null;
 			try
 			{
-				image = ImageIO.read(ClassLoader.getSystemResource("image/"+img+".png"));
+				image = ImageIO.read(ClassLoader.getSystemResource(img));
 			}
 			catch (IOException e1)
 			{
