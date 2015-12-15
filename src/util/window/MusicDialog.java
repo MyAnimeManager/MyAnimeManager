@@ -33,16 +33,20 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -52,9 +56,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import main.AnimeIndex;
+
 import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -64,12 +70,14 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
+
 import util.FileManager;
 import util.JMarqueeLabel;
 import util.JTreeIcons;
 import util.MAMUtil;
 import util.task.DriveFileFetcherTask;
 import util.task.GoogleDriveDownloadTask;
+
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
@@ -111,6 +119,7 @@ public class MusicDialog extends JDialog
 	private GoogleDriveDownloadTask downloadDriveTask;
 	private int defImgCounter = Integer.parseInt(AnimeIndex.appProp.getProperty("Music_Dialog_Default_Image_Counter"));
 	private boolean defImgStd = false;
+	private String[] defImgArr = AnimeIndex.appProp.getProperty("Default_Music_Images").split(":");
 
 	public MusicDialog()
 	{
@@ -240,6 +249,28 @@ public class MusicDialog extends JDialog
 			lblTitle.setTextFont(AnimeIndex.segui.deriveFont(12f));
 			dataPanel.add(lblTitle, BorderLayout.NORTH);
 			{
+				lblImage.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						if (SwingUtilities.isRightMouseButton(e))
+						{
+							JPopupMenu menu = new JPopupMenu();
+							JMenuItem dialog = new JMenuItem("Personalizza");
+							dialog.addActionListener(new ActionListener() {
+
+								@Override
+								public void actionPerformed(ActionEvent e)
+								{
+									MusicImageChooserDialog dial = new MusicImageChooserDialog();
+									dial.setLocationRelativeTo(lblImage);
+									dial.setVisible(true);
+								}
+							});
+							menu.add(dialog);
+							menu.show((JLabel) e.getSource(), e.getX(), e.getY());
+						}
+					}
+				});
 				lblImage.setMaximumSize(new Dimension(335, 335));
 				lblImage.setMinimumSize(new Dimension(335, 335));
 				lblImage.setPreferredSize(new Dimension(335, 335));
@@ -1094,31 +1125,12 @@ public class MusicDialog extends JDialog
 		btnElimina.setEnabled(true);
 		btnSave.setEnabled(true);
 	}
-
+	
 	private void setDefaultImage()
 	{
 		if(!defImgStd)
 		{
-			String img = "";
-			switch(defImgCounter % 8)
-			{
-				case 0: img = "miku_mem";
-						break;
-				case 1: img = "Headphone..";
-						break;
-				case 2: img = "Hatsune-Miku-Vocaloid..";
-						break;
-				case 3: img = "Hatsune-Miku-Vocaloid...";
-						break;
-				case 4: img = "hatsune-miku-vocaloid-1715";
-						break;
-				case 5: img = "hmny";
-						break;
-				case 6: img = "Hatsune-Miku-Vocaloid";
-						break;
-				case 7: img = "Headphone";
-						break;
-			}
+			String img = defImgArr[defImgCounter % defImgArr.length];
 			BufferedImage image = null;
 			try
 			{

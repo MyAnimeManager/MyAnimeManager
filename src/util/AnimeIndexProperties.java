@@ -35,6 +35,7 @@ public class AnimeIndexProperties
 			defaultProps.setProperty("Music_Dialog_Default_Image_Counter", "0");
 			defaultProps.setProperty("Reset_Music_List", "0");
 			defaultProps.setProperty("New_Musics", "0");
+			defaultProps.setProperty("Default_Music_Images", "miku_mem:Headphone..:Hatsune-Miku-Vocaloid..:Hatsune-Miku-Vocaloid...:hatsune-miku-vocaloid-1715:hmny:Hatsune-Miku-Vocaloid:Headphone");
 			in.close();
 		}
 		catch (FileNotFoundException fe)
@@ -60,6 +61,7 @@ public class AnimeIndexProperties
 				defaultProps.setProperty("Music_Dialog_Default_Image_Counter", "0");
 				defaultProps.setProperty("Reset_Music_List", "0");
 				defaultProps.setProperty("New_Musics", "0");
+				defaultProps.setProperty("Default_Music_Images", "miku_mem:Headphone..:Hatsune-Miku-Vocaloid..:Hatsune-Miku-Vocaloid...:hatsune-miku-vocaloid-1715:hmny:Hatsune-Miku-Vocaloid:Headphone");
 			}
 			catch (IOException e)
 			{
