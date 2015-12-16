@@ -10,9 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -43,9 +41,9 @@ public class MusicImageChooserDialog extends JDialog
 	public MusicImageChooserDialog()
 	{
 		super(AnimeIndex.musicDialog, true);
+		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Personalizza Sequenza Immagini");
-		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -252,20 +250,10 @@ public class MusicImageChooserDialog extends JDialog
 	
 	private BufferedImage getImage(String name)
 	{
-		File file = null;
-		try
-		{
-			file = new File(MusicImageChooserDialog.class.getResource("/image/" + name + ".png").toURI());
-		}
-		catch (URISyntaxException e2)
-		{
-			MAMUtil.writeLog(e2);
-			e2.printStackTrace();
-		}
 		BufferedImage image = null;
 		try
 		{
-			image = ImageIO.read(file);
+			image = ImageIO.read(MusicImageChooserDialog.class.getResource("/image/" + name + ".png"));
 		}
 		catch (IOException e1)
 		{
