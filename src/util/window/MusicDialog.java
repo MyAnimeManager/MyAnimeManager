@@ -254,20 +254,23 @@ public class MusicDialog extends JDialog
 					public void mouseReleased(MouseEvent e) {
 						if (SwingUtilities.isRightMouseButton(e))
 						{
-							JPopupMenu menu = new JPopupMenu();
-							JMenuItem dialog = new JMenuItem("Personalizza");
-							dialog.addActionListener(new ActionListener() {
-
-								@Override
-								public void actionPerformed(ActionEvent e)
-								{
-									MusicImageChooserDialog dial = new MusicImageChooserDialog();
-									dial.setLocationRelativeTo(lblImage);
-									dial.setVisible(true);
-								}
-							});
-							menu.add(dialog);
-							menu.show((JLabel) e.getSource(), e.getX(), e.getY());
+							if(defImgStd)
+							{
+								JPopupMenu menu = new JPopupMenu();
+								JMenuItem dialog = new JMenuItem("Personalizza");
+								dialog.addActionListener(new ActionListener() {
+	
+									@Override
+									public void actionPerformed(ActionEvent e)
+									{
+										MusicImageChooserDialog dial = new MusicImageChooserDialog();
+										dial.setLocationRelativeTo(lblImage);
+										dial.setVisible(true);
+									}
+								});
+								menu.add(dialog);
+								menu.show((JLabel) e.getSource(), e.getX(), e.getY());
+							}
 						}
 					}
 				});
