@@ -13,7 +13,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,7 +21,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-
 import main.AnimeIndex;
 import util.MAMUtil;
 
@@ -46,7 +44,7 @@ public class MusicImageChooserDialog extends JDialog
 	{
 		super(AnimeIndex.musicDialog, true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setTitle("Selezione immagini di default");
+		setTitle("Imposta immagini");
 		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -57,25 +55,23 @@ public class MusicImageChooserDialog extends JDialog
 				{
 					switch (image) {
 						case "miku_mem": image1.setSelected(true);
-										break;
+							break;
 						case "Headphone..": image2.setSelected(true);
-										break;
+							break;
 						case "Hatsune-Miku-Vocaloid..": image3.setSelected(true);
-										break;
+							break;
 						case "Hatsune-Miku-Vocaloid...": image4.setSelected(true);
-										break;
+							break;
 						case "hatsune-miku-vocaloid-1715": image5.setSelected(true);
-										break;
+							break;
 						case "hmny": image6.setSelected(true);
-										break;
+							break;
 						case "Hatsune-Miku-Vocaloid": image7.setSelected(true);
-										break;
+							break;
 						case "Headphone": image8.setSelected(true);
-										break;
+							break;
 					}
-
 				}
-				
 			}
 		});
 		setBounds(100, 100, 488, 356);
@@ -99,8 +95,17 @@ public class MusicImageChooserDialog extends JDialog
 					image1 = new JCheckBox();
 					image1.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							if ((!image2.isSelected() && !image3.isSelected() && !image4.isSelected() && !image5.isSelected() && !image6.isSelected() && !image7.isSelected() && !image8.isSelected()))
-								image1.setSelected(true);
+							if (image1.isSelected())
+							{
+								if (!(!image2.isSelected() && !image3.isSelected() && !image4.isSelected() && !image5.isSelected() && !image6.isSelected() && !image7.isSelected() && !image8.isSelected()))
+								{  
+									image1.setIcon(new ImageIcon(getImage("miku_mem")));
+				                }
+							}
+							else
+							{
+								image1.setIcon(new ImageIcon(getImage("miku_mem_obscured")));              
+							}
 						}
 					});
 					GridBagConstraints gbc_image1 = new GridBagConstraints();
@@ -108,14 +113,22 @@ public class MusicImageChooserDialog extends JDialog
 					gbc_image1.gridx = 0;
 					gbc_image1.gridy = 0;
 					image1.setIcon(new ImageIcon(getImage("miku_mem")));
-					image1.setSelectedIcon(new ImageIcon(getImage("miku_mem_obscured")));
 					panel.add(image1, gbc_image1);
 
 					image2 = new JCheckBox();
 					image2.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							if ((!image1.isSelected() && !image3.isSelected() && !image4.isSelected() && !image5.isSelected() && !image6.isSelected() && !image7.isSelected() && !image8.isSelected()))
-								image2.setSelected(true);
+							if (image2.isSelected())
+							{
+								if (!(!image1.isSelected() && !image3.isSelected() && !image4.isSelected() && !image5.isSelected() && !image6.isSelected() && !image7.isSelected() && !image8.isSelected()))
+								{  
+									image2.setIcon(new ImageIcon(getImage("Headphone..")));
+				                }
+							}
+							else
+							{
+								image2.setIcon(new ImageIcon(getImage("Headphone.._obscured")));              
+							}
 						}
 					});
 					GridBagConstraints gbc_image2 = new GridBagConstraints();
@@ -129,8 +142,17 @@ public class MusicImageChooserDialog extends JDialog
 					image3 = new JCheckBox();
 					image3.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							if ((!image1.isSelected() && !image2.isSelected() && !image4.isSelected() && !image5.isSelected() && !image6.isSelected() && !image7.isSelected() && !image8.isSelected()))
-								image3.setSelected(true);
+							if (image3.isSelected())
+							{
+								if (!(!image1.isSelected() && !image2.isSelected() && !image4.isSelected() && !image5.isSelected() && !image6.isSelected() && !image7.isSelected() && !image8.isSelected()))
+								{  
+									image3.setIcon(new ImageIcon(getImage("Hatsune-Miku-Vocaloid..")));
+				                }
+							}
+							else
+							{
+								image3.setIcon(new ImageIcon(getImage("Hatsune-Miku-Vocaloid.._obscured")));
+							}
 						}
 					});
 					GridBagConstraints gbc_image3 = new GridBagConstraints();
@@ -138,14 +160,22 @@ public class MusicImageChooserDialog extends JDialog
 					gbc_image3.gridx = 2;
 					gbc_image3.gridy = 0;
 					image3.setIcon(new ImageIcon(getImage("Hatsune-Miku-Vocaloid..")));
-					image3.setSelectedIcon(new ImageIcon(getImage("Hatsune-Miku-Vocaloid.._obscured")));
 					panel.add(image3, gbc_image3);
 
 					image4 = new JCheckBox();
 					image4.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							if ((!image1.isSelected() && !image2.isSelected() && !image3.isSelected() && !image5.isSelected() && !image6.isSelected() && !image7.isSelected() && !image8.isSelected()))
-								image4.setSelected(true);
+							if (image4.isSelected())
+							{
+								if (!(!image1.isSelected() && !image2.isSelected() && !image3.isSelected() && !image5.isSelected() && !image6.isSelected() && !image7.isSelected() && !image8.isSelected()))
+								{  
+									image4.setIcon(new ImageIcon(getImage("Hatsune-Miku-Vocaloid...")));
+				                }
+							}
+							else
+							{
+								image4.setIcon(new ImageIcon(getImage("Hatsune-Miku-Vocaloid..._obscured")));
+							}
 						}
 					});
 					GridBagConstraints gbc_image4 = new GridBagConstraints();
@@ -153,14 +183,22 @@ public class MusicImageChooserDialog extends JDialog
 					gbc_image4.gridx = 3;
 					gbc_image4.gridy = 0;
 					image4.setIcon(new ImageIcon(getImage("Hatsune-Miku-Vocaloid...")));
-					image4.setSelectedIcon(new ImageIcon(getImage("Hatsune-Miku-Vocaloid..._obscured")));
 					panel.add(image4, gbc_image4);
 
 					image5 = new JCheckBox();
 					image5.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							if ((!image1.isSelected() && !image2.isSelected() && !image3.isSelected() && !image4.isSelected() && !image6.isSelected() && !image7.isSelected() && !image8.isSelected()))
-								image5.setSelected(true);
+							if (image5.isSelected())
+							{
+								if (!(!image1.isSelected() && !image2.isSelected() && !image3.isSelected() && !image4.isSelected() && !image6.isSelected() && !image7.isSelected() && !image8.isSelected()))
+								{  
+									image5.setIcon(new ImageIcon(getImage("hatsune-miku-vocaloid-1715")));
+				                }
+							}
+							else
+							{
+								image5.setIcon(new ImageIcon(getImage("hatsune-miku-vocaloid-1715_obscured")));
+							}
 						}
 					});
 					GridBagConstraints gbc_image5 = new GridBagConstraints();
@@ -168,14 +206,22 @@ public class MusicImageChooserDialog extends JDialog
 					gbc_image5.gridx = 0;
 					gbc_image5.gridy = 1;
 					image5.setIcon(new ImageIcon(getImage("hatsune-miku-vocaloid-1715")));
-					image5.setSelectedIcon(new ImageIcon(getImage("hatsune-miku-vocaloid-1715_obscured")));
 					panel.add(image5, gbc_image5);
 
 					image6 = new JCheckBox();
 					image6.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							if ((!image1.isSelected() && !image2.isSelected() && !image3.isSelected() && !image4.isSelected() && !image5.isSelected() && !image7.isSelected() && !image8.isSelected()))
-								image6.setSelected(true);
+							if (image6.isSelected())
+							{
+								if (!(!image1.isSelected() && !image2.isSelected() && !image3.isSelected() && !image4.isSelected() && !image5.isSelected() && !image7.isSelected() && !image8.isSelected()))
+								{  
+									image6.setIcon(new ImageIcon(getImage("hmny")));
+				                }
+							}
+							else
+							{
+								image6.setIcon(new ImageIcon(getImage("hmny_obscured")));
+							}
 						}
 					});
 					GridBagConstraints gbc_image6 = new GridBagConstraints();
@@ -183,14 +229,22 @@ public class MusicImageChooserDialog extends JDialog
 					gbc_image6.gridx = 1;
 					gbc_image6.gridy = 1;
 					image6.setIcon(new ImageIcon(getImage("hmny")));
-					image6.setSelectedIcon(new ImageIcon(getImage("hmny_obscured")));
 					panel.add(image6, gbc_image6);
 
 					image7 = new JCheckBox();
 					image7.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							if ((!image1.isSelected() && !image2.isSelected() && !image3.isSelected() && !image4.isSelected() && !image5.isSelected() && !image6.isSelected() && !image8.isSelected()))
-								image7.setSelected(true);
+							if (image7.isSelected())
+							{
+								if (!(!image1.isSelected() && !image2.isSelected() && !image3.isSelected() && !image4.isSelected() && !image5.isSelected() && !image6.isSelected() && !image8.isSelected()))
+								{  
+									image7.setIcon(new ImageIcon(getImage("Hatsune-Miku-Vocaloid")));
+				                }
+							}
+							else
+							{
+								image7.setIcon(new ImageIcon(getImage("Hatsune-Miku-Vocaloid_obscured")));
+							}
 						}
 					});
 					GridBagConstraints gbc_image7 = new GridBagConstraints();
@@ -198,67 +252,65 @@ public class MusicImageChooserDialog extends JDialog
 					gbc_image7.gridx = 2;
 					gbc_image7.gridy = 1;
 					image7.setIcon(new ImageIcon(getImage("Hatsune-Miku-Vocaloid")));
-					image7.setSelectedIcon(new ImageIcon(getImage("Hatsune-Miku-Vocaloid_obscured")));
 					panel.add(image7, gbc_image7);
 					
 					image8 = new JCheckBox();
 					image8.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							if ((!image1.isSelected() && !image2.isSelected() && !image3.isSelected() && !image4.isSelected() && !image5.isSelected() && !image6.isSelected() && !image7.isSelected()))
-								image8.setSelected(true);
+							if (image8.isSelected())
+							{
+								if (!(!image1.isSelected() && !image2.isSelected() && !image3.isSelected() && !image4.isSelected() && !image5.isSelected() && !image6.isSelected() && !image7.isSelected()))
+								{  
+									image8.setIcon(new ImageIcon(getImage("Headphone")));
+				                }
+							}
+							else
+							{
+								image8.setIcon(new ImageIcon(getImage("Headphone_obscured")));
+							}
 						}
 					});
 					GridBagConstraints gbc_image8 = new GridBagConstraints();
 					gbc_image8.gridx = 3;
 					gbc_image8.gridy = 1;
 					image8.setIcon(new ImageIcon(getImage("Headphone")));
-					image8.setSelectedIcon(new ImageIcon(getImage("Headphone_obscured")));
 					panel.add(image8, gbc_image8);
-			}
-
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("Salva");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						String selectedImage = "";
-						
-						if (image1.isSelected())
-							selectedImage += "miku_mem" + ":";
-						if (image2.isSelected())
-							selectedImage += "Headphone.." + ":";
-						if (image3.isSelected())
-							selectedImage += "Hatsune-Miku-Vocaloid.." + ":";
-						if (image4.isSelected())
-							selectedImage += "Hatsune-Miku-Vocaloid..." + ":";
-						if (image5.isSelected())
-							selectedImage += "hatsune-miku-vocaloid-1715" + ":";
-						if (image6.isSelected())
-							selectedImage += "hmny" + ":";
-						if (image7.isSelected())
-							selectedImage += "Hatsune-Miku-Vocaloid" + ":";
-						if (image8.isSelected())
-							selectedImage += "Headphone";
+				}
+	
+				JPanel buttonPane = new JPanel();
+				buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
+				getContentPane().add(buttonPane, BorderLayout.SOUTH);
+				{
+					JButton okButton = new JButton("Salva");
+					okButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							String selectedImage = "";
 							
-						AnimeIndex.appProp.setProperty("Default_Music_Images", selectedImage);
-						MusicImageChooserDialog.this.dispose();
-					}
-				});
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+							if (image1.isSelected())
+								selectedImage += "miku_mem" + ":";
+							if (image2.isSelected())
+								selectedImage += "Headphone.." + ":";
+							if (image3.isSelected())
+								selectedImage += "Hatsune-Miku-Vocaloid.." + ":";
+							if (image4.isSelected())
+								selectedImage += "Hatsune-Miku-Vocaloid..." + ":";
+							if (image5.isSelected())
+								selectedImage += "hatsune-miku-vocaloid-1715" + ":";
+							if (image6.isSelected())
+								selectedImage += "hmny" + ":";
+							if (image7.isSelected())
+								selectedImage += "Hatsune-Miku-Vocaloid" + ":";
+							if (image8.isSelected())
+								selectedImage += "Headphone";
+								
+							AnimeIndex.appProp.setProperty("Default_Music_Images", selectedImage);
+							MusicImageChooserDialog.this.dispose();
+						}
+					});
+					buttonPane.add(okButton);
+					getRootPane().setDefaultButton(okButton);
+				}
 			}
-			{
-				JButton cancelButton = new JButton("Annulla");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						MusicImageChooserDialog.this.dispose();
-					}
-				});
-				buttonPane.add(cancelButton);
-			}
-		}
 		}
 	}
 	
@@ -288,6 +340,4 @@ public class MusicImageChooserDialog extends JDialog
 		
 		return preview;
 	}
-	
-	
 }

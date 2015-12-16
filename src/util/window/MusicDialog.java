@@ -261,6 +261,9 @@ public class MusicDialog extends JDialog
 										MusicImageChooserDialog dial = new MusicImageChooserDialog();
 										dial.setLocationRelativeTo(lblImage);
 										dial.setVisible(true);
+										defImgArr = AnimeIndex.appProp.getProperty("Default_Music_Images").split(":");
+										defImgStd = false;
+										setDefaultImage();
 									}
 								});
 								menu.add(dialog);
