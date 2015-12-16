@@ -85,6 +85,7 @@ public class MusicDialog extends JDialog
 	private Player player;
 	private boolean loopActive;
 	private JLabel lblImage = new JLabel();
+	private MusicImageChooserDialog imageChooserDial;
 	private JMarqueeLabel lblTitle;
 	private JButton btnPlaypause;
 	private JButton btnRestart;
@@ -258,9 +259,9 @@ public class MusicDialog extends JDialog
 									@Override
 									public void actionPerformed(ActionEvent e)
 									{
-										MusicImageChooserDialog dial = new MusicImageChooserDialog();
-										dial.setLocationRelativeTo(lblImage);
-										dial.setVisible(true);
+										imageChooserDial = new MusicImageChooserDialog();
+										imageChooserDial.setLocationRelativeTo(lblImage);
+										imageChooserDial.setVisible(true);
 										defImgArr = AnimeIndex.appProp.getProperty("Default_Music_Images").split(":");
 										defImgStd = false;
 										setDefaultImage();
