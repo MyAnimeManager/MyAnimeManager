@@ -25,14 +25,6 @@ import javax.swing.border.EmptyBorder;
 
 import main.AnimeIndex;
 import util.MAMUtil;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 
 
 public class MusicImageChooserDialog extends JDialog
