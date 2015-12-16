@@ -72,8 +72,6 @@ public class GoogleDriveDownloadTask extends SwingWorker
 	private InputStream downloadFile(String fileName) throws IOException
 	{
 		File file = DriveUtil.getFileByName(fileName);
-		System.out.printf("%s (%s)\n", file.getTitle(), file.getId());
-		System.out.println("inizio");
 
 		if (file.getDownloadUrl() != null && file.getDownloadUrl().length() > 0)
 			try

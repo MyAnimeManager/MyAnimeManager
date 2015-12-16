@@ -63,7 +63,6 @@ public class DriveFileFetcherTask extends SwingWorker
 			for (File child : children)
 			{
 				String childName = child.getTitle();
-				System.out.println(childName);
 				ArrayList<String> childList = new ArrayList<String>();
 				ChildList resultSubFolder = DriveUtil.service.children().list(child.getId()).execute();
 				List<ChildReference> childrenSubFolder = resultSubFolder.getItems();
