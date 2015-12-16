@@ -252,7 +252,7 @@ public class MusicDialog extends JDialog
 							if(defImgStd)
 							{
 								JPopupMenu menu = new JPopupMenu();
-								JMenuItem dialog = new JMenuItem("Personalizza");
+								JMenuItem dialog = new JMenuItem("Personalizza Sequenza");
 								dialog.addActionListener(new ActionListener() {
 	
 									@Override

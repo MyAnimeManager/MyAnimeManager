@@ -44,7 +44,7 @@ public class MusicImageChooserDialog extends JDialog
 	{
 		super(AnimeIndex.musicDialog, true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setTitle("Selezione immagini di default");
+		setTitle("Personalizza Sequenza Immagini");
 		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
