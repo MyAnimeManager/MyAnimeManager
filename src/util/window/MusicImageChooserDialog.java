@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -13,7 +15,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -22,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import main.AnimeIndex;
 import util.MAMUtil;
 
 
@@ -29,53 +31,52 @@ public class MusicImageChooserDialog extends JDialog
 {
 	
 	private final JPanel contentPanel = new JPanel();
-	private DefaultListModel imageModel = new DefaultListModel();
-	private DefaultListModel activeModel = new DefaultListModel();
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args)
-	{
-		try
-		{
-			MusicImageChooserDialog dialog = new MusicImageChooserDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
+	private JCheckBox image1;
+	private JCheckBox image2;
+	private JCheckBox image3;
+	private JCheckBox image4;
+	private JCheckBox image5;
+	private JCheckBox image6;
+	private JCheckBox image7;
+	private JCheckBox image8;
 	/**
 	 * Create the dialog.
 	 */
 	public MusicImageChooserDialog()
 	{
+		super(AnimeIndex.musicDialog, true);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Selezione immagini di default");
 		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-				imageModel.addElement( "miku_mem");
-				imageModel.addElement( "Headphone..");
-				imageModel.addElement( "Hatsune-Miku-Vocaloid..");
-				imageModel.addElement( "Hatsune-Miku-Vocaloid..");
-				imageModel.addElement( "hatsune-miku-vocaloid-1715");
-				imageModel.addElement( "hmny");
-				imageModel.addElement( "Hatsune-Miku-Vocaloid");
-				imageModel.addElement( "Headphone");
+				String imageListString = AnimeIndex.appProp.getProperty("Default_Music_Images");
+				String[] imageArray = imageListString.split(":");
+//				":::"
+				for (String image : imageArray)
+				{
+					switch (image) {
+						case "miku_mem": image1.setSelected(true);
+										break;
+						case "Headphone..": image2.setSelected(true);
+										break;
+						case "Hatsune-Miku-Vocaloid..": image3.setSelected(true);
+										break;
+						case "Hatsune-Miku-Vocaloid...": image4.setSelected(true);
+										break;
+						case "hatsune-miku-vocaloid-1715": image5.setSelected(true);
+										break;
+						case "hmny": image6.setSelected(true);
+										break;
+						case "Hatsune-Miku-Vocaloid": image7.setSelected(true);
+										break;
+						case "Headphone": image8.setSelected(true);
+										break;
+					}
+
+				}
 				
-				activeModel.addElement( "X");
-				activeModel.addElement( "X");
-				activeModel.addElement( "X");
-				activeModel.addElement( "X");
-				activeModel.addElement( "X");
-				activeModel.addElement( "X");
-				activeModel.addElement( "X");
-				activeModel.addElement( "X");
 			}
 		});
 		setBounds(100, 100, 488, 356);
@@ -96,7 +97,7 @@ public class MusicImageChooserDialog extends JDialog
 				gbl_panel.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 				panel.setLayout(gbl_panel);
 				{
-					JCheckBox image1 = new JCheckBox();
+					image1 = new JCheckBox();
 					GridBagConstraints gbc_image1 = new GridBagConstraints();
 					gbc_image1.insets = new Insets(0, 0, 5, 5);
 					gbc_image1.gridx = 0;
@@ -105,7 +106,7 @@ public class MusicImageChooserDialog extends JDialog
 					image1.setSelectedIcon(new ImageIcon(getImage("miku_mem_obscured")));
 					panel.add(image1, gbc_image1);
 
-					JCheckBox image2 = new JCheckBox();
+					image2 = new JCheckBox();
 					GridBagConstraints gbc_image2 = new GridBagConstraints();
 					gbc_image2.insets = new Insets(0, 0, 5, 5);
 					gbc_image2.gridx = 1;
@@ -114,7 +115,7 @@ public class MusicImageChooserDialog extends JDialog
 					image2.setSelectedIcon(new ImageIcon(getImage("Headphone.._obscured")));
 					panel.add(image2, gbc_image2);
 
-					JCheckBox image3 = new JCheckBox();
+					image3 = new JCheckBox();
 					GridBagConstraints gbc_image3 = new GridBagConstraints();
 					gbc_image3.insets = new Insets(0, 0, 5, 5);
 					gbc_image3.gridx = 2;
@@ -123,7 +124,7 @@ public class MusicImageChooserDialog extends JDialog
 					image3.setSelectedIcon(new ImageIcon(getImage("Hatsune-Miku-Vocaloid.._obscured")));
 					panel.add(image3, gbc_image3);
 
-					JCheckBox image4 = new JCheckBox();
+					image4 = new JCheckBox();
 					GridBagConstraints gbc_image4 = new GridBagConstraints();
 					gbc_image4.insets = new Insets(0, 0, 5, 0);
 					gbc_image4.gridx = 3;
@@ -132,7 +133,7 @@ public class MusicImageChooserDialog extends JDialog
 					image4.setSelectedIcon(new ImageIcon(getImage("Hatsune-Miku-Vocaloid..._obscured")));
 					panel.add(image4, gbc_image4);
 
-					JCheckBox image5 = new JCheckBox();
+					image5 = new JCheckBox();
 					GridBagConstraints gbc_image5 = new GridBagConstraints();
 					gbc_image5.insets = new Insets(0, 0, 0, 5);
 					gbc_image5.gridx = 0;
@@ -141,7 +142,7 @@ public class MusicImageChooserDialog extends JDialog
 					image5.setSelectedIcon(new ImageIcon(getImage("hatsune-miku-vocaloid-1715_obscured")));
 					panel.add(image5, gbc_image5);
 
-					JCheckBox image6 = new JCheckBox();
+					image6 = new JCheckBox();
 					GridBagConstraints gbc_image6 = new GridBagConstraints();
 					gbc_image6.insets = new Insets(0, 0, 0, 5);
 					gbc_image6.gridx = 1;
@@ -150,7 +151,7 @@ public class MusicImageChooserDialog extends JDialog
 					image6.setSelectedIcon(new ImageIcon(getImage("hmny_obscured")));
 					panel.add(image6, gbc_image6);
 
-					JCheckBox image7 = new JCheckBox();
+					image7 = new JCheckBox();
 					GridBagConstraints gbc_image7 = new GridBagConstraints();
 					gbc_image7.insets = new Insets(0, 0, 0, 5);
 					gbc_image7.gridx = 2;
@@ -159,7 +160,7 @@ public class MusicImageChooserDialog extends JDialog
 					image7.setSelectedIcon(new ImageIcon(getImage("Hatsune-Miku-Vocaloid_obscured")));
 					panel.add(image7, gbc_image7);
 					
-					JCheckBox image8 = new JCheckBox();
+					image8 = new JCheckBox();
 					GridBagConstraints gbc_image8 = new GridBagConstraints();
 					gbc_image8.gridx = 3;
 					gbc_image8.gridy = 1;
@@ -176,14 +177,43 @@ public class MusicImageChooserDialog extends JDialog
 			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
+				JButton okButton = new JButton("Salva");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String selectedImage = "";
+						
+						if (image1.isSelected())
+							selectedImage += "miku_mem" + ":";
+						if (image2.isSelected())
+							selectedImage += "Headphone.." + ":";
+						if (image3.isSelected())
+							selectedImage += "Hatsune-Miku-Vocaloid.." + ":";
+						if (image4.isSelected())
+							selectedImage += "Hatsune-Miku-Vocaloid..." + ":";
+						if (image5.isSelected())
+							selectedImage += "hatsune-miku-vocaloid-1715" + ":";
+						if (image6.isSelected())
+							selectedImage += "hmny" + ":";
+						if (image7.isSelected())
+							selectedImage += "Hatsune-Miku-Vocaloid" + ":";
+						if (image8.isSelected())
+							selectedImage += "Headphone" + ":";
+							
+						if (!selectedImage.isEmpty())
+							AnimeIndex.appProp.setProperty("Default_Music_Images", selectedImage);
+						MusicImageChooserDialog.this.dispose();
+					}
+				});
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Annulla");
-				cancelButton.setActionCommand("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						MusicImageChooserDialog.this.dispose();
+					}
+				});
 				buttonPane.add(cancelButton);
 			}
 		}

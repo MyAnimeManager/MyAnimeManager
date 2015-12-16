@@ -148,7 +148,7 @@ public class MusicDialog extends JDialog
 					{
 						if (evt.getPropertyName().equals("progress"))
 						{
-							setTitle("My Anime Musics • Aggiornamento Dati Album : "+((int)task.count*100/(int)task.albumNumber)+"%");
+							setTitle("My Anime Musics \u2022 Aggiornamento Dati Album : "+((int)task.count*100/(int)task.albumNumber)+"%");
 						}
 						if (evt.getPropertyName().equals("state"))
 						{
@@ -663,10 +663,11 @@ public class MusicDialog extends JDialog
 					scrollPane.setMinimumSize(new Dimension(172, 64));
 					treePanel.add(scrollPane, BorderLayout.CENTER);
 					songsTree = new JTree();
-					songsTree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("JTree") 
-					{{
-						add(new DefaultMutableTreeNode("Caricamento in corso..."));
-					}}));
+					
+					DefaultMutableTreeNode root = new DefaultMutableTreeNode("JTree");
+					root.add(new DefaultMutableTreeNode("Caricamento in corso..."));
+					DefaultTreeModel model = new DefaultTreeModel(root);					
+					songsTree.setModel(model);
 					songsTree.addMouseListener(new MouseAdapter() {
 
 						@Override
