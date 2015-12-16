@@ -25,6 +25,14 @@ import javax.swing.border.EmptyBorder;
 
 import main.AnimeIndex;
 import util.MAMUtil;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 
 public class MusicImageChooserDialog extends JDialog
@@ -53,7 +61,6 @@ public class MusicImageChooserDialog extends JDialog
 			public void windowOpened(WindowEvent e) {
 				String imageListString = AnimeIndex.appProp.getProperty("Default_Music_Images");
 				String[] imageArray = imageListString.split(":");
-//				":::"
 				for (String image : imageArray)
 				{
 					switch (image) {
@@ -98,6 +105,12 @@ public class MusicImageChooserDialog extends JDialog
 				panel.setLayout(gbl_panel);
 				{
 					image1 = new JCheckBox();
+					image1.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if ((!image2.isSelected() && !image3.isSelected() && !image4.isSelected() && !image5.isSelected() && !image6.isSelected() && !image7.isSelected() && !image8.isSelected()))
+								image1.setSelected(true);
+						}
+					});
 					GridBagConstraints gbc_image1 = new GridBagConstraints();
 					gbc_image1.insets = new Insets(0, 0, 5, 5);
 					gbc_image1.gridx = 0;
@@ -107,6 +120,12 @@ public class MusicImageChooserDialog extends JDialog
 					panel.add(image1, gbc_image1);
 
 					image2 = new JCheckBox();
+					image2.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if ((!image1.isSelected() && !image3.isSelected() && !image4.isSelected() && !image5.isSelected() && !image6.isSelected() && !image7.isSelected() && !image8.isSelected()))
+								image2.setSelected(true);
+						}
+					});
 					GridBagConstraints gbc_image2 = new GridBagConstraints();
 					gbc_image2.insets = new Insets(0, 0, 5, 5);
 					gbc_image2.gridx = 1;
@@ -116,6 +135,12 @@ public class MusicImageChooserDialog extends JDialog
 					panel.add(image2, gbc_image2);
 
 					image3 = new JCheckBox();
+					image3.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if ((!image1.isSelected() && !image2.isSelected() && !image4.isSelected() && !image5.isSelected() && !image6.isSelected() && !image7.isSelected() && !image8.isSelected()))
+								image3.setSelected(true);
+						}
+					});
 					GridBagConstraints gbc_image3 = new GridBagConstraints();
 					gbc_image3.insets = new Insets(0, 0, 5, 5);
 					gbc_image3.gridx = 2;
@@ -125,6 +150,12 @@ public class MusicImageChooserDialog extends JDialog
 					panel.add(image3, gbc_image3);
 
 					image4 = new JCheckBox();
+					image4.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if ((!image1.isSelected() && !image2.isSelected() && !image3.isSelected() && !image5.isSelected() && !image6.isSelected() && !image7.isSelected() && !image8.isSelected()))
+								image4.setSelected(true);
+						}
+					});
 					GridBagConstraints gbc_image4 = new GridBagConstraints();
 					gbc_image4.insets = new Insets(0, 0, 5, 0);
 					gbc_image4.gridx = 3;
@@ -134,6 +165,12 @@ public class MusicImageChooserDialog extends JDialog
 					panel.add(image4, gbc_image4);
 
 					image5 = new JCheckBox();
+					image5.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if ((!image1.isSelected() && !image2.isSelected() && !image3.isSelected() && !image4.isSelected() && !image6.isSelected() && !image7.isSelected() && !image8.isSelected()))
+								image5.setSelected(true);
+						}
+					});
 					GridBagConstraints gbc_image5 = new GridBagConstraints();
 					gbc_image5.insets = new Insets(0, 0, 0, 5);
 					gbc_image5.gridx = 0;
@@ -143,6 +180,12 @@ public class MusicImageChooserDialog extends JDialog
 					panel.add(image5, gbc_image5);
 
 					image6 = new JCheckBox();
+					image6.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if ((!image1.isSelected() && !image2.isSelected() && !image3.isSelected() && !image4.isSelected() && !image5.isSelected() && !image7.isSelected() && !image8.isSelected()))
+								image6.setSelected(true);
+						}
+					});
 					GridBagConstraints gbc_image6 = new GridBagConstraints();
 					gbc_image6.insets = new Insets(0, 0, 0, 5);
 					gbc_image6.gridx = 1;
@@ -152,6 +195,12 @@ public class MusicImageChooserDialog extends JDialog
 					panel.add(image6, gbc_image6);
 
 					image7 = new JCheckBox();
+					image7.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if ((!image1.isSelected() && !image2.isSelected() && !image3.isSelected() && !image4.isSelected() && !image5.isSelected() && !image6.isSelected() && !image8.isSelected()))
+								image7.setSelected(true);
+						}
+					});
 					GridBagConstraints gbc_image7 = new GridBagConstraints();
 					gbc_image7.insets = new Insets(0, 0, 0, 5);
 					gbc_image7.gridx = 2;
@@ -161,6 +210,12 @@ public class MusicImageChooserDialog extends JDialog
 					panel.add(image7, gbc_image7);
 					
 					image8 = new JCheckBox();
+					image8.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if ((!image1.isSelected() && !image2.isSelected() && !image3.isSelected() && !image4.isSelected() && !image5.isSelected() && !image6.isSelected() && !image7.isSelected()))
+								image8.setSelected(true);
+						}
+					});
 					GridBagConstraints gbc_image8 = new GridBagConstraints();
 					gbc_image8.gridx = 3;
 					gbc_image8.gridy = 1;
@@ -168,11 +223,7 @@ public class MusicImageChooserDialog extends JDialog
 					image8.setSelectedIcon(new ImageIcon(getImage("Headphone_obscured")));
 					panel.add(image8, gbc_image8);
 			}
-		}
-		{
-			
-		}
-		{
+
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
@@ -197,10 +248,9 @@ public class MusicImageChooserDialog extends JDialog
 						if (image7.isSelected())
 							selectedImage += "Hatsune-Miku-Vocaloid" + ":";
 						if (image8.isSelected())
-							selectedImage += "Headphone" + ":";
+							selectedImage += "Headphone";
 							
-						if (!selectedImage.isEmpty())
-							AnimeIndex.appProp.setProperty("Default_Music_Images", selectedImage);
+						AnimeIndex.appProp.setProperty("Default_Music_Images", selectedImage);
 						MusicImageChooserDialog.this.dispose();
 					}
 				});
