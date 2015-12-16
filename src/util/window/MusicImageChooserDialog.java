@@ -136,7 +136,6 @@ public class MusicImageChooserDialog extends JDialog
 					gbc_image2.gridx = 1;
 					gbc_image2.gridy = 0;
 					image2.setIcon(new ImageIcon(getImage("Headphone..")));
-					image2.setSelectedIcon(new ImageIcon(getImage("Headphone.._obscured")));
 					panel.add(image2, gbc_image2);
 
 					image3 = new JCheckBox();
