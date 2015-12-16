@@ -13,7 +13,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,7 +21,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-
 import main.AnimeIndex;
 import util.MAMUtil;
 
@@ -55,27 +53,26 @@ public class MusicImageChooserDialog extends JDialog
 				String[] imageArray = imageListString.split(":");
 				for (String image : imageArray)
 				{
-					switch (image) {
+					switch (image) 
+					{
 						case "miku_mem": image1.setSelected(true);
-										break;
+							break;
 						case "Headphone..": image2.setSelected(true);
-										break;
+							break;
 						case "Hatsune-Miku-Vocaloid..": image3.setSelected(true);
-										break;
+							break;
 						case "Hatsune-Miku-Vocaloid...": image4.setSelected(true);
-										break;
+							break;
 						case "hatsune-miku-vocaloid-1715": image5.setSelected(true);
-										break;
+							break;
 						case "hmny": image6.setSelected(true);
-										break;
+							break;
 						case "Hatsune-Miku-Vocaloid": image7.setSelected(true);
-										break;
+							break;
 						case "Headphone": image8.setSelected(true);
-										break;
+							break;
 					}
-
 				}
-				
 			}
 		});
 		setBounds(100, 100, 488, 356);
@@ -214,51 +211,42 @@ public class MusicImageChooserDialog extends JDialog
 					image8.setIcon(new ImageIcon(getImage("Headphone")));
 					image8.setSelectedIcon(new ImageIcon(getImage("Headphone_obscured")));
 					panel.add(image8, gbc_image8);
-			}
-
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("Salva");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						String selectedImage = "";
-						
-						if (image1.isSelected())
-							selectedImage += "miku_mem" + ":";
-						if (image2.isSelected())
-							selectedImage += "Headphone.." + ":";
-						if (image3.isSelected())
-							selectedImage += "Hatsune-Miku-Vocaloid.." + ":";
-						if (image4.isSelected())
-							selectedImage += "Hatsune-Miku-Vocaloid..." + ":";
-						if (image5.isSelected())
-							selectedImage += "hatsune-miku-vocaloid-1715" + ":";
-						if (image6.isSelected())
-							selectedImage += "hmny" + ":";
-						if (image7.isSelected())
-							selectedImage += "Hatsune-Miku-Vocaloid" + ":";
-						if (image8.isSelected())
-							selectedImage += "Headphone";
+				}
+	
+				JPanel buttonPane = new JPanel();
+				buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
+				getContentPane().add(buttonPane, BorderLayout.SOUTH);
+				{
+					JButton okButton = new JButton("Salva");
+					okButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							String selectedImage = "";
 							
-						AnimeIndex.appProp.setProperty("Default_Music_Images", selectedImage);
-						MusicImageChooserDialog.this.dispose();
-					}
-				});
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+							if (image1.isSelected())
+								selectedImage += "miku_mem" + ":";
+							if (image2.isSelected())
+								selectedImage += "Headphone.." + ":";
+							if (image3.isSelected())
+								selectedImage += "Hatsune-Miku-Vocaloid.." + ":";
+							if (image4.isSelected())
+								selectedImage += "Hatsune-Miku-Vocaloid..." + ":";
+							if (image5.isSelected())
+								selectedImage += "hatsune-miku-vocaloid-1715" + ":";
+							if (image6.isSelected())
+								selectedImage += "hmny" + ":";
+							if (image7.isSelected())
+								selectedImage += "Hatsune-Miku-Vocaloid" + ":";
+							if (image8.isSelected())
+								selectedImage += "Headphone";
+								
+							AnimeIndex.appProp.setProperty("Default_Music_Images", selectedImage);
+							MusicImageChooserDialog.this.dispose();
+						}
+					});
+					buttonPane.add(okButton);
+					getRootPane().setDefaultButton(okButton);
+				}
 			}
-			{
-				JButton cancelButton = new JButton("Annulla");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						MusicImageChooserDialog.this.dispose();
-					}
-				});
-				buttonPane.add(cancelButton);
-			}
-		}
 		}
 	}
 	
@@ -287,7 +275,5 @@ public class MusicImageChooserDialog extends JDialog
 		BufferedImage preview = MAMUtil.getScaledImage(image, 100, 100);
 		
 		return preview;
-	}
-	
-	
+	}	
 }
