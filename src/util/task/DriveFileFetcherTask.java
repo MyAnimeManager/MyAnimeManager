@@ -30,6 +30,10 @@ public class DriveFileFetcherTask extends SwingWorker
 	@Override
 	protected Object doInBackground() throws Exception
 	{
+		if (DriveUtil.service == null)
+		{
+			DriveUtil.getDriveService();
+		}
 		String date = AnimeIndex.appProp.getProperty("Last_Music_Check");
 		java.io.File musicFile = new java.io.File(MAMUtil.getMusicPath() + "[[[music]]].anaconda");
 		boolean forceCheck = getForceCheck();

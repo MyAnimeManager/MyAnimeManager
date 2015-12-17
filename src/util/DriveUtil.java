@@ -1,6 +1,7 @@
 package util;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
@@ -11,6 +12,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.SecurityUtils;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
@@ -36,8 +38,10 @@ public class DriveUtil
 	{
 		HttpTransport httpTransport = new NetHttpTransport();
 		JacksonFactory jsonFactory = new JacksonFactory();
-
-		GoogleCredential credential = new GoogleCredential.Builder().setTransport(httpTransport).setJsonFactory(jsonFactory).setServiceAccountId("account-1@my-anime-manager.iam.gserviceaccount.com").setServiceAccountScopes(SCOPES).setServiceAccountPrivateKeyFromP12File(new java.io.File(DriveUtil.class.getResource("/My Anime Manager drive.p12").toURI())).build();
+		
+		InputStream p12Stream = DriveUtil.class.getResourceAsStream("/My Anime Manager drive.p12");
+		GoogleCredential credential = new GoogleCredential.Builder().setTransport(httpTransport).setJsonFactory(jsonFactory).setServiceAccountId("account-1@my-anime-manager.iam.gserviceaccount.com").setServiceAccountScopes(SCOPES).setServiceAccountPrivateKey(SecurityUtils.loadPrivateKeyFromKeyStore(SecurityUtils.getPkcs12KeyStore(), p12Stream, "notasecret", "privatekey", "notasecret")).build();
+	
 		Drive service = new Drive.Builder(httpTransport, jsonFactory, null).setHttpRequestInitializer(credential).setApplicationName("My Anime Manager").build();
 		DriveUtil.service = service;
 	}

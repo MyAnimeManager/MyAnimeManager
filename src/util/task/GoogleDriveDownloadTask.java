@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
 import javax.swing.SwingWorker;
@@ -26,6 +28,18 @@ public class GoogleDriveDownloadTask extends SwingWorker
 
 	public GoogleDriveDownloadTask(String fileName)
 	{
+		if (DriveUtil.service == null)
+		{
+			try
+			{
+				DriveUtil.getDriveService();
+			}
+			catch (GeneralSecurityException | IOException | URISyntaxException e)
+			{
+				MAMUtil.writeLog(e);
+				e.printStackTrace();
+			}
+		}
 		ArrayList<String> fileList = new ArrayList<String>();
 		fileList.add(fileName);
 		this.fileList = fileList;
