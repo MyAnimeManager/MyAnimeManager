@@ -595,6 +595,7 @@ public class FileManager
 		File license = new File(MAMUtil.getAppDataPath() + "License.txt");
 		File uninstallerDat = new File(MAMUtil.getAppDataPath() + "unins000.dat");
 		File uninstaller = new File(MAMUtil.getAppDataPath() + "unins000.exe");
+		File java = new File(MAMUtil.getAppDataPath() + "java" + File.separator);
 		if (file.isDirectory())
 		{
 			if (file.list().length == 0)
@@ -606,7 +607,7 @@ public class FileManager
 				for (String temp : files)
 				{
 					File fileDelete = new File(file, temp);
-					if (!fileDelete.equals(program) && !fileDelete.equals(restart) && !fileDelete.equals(license) && !fileDelete.equals(uninstallerDat) && !fileDelete.equals(uninstaller))
+					if (!fileDelete.equals(program) && !fileDelete.equals(restart) && !fileDelete.equals(license) && !fileDelete.equals(uninstallerDat) && !fileDelete.equals(uninstaller) && !fileDelete.equals(java))
 						deleteData(fileDelete);
 
 				}
