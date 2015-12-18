@@ -786,12 +786,12 @@ public class AnimeIndex extends JFrame
 							String list = MAMUtil.getList();
 							AnimeData oldData = map.get(name);
 							String path = oldData.getImagePath(list);
-							AnimeIndex.animeInformation.setImage(path);
 							if (!oldData.getImageName().equalsIgnoreCase(imageName))
 							{
 								AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), oldData.getNote(), imageName + ".png", oldData.getDay(), oldData.getId(), oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
 								map.put(name, newData);
 							}
+							AnimeIndex.animeInformation.setImage(path);
 						}
 					}
 				}
