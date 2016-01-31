@@ -31,5 +31,8 @@ My Anime Manager è coperto da licenza "GNU GPL 3". Per maggiori informazioni: [
 ### Bug, Richieste e Suggerimenti
 Per segnalare un bug o proporre nuove funzioni usate l'[Issue Tracker](https://github.com/MyAnimeManager/MyAnimeManager/issues). Create una nuova discussione con il tasto "New Issue" e appena possibile riceverete una risposta. (Per creare un account su github andate [qui](https://github.com/join))
 
+### Collaborazioni
+Se siete amministratori di un sito di fansub e volete che la vostra ReleaseBoard sia inclusa nel programma o volete proporre una collaborazione, potete scrivere una mail all'indirizzo presente nella sezione Contatti.
+
 ### Contatti
 Per qualsiasi ragione potete contattare gli sviluppatori all'indirizzo mail myanimemanagerproject@gmail.com, appena possibile riceverete una risposta.
