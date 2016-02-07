@@ -55,26 +55,20 @@ public class NewsTask extends SwingWorker
 		try
 		{
 			webClient = new WebClient(BrowserVersion.EDGE);
+			webClient.getCache().setMaxSize(0);
 			webClient.getOptions().setJavaScriptEnabled(true);
 			webClient.getOptions().setCssEnabled(false);
 			webClient.setCssErrorHandler(new SilentCssErrorHandler());
 			webClient.setAjaxController(new NicelyResynchronizingAjaxController());
 			webClient.getOptions().setThrowExceptionOnScriptError(false);
+			webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+			webClient.waitForBackgroundJavaScriptStartingBefore(5 * 1000);
 
 			String url = RAD_URL;
 			System.out.println("Loading page now: " + url);
 			HtmlPage page = webClient.getPage(url);
-			webClient.waitForBackgroundJavaScriptStartingBefore(5 * 1000); /*
-																			 * will
-																			 * wait
-																			 * JavaScript
-																			 * to
-																			 * execute
-																			 * up
-																			 * to
-																			 * 30s
-																			 */
 			// get divs which have a 'class' attribute of 'mainbg'
+			
 			HtmlDivision div = page.getFirstByXPath("//div[@class='mainbg']");
 			HtmlOrderedList orderedList = div.getFirstByXPath("//ol");
 			List<?> linkList = orderedList.getByXPath("//ol/li//a[@target='_blank']");
@@ -84,6 +78,7 @@ public class NewsTask extends SwingWorker
 		catch (Exception e)
 		{
 			System.out.println("Errore");
+			e.printStackTrace();
 		}
 		webClient.close();
 		System.out.println("NewsBoard Completata");

@@ -93,7 +93,6 @@ import util.window.WishlistDialog;
 
 //fixare time out server anilist
 //fixare newsboard a volte nn completa
-//fixare inserimento episodi
 //caratteri speciali aggiunta anime
 //elenco musiche inserite
 //cancellando dall'album a volte le musiche nn vengono cancellate

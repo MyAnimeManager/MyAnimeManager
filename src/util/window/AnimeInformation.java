@@ -238,7 +238,20 @@ public class AnimeInformation extends JPanel
 					char key = e.getKeyChar();
 					int currEp = 0;
 					if (Character.isDigit(key) && !currentEpisodeField.getText().isEmpty())
-						currEp = Integer.parseInt(currentEpisodeField.getText() + key);
+					{
+						String currText = currentEpisodeField.getText() ;
+						int currSelStart = currentEpisodeField.getSelectionStart();
+						int currSelEnd = currentEpisodeField.getSelectionEnd();
+						if (currentEpisodeField.getSelectedText() != null)
+						{
+							String unselectedTextBefore = currText.substring(0, currSelStart);
+							String unseletedTextAfter = currText.substring(currSelEnd);
+							currEp = Integer.parseInt(unselectedTextBefore + key + unseletedTextAfter);
+						}
+						else
+							currEp = Integer.parseInt(currText + key);
+						
+					}
 					else if (!currentEpisodeField.getText().isEmpty())
 						currEp = Integer.parseInt(currentEpisodeField.getText());
 					else if (Character.isDigit(key) && currentEpisodeField.getText().isEmpty())
