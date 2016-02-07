@@ -95,10 +95,8 @@ import util.window.WishlistDialog;
 //fixare newsboard a volte nn completa
 //fixare inserimento episodi
 //caratteri speciali aggiunta anime
-//esclusione anime contenenti || dall'aggiunta
 //elenco musiche inserite
 //cancellando dall'album a volte le musiche nn vengono cancellate
-//centramento immagine rettangolare verticale 
 //la lista fansub nn viene aggiornata dopo un nuovo inserimento
 //importare uscite stagionali da rad
 //aggiungere lista donatori

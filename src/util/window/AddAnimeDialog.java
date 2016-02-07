@@ -934,25 +934,30 @@ public class AddAnimeDialog extends JDialog
 									boolean bd = false;
 									if (type.equalsIgnoreCase("blu-ray"))
 										bd = true;
-									AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
-
-									if ((AnimeIndex.appProp.getProperty("Check_Data_Conflict").equalsIgnoreCase("false")) || finishDate.equalsIgnoreCase("//") || type.equalsIgnoreCase("?????"))
-									{
-										String listName = (String) listToAdd.getSelectedItem();
-										JList list = AddAnimeDialog.getJList(listName);
-										SortedListModel model = AddAnimeDialog.getModel(listName);
-										TreeMap<String, AnimeData> map = AddAnimeDialog.getMap(listName);
-
-										map.put(name, data);
-										model.addElement(name);
-										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-										list.clearSelection();
-										list.setSelectedValue(name, true);
-										AddAnimeDialog.this.dispose();
-									}
+									if (name.contains("|") || duration.contains("|"))
+										JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Alcuni campi contengono caratteri non consentiti.", "Errore !", JOptionPane.ERROR_MESSAGE);
 									else
-										manualAnimeAdd(name, data, finishDate, type);
-									AnimeIndex.lastSelection = name;
+									{
+										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
+	
+										if ((AnimeIndex.appProp.getProperty("Check_Data_Conflict").equalsIgnoreCase("false")) || finishDate.equalsIgnoreCase("//") || type.equalsIgnoreCase("?????"))
+										{
+											String listName = (String) listToAdd.getSelectedItem();
+											JList list = AddAnimeDialog.getJList(listName);
+											SortedListModel model = AddAnimeDialog.getModel(listName);
+											TreeMap<String, AnimeData> map = AddAnimeDialog.getMap(listName);
+	
+											map.put(name, data);
+											model.addElement(name);
+											AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+											list.clearSelection();
+											list.setSelectedValue(name, true);
+											AddAnimeDialog.this.dispose();
+										}
+										else
+											manualAnimeAdd(name, data, finishDate, type);
+										AnimeIndex.lastSelection = name;
+									}
 								}
 							}
 						});
@@ -996,7 +1001,11 @@ public class AddAnimeDialog extends JDialog
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
-							automaticAdd();
+							String anime = (String) searchedList.getSelectedValue();
+							if(anime.contains("|") || anime.contains("||"))
+								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il nome dell'anime contiene caratteri non consentiti.", "Errore !", JOptionPane.ERROR_MESSAGE);
+							else
+								automaticAdd();
 						}
 					});
 					{

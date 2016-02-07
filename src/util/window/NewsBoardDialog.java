@@ -214,7 +214,9 @@ public class NewsBoardDialog extends JDialog
 			String name = entry.getKey();
 			String link = entry.getValue();
 
-			if (name.endsWith(" By"))
+			if (name.endsWith(" By AF &"))
+				name = name + " RAD";
+			else if (name.endsWith(" By") || name.endsWith(" da") || name.endsWith(" su"))
 				name = name.substring(0, name.length() - 3);
 
 			JLabel nameLabel = new JLabel(name);
@@ -230,6 +232,8 @@ public class NewsBoardDialog extends JDialog
 				nameLabel.setForeground(new Color(0, 180, 180));
 			else if (name.contains("BreakingItaly"))
 				nameLabel.setForeground(new Color(0, 180, 0));
+			else if (name.contains("Anime Hentai"))
+				nameLabel.setForeground(Color.PINK);
 			else
 				nameLabel.setForeground(Color.RED);
 			nameLabel.setHorizontalAlignment(SwingConstants.CENTER);

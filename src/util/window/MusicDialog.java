@@ -76,6 +76,7 @@ import util.task.GoogleDriveDownloadTask;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
+import javax.swing.SwingConstants;
 
 public class MusicDialog extends JDialog
 {
@@ -245,6 +246,7 @@ public class MusicDialog extends JDialog
 			lblTitle.setTextFont(AnimeIndex.segui.deriveFont(12f));
 			dataPanel.add(lblTitle, BorderLayout.NORTH);
 			{
+				lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 				lblImage.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseReleased(MouseEvent e) {
