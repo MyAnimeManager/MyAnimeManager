@@ -9,7 +9,11 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import org.apache.commons.lang3.StringEscapeUtils;
+
+import main.AnimeIndex;
 
 public class ConnectionManager
 {
@@ -43,6 +47,10 @@ public class ConnectionManager
 					result += line;
 				rr.close();
 
+			}
+			catch (java.net.SocketTimeoutException timeout)
+			{
+				JOptionPane.showMessageDialog(AnimeIndex.frame, "Errore durante la connessione! Potrebbe dipendere dalla tua connessione o dal sito di Anilist.", "Errore!", JOptionPane.ERROR_MESSAGE);
 			}
 			catch (java.net.ConnectException | java.net.UnknownHostException e1)
 			{
@@ -184,6 +192,7 @@ public class ConnectionManager
 			url = new URL(BASEURL + ANIMEDATA + animeID + "?access_token=" + ConnectionManager.token);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
+			conn.setConnectTimeout(15 * 1000);
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("User-Agent", "My Anime Manager");
 			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -191,6 +200,10 @@ public class ConnectionManager
 			while ((line = rr.readLine()) != null)
 				result += line;
 			rr.close();
+		}
+		catch (java.net.SocketTimeoutException timeout)
+		{
+			JOptionPane.showMessageDialog(AnimeIndex.frame, "Errore durante la connessione! Potrebbe dipendere dalla tua connessione o dal sito di Anilist.", "Errore!", JOptionPane.ERROR_MESSAGE);
 		}
 		catch (Exception e)
 		{
