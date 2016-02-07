@@ -135,7 +135,7 @@ public class MAMUtil
 		return (String) AnimeIndex.animeTypeComboBox.getSelectedItem();
 	}
 
-	public static Font segui()
+	public static Font loadFont()
 	{
 		InputStream is = AnimeIndex.class.getResourceAsStream("/font/seguisym.ttf");
 		Font font = null;
@@ -208,7 +208,7 @@ public class MAMUtil
 
 	public static boolean christmas()
 	{
-		if (today().equalsIgnoreCase("25/12/2015"))
+		if (today().substring(0, 5).equalsIgnoreCase("25/12"))
 			return true;
 		return false;
 	}

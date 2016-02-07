@@ -91,6 +91,18 @@ import util.window.WishlistDialog;
 
 //TODO fixare "IL BUG"
 
+//fixare time out server anilist
+//fixare newsboard a volte nn completa
+//fixare inserimento episodi
+//caratteri speciali aggiunta anime
+//esclusione anime contenenti || dall'aggiunta
+//elenco musiche inserite
+//cancellando dall'album a volte le musiche nn vengono cancellate
+//centramento immagine rettangolare verticale 
+//la lista fansub nn viene aggiornata dopo un nuovo inserimento
+//importare uscite stagionali da rad
+//aggiungere lista donatori
+
 public class AnimeIndex extends JFrame
 {
 	
@@ -208,7 +220,7 @@ public class AnimeIndex extends JFrame
 				try
 				{
 					ColorProperties.setColor(colorProp);
-					segui = MAMUtil.segui();
+					segui = MAMUtil.loadFont();
 					frame = new AnimeIndex();
 					frame.setVisible(true);
 					wishlistDialog = new WishlistDialog();
