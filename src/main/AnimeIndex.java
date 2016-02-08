@@ -95,7 +95,6 @@ import util.window.WishlistDialog;
 //caratteri speciali aggiunta anime
 //elenco musiche inserite
 //cancellando dall'album a volte le musiche nn vengono cancellate
-//fixare newsboard a volte nn completa
 //importare uscite stagionali da rad
 
 public class AnimeIndex extends JFrame
