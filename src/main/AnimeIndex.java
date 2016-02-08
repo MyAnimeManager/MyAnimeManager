@@ -29,7 +29,6 @@ import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -92,11 +91,11 @@ import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
-
-//fixare newsboard a volte nn completa
+//fixare conurrent modification exception
 //caratteri speciali aggiunta anime
 //elenco musiche inserite
 //cancellando dall'album a volte le musiche nn vengono cancellate
+//fixare newsboard a volte nn completa
 //importare uscite stagionali da rad
 
 public class AnimeIndex extends JFrame
