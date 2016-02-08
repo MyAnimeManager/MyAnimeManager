@@ -84,21 +84,19 @@ import util.window.NewsBoardDialog;
 import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
 import util.window.SuggestionDialog;
+import util.window.SupportersDialog;
 import util.window.ThanksDialog;
 import util.window.UpdateDialog;
 import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
-
-//fixare time out server anilist
-//fixare newsboard a volte nn completa
+//fixare conurrent modification exception
 //caratteri speciali aggiunta anime
 //elenco musiche inserite
 //cancellando dall'album a volte le musiche nn vengono cancellate
-//la lista fansub nn viene aggiornata dopo un nuovo inserimento
+//fixare newsboard a volte nn completa
 //importare uscite stagionali da rad
-//aggiungere lista donatori
 
 public class AnimeIndex extends JFrame
 {
@@ -373,10 +371,10 @@ public class AnimeIndex extends JFrame
 							}
 						}
 						else if (choiche == 1)
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" > \"Crediti\"");
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" > \"Crediti\" o\n\rsul menù \"Info\" > \"Sostenitori\"");
 						else if (choiche == 2)
 						{
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "\n\rOk, non te lo chiederemo più.\n\r\n\r\n\rMa ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" > \"Crediti\"");
+							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "\n\rOk, non te lo chiederemo più.\n\r\n\r\n\rMa ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" > \"Crediti\" o\n\rsul menù \"Info\" > \"Sostenitori\"");
 							appProp.setProperty("Ask_for_donation", "false");
 						}
 					}
@@ -1210,13 +1208,27 @@ public class AnimeIndex extends JFrame
 		JMenuItem mntmControlloAggiornamenti = new JMenuItem("Controllo aggiornamenti");
 		mntmControlloAggiornamenti.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/Update.png")));
 		mnInfo.add(mntmControlloAggiornamenti);
+		
+		JMenuItem supporters = new JMenuItem("Sostenitori");
+		supporters.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/donation.png")));
+		supporters.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SupportersDialog supporters = new SupportersDialog();
+				supporters.setLocationRelativeTo(AnimeIndex.mainFrame);
+				supporters.setVisible(true);
+			}
+		});
+		
+		JSeparator separator_23 = new JSeparator();
+		mnInfo.add(separator_23);
+		mnInfo.add(supporters);
 
 		JSeparator separator_1 = new JSeparator();
 		mnInfo.add(separator_1);
 		if (AnimeIndex.colorProp.getProperty("Menu_color") != null && !AnimeIndex.colorProp.getProperty("Menu_color").equalsIgnoreCase("null"))
 			mnInfo.setBackground(new Color(Integer.parseInt(colorProp.getProperty("Menu_color"))));
 
-		JMenuItem mntmRingraziamenti = new JMenuItem("Ringraziamenti");
+		JMenuItem mntmRingraziamenti = new JMenuItem("Collaboratori");
 		mntmRingraziamenti.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/partners-icon.png")));
 		mntmRingraziamenti.addActionListener(new ActionListener() {
 
