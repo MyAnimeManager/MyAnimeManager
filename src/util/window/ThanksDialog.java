@@ -15,18 +15,20 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.awt.Toolkit;
 
 public class ThanksDialog extends JDialog
 {
 
 	public ThanksDialog()
 	{
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ThanksDialog.class.getResource("/image/partners-icon.png")));
 		setTitle("Collaboratori");
 		setType(Type.POPUP);
 		setModal(true);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setResizable(false);
-		setBounds(100, 100, 524, 300);
+		setBounds(100, 100, 524, 256);
 		getContentPane().setLayout(new BorderLayout());
 		{
 			JPanel buttonPane = new JPanel();

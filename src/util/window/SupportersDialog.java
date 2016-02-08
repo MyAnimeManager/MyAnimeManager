@@ -3,19 +3,28 @@ package util.window;
 import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Desktop;
+
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
+
 import java.awt.Insets;
+
+import main.AnimeIndex;
+
 import org.apache.commons.lang3.StringEscapeUtils;
+
 import util.MAMUtil;
+
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,6 +35,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.awt.Toolkit;
 
 
 public class SupportersDialog extends JDialog {
@@ -34,28 +44,32 @@ public class SupportersDialog extends JDialog {
 
 	public SupportersDialog()
 	{
+		super(AnimeIndex.frame, true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SupportersDialog.class.getResource("/image/donation.png")));
 		setTitle("Sostenitori");
 		setResizable(false);
-		setBounds(100, 100, 450, 227);
+		setBounds(100, 100, 340, 343);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{434, 0};
-		gbl_contentPanel.rowHeights = new int[]{228, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWidths = new int[]{184, 144, 0};
+		gbl_contentPanel.rowHeights = new int[]{228, 0};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JScrollPane scrollPane = new JScrollPane();
 			GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-			gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+			gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
 			gbc_scrollPane.fill = GridBagConstraints.BOTH;
 			gbc_scrollPane.gridx = 0;
 			gbc_scrollPane.gridy = 0;
 			contentPanel.add(scrollPane, gbc_scrollPane);
 			{
 				JTextArea donatorsList = new JTextArea();
+				donatorsList.setLineWrap(true);
+				donatorsList.setWrapStyleWord(true);
 				donatorsList.setEditable(false);
 				donatorsList.setOpaque(false);
 				scrollPane.setViewportView(donatorsList);
@@ -63,6 +77,15 @@ public class SupportersDialog extends JDialog {
 				scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 				donatorsList.setText(loadSupporters());
 			}
+		}
+		{
+			JLabel label = new JLabel("");
+			label.setIcon(new ImageIcon(SupportersDialog.class.getResource("/image/Yuki.png")));
+			GridBagConstraints gbc_label = new GridBagConstraints();
+			gbc_label.anchor = GridBagConstraints.SOUTHWEST;
+			gbc_label.gridx = 1;
+			gbc_label.gridy = 0;
+			contentPanel.add(label, gbc_label);
 		}
 		{
 			JLabel lblRingraziamoPerLa = new JLabel("RINGRAZIAMO PER LA LORO DONAZIONE :");
