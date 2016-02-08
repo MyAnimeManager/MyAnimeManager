@@ -8,6 +8,7 @@ import javax.swing.SwingWorker;
 import org.apache.commons.logging.LogFactory;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -52,6 +53,7 @@ public class NewsTask extends SwingWorker
 		java.util.logging.Logger.getLogger("org.apache.http.client.protocol.ResponseProcessCookies").setLevel(java.util.logging.Level.OFF);
 		LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
 		WebClient webClient = null;
+		HtmlPage page = null;
 		try
 		{
 			webClient = new WebClient(BrowserVersion.EDGE);
@@ -63,10 +65,11 @@ public class NewsTask extends SwingWorker
 			webClient.getOptions().setThrowExceptionOnScriptError(false);
 			webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 			webClient.waitForBackgroundJavaScriptStartingBefore(5 * 1000);
+			webClient.getOptions().setRedirectEnabled(false);
 
 			String url = RAD_URL;
 			System.out.println("Loading page now: " + url);
-			HtmlPage page = webClient.getPage(url);
+			page = webClient.getPage(url);
 			// get divs which have a 'class' attribute of 'mainbg'
 			
 			HtmlDivision div = page.getFirstByXPath("//div[@class='mainbg']");
@@ -74,6 +77,13 @@ public class NewsTask extends SwingWorker
 			List<?> linkList = orderedList.getByXPath("//ol/li//a[@target='_blank']");
 			for (int i = 0; i < linkList.size(); i++)
 				map.put(((HtmlAnchor) linkList.get(i)).asText(), ((HtmlAnchor) linkList.get(i)).getAttribute("href"));
+		}
+		catch (FailingHttpStatusCodeException e) {
+			e.printStackTrace();
+			System.out.println("ERRORE");
+			if (e.getStatusCode() == 302) {
+					System.out.println(page.toString());			
+			}
 		}
 		catch (Exception e)
 		{
