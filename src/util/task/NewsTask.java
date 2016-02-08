@@ -80,8 +80,8 @@ public class NewsTask extends SwingWorker
 		}
 		catch (FailingHttpStatusCodeException e) {
 			e.printStackTrace();
-			System.out.println("ERRORE");
 			if (e.getStatusCode() == 302) {
+					System.out.println("ERRORE");
 					System.out.println(page.toString());			
 			}
 		}
