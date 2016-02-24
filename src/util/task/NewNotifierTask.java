@@ -1,24 +1,24 @@
 package util.task;
 
+import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.SwingWorker;
-
 import org.apache.commons.lang3.StringEscapeUtils;
-
 import main.AnimeIndex;
 import util.MAMUtil;
 import util.SuggestionHelper;
 
 public class NewNotifierTask extends SwingWorker
 {
-
 	public static String packNumber;
 	private boolean newSongs;
+	private String lastUpdateDescription;
 
 	@Override
 	protected Object doInBackground() throws Exception
@@ -38,16 +38,34 @@ public class NewNotifierTask extends SwingWorker
 			AnimeIndex.appProp.setProperty("Suggestions_Pack_Number", packNumber);
 		}
 		if (newSongs)
-			JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nuove musiche sono disponibili in \"My Anime Musics\" !!!", "Nuove Musiche !!!", JOptionPane.INFORMATION_MESSAGE);
+		{
+			JTextArea textArea = new JTextArea(10, 30);
+			try
+			{
+			    textArea.setText(lastUpdateDescription);
+			}
+			catch (Exception e1)
+			{
+				MAMUtil.writeLog(e1);
+				e1.printStackTrace();
+			}
+			textArea.setFont(MAMUtil.loadFont().deriveFont(12f));
+			textArea.setEditable(false);
+			textArea.setOpaque(false);
+			JScrollPane scrollPane = new JScrollPane(textArea);
+		    scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+			scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
+		    JOptionPane.showMessageDialog(AnimeIndex.mainFrame, scrollPane, "Nuove musiche sono disponibili in \"My Anime Musics\" !!!", JOptionPane.PLAIN_MESSAGE);
+		}
 	}
 	
 	private boolean newSongs()
 	{
-		URL url; // The URL to read
-		HttpURLConnection conn = null; // The actual connection to the web page
-		BufferedReader rr; // Used to read results from the web page
-		String line; // An individual line of the web page HTML
-		String result = ""; // A long string containing all the HTML
+		URL url;
+		HttpURLConnection conn = null;
+		BufferedReader rr;
+		String line;
+		String result = "";
 		String address = "http://myanimemanagerupdate.webstarts.com/music.html";
 		try
 		{
@@ -66,6 +84,7 @@ public class NewNotifierTask extends SwingWorker
 		}
 		result = StringEscapeUtils.unescapeJava(result);
 		String shouldNew = result.substring(result.indexOf("[newMusic]") + 10, result.indexOf("[/newMusic]"));
+		lastUpdateDescription = result.substring(result.indexOf("[lastUpdateDescription]") + 23, result.indexOf("[/lastUpdateDescription]"));
 		if (!shouldNew.equalsIgnoreCase(AnimeIndex.appProp.getProperty("New_Musics")))
 		{
 			AnimeIndex.appProp.setProperty("New_Musics", shouldNew);

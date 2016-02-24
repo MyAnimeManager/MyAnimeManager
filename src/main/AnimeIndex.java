@@ -93,7 +93,6 @@ import util.window.WishlistDialog;
 //TODO fixare "IL BUG"
 //fixare conurrent modification exception
 //caratteri speciali aggiunta anime
-//elenco musiche inserite
 //cancellando dall'album a volte le musiche nn vengono cancellate
 //importare uscite stagionali da rad
 
