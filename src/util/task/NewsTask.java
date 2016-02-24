@@ -56,7 +56,7 @@ public class NewsTask extends SwingWorker
 		HtmlPage page = null;
 		try
 		{
-			webClient = new WebClient(BrowserVersion.EDGE);
+			webClient = new WebClient(BrowserVersion.FIREFOX_38);
 			webClient.getCache().setMaxSize(0);
 			webClient.getOptions().setJavaScriptEnabled(true);
 			webClient.getOptions().setCssEnabled(false);
@@ -65,7 +65,8 @@ public class NewsTask extends SwingWorker
 			webClient.getOptions().setThrowExceptionOnScriptError(false);
 			webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 			webClient.waitForBackgroundJavaScriptStartingBefore(5 * 1000);
-			webClient.getOptions().setRedirectEnabled(false);
+			webClient.getCookieManager().setCookiesEnabled(false);
+//			webClient.getOptions().setRedirectEnabled(false);
 
 			String url = RAD_URL;
 			System.out.println("Loading page now: " + url);
@@ -73,6 +74,7 @@ public class NewsTask extends SwingWorker
 			// get divs which have a 'class' attribute of 'mainbg'
 			
 			HtmlDivision div = page.getFirstByXPath("//div[@class='mainbg']");
+			System.out.println("Pagina:" + page.asText());
 			HtmlOrderedList orderedList = div.getFirstByXPath("//ol");
 			List<?> linkList = orderedList.getByXPath("//ol/li//a[@target='_blank']");
 			for (int i = 0; i < linkList.size(); i++)
