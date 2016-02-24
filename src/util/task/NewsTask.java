@@ -74,7 +74,6 @@ public class NewsTask extends SwingWorker
 			// get divs which have a 'class' attribute of 'mainbg'
 			
 			HtmlDivision div = page.getFirstByXPath("//div[@class='mainbg']");
-			System.out.println("Pagina:" + page.asText());
 			HtmlOrderedList orderedList = div.getFirstByXPath("//ol");
 			List<?> linkList = orderedList.getByXPath("//ol/li//a[@target='_blank']");
 			for (int i = 0; i < linkList.size(); i++)
