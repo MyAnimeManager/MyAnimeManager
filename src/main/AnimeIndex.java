@@ -93,7 +93,7 @@ import util.window.WishlistDialog;
 //TODO fixare "IL BUG"
 //fixare conurrent modification exception
 //caratteri speciali aggiunta anime
-//cancellando dall'album a volte le musiche nn vengono cancellate
+// (?) cancellando dall'album a volte le musiche nn vengono cancellate
 //importare uscite stagionali da rad
 
 public class AnimeIndex extends JFrame
