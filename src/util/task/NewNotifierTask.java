@@ -39,7 +39,7 @@ public class NewNotifierTask extends SwingWorker
 		}
 		if (newSongs)
 		{
-			JTextArea textArea = new JTextArea(10, 30);
+			JTextArea textArea = new JTextArea(8, 30);
 			try
 			{
 			    textArea.setText(lastUpdateDescription);
