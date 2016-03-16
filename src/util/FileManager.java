@@ -1,6 +1,8 @@
 package util;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.imageio.ImageIO;
 
@@ -749,5 +753,36 @@ public class FileManager
 				}
 			}
 		}
+	}
+	
+	public static void createZip(File dest, ArrayList<File> fileArray)
+	{	//usare File.list per prendere la lista dei file nella cartella
+		try
+		{
+			FileOutputStream zipFile = new FileOutputStream(dest);
+			ZipOutputStream zipFileStream = new ZipOutputStream(new BufferedOutputStream(zipFile)); 
+			byte data[] = new byte[2048];
+			for (File entry : fileArray)
+			{	
+				System.out.println("Aggiungendo: "+ entry.getPath());
+				 FileInputStream fi = new FileInputStream(entry);
+				 BufferedInputStream origin = new BufferedInputStream(fi, 2048);
+				 ZipEntry zipEntry = new ZipEntry(entry.getParentFile().getName() + File.separator + entry.getName());
+				 zipFileStream.putNextEntry(zipEntry);
+				 int count;
+				while((count = origin.read(data, 0, 2048)) != -1) 
+				{
+					zipFileStream.write(data, 0, count);
+				}
+				origin.close();
+			}
+			zipFileStream.close();
+		}
+		catch (Exception e)
+		{
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
+		}
+		
 	}
 }
