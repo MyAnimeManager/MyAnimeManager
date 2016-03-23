@@ -16,10 +16,13 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import javax.imageio.ImageIO;
@@ -755,19 +758,19 @@ public class FileManager
 		}
 	}
 	
-	public static void createZip(File dest, ArrayList<File> fileArray)
+	public static void createZip(File dest, LinkedHashMap<File,String> fileDestMap)
 	{	//usare File.list per prendere la lista dei file nella cartella
 		try
 		{
 			FileOutputStream zipFile = new FileOutputStream(dest);
 			ZipOutputStream zipFileStream = new ZipOutputStream(new BufferedOutputStream(zipFile)); 
 			byte data[] = new byte[2048];
-			for (File entry : fileArray)
+			for (Entry<File,String> entry : fileDestMap.entrySet())
 			{	
-				System.out.println("Aggiungendo: "+ entry.getPath());
-				 FileInputStream fi = new FileInputStream(entry);
+				System.out.println("Aggiungendo: "+ entry.getKey().getPath());
+				 FileInputStream fi = new FileInputStream(entry.getKey());
 				 BufferedInputStream origin = new BufferedInputStream(fi, 2048);
-				 ZipEntry zipEntry = new ZipEntry(entry.getParentFile().getName() + File.separator + entry.getName());
+				 ZipEntry zipEntry = new ZipEntry(entry.getValue() + entry.getKey().getName());
 				 zipFileStream.putNextEntry(zipEntry);
 				 int count;
 				while((count = origin.read(data, 0, 2048)) != -1) 
@@ -784,5 +787,33 @@ public class FileManager
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public static void extractZip(File folderDest, File zipFile)
+	{
+		int BUFFER = 2048;
+	      try {
+	         BufferedOutputStream dest = null;
+	         FileInputStream fis = new FileInputStream(zipFile);
+	         ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
+	         ZipEntry entry;
+	         while((entry = zis.getNextEntry()) != null) {
+	            System.out.println("Extracting: " + entry);	            int count;
+	            byte data[] = new byte[BUFFER];
+	            // write the files to the disk
+	            FileOutputStream fos = new FileOutputStream(folderDest.getAbsolutePath() + File.separator + entry.getName());
+	            dest = new BufferedOutputStream(fos, BUFFER);
+	            while ((count = zis.read(data, 0, BUFFER)) 
+	              != -1) {
+	               dest.write(data, 0, count);
+	            }
+	            dest.flush();
+	            dest.close();
+	         }
+	         zis.close();
+	      } catch(Exception e) {
+	    	  MAMUtil.writeLog(e);
+	         e.printStackTrace();
+	      }
 	}
 }

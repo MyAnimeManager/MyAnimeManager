@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
@@ -32,7 +32,9 @@ import org.apache.commons.io.FileUtils;
 import main.AnimeIndex;
 import util.FileManager;
 import util.ImageChooserFilter;
+import util.ImportExportFileFilter;
 import util.MAMUtil;
+import util.task.BackupImportExportTask;
 
 public class PreferenceDialog extends JDialog
 {
@@ -539,7 +541,7 @@ public class PreferenceDialog extends JDialog
 			contentPanel.add(separator, gbc_separator);
 		}
 		{
-			JLabel lblEsportaListe = new JLabel("Esporta Liste :");
+			JLabel lblEsportaListe = new JLabel("Backup Liste :");
 			GridBagConstraints gbc_lblEsportaListe = new GridBagConstraints();
 			gbc_lblEsportaListe.anchor = GridBagConstraints.WEST;
 			gbc_lblEsportaListe.insets = new Insets(0, 0, 5, 5);
@@ -548,23 +550,24 @@ public class PreferenceDialog extends JDialog
 			contentPanel.add(lblEsportaListe, gbc_lblEsportaListe);
 		}
 		{
-			JButton exportAllButton = new JButton("Tutte");
-			exportAllButton.addActionListener(new ActionListener() {
+			JButton exportButton = new JButton("Esporta");
+			exportButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
 					JFileChooser fc = new JFileChooser(chooserDir);
 					fc.setMultiSelectionEnabled(false);
 					fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+					fc.setFileFilter(new ImportExportFileFilter());
 					fc.setSelectedFile(new File(chooserDir + File.separator + "liste.zip"));
 					int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Esporta");
 					if (returnVal == JFileChooser.APPROVE_OPTION)
 					{
-						ArrayList<File> fileToZip = new ArrayList<>();
+						LinkedHashMap<File,String> fileToZip = new LinkedHashMap<File,String>();
 						File animeFolder = new File(MAMUtil.getAnimeFolderPath());
 						File[] fileList = animeFolder.listFiles();
 						for (int i = 0; i < fileList.length; i++)
 						{
-							fileToZip.add(fileList[i]);
+							fileToZip.put(fileList[i], "Anime" + File.separator);
 						}
 						File imageAnimeFolder = new File(MAMUtil.getImageFolderPath());
 						
@@ -574,32 +577,55 @@ public class PreferenceDialog extends JDialog
 							File[] fileImage = folderImage[i].listFiles();
 							for (int j = 0; j < fileImage.length; j++)
 							{
-								fileToZip.add(fileImage[j]);
+								fileToZip.put(fileImage[j], "Images" + File.separator + folderImage[i].getName() + File.separator);
 							}
 						}
 						
 						File fansub = new File(MAMUtil.getFansubPath());
-						fileToZip.add(fansub);
-						FileManager.createZip(fc.getSelectedFile(), fileToZip);
+						fileToZip.put(fansub, "");
 						
+						BackupImportExportTask task = new BackupImportExportTask(fc.getSelectedFile(), fileToZip);
+						WaitDialog waitForZip = new WaitDialog("Esportando...", "Esportando i dati", task, PreferenceDialog.this);
+						waitForZip.setLocationRelativeTo(PreferenceDialog.this);
+						waitForZip.setVisible(true);
+
 					}
 
 				}
 			});
-			GridBagConstraints gbc_exportAllButton = new GridBagConstraints();
-			gbc_exportAllButton.fill = GridBagConstraints.HORIZONTAL;
-			gbc_exportAllButton.insets = new Insets(0, 0, 5, 5);
-			gbc_exportAllButton.gridx = 1;
-			gbc_exportAllButton.gridy = 13;
-			contentPanel.add(exportAllButton, gbc_exportAllButton);
+			GridBagConstraints gbc_exportButton = new GridBagConstraints();
+			gbc_exportButton.fill = GridBagConstraints.HORIZONTAL;
+			gbc_exportButton.insets = new Insets(0, 0, 5, 5);
+			gbc_exportButton.gridx = 1;
+			gbc_exportButton.gridy = 13;
+			contentPanel.add(exportButton, gbc_exportButton);
 		}
 		{
-			JButton chooseListButton = new JButton("Scegli...");
-			GridBagConstraints gbc_chooseListButton = new GridBagConstraints();
-			gbc_chooseListButton.insets = new Insets(0, 0, 5, 0);
-			gbc_chooseListButton.gridx = 2;
-			gbc_chooseListButton.gridy = 13;
-			contentPanel.add(chooseListButton, gbc_chooseListButton);
+			JButton importButton = new JButton("Importa");
+			importButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+					JFileChooser fc = new JFileChooser(chooserDir);
+					fc.setMultiSelectionEnabled(false);
+					fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+					fc.setFileFilter(new ImportExportFileFilter());
+					int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Importa");
+					if (returnVal == JFileChooser.APPROVE_OPTION)
+					{
+						File zipFile = fc.getSelectedFile();
+						BackupImportExportTask task = new BackupImportExportTask(zipFile);
+						WaitDialog waitForZip = new WaitDialog("Importando...", "Importando i dati", task, PreferenceDialog.this);
+						waitForZip.setLocationRelativeTo(PreferenceDialog.this);
+						waitForZip.setVisible(true);
+					}
+				}
+			});
+			GridBagConstraints gbc_importButton = new GridBagConstraints();
+			gbc_importButton.fill = GridBagConstraints.BOTH;
+			gbc_importButton.insets = new Insets(0, 0, 5, 0);
+			gbc_importButton.gridx = 2;
+			gbc_importButton.gridy = 13;
+			contentPanel.add(importButton, gbc_importButton);
 		}
 
 		{

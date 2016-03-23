@@ -4,34 +4,31 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
-/* ImageFilter.java is used by FileChooserDemo2.java. */
-public class ImageChooserFilter extends FileFilter
-{
 
-	// Accept all directories and all gif, jpg, tiff, or png files.
+public class ImportExportFileFilter extends FileFilter
+{
+	
 	@Override
 	public boolean accept(File f)
 	{
 		if (f.isDirectory())
-			return true;
-
+			return false;
 		String extension = getExtension(f);
 		if (extension != null)
 		{
-			if (extension.equals("tiff") || extension.equals("tif") || extension.equals("gif") || extension.equals("jpeg") || extension.equals("jpg") || extension.equals("png"))
-				return true;
+			if (extension.equalsIgnoreCase("zip"))
+					return true;
 			return false;
 		}
 		return false;
 	}
-
-	// The description of this filter
+	
 	@Override
 	public String getDescription()
 	{
-		return "Tutte le Immagini";
+		return "File zip";
 	}
-
+	
 	private String getExtension(File f)
 	{
 		String ext = null;
