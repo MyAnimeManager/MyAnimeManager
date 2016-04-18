@@ -29,6 +29,7 @@ import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -55,7 +56,10 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import org.apache.commons.io.FileUtils;
 import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
+
 import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.ColorProperties;
@@ -963,6 +967,75 @@ public class AnimeIndex extends JFrame
 		JMenuItem mntmAggiungiFansub = new JMenuItem("Nuovo Fansub");
 		mntmAggiungiFansub.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/Aegisub.png")));
 		mnAggiungi.add(mntmAggiungiFansub);
+		
+		JSeparator separator_24 = new JSeparator();
+		mnAggiungi.add(separator_24);
+		
+		JMenuItem mntmNuovaPuntata = new JMenuItem("Nuova Puntata");
+		mntmNuovaPuntata.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+				JFileChooser fc = new JFileChooser(chooserDir);
+				fc.setMultiSelectionEnabled(true);
+				fc.addChoosableFileFilter(new ImageChooserFilter());
+				fc.setAcceptAllFileFilterUsed(true);
+				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Aggiungi");
+
+				if (returnVal == JFileChooser.APPROVE_OPTION)
+				{
+					File[] files = fc.getSelectedFiles();
+					String mainFolder = AnimeIndex.appProp.getProperty("Episode_Folder");
+					String animeName = (String) MAMUtil.getJList().getSelectedValue();
+					for (int i = 0; i < files.length; i++)
+					{
+						File episode = files[i];
+						if (!episode.isDirectory())
+						{
+							File folder = new File(mainFolder + File.separator + animeName);
+							int episodeNumber = folder.listFiles().length + 1;
+							//TODO usare il pattern impostato dall'utente.
+							String episodeName = AnimeIndex.appProp.getProperty("Episode_Name_Pattern");
+							episodeName = episodeName.replace("%T%", episode.getName());
+							episodeName = episodeName.replace("%N%", Integer.toString(episodeNumber));
+							try
+							{
+								FileUtils.moveFile(episode, new File(folder + File.separator + episodeName));
+							}
+							catch (IOException e1)
+							{
+								MAMUtil.writeLog(e1);
+								e1.printStackTrace();
+							}
+							
+						}
+						else if (episode.isDirectory())
+						{
+							File[] episodeList = episode.listFiles();
+							for (int j = 0; j < episodeList.length; j++)
+							{
+								File singleEpisode = episodeList[j];
+								File folder = new File(mainFolder + File.separator + animeName);
+								int episodeNumber = folder.listFiles().length + 1;
+								//TODO usare il pattern impostato dall'utente.
+								String episodeName = singleEpisode.getName() + "-" + episodeNumber;
+								try
+								{
+									FileUtils.moveFile(singleEpisode, new File(folder + File.separator + episodeName));
+								}
+								catch (IOException e1)
+								{
+									MAMUtil.writeLog(e1);
+									e1.printStackTrace();
+								}
+							}
+						}
+					}
+
+
+				}
+			}
+		});
+		mnAggiungi.add(mntmNuovaPuntata);
 		mntmAggiungiFansub.addActionListener(new ActionListener() {
 
 			@Override

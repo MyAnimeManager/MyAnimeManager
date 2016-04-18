@@ -1,6 +1,7 @@
 package util.window;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -25,13 +26,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import org.apache.commons.io.FileUtils;
 
 import main.AnimeIndex;
+import util.EpisodeChooserFilter;
 import util.FileManager;
-import util.ImageChooserFilter;
 import util.ImportExportFileFilter;
 import util.MAMUtil;
 import util.task.BackupImportExportTask;
@@ -52,6 +55,7 @@ public class PreferenceDialog extends JDialog
 	private JButton btnEsporta;
 	private JButton btnCancella;
 	private JLabel lblFileDiLog;
+	private JTextField patternTextField;
 
 	/**
 	 * Create the dialog.
@@ -63,15 +67,15 @@ public class PreferenceDialog extends JDialog
 		setTitle("Preferenze");
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 380, 360);
+		setBounds(100, 100, 380, 420);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.EAST);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[] { 197, 90, 0, 0 };
-		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPanel.columnWeights = new double[] { 1.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_contentPanel.columnWeights = new double[] { 1.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblListToVisualize = new JLabel("Lista da visualizzare all'avvio :");
@@ -207,6 +211,9 @@ public class PreferenceDialog extends JDialog
 						else
 							AnimeIndex.appProp.setProperty("Open_NewsBoard", "false");
 
+						String pattern = patternTextField.getText();
+						AnimeIndex.appProp.setProperty("Episode_Name_Pattern", pattern);
+						
 						JButton but = (JButton) e.getSource();
 						JDialog dialog = (JDialog) but.getTopLevelAncestor();
 						dialog.dispose();
@@ -369,7 +376,7 @@ public class PreferenceDialog extends JDialog
 				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
 				JFileChooser fc = new JFileChooser(chooserDir);
 				fc.setMultiSelectionEnabled(false);
-				fc.addChoosableFileFilter(new ImageChooserFilter());
+				fc.addChoosableFileFilter(new EpisodeChooserFilter());
 				fc.setAcceptAllFileFilterUsed(false);
 				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Imposta");
 
@@ -383,6 +390,7 @@ public class PreferenceDialog extends JDialog
 					AnimeIndex.animeInformation.setBlank();
 
 				}
+				
 			}
 		});
 		GridBagConstraints gbc_DefaultImageButton = new GridBagConstraints();
@@ -627,6 +635,61 @@ public class PreferenceDialog extends JDialog
 			gbc_importButton.gridy = 13;
 			contentPanel.add(importButton, gbc_importButton);
 		}
+		{
+			JSeparator separator = new JSeparator();
+			GridBagConstraints gbc_separator = new GridBagConstraints();
+			gbc_separator.fill = GridBagConstraints.BOTH;
+			gbc_separator.gridwidth = 3;
+			gbc_separator.insets = new Insets(0, 0, 5, 0);
+			gbc_separator.gridx = 0;
+			gbc_separator.gridy = 14;
+			contentPanel.add(separator, gbc_separator);
+		}
+		{
+			JLabel lblPatternRinominazioneEpisodi = new JLabel("Pattern Rinominazione Episodi :");
+			GridBagConstraints gbc_lblPatternRinominazioneEpisodi = new GridBagConstraints();
+			gbc_lblPatternRinominazioneEpisodi.anchor = GridBagConstraints.WEST;
+			gbc_lblPatternRinominazioneEpisodi.insets = new Insets(0, 0, 5, 5);
+			gbc_lblPatternRinominazioneEpisodi.gridx = 0;
+			gbc_lblPatternRinominazioneEpisodi.gridy = 15;
+			contentPanel.add(lblPatternRinominazioneEpisodi, gbc_lblPatternRinominazioneEpisodi);
+		}
+		{
+			JButton btnImpostaCartella = new JButton("Cartella");
+			btnImpostaCartella.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					//TODO selezione cartella principale episodi
+				}
+			});
+			GridBagConstraints gbc_btnImpostaCartella = new GridBagConstraints();
+			gbc_btnImpostaCartella.fill = GridBagConstraints.HORIZONTAL;
+			gbc_btnImpostaCartella.insets = new Insets(0, 0, 5, 5);
+			gbc_btnImpostaCartella.gridx = 1;
+			gbc_btnImpostaCartella.gridy = 15;
+			contentPanel.add(btnImpostaCartella, gbc_btnImpostaCartella);
+		}
+		{
+			JLabel label = new JLabel("  ?  ");
+			label.setBorder(new LineBorder(Color.LIGHT_GRAY));
+			label.setToolTipText("<html>\r\n%T% - Titolo <br>\r\n%N% - Numero Episodio \r\n</html>");
+			GridBagConstraints gbc_label = new GridBagConstraints();
+			gbc_label.fill = GridBagConstraints.VERTICAL;
+			gbc_label.insets = new Insets(0, 0, 5, 0);
+			gbc_label.gridx = 2;
+			gbc_label.gridy = 15;
+			contentPanel.add(label, gbc_label);
+		}
+		{
+			patternTextField = new JTextField();
+			GridBagConstraints gbc_patternTextField = new GridBagConstraints();
+			gbc_patternTextField.gridwidth = 3;
+			gbc_patternTextField.insets = new Insets(0, 0, 5, 0);
+			gbc_patternTextField.fill = GridBagConstraints.BOTH;
+			gbc_patternTextField.gridx = 0;
+			gbc_patternTextField.gridy = 16;
+			contentPanel.add(patternTextField, gbc_patternTextField);
+			patternTextField.setColumns(10);
+		}
 
 		{
 			JSeparator separator = new JSeparator();
@@ -634,7 +697,7 @@ public class PreferenceDialog extends JDialog
 			gbc_separator.fill = GridBagConstraints.BOTH;
 			gbc_separator.gridwidth = 3;
 			gbc_separator.gridx = 0;
-			gbc_separator.gridy = 14;
+			gbc_separator.gridy = 17;
 			contentPanel.add(separator, gbc_separator);
 		}
 
