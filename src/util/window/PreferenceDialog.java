@@ -60,7 +60,7 @@ public class PreferenceDialog extends JDialog
 	public PreferenceDialog()
 	{
 		super(AnimeIndex.frame, true);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(PreferenceDialogBKP.class.getResource("/image/System-Preferences-icon.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PreferenceDialog.class.getResource("/image/System-Preferences-icon.png")));
 		setTitle("Preferenze");
 		setResizable(false);
 		setModal(true);
@@ -135,220 +135,6 @@ public class PreferenceDialog extends JDialog
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		tabbedPane.addTab("Impostazioni Liste", null, listSettingPane, null);
-		listSettingPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		GridBagLayout gbl_listSettingPane = new GridBagLayout();
-		gbl_listSettingPane.columnWidths = new int[] { 197, 90, 0, 0 };
-		gbl_listSettingPane.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_listSettingPane.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_listSettingPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE };
-		listSettingPane.setLayout(gbl_listSettingPane);
-		
-		JLabel lblListToVisualize = new JLabel("Lista da visualizzare all'avvio :");
-		GridBagConstraints gbc_lblListToVisualize = new GridBagConstraints();
-		gbc_lblListToVisualize.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblListToVisualize.insets = new Insets(0, 0, 5, 5);
-		gbc_lblListToVisualize.gridx = 0;
-		gbc_lblListToVisualize.gridy = 0;
-		listSettingPane.add(lblListToVisualize, gbc_lblListToVisualize);
-		
-		rdbtnChooseList = new JCheckBox("Scegli Lista :");
-		rdbtnChooseList.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				choosedList.setEnabled(true);
-			}
-		});
-		
-		rdbtnLastList = new JCheckBox("Ultima Lista Visualizzata");
-		rdbtnLastList.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				choosedList.setEnabled(false);
-			}
-		});
-		
-		chckbxDailyRelease = new JCheckBox("Uscite del Giorno");
-		chckbxDailyRelease.setToolTipText("Visualizza le uscite del giorno applicando automaticamente il filtro alle liste");
-		chckbxDailyRelease.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
-				choosedList.setEnabled(false);
-			}
-		});
-		GridBagConstraints gbc_chckbxDailyRelease = new GridBagConstraints();
-		gbc_chckbxDailyRelease.anchor = GridBagConstraints.WEST;
-		gbc_chckbxDailyRelease.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxDailyRelease.gridx = 0;
-		gbc_chckbxDailyRelease.gridy = 1;
-		listSettingPane.add(chckbxDailyRelease, gbc_chckbxDailyRelease);
-		
-		listGroup.add(chckbxDailyRelease);
-		
-		chckbxApriWishlist = new JCheckBox("Apri Wishlist");
-		GridBagConstraints gbc_chckbxApriWishlist = new GridBagConstraints();
-		gbc_chckbxApriWishlist.anchor = GridBagConstraints.WEST;
-		gbc_chckbxApriWishlist.gridwidth = 2;
-		gbc_chckbxApriWishlist.insets = new Insets(0, 0, 5, 0);
-		gbc_chckbxApriWishlist.gridx = 1;
-		gbc_chckbxApriWishlist.gridy = 1;
-		listSettingPane.add(chckbxApriWishlist, gbc_chckbxApriWishlist);
-		
-		GridBagConstraints gbc_rdbtnLastList = new GridBagConstraints();
-		gbc_rdbtnLastList.fill = GridBagConstraints.HORIZONTAL;
-		gbc_rdbtnLastList.insets = new Insets(0, 0, 5, 5);
-		gbc_rdbtnLastList.gridx = 0;
-		gbc_rdbtnLastList.gridy = 2;
-		listSettingPane.add(rdbtnLastList, gbc_rdbtnLastList);
-		
-		listGroup.add(rdbtnLastList);
-		
-		chckbxApriNewsboard = new JCheckBox("Apri NewsBoard");
-		GridBagConstraints gbc_chckbxApriNewsboard = new GridBagConstraints();
-		gbc_chckbxApriNewsboard.anchor = GridBagConstraints.WEST;
-		gbc_chckbxApriNewsboard.gridwidth = 2;
-		gbc_chckbxApriNewsboard.insets = new Insets(0, 0, 5, 0);
-		gbc_chckbxApriNewsboard.gridx = 1;
-		gbc_chckbxApriNewsboard.gridy = 2;
-		listSettingPane.add(chckbxApriNewsboard, gbc_chckbxApriNewsboard);
-		
-		GridBagConstraints gbc_rdbtnChooseList = new GridBagConstraints();
-		gbc_rdbtnChooseList.fill = GridBagConstraints.HORIZONTAL;
-		gbc_rdbtnChooseList.insets = new Insets(0, 0, 5, 5);
-		gbc_rdbtnChooseList.gridx = 0;
-		gbc_rdbtnChooseList.gridy = 3;
-		listSettingPane.add(rdbtnChooseList, gbc_rdbtnChooseList);
-		
-		
-		choosedList = new JComboBox();
-		GridBagConstraints gbc_choosedList = new GridBagConstraints();
-		gbc_choosedList.gridwidth = 2;
-		gbc_choosedList.insets = new Insets(0, 0, 5, 0);
-		gbc_choosedList.fill = GridBagConstraints.HORIZONTAL;
-		gbc_choosedList.gridx = 1;
-		gbc_choosedList.gridy = 3;
-		listSettingPane.add(choosedList, gbc_choosedList);
-		choosedList.setModel(new DefaultComboBoxModel(new String[] { "Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere", "Uscite del Giorno" }));
-		
-		listGroup.add(rdbtnChooseList);
-		
-		JSeparator separator = new JSeparator();
-		GridBagConstraints gbc_separator = new GridBagConstraints();
-		gbc_separator.fill = GridBagConstraints.BOTH;
-		gbc_separator.gridwidth = 3;
-		gbc_separator.insets = new Insets(0, 0, 5, 0);
-		gbc_separator.gridx = 0;
-		gbc_separator.gridy = 4;
-		listSettingPane.add(separator, gbc_separator);
-		
-		
-		JLabel lblEsportaListe = new JLabel("Backup Liste :");
-		GridBagConstraints gbc_lblEsportaListe = new GridBagConstraints();
-		gbc_lblEsportaListe.anchor = GridBagConstraints.WEST;
-		gbc_lblEsportaListe.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEsportaListe.gridx = 0;
-		gbc_lblEsportaListe.gridy = 5;
-		listSettingPane.add(lblEsportaListe, gbc_lblEsportaListe);
-		
-		
-		JButton exportButton = new JButton("Esporta");
-		exportButton.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e)
-			{
-				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
-				JFileChooser fc = new JFileChooser(chooserDir);
-				fc.setMultiSelectionEnabled(false);
-				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				fc.setFileFilter(new ImportExportFileFilter());
-				fc.setSelectedFile(new File(chooserDir + File.separator + "liste.zip"));
-				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Esporta");
-				if (returnVal == JFileChooser.APPROVE_OPTION)
-				{
-					LinkedHashMap<File, String> fileToZip = new LinkedHashMap<File, String>();
-					File animeFolder = new File(MAMUtil.getAnimeFolderPath());
-					File[] fileList = animeFolder.listFiles();
-					for (int i = 0; i < fileList.length; i++)
-					{
-						fileToZip.put(fileList[i], "Anime" + File.separator);
-					}
-					File imageAnimeFolder = new File(MAMUtil.getImageFolderPath());
-					
-					File[] folderImage = imageAnimeFolder.listFiles();
-					for (int i = 0; i < folderImage.length; i++)
-					{
-						File[] fileImage = folderImage[i].listFiles();
-						for (int j = 0; j < fileImage.length; j++)
-						{
-							fileToZip.put(fileImage[j], "Images" + File.separator + folderImage[i].getName() + File.separator);
-						}
-					}
-					
-					File fansub = new File(MAMUtil.getFansubPath());
-					fileToZip.put(fansub, "");
-					
-					BackupImportExportTask task = new BackupImportExportTask(fc.getSelectedFile(), fileToZip);
-					WaitDialog waitForZip = new WaitDialog("Esportando...", "Esportando i dati", task, PreferenceDialog.this);
-					waitForZip.setLocationRelativeTo(PreferenceDialog.this);
-					waitForZip.setVisible(true);
-					
-				}
-				
-			}
-		});
-		GridBagConstraints gbc_exportButton = new GridBagConstraints();
-		gbc_exportButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_exportButton.insets = new Insets(0, 0, 5, 5);
-		gbc_exportButton.gridx = 1;
-		gbc_exportButton.gridy = 5;
-		listSettingPane.add(exportButton, gbc_exportButton);
-		
-		JButton importButton = new JButton("Importa");
-		importButton.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e)
-			{
-				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
-				JFileChooser fc = new JFileChooser(chooserDir);
-				fc.setMultiSelectionEnabled(false);
-				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				fc.setFileFilter(new ImportExportFileFilter());
-				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Importa");
-				if (returnVal == JFileChooser.APPROVE_OPTION)
-				{
-					File zipFile = fc.getSelectedFile();
-					BackupImportExportTask task = new BackupImportExportTask(zipFile);
-					WaitDialog waitForZip = new WaitDialog("Importando...", "Importando i dati", task, PreferenceDialog.this);
-					waitForZip.setLocationRelativeTo(PreferenceDialog.this);
-					waitForZip.setVisible(true);
-				}
-			}
-		});
-		GridBagConstraints gbc_importButton = new GridBagConstraints();
-		gbc_importButton.fill = GridBagConstraints.BOTH;
-		gbc_importButton.insets = new Insets(0, 0, 5, 0);
-		gbc_importButton.gridx = 2;
-		gbc_importButton.gridy = 5;
-		listSettingPane.add(importButton, gbc_importButton);
-		
-		
-		JSeparator separator2 = new JSeparator();
-		GridBagConstraints gbc_separator2 = new GridBagConstraints();
-		gbc_separator2.fill = GridBagConstraints.BOTH;
-		gbc_separator2.gridwidth = 3;
-		gbc_separator2.gridx = 0;
-		gbc_separator2.gridy = 6;
-		listSettingPane.add(separator2, gbc_separator2);
-		
-		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("Impostazioni Episodi", null, panel, null);
 		
 		
 		JPanel generalSettingPane = new JPanel();
@@ -634,9 +420,20 @@ public class PreferenceDialog extends JDialog
 		gbc_btnCancella.gridy = 6;
 		generalSettingPane.add(btnCancella, gbc_btnCancella);
 		
+		GridBagLayout gbl_listSettingPane = new GridBagLayout();
+		gbl_listSettingPane.columnWidths = new int[] { 197, 90, 0, 0 };
+		gbl_listSettingPane.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_listSettingPane.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_listSettingPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE };
+		listSettingPane.setLayout(gbl_listSettingPane);
 		
 		File folder = new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "log" + File.separator);
 		long space = getFolderSize(folder) / 1024;
+		if (space == 0)
+		{
+			btnEsporta.setEnabled(false);
+			btnCancella.setEnabled(false);
+		}
 		logLabel = new JLabel("File di Log : (" + space + "Kb)");
 		GridBagConstraints gbc_logLabel = new GridBagConstraints();
 		gbc_logLabel.anchor = GridBagConstraints.WEST;
@@ -653,13 +450,214 @@ public class PreferenceDialog extends JDialog
 		gbc_separator5.gridx = 0;
 		gbc_separator5.gridy = 7;
 		generalSettingPane.add(separator5, gbc_separator5);
-		if (space == 0)
-		{
-			btnEsporta.setEnabled(false);
-			btnCancella.setEnabled(false);
-		}
+		tabbedPane.addTab("Impostazioni Liste", null, listSettingPane, null);
+		listSettingPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
+		JLabel lblListToVisualize = new JLabel("Lista da visualizzare all'avvio :");
+		GridBagConstraints gbc_lblListToVisualize = new GridBagConstraints();
+		gbc_lblListToVisualize.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblListToVisualize.insets = new Insets(0, 0, 5, 5);
+		gbc_lblListToVisualize.gridx = 0;
+		gbc_lblListToVisualize.gridy = 0;
+		listSettingPane.add(lblListToVisualize, gbc_lblListToVisualize);
+		
+		rdbtnChooseList = new JCheckBox("Scegli Lista :");
+		rdbtnChooseList.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				choosedList.setEnabled(true);
+			}
+		});
+		
+		rdbtnLastList = new JCheckBox("Ultima Lista Visualizzata");
+		rdbtnLastList.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				choosedList.setEnabled(false);
+			}
+		});
+		
+		chckbxDailyRelease = new JCheckBox("Uscite del Giorno");
+		chckbxDailyRelease.setToolTipText("Visualizza le uscite del giorno applicando automaticamente il filtro alle liste");
+		chckbxDailyRelease.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				choosedList.setEnabled(false);
+			}
+		});
+		GridBagConstraints gbc_chckbxDailyRelease = new GridBagConstraints();
+		gbc_chckbxDailyRelease.anchor = GridBagConstraints.WEST;
+		gbc_chckbxDailyRelease.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxDailyRelease.gridx = 0;
+		gbc_chckbxDailyRelease.gridy = 1;
+		listSettingPane.add(chckbxDailyRelease, gbc_chckbxDailyRelease);
+		
+		listGroup.add(chckbxDailyRelease);
+		
+		chckbxApriWishlist = new JCheckBox("Apri Wishlist");
+		GridBagConstraints gbc_chckbxApriWishlist = new GridBagConstraints();
+		gbc_chckbxApriWishlist.anchor = GridBagConstraints.WEST;
+		gbc_chckbxApriWishlist.gridwidth = 2;
+		gbc_chckbxApriWishlist.insets = new Insets(0, 0, 5, 0);
+		gbc_chckbxApriWishlist.gridx = 1;
+		gbc_chckbxApriWishlist.gridy = 1;
+		listSettingPane.add(chckbxApriWishlist, gbc_chckbxApriWishlist);
+		
+		GridBagConstraints gbc_rdbtnLastList = new GridBagConstraints();
+		gbc_rdbtnLastList.fill = GridBagConstraints.HORIZONTAL;
+		gbc_rdbtnLastList.insets = new Insets(0, 0, 5, 5);
+		gbc_rdbtnLastList.gridx = 0;
+		gbc_rdbtnLastList.gridy = 2;
+		listSettingPane.add(rdbtnLastList, gbc_rdbtnLastList);
+		
+		listGroup.add(rdbtnLastList);
+		
+		chckbxApriNewsboard = new JCheckBox("Apri NewsBoard");
+		GridBagConstraints gbc_chckbxApriNewsboard = new GridBagConstraints();
+		gbc_chckbxApriNewsboard.anchor = GridBagConstraints.WEST;
+		gbc_chckbxApriNewsboard.gridwidth = 2;
+		gbc_chckbxApriNewsboard.insets = new Insets(0, 0, 5, 0);
+		gbc_chckbxApriNewsboard.gridx = 1;
+		gbc_chckbxApriNewsboard.gridy = 2;
+		listSettingPane.add(chckbxApriNewsboard, gbc_chckbxApriNewsboard);
+		
+		GridBagConstraints gbc_rdbtnChooseList = new GridBagConstraints();
+		gbc_rdbtnChooseList.fill = GridBagConstraints.HORIZONTAL;
+		gbc_rdbtnChooseList.insets = new Insets(0, 0, 5, 5);
+		gbc_rdbtnChooseList.gridx = 0;
+		gbc_rdbtnChooseList.gridy = 3;
+		listSettingPane.add(rdbtnChooseList, gbc_rdbtnChooseList);
 		
 		
+		choosedList = new JComboBox();
+		GridBagConstraints gbc_choosedList = new GridBagConstraints();
+		gbc_choosedList.gridwidth = 2;
+		gbc_choosedList.insets = new Insets(0, 0, 5, 0);
+		gbc_choosedList.fill = GridBagConstraints.HORIZONTAL;
+		gbc_choosedList.gridx = 1;
+		gbc_choosedList.gridy = 3;
+		listSettingPane.add(choosedList, gbc_choosedList);
+		choosedList.setModel(new DefaultComboBoxModel(new String[] { "Anime Completati", "Anime in Corso", "OAV", "Film", "Completi Da Vedere", "Uscite del Giorno" }));
+		
+		listGroup.add(rdbtnChooseList);
+		
+		JSeparator separator = new JSeparator();
+		GridBagConstraints gbc_separator = new GridBagConstraints();
+		gbc_separator.fill = GridBagConstraints.BOTH;
+		gbc_separator.gridwidth = 3;
+		gbc_separator.insets = new Insets(0, 0, 5, 0);
+		gbc_separator.gridx = 0;
+		gbc_separator.gridy = 4;
+		listSettingPane.add(separator, gbc_separator);
+		
+		
+		JLabel lblEsportaListe = new JLabel("Backup Liste :");
+		GridBagConstraints gbc_lblEsportaListe = new GridBagConstraints();
+		gbc_lblEsportaListe.anchor = GridBagConstraints.WEST;
+		gbc_lblEsportaListe.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEsportaListe.gridx = 0;
+		gbc_lblEsportaListe.gridy = 5;
+		listSettingPane.add(lblEsportaListe, gbc_lblEsportaListe);
+		
+		
+		JButton exportButton = new JButton("Esporta");
+		exportButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e)
+			{
+				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+				JFileChooser fc = new JFileChooser(chooserDir);
+				fc.setMultiSelectionEnabled(false);
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				fc.setFileFilter(new ImportExportFileFilter());
+				fc.setSelectedFile(new File(chooserDir + File.separator + "liste.zip"));
+				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Esporta");
+				if (returnVal == JFileChooser.APPROVE_OPTION)
+				{
+					LinkedHashMap<File, String> fileToZip = new LinkedHashMap<File, String>();
+					File animeFolder = new File(MAMUtil.getAnimeFolderPath());
+					File[] fileList = animeFolder.listFiles();
+					for (int i = 0; i < fileList.length; i++)
+					{
+						fileToZip.put(fileList[i], "Anime" + File.separator);
+					}
+					File imageAnimeFolder = new File(MAMUtil.getImageFolderPath());
+					
+					File[] folderImage = imageAnimeFolder.listFiles();
+					for (int i = 0; i < folderImage.length; i++)
+					{
+						File[] fileImage = folderImage[i].listFiles();
+						for (int j = 0; j < fileImage.length; j++)
+						{
+							fileToZip.put(fileImage[j], "Images" + File.separator + folderImage[i].getName() + File.separator);
+						}
+					}
+					
+					File fansub = new File(MAMUtil.getFansubPath());
+					fileToZip.put(fansub, "");
+					
+					BackupImportExportTask task = new BackupImportExportTask(fc.getSelectedFile(), fileToZip);
+					WaitDialog waitForZip = new WaitDialog("Esportando...", "Esportando i dati", task, PreferenceDialog.this);
+					waitForZip.setLocationRelativeTo(PreferenceDialog.this);
+					waitForZip.setVisible(true);
+					
+				}
+				
+			}
+		});
+		GridBagConstraints gbc_exportButton = new GridBagConstraints();
+		gbc_exportButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_exportButton.insets = new Insets(0, 0, 5, 5);
+		gbc_exportButton.gridx = 1;
+		gbc_exportButton.gridy = 5;
+		listSettingPane.add(exportButton, gbc_exportButton);
+		
+		JButton importButton = new JButton("Importa");
+		importButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e)
+			{
+				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+				JFileChooser fc = new JFileChooser(chooserDir);
+				fc.setMultiSelectionEnabled(false);
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				fc.setFileFilter(new ImportExportFileFilter());
+				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Importa");
+				if (returnVal == JFileChooser.APPROVE_OPTION)
+				{
+					File zipFile = fc.getSelectedFile();
+					BackupImportExportTask task = new BackupImportExportTask(zipFile);
+					WaitDialog waitForZip = new WaitDialog("Importando...", "Importando i dati", task, PreferenceDialog.this);
+					waitForZip.setLocationRelativeTo(PreferenceDialog.this);
+					waitForZip.setVisible(true);
+				}
+			}
+		});
+		GridBagConstraints gbc_importButton = new GridBagConstraints();
+		gbc_importButton.fill = GridBagConstraints.BOTH;
+		gbc_importButton.insets = new Insets(0, 0, 5, 0);
+		gbc_importButton.gridx = 2;
+		gbc_importButton.gridy = 5;
+		listSettingPane.add(importButton, gbc_importButton);
+		
+		
+		JSeparator separator2 = new JSeparator();
+		GridBagConstraints gbc_separator2 = new GridBagConstraints();
+		gbc_separator2.fill = GridBagConstraints.BOTH;
+		gbc_separator2.gridwidth = 3;
+		gbc_separator2.gridx = 0;
+		gbc_separator2.gridy = 6;
+		listSettingPane.add(separator2, gbc_separator2);
+		
+		
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("Impostazioni Episodi", null, panel, null);		
 		
 		String listPreference = AnimeIndex.appProp.getProperty("List_to_visualize_at_start");
 		if (listPreference.equalsIgnoreCase("last list"))
