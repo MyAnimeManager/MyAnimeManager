@@ -117,11 +117,11 @@ public class UpdateDialog extends JDialog
 			e1.printStackTrace();
 			MAMUtil.writeLog(e1);
 		}
-		FileManager.saveAnimeList("completed.txt", AnimeIndex.completedMap);
-		FileManager.saveAnimeList("airing.txt", AnimeIndex.airingMap);
-		FileManager.saveAnimeList("ova.txt", AnimeIndex.ovaMap);
-		FileManager.saveAnimeList("film.txt", AnimeIndex.filmMap);
-		FileManager.saveAnimeList("toSee.txt", AnimeIndex.completedToSeeMap);
+		FileManager.saveAnimeList("completed.anaconda", AnimeIndex.completedMap);
+		FileManager.saveAnimeList("airing.anaconda", AnimeIndex.airingMap);
+		FileManager.saveAnimeList("ova.anaconda", AnimeIndex.ovaMap);
+		FileManager.saveAnimeList("film.anaconda", AnimeIndex.filmMap);
+		FileManager.saveAnimeList("toSee.anaconda", AnimeIndex.completedToSeeMap);
 
 		deleteUselessImage(AnimeIndex.completedDeletedAnime);
 		deleteUselessImage(AnimeIndex.airingDeletedAnime);
