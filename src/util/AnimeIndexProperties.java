@@ -36,7 +36,8 @@ public class AnimeIndexProperties
 			defaultProps.setProperty("Reset_Music_List", "0");
 			defaultProps.setProperty("New_Musics", "0");
 			defaultProps.setProperty("Default_Music_Images", "miku_mem:Headphone..:Hatsune-Miku-Vocaloid..:Hatsune-Miku-Vocaloid...:hatsune-miku-vocaloid-1715:hmny:Hatsune-Miku-Vocaloid:Headphone");
-			defaultProps.setProperty("Episode_Name_Pattern", "%T% - %N%");
+			defaultProps.setProperty("General_Pattern", "%T% - %N%");
+			defaultProps.setProperty("Special_Pattern", "%T% - %N%");
 			defaultProps.setProperty("Episode_Folder", "null");
 			in.close();
 		}
@@ -64,7 +65,8 @@ public class AnimeIndexProperties
 				defaultProps.setProperty("Reset_Music_List", "0");
 				defaultProps.setProperty("New_Musics", "0");
 				defaultProps.setProperty("Default_Music_Images", "miku_mem:Headphone..:Hatsune-Miku-Vocaloid..:Hatsune-Miku-Vocaloid...:hatsune-miku-vocaloid-1715:hmny:Hatsune-Miku-Vocaloid:Headphone");
-				defaultProps.setProperty("Episode_Name_Pattern", "%T% - %N%");
+				defaultProps.setProperty("General_Pattern", "%T% - %N%");
+				defaultProps.setProperty("Special_Pattern", "%T% - %N%");
 				defaultProps.setProperty("Episode_Folder", "null");
 			}
 			catch (IOException e)

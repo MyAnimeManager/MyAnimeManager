@@ -10,7 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
@@ -24,9 +27,20 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import org.apache.commons.io.FileUtils;
 
@@ -36,6 +50,8 @@ import util.FileManager;
 import util.ImportExportFileFilter;
 import util.MAMUtil;
 import util.task.BackupImportExportTask;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class PreferenceDialog extends JDialog
 {
@@ -53,6 +69,10 @@ public class PreferenceDialog extends JDialog
 	private JButton btnEsporta;
 	private JButton btnCancella;
 	private JLabel logLabel;
+	private JTextField generalPatternTextField;
+	private JTextField specialPatternTextField;
+	private JTable table;
+	public DefaultTableModel patternModel = new DefaultTableModel(new String[]{"Anime","Pattern"}, 0);
 	
 	/**
 	 * Create the dialog.
@@ -60,11 +80,19 @@ public class PreferenceDialog extends JDialog
 	public PreferenceDialog()
 	{
 		super(AnimeIndex.frame, true);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				for (Map.Entry<String, String> entry : AnimeIndex.patternAnimeMap.entrySet())
+				{
+					patternModel.addRow(new String[]{entry.getKey(),entry.getValue()});
+				}
+			}
+		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PreferenceDialog.class.getResource("/image/System-Preferences-icon.png")));
 		setTitle("Preferenze");
 		setResizable(false);
-		setModal(true);
-		setBounds(100, 100, 380, 240);
+		setBounds(100, 100, 380, 250);
 		BorderLayout borderLayout = new BorderLayout();
 		getContentPane().setLayout(borderLayout);
 		
@@ -107,10 +135,14 @@ public class PreferenceDialog extends JDialog
 				else
 					AnimeIndex.appProp.setProperty("Open_NewsBoard", "false");
 					
-				// String pattern = patternTextField.getText();
-				// AnimeIndex.appProp.setProperty("Episode_Name_Pattern",
-				// pattern);
+				 String generalPattern = generalPatternTextField.getText();
+				 AnimeIndex.appProp.setProperty("General_Pattern", generalPattern);
+				 
+				 String specialPattern = specialPatternTextField.getText();
+				 AnimeIndex.appProp.setProperty("Special_Pattern", specialPattern);
 				
+				 //TODO salva tabella pattern
+				 
 				JButton but = (JButton) e.getSource();
 				JDialog dialog = (JDialog) but.getTopLevelAncestor();
 				dialog.dispose();
@@ -656,8 +688,137 @@ public class PreferenceDialog extends JDialog
 		listSettingPane.add(separator2, gbc_separator2);
 		
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("Impostazioni Episodi", null, panel, null);		
+		JPanel episodeSettingPane = new JPanel();
+		tabbedPane.addTab("Impostazioni Episodi", null, episodeSettingPane, null);		
+		GridBagLayout gbl_episodeSettingPane = new GridBagLayout();
+		gbl_episodeSettingPane.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_episodeSettingPane.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_episodeSettingPane.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_episodeSettingPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		episodeSettingPane.setLayout(gbl_episodeSettingPane);
+		
+		JLabel lblPatternGenerale = new JLabel("Pattern Generale : ");
+		GridBagConstraints gbc_lblPatternGenerale = new GridBagConstraints();
+		gbc_lblPatternGenerale.fill = GridBagConstraints.VERTICAL;
+		gbc_lblPatternGenerale.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPatternGenerale.anchor = GridBagConstraints.WEST;
+		gbc_lblPatternGenerale.gridx = 0;
+		gbc_lblPatternGenerale.gridy = 0;
+		episodeSettingPane.add(lblPatternGenerale, gbc_lblPatternGenerale);
+		
+		generalPatternTextField = new JTextField();
+		generalPatternTextField.setText(AnimeIndex.appProp.getProperty("General_Pattern"));
+		GridBagConstraints gbc_generalPatternTextField = new GridBagConstraints();
+		gbc_generalPatternTextField.gridwidth = 2;
+		gbc_generalPatternTextField.insets = new Insets(0, 0, 5, 0);
+		gbc_generalPatternTextField.fill = GridBagConstraints.BOTH;
+		gbc_generalPatternTextField.gridx = 1;
+		gbc_generalPatternTextField.gridy = 0;
+		episodeSettingPane.add(generalPatternTextField, gbc_generalPatternTextField);
+		generalPatternTextField.setColumns(10);
+		
+		JLabel lblPatternSpeciali = new JLabel("Pattern Speciali : ");
+		GridBagConstraints gbc_lblPatternSpeciali = new GridBagConstraints();
+		gbc_lblPatternSpeciali.fill = GridBagConstraints.VERTICAL;
+		gbc_lblPatternSpeciali.anchor = GridBagConstraints.WEST;
+		gbc_lblPatternSpeciali.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPatternSpeciali.gridx = 0;
+		gbc_lblPatternSpeciali.gridy = 1;
+		episodeSettingPane.add(lblPatternSpeciali, gbc_lblPatternSpeciali);
+		
+		specialPatternTextField = new JTextField();
+		specialPatternTextField.setText(AnimeIndex.appProp.getProperty("Special_Pattern"));
+		GridBagConstraints gbc_specialPatternTextField = new GridBagConstraints();
+		gbc_specialPatternTextField.gridwidth = 2;
+		gbc_specialPatternTextField.insets = new Insets(0, 0, 5, 0);
+		gbc_specialPatternTextField.fill = GridBagConstraints.BOTH;
+		gbc_specialPatternTextField.gridx = 1;
+		gbc_specialPatternTextField.gridy = 1;
+		episodeSettingPane.add(specialPatternTextField, gbc_specialPatternTextField);
+		specialPatternTextField.setColumns(10);
+		
+		JLabel lblPatternSpecifici = new JLabel("Pattern Specifici : ");
+		GridBagConstraints gbc_lblPatternSpecifici = new GridBagConstraints();
+		gbc_lblPatternSpecifici.fill = GridBagConstraints.VERTICAL;
+		gbc_lblPatternSpecifici.anchor = GridBagConstraints.WEST;
+		gbc_lblPatternSpecifici.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPatternSpecifici.gridx = 0;
+		gbc_lblPatternSpecifici.gridy = 2;
+		episodeSettingPane.add(lblPatternSpecifici, gbc_lblPatternSpecifici);
+		
+		JButton btnAggiungi = new JButton("Aggiungi");
+		btnAggiungi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PatternAddingDialog dialog = new PatternAddingDialog();
+				dialog.setLocationRelativeTo(PreferenceDialog.this);
+				dialog.setVisible(true);
+			}
+		});
+		GridBagConstraints gbc_btnAggiungi = new GridBagConstraints();
+		gbc_btnAggiungi.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnAggiungi.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAggiungi.gridx = 1;
+		gbc_btnAggiungi.gridy = 2;
+		episodeSettingPane.add(btnAggiungi, gbc_btnAggiungi);
+		
+		JButton btnElimina = new JButton("Elimina");
+		btnElimina.setEnabled(false);
+		GridBagConstraints gbc_btnElimina = new GridBagConstraints();
+		gbc_btnElimina.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnElimina.insets = new Insets(0, 0, 5, 0);
+		gbc_btnElimina.gridx = 2;
+		gbc_btnElimina.gridy = 2;
+		episodeSettingPane.add(btnElimina, gbc_btnElimina);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridwidth = 3;
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 3;
+		episodeSettingPane.add(scrollPane, gbc_scrollPane);
+		
+		table = new JTable(){
+
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		        return column == 1;
+		    };
+		};
+		table.setRowSelectionAllowed(true);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setModel(patternModel);
+
+		table.getColumnModel().getColumn(0).setResizable(false);
+		table.getColumnModel().getColumn(1).setResizable(false);
+
+		
+		table.setAutoCreateRowSorter(true);
+		
+		TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
+		table.setRowSorter(sorter);
+		List<RowSorter.SortKey> sortKeys = new ArrayList<>();		 
+		int columnIndexToSort = 0;
+		sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING));
+		sorter.setSortKeys(sortKeys);
+		sorter.setComparator(0, String.CASE_INSENSITIVE_ORDER);
+		sorter.sort();
+		sorter.setSortable(1, false);
+		
+		scrollPane.setViewportView(table);
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if (!e.getValueIsAdjusting())
+				{
+					btnElimina.setEnabled(true);
+				}
+				
+			}
+			
+		});
 		
 		String listPreference = AnimeIndex.appProp.getProperty("List_to_visualize_at_start");
 		if (listPreference.equalsIgnoreCase("last list"))
