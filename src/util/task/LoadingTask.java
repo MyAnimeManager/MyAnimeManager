@@ -31,6 +31,7 @@ public class LoadingTask extends SwingWorker
 		FileManager.loadAnime("toSee.anaconda", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
 		FileManager.loadWishList();
 		FileManager.loadDateMap();
+		FileManager.loadPatternList();
 		return null;
 	}
 

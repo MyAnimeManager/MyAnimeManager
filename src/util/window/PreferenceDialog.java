@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
@@ -141,7 +142,17 @@ public class PreferenceDialog extends JDialog
 				 String specialPattern = specialPatternTextField.getText();
 				 AnimeIndex.appProp.setProperty("Special_Pattern", specialPattern);
 				
-				 //TODO salva tabella pattern
+				 if(table.getCellEditor()!=null)
+					 table.getCellEditor().stopCellEditing();
+				 Vector<Vector> tableVector = patternModel.getDataVector();
+				 AnimeIndex.patternAnimeMap.clear();
+				 for (Vector<String> rowVector : tableVector)
+				 {
+					 String animeName = rowVector.elementAt(0);
+					 String pattern = rowVector.elementAt(1);
+					 if (!pattern.equalsIgnoreCase(generalPattern))
+						 AnimeIndex.patternAnimeMap.put(animeName, pattern);
+				 }
 				 
 				JButton but = (JButton) e.getSource();
 				JDialog dialog = (JDialog) but.getTopLevelAncestor();
@@ -762,6 +773,12 @@ public class PreferenceDialog extends JDialog
 		episodeSettingPane.add(btnAggiungi, gbc_btnAggiungi);
 		
 		JButton btnElimina = new JButton("Elimina");
+		btnElimina.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int row = table.getSelectedRow();
+				patternModel.removeRow(row);
+			}
+		});
 		btnElimina.setEnabled(false);
 		GridBagConstraints gbc_btnElimina = new GridBagConstraints();
 		gbc_btnElimina.fill = GridBagConstraints.HORIZONTAL;

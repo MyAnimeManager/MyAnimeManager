@@ -66,6 +66,7 @@ public class ExitSaveDialog extends JDialog
 							try
 							{
 								FileManager.saveFansubList();
+								FileManager.savePatternList();
 							}
 							catch (IOException e1)
 							{

@@ -481,6 +481,71 @@ public class FileManager
 			{
 			}
 	}
+	
+	public static void savePatternList() throws IOException
+	{
+		File fansubFile = new File(MAMUtil.getPatternPath());
+		fansubFile.getParentFile().mkdirs();
+		BufferedWriter output = new BufferedWriter(new FileWriter(fansubFile));
+		try
+		{
+			for (Map.Entry<String, String> entry : AnimeIndex.patternAnimeMap.entrySet())
+				output.write(entry.getKey() + "||" + entry.getValue() + "||" + System.lineSeparator());
+				
+		}
+		finally
+		{
+			output.close();
+		}
+
+	}
+
+	public static void loadPatternList()
+	{
+		File fansubFile = new File(MAMUtil.getPatternPath());
+		if (fansubFile.isFile())
+		{
+			Scanner scan = null;
+			Scanner line = null;
+			try
+			{
+				scan = new Scanner(fansubFile);
+				while (scan.hasNextLine())
+				{
+					String all = scan.nextLine();
+					line = new Scanner(all);
+					line.useDelimiter("\\|\\|");
+					String fansubString = line.next();
+					String fansubLink = line.next();
+					AnimeIndex.patternAnimeMap.put(fansubString, fansubLink);
+					addDefaultFansub();
+				}
+
+			}
+			catch (FileNotFoundException e)
+			{
+				e.printStackTrace();
+				MAMUtil.writeLog(e);
+			}
+			finally
+			{
+				scan.close();
+				if (line != null)
+					line.close();
+			}
+		}
+		else
+			try
+			{
+				fansubFile.getParentFile().mkdirs();
+				fansubFile.createNewFile();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+				MAMUtil.writeLog(e);
+			}
+	}
 	// util
 
 	private static void addDefaultFansub()
