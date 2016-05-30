@@ -12,6 +12,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import javafx.util.Pair;
 import main.AnimeIndex;
 import util.SortedListModel;
 import java.awt.event.ActionListener;
@@ -94,8 +95,9 @@ public class PatternAddingDialog extends JDialog
 						List<String> selectedList = list.getSelectedValuesList();
 						for(String anime : selectedList)
 						{
-							AnimeIndex.preferenceDialog.patternModel.addRow(new String[]{anime,"%T% - %N%"});
-							AnimeIndex.patternAnimeMap.put(anime, "%T% - %N%");
+							AnimeIndex.preferenceDialog.patternExceptionDialog.patternModel.addRow(new String[]{anime,"%T% - %N%","folder"});
+							Pair<String,String> dataPair = new Pair<String,String>("%T% - %N%", AnimeIndex.appProp.getProperty("Main_Folder"));
+							AnimeIndex.patternAnimeMap.put(anime, dataPair);
 						}
 						PatternAddingDialog.this.dispose();
 					}

@@ -1,6 +1,7 @@
 package util.window;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,11 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
@@ -28,20 +25,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.RowSorter;
-import javax.swing.SortOrder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 import org.apache.commons.io.FileUtils;
 
@@ -51,8 +38,6 @@ import util.FileManager;
 import util.ImportExportFileFilter;
 import util.MAMUtil;
 import util.task.BackupImportExportTask;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class PreferenceDialog extends JDialog
 {
@@ -72,8 +57,8 @@ public class PreferenceDialog extends JDialog
 	private JLabel logLabel;
 	private JTextField generalPatternTextField;
 	private JTextField specialPatternTextField;
-	private JTable table;
-	public DefaultTableModel patternModel = new DefaultTableModel(new String[]{"Anime","Pattern"}, 0);
+	private JTextField mainFolderTextField;
+	public PatternExceptionDialog patternExceptionDialog;
 	
 	/**
 	 * Create the dialog.
@@ -81,19 +66,10 @@ public class PreferenceDialog extends JDialog
 	public PreferenceDialog()
 	{
 		super(AnimeIndex.frame, true);
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowOpened(WindowEvent e) {
-				for (Map.Entry<String, String> entry : AnimeIndex.patternAnimeMap.entrySet())
-				{
-					patternModel.addRow(new String[]{entry.getKey(),entry.getValue()});
-				}
-			}
-		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PreferenceDialog.class.getResource("/image/System-Preferences-icon.png")));
 		setTitle("Preferenze");
 		setResizable(false);
-		setBounds(100, 100, 380, 250);
+		setBounds(100, 100, 380, 240);
 		BorderLayout borderLayout = new BorderLayout();
 		getContentPane().setLayout(borderLayout);
 		
@@ -141,18 +117,9 @@ public class PreferenceDialog extends JDialog
 				 
 				 String specialPattern = specialPatternTextField.getText();
 				 AnimeIndex.appProp.setProperty("Special_Pattern", specialPattern);
-				
-				 if(table.getCellEditor()!=null)
-					 table.getCellEditor().stopCellEditing();
-				 Vector<Vector> tableVector = patternModel.getDataVector();
-				 AnimeIndex.patternAnimeMap.clear();
-				 for (Vector<String> rowVector : tableVector)
-				 {
-					 String animeName = rowVector.elementAt(0);
-					 String pattern = rowVector.elementAt(1);
-					 if (!pattern.equalsIgnoreCase(generalPattern))
-						 AnimeIndex.patternAnimeMap.put(animeName, pattern);
-				 }
+				 
+				 String mainFolder = mainFolderTextField.getText();
+				 AnimeIndex.appProp.setProperty("Main_Folder", mainFolder);
 				 
 				JButton but = (JButton) e.getSource();
 				JDialog dialog = (JDialog) but.getTopLevelAncestor();
@@ -703,16 +670,15 @@ public class PreferenceDialog extends JDialog
 		tabbedPane.addTab("Impostazioni Episodi", null, episodeSettingPane, null);		
 		GridBagLayout gbl_episodeSettingPane = new GridBagLayout();
 		gbl_episodeSettingPane.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_episodeSettingPane.rowHeights = new int[]{0, 0, 0, 0, 0};
-		gbl_episodeSettingPane.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_episodeSettingPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_episodeSettingPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gbl_episodeSettingPane.columnWeights = new double[]{1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_episodeSettingPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		episodeSettingPane.setLayout(gbl_episodeSettingPane);
 		
 		JLabel lblPatternGenerale = new JLabel("Pattern Generale : ");
 		GridBagConstraints gbc_lblPatternGenerale = new GridBagConstraints();
-		gbc_lblPatternGenerale.fill = GridBagConstraints.VERTICAL;
+		gbc_lblPatternGenerale.fill = GridBagConstraints.BOTH;
 		gbc_lblPatternGenerale.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPatternGenerale.anchor = GridBagConstraints.WEST;
 		gbc_lblPatternGenerale.gridx = 0;
 		gbc_lblPatternGenerale.gridy = 0;
 		episodeSettingPane.add(lblPatternGenerale, gbc_lblPatternGenerale);
@@ -721,7 +687,7 @@ public class PreferenceDialog extends JDialog
 		generalPatternTextField.setText(AnimeIndex.appProp.getProperty("General_Pattern"));
 		GridBagConstraints gbc_generalPatternTextField = new GridBagConstraints();
 		gbc_generalPatternTextField.gridwidth = 2;
-		gbc_generalPatternTextField.insets = new Insets(0, 0, 5, 0);
+		gbc_generalPatternTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_generalPatternTextField.fill = GridBagConstraints.BOTH;
 		gbc_generalPatternTextField.gridx = 1;
 		gbc_generalPatternTextField.gridy = 0;
@@ -730,8 +696,7 @@ public class PreferenceDialog extends JDialog
 		
 		JLabel lblPatternSpeciali = new JLabel("Pattern Speciali : ");
 		GridBagConstraints gbc_lblPatternSpeciali = new GridBagConstraints();
-		gbc_lblPatternSpeciali.fill = GridBagConstraints.VERTICAL;
-		gbc_lblPatternSpeciali.anchor = GridBagConstraints.WEST;
+		gbc_lblPatternSpeciali.fill = GridBagConstraints.BOTH;
 		gbc_lblPatternSpeciali.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPatternSpeciali.gridx = 0;
 		gbc_lblPatternSpeciali.gridy = 1;
@@ -741,101 +706,63 @@ public class PreferenceDialog extends JDialog
 		specialPatternTextField.setText(AnimeIndex.appProp.getProperty("Special_Pattern"));
 		GridBagConstraints gbc_specialPatternTextField = new GridBagConstraints();
 		gbc_specialPatternTextField.gridwidth = 2;
-		gbc_specialPatternTextField.insets = new Insets(0, 0, 5, 0);
+		gbc_specialPatternTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_specialPatternTextField.fill = GridBagConstraints.BOTH;
 		gbc_specialPatternTextField.gridx = 1;
 		gbc_specialPatternTextField.gridy = 1;
 		episodeSettingPane.add(specialPatternTextField, gbc_specialPatternTextField);
 		specialPatternTextField.setColumns(10);
 		
-		JLabel lblPatternSpecifici = new JLabel("Pattern Specifici : ");
-		GridBagConstraints gbc_lblPatternSpecifici = new GridBagConstraints();
-		gbc_lblPatternSpecifici.fill = GridBagConstraints.VERTICAL;
-		gbc_lblPatternSpecifici.anchor = GridBagConstraints.WEST;
-		gbc_lblPatternSpecifici.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPatternSpecifici.gridx = 0;
-		gbc_lblPatternSpecifici.gridy = 2;
-		episodeSettingPane.add(lblPatternSpecifici, gbc_lblPatternSpecifici);
-		
-		JButton btnAggiungi = new JButton("Aggiungi");
-		btnAggiungi.addActionListener(new ActionListener() {
+		JButton btnEccezzioni = new JButton("Eccezzioni");
+		btnEccezzioni.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PatternAddingDialog dialog = new PatternAddingDialog();
-				dialog.setLocationRelativeTo(PreferenceDialog.this);
-				dialog.setVisible(true);
+				patternExceptionDialog = new PatternExceptionDialog();
+				patternExceptionDialog.setLocationRelativeTo(PreferenceDialog.this);
+				patternExceptionDialog.setVisible(true);
 			}
 		});
-		GridBagConstraints gbc_btnAggiungi = new GridBagConstraints();
-		gbc_btnAggiungi.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnAggiungi.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAggiungi.gridx = 1;
-		gbc_btnAggiungi.gridy = 2;
-		episodeSettingPane.add(btnAggiungi, gbc_btnAggiungi);
 		
-		JButton btnElimina = new JButton("Elimina");
-		btnElimina.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int row = table.getSelectedRow();
-				patternModel.removeRow(row);
-			}
-		});
-		btnElimina.setEnabled(false);
-		GridBagConstraints gbc_btnElimina = new GridBagConstraints();
-		gbc_btnElimina.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnElimina.insets = new Insets(0, 0, 5, 0);
-		gbc_btnElimina.gridx = 2;
-		gbc_btnElimina.gridy = 2;
-		episodeSettingPane.add(btnElimina, gbc_btnElimina);
+		JLabel lblPatternExplication = new JLabel("%N% = nome anime\r\n %E% = numero episodio");
+		GridBagConstraints gbc_lblPatternExplication = new GridBagConstraints();
+		gbc_lblPatternExplication.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPatternExplication.gridwidth = 3;
+		gbc_lblPatternExplication.gridx = 0;
+		gbc_lblPatternExplication.gridy = 2;
+		episodeSettingPane.add(lblPatternExplication, gbc_lblPatternExplication);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.gridwidth = 3;
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 0;
-		gbc_scrollPane.gridy = 3;
-		episodeSettingPane.add(scrollPane, gbc_scrollPane);
+		JLabel lblCartellaPrincipale = new JLabel("Cartella Principale");
+		GridBagConstraints gbc_lblCartellaPrincipale = new GridBagConstraints();
+		gbc_lblCartellaPrincipale.fill = GridBagConstraints.BOTH;
+		gbc_lblCartellaPrincipale.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCartellaPrincipale.gridx = 0;
+		gbc_lblCartellaPrincipale.gridy = 3;
+		episodeSettingPane.add(lblCartellaPrincipale, gbc_lblCartellaPrincipale);
 		
-		table = new JTable(){
-
-		    @Override
-		    public boolean isCellEditable(int row, int column) {
-		        return column == 1;
-		    };
-		};
-		table.setRowSelectionAllowed(true);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setModel(patternModel);
-
-		table.getColumnModel().getColumn(0).setResizable(false);
-		table.getColumnModel().getColumn(1).setResizable(false);
-
+		mainFolderTextField = new JTextField();
+		mainFolderTextField.setText(AnimeIndex.appProp.getProperty("Main_Folder"));
+		GridBagConstraints gbc_mainFolderTextField = new GridBagConstraints();
+		gbc_mainFolderTextField.insets = new Insets(0, 0, 5, 5);
+		gbc_mainFolderTextField.fill = GridBagConstraints.BOTH;
+		gbc_mainFolderTextField.gridx = 1;
+		gbc_mainFolderTextField.gridy = 3;
+		episodeSettingPane.add(mainFolderTextField, gbc_mainFolderTextField);
+		mainFolderTextField.setColumns(10);
 		
-		table.setAutoCreateRowSorter(true);
+		JButton btnChooseFolder = new JButton("...\r\n");
+		btnChooseFolder.setPreferredSize(new Dimension(25, 23));
+		GridBagConstraints gbc_btnChooseFolder = new GridBagConstraints();
+		gbc_btnChooseFolder.insets = new Insets(0, 0, 5, 0);
+		gbc_btnChooseFolder.gridx = 2;
+		gbc_btnChooseFolder.gridy = 3;
+		episodeSettingPane.add(btnChooseFolder, gbc_btnChooseFolder);
 		
-		TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
-		table.setRowSorter(sorter);
-		List<RowSorter.SortKey> sortKeys = new ArrayList<>();		 
-		int columnIndexToSort = 0;
-		sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING));
-		sorter.setSortKeys(sortKeys);
-		sorter.setComparator(0, String.CASE_INSENSITIVE_ORDER);
-		sorter.sort();
-		sorter.setSortable(1, false);
-		
-		scrollPane.setViewportView(table);
-		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-			@Override
-			public void valueChanged(ListSelectionEvent e)
-			{
-				if (!e.getValueIsAdjusting())
-				{
-					btnElimina.setEnabled(true);
-				}
-				
-			}
-			
-		});
+		GridBagConstraints gbc_btnEccezzioni = new GridBagConstraints();
+		gbc_btnEccezzioni.fill = GridBagConstraints.VERTICAL;
+		gbc_btnEccezzioni.gridwidth = 3;
+		gbc_btnEccezzioni.insets = new Insets(0, 0, 0, 5);
+		gbc_btnEccezzioni.gridx = 0;
+		gbc_btnEccezzioni.gridy = 4;
+		episodeSettingPane.add(btnEccezzioni, gbc_btnEccezzioni);
 		
 		String listPreference = AnimeIndex.appProp.getProperty("List_to_visualize_at_start");
 		if (listPreference.equalsIgnoreCase("last list"))

@@ -38,7 +38,7 @@ public class AnimeIndexProperties
 			defaultProps.setProperty("Default_Music_Images", "miku_mem:Headphone..:Hatsune-Miku-Vocaloid..:Hatsune-Miku-Vocaloid...:hatsune-miku-vocaloid-1715:hmny:Hatsune-Miku-Vocaloid:Headphone");
 			defaultProps.setProperty("General_Pattern", "%T% - %N%");
 			defaultProps.setProperty("Special_Pattern", "%T% - %N%");
-			defaultProps.setProperty("Episode_Folder", "null");
+			defaultProps.setProperty("Main_Folder", "");
 			in.close();
 		}
 		catch (FileNotFoundException fe)

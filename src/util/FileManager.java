@@ -27,6 +27,7 @@ import java.util.zip.ZipOutputStream;
 
 import javax.imageio.ImageIO;
 
+import javafx.util.Pair;
 import main.AnimeIndex;
 
 public class FileManager
@@ -489,8 +490,11 @@ public class FileManager
 		BufferedWriter output = new BufferedWriter(new FileWriter(fansubFile));
 		try
 		{
-			for (Map.Entry<String, String> entry : AnimeIndex.patternAnimeMap.entrySet())
-				output.write(entry.getKey() + "||" + entry.getValue() + "||" + System.lineSeparator());
+			for (Map.Entry<String, Pair<String,String>> entry : AnimeIndex.patternAnimeMap.entrySet())
+			{
+				Pair<String,String> pair = entry.getValue();
+				output.write(entry.getKey() + "||" + pair.getKey() + "||" + pair.getValue() + "||" + System.lineSeparator());
+			}
 				
 		}
 		finally
@@ -515,9 +519,11 @@ public class FileManager
 					String all = scan.nextLine();
 					line = new Scanner(all);
 					line.useDelimiter("\\|\\|");
-					String fansubString = line.next();
-					String fansubLink = line.next();
-					AnimeIndex.patternAnimeMap.put(fansubString, fansubLink);
+					String animeName = line.next();
+					String pattern = line.next();
+					String folder = line.next();
+					Pair<String,String> pair = new Pair<String,String>(pattern,folder);
+					AnimeIndex.patternAnimeMap.put(animeName, pair);
 					addDefaultFansub();
 				}
 
