@@ -47,6 +47,7 @@ import javax.swing.text.AbstractDocument;
 
 import main.AnimeIndex;
 import util.AnimeData;
+import util.FileDrop;
 import util.FileManager;
 import util.Filters;
 import util.MAMUtil;
@@ -1319,7 +1320,15 @@ public class AnimeInformation extends JPanel
 		gbc_addToSeeButton.gridx = 11;
 		gbc_addToSeeButton.gridy = 11;
 		add(addToSeeButton, gbc_addToSeeButton);
-	}
+		
+		LineBorder dragBorder = new LineBorder(new Color(40, 40, 40), 2, true);
+		new FileDrop(AnimeIndex.mainFrame, dragBorder, new FileDrop.Listener()
+		{   public void filesDropped( java.io.File[] files )
+			{   
+		   		// handle file drop
+		    }   // end filesDropped
+	    }); // end FileDrop.Listener
+	 }
 
 	public void setBlank()
 	{
