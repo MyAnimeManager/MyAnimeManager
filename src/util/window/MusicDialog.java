@@ -151,7 +151,7 @@ public class MusicDialog extends JDialog
 						{
 							if (evt.getNewValue().toString().equalsIgnoreCase("done"))
 							{
-								setTitle("My Anime Musics");
+								setTitle("MyAnimeMusics");
 								String obj = null;
 								boolean expanded = false;
 								try
@@ -198,7 +198,7 @@ public class MusicDialog extends JDialog
 				AnimeIndex.appProp.setProperty("Music_Dialog_Default_Image_Counter", (defImgCounter+""));
 			}
 		});
-		setTitle("My Anime Musics");
+		setTitle("MyAnimeMusics");
 		setResizable(false);
 		setFont(AnimeIndex.segui.deriveFont(12f));
 		setBounds(100, 100, 531, 448);

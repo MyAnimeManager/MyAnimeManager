@@ -1,5 +1,6 @@
 package util;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -106,6 +107,11 @@ public class JMarqueeLabel extends JPanel implements Runnable
 	{
 		label.setFont(font);
 		fontMetrics = label.getFontMetrics(label.getFont());
+	}
+	
+	public void setTextColor(Color fg)
+	{
+		label.setForeground(fg);
 	}
 
 	@Override

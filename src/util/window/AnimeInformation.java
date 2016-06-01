@@ -700,9 +700,9 @@ public class AnimeInformation extends JPanel
 					{
 						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
 						if (e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnAggiungiAnime) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnDeleteAnime) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnID) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.comboBox) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.searchBar) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.wishlist) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.wishlistSearch))
-							releaseDateField.requestFocus();
+							finishDateField.requestFocus();
 						else
-							releaseDateField.requestFocusInWindow();
+							finishDateField.requestFocusInWindow();
 					}
 					else if (finishDateField.getText().trim().substring(6, 10).equals("????"))
 						finishDateField.setText("??/??/????");

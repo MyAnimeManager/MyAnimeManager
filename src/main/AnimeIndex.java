@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.Component;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -49,6 +51,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+import javax.swing.Box;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
@@ -96,13 +99,6 @@ import util.window.ThanksDialog;
 import util.window.UpdateDialog;
 import util.window.WishlistDialog;
 
-import javax.swing.JLabel;
-
-import java.awt.Component;
-
-import javax.swing.Box;
-
-import java.awt.GridLayout;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
@@ -110,6 +106,9 @@ import java.awt.GridLayout;
 //caratteri speciali aggiunta anime
 // (?) cancellando dall'album a volte le musiche nn vengono cancellate
 //importare uscite stagionali da rad
+//aggiunta manuale: ?? inserimento numero ep totale
+//durata ep se manca "min" aggiunta automatica quando si preme aggiungi
+//all'inserimento di un nuovo oav se la data di uscita e' prima di quella corrente inserirlo subito nella lista "date" e impostare il giorno di uscita su rilasciato
 
 public class AnimeIndex extends JFrame
 {
@@ -262,7 +261,7 @@ public class AnimeIndex extends JFrame
 					newsBoardDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x, AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight());
 			}
 		});
-		setTitle("My Anime Manager");
+		setTitle("MyAnimeManager");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AnimeIndex.class.getResource("/image/icon.png")));
 		setResizable(false);
 		addWindowListener(new WindowAdapter() {
@@ -916,7 +915,7 @@ public class AnimeIndex extends JFrame
 		JSeparator separator_22 = new JSeparator();
 		mnVisualizza.add(separator_22);
 
-		JMenuItem mntmMyanimemusics = new JMenuItem("My Anime Musics");
+		JMenuItem mntmMyanimemusics = new JMenuItem("MyAnimeMusics");
 		mntmMyanimemusics.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/Headph.png")));
 		mntmMyanimemusics.addActionListener(new ActionListener() {
 
@@ -1411,6 +1410,7 @@ public class AnimeIndex extends JFrame
 		lblMAMNews.setScrollDirection(0);
 		lblMAMNews.setSpeed(17);
 		lblMAMNews.setTextFont(AnimeIndex.segui.deriveFont(12f));
+		lblMAMNews.setTextColor(new Color(0, 65, 255));
 		panel_1.add(lblMAMNews);
 		mntmCredit.addActionListener(new ActionListener() {
 
