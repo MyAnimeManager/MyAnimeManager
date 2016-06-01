@@ -68,6 +68,7 @@ import util.ExternalProgram;
 import util.FileManager;
 import util.Filters;
 import util.ImageChooserFilter;
+import util.JMarqueeLabel;
 import util.MAMUtil;
 import util.SearchBar;
 import util.SortedListModel;
@@ -76,6 +77,7 @@ import util.UtilEvent;
 import util.task.AutoUpdateAnimeDataTask;
 import util.task.CheckUpdateTask;
 import util.task.LoadingTask;
+import util.task.MAMTeamAdvert;
 import util.task.NewNotifierTask;
 import util.task.ReleasedAnimeTask;
 import util.window.AddAnimeDialog;
@@ -93,6 +95,14 @@ import util.window.SupportersDialog;
 import util.window.ThanksDialog;
 import util.window.UpdateDialog;
 import util.window.WishlistDialog;
+
+import javax.swing.JLabel;
+
+import java.awt.Component;
+
+import javax.swing.Box;
+
+import java.awt.GridLayout;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
@@ -165,6 +175,7 @@ public class AnimeIndex extends JFrame
 	private JButton addButton;
 	private String list;
 
+	public static JMarqueeLabel lblMAMNews;
 	public static JButton deleteButton;
 	public static JComboBox animeTypeComboBox;
 	public static SearchBar searchBar;
@@ -1377,6 +1388,30 @@ public class AnimeIndex extends JFrame
 		JMenuItem mntmCredit = new JMenuItem("Crediti");
 		mntmCredit.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/icon2.png")));
 		mnInfo.add(mntmCredit);
+		
+		Component horizontalStrut = Box.createHorizontalStrut(4);
+		horizontalStrut.setEnabled(false);
+		menuBar.add(horizontalStrut);
+		
+		JPanel panel_1 = new JPanel();
+		menuBar.add(panel_1);
+		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		lblMAMNews = new JMarqueeLabel("");
+		MAMTeamAdvert teamAdvert = new MAMTeamAdvert();
+		try
+		{
+			teamAdvert.execute();
+		}
+		catch (Exception e)
+		{
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
+		}
+		lblMAMNews.setScrollDirection(0);
+		lblMAMNews.setSpeed(17);
+		lblMAMNews.setTextFont(AnimeIndex.segui.deriveFont(12f));
+		panel_1.add(lblMAMNews);
 		mntmCredit.addActionListener(new ActionListener() {
 
 			@Override
