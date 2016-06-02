@@ -92,6 +92,7 @@ public class AnimeInformation extends JPanel
 	public JButton checkDataButton;
 	public static UpdatingAnimeDataDialog dial;
 	public boolean selectExcludedAnimeAtWindowOpened = false;
+	private JButton btnFolder;
 
 	/**
 	 * Create the panel.
@@ -101,9 +102,9 @@ public class AnimeInformation extends JPanel
 	{
 		setSize(new Dimension(625, 441));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 46, 23, 20, 57, 0, 0, 0 };
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 46, 23, 20, 32, 0, 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 60, 0, 0, 0, 0, 0, 0, 0, 43, -2, 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
@@ -996,12 +997,26 @@ public class AnimeInformation extends JPanel
 			checkDataButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/autorefresh-icon15.png")));
 		else
 			checkDataButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/refresh-icon15.png")));
+		
+		btnFolder = new JButton("");
+		btnFolder.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/Folder.png")));
+		btnFolder.setToolTipText("Aggiorna i dati dell'anime");
+		btnFolder.setSize(new Dimension(30, 30));
+		btnFolder.setPreferredSize(new Dimension(30, 30));
+		btnFolder.setMinimumSize(new Dimension(30, 30));
+		btnFolder.setMaximumSize(new Dimension(30, 30));
+		GridBagConstraints gbc_btnFolder = new GridBagConstraints();
+		gbc_btnFolder.anchor = GridBagConstraints.WEST;
+		gbc_btnFolder.insets = new Insets(0, 0, 5, 5);
+		gbc_btnFolder.gridx = 14;
+		gbc_btnFolder.gridy = 9;
+		add(btnFolder, gbc_btnFolder);
 		checkDataButton.setSize(new Dimension(30, 30));
 		checkDataButton.setPreferredSize(new Dimension(30, 30));
 		checkDataButton.setMinimumSize(new Dimension(30, 30));
 		checkDataButton.setMaximumSize(new Dimension(30, 30));
 		GridBagConstraints gbc_checkDataButton = new GridBagConstraints();
-		gbc_checkDataButton.anchor = GridBagConstraints.NORTH;
+		gbc_checkDataButton.anchor = GridBagConstraints.NORTHEAST;
 		gbc_checkDataButton.insets = new Insets(0, 0, 5, 5);
 		gbc_checkDataButton.gridx = 15;
 		gbc_checkDataButton.gridy = 9;
