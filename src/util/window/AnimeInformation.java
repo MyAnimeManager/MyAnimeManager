@@ -1338,7 +1338,7 @@ public class AnimeInformation extends JPanel
 		
 		LineBorder dragBorder = new LineBorder(new Color(40, 40, 40), 2, true);
 		new FileDrop(AnimeIndex.mainFrame, dragBorder, new FileDrop.Listener()
-		{   public void filesDropped( java.io.File[] files )
+		{   public void filesDropped( File[] files )
 			{   
 		   		// handle file drop
 		    }   // end filesDropped

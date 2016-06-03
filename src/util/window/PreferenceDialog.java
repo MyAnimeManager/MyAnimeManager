@@ -119,7 +119,13 @@ public class PreferenceDialog extends JDialog
 				 AnimeIndex.appProp.setProperty("Special_Pattern", specialPattern);
 				 
 				 String mainFolder = mainFolderTextField.getText();
-				 AnimeIndex.appProp.setProperty("Main_Folder", mainFolder);
+				 File mainFolderFile = new File(mainFolder);
+				 if (mainFolderFile.isDirectory() || mainFolder.isEmpty())
+					 AnimeIndex.appProp.setProperty("Main_Folder", mainFolder);
+				 else
+				 {
+					 JOptionPane.showMessageDialog(PreferenceDialog.this, "La cartella principale non esiste.", "Errore!", JOptionPane.ERROR_MESSAGE);
+				 }
 				 
 				JButton but = (JButton) e.getSource();
 				JDialog dialog = (JDialog) but.getTopLevelAncestor();
@@ -748,7 +754,21 @@ public class PreferenceDialog extends JDialog
 		episodeSettingPane.add(mainFolderTextField, gbc_mainFolderTextField);
 		mainFolderTextField.setColumns(10);
 		
-		JButton btnChooseFolder = new JButton("...\r\n");
+		JButton btnChooseFolder = new JButton("...");
+		btnChooseFolder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+				JFileChooser fc = new JFileChooser(chooserDir);
+				fc.setMultiSelectionEnabled(false);
+				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Imposta");
+				if (returnVal == JFileChooser.APPROVE_OPTION)
+				{
+					mainFolderTextField.setText(fc.getSelectedFile().getPath());
+				}
+
+			}
+		});
 		btnChooseFolder.setPreferredSize(new Dimension(25, 23));
 		GridBagConstraints gbc_btnChooseFolder = new GridBagConstraints();
 		gbc_btnChooseFolder.insets = new Insets(0, 0, 5, 0);

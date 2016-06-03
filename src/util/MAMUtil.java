@@ -206,6 +206,15 @@ public class MAMUtil
 		// return bilinearScaleOp.filter(image, new BufferedImage(width, height,
 		// image.getType()));
 	}
+	
+	public static String convertPatter(String animeName,String episode, String pattern)
+	{
+		String fileName = pattern.replace("%N%", animeName);
+		fileName = pattern.replace("%n%", animeName);
+		fileName = pattern.replace("%E%", episode);
+		fileName = pattern.replace("%e%", episode);
+		return fileName;
+	}
 
 	public static boolean christmas()
 	{
