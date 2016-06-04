@@ -2,6 +2,7 @@ package util;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -15,7 +16,7 @@ public class SortedListModel extends AbstractListModel
 
 	public SortedListModel()
 	{
-		model = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+		model = Collections.synchronizedSortedSet(new TreeSet<String>(String.CASE_INSENSITIVE_ORDER));
 	}
 
 	@Override
