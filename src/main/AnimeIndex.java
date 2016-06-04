@@ -3,13 +3,13 @@ package main;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Toolkit;
-import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
 
+import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -51,7 +52,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-import javax.swing.Box;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
@@ -102,13 +102,13 @@ import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
-//fixare conurrent modification exception
-//caratteri speciali aggiunta anime
-// (?) cancellando dall'album a volte le musiche nn vengono cancellate
-//importare uscite stagionali da rad
-//aggiunta manuale: ?? inserimento numero ep totale
-//durata ep se manca "min" aggiunta automatica quando si preme aggiungi
-//all'inserimento di un nuovo oav se la data di uscita e' prima di quella corrente inserirlo subito nella lista "date" e impostare il giorno di uscita su rilasciato
+//TODO fixare conurrent modification exception --> controllare
+//TODO caratteri speciali aggiunta anime
+//TODO (?) cancellando dall'album a volte le musiche nn vengono cancellate
+//TODO importare uscite stagionali da rad
+//aggiunta manuale: ?? inserimento numero ep totale --> DONE
+//durata ep se manca "min" aggiunta automatica quando si preme aggiungi --> DONE
+//TODO all'inserimento di un nuovo oav se la data di uscita e' prima di quella corrente inserirlo subito nella lista "date" e impostare il giorno di uscita su rilasciato
 
 public class AnimeIndex extends JFrame
 {

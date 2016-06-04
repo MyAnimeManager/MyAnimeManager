@@ -554,6 +554,7 @@ public class AddAnimeDialog extends JDialog
 						gbc_durationField.gridy = 4;
 						dataPanel.add(durationField, gbc_durationField);
 						durationField.setColumns(10);
+						((AbstractDocument) durationField.getDocument()).setDocumentFilter(new PatternFilter("\\d{0,4}||\\?{0,2}"));
 					}
 					{
 						JLabel lblControlloDatiAnime_1 = new JLabel("Controllo Dati Anime :");
@@ -857,7 +858,7 @@ public class AddAnimeDialog extends JDialog
 									JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Nome non inserito", "Errore", JOptionPane.ERROR_MESSAGE);
 								else if ((totEpField.getText().equalsIgnoreCase("") && currentEpisodeText.getText().equalsIgnoreCase("")) || totEpField.getText().equalsIgnoreCase(""))
 									JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Episodi totali o episodio corrente non inseriti/o", "Errore", JOptionPane.ERROR_MESSAGE);
-								else if ((!currentEpisodeText.getText().equalsIgnoreCase("") && (Integer.parseInt(totEpField.getText()) < Integer.parseInt(currentEpisodeText.getText()))))
+								else if ((!currentEpisodeText.getText().equalsIgnoreCase("") && (!totEpField.getText().equals("??") && Integer.parseInt(totEpField.getText()) < Integer.parseInt(currentEpisodeText.getText()))))
 									JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Il numero totale di episodi non può essere inferiore al numero attuale", "Errore", JOptionPane.ERROR_MESSAGE);
 								else
 								{
@@ -872,6 +873,8 @@ public class AddAnimeDialog extends JDialog
 									String duration = durationField.getText().trim();
 									if (duration.isEmpty())
 										duration = "?? min";
+									else
+										duration = duration + " min";
 									String fansub = ((String) fansubComboBox.getSelectedItem()).trim();
 
 									String startDay = startDayField.getText().trim();
