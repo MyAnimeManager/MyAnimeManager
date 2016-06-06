@@ -28,6 +28,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -71,6 +72,7 @@ import util.ExternalProgram;
 import util.FileManager;
 import util.Filters;
 import util.ImageChooserFilter;
+import util.ImportExportFileFilter;
 import util.JMarqueeLabel;
 import util.MAMUtil;
 import util.SearchBar;
@@ -78,6 +80,7 @@ import util.SortedListModel;
 import util.Updater;
 import util.UtilEvent;
 import util.task.AutoUpdateAnimeDataTask;
+import util.task.BackupImportExportTask;
 import util.task.CheckUpdateTask;
 import util.task.LoadingTask;
 import util.task.MAMTeamAdvert;
@@ -97,6 +100,7 @@ import util.window.SuggestionDialog;
 import util.window.SupportersDialog;
 import util.window.ThanksDialog;
 import util.window.UpdateDialog;
+import util.window.WaitDialog;
 import util.window.WishlistDialog;
 
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
@@ -429,6 +433,87 @@ public class AnimeIndex extends JFrame
 		JMenu mnElimina = new JMenu("Elimina");
 		if (AnimeIndex.colorProp.getProperty("Menu_color") != null && !AnimeIndex.colorProp.getProperty("Menu_color").equalsIgnoreCase("null"))
 			mnElimina.setBackground(new Color(Integer.parseInt(colorProp.getProperty("Menu_color"))));
+		
+		JMenu mnImportaEsporta = new JMenu("Importa / Esporta");
+		mnMenu.add(mnImportaEsporta);
+		
+		JMenuItem mntmImportaListe = new JMenuItem("Importa Liste");
+		mntmImportaListe.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/import_.png")));
+		mntmImportaListe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+				JFileChooser fc = new JFileChooser(chooserDir);
+				fc.setMultiSelectionEnabled(false);
+				fc.setAcceptAllFileFilterUsed(false);
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				fc.setFileFilter(new ImportExportFileFilter());
+				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Importa");
+				if (returnVal == JFileChooser.APPROVE_OPTION)
+				{
+					File zipFile = fc.getSelectedFile();
+					BackupImportExportTask task = new BackupImportExportTask(zipFile);
+					WaitDialog waitForZip = new WaitDialog("Importando...", "Importando i dati", task);
+					waitForZip.setLocationRelativeTo(mainFrame);
+					waitForZip.setVisible(true);
+				}
+			}
+		});
+		mnImportaEsporta.add(mntmImportaListe);
+		
+		JSeparator separator_26 = new JSeparator();
+		mnImportaEsporta.add(separator_26);
+		
+		JMenuItem mntmEsportaListe = new JMenuItem("Esporta Liste");
+		mntmEsportaListe.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/export_.png")));
+		mntmEsportaListe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+				JFileChooser fc = new JFileChooser(chooserDir);
+				fc.setMultiSelectionEnabled(false);
+				fc.setAcceptAllFileFilterUsed(false);
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				fc.setFileFilter(new ImportExportFileFilter());
+				fc.setSelectedFile(new File(chooserDir + File.separator + "MAM_liste"));
+				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Esporta");
+				if (returnVal == JFileChooser.APPROVE_OPTION)
+				{
+					LinkedHashMap<File, String> fileToZip = new LinkedHashMap<File, String>();
+					File animeFolder = new File(MAMUtil.getAnimeFolderPath());
+					File[] fileList = animeFolder.listFiles();
+					for (int i = 0; i < fileList.length; i++)
+					{
+						fileToZip.put(fileList[i], "Anime" + File.separator);
+					}
+					File imageAnimeFolder = new File(MAMUtil.getImageFolderPath());
+					
+					File[] folderImage = imageAnimeFolder.listFiles();
+					for (int i = 0; i < folderImage.length; i++)
+					{
+						File[] fileImage = folderImage[i].listFiles();
+						for (int j = 0; j < fileImage.length; j++)
+						{
+							fileToZip.put(fileImage[j], "Images" + File.separator + folderImage[i].getName() + File.separator);
+						}
+					}
+					File fansub = new File(MAMUtil.getFansubPath());
+					fileToZip.put(fansub, "");
+					
+					File dest = fc.getSelectedFile();
+					if (MAMUtil.getExtension(dest) == null || !MAMUtil.getExtension(dest).equalsIgnoreCase(".zip"))
+					{
+						dest = new File(fc.getSelectedFile() + ".zip");
+					}
+					BackupImportExportTask task = new BackupImportExportTask(dest, fileToZip);
+					WaitDialog waitForZip = new WaitDialog("Esportando...", "Esportando i dati", task);
+					waitForZip.setLocationRelativeTo(mainFrame);
+					waitForZip.setVisible(true);
+				}
+			}
+		});
+		mnImportaEsporta.add(mntmEsportaListe);
+		
+		JSeparator separator_25 = new JSeparator();
+		mnMenu.add(separator_25);
 		mnElimina.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/DeleteRed.png")));
 		mnMenu.add(mnElimina);
 
@@ -1388,7 +1473,7 @@ public class AnimeIndex extends JFrame
 		mntmCredit.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/icon2.png")));
 		mnInfo.add(mntmCredit);
 		
-		Component horizontalStrut = Box.createHorizontalStrut(4);
+		Component horizontalStrut = Box.createHorizontalStrut(3);
 		horizontalStrut.setEnabled(false);
 		menuBar.add(horizontalStrut);
 		

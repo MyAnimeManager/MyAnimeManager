@@ -12,11 +12,11 @@ public class ImportExportFileFilter extends FileFilter
 	public boolean accept(File f)
 	{
 		if (f.isDirectory())
-			return false;
-		String extension = getExtension(f);
+			return true;
+		String extension = MAMUtil.getExtension(f);
 		if (extension != null)
 		{
-			if (extension.equalsIgnoreCase("zip"))
+			if (extension.equalsIgnoreCase(".zip"))
 					return true;
 			return false;
 		}
@@ -26,17 +26,6 @@ public class ImportExportFileFilter extends FileFilter
 	@Override
 	public String getDescription()
 	{
-		return "File zip";
-	}
-	
-	private String getExtension(File f)
-	{
-		String ext = null;
-		String s = f.getName();
-		int i = s.lastIndexOf('.');
-
-		if (i > 0 && i < s.length() - 1)
-			ext = s.substring(i + 1).toLowerCase();
-		return ext;
+		return "File .zip";
 	}
 }

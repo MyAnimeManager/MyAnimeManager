@@ -592,7 +592,7 @@ public class PreferenceDialog extends JDialog
 				fc.setMultiSelectionEnabled(false);
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				fc.setFileFilter(new ImportExportFileFilter());
-				fc.setSelectedFile(new File(chooserDir + File.separator + "liste"));
+				fc.setSelectedFile(new File(chooserDir + File.separator + "MAM_liste"));
 				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Esporta");
 				if (returnVal == JFileChooser.APPROVE_OPTION)
 				{
@@ -614,12 +614,11 @@ public class PreferenceDialog extends JDialog
 							fileToZip.put(fileImage[j], "Images" + File.separator + folderImage[i].getName() + File.separator);
 						}
 					}
-					
 					File fansub = new File(MAMUtil.getFansubPath());
 					fileToZip.put(fansub, "");
 					
 					File dest = fc.getSelectedFile();
-					if (MAMUtil.getExtension(dest) == null || !MAMUtil.getExtension(dest).equalsIgnoreCase("zip"))
+					if (MAMUtil.getExtension(dest) == null || !MAMUtil.getExtension(dest).equalsIgnoreCase(".zip"))
 					{
 						dest = new File(fc.getSelectedFile() + ".zip");
 					}
@@ -627,9 +626,7 @@ public class PreferenceDialog extends JDialog
 					WaitDialog waitForZip = new WaitDialog("Esportando...", "Esportando i dati", task, PreferenceDialog.this);
 					waitForZip.setLocationRelativeTo(PreferenceDialog.this);
 					waitForZip.setVisible(true);
-					
-				}
-				
+				}	
 			}
 		});
 		GridBagConstraints gbc_exportButton = new GridBagConstraints();
