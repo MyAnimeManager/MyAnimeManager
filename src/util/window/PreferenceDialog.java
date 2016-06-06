@@ -592,7 +592,7 @@ public class PreferenceDialog extends JDialog
 				fc.setMultiSelectionEnabled(false);
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				fc.setFileFilter(new ImportExportFileFilter());
-				fc.setSelectedFile(new File(chooserDir + File.separator + "liste.zip"));
+				fc.setSelectedFile(new File(chooserDir + File.separator + "liste"));
 				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Esporta");
 				if (returnVal == JFileChooser.APPROVE_OPTION)
 				{
@@ -618,7 +618,12 @@ public class PreferenceDialog extends JDialog
 					File fansub = new File(MAMUtil.getFansubPath());
 					fileToZip.put(fansub, "");
 					
-					BackupImportExportTask task = new BackupImportExportTask(fc.getSelectedFile(), fileToZip);
+					File dest = fc.getSelectedFile();
+					if (MAMUtil.getExtension(dest) == null || !MAMUtil.getExtension(dest).equalsIgnoreCase("zip"))
+					{
+						dest = new File(fc.getSelectedFile() + ".zip");
+					}
+					BackupImportExportTask task = new BackupImportExportTask(dest, fileToZip);
 					WaitDialog waitForZip = new WaitDialog("Esportando...", "Esportando i dati", task, PreferenceDialog.this);
 					waitForZip.setLocationRelativeTo(PreferenceDialog.this);
 					waitForZip.setVisible(true);
