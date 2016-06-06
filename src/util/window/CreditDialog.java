@@ -9,7 +9,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +17,6 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,21 +26,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import main.AnimeIndex;
 
 public class CreditDialog extends JDialog
 {
-
 	private final JPanel contentPanel = new JPanel();
 
-	/**
-	 * Create the dialog.
-	 */
 	public CreditDialog()
 	{
 		super(AnimeIndex.frame, true);
-		setTitle("My Anime Manager  v" + AnimeIndex.VERSION);
+		setTitle("MyAnimeManager  v" + AnimeIndex.VERSION);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CreditDialog.class.getResource("/image/icon.png")));
 		setResizable(false);
 		setBounds(100, 100, 450, 317);
@@ -66,7 +59,7 @@ public class CreditDialog extends JDialog
 		}
 		{
 			JLabel label = new JLabel("");
-			label.setForeground(SystemColor.textHighlight);
+			label.setForeground(new Color(0, 65, 255));
 			label.addMouseListener(new MouseAdapter() {
 
 				@Override
@@ -93,8 +86,7 @@ public class CreditDialog extends JDialog
 				}
 			});
 			label.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			// label.setForeground(Color.RED);
-			label.setText("My Anime Manager   v" + AnimeIndex.VERSION);
+			label.setText("MyAnimeManager   v" + AnimeIndex.VERSION);
 			GridBagConstraints gbc_label = new GridBagConstraints();
 			gbc_label.gridwidth = 9;
 			gbc_label.insets = new Insets(0, 0, 5, 0);

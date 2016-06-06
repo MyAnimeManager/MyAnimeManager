@@ -94,7 +94,7 @@ public class MusicDialog extends JDialog
 	private BufferedInputStream buff;
 	private boolean isRunning;
 	private boolean isPaused;
-	private String currentMusicPath;
+	private String currentMusicPath = "";
 	private long pauseLocation;
 	private long songTotalLength;
 	private Timer timer;

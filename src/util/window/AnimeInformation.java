@@ -92,7 +92,7 @@ public class AnimeInformation extends JPanel
 	public JButton checkDataButton;
 	public static UpdatingAnimeDataDialog dial;
 	public boolean selectExcludedAnimeAtWindowOpened = false;
-	private JButton btnFolder;
+	public JButton btnFolder;
 
 	/**
 	 * Create the panel.
@@ -1379,6 +1379,7 @@ public class AnimeInformation extends JPanel
 			finishedButton.setEnabled(false);
 			fansubComboBox.setSelectedItem("?????");
 			checkDataButton.setEnabled(false);
+			btnFolder.setEnabled(false);
 			AnimeIndex.deleteButton.setEnabled(false);
 
 			BufferedImage image = null;

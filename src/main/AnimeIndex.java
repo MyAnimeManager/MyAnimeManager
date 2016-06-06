@@ -106,9 +106,9 @@ import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
-//TODO fixare conurrent modification exception --> controllare
+//fixare conurrent modification exception --> DONE
 //TODO caratteri speciali aggiunta anime
-//TODO (?) cancellando dall'album le musiche nn vengono cancellate dopo aver chiso e riaperto il dialog
+//cancellando dall'album le musiche nn vengono cancellate dopo aver chiso e riaperto il dialog --> DONE
 //TODO importare uscite stagionali da rad
 //aggiunta manuale: ?? inserimento numero ep totale --> DONE
 //durata ep se manca "min" aggiunta automatica quando si preme aggiungi --> DONE
@@ -435,6 +435,7 @@ public class AnimeIndex extends JFrame
 			mnElimina.setBackground(new Color(Integer.parseInt(colorProp.getProperty("Menu_color"))));
 		
 		JMenu mnImportaEsporta = new JMenu("Importa / Esporta");
+		mnImportaEsporta.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/imp-exp.png")));
 		mnMenu.add(mnImportaEsporta);
 		
 		JMenuItem mntmImportaListe = new JMenuItem("Importa Liste");
@@ -1762,6 +1763,7 @@ public class AnimeIndex extends JFrame
 				AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
 				AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 				AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+				AnimeIndex.animeInformation.btnFolder.setEnabled(true);
 				AnimeInformation.fansubComboBox.setEnabled(true);
 				String name = (String) completedList.getSelectedValue();
 				if (name != null && !name.equalsIgnoreCase("Anime"))
@@ -1835,6 +1837,7 @@ public class AnimeIndex extends JFrame
 				AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
 				AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 				AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+				AnimeIndex.animeInformation.btnFolder.setEnabled(true);
 				String ep = animeInformation.currentEpisodeField.getText();
 				String fep = animeInformation.totalEpisodeText.getText();
 				if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -1912,6 +1915,7 @@ public class AnimeIndex extends JFrame
 				AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
 				AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 				AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+				AnimeIndex.animeInformation.btnFolder.setEnabled(true);
 				String ep = animeInformation.currentEpisodeField.getText();
 				String fep = animeInformation.totalEpisodeText.getText();
 				if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -1990,6 +1994,7 @@ public class AnimeIndex extends JFrame
 				AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
 				AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 				AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+				AnimeIndex.animeInformation.btnFolder.setEnabled(true);
 				String ep = animeInformation.currentEpisodeField.getText();
 				String fep = animeInformation.totalEpisodeText.getText();
 				if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2068,6 +2073,7 @@ public class AnimeIndex extends JFrame
 				AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
 				AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 				AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+				AnimeIndex.animeInformation.btnFolder.setEnabled(true);
 				String ep = animeInformation.currentEpisodeField.getText();
 				String fep = animeInformation.totalEpisodeText.getText();
 				if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2143,6 +2149,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
 					AnimeInformation.fansubComboBox.setEnabled(true);
 					String name = (String) completedList.getSelectedValue();
 					if (name != null && !name.equalsIgnoreCase("Anime"))
@@ -2180,6 +2187,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2224,6 +2232,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2268,6 +2277,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2311,6 +2321,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2392,6 +2403,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
 					AnimeInformation.fansubComboBox.setEnabled(true);
 					String name = (String) completedList.getSelectedValue();
 					if (name != null && !name.equalsIgnoreCase("Anime"))
@@ -2429,6 +2441,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2473,6 +2486,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2517,6 +2531,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
+					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2560,6 +2575,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.typeComboBox.setEnabled(true);
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
+					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -3244,8 +3260,7 @@ public class AnimeIndex extends JFrame
 						MAMUtil.writeLog(e);
 					}
 				}
-			};
-
+			};	
 			AnimeIndex.appThread.start();
 		}
 	}
