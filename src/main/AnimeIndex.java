@@ -104,7 +104,7 @@ import util.window.WishlistDialog;
 //TODO fixare "IL BUG"
 //TODO fixare conurrent modification exception --> controllare
 //TODO caratteri speciali aggiunta anime
-//TODO (?) cancellando dall'album a volte le musiche nn vengono cancellate
+//TODO (?) cancellando dall'album le musiche nn vengono cancellate dopo aver chiso e riaperto il dialog
 //TODO importare uscite stagionali da rad
 //aggiunta manuale: ?? inserimento numero ep totale --> DONE
 //durata ep se manca "min" aggiunta automatica quando si preme aggiungi --> DONE
