@@ -324,7 +324,7 @@ public class ConnectionManager
 
 		JsonElement element = getSearchedAnimeGson(anime);
 		
-		if (element != null)
+		if (element != null && element.isJsonArray())
 		{
 			JsonArray animes = element.getAsJsonArray();
 			

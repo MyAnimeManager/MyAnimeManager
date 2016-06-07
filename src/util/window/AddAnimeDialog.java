@@ -183,7 +183,7 @@ public class AddAnimeDialog extends JDialog
 									{
 										JOptionPane.showMessageDialog(AddAnimeDialog.this, "Errore di connessione", "Errore!", JOptionPane.ERROR_MESSAGE);
 									}
-									animeSearched = ConnectionManager.AnimeSearch(searchBar.getText());
+									animeSearched = ConnectionManager.AnimeSearchGson(searchBar.getText());
 									if (animeSearched.isEmpty())
 									{
 										animeModel.addElement("Nessun anime trovato");
@@ -378,7 +378,7 @@ public class AddAnimeDialog extends JDialog
 									{
 										JOptionPane.showMessageDialog(AddAnimeDialog.this, "Errore di connessione", "Errore!", JOptionPane.ERROR_MESSAGE);
 									};
-									animeSearched = ConnectionManager.AnimeSearch(searchBar.getText());
+									animeSearched = ConnectionManager.AnimeSearchGson(searchBar.getText());
 									if (animeSearched.isEmpty())
 									{
 										animeModel.addElement("Nessun anime trovato");
@@ -1578,7 +1578,7 @@ public class AddAnimeDialog extends JDialog
 		}
 	}
 
-	public static String addSaveImage(String name, String dataAni, String list)
+	public static String addSaveImage(String name, int animeID, String list)
 	{
 		String folder = "";
 		if (list.equalsIgnoreCase("anime completati"))
@@ -1591,7 +1591,7 @@ public class AddAnimeDialog extends JDialog
 			folder = "Film";
 		else if (list.equalsIgnoreCase("completi da vedere"))
 			folder = "Completed To See";
-		String imageLink = ConnectionManager.getAnimeData("image_url_lge", dataAni);
+		String imageLink = ConnectionManager.getAnimeDataGson("image_url_lge", animeID);
 		imageLink = imageLink.replaceAll("\\\\/", "/");
 		String imageName = name.replaceAll("\\\\", "_");
 		imageName = imageName.replaceAll("/", "_");
@@ -1721,16 +1721,15 @@ public class AddAnimeDialog extends JDialog
 		AnimeIndex.addToPreviousList = (String) listToAddAniComboBox.getSelectedItem();
 		String anime = (String) searchedList.getSelectedValue();
 		int id = animeSearched.get(anime);
-		String dataAni = ConnectionManager.parseAnimeData(id);
 
-		String name = ConnectionManager.getAnimeData("title_romaji", dataAni);
-		String totEp = ConnectionManager.getAnimeData("total_episodes", dataAni);
+		String name = ConnectionManager.getAnimeDataGson("title_romaji", id);
+		String totEp = ConnectionManager.getAnimeDataGson("total_episodes", id);
 		String currentEp = "1";
 		String fansub = "";
-		String animeType = ConnectionManager.getAnimeData("type", dataAni);
-		String releaseDate = ConnectionManager.getAnimeData("start_date", dataAni);
-		String finishDate = ConnectionManager.getAnimeData("end_date", dataAni);
-		String durationEp = ConnectionManager.getAnimeData("duration", dataAni);
+		String animeType = ConnectionManager.getAnimeDataGson("type", id);
+		String releaseDate = ConnectionManager.getAnimeDataGson("start_date", id);
+		String finishDate = ConnectionManager.getAnimeDataGson("end_date", id);
+		String durationEp = ConnectionManager.getAnimeDataGson("duration", id);
 
 		if (totEp != null && !totEp.isEmpty())
 			if (totEp.equals("null") || totEp.equals("0"))
@@ -1798,7 +1797,7 @@ public class AddAnimeDialog extends JDialog
 			currentEp = totEp;
 			exitDay = "Concluso";
 		}
-		String imageName = AddAnimeDialog.addSaveImage(name, dataAni, list);
+		String imageName = AddAnimeDialog.addSaveImage(name, id, list);
 		if(list.equalsIgnoreCase("Film") || list.equalsIgnoreCase("OAV"))
 		{
 			if(animeType.equalsIgnoreCase("Movie") || animeType.equalsIgnoreCase("OVA") || animeType.equalsIgnoreCase("ONA") || animeType.equalsIgnoreCase("Special") || animeType.equalsIgnoreCase("TV Short"))

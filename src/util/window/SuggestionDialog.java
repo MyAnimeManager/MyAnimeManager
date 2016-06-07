@@ -237,8 +237,7 @@ public class SuggestionDialog extends JDialog
 			e.printStackTrace();
 			MAMUtil.writeLog(e);
 		}
-		String dataAni = ConnectionManager.parseAnimeData(Integer.parseInt(id));
-		String name = ConnectionManager.getAnimeData("title_romaji", dataAni);
+		String name = ConnectionManager.getAnimeDataGson("title_romaji", Integer.parseInt(id));
 
 		AnimeIndex.wishlistDialog.wishListModel.addElement(name);
 		AnimeIndex.wishlistMap.put(name, Integer.parseInt(id));
@@ -306,7 +305,7 @@ public class SuggestionDialog extends JDialog
 		return -1;
 	}
 
-	private void addAnimeToList(String listName, String id)
+	private void addAnimeToList(String listName, String idAnime)
 	{
 		SuggestionDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 		try
@@ -318,15 +317,15 @@ public class SuggestionDialog extends JDialog
 			e.printStackTrace();
 			MAMUtil.writeLog(e);
 		}
-		String dataAni = ConnectionManager.parseAnimeData(Integer.parseInt(id));
-		String name = ConnectionManager.getAnimeData("title_romaji", dataAni);
-		String totEp = ConnectionManager.getAnimeData("total_episodes", dataAni);
+		int id = Integer.parseInt(idAnime);
+		String name = ConnectionManager.getAnimeDataGson("title_romaji", id);
+		String totEp = ConnectionManager.getAnimeDataGson("total_episodes", id);
 		String currentEp = "1";
 		String fansub = "";
-		String animeType = ConnectionManager.getAnimeData("type", dataAni);
-		String releaseDate = ConnectionManager.getAnimeData("start_date", dataAni);
-		String finishDate = ConnectionManager.getAnimeData("end_date", dataAni);
-		String durationEp = ConnectionManager.getAnimeData("duration", dataAni);
+		String animeType = ConnectionManager.getAnimeDataGson("type", id);
+		String releaseDate = ConnectionManager.getAnimeDataGson("start_date", id);
+		String finishDate = ConnectionManager.getAnimeDataGson("end_date", id);
+		String durationEp = ConnectionManager.getAnimeDataGson("duration", id);
 		if (totEp != null && !totEp.isEmpty())
 			if (totEp.equals("null") || totEp.equals("0"))
 				totEp = "??";
@@ -386,8 +385,8 @@ public class SuggestionDialog extends JDialog
 			currentEp = totEp;
 			exitDay = "Concluso";
 		}
-		String imageName = AddAnimeDialog.addSaveImage(name, dataAni, listName);
-		AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png", exitDay, id, "", "", animeType, releaseDate, finishDate, durationEp, false);
+		String imageName = AddAnimeDialog.addSaveImage(name, id, listName);
+		AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png", exitDay, Integer.toString(id), "", "", animeType, releaseDate, finishDate, durationEp, false);
 		JList list = AddAnimeDialog.getJList(listName);
 		SortedListModel model = AddAnimeDialog.getModel(listName);
 		TreeMap<String, AnimeData> map = AddAnimeDialog.getMap(listName);
