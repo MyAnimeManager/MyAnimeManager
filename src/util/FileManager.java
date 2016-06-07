@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,12 +21,19 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import javax.imageio.ImageIO;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import javafx.util.Pair;
 import main.AnimeIndex;
@@ -101,7 +109,7 @@ public class FileManager
 	}
 
 	// anime
-
+	@Deprecated
 	public static void loadAnime(String listName, SortedListModel list, TreeMap<String, AnimeData> map)
 	{
 		File fansubFile = new File(MAMUtil.getAnimeFolderPath() + listName);
@@ -166,6 +174,48 @@ public class FileManager
 			}
 	}
 
+	public static void loadAnimeGson(String listName, SortedListModel list, TreeMap<String, AnimeData> map)
+	{
+		FileReader reader;
+		try
+		{
+			reader = new FileReader(MAMUtil.getAnimeFolderPath() + listName);
+			JsonParser parser = new JsonParser();
+			JsonElement animeList = parser.parse(reader);
+			JsonObject animes = animeList.getAsJsonObject();
+			Set<Map.Entry<String, JsonElement>> entries = animes.entrySet();//will return members of your object
+			for (Map.Entry<String, JsonElement> entry: entries) {
+				String anime = entry.getKey();
+				list.addElement(anime);
+				
+			    JsonObject obj = entry.getValue().getAsJsonObject();
+			    String currentEp = obj.get("currentEpisode").getAsString();
+				String totEp = obj.get("totalEpisode").getAsString();
+				String fansub = obj.get("fansub").getAsString();
+				String note = obj.get("note").getAsString();
+				String image = obj.get("imageName").getAsString();
+				String day = obj.get("day").getAsString();
+				String id = obj.get("id").getAsString();
+				String linkName = obj.get("linkName").getAsString();
+				String link = obj.get("link").getAsString();
+				String animeType = obj.get("animeType").getAsString();
+				String releaseDate = obj.get("releaseDate").getAsString();
+				String finishDate = obj.get("finishDate").getAsString();
+				String durationEp = obj.get("durationEp").getAsString();
+				Boolean bd = obj.get("bd").getAsBoolean();
+				
+				AnimeData data = new AnimeData(currentEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
+
+				map.put(anime, data);
+			}
+		}
+		catch (FileNotFoundException e)
+		{
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
+		}
+	}
+	@Deprecated
 	public static void saveAnimeList(String file, TreeMap<String, AnimeData> map)
 	{
 		File animeFile = new File(MAMUtil.getAnimeFolderPath() + file);
@@ -191,6 +241,28 @@ public class FileManager
 
 	}
 
+	public static void saveAnimeListGson(String file, TreeMap<String, AnimeData> map)
+	{
+		Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+        String json = gson.toJson(map);
+        
+
+        File animeFile = new File(file);
+        animeFile.getParentFile().mkdirs();
+        BufferedWriter output;
+        try
+        {
+          output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(animeFile), "UTF-8"));
+          output.write(json);
+          output.close();
+        }
+        catch (IOException e1)
+        {
+          e1.printStackTrace();
+          MAMUtil.writeLog(e1);
+        }
+	}
+	
 	public static void loadExclusionList()
 	{
 		File exclusionFile = new File(MAMUtil.getAnimeFolderPath() + "exclusion.anaconda");
@@ -872,7 +944,12 @@ public class FileManager
 	            System.out.println("Extracting: " + entry);	            int count;
 	            byte data[] = new byte[BUFFER];
 	            // write the files to the disk
-	            FileOutputStream fos = new FileOutputStream(folderDest.getAbsolutePath() + File.separator + entry.getName());
+	            String fileName = folderDest.getAbsolutePath() + File.separator + entry.getName();
+	            File folderCheck = new File(fileName.substring(0, fileName.lastIndexOf("\\")));
+	            System.out.println(folderCheck);
+	            if (!folderCheck.exists())
+	            	folderCheck.mkdirs();
+	            FileOutputStream fos = new FileOutputStream(fileName);
 	            dest = new BufferedOutputStream(fos, BUFFER);
 	            while ((count = zis.read(data, 0, BUFFER)) 
 	              != -1) {
