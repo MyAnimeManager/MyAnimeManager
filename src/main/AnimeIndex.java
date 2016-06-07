@@ -178,7 +178,7 @@ public class AnimeIndex extends JFrame
 	private JButton addButton;
 	private String list;
 
-	public static JMarqueeLabel lblMAMNews;
+	public static JMarqueeLabel lblMAMTeamAdvert;
 	public static JButton deleteButton;
 	public static JComboBox animeTypeComboBox;
 	public static SearchBar searchBar;
@@ -1482,7 +1482,7 @@ public class AnimeIndex extends JFrame
 		menuBar.add(panel_1);
 		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		lblMAMNews = new JMarqueeLabel("");
+		lblMAMTeamAdvert = new JMarqueeLabel("");
 		MAMTeamAdvert teamAdvert = new MAMTeamAdvert();
 		try
 		{
@@ -1493,11 +1493,11 @@ public class AnimeIndex extends JFrame
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
 		}
-		lblMAMNews.setScrollDirection(0);
-		lblMAMNews.setSpeed(17);
-		lblMAMNews.setTextFont(AnimeIndex.segui.deriveFont(12f));
-		lblMAMNews.setTextColor(new Color(0, 65, 255));
-		panel_1.add(lblMAMNews);
+		lblMAMTeamAdvert.setScrollDirection(0);
+		lblMAMTeamAdvert.setSpeed(17);
+		lblMAMTeamAdvert.setTextFont(AnimeIndex.segui.deriveFont(12f));
+		lblMAMTeamAdvert.setTextColor(new Color(0, 65, 255));
+		panel_1.add(lblMAMTeamAdvert);
 		mntmCredit.addActionListener(new ActionListener() {
 
 			@Override

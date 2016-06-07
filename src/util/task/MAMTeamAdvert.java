@@ -23,7 +23,7 @@ public class MAMTeamAdvert extends SwingWorker
 	@Override
 	protected void done()
 	{
-		AnimeIndex.lblMAMNews.setText(advert);
+		AnimeIndex.lblMAMTeamAdvert.setText(advert);
 	}
 	private String loadMAMTeamNews()
 	{
