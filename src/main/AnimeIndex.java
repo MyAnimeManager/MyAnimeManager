@@ -335,7 +335,6 @@ public class AnimeIndex extends JFrame
 									dial.setVisible(true);
 								}
 							}
-							
 					}
 				});
 				loadTask.execute();
