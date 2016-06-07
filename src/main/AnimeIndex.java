@@ -112,7 +112,7 @@ import util.window.WishlistDialog;
 //TODO importare uscite stagionali da rad
 //aggiunta manuale: ?? inserimento numero ep totale --> DONE
 //durata ep se manca "min" aggiunta automatica quando si preme aggiungi --> DONE
-//TODO all'inserimento di un nuovo oav se la data di uscita e' prima di quella corrente inserirlo subito nella lista "date" e impostare il giorno di uscita su rilasciato
+//all'inserimento di un nuovo oav se la data di uscita e' prima di quella corrente inserirlo subito nella lista "date" e impostare il giorno di uscita su rilasciato --> DONE
 
 public class AnimeIndex extends JFrame
 {

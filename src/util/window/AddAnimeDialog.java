@@ -1140,7 +1140,6 @@ public class AddAnimeDialog extends JDialog
 
 		if (!(finishDay.equalsIgnoreCase("??") || finishMonth.equalsIgnoreCase("??") || finishYear.equalsIgnoreCase("????")))
 		{
-
 			if (listName.equalsIgnoreCase("anime completati"))
 			{
 				map = "Anime Completati";
@@ -1262,7 +1261,6 @@ public class AddAnimeDialog extends JDialog
 						else
 							map = "OAV";
 					}
-
 				}
 
 				else if ((type.equalsIgnoreCase("tv") || type.equalsIgnoreCase("tv short")))
@@ -1298,7 +1296,6 @@ public class AddAnimeDialog extends JDialog
 							map = "OAV";
 					}
 				}
-
 			}
 
 			else if (listName.equalsIgnoreCase("film"))
@@ -1322,7 +1319,6 @@ public class AddAnimeDialog extends JDialog
 						else
 							map = "Film";
 					}
-
 				}
 
 				else if ((type.equalsIgnoreCase("tv") || type.equalsIgnoreCase("tv short")))
@@ -1358,7 +1354,6 @@ public class AddAnimeDialog extends JDialog
 							map = "Film";
 					}
 				}
-
 			}
 
 			else if (listName.equalsIgnoreCase("completi da vedere"))
@@ -1413,7 +1408,6 @@ public class AddAnimeDialog extends JDialog
 							map = "Completi Da Vedere";
 					}
 				}
-
 			}
 		}
 		else if ((type.equalsIgnoreCase("tv") || type.equalsIgnoreCase("tv-short")) && !listName.equalsIgnoreCase("anime in corso"))
@@ -1518,9 +1512,7 @@ public class AddAnimeDialog extends JDialog
 			list.setSelectedValue(name, true);
 			AnimeIndex.shouldUpdate = true;
 			AnimeInformation.fansubComboBox.setSelectedItem("?????");
-
 		}
-
 		else
 		{
 			boolean ok = true;
@@ -1576,7 +1568,6 @@ public class AddAnimeDialog extends JDialog
 				list.setSelectedValue(name, true);
 				AnimeIndex.shouldUpdate = true;
 				AnimeInformation.fansubComboBox.setSelectedItem("?????");
-
 			}
 
 			if (AnimeIndex.filtro != 9)
@@ -1585,7 +1576,6 @@ public class AddAnimeDialog extends JDialog
 			if (!contains && !keepOpen.isSelected())
 				AnimeIndex.animeDialog.dispose();
 		}
-
 	}
 
 	public static String addSaveImage(String name, String dataAni, String list)
@@ -1809,6 +1799,17 @@ public class AddAnimeDialog extends JDialog
 			exitDay = "Concluso";
 		}
 		String imageName = AddAnimeDialog.addSaveImage(name, dataAni, list);
+		if(list.equalsIgnoreCase("Film") || list.equalsIgnoreCase("OAV"))
+		{
+			if(animeType.equalsIgnoreCase("Movie") || animeType.equalsIgnoreCase("OVA") || animeType.equalsIgnoreCase("ONA") || animeType.equalsIgnoreCase("Special") || animeType.equalsIgnoreCase("TV Short"))
+			{
+				if(MAMUtil.getDate(releaseDate).before(MAMUtil.getDate(MAMUtil.today())) || MAMUtil.getDate(releaseDate).equals(MAMUtil.getDate(MAMUtil.today())))
+				{
+					AnimeIndex.exitDateMap.put(name, MAMUtil.today());
+					exitDay = "Rilasciato";
+				}
+			}
+		}
 		AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png", exitDay, Integer.toString(id), "", "", animeType, releaseDate, finishDate, durationEp, false);
 		updateControlList(list);
 		AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
