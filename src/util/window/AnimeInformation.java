@@ -47,6 +47,7 @@ import javax.swing.text.AbstractDocument;
 
 import main.AnimeIndex;
 import util.AnimeData;
+import util.ConnectionManager;
 import util.FileDrop;
 import util.FileManager;
 import util.Filters;
@@ -999,6 +1000,11 @@ public class AnimeInformation extends JPanel
 			checkDataButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/refresh-icon15.png")));
 		
 		btnFolder = new JButton("");
+		btnFolder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConnectionManager.getAnimeDataGson("classification", 2966);
+			}
+		});
 		btnFolder.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/Folder.png")));
 		btnFolder.setToolTipText("Aggiorna i dati dell'anime");
 		btnFolder.setSize(new Dimension(30, 30));

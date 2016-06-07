@@ -13,6 +13,10 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import main.AnimeIndex;
 
 public class ConnectionManager
@@ -83,6 +87,7 @@ public class ConnectionManager
 		sc.close();
 	}
 
+	@Deprecated
 	public static HashMap<String, Integer> AnimeSearch(String anime)
 	{
 		HashMap<String, Integer> animeList = new HashMap<String, Integer>();
@@ -111,6 +116,7 @@ public class ConnectionManager
 		return animeList;
 	}
 
+	@Deprecated
 	private static String getSearchedAnime(String animeToSearch)
 	{
 		URL url; // The URL to read
@@ -162,6 +168,8 @@ public class ConnectionManager
 		return result;
 	}
 
+	
+	@Deprecated
 	/**
 	 * ottiene la risposta contentente tutte le informazioni
 	 *
@@ -179,7 +187,8 @@ public class ConnectionManager
 		sc1.close();
 		return result;
 	}
-
+	
+	@Deprecated
 	private static String getAnimeInformation(int animeID)
 	{
 		URL url; // The URL to read
@@ -233,7 +242,8 @@ public class ConnectionManager
 		result = StringEscapeUtils.unescapeJava(result);
 		return result;
 	}
-
+		
+	@Deprecated
 	/**
 	 * Prende i dati richiesti da una stringa contenente la risposta di anilist
 	 * ottenuta con il metodo parseAnimeData di questa stessa classe
@@ -255,6 +265,140 @@ public class ConnectionManager
 				data = sc.nextLine();
 		}
 		sc.close();
+		return data;
+	}
+	
+	private static JsonElement getSearchedAnimeGson(String animeToSearch)
+	{
+		URL url; // The URL to read
+		HttpURLConnection conn = null; // The actual connection to the web page
+		JsonElement root = null;
+		try
+		{
+			String animeQuery = URLEncoder.encode(animeToSearch, "UTF-8");
+			url = new URL(BASEURL + SEARCH + animeQuery + "?access_token=" + ConnectionManager.token);
+
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setDoOutput(true);
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("User-Agent", "My Anime Manager");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			conn.connect();
+			
+			JsonParser parser = new JsonParser();
+			root = parser.parse(new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8")));
+		}
+		catch (Exception e)
+		{
+			try
+			{
+				if (conn.getResponseCode() == 401)
+				{
+					System.out.println("Errore 401");
+					System.out.println("Token scaduto, richiesta nuovo token");
+					ConnectionManager.tokenExpired = true;
+					ConnectAndGetToken();
+					AnimeSearchGson(animeToSearch);
+					
+				}
+				else
+				{
+					e.printStackTrace();
+					MAMUtil.writeLog(e);
+				}
+
+			}
+			catch (IOException e1)
+			{
+				MAMUtil.writeLog(e1);
+				e1.printStackTrace();
+			}
+		}
+		return root;
+	}
+
+	public static HashMap<String, Integer> AnimeSearchGson(String anime)
+	{
+		HashMap<String, Integer> animeList = new HashMap<String, Integer>();
+		
+
+		JsonElement element = getSearchedAnimeGson(anime);
+		
+		if (element != null)
+		{
+			JsonArray animes = element.getAsJsonArray();
+			
+			for (JsonElement results : animes) {
+			    String title = results.getAsJsonObject().get("title_romaji").getAsString();
+			    int id = results.getAsJsonObject().get("id").getAsInt();
+			    animeList.put(title, id);
+			}
+			
+		}
+		return animeList;
+	}
+
+	private static JsonElement getAnimeInformationGson(int animeID, String dataToGet)
+	{
+		URL url; // The URL to read
+		HttpURLConnection conn = null; // The actual connection to the web page
+		JsonElement root = null;
+		try
+		{
+			url = new URL(BASEURL + ANIMEDATA + animeID + "?access_token=" + ConnectionManager.token);
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setDoOutput(true);
+			conn.setConnectTimeout(15 * 1000);
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("User-Agent", "My Anime Manager");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			conn.connect();
+			
+			JsonParser parser = new JsonParser();
+			root = parser.parse(new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8")));
+		}
+		catch (java.net.SocketTimeoutException timeout)
+		{
+			JOptionPane.showMessageDialog(AnimeIndex.frame, "Errore durante la connessione! Potrebbe dipendere dalla tua connessione o dal sito di Anilist.", "Errore!", JOptionPane.ERROR_MESSAGE);
+		}
+		catch (Exception e)
+		{
+			try
+			{
+				if (conn.getResponseCode() == 401)
+				{
+					System.out.println("Errore 401");
+					System.out.println("Token scaduto, richiesta nuovo token");
+					ConnectionManager.tokenExpired = true;
+					ConnectAndGetToken();
+					getAnimeDataGson(dataToGet, animeID);
+				}
+				else
+				{
+					e.printStackTrace();
+					MAMUtil.writeLog(e);
+				}
+			}
+			catch (IOException e1)
+			{
+
+				e1.printStackTrace();
+				MAMUtil.writeLog(e1);
+			}
+		}
+		return root;
+	}
+
+	public static String getAnimeDataGson(String dataToGet, int animeId)
+	{
+		String data = null;
+		JsonElement element = getAnimeInformationGson(animeId, dataToGet);
+		if (element != null)
+		{
+			data = element.getAsJsonObject().get(dataToGet).getAsString();
+			System.out.println(data);
+		}
+		
 		return data;
 	}
 }
