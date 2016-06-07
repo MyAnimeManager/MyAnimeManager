@@ -1759,7 +1759,6 @@ public class AddAnimeDialog extends JDialog
 				releaseDate = dayStart + "/" + monthStart + "/" + yearStart;
 			}
 		if (finishDate != null && !finishDate.isEmpty())
-		{
 			if (finishDate.equals("null"))
 				finishDate = "??/??/????";
 			else if (finishDate.length() == 4)
@@ -1779,7 +1778,7 @@ public class AddAnimeDialog extends JDialog
 			}
 			if (totEp.equals("1"))
 				finishDate = releaseDate;
-		}
+			
 		String exitDay = "?????";
 		if (((String) listToAddAniComboBox.getSelectedItem()).equalsIgnoreCase("completi da vedere"))
 			exitDay = "Concluso";

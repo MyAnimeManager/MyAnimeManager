@@ -395,7 +395,11 @@ public class ConnectionManager
 		JsonElement element = getAnimeInformationGson(animeId, dataToGet);
 		if (element != null)
 		{
-			data = element.getAsJsonObject().get(dataToGet).getAsString();
+			JsonElement dataElement = element.getAsJsonObject().get(dataToGet);
+			if (dataElement != null && !dataElement.isJsonNull())
+				data = dataElement.getAsString();
+			else
+				data = "null";
 			System.out.println(data);
 		}
 		
