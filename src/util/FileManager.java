@@ -51,14 +51,12 @@ public class FileManager
 		try
 		{
 			for (Map.Entry<String, String> entry : AnimeIndex.fansubMap.entrySet())
-				output.write(entry.getKey() + "||" + entry.getValue() + "||" + System.lineSeparator());
-				
+				output.write(entry.getKey() + "||" + entry.getValue() + "||" + System.lineSeparator());	
 		}
 		finally
 		{
 			output.close();
 		}
-
 	}
 
 	public static void loadFansubList()
@@ -238,15 +236,12 @@ public class FileManager
 			e.printStackTrace();
 			MAMUtil.writeLog(e);
 		}
-
 	}
 
 	public static void saveAnimeListGson(String file, TreeMap<String, AnimeData> map)
 	{
 		Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
-        String json = gson.toJson(map);
-        
-
+        String json = gson.toJson(map);     
         File animeFile = new File(file);
         animeFile.getParentFile().mkdirs();
         BufferedWriter output;
@@ -273,7 +268,6 @@ public class FileManager
 			try
 			{
 				scan = new Scanner(exclusionFile, "UTF-8");
-
 				while (scan.hasNextLine())
 				{
 					String excludedAnime = scan.nextLine();
@@ -573,7 +567,6 @@ public class FileManager
 		{
 			output.close();
 		}
-
 	}
 
 	public static void loadPatternList()
@@ -929,7 +922,6 @@ public class FileManager
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public static void extractZip(File folderDest, File zipFile)
@@ -941,7 +933,8 @@ public class FileManager
 	         ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
 	         ZipEntry entry;
 	         while((entry = zis.getNextEntry()) != null) {
-	            System.out.println("Extracting: " + entry);	            int count;
+	            System.out.println("Extracting: " + entry);	            
+	            int count;
 	            byte data[] = new byte[BUFFER];
 	            // write the files to the disk
 	            String fileName = folderDest.getAbsolutePath() + File.separator + entry.getName();
@@ -951,8 +944,7 @@ public class FileManager
 	            	folderCheck.mkdirs();
 	            FileOutputStream fos = new FileOutputStream(fileName);
 	            dest = new BufferedOutputStream(fos, BUFFER);
-	            while ((count = zis.read(data, 0, BUFFER)) 
-	              != -1) {
+	            while ((count = zis.read(data, 0, BUFFER)) != -1) {
 	               dest.write(data, 0, count);
 	            }
 	            dest.flush();
