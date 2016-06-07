@@ -277,7 +277,6 @@ public class ConnectionManager
 		{
 			String animeQuery = URLEncoder.encode(animeToSearch, "UTF-8");
 			url = new URL(BASEURL + SEARCH + animeQuery + "?access_token=" + ConnectionManager.token);
-
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setRequestMethod("GET");
@@ -320,20 +319,16 @@ public class ConnectionManager
 	public static HashMap<String, Integer> AnimeSearchGson(String anime)
 	{
 		HashMap<String, Integer> animeList = new HashMap<String, Integer>();
-		
-
 		JsonElement element = getSearchedAnimeGson(anime);
-		
 		if (element != null && element.isJsonArray())
 		{
-			JsonArray animes = element.getAsJsonArray();
-			
-			for (JsonElement results : animes) {
+			JsonArray animes = element.getAsJsonArray();			
+			for (JsonElement results : animes) 
+			{
 			    String title = results.getAsJsonObject().get("title_romaji").getAsString();
 			    int id = results.getAsJsonObject().get("id").getAsInt();
 			    animeList.put(title, id);
-			}
-			
+			}			
 		}
 		return animeList;
 	}
@@ -400,9 +395,8 @@ public class ConnectionManager
 				data = dataElement.getAsString();
 			else
 				data = "null";
-			System.out.println(data);
+//			System.out.println(data);
 		}
-		
 		return data;
 	}
 }

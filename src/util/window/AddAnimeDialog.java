@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.TreeMap;
 
@@ -507,6 +508,7 @@ public class AddAnimeDialog extends JDialog
 					}
 					{
 						totEpField = new JTextField();
+						totEpField.setToolTipText("");
 						GridBagConstraints gbc_totEpField = new GridBagConstraints();
 						gbc_totEpField.fill = GridBagConstraints.HORIZONTAL;
 						gbc_totEpField.insets = new Insets(0, 0, 5, 5);
@@ -854,18 +856,16 @@ public class AddAnimeDialog extends JDialog
 							@Override
 							public void actionPerformed(ActionEvent e)
 							{
+								if(totEpField.getText().equalsIgnoreCase("") || totEpField.getText().contains("?"))
+									totEpField.setText("??");	
+								if (currentEpisodeText.getText().equalsIgnoreCase("")|| currentEpisodeText.getText().contains("?"))
+									currentEpisodeText.setText("01");
 								if (nameField.getText().equalsIgnoreCase(""))
 									JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Nome non inserito", "Errore", JOptionPane.ERROR_MESSAGE);
-								else if ((totEpField.getText().equalsIgnoreCase("") && currentEpisodeText.getText().equalsIgnoreCase("")) || totEpField.getText().equalsIgnoreCase(""))
-									JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Episodi totali o episodio corrente non inseriti/o", "Errore", JOptionPane.ERROR_MESSAGE);
-								else if ((!currentEpisodeText.getText().equalsIgnoreCase("") && (!totEpField.getText().equals("??") && Integer.parseInt(totEpField.getText()) < Integer.parseInt(currentEpisodeText.getText()))))
+								else if ((!totEpField.getText().equals("??") && Integer.parseInt(totEpField.getText()) < Integer.parseInt(currentEpisodeText.getText())))
 									JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Il numero totale di episodi non può essere inferiore al numero attuale", "Errore", JOptionPane.ERROR_MESSAGE);
 								else
-								{
-
-									if ((!(totEpField.getText().equalsIgnoreCase("")) && currentEpisodeText.getText().equalsIgnoreCase("")))
-										currentEpisodeText.setText("1");
-										
+								{							
 									String name = nameField.getText().trim();
 									String type = ((String) typeComboBox.getSelectedItem()).trim();
 									String currentEp = currentEpisodeText.getText().trim();
@@ -941,15 +941,30 @@ public class AddAnimeDialog extends JDialog
 										JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Alcuni campi contengono caratteri non consentiti.", "Errore !", JOptionPane.ERROR_MESSAGE);
 									else
 									{
-										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
-	
 										if ((AnimeIndex.appProp.getProperty("Check_Data_Conflict").equalsIgnoreCase("false")) || finishDate.equalsIgnoreCase("//") || type.equalsIgnoreCase("?????"))
 										{
 											String listName = (String) listToAdd.getSelectedItem();
+											if(!startDate.contains("?"))
+											{
+												if(listName.equalsIgnoreCase("Film") || listName.equalsIgnoreCase("OAV"))
+												{
+													GregorianCalendar rDate = MAMUtil.getDate(startDate);
+													String cDay = MAMUtil.today();
+													GregorianCalendar tDate = MAMUtil.getDate(cDay);
+//													if(type.equalsIgnoreCase("Movie") || type.equalsIgnoreCase("OVA") || type.equalsIgnoreCase("ONA") || type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("TV Short"))
+//													{
+														if(rDate.before(tDate) || rDate.equals(tDate))
+														{
+															AnimeIndex.exitDateMap.put(name, cDay);
+															exitDay = "Rilasciato";
+														}
+//													}
+												}
+											}
+											AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
 											JList list = AddAnimeDialog.getJList(listName);
 											SortedListModel model = AddAnimeDialog.getModel(listName);
 											TreeMap<String, AnimeData> map = AddAnimeDialog.getMap(listName);
-	
 											map.put(name, data);
 											model.addElement(name);
 											AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
@@ -958,7 +973,29 @@ public class AddAnimeDialog extends JDialog
 											AddAnimeDialog.this.dispose();
 										}
 										else
-											manualAnimeAdd(name, data, finishDate, type);
+										{
+											String list = AddAnimeDialog.checkDataConflict(finishDate, type, false);
+											if(!startDate.contains("?"))
+											{
+												if(list.equalsIgnoreCase("Film") || list.equalsIgnoreCase("OAV"))
+												{
+													GregorianCalendar rDate = MAMUtil.getDate(startDate);
+													String cDay = MAMUtil.today();
+													GregorianCalendar tDate = MAMUtil.getDate(cDay);
+//													if(type.equalsIgnoreCase("Movie") || type.equalsIgnoreCase("OVA") || type.equalsIgnoreCase("ONA") || type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("TV Short"))
+//													{
+														if(rDate.before(tDate) || rDate.equals(tDate))
+														{
+															AnimeIndex.exitDateMap.put(name, cDay);
+															exitDay = "Rilasciato";
+														}
+//													}
+												}
+											}
+											AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
+											updateControlList(list);
+											AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
+										}
 										AnimeIndex.lastSelection = name;
 									}
 								}
@@ -1676,13 +1713,6 @@ public class AddAnimeDialog extends JDialog
 		}
 	}
 
-	private static void manualAnimeAdd(String name, AnimeData data, String finishDate, String type)
-	{
-		String list = AddAnimeDialog.checkDataConflict(finishDate, type, false);
-		updateControlList(list);
-		AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
-	}
-
 	public static ArrayList<String> getArrayList(String listName)
 	{
 		ArrayList<String> arrayList = null;
@@ -1799,13 +1829,19 @@ public class AddAnimeDialog extends JDialog
 		String imageName = AddAnimeDialog.addSaveImage(name, id, list);
 		if(list.equalsIgnoreCase("Film") || list.equalsIgnoreCase("OAV"))
 		{
-			if(animeType.equalsIgnoreCase("Movie") || animeType.equalsIgnoreCase("OVA") || animeType.equalsIgnoreCase("ONA") || animeType.equalsIgnoreCase("Special") || animeType.equalsIgnoreCase("TV Short"))
+			if(!releaseDate.contains("?"))
 			{
-				if(MAMUtil.getDate(releaseDate).before(MAMUtil.getDate(MAMUtil.today())) || MAMUtil.getDate(releaseDate).equals(MAMUtil.getDate(MAMUtil.today())))
-				{
-					AnimeIndex.exitDateMap.put(name, MAMUtil.today());
-					exitDay = "Rilasciato";
-				}
+				GregorianCalendar rDate = MAMUtil.getDate(releaseDate);
+				String cDay = MAMUtil.today();
+				GregorianCalendar tDate = MAMUtil.getDate(cDay);
+//				if(animeType.equalsIgnoreCase("Movie") || animeType.equalsIgnoreCase("OVA") || animeType.equalsIgnoreCase("ONA") || animeType.equalsIgnoreCase("Special") || animeType.equalsIgnoreCase("TV Short"))
+//				{
+					if(rDate.before(tDate) || rDate.equals(tDate))
+					{
+						AnimeIndex.exitDateMap.put(name, cDay);
+						exitDay = "Rilasciato";
+					}
+//				}
 			}
 		}
 		AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png", exitDay, Integer.toString(id), "", "", animeType, releaseDate, finishDate, durationEp, false);
