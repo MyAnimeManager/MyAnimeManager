@@ -8,8 +8,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -20,9 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import main.AnimeIndex;
-import util.AnimeIndexProperties;
 import util.ExternalProgram;
-import util.FileManager;
 import util.MAMUtil;
 
 public class UpdateDialog extends JDialog
@@ -78,7 +74,7 @@ public class UpdateDialog extends JDialog
 				UpdateDialog.this.dispose();
 				dial.setLocationRelativeTo(AnimeIndex.mainFrame);
 				dial.setVisible(true);
-				save();
+				MAMUtil.saveData();
 				ExternalProgram ext = new ExternalProgram(MAMUtil.getAppDataPath() + File.separator + "Update" + File.separator + AnimeIndex.NEW_VERSION);
 				ext.run();
 			}
@@ -106,47 +102,4 @@ public class UpdateDialog extends JDialog
 		this.setSize(293, 200);
 	}
 
-	private void save()
-	{
-		try
-		{
-			FileManager.saveFansubList();
-			FileManager.savePatternList();
-		}
-		catch (IOException e1)
-		{
-			e1.printStackTrace();
-			MAMUtil.writeLog(e1);
-		}
-		FileManager.saveAnimeList("completed.anaconda", AnimeIndex.completedMap);
-		FileManager.saveAnimeList("airing.anaconda", AnimeIndex.airingMap);
-		FileManager.saveAnimeList("ova.anaconda", AnimeIndex.ovaMap);
-		FileManager.saveAnimeList("film.anaconda", AnimeIndex.filmMap);
-		FileManager.saveAnimeList("toSee.anaconda", AnimeIndex.completedToSeeMap);
-
-		deleteUselessImage(AnimeIndex.completedDeletedAnime);
-		deleteUselessImage(AnimeIndex.airingDeletedAnime);
-		deleteUselessImage(AnimeIndex.ovaDeletedAnime);
-		deleteUselessImage(AnimeIndex.filmDeletedAnime);
-		deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime);
-		AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
-	}
-
-	private void deleteUselessImage(ArrayList<String> arrayList)
-	{
-		for (int i = 0; i < arrayList.size(); i++)
-		{
-			String animeImagePath = arrayList.get(i);
-			File image = new File(animeImagePath);
-			try
-			{
-				FileManager.deleteData(image);
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-				MAMUtil.writeLog(e);
-			}
-		}
-	}
 }

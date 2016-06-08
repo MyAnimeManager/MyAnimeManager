@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.TreeMap;
 
 import javax.swing.JButton;
@@ -63,44 +62,7 @@ public class ExitSaveDialog extends JDialog
 						public void actionPerformed(ActionEvent e)
 						{
 							// salva
-							try
-							{
-								FileManager.saveFansubList();
-								FileManager.savePatternList();
-							}
-							catch (IOException e1)
-							{
-								e1.printStackTrace();
-								MAMUtil.writeLog(e1);
-							}
-							FileManager.saveAnimeList("completed.anaconda", AnimeIndex.completedMap);
-							FileManager.saveAnimeList("airing.anaconda", AnimeIndex.airingMap);
-							FileManager.saveAnimeList("ova.anaconda", AnimeIndex.ovaMap);
-							FileManager.saveAnimeList("film.anaconda", AnimeIndex.filmMap);
-							FileManager.saveAnimeList("toSee.anaconda", AnimeIndex.completedToSeeMap);
-							FileManager.saveWishList();
-							FileManager.saveExclusionList();
-							FileManager.saveDateMap();
-
-							try
-							{
-								FileManager.deleteData(new File(MAMUtil.getTempDownloadPath()));
-							}
-							catch (IOException e1)
-							{
-								MAMUtil.writeLog(e1);
-								e1.printStackTrace();
-							}
-							
-							deleteUselessImage(AnimeIndex.completedDeletedAnime);
-							deleteUselessImage(AnimeIndex.airingDeletedAnime);
-							deleteUselessImage(AnimeIndex.ovaDeletedAnime);
-							deleteUselessImage(AnimeIndex.filmDeletedAnime);
-							deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime);
-							deleteUselessImage(AnimeIndex.sessionAddedAnime);
-
-							AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
-							ColorProperties.saveProperties(AnimeIndex.colorProp);
+							MAMUtil.saveData();
 
 							System.exit(0);
 						}
@@ -125,12 +87,12 @@ public class ExitSaveDialog extends JDialog
 								e1.printStackTrace();
 							}
 							
-							deleteUselessImage(AnimeIndex.completedSessionAnime);
-							deleteUselessImage(AnimeIndex.airingSessionAnime);
-							deleteUselessImage(AnimeIndex.ovaSessionAnime);
-							deleteUselessImage(AnimeIndex.filmSessionAnime);
-							deleteUselessImage(AnimeIndex.completedToSeeSessionAnime);
-							deleteUselessImage(AnimeIndex.sessionAddedAnime);
+							MAMUtil.deleteUselessImage(AnimeIndex.completedSessionAnime);
+							MAMUtil.deleteUselessImage(AnimeIndex.airingSessionAnime);
+							MAMUtil.deleteUselessImage(AnimeIndex.ovaSessionAnime);
+							MAMUtil.deleteUselessImage(AnimeIndex.filmSessionAnime);
+							MAMUtil.deleteUselessImage(AnimeIndex.completedToSeeSessionAnime);
+							MAMUtil.deleteUselessImage(AnimeIndex.sessionAddedAnime);
 							Object[] keyArr = AnimeIndex.sessionAddedAnimeImagesShiftsRegister.keySet().toArray();
 							for (int i = 0; i < keyArr.length; i++)
 								try
@@ -161,24 +123,6 @@ public class ExitSaveDialog extends JDialog
 				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
-			}
-		}
-	}
-
-	public static void deleteUselessImage(ArrayList<String> arrayList)
-	{
-		for (int i = 0; i < arrayList.size(); i++)
-		{
-			String animeImagePath = arrayList.get(i);
-			File image = new File(animeImagePath);
-			try
-			{
-				FileManager.deleteData(image);
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-				MAMUtil.writeLog(e);
 			}
 		}
 	}

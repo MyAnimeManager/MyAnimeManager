@@ -16,7 +16,7 @@ public class ImportExportFileFilter extends FileFilter
 		String extension = MAMUtil.getExtension(f);
 		if (extension != null)
 		{
-			if (extension.equalsIgnoreCase(".zip"))
+			if (extension.equalsIgnoreCase(".MAMListBKP"))
 					return true;
 			return false;
 		}
@@ -26,6 +26,6 @@ public class ImportExportFileFilter extends FileFilter
 	@Override
 	public String getDescription()
 	{
-		return "File .zip";
+		return "File .MAMListBKP";
 	}
 }

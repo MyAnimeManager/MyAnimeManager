@@ -233,7 +233,70 @@ public class MAMUtil
 			return true;
 		return false;
 	}
+	
+	public static void saveData()
+	{
+		try
+		{
+			FileManager.saveFansubList();
+			FileManager.savePatternList();
+		}
+		catch (IOException e1)
+		{
+			e1.printStackTrace();
+			MAMUtil.writeLog(e1);
+		}
+		FileManager.saveAnimeListGson("completed.JConda", AnimeIndex.completedMap);
+		FileManager.saveAnimeListGson("airing.JConda", AnimeIndex.airingMap);
+		FileManager.saveAnimeListGson("ova.JConda", AnimeIndex.ovaMap);
+		FileManager.saveAnimeListGson("film.JConda", AnimeIndex.filmMap);
+		FileManager.saveAnimeListGson("toSee.JConda", AnimeIndex.completedToSeeMap);
+		FileManager.saveWishList();
+		FileManager.saveExclusionList();
+		FileManager.saveDateMap();
 
+		try
+		{
+			FileManager.deleteData(new File(MAMUtil.getTempDownloadPath()));
+		}
+		catch (IOException e1)
+		{
+			MAMUtil.writeLog(e1);
+			e1.printStackTrace();
+		}
+		
+		deleteUselessImage(AnimeIndex.completedDeletedAnime);
+		deleteUselessImage(AnimeIndex.airingDeletedAnime);
+		deleteUselessImage(AnimeIndex.ovaDeletedAnime);
+		deleteUselessImage(AnimeIndex.filmDeletedAnime);
+		deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime);
+		deleteUselessImage(AnimeIndex.sessionAddedAnime);
+
+		AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
+		ColorProperties.saveProperties(AnimeIndex.colorProp);
+
+		System.exit(0);
+	}
+	
+
+	public static void deleteUselessImage(ArrayList<String> arrayList)
+	{
+		for (int i = 0; i < arrayList.size(); i++)
+		{
+			String animeImagePath = arrayList.get(i);
+			File image = new File(animeImagePath);
+			try
+			{
+				FileManager.deleteData(image);
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+				writeLog(e);
+			}
+		}
+	}
+	
 	public static String getAppDataPath()
 	{
 		return MAMUtil.APPDATA_PATH;
@@ -278,4 +341,5 @@ public class MAMUtil
 	{
 		return MAMUtil.PATTERN_PATH;
 	}
+
 }

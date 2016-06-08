@@ -2,6 +2,7 @@ package util.task;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
@@ -24,11 +25,37 @@ public class LoadingTask extends SwingWorker
 		FileManager.loadFansubList();
 		AnimeInformation.setFansubComboBox();
 		FileManager.loadExclusionList();
+		
+		File completed = new File(MAMUtil.getAnimeFolderPath() + "completed.JConda");
+		if (completed.isFile())
+			FileManager.loadAnimeGson("completed.JConda", AnimeIndex.completedModel, AnimeIndex.completedMap);
+		else
 		FileManager.loadAnime("completed.anaconda", AnimeIndex.completedModel, AnimeIndex.completedMap);
+		
+		File airing = new File(MAMUtil.getAnimeFolderPath() + "airing.JConda");
+		if (airing.isFile())
+			FileManager.loadAnimeGson("airing.JConda", AnimeIndex.airingModel, AnimeIndex.airingMap);
+		else
 		FileManager.loadAnime("airing.anaconda", AnimeIndex.airingModel, AnimeIndex.airingMap);
+		
+		File ova = new File(MAMUtil.getAnimeFolderPath() + "ova.JConda");
+		if (ova.isFile())
+			FileManager.loadAnimeGson("ova.JConda", AnimeIndex.ovaModel, AnimeIndex.ovaMap);
+		else
 		FileManager.loadAnime("ova.anaconda", AnimeIndex.ovaModel, AnimeIndex.ovaMap);
+		
+		File film = new File(MAMUtil.getAnimeFolderPath() + "film.JConda");
+		if (film.isFile())
+			FileManager.loadAnimeGson("film.JConda", AnimeIndex.filmModel, AnimeIndex.filmMap);
+		else
 		FileManager.loadAnime("film.anaconda", AnimeIndex.filmModel, AnimeIndex.filmMap);
+		
+		File toSee = new File(MAMUtil.getAnimeFolderPath() + "toSee.JConda");
+		if (toSee.isFile())
+			FileManager.loadAnimeGson("toSee.JConda", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
+		else
 		FileManager.loadAnime("toSee.anaconda", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
+		
 		FileManager.loadWishList();
 		FileManager.loadDateMap();
 		FileManager.loadPatternList();

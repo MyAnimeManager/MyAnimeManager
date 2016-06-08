@@ -293,7 +293,7 @@ public class WishlistDialog extends JDialog
 
 						if (name != null)
 						{
-							HashMap<String, Integer> map = ConnectionManager.AnimeSearch(name);
+							HashMap<String, Integer> map = ConnectionManager.AnimeSearchGson(name);
 							if (!map.isEmpty() && map.size() > 1)
 							{
 								String[] animeNames = map.keySet().toArray(new String[0]);

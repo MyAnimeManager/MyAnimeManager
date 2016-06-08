@@ -27,10 +27,8 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import main.AnimeIndex;
-import util.AnimeIndexProperties;
-import util.ColorProperties;
 import util.ExternalProgram;
-import util.FileManager;
+import util.MAMUtil;
 
 public class ColorDialog extends JDialog
 {
@@ -396,7 +394,7 @@ public class ColorDialog extends JDialog
 							if (choiche == 0)
 							{
 								saveColor();
-								saveData();
+								MAMUtil.saveData();
 								ExternalProgram restart = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "MAMRestart.jar");
 								restart.run();
 							}
@@ -418,7 +416,7 @@ public class ColorDialog extends JDialog
 							int choiche = JOptionPane.showConfirmDialog(ColorDialog.this, "Per applicare le modifiche è necessario un riavvio. Riavviare ora?", "Riavvio richiesto", JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
 							if (choiche == 0)
 							{
-								saveData();
+								MAMUtil.saveData();
 								ExternalProgram restart = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "MAMRestart.jar");
 								restart.run();
 							}
@@ -470,22 +468,4 @@ public class ColorDialog extends JDialog
 		AnimeIndex.colorProp.setProperty("ComboBox_color", Integer.toString(comboBoxColor));
 	}
 
-	private static void saveData()
-	{
-		FileManager.saveAnimeList("completed.anaconda", AnimeIndex.completedMap);
-		FileManager.saveAnimeList("airing.anaconda", AnimeIndex.airingMap);
-		FileManager.saveAnimeList("ova.anaconda", AnimeIndex.ovaMap);
-		FileManager.saveAnimeList("film.anaconda", AnimeIndex.filmMap);
-		FileManager.saveAnimeList("toSee.anaconda", AnimeIndex.completedToSeeMap);
-		FileManager.saveWishList();
-		FileManager.saveExclusionList();
-
-		ExitSaveDialog.deleteUselessImage(AnimeIndex.completedDeletedAnime);
-		ExitSaveDialog.deleteUselessImage(AnimeIndex.airingDeletedAnime);
-		ExitSaveDialog.deleteUselessImage(AnimeIndex.ovaDeletedAnime);
-		ExitSaveDialog.deleteUselessImage(AnimeIndex.filmDeletedAnime);
-		ExitSaveDialog.deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime);
-		AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
-		ColorProperties.saveProperties(AnimeIndex.colorProp);
-	}
 }

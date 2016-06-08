@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -41,6 +42,12 @@ public class SortedListModel extends AbstractListModel
 	{
 		Collection<String> c = Arrays.asList(elements);
 		model.addAll(c);
+		fireContentsChanged(this, 0, getSize());
+	}
+	
+	public void addAll(Set<String> set)
+	{
+		model.addAll(set);
 		fireContentsChanged(this, 0, getSize());
 	}
 

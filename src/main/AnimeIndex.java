@@ -500,9 +500,9 @@ public class AnimeIndex extends JFrame
 					fileToZip.put(fansub, "");
 					
 					File dest = fc.getSelectedFile();
-					if (MAMUtil.getExtension(dest) == null || !MAMUtil.getExtension(dest).equalsIgnoreCase(".zip"))
+					if (MAMUtil.getExtension(dest) == null || !MAMUtil.getExtension(dest).equalsIgnoreCase("..MAMListBKP"))
 					{
-						dest = new File(fc.getSelectedFile() + ".zip");
+						dest = new File(fc.getSelectedFile() + ".MAMListBKP");
 					}
 					BackupImportExportTask task = new BackupImportExportTask(dest, fileToZip);
 					WaitDialog waitForZip = new WaitDialog("Esportando...", "Esportando i dati", task);

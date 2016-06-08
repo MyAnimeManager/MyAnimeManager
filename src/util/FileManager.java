@@ -8,12 +8,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -21,7 +23,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -34,6 +35,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 import javafx.util.Pair;
 import main.AnimeIndex;
@@ -51,12 +53,14 @@ public class FileManager
 		try
 		{
 			for (Map.Entry<String, String> entry : AnimeIndex.fansubMap.entrySet())
-				output.write(entry.getKey() + "||" + entry.getValue() + "||" + System.lineSeparator());	
+				output.write(entry.getKey() + "||" + entry.getValue() + "||" + System.lineSeparator());
+				
 		}
 		finally
 		{
 			output.close();
 		}
+
 	}
 
 	public static void loadFansubList()
@@ -174,40 +178,19 @@ public class FileManager
 
 	public static void loadAnimeGson(String listName, SortedListModel list, TreeMap<String, AnimeData> map)
 	{
-		FileReader reader;
+		InputStreamReader reader;
 		try
 		{
-			reader = new FileReader(MAMUtil.getAnimeFolderPath() + listName);
+			reader = new InputStreamReader(new FileInputStream(MAMUtil.getAnimeFolderPath() + listName), "UTF-8");
 			JsonParser parser = new JsonParser();
 			JsonElement animeList = parser.parse(reader);
-			JsonObject animes = animeList.getAsJsonObject();
-			Set<Map.Entry<String, JsonElement>> entries = animes.entrySet();//will return members of your object
-			for (Map.Entry<String, JsonElement> entry: entries) {
-				String anime = entry.getKey();
-				list.addElement(anime);
-				
-			    JsonObject obj = entry.getValue().getAsJsonObject();
-			    String currentEp = obj.get("currentEpisode").getAsString();
-				String totEp = obj.get("totalEpisode").getAsString();
-				String fansub = obj.get("fansub").getAsString();
-				String note = obj.get("note").getAsString();
-				String image = obj.get("imageName").getAsString();
-				String day = obj.get("day").getAsString();
-				String id = obj.get("id").getAsString();
-				String linkName = obj.get("linkName").getAsString();
-				String link = obj.get("link").getAsString();
-				String animeType = obj.get("animeType").getAsString();
-				String releaseDate = obj.get("releaseDate").getAsString();
-				String finishDate = obj.get("finishDate").getAsString();
-				String durationEp = obj.get("durationEp").getAsString();
-				Boolean bd = obj.get("bd").getAsBoolean();
-				
-				AnimeData data = new AnimeData(currentEp, totEp, fansub, note, image, day, id, linkName, link, animeType, releaseDate, finishDate, durationEp, bd);
-
-				map.put(anime, data);
-			}
+			JsonObject anime = animeList.getAsJsonObject();
+			Gson gsonMap = new GsonBuilder().serializeNulls().create();
+			Type mapType = new TypeToken<TreeMap<String, AnimeData>>() {}.getType();
+			map = gsonMap.fromJson(anime, mapType);			
+			list.addAll(map.keySet());
 		}
-		catch (FileNotFoundException e)
+		catch (FileNotFoundException | UnsupportedEncodingException e)
 		{
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
@@ -236,13 +219,16 @@ public class FileManager
 			e.printStackTrace();
 			MAMUtil.writeLog(e);
 		}
+
 	}
 
 	public static void saveAnimeListGson(String file, TreeMap<String, AnimeData> map)
 	{
 		Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
-        String json = gson.toJson(map);     
-        File animeFile = new File(file);
+        String json = gson.toJson(map);
+        
+
+        File animeFile = new File(MAMUtil.getAnimeFolderPath() + file);
         animeFile.getParentFile().mkdirs();
         BufferedWriter output;
         try
@@ -268,6 +254,7 @@ public class FileManager
 			try
 			{
 				scan = new Scanner(exclusionFile, "UTF-8");
+
 				while (scan.hasNextLine())
 				{
 					String excludedAnime = scan.nextLine();
@@ -567,6 +554,7 @@ public class FileManager
 		{
 			output.close();
 		}
+
 	}
 
 	public static void loadPatternList()
@@ -922,6 +910,7 @@ public class FileManager
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public static void extractZip(File folderDest, File zipFile)
@@ -933,18 +922,18 @@ public class FileManager
 	         ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
 	         ZipEntry entry;
 	         while((entry = zis.getNextEntry()) != null) {
-	            System.out.println("Extracting: " + entry);	            
-	            int count;
+	            System.out.println("Extracting: " + entry);	            int count;
 	            byte data[] = new byte[BUFFER];
 	            // write the files to the disk
 	            String fileName = folderDest.getAbsolutePath() + File.separator + entry.getName();
-	            File folderCheck = new File(fileName.substring(0, fileName.lastIndexOf("\\")));
-	            System.out.println(folderCheck);
-	            if (!folderCheck.exists())
-	            	folderCheck.mkdirs();
+	            File folder = new File(fileName).getParentFile();
+	            System.out.println(folder);
+	            if (!folder.exists())
+	            	folder.mkdirs();
 	            FileOutputStream fos = new FileOutputStream(fileName);
 	            dest = new BufferedOutputStream(fos, BUFFER);
-	            while ((count = zis.read(data, 0, BUFFER)) != -1) {
+	            while ((count = zis.read(data, 0, BUFFER)) 
+	              != -1) {
 	               dest.write(data, 0, count);
 	            }
 	            dest.flush();

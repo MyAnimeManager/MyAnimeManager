@@ -18,17 +18,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 import javax.imageio.IIOException;
@@ -51,12 +44,6 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.text.AbstractDocument;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import main.AnimeIndex;
 import util.AnimeData;
@@ -1012,6 +999,12 @@ public class AnimeInformation extends JPanel
 			checkDataButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/refresh-icon15.png")));
 		
 		btnFolder = new JButton("");
+		btnFolder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FileManager.saveAnimeListGson("completedgson.anaconda", AnimeIndex.completedMap);
+				FileManager.loadAnimeGson("completedgson.anaconda", AnimeIndex.completedModel, AnimeIndex.completedMap);
+			}
+		});
 		btnFolder.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/Folder.png")));
 		btnFolder.setToolTipText("Aggiorna i dati dell'anime");
 		btnFolder.setSize(new Dimension(30, 30));
