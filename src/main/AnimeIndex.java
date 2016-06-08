@@ -113,7 +113,7 @@ import util.window.WishlistDialog;
 //aggiunta manuale: ?? inserimento numero ep totale --> DONE
 //durata ep se manca "min" aggiunta automatica quando si preme aggiungi --> DONE
 //all'inserimento di un nuovo oav se la data di uscita e' prima di quella corrente inserirlo subito nella lista "date" e impostare il giorno di uscita su rilasciato --> DONE
-//TODO impedire inserimento totep < currep in animeinformation
+//impedire inserimento totep < currep in animeinformation --> DONE
 
 public class AnimeIndex extends JFrame
 {
@@ -3098,6 +3098,48 @@ public class AnimeIndex extends JFrame
 			String endDay = "";
 			if (oldData.getTotalEpisode().isEmpty() && totalEpNumber != null)
 				totalEp = totalEpNumber;
+			if(!oldData.getTotalEpisode().contains("?"))
+			{
+				if (Integer.parseInt(oldData.getTotalEpisode()) < Integer.parseInt(oldData.getCurrentEpisode()))
+				{
+					JList lista = null;
+					if (AnimeIndex.filtro != 9)
+						lista = filterList;
+					if (!AnimeIndex.searchBar.getText().isEmpty())
+						lista = searchList;
+					if (AnimeIndex.searchBar.getText().isEmpty() && filtro == 9)
+						lista = MAMUtil.getJList();
+					int i = 0;
+					if (!exclusionAnime.containsKey(lastSelection))
+					{
+						boolean[] exc = { false, true, false, false, false, false };
+						exclusionAnime.put(lastSelection, exc);
+						i = 1;
+					}
+					else if (exclusionAnime.containsKey(lastSelection) && exclusionAnime.get(lastSelection)[1] == false)
+					{
+						boolean[] exc = exclusionAnime.get(lastSelection);
+						exc[1] = true;
+						exclusionAnime.put(lastSelection, exc);
+						i = 2;
+					}
+					lista.setSelectedValue(lastSelection, true);
+					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il numero degli \"Episodi Totali\" non può essere inferiore al numero dell'\"Episodio Corrente\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+					totalEp = totalEpNumber;
+					if (animeInformation.totalEpisodeText.requestFocusInWindow())
+						animeInformation.totalEpisodeText.requestFocusInWindow();
+					else
+						animeInformation.totalEpisodeText.requestFocus();
+					if (i == 1)
+						exclusionAnime.remove(lastSelection);
+					else if (i == 2)
+					{
+						boolean[] exc = exclusionAnime.get(lastSelection);
+						exc[1] = false;
+						exclusionAnime.put(lastSelection, exc);
+					}
+				}
+			}
 
 			if (oldData.getCurrentEpisode().isEmpty() && currentEpisodeNumber != null)
 				currentEp = currentEpisodeNumber;
@@ -3146,7 +3188,10 @@ public class AnimeIndex extends JFrame
 					}
 					lista.setSelectedValue(lastSelection, true);
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-					animeInformation.releaseDateField.requestFocusInWindow();
+					if (animeInformation.releaseDateField.requestFocusInWindow())
+						animeInformation.releaseDateField.requestFocusInWindow();
+					else
+						animeInformation.releaseDateField.requestFocus();
 					if (i == 1)
 						exclusionAnime.remove(lastSelection);
 					else if (i == 2)
@@ -3196,7 +3241,10 @@ public class AnimeIndex extends JFrame
 					}
 					lista.setSelectedValue(lastSelection, true);
 					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-					animeInformation.finishDateField.requestFocusInWindow();
+					if (animeInformation.finishDateField.requestFocusInWindow())
+						animeInformation.finishDateField.requestFocusInWindow();
+					else
+						animeInformation.finishDateField.requestFocus();
 					if (i == 1)
 						exclusionAnime.remove(lastSelection);
 					else if (i == 2)
