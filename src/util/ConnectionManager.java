@@ -285,7 +285,7 @@ public class ConnectionManager
 			conn.connect();
 			
 			JsonParser parser = new JsonParser();
-			root = parser.parse(new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8")));
+			root = parser.parse((new InputStreamReader(conn.getInputStream(), "UTF-8")));
 		}
 		catch (Exception e)
 		{
@@ -350,7 +350,7 @@ public class ConnectionManager
 			conn.connect();
 			
 			JsonParser parser = new JsonParser();
-			root = parser.parse(new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8")));
+			root = parser.parse((new InputStreamReader(conn.getInputStream(), "UTF-8")));
 		}
 		catch (java.net.SocketTimeoutException timeout)
 		{
