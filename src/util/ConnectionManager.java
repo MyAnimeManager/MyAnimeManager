@@ -1,11 +1,14 @@
 package util;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -338,6 +341,9 @@ public class ConnectionManager
 		URL url; // The URL to read
 		HttpURLConnection conn = null; // The actual connection to the web page
 		JsonElement root = null;
+		BufferedReader rr = null;
+		String result = "";
+		String line = null;
 		try
 		{
 			url = new URL(BASEURL + ANIMEDATA + animeID + "?access_token=" + ConnectionManager.token);
@@ -350,7 +356,13 @@ public class ConnectionManager
 			conn.connect();
 			
 			JsonParser parser = new JsonParser();
-			root = parser.parse((new InputStreamReader(conn.getInputStream(), "UTF-8")));
+			rr = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			while ((line = rr.readLine()) != null)
+				result += line;
+			rr.close();
+			InputStream stream = new ByteArrayInputStream(result.getBytes(StandardCharsets.UTF_8));
+			root = parser.parse((new InputStreamReader(stream)));
+//			root = parser.parse((new InputStreamReader(conn.getInputStream(), "UTF-8")));
 		}
 		catch (java.net.SocketTimeoutException timeout)
 		{
