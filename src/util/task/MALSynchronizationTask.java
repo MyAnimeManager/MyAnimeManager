@@ -9,9 +9,8 @@ import java.io.OutputStreamWriter;
 import javax.swing.SwingWorker;
 
 import org.apache.commons.logging.LogFactory;
-import org.leibnizcenter.xml.DomHelper;
-import org.leibnizcenter.xml.TerseJson;
-import org.w3c.dom.Document;
+import org.json.JSONObject;
+import org.json.XML;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
@@ -20,6 +19,9 @@ import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import util.MAMUtil;
 
@@ -81,23 +83,18 @@ public class MALSynchronizationTask extends SwingWorker
 			String url = MAL_ANIMELIST_URL + username;
 			System.out.println("Loading page now: " + url);
 			page = webClient.getPage(url);
-			// get divs which have a 'class' attribute of 'mainbg'
 			
 			String xml = page.asXml();
 			System.out.println(xml);
 			
-			Document doc = DomHelper.parse(xml);
+			JSONObject xmlJSONObj = XML.toJSONObject(xml);
+	        String json = xmlJSONObj.toString(4);
+	        
+	        JsonParser parser = new JsonParser();
+	        JsonObject jsonObj = parser.parse(json).getAsJsonObject();
+	        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	        json = gson.toJson(jsonObj);
 
-	        // Convert DOM to terse representation, and convert to JSON
-	        TerseJson.Options opts = TerseJson.Options
-	                .with(TerseJson.WhitespaceBehaviour.Compact)
-	                .and(TerseJson.ErrorBehaviour.ThrowAllErrors);
-
-	        Object terseDoc = new TerseJson(opts).convert(doc);
-	        String json = new Gson().toJson(terseDoc);
-
-	        System.out.println(json);
-			
 			BufferedWriter output;
 			try
 			{
