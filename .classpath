@@ -88,5 +88,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/MyAnimeManager/lib/gson-2.6.2-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/xml-to-json-0.8.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

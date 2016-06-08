@@ -9,13 +9,17 @@ import java.io.OutputStreamWriter;
 import javax.swing.SwingWorker;
 
 import org.apache.commons.logging.LogFactory;
+import org.leibnizcenter.xml.DomHelper;
+import org.leibnizcenter.xml.TerseJson;
+import org.w3c.dom.Document;
+
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
-
+import com.google.gson.Gson;
 
 import util.MAMUtil;
 
@@ -79,14 +83,29 @@ public class MALSynchronizationTask extends SwingWorker
 			page = webClient.getPage(url);
 			// get divs which have a 'class' attribute of 'mainbg'
 			
-			System.out.println(page.asXml());
+			String xml = page.asXml();
+			System.out.println(xml);
 			
+			Document doc = DomHelper.parse(xml);
 
+	        // Convert DOM to terse representation, and convert to JSON
+	        TerseJson.Options opts = TerseJson.Options
+	                .with(TerseJson.WhitespaceBehaviour.Compact)
+	                .and(TerseJson.ErrorBehaviour.ThrowAllErrors);
+
+	        Object terseDoc = new TerseJson(opts).convert(doc);
+	        String json = new Gson().toJson(terseDoc);
+
+	        System.out.println(json);
+			
 			BufferedWriter output;
 			try
 			{
 				output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "prova.xml"), "UTF-8"));
-				output.write(page.asXml());
+				output.write(xml);
+				output.close();
+				output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "prova.json"), "UTF-8"));
+				output.write(json);
 				output.close();
 			}
 			catch (IOException e)
