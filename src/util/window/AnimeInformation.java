@@ -58,7 +58,6 @@ import util.task.MALSynchronizationTask;
 
 public class AnimeInformation extends JPanel
 {
-
 	public JTextField totalEpisodeText;
 	public JTextField currentEpisodeField;
 	public JButton minusButton;
@@ -95,10 +94,6 @@ public class AnimeInformation extends JPanel
 	public boolean selectExcludedAnimeAtWindowOpened = false;
 	public JButton btnFolder;
 
-	/**
-	 * Create the panel.
-	 *
-	 */
 	public AnimeInformation()
 	{
 		setSize(new Dimension(625, 441));
@@ -387,11 +382,21 @@ public class AnimeInformation extends JPanel
 			{
 				if (totalEpisodeText.getText().isEmpty())
 					totalEpisodeText.setText(AnimeIndex.totalEpNumber);
-				if (totalEpisodeText.getText().equals(currentEpisodeField.getText()))
+				else if (totalEpisodeText.getText().equals(currentEpisodeField.getText()))
 					finishedButton.setEnabled(true);
-				if (Integer.parseInt(totalEpisodeText.getText()) > Integer.parseInt(currentEpisodeField.getText()) && !plusButton.isEnabled())
-					plusButton.setEnabled(true);
-				// AnimeIndex.setAnimeInformationFields();
+				if(!totalEpisodeText.getText().contains("?"))
+				{
+					if (Integer.parseInt(totalEpisodeText.getText()) > Integer.parseInt(currentEpisodeField.getText()) && !plusButton.isEnabled())
+						plusButton.setEnabled(true);
+					else if (Integer.parseInt(totalEpisodeText.getText()) < Integer.parseInt(currentEpisodeField.getText()))
+					{
+						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il numero degli \"Episodi Totali\" non può essere inferiore al numero dell'\"Episodio Corrente\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+						if (totalEpisodeText.requestFocusInWindow())
+							totalEpisodeText.requestFocusInWindow();
+						else
+							totalEpisodeText.requestFocus();
+					}
+				}
 			}
 		});
 		totalEpisodeText.addKeyListener(new KeyAdapter() {
@@ -646,12 +651,10 @@ public class AnimeInformation extends JPanel
 					if (releaseDateField.getText().trim().length() != 10 && !releaseDateField.getText().trim().isEmpty())
 					{
 						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-
-						if (e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnAggiungiAnime) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnDeleteAnime) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnID) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.comboBox) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.searchBar) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.wishlist) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.wishlistSearch))
+						if (!releaseDateField.requestFocusInWindow())
 							releaseDateField.requestFocus();
 						else
 							releaseDateField.requestFocusInWindow();
-
 					}
 					else if (releaseDateField.getText().trim().substring(6, 10).equals("????"))
 						releaseDateField.setText("??/??/????");
@@ -701,7 +704,7 @@ public class AnimeInformation extends JPanel
 					if (finishDateField.getText().trim().length() != 10 && !finishDateField.getText().trim().isEmpty())
 					{
 						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
-						if (e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnAggiungiAnime) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnDeleteAnime) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.btnID) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.comboBox) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.searchBar) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.wishlist) || e.getOppositeComponent().equals(AnimeIndex.wishlistDialog.wishlistSearch))
+						if(!finishDateField.requestFocusInWindow())
 							finishDateField.requestFocus();
 						else
 							finishDateField.requestFocusInWindow();
