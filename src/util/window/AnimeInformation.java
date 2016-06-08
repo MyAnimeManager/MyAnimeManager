@@ -54,6 +54,7 @@ import util.MAMUtil;
 import util.PatternFilter;
 import util.SortedListModel;
 import util.UtilEvent;
+import util.task.MALSynchronizationTask;
 
 public class AnimeInformation extends JPanel
 {
@@ -1001,8 +1002,9 @@ public class AnimeInformation extends JPanel
 		btnFolder = new JButton("");
 		btnFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FileManager.saveAnimeListGson("completedgson.anaconda", AnimeIndex.completedMap);
-				FileManager.loadAnimeGson("completedgson.anaconda", AnimeIndex.completedModel, AnimeIndex.completedMap);
+				MALSynchronizationTask task = new MALSynchronizationTask("FoxInFlame");
+				task.execute();
+				
 			}
 		});
 		btnFolder.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/Folder.png")));

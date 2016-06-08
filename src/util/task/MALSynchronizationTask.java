@@ -1,43 +1,49 @@
 package util.task;
 
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 import javax.swing.SwingWorker;
 
 import org.apache.commons.logging.LogFactory;
-
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
-import com.gargoylesoftware.htmlunit.html.HtmlOrderedList;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
-import main.AnimeIndex;
 
-public class NewsTask extends SwingWorker
+import util.MAMUtil;
+
+
+public class MALSynchronizationTask extends SwingWorker
 {
-
-	private final String RAD_URL = "http://redanimedatabase.forumcommunity.net/";
-	private LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-
+	private final String MAL_ANIMELIST_URL = "http://myanimelist.net/malappinfo.php?u=";
+	private String username;
+	
+	
+	public MALSynchronizationTask(String username)
+	{
+		this.username = username;
+	}
+	
 	@Override
 	protected Object doInBackground() throws Exception
 	{
 		getPageAfterJavaScript();
 		return null;
 	}
-
+	
 	@Override
 	protected void done()
 	{
-		AnimeIndex.newsBoardDialog.setMap(map);
+		System.out.println("FINE");
 	}
-
+	
 	private void getPageAfterJavaScript()
 	{
 		java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(java.util.logging.Level.OFF); /*
@@ -53,7 +59,7 @@ public class NewsTask extends SwingWorker
 		java.util.logging.Logger.getLogger("org.apache.http.client.protocol.ResponseProcessCookies").setLevel(java.util.logging.Level.OFF);
 		LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
 		WebClient webClient = null;
-		HtmlPage page = null;
+		XmlPage page = null;
 		try
 		{
 			webClient = new WebClient(BrowserVersion.FIREFOX_38);
@@ -68,16 +74,28 @@ public class NewsTask extends SwingWorker
 			webClient.getCookieManager().setCookiesEnabled(false);
 //			webClient.getOptions().setRedirectEnabled(false);
 
-			String url = RAD_URL;
+			String url = MAL_ANIMELIST_URL + username;
 			System.out.println("Loading page now: " + url);
 			page = webClient.getPage(url);
 			// get divs which have a 'class' attribute of 'mainbg'
 			
-			HtmlDivision div = page.getFirstByXPath("//div[@class='mainbg']");
-			HtmlOrderedList orderedList = div.getFirstByXPath("//ol");
-			List<?> linkList = orderedList.getByXPath("//ol/li//a[@target='_blank']");
-			for (int i = 0; i < linkList.size(); i++)
-				map.put(((HtmlAnchor) linkList.get(i)).asText(), ((HtmlAnchor) linkList.get(i)).getAttribute("href"));
+			System.out.println(page.asXml());
+			
+
+			BufferedWriter output;
+			try
+			{
+				output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "prova.xml"), "UTF-8"));
+				output.write(page.asXml());
+				output.close();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+				MAMUtil.writeLog(e);
+			}
+			
+			
 		}
 		catch (FailingHttpStatusCodeException e) {
 			e.printStackTrace();
@@ -94,5 +112,4 @@ public class NewsTask extends SwingWorker
 		webClient.close();
 		System.out.println("NewsBoard Completata");
 	}
-
 }
