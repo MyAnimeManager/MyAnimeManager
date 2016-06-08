@@ -187,7 +187,7 @@ public class FileManager
 			JsonObject anime = animeList.getAsJsonObject();
 			Gson gsonMap = new GsonBuilder().serializeNulls().create();
 			Type mapType = new TypeToken<TreeMap<String, AnimeData>>() {}.getType();
-			map = gsonMap.fromJson(anime, mapType);			
+			map.putAll(gsonMap.fromJson(anime, mapType));			
 			list.addAll(map.keySet());
 		}
 		catch (FileNotFoundException | UnsupportedEncodingException e)
