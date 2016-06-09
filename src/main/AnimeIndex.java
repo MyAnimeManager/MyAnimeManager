@@ -453,7 +453,7 @@ public class AnimeIndex extends JFrame
 				{
 					File zipFile = fc.getSelectedFile();
 					BackupImportExportTask task = new BackupImportExportTask(zipFile);
-					WaitDialog waitForZip = new WaitDialog("Importando...", "Importando i dati", task);
+					WaitDialog waitForZip = new WaitDialog("Importando...", "Importando i dati", task, false);
 					waitForZip.setLocationRelativeTo(mainFrame);
 					waitForZip.setVisible(true);
 				}
@@ -505,7 +505,7 @@ public class AnimeIndex extends JFrame
 						dest = new File(fc.getSelectedFile() + ".MAMListBKP");
 					}
 					BackupImportExportTask task = new BackupImportExportTask(dest, fileToZip);
-					WaitDialog waitForZip = new WaitDialog("Esportando...", "Esportando i dati", task);
+					WaitDialog waitForZip = new WaitDialog("Esportando...", "Esportando i dati", task, false);
 					waitForZip.setLocationRelativeTo(mainFrame);
 					waitForZip.setVisible(true);
 				}

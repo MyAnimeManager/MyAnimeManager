@@ -623,7 +623,7 @@ public class PreferenceDialog extends JDialog
 						dest = new File(fc.getSelectedFile() + ".zip");
 					}
 					BackupImportExportTask task = new BackupImportExportTask(dest, fileToZip);
-					WaitDialog waitForZip = new WaitDialog("Esportando...", "Esportando i dati", task, PreferenceDialog.this);
+					WaitDialog waitForZip = new WaitDialog("Esportando...", "Esportando i dati", task, PreferenceDialog.this, false);
 					waitForZip.setLocationRelativeTo(PreferenceDialog.this);
 					waitForZip.setVisible(true);
 				}	
@@ -651,7 +651,7 @@ public class PreferenceDialog extends JDialog
 				{
 					File zipFile = fc.getSelectedFile();
 					BackupImportExportTask task = new BackupImportExportTask(zipFile);
-					WaitDialog waitForZip = new WaitDialog("Importando...", "Importando i dati", task, PreferenceDialog.this);
+					WaitDialog waitForZip = new WaitDialog("Importando...", "Importando i dati", task, PreferenceDialog.this, false);
 					waitForZip.setLocationRelativeTo(PreferenceDialog.this);
 					waitForZip.setVisible(true);
 				}

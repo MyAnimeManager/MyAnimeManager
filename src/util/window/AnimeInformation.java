@@ -1005,8 +1005,11 @@ public class AnimeInformation extends JPanel
 		btnFolder = new JButton("");
 		btnFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				MALSynchronizationTask task = new MALSynchronizationTask("Fantastik07");
-				task.execute();
+				WaitDialog dial = new WaitDialog("Prendo dati", "Importando dati", task, true);
+				dial.setLocationRelativeTo(AnimeIndex.mainFrame);
+				dial.setVisible(true);
 				
 			}
 		});

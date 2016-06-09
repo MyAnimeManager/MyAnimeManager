@@ -24,7 +24,7 @@ public class WaitDialog extends JDialog
 	/**
 	 * Create the dialog.
 	 */
-	public WaitDialog(String title, String text, SwingWorker task, JDialog parent)
+	public WaitDialog(String title, String text, SwingWorker task, JDialog parent, boolean taskHasProgress)
 	{
 		super(parent, true);
 		addWindowListener(new WindowAdapter() {
@@ -48,7 +48,7 @@ public class WaitDialog extends JDialog
 		getContentPane().add(lblDownloadInCorso, "cell 0 0,growx,aligny center");
 
 		progressBar = new JProgressBar();
-		progressBar.setIndeterminate(true);
+		progressBar.setIndeterminate(!taskHasProgress);
 		getContentPane().add(progressBar, "cell 0 1,growx,aligny center");
 
 		task.addPropertyChangeListener(new PropertyChangeListener() {
@@ -56,7 +56,12 @@ public class WaitDialog extends JDialog
 			@Override
 			public void propertyChange(PropertyChangeEvent evt)
 			{
-				if (evt.getPropertyName().equals("state"))
+				if (evt.getPropertyName().equals("progress"))
+				{
+					int progress = task.getProgress();
+					progressBar.setValue(progress);
+				}
+				else if (evt.getPropertyName().equals("state"))
 					if (evt.getNewValue().toString().equalsIgnoreCase("done"))
 						WaitDialog.this.dispose();
 
@@ -65,7 +70,7 @@ public class WaitDialog extends JDialog
 
 	}
 	
-	public WaitDialog(String title, String text, SwingWorker task)
+	public WaitDialog(String title, String text, SwingWorker task, boolean taskHasProgress)
 	{
 		addWindowListener(new WindowAdapter() {
 
@@ -88,7 +93,7 @@ public class WaitDialog extends JDialog
 		getContentPane().add(lblDownloadInCorso, "cell 0 0,growx,aligny center");
 
 		progressBar = new JProgressBar();
-		progressBar.setIndeterminate(true);
+		progressBar.setIndeterminate(!taskHasProgress);
 		getContentPane().add(progressBar, "cell 0 1,growx,aligny center");
 
 		task.addPropertyChangeListener(new PropertyChangeListener() {
@@ -96,7 +101,13 @@ public class WaitDialog extends JDialog
 			@Override
 			public void propertyChange(PropertyChangeEvent evt)
 			{
-				if (evt.getPropertyName().equals("state"))
+				
+				if (evt.getPropertyName().equals("progress"))
+				{
+					int progress = task.getProgress();
+					progressBar.setValue(progress);
+				}
+				else if (evt.getPropertyName().equals("state"))
 					if (evt.getNewValue().toString().equalsIgnoreCase("done"))
 						WaitDialog.this.dispose();
 
