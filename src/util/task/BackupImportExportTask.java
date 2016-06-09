@@ -42,4 +42,11 @@ public class BackupImportExportTask extends SwingWorker
 		return null;
 	}
 	
+	@Override
+	protected void done()
+	{
+		LoadingTask task = new LoadingTask();
+		task.execute();
+	}
+	
 }

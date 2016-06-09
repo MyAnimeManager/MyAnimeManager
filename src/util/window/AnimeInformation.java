@@ -93,6 +93,7 @@ public class AnimeInformation extends JPanel
 	public static UpdatingAnimeDataDialog dial;
 	public boolean selectExcludedAnimeAtWindowOpened = false;
 	public JButton btnFolder;
+	public WaitDialog SynchroDial;
 
 	public AnimeInformation()
 	{
@@ -1006,10 +1007,11 @@ public class AnimeInformation extends JPanel
 		btnFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MALSynchronizationTask task = new MALSynchronizationTask("Fantastik07");
-				WaitDialog dial = new WaitDialog("Prendo dati", "Importando dati", task, true);
-				dial.setLocationRelativeTo(AnimeIndex.mainFrame);
-				dial.setVisible(true);
+				MALSynchronizationTask task = new MALSynchronizationTask("HectorBlaze");
+				task.execute();
+//				SynchroDial = new WaitDialog("Prendo dati", "Importando dati", task, true);
+//				SynchroDial.setLocationRelativeTo(AnimeIndex.mainFrame);
+//				SynchroDial.setVisible(true);
 				
 			}
 		});

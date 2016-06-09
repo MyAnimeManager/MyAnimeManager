@@ -3,9 +3,11 @@ package util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -119,6 +121,23 @@ public class ConnectionManager
 	@Deprecated
 	private static String getSearchedAnime(String animeToSearch)
 	{
+		if (token == null)
+		{
+			try
+			{
+				ConnectAndGetToken();
+			}
+			catch (ConnectException e)
+			{
+				MAMUtil.writeLog(e);
+				e.printStackTrace();
+			}
+			catch (UnknownHostException e)
+			{
+				MAMUtil.writeLog(e);
+				e.printStackTrace();
+			}
+		}
 		URL url; // The URL to read
 		HttpURLConnection conn = null; // The actual connection to the web page
 		BufferedReader rr; // Used to read results from the web page
