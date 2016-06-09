@@ -20,6 +20,8 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -29,6 +31,7 @@ import util.MAMUtil;
 public class MALSynchronizationTask extends SwingWorker
 {
 	private final String MAL_ANIMELIST_URL = "http://myanimelist.net/malappinfo.php?u=";
+	private final String ALL_ANIME = "&status=all&type=anime";
 	private String username;
 	
 	
@@ -80,7 +83,7 @@ public class MALSynchronizationTask extends SwingWorker
 			webClient.getCookieManager().setCookiesEnabled(false);
 //			webClient.getOptions().setRedirectEnabled(false);
 
-			String url = MAL_ANIMELIST_URL + username;
+			String url = MAL_ANIMELIST_URL + username + ALL_ANIME;
 			System.out.println("Loading page now: " + url);
 			page = webClient.getPage(url);
 			
@@ -92,8 +95,38 @@ public class MALSynchronizationTask extends SwingWorker
 	        
 	        JsonParser parser = new JsonParser();
 	        JsonObject jsonObj = parser.parse(json).getAsJsonObject();
+	        JsonObject root = jsonObj.get("myanimelist").getAsJsonObject();
+	        JsonArray animes =root.get("anime").getAsJsonArray();
+	        String title = "";
+	        //1/watching, 2/completed, 3/onhold, 4/dropped, 6/plantowatch
+	        for (JsonElement anime : animes)
+	        {
+	        	int statusInt = anime.getAsJsonObject().get("my_status").getAsInt();
+	        	String status ="";
+	        	switch (statusInt)
+				{
+					case 1:
+						status = "In Corso";
+						break;
+					case 2:
+						status = "Completo";
+						break;
+					case 3:
+						status = "In attesa";
+						break;
+					case 4:
+						status = "Droppato";
+						break;
+					case 6:
+						status = "Da guardare";
+						break;
+					default:
+						break;
+				}
+	        	title += anime.getAsJsonObject().get("series_title").getAsString() +" -- " + status + System.lineSeparator() ;
+	        }
 	        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	        json = gson.toJson(jsonObj);
+	        json = gson.toJson(animes);
 
 			BufferedWriter output;
 			try
@@ -102,7 +135,7 @@ public class MALSynchronizationTask extends SwingWorker
 				output.write(xml);
 				output.close();
 				output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "prova.json"), "UTF-8"));
-				output.write(json);
+				output.write(title);
 				output.close();
 			}
 			catch (IOException e)

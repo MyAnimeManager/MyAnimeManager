@@ -1005,7 +1005,7 @@ public class AnimeInformation extends JPanel
 		btnFolder = new JButton("");
 		btnFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MALSynchronizationTask task = new MALSynchronizationTask("FoxInFlame");
+				MALSynchronizationTask task = new MALSynchronizationTask("Fantastik07");
 				task.execute();
 				
 			}
