@@ -1866,8 +1866,8 @@ public class AnimeIndex extends JFrame
 				String link = (String) AnimeInformation.fansubComboBox.getSelectedItem();
 				if (link != null && !link.isEmpty())
 					if (fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
-						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
-						
+						AnimeIndex.animeInformation.fansubButton.setEnabled(true);	
+				
 				autoDataCheck();
 			}
 		});
