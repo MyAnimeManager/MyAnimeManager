@@ -1730,7 +1730,7 @@ public class AnimeIndex extends JFrame
 		completedAnimeScroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 		completedAnimeScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 
-		completedList = new JList(completedModel);
+		completedList = new JList(completedModel); 
 		completedList.addMouseListener(new MouseAdapter() {
 
 			@Override

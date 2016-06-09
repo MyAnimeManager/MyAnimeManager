@@ -13,9 +13,8 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import main.AnimeIndex;
 
@@ -268,11 +267,11 @@ public class ConnectionManager
 		return data;
 	}
 	
-	private static JsonElement getSearchedAnimeGson(String animeToSearch)
+	private static JsonNode getSearchedAnimeGson(String animeToSearch)
 	{
 		URL url; // The URL to read
 		HttpURLConnection conn = null; // The actual connection to the web page
-		JsonElement root = null;
+		JsonNode root = null;
 		try
 		{
 			String animeQuery = URLEncoder.encode(animeToSearch, "UTF-8");
@@ -284,8 +283,11 @@ public class ConnectionManager
 			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 			conn.connect();
 			
-			JsonParser parser = new JsonParser();
-			root = parser.parse((new InputStreamReader(conn.getInputStream(), "UTF-8")));
+
+			ObjectMapper mapper = new ObjectMapper();
+			root = mapper.readTree((new InputStreamReader(conn.getInputStream(), "UTF-8")));
+//			JsonParser parser = new JsonParser();
+//			root = parser.parse((new InputStreamReader(conn.getInputStream(), "UTF-8")));
 		}
 		catch (Exception e)
 		{
@@ -319,25 +321,25 @@ public class ConnectionManager
 	public static HashMap<String, Integer> AnimeSearchGson(String anime)
 	{
 		HashMap<String, Integer> animeList = new HashMap<String, Integer>();
-		JsonElement element = getSearchedAnimeGson(anime);
-		if (element != null && element.isJsonArray())
+		JsonNode element = getSearchedAnimeGson(anime);
+		if (element != null && element.isArray())  
 		{
-			JsonArray animes = element.getAsJsonArray();			
-			for (JsonElement results : animes) 
-			{
-			    String title = results.getAsJsonObject().get("title_romaji").getAsString();
-			    int id = results.getAsJsonObject().get("id").getAsInt();
+		    for (JsonNode animes : element) 
+		    {
+		    	String title = animes.findValue("title_romaji").asText();
+			    int id = animes.findValue("id").asInt();
 			    animeList.put(title, id);
-			}			
+			}		
+	
 		}
 		return animeList;
 	}
 
-	private static JsonElement getAnimeInformationGson(int animeID, String dataToGet)
+	private static JsonNode getAnimeInformationGson(int animeID, String dataToGet)
 	{
 		URL url; // The URL to read
 		HttpURLConnection conn = null; // The actual connection to the web page
-		JsonElement root = null;
+		JsonNode root = null;
 		try
 		{
 			url = new URL(BASEURL + ANIMEDATA + animeID + "?access_token=" + ConnectionManager.token);
@@ -349,8 +351,11 @@ public class ConnectionManager
 			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 			conn.connect();
 			
-			JsonParser parser = new JsonParser();
-			root = parser.parse((new InputStreamReader(conn.getInputStream(), "UTF-8")));
+			ObjectMapper mapper = new ObjectMapper();
+			root = mapper.readTree((new InputStreamReader(conn.getInputStream(), "UTF-8")));
+			
+//			JsonParser parser = new JsonParser();
+//			root = parser.parse((new InputStreamReader(conn.getInputStream(), "UTF-8")));
 		}
 		catch (java.net.SocketTimeoutException timeout)
 		{
@@ -387,15 +392,15 @@ public class ConnectionManager
 	public static String getAnimeDataGson(String dataToGet, int animeId)
 	{
 		String data = null;
-		JsonElement element = getAnimeInformationGson(animeId, dataToGet);
-		if (element != null)
+		JsonNode element = getAnimeInformationGson(animeId, dataToGet);
+		
+		if (element != null)  
 		{
-			JsonElement dataElement = element.getAsJsonObject().get(dataToGet);
-			if (dataElement != null && !dataElement.isJsonNull())
-				data = dataElement.getAsString();
+		    	JsonNode dataElement = element.findValue(dataToGet);
+		    if (dataElement != null && !dataElement.isNull())
+				data = dataElement.asText();
 			else
 				data = "null";
-//			System.out.println(data);
 		}
 		return data;
 	}
