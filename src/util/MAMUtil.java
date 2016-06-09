@@ -31,7 +31,6 @@ public class MAMUtil
 	private final static String PROPERTIES_PATH = MAMUtil.getAppDataPath() + "properties.properties";
 	private static final String PATTERN_PATH = APPDATA_PATH + "pattern.anaconda";
 
-
 	
 	public static void createLogDirectory()
 	{

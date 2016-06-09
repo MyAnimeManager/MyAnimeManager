@@ -61,7 +61,6 @@ import util.SortedListModel;
 
 public class AddAnimeDialog extends JDialog
 {
-
 	private SearchBar searchBar;
 	private static JList searchedList;
 	private JButton btnCerca;
@@ -121,12 +120,6 @@ public class AddAnimeDialog extends JDialog
 					checkDataConflictComboBoxManualAdd.setSelectedItem("Disattivo");
 				}
 			}
-
-			@Override
-			public void windowClosed(WindowEvent e)
-			{
-				// AnimeIndex.setAnimeInformationFields();
-			}
 		});
 		setTitle("Aggiungi anime");
 		setResizable(false);
@@ -184,7 +177,7 @@ public class AddAnimeDialog extends JDialog
 									{
 										JOptionPane.showMessageDialog(AddAnimeDialog.this, "Errore di connessione", "Errore!", JOptionPane.ERROR_MESSAGE);
 									}
-									animeSearched = ConnectionManager.AnimeSearchGson(searchBar.getText());
+									animeSearched = ConnectionManager.AnimeSearch(searchBar.getText());
 									if (animeSearched.isEmpty())
 									{
 										animeModel.addElement("Nessun anime trovato");
@@ -379,7 +372,7 @@ public class AddAnimeDialog extends JDialog
 									{
 										JOptionPane.showMessageDialog(AddAnimeDialog.this, "Errore di connessione", "Errore!", JOptionPane.ERROR_MESSAGE);
 									};
-									animeSearched = ConnectionManager.AnimeSearchGson(searchBar.getText());
+									animeSearched = ConnectionManager.AnimeSearch(searchBar.getText());
 									if (animeSearched.isEmpty())
 									{
 										animeModel.addElement("Nessun anime trovato");
@@ -395,7 +388,6 @@ public class AddAnimeDialog extends JDialog
 										for (int i = 0; i < animeArray.length; i++)
 											animeModel.addElement(animeArray[i]);
 									}
-
 								}
 							});
 						}
@@ -1001,7 +993,6 @@ public class AddAnimeDialog extends JDialog
 								}
 							}
 						});
-
 						buttonPane.add(addButton);
 					}
 				}
@@ -1747,20 +1738,20 @@ public class AddAnimeDialog extends JDialog
 
 	private void automaticAdd()
 	{
-		long time = System.currentTimeMillis();
 		AddAnimeDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 		AnimeIndex.addToPreviousList = (String) listToAddAniComboBox.getSelectedItem();
 		String anime = (String) searchedList.getSelectedValue();
 		int id = animeSearched.get(anime);
+		String data = ConnectionManager.parseAnimeData(id);
 
-		String name = ConnectionManager.getAnimeDataGson("title_romaji", id);
-		String totEp = ConnectionManager.getAnimeDataGson("total_episodes", id);
+		String name = ConnectionManager.getAnimeData("title_romaji", data);
+		String totEp = ConnectionManager.getAnimeData("total_episodes", data);
 		String currentEp = "1";
 		String fansub = "";
-		String animeType = ConnectionManager.getAnimeDataGson("type", id);
-		String releaseDate = ConnectionManager.getAnimeDataGson("start_date", id);
-		String finishDate = ConnectionManager.getAnimeDataGson("end_date", id);
-		String durationEp = ConnectionManager.getAnimeDataGson("duration", id);
+		String animeType = ConnectionManager.getAnimeData("type", data);
+		String releaseDate = ConnectionManager.getAnimeData("start_date", data);
+		String finishDate = ConnectionManager.getAnimeData("end_date", data);
+		String durationEp = ConnectionManager.getAnimeData("duration", data);
 
 		if (totEp != null && !totEp.isEmpty())
 			if (totEp.equals("null") || totEp.equals("0"))
@@ -1845,13 +1836,11 @@ public class AddAnimeDialog extends JDialog
 //				}
 			}
 		}
-		AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png", exitDay, Integer.toString(id), "", "", animeType, releaseDate, finishDate, durationEp, false);
+		AnimeData dat = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png", exitDay, Integer.toString(id), "", "", animeType, releaseDate, finishDate, durationEp, false);
 		updateControlList(list);
-		AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
+		AddAnimeDialog.checkAnimeAlreadyAdded(name, list, dat);
 		restorePreviousCheck();
 		AnimeIndex.lastSelection = anime;
 		AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-		time = System.currentTimeMillis()-time;
-		System.out.println(time);
 	}
 }
