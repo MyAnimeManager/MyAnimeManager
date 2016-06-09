@@ -1747,6 +1747,7 @@ public class AddAnimeDialog extends JDialog
 
 	private void automaticAdd()
 	{
+		long time = System.currentTimeMillis();
 		AddAnimeDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 		AnimeIndex.addToPreviousList = (String) listToAddAniComboBox.getSelectedItem();
 		String anime = (String) searchedList.getSelectedValue();
@@ -1850,5 +1851,7 @@ public class AddAnimeDialog extends JDialog
 		restorePreviousCheck();
 		AnimeIndex.lastSelection = anime;
 		AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		time = System.currentTimeMillis()-time;
+		System.out.println(time);
 	}
 }
