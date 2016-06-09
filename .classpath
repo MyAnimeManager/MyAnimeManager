@@ -88,20 +88,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/org.json.jar"/>
-	<classpathentry kind="lib" path="lib/jackson-annotations-2.7.4.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/MyAnimeManager/lib/jackson-annotations-2.7.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jackson-core-2.7.4.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/MyAnimeManager/lib/jackson-core-2.7.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jackson-databind-2.7.4.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/MyAnimeManager/lib/jackson-databind-2.7.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

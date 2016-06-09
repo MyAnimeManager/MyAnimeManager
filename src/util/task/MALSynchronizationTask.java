@@ -126,6 +126,5 @@ public class MALSynchronizationTask extends SwingWorker
 			e.printStackTrace();
 		}
 		webClient.close();
-		System.out.println("NewsBoard Completata");
 	}
 }
