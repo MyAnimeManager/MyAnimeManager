@@ -567,7 +567,6 @@ public class MALSynchronizationTask extends SwingWorker
 				lastAnime = name;
 				AnimeInformation.fansubComboBox.setSelectedItem("?????");
 			}
-
 			if (AnimeIndex.filtro != 9)
 				Filters.removeFilters();
 	}
