@@ -856,14 +856,14 @@ public class AddAnimeDialog extends JDialog
 							@Override
 							public void actionPerformed(ActionEvent e)
 							{
-								if(totEpField.getText().equalsIgnoreCase("") || totEpField.getText().contains("?"))
+								if (totEpField.getText().equalsIgnoreCase("") || totEpField.getText().contains("?"))
 									totEpField.setText("??");	
-								if (currentEpisodeText.getText().equalsIgnoreCase("")|| currentEpisodeText.getText().contains("?"))
+								if (currentEpisodeText.getText().equalsIgnoreCase("") || currentEpisodeText.getText().contains("?"))
 									currentEpisodeText.setText("01");
 								if (nameField.getText().equalsIgnoreCase(""))
 									JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Nome non inserito", "Errore", JOptionPane.ERROR_MESSAGE);
 								else if ((!totEpField.getText().equals("??") && Integer.parseInt(totEpField.getText()) < Integer.parseInt(currentEpisodeText.getText())))
-									JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Il numero totale di episodi non può essere inferiore al numero attuale", "Errore", JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Il numero degli \"Episodi Totali\" non può essere inferiore al numero dell'\"Episodio Corrente\".", "Errore", JOptionPane.ERROR_MESSAGE);
 								else
 								{							
 									String name = nameField.getText().trim();

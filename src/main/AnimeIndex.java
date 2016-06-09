@@ -3312,5 +3312,4 @@ public class AnimeIndex extends JFrame
 			AnimeIndex.appThread.start();
 		}
 	}
-
 }

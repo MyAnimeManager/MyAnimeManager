@@ -648,7 +648,6 @@ public class MALSynchronizationTask extends SwingWorker
 				AnimeIndex.shouldUpdate = true;
 				AnimeInformation.fansubComboBox.setSelectedItem("?????");
 			}
-
 			if (AnimeIndex.filtro != 9)
 				Filters.removeFilters();
 	}
