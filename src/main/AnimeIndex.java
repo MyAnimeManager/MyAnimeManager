@@ -156,6 +156,7 @@ public class AnimeIndex extends JFrame
 	public static TreeMap<String, AnimeData> filmMap = new TreeMap<String, AnimeData>();
 	public static TreeMap<String, AnimeData> completedToSeeMap = new TreeMap<String, AnimeData>();
 	public static TreeMap<String, Integer> wishlistMap = new TreeMap<String, Integer>();
+	public static TreeMap<String, Integer> wishlistMALMap = new TreeMap<String, Integer>();
 	public static TreeMap<String, String> shiftsRegister = new TreeMap<String, String>();
 	public static TreeMap<String, boolean[]> exclusionAnime = new TreeMap<String, boolean[]>();
 	public static TreeMap<String, String> exitDateMap = new TreeMap<String, String>();

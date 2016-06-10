@@ -242,7 +242,10 @@ public class WishlistDialog extends JDialog
 							index -= 1;
 							wishlist.clearSelection();
 							wishlist.setSelectedIndex(index);
-							AnimeIndex.wishlistMap.remove(name);
+							if (AnimeIndex.wishlistMap.containsKey(name))
+								AnimeIndex.wishlistMap.remove(name);
+							else if (AnimeIndex.wishlistMALMap.containsKey(name))
+								AnimeIndex.wishlistMALMap.remove(name);
 							if (wishListModel.isEmpty())
 							{
 								// wishListModel.addElement("Nessun Anime
@@ -255,7 +258,10 @@ public class WishlistDialog extends JDialog
 						{
 							String name = (String) wishlistSearch.getSelectedValue();
 							wishListModel.removeElement(name);
-							AnimeIndex.wishlistMap.remove(name);
+							if (AnimeIndex.wishlistMap.containsKey(name))
+								AnimeIndex.wishlistMap.remove(name);
+							else if (AnimeIndex.wishlistMALMap.containsKey(name))
+								AnimeIndex.wishlistMALMap.remove(name);
 							searchInList(searchBar.getText(), wishListModel, wishListSearchModel);
 							if (wishListSearchModel.isEmpty())
 							{
@@ -342,10 +348,19 @@ public class WishlistDialog extends JDialog
 							anime = (String) wishlist.getSelectedValue();
 						else
 							anime = (String) wishlistSearch.getSelectedValue();
-
-						int id = AnimeIndex.wishlistMap.get(anime);
-						String link = "https://anilist.co/anime/" + id;
-						if (id != -1)
+						int id = -1;
+						String link = "";
+						if (AnimeIndex.wishlistMap.containsKey(anime))
+						{
+							id = AnimeIndex.wishlistMap.get(anime);
+							link = "https://anilist.co/anime/" + id;
+						}
+						else if (AnimeIndex.wishlistMALMap.containsKey(anime))
+						{
+							id = AnimeIndex.wishlistMALMap.get(anime);
+							link = "http://myanimelist.net/anime/" + id;
+						}
+						if (id != -1 && !link.isEmpty())
 							try
 							{
 								URI uriLink = new URI(link);

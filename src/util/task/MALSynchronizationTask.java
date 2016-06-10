@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
@@ -38,22 +37,27 @@ import com.google.gson.JsonParser;
 import main.AnimeIndex;
 import util.AnimeData;
 import util.ConnectionManager;
+import util.FileManager;
 import util.Filters;
 import util.MAMUtil;
 import util.SortedListModel;
 import util.window.AddAnimeDialog;
 import util.window.AnimeInformation;
 
-//TODO anime non trovati, prendere dati da xml
-//TODO anime completati prendere dati da xml
 public class MALSynchronizationTask extends SwingWorker
 {
 	private final String MAL_ANIMELIST_URL = "http://myanimelist.net/malappinfo.php?u=";
 	private final String ALL_ANIME = "&status=all&type=anime";
 	private String username;
-	private static String lastAnime;
 	private static TreeMap<String,String> conflictedAnime = new TreeMap<String,String>();
-	private String json;
+	private static ArrayList<JsonObject>  completedAnime = new ArrayList<JsonObject>();
+	private static ArrayList<JsonObject>  airingAnime = new ArrayList<JsonObject> ();
+	private static ArrayList<JsonObject>  droppedAnime = new ArrayList<JsonObject> ();
+	private static ArrayList<JsonObject>  notFoundedAnime = new ArrayList<JsonObject> ();
+	private static TreeMap<String,Integer>  wishlistAnime = new TreeMap<String,Integer> ();
+	private JsonArray animesJson;
+	public float totalAnimeNumber;
+	public float currentAnimeNumber = 0;
 	
 	
 	public MALSynchronizationTask(String username)
@@ -64,38 +68,24 @@ public class MALSynchronizationTask extends SwingWorker
 	@Override
 	protected Object doInBackground() throws Exception
 	{
-		TreeMap<String,String> animeList = getAnimeList();
-		synchronizeAnime(animeList);
+		getAnimeList();
+		synchronizeAiringAnime();
+		synchronizeAnimeFromJson(notFoundedAnime, false);
+		synchronizeAnimeFromJson(completedAnime, false);
+		synchronizeAnimeFromJson(droppedAnime, true);
+		synchronizeWishListAnime();
 		return null;
 	}
 	
 	@Override
 	protected void done()
 	{
-		for (Entry<String,String> entry : conflictedAnime.entrySet())
-		{
-			String title = entry.getKey();
-			HashMap<String,Integer> map = ConnectionManager.AnimeSearch(title);
-			if (map.size() > 1)
-			{
-				String[] titles = map.keySet().toArray(new String[]{});
-				String anime = (String)JOptionPane.showInternalInputDialog(AnimeIndex.mainFrame, "Scegli il titolo corretto per : \"" + title +"\"", "Conflitto tra titoli", JOptionPane.WARNING_MESSAGE, null, titles, titles[0]);
-				if (anime != null)
-				{
-					int id = map.get(anime);
-					anime = anime.replace("/", "\\/");
-					anime = anime.replace("!", "\\!");
-					automaticAdd(anime, id, entry.getValue());
-				}
-			}
-		}
+		synchronizeConflictedAnime();
 		System.out.println("FINE");
 	}
 	
-	private TreeMap<String,String> getAnimeList()
+	private void getAnimeList()
 	{
-		TreeMap<String,String> animeList = new TreeMap<String,String>();
-		setProgress(0);
 		java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(java.util.logging.Level.OFF);
 		java.util.logging.Logger.getLogger("org.apache.http.client.protocol.ResponseProcessCookies").setLevel(java.util.logging.Level.OFF);
 		LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
@@ -122,48 +112,42 @@ public class MALSynchronizationTask extends SwingWorker
 			String xml = page.asXml();
 			
 			JSONObject xmlJSONObj = XML.toJSONObject(xml);
-	        json = xmlJSONObj.toString(4);
+	        String json = xmlJSONObj.toString(4);
 	        
 	        JsonParser parser = new JsonParser();
 	        JsonObject jsonObj = parser.parse(json).getAsJsonObject();
 	        JsonObject root = jsonObj.get("myanimelist").getAsJsonObject();
-	        JsonArray animes =root.get("anime").getAsJsonArray();
-	        int animeNumber = animes.size();
-	        int currentAnime = 0;
-	        for (JsonElement anime : animes)
+	        animesJson = root.get("anime").getAsJsonArray();
+	        totalAnimeNumber = animesJson.size();
+	        for (JsonElement anime : animesJson)
 	        {
-	        	System.out.println(currentAnime/animeNumber);
-	        	setProgress(currentAnime/animeNumber);
 	        	String title = anime.getAsJsonObject().get("series_title").getAsString();
 	        	int status = anime.getAsJsonObject().get("my_status").getAsInt();
-	        	String list ="";
 //	        	1/watching, 2/completed, 3/onhold, 4/dropped, 6/plantowatch
 	        	switch (status)
 				{
 					case 1:
-						list = "anime in corso";
+						airingAnime.add(anime.getAsJsonObject());
 						break;
 					case 2:
-						list = "anime completati";
+						completedAnime.add(anime.getAsJsonObject());
 						break;
 					case 3:
-						list = "anime in corso";
+						airingAnime.add(anime.getAsJsonObject());
 						break;
 					case 4:
-						list = "anime completati";
+						droppedAnime.add(anime.getAsJsonObject());
 						break;
 					case 6:
-						list = "anime in corso";
+						wishlistAnime.put(title, anime.getAsJsonObject().get("series_animedb_id").getAsInt());
 						break;					
 					default:
-						list = "anime in corso";
+						airingAnime.add(anime.getAsJsonObject());
 						break;
 				}
-	        	animeList.put(title, list);
-	        	currentAnime++;
 	        }
 	        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	        json = gson.toJson(animes);
+	        json = gson.toJson(animesJson);
 
 			BufferedWriter output;
 			try
@@ -196,14 +180,14 @@ public class MALSynchronizationTask extends SwingWorker
 			e.printStackTrace();
 		}
 		webClient.close();
-		return animeList;
+		setProgress(0);
 	}
 	
-	private void synchronizeAnime(TreeMap<String,String> animeTitleList)
+	private void synchronizeAiringAnime()
 	{
-		for (Entry<String,String> animeEntry: animeTitleList.entrySet())
+		for (JsonObject obj: airingAnime)
 		{
-			String title = animeEntry.getKey();
+			String title = obj.get("series_title").getAsString();
 			HashMap<String,Integer> map = ConnectionManager.AnimeSearch(title);
 			if (map.size() == 1)
 			{
@@ -211,24 +195,174 @@ public class MALSynchronizationTask extends SwingWorker
 				int id = map.get(anime);
 				anime = anime.replace("\\", "\\\\");
 				anime = anime.replace("!", "\\!");
-				automaticAdd(anime, id, animeEntry.getValue());
-				
+				automaticAdd(anime, id, "anime in corso");
+				currentAnimeNumber++;
+				int progress =(int) ((currentAnimeNumber/totalAnimeNumber) * 100);
+				setProgress(progress);
 			}
 			else if (map.size() > 1)
 			{
-				conflictedAnime.put(title, animeEntry.getValue());
+				conflictedAnime.put(title, "anime in corso");
 			}
 			else if (map.size() == 0)
 			{
-				System.out.println(title + " non trovato");
+				notFoundedAnime.add(obj);
 			}
 		}
 	}
 	
+	private void synchronizeAnimeFromJson(ArrayList<JsonObject> list, boolean isDropped)
+	{
+		for (JsonObject obj: list)
+		{
+			String name = obj.get("series_title").getAsString();
+			if (!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name))
+			{
+				String totEp = obj.get("series_episodes").getAsString();
+				String currentEp = obj.get("my_watched_episodes").getAsString();
+				Integer animeTypeID = obj.get("series_type").getAsInt();
+				String releaseDate = obj.get("series_start").getAsString();
+				String finishDate = obj.get("series_end").getAsString();
+				String durationEp = "?? min";
+				if (totEp != null && !totEp.isEmpty())
+					if (totEp.equals("null") || totEp.equals("0"))
+						totEp = "??";
+				if (releaseDate != null && !releaseDate.isEmpty())
+					if (releaseDate.equals("null"))
+						releaseDate = "??/??/????";
+					else if (releaseDate.length() == 4)
+						releaseDate = "??/??/" + releaseDate;
+					else if (releaseDate.length() == 7)
+					{
+						String monthStart = releaseDate.substring(5, 7);
+						String yearStart = releaseDate.substring(0, 4);
+						releaseDate = "??/" + monthStart + "/" + yearStart;
+					}
+					else if (releaseDate.length() > 7)
+					{
+						String dayStart = releaseDate.substring(8, 10);
+						String monthStart = releaseDate.substring(5, 7);
+						String yearStart = releaseDate.substring(0, 4);
+						releaseDate = dayStart + "/" + monthStart + "/" + yearStart;
+					}
+				if (finishDate != null && !finishDate.isEmpty())
+					if (finishDate.equals("null"))
+						finishDate = "??/??/????";
+					else if (finishDate.length() == 4)
+						finishDate = "??/??/" + finishDate;
+					else if (finishDate.length() == 7)
+					{
+						String monthEnd = finishDate.substring(5, 7);
+						String yearEnd = finishDate.substring(0, 4);
+						finishDate = "??/" + monthEnd + "/" + yearEnd;
+					}
+					else if (finishDate.length() > 7)
+					{
+						String dayEnd = finishDate.substring(8, 10);
+						String monthEnd = finishDate.substring(5, 7);
+						String yearEnd = finishDate.substring(0, 4);
+						finishDate = dayEnd + "/" + monthEnd + "/" + yearEnd;
+					}
+				if (totEp.equals("1"))
+					finishDate = releaseDate;
+				String animeType = "";
+				switch (animeTypeID)
+				{
+					case 1:
+						animeType = "TV";
+						break;
+					case 2:
+						animeType = "OVA";
+						break;
+					case 3:
+						animeType = "Movie";
+						break;
+					case 4:
+						animeType = "Special";
+						break;
+					case 5:
+						animeType = "ONA";
+						break;
+					default:
+						break;
+				}
+				String imageLink = obj.get("series_image").getAsString();
+				String imageName = addCompletedAnimeSaveImage(name, imageLink);
+				String note = "";
+				if (isDropped)
+					note = "Droppato";
+								
+				AnimeData data = null;
+				if(!finishDate.contains("?"))
+				{
+					GregorianCalendar fDate = MAMUtil.getDate(finishDate);
+					String todayDay = MAMUtil.today();
+					GregorianCalendar todayDate = MAMUtil.getDate(todayDay);
+					if(fDate.before(todayDate) || fDate.equals(todayDate))
+					{
+						String exitDay = "Concluso";
+						data = new AnimeData(currentEp, totEp, "", note, imageName + ".png", exitDay, "", "", "", animeType, releaseDate, finishDate, durationEp, false);
+
+					}
+					else if (fDate.after(todayDate))
+					{
+						String exitDay = "?????";
+						data = new AnimeData(currentEp, totEp, "", note, imageName + ".png", exitDay, "", "", "", animeType, releaseDate, finishDate, durationEp, false);
+
+					}
+				}
+				
+				String listToAdd = checkDataConflict(finishDate, animeType, "Anime Completati");
+				checkAnimeAlreadyAdded(imageName, listToAdd, data);
+				
+			}
+			currentAnimeNumber++;
+			int progress =(int) ((currentAnimeNumber/totalAnimeNumber) * 100);
+			setProgress(progress);
+		}
+	}
+
+	private void synchronizeWishListAnime()
+	{
+		for (Entry<String,Integer> entry: wishlistAnime.entrySet())
+		{
+			if (!AnimeIndex.wishlistMALMap.containsKey(entry.getKey()))
+			{
+				AnimeIndex.wishlistMALMap.put(entry.getKey(), entry.getValue());
+				AnimeIndex.wishlistDialog.wishListModel.addElement(entry.getKey());
+			}
+			currentAnimeNumber++;
+			int progress =(int) ((currentAnimeNumber/totalAnimeNumber) * 100);
+			setProgress(progress);
+		}
+	}
 	//util
+
+	private void synchronizeConflictedAnime()
+	{
+		for (Entry<String,String> entry : conflictedAnime.entrySet())
+		{
+			String title = entry.getKey();
+			HashMap<String,Integer> map = ConnectionManager.AnimeSearch(title);
+			if (map.size() > 1)
+			{
+				String[] titles = map.keySet().toArray(new String[]{});
+				String anime = (String)JOptionPane.showInternalInputDialog(AnimeIndex.animeInformation.SynchroDial, "Scegli il titolo corretto per : \"" + title +"\"", "Conflitto tra titoli", JOptionPane.WARNING_MESSAGE, null, titles, titles[0]);
+				if (anime != null)
+				{
+					int id = map.get(anime);
+					anime = anime.replace("/", "\\/");
+					anime = anime.replace("!", "\\!");
+					automaticAdd(anime, id, entry.getValue());
+				}
+				currentAnimeNumber++;
+				int progress =(int) ((currentAnimeNumber/totalAnimeNumber) * 100);
+				setProgress(progress);
+			}
+		}
+	}
 	private void automaticAdd(String anime, int id, String listToAdd)
 	{
-		long time = System.currentTimeMillis();
 		AnimeIndex.addToPreviousList = listToAdd;
 
 		String name = ConnectionManager.getAnimeDataGson("title_romaji", id);
@@ -326,11 +460,9 @@ public class MALSynchronizationTask extends SwingWorker
 		AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png", exitDay, Integer.toString(id), "", "", animeType, releaseDate, finishDate, durationEp, false);
 		checkAnimeAlreadyAdded(name, list, data);
 		AnimeIndex.lastSelection = anime;
-		time = System.currentTimeMillis()-time;
-		System.out.println(time);
 	}
 
-	private static String checkDataConflict(String finishDate, String type, String listName)
+	private String checkDataConflict(String finishDate, String type, String listName)
 	{
 		String map = listName;
 
@@ -543,9 +675,8 @@ public class MALSynchronizationTask extends SwingWorker
 		return map;
 	}
 
-	private static void checkAnimeAlreadyAdded(String name, String listName, AnimeData data)
+	private void checkAnimeAlreadyAdded(String name, String listName, AnimeData data)
 	{
-		JList list = AddAnimeDialog.getJList(listName);
 		SortedListModel model = AddAnimeDialog.getModel(listName);
 		TreeMap<String, AnimeData> map = AddAnimeDialog.getMap(listName);		
 			if (!(map.containsKey(name)) == true)
@@ -558,16 +689,25 @@ public class MALSynchronizationTask extends SwingWorker
 				if (AddAnimeDialog.getDeletedArrayList(listName).contains(map.get(name).getImagePath(listName)))
 					AddAnimeDialog.getDeletedArrayList(listName).remove(map.get(name).getImagePath(listName));
 				AddAnimeDialog.getArrayList(listName).add(map.get(name).getImagePath(listName));
-//				AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-//				AnimeIndex.shouldUpdate = false;
-//				list.clearSelection();
-//				list.setSelectedValue(name, true);
-//				AnimeIndex.shouldUpdate = true;
-				//TODO
-				lastAnime = name;
 				AnimeInformation.fansubComboBox.setSelectedItem("?????");
 			}
 			if (AnimeIndex.filtro != 9)
 				Filters.removeFilters();
 	}
+
+	private String addCompletedAnimeSaveImage(String name, String imageLink)
+	{
+		imageLink = imageLink.replaceAll("\\\\/", "/");
+		String imageName = name.replaceAll("\\\\", "_");
+		imageName = imageName.replaceAll("/", "_");
+		imageName = imageName.replaceAll(":", "_");
+		imageName = imageName.replaceAll("\\*", "_");
+		imageName = imageName.replaceAll("\\?", "_");
+		imageName = imageName.replaceAll("\"", "_");
+		imageName = imageName.replaceAll(">", "_");
+		imageName = imageName.replaceAll("<", "_");
+		FileManager.saveImage(imageLink, imageName, "Completed");
+		return imageName;
+	}
+	
 }

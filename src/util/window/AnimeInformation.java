@@ -54,7 +54,6 @@ import util.MAMUtil;
 import util.PatternFilter;
 import util.SortedListModel;
 import util.UtilEvent;
-import util.task.MALSynchronizationTask;
 
 public class AnimeInformation extends JPanel
 {
@@ -93,7 +92,7 @@ public class AnimeInformation extends JPanel
 	public static UpdatingAnimeDataDialog dial;
 	public boolean selectExcludedAnimeAtWindowOpened = false;
 	public JButton btnFolder;
-	public WaitDialog SynchroDial;
+	public SynchronizingDialog SynchroDial;
 
 	public AnimeInformation()
 	{
@@ -1007,11 +1006,9 @@ public class AnimeInformation extends JPanel
 		btnFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MALSynchronizationTask task = new MALSynchronizationTask("HectorBlaze");
-				task.execute();
-//				SynchroDial = new WaitDialog("Prendo dati", "Importando dati", task, true);
-//				SynchroDial.setLocationRelativeTo(AnimeIndex.mainFrame);
-//				SynchroDial.setVisible(true);
+				SynchroDial = new SynchronizingDialog("HectorBlaze");
+				SynchroDial.setLocationRelativeTo(AnimeIndex.mainFrame);
+				SynchroDial.setVisible(true);
 				
 			}
 		});
@@ -1191,24 +1188,27 @@ public class AnimeInformation extends JPanel
 				{
 					String anime = (String) MAMUtil.getJList().getSelectedValue();
 					AnimeData data = (AnimeData) MAMUtil.getMap().get(anime);
-					String link = "https://anilist.co/anime/" + data.getId();
-					if (!link.isEmpty())
-						try
-						{
-							URI uriLink = new URI(link);
-							Desktop.getDesktop().browse(uriLink);
-						}
-						catch (URISyntaxException e1)
-						{
+					if (data.getId() != null && !data.getId().isEmpty())
+					{
+						String link = "https://anilist.co/anime/" + data.getId();
+						if (!link.isEmpty())
+							try
+							{
+								URI uriLink = new URI(link);
+								Desktop.getDesktop().browse(uriLink);
+							}
+							catch (URISyntaxException e1)
+							{
+								JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Link non valido", "Errore", JOptionPane.ERROR_MESSAGE);
+								btnOpen.setEnabled(false);
+							}
+							catch (IOException e1)
+							{
+								JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Link non valido", "Errore", JOptionPane.ERROR_MESSAGE);
+							}
+						else
 							JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Link non valido", "Errore", JOptionPane.ERROR_MESSAGE);
-							btnOpen.setEnabled(false);
-						}
-						catch (IOException e1)
-						{
-							JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Link non valido", "Errore", JOptionPane.ERROR_MESSAGE);
-						}
-					else
-						JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Link non valido", "Errore", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		});
