@@ -1012,9 +1012,14 @@ public class AnimeInformation extends JPanel
 //				SynchroDial.setVisible(true);
 				try
 				{
-					ConnectionManager.addAnimeMAL("samu301295", "dicembre30", "21");
+					ConnectionManager.addAnimeMAL("samu301295", "dicembre30", "5341");
 				}
 				catch (IOException e1)
+				{
+					MAMUtil.writeLog(e1);
+					e1.printStackTrace();
+				}
+				catch (URISyntaxException e1)
 				{
 					MAMUtil.writeLog(e1);
 					e1.printStackTrace();

@@ -1,13 +1,16 @@
 package util;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
+import java.nio.charset.Charset;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -15,10 +18,14 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.client.utils.URLEncodedUtils;
 
+import com.google.api.client.http.UrlEncodedParser;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.sun.jndi.toolkit.url.Uri;
 
 import main.AnimeIndex;
 
@@ -476,7 +483,7 @@ public class ConnectionManager
 		return validCredentials;
 	}
 
-	public static void addAnimeMAL(String username, String password, String animeID) throws IOException
+	public static void addAnimeMAL(String username, String password, String animeID) throws IOException, URISyntaxException
 	{
 		boolean validCredentials = verifyCredentialsMAL(username, password);
 		System.out.println("inizio aggiunta");
@@ -489,35 +496,39 @@ public class ConnectionManager
 			String line;// An individual line of the web page HTML			
 			try
 			{
-				url = new URL(MAL_BASEURL + ADD_ANIME_MAL + animeID + ".xml");
+				String xmlData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" 
+						+ "<entry>" 
+						+ "<episode>2</episode>" 
+						+ "<status>1</status>" 
+//						+ "<score>8</score>" 
+//						+ "<storage_type></storage_type>" 
+//						+ "<storage_value></storage_value>" 
+//						+ "<times_rewatched></times_rewatched>" 
+//						+ "<rewatch_value></rewatch_value>" 
+//						+ "<date_start></date_start>" 
+//						+ "<date_finish></date_finish>" 
+//						+ "<priority></priority>" 
+//						+ "<enable_discussion></enable_discussion>" 
+//						+ "<enable_rewatching></enable_rewatching>" 
+//						+ "<comments></comments>" 
+//						+ "<fansub_group></fansub_group>" 
+//						+ "<tags></tags>" 
+						+ "</entry>";
+				System.out.println(xmlData);
+				String urlEncoded = URLEncoder.encode(xmlData, "utf-8");
+				url = new URL(MAL_BASEURL + ADD_ANIME_MAL + animeID + ".xml" + "?data=" + urlEncoded); 
+				System.out.println(url.toString());
 				conn = (HttpURLConnection) url.openConnection();
 				conn.setDoOutput(true);
 				conn.setRequestMethod("POST");
 				conn.setRequestProperty("User-Agent", "My Anime Manager");
-				conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-				
+				conn.setRequestProperty("Content-Type", "application/xml");
+
 				String auth = username + ":" + password;
 				String authEncoded = new String(Base64.getEncoder().encode(auth.getBytes()));
 				conn.setRequestProperty("Authorization", "Basic " + authEncoded);
-				String xmlData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-						+ "<entry>"
-						+ "<episode>1</episode>"
-						+ "<status>1</status>"
-						+ "<score></score>"
-						+ "<storage_type></storage_type>"
-						+ "<storage_value></storage_value>"
-						+ "<times_rewatched></times_rewatched>"
-						+ "<rewatch_value></rewatch_value>"
-						+ "<date_start></date_start>"
-						+ "<date_finish></date_finish>"
-						+ "<priority></priority>"
-						+ "<enable_discussion></enable_discussion>"
-						+ "<enable_rewatching></enable_rewatching>"
-						+ "<comments></comments>"
-						+ "<fansub_group></fansub_group>"
-						+ "<tags>test tag, 2nd tag</tags>"
-						+ "</entry>";
-				conn.setRequestProperty("Data", xmlData);
+				conn.setRequestProperty("data", xmlData);
+				
 				rr = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 				while ((line = rr.readLine()) != null)
 					result += line;
@@ -534,7 +545,7 @@ public class ConnectionManager
 			}
 			catch (IOException e)
 			{
-				if (conn.getResponseCode() == 401)
+				if (conn != null && conn.getResponseCode() == 401)
 				{
 					System.out.println("Dati non validi");
 					JOptionPane.showMessageDialog(AnimeIndex.frame, "Nome Utente o Password errata!", "Errore!", JOptionPane.ERROR_MESSAGE);
