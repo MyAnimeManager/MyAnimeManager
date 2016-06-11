@@ -1007,23 +1007,23 @@ public class AnimeInformation extends JPanel
 		btnFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-//				SynchroDial = new SynchronizingDialog("HectorBlaze");
-//				SynchroDial.setLocationRelativeTo(AnimeIndex.mainFrame);
-//				SynchroDial.setVisible(true);
-				try
-				{
-					ConnectionManager.addAnimeMAL("samu301295", "dicembre30", "5341");
-				}
-				catch (IOException e1)
-				{
-					MAMUtil.writeLog(e1);
-					e1.printStackTrace();
-				}
-				catch (URISyntaxException e1)
-				{
-					MAMUtil.writeLog(e1);
-					e1.printStackTrace();
-				}
+				SynchroDial = new SynchronizingDialog("HectorBlaze");
+				SynchroDial.setLocationRelativeTo(AnimeIndex.mainFrame);
+				SynchroDial.setVisible(true);
+//				try
+//				{
+//					ConnectionManager.addAnimeMAL("samu301295", "dicembre30", "5341");
+//				}
+//				catch (IOException e1)
+//				{
+//					MAMUtil.writeLog(e1);
+//					e1.printStackTrace();
+//				}
+//				catch (URISyntaxException e1)
+//				{
+//					MAMUtil.writeLog(e1);
+//					e1.printStackTrace();
+//				}
 				
 			}
 		});

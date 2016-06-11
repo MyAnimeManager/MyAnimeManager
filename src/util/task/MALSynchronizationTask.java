@@ -1,5 +1,5 @@
 package util.task;
-
+//TODO fare controllo sinonimi inserimento wishlist
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -164,8 +164,6 @@ public class MALSynchronizationTask extends SwingWorker
 				e.printStackTrace();
 				MAMUtil.writeLog(e);
 			}
-			
-			
 		}
 		catch (FailingHttpStatusCodeException e) {
 			e.printStackTrace();
@@ -216,7 +214,15 @@ public class MALSynchronizationTask extends SwingWorker
 		for (JsonObject obj: list)
 		{
 			String name = obj.get("series_title").getAsString();
-			if (!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name))
+			boolean match = false;
+			String[] synonyms={};
+			if(!obj.get("series_synonyms").isJsonNull())
+			{	synonyms = obj.get("series_synonyms").getAsString().split("; ");
+				for(String syn: synonyms)
+					if (AnimeIndex.completedMap.containsKey(syn) || AnimeIndex.airingMap.containsKey(syn))
+						match = true;
+			}
+			if (!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !match)
 			{
 				String totEp = obj.get("series_episodes").getAsString();
 				String currentEp = obj.get("my_watched_episodes").getAsString();
@@ -353,6 +359,8 @@ public class MALSynchronizationTask extends SwingWorker
 					int id = map.get(anime);
 					anime = anime.replace("/", "\\/");
 					anime = anime.replace("!", "\\!");
+					if(anime.startsWith("."))
+						anime = anime.replaceFirst(".", "");
 					automaticAdd(anime, id, entry.getValue());
 				}
 				currentAnimeNumber++;
@@ -689,7 +697,6 @@ public class MALSynchronizationTask extends SwingWorker
 				if (AddAnimeDialog.getDeletedArrayList(listName).contains(map.get(name).getImagePath(listName)))
 					AddAnimeDialog.getDeletedArrayList(listName).remove(map.get(name).getImagePath(listName));
 				AddAnimeDialog.getArrayList(listName).add(map.get(name).getImagePath(listName));
-				AnimeInformation.fansubComboBox.setSelectedItem("?????");
 			}
 			if (AnimeIndex.filtro != 9)
 				Filters.removeFilters();
