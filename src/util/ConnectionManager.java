@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -24,16 +25,21 @@ import main.AnimeIndex;
 public class ConnectionManager
 {
 
-	private static final String BASEURL = "https://anilist.co/api/";
+	private static final String ANI_BASEURL = "https://anilist.co/api/";
 	private static final String AUTH = "auth/access_token?grant_type=client_credentials&client_id=samu301295-rjxvs&client_secret=PWynCpeBALVf8GnZEJl3RT";
 	private static final String SEARCH = "anime/search/";
 	private static final String ANIMEDATA = "anime/";
+	
+	private static final String MAL_BASEURL = "http://myanimelist.net/api/";
+	private static final String VERIFY_CREDENTIALS_MAL = "account/verify_credentials.xml";
+	private static final String ADD_ANIME_MAL = "animelist/add/";
+	
 	private static String token;
 	private static boolean tokenExpired = true;
 
 	public static void ConnectAndGetToken() throws java.net.ConnectException, java.net.UnknownHostException
 	{
-		if (ConnectionManager.token == null || ConnectionManager.tokenExpired)
+		if (token == null || tokenExpired)
 		{
 			URL url; // The URL to read
 			HttpURLConnection conn; // The actual connection to the web page
@@ -42,7 +48,7 @@ public class ConnectionManager
 			String result = ""; // A long string containing all the HTML
 			try
 			{
-				url = new URL(BASEURL + AUTH);
+				url = new URL(ANI_BASEURL + AUTH);
 				conn = (HttpURLConnection) url.openConnection();
 				conn.setDoOutput(true);
 				conn.setRequestMethod("POST");
@@ -146,7 +152,7 @@ public class ConnectionManager
 		try
 		{
 			String animeQuery = URLEncoder.encode(animeToSearch, "UTF-8");
-			url = new URL(BASEURL + SEARCH + animeQuery + "?access_token=" + ConnectionManager.token);
+			url = new URL(ANI_BASEURL + SEARCH + animeQuery + "?access_token=" + ConnectionManager.token);
 
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
@@ -217,7 +223,7 @@ public class ConnectionManager
 		String result = ""; // A long string containing all the HTML
 		try
 		{
-			url = new URL(BASEURL + ANIMEDATA + animeID + "?access_token=" + ConnectionManager.token);
+			url = new URL(ANI_BASEURL + ANIMEDATA + animeID + "?access_token=" + ConnectionManager.token);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setConnectTimeout(15 * 1000);
@@ -295,7 +301,7 @@ public class ConnectionManager
 		try
 		{
 			String animeQuery = URLEncoder.encode(animeToSearch, "UTF-8");
-			url = new URL(BASEURL + SEARCH + animeQuery + "?access_token=" + ConnectionManager.token);
+			url = new URL(ANI_BASEURL + SEARCH + animeQuery + "?access_token=" + ConnectionManager.token);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setRequestMethod("GET");
@@ -359,7 +365,7 @@ public class ConnectionManager
 		JsonElement root = null;
 		try
 		{
-			url = new URL(BASEURL + ANIMEDATA + animeID + "?access_token=" + ConnectionManager.token);
+			url = new URL(ANI_BASEURL + ANIMEDATA + animeID + "?access_token=" + ConnectionManager.token);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setConnectTimeout(15 * 1000);
@@ -417,5 +423,125 @@ public class ConnectionManager
 //			System.out.println(data);
 		}
 		return data;
+	}
+
+	private static boolean verifyCredentialsMAL(String username, String password) throws IOException
+	{
+		boolean validCredentials = false;
+		String userID = "";
+		URL url; // The URL to read
+		HttpURLConnection conn = null; // The actual connection to the web page
+		BufferedReader rr; // Used to read results from the web page
+		String line; // An individual line of the web page HTML
+		String result = ""; // A long string containing all the HTML
+		try
+		{
+			url = new URL(MAL_BASEURL + VERIFY_CREDENTIALS_MAL);
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setDoOutput(true);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("User-Agent", "My Anime Manager");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			
+			String auth = username + ":" + password;
+			String authEncoded = new String(Base64.getEncoder().encode(auth.getBytes()));
+			conn.setRequestProperty("Authorization" , "Basic " + authEncoded);
+			
+			rr = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			while ((line = rr.readLine()) != null)
+				result += line;
+			rr.close();
+
+		}
+		catch (java.net.SocketTimeoutException timeout)
+		{
+			JOptionPane.showMessageDialog(AnimeIndex.frame, "Errore durante la connessione! Potrebbe dipendere dalla tua connessione o dal sito di MyAnimeList.", "Errore!", JOptionPane.ERROR_MESSAGE);
+		}
+		catch (java.net.ConnectException | java.net.UnknownHostException e1)
+		{
+			throw e1;
+		}
+		catch (IOException e)
+		{
+			if (conn.getResponseCode() == 401)
+			{
+				System.out.println("Dati non validi");
+				JOptionPane.showMessageDialog(AnimeIndex.frame, "Nome Utente o Password errata!", "Errore!", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		validCredentials = true;
+		System.out.println(result); //4596251
+		userID = result.substring(result.indexOf("<id>") + 4, result.lastIndexOf("</id>"));
+		System.out.println(userID);
+		return validCredentials;
+	}
+
+	public static void addAnimeMAL(String username, String password, String animeID) throws IOException
+	{
+		boolean validCredentials = verifyCredentialsMAL(username, password);
+		System.out.println("inizio aggiunta");
+		String result = ""; // A long string containing all the HTML
+		if (validCredentials)
+		{
+			URL url;// The URL to read
+			HttpURLConnection conn = null;// The actual connection to the web page
+			BufferedReader rr;// Used to read results from the web page
+			String line;// An individual line of the web page HTML			
+			try
+			{
+				url = new URL(MAL_BASEURL + ADD_ANIME_MAL + animeID + ".xml");
+				conn = (HttpURLConnection) url.openConnection();
+				conn.setDoOutput(true);
+				conn.setRequestMethod("POST");
+				conn.setRequestProperty("User-Agent", "My Anime Manager");
+				conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+				
+				String auth = username + ":" + password;
+				String authEncoded = new String(Base64.getEncoder().encode(auth.getBytes()));
+				conn.setRequestProperty("Authorization", "Basic " + authEncoded);
+				String xmlData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+						+ "<entry>"
+						+ "<episode>1</episode>"
+						+ "<status>1</status>"
+						+ "<score></score>"
+						+ "<storage_type></storage_type>"
+						+ "<storage_value></storage_value>"
+						+ "<times_rewatched></times_rewatched>"
+						+ "<rewatch_value></rewatch_value>"
+						+ "<date_start></date_start>"
+						+ "<date_finish></date_finish>"
+						+ "<priority></priority>"
+						+ "<enable_discussion></enable_discussion>"
+						+ "<enable_rewatching></enable_rewatching>"
+						+ "<comments></comments>"
+						+ "<fansub_group></fansub_group>"
+						+ "<tags>test tag, 2nd tag</tags>"
+						+ "</entry>";
+				conn.setRequestProperty("Data", xmlData);
+				rr = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				while ((line = rr.readLine()) != null)
+					result += line;
+				rr.close();
+				
+			}
+			catch (java.net.SocketTimeoutException timeout)
+			{
+				JOptionPane.showMessageDialog(AnimeIndex.frame, "Errore durante la connessione! Potrebbe dipendere dalla tua connessione o dal sito di MyAnimeList.", "Errore!", JOptionPane.ERROR_MESSAGE);
+			}
+			catch (java.net.ConnectException | java.net.UnknownHostException e1)
+			{
+				throw e1;
+			}
+			catch (IOException e)
+			{
+				if (conn.getResponseCode() == 401)
+				{
+					System.out.println("Dati non validi");
+					JOptionPane.showMessageDialog(AnimeIndex.frame, "Nome Utente o Password errata!", "Errore!", JOptionPane.ERROR_MESSAGE);
+				}
+			} 
+		}
+		System.out.println(result);
+
 	}
 }
