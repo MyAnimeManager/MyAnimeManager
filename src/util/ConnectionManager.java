@@ -1,16 +1,19 @@
 package util;
 
-import java.awt.Desktop;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
-import java.nio.charset.Charset;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -18,14 +21,15 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.client.utils.URLEncodedUtils;
+import org.json.JSONObject;
+import org.json.XML;
 
-import com.google.api.client.http.UrlEncodedParser;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sun.jndi.toolkit.url.Uri;
 
 import main.AnimeIndex;
 
@@ -40,6 +44,7 @@ public class ConnectionManager
 	private static final String MAL_BASEURL = "http://myanimelist.net/api/";
 	private static final String VERIFY_CREDENTIALS_MAL = "account/verify_credentials.xml";
 	private static final String ADD_ANIME_MAL = "animelist/add/";
+	private static final String SEARCH_MAL = "anime/search.xml?q=";
 	
 	private static String token;
 	private static boolean tokenExpired = true;
@@ -435,18 +440,117 @@ public class ConnectionManager
 	private static boolean verifyCredentialsMAL(String username, String password) throws IOException
 	{
 		boolean validCredentials = false;
-		String userID = "";
 		URL url; // The URL to read
 		HttpURLConnection conn = null; // The actual connection to the web page
-		BufferedReader rr; // Used to read results from the web page
-		String line; // An individual line of the web page HTML
-		String result = ""; // A long string containing all the HTML
 		try
 		{
 			url = new URL(MAL_BASEURL + VERIFY_CREDENTIALS_MAL);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setRequestMethod("POST");
+			conn.setRequestProperty("User-Agent", "My Anime Manager");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			
+			String auth = username + ":" + password;
+			String authEncoded = new String(Base64.getEncoder().encode(auth.getBytes()));
+			conn.setRequestProperty("Authorization" , "Basic " + authEncoded);
+
+		}
+		catch (java.net.SocketTimeoutException timeout)
+		{
+			JOptionPane.showMessageDialog(AnimeIndex.frame, "Errore durante la connessione! Potrebbe dipendere dalla tua connessione o dal sito di MyAnimeList.", "Errore!", JOptionPane.ERROR_MESSAGE);
+		}
+		catch (java.net.ConnectException | java.net.UnknownHostException e1)
+		{
+			throw e1;
+		}
+		catch (IOException e)
+		{
+			if (conn.getResponseCode() == 401)
+			{
+				System.out.println("Dati non validi");
+				JOptionPane.showMessageDialog(AnimeIndex.frame, "Nome Utente o Password errata!", "Errore!", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		validCredentials = true;
+		return validCredentials;
+	}
+
+	public static void addAnimeMAL(String username, String password, String animeID, String episode, String status, String score, String tags) throws IOException
+	{
+		boolean validCredentials = verifyCredentialsMAL(username, password);
+		if (validCredentials)
+		{
+			URL url;// The URL to read
+			HttpURLConnection conn = null;// The actual connection to the web page
+			try
+			{
+				String xmlData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" 
+						+ "<entry>" 
+						+ "<episode>" + episode + "</episode>" 
+						+ "<status>" + status + "</status>" 
+						+ "<score>" + score + "</score>" 
+						+ "<storage_type></storage_type>" 
+						+ "<storage_value></storage_value>" 
+						+ "<times_rewatched></times_rewatched>" 
+						+ "<rewatch_value></rewatch_value>" 
+						+ "<date_start></date_start>" 
+						+ "<date_finish></date_finish>" 
+						+ "<priority></priority>" 
+						+ "<enable_discussion></enable_discussion>" 
+						+ "<enable_rewatching></enable_rewatching>" 
+						+ "<comments></comments>" 
+						+ "<fansub_group></fansub_group>" 
+						+ "<tags>" + tags + "</tags>" 
+						+ "</entry>";
+				String urlEncoded = URLEncoder.encode(xmlData, "utf-8");
+				url = new URL(MAL_BASEURL + ADD_ANIME_MAL + animeID + ".xml" + "?data=" + urlEncoded); 
+				conn = (HttpURLConnection) url.openConnection();
+				conn.setDoOutput(true);
+				conn.setRequestMethod("GET");
+				conn.setRequestProperty("User-Agent", "My Anime Manager");
+				conn.setRequestProperty("Content-Type", "application/xml");
+
+				String auth = username + ":" + password;
+				String authEncoded = new String(Base64.getEncoder().encode(auth.getBytes()));
+				conn.setRequestProperty("Authorization", "Basic " + authEncoded);
+				
+			}
+			catch (java.net.SocketTimeoutException timeout)
+			{
+				JOptionPane.showMessageDialog(AnimeIndex.frame, "Errore durante la connessione! Potrebbe dipendere dalla tua connessione o dal sito di MyAnimeList.", "Errore!", JOptionPane.ERROR_MESSAGE);
+			}
+			catch (java.net.ConnectException | java.net.UnknownHostException e1)
+			{
+				throw e1;
+			}
+			catch (IOException e)
+			{
+				if (conn != null && conn.getResponseCode() == 401)
+				{
+					System.out.println("Dati non validi");
+					JOptionPane.showMessageDialog(AnimeIndex.frame, "Nome Utente o Password errata!", "Errore!", JOptionPane.ERROR_MESSAGE);
+				}
+			} 
+		}
+
+	}
+	
+	private static String searchAnimeMAL(String username, String password, String anime) throws IOException
+	{
+		URL url; // The URL to read
+		HttpURLConnection conn = null; // The actual connection to the web page
+		BufferedReader rr; // Used to read results from the web page
+		String line; // An individual line of the web page HTML
+		String result = ""; // A long string containing all the HTML
+		try
+		{	
+			anime = URLEncoder.encode(anime, "utf-8");
+			url = new URL(MAL_BASEURL + SEARCH_MAL + anime);
+			System.out.println(url);
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setDoOutput(true);
+			conn.setRequestMethod("GET");
 			conn.setRequestProperty("User-Agent", "My Anime Manager");
 			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 			
@@ -476,77 +580,38 @@ public class ConnectionManager
 				JOptionPane.showMessageDialog(AnimeIndex.frame, "Nome Utente o Password errata!", "Errore!", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-		validCredentials = true;
-		userID = result.substring(result.indexOf("<id>") + 4, result.lastIndexOf("</id>"));
-		return validCredentials;
+		
+		return result;
 	}
-
-	public static void addAnimeMAL(String username, String password, String animeID) throws IOException, URISyntaxException
+	
+	public static HashMap<String, Integer> getAnimeSearchedMAL(String username, String password, String anime) throws UnsupportedEncodingException, FileNotFoundException
 	{
-		boolean validCredentials = verifyCredentialsMAL(username, password);
-		String result = ""; // A long string containing all the HTML
-		if (validCredentials)
+		HashMap<String, Integer> map = new HashMap<String,Integer>();
+			
+		JSONObject xmlJSONObj;
+		String json = "";
+		String xml = "";
+		try
 		{
-			URL url;// The URL to read
-			HttpURLConnection conn = null;// The actual connection to the web page
-			BufferedReader rr;// Used to read results from the web page
-			String line;// An individual line of the web page HTML			
-			try
-			{
-				String xmlData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" 
-						+ "<entry>" 
-						+ "<episode>2</episode>" 
-						+ "<status>1</status>" 
-						+ "<score>8</score>" 
-						+ "<storage_type></storage_type>" 
-						+ "<storage_value></storage_value>" 
-						+ "<times_rewatched></times_rewatched>" 
-						+ "<rewatch_value></rewatch_value>" 
-						+ "<date_start></date_start>" 
-						+ "<date_finish></date_finish>" 
-						+ "<priority></priority>" 
-						+ "<enable_discussion></enable_discussion>" 
-						+ "<enable_rewatching></enable_rewatching>" 
-						+ "<comments></comments>" 
-						+ "<fansub_group></fansub_group>" 
-						+ "<tags></tags>" 
-						+ "</entry>";
-				String urlEncoded = URLEncoder.encode(xmlData, "utf-8");
-				url = new URL(MAL_BASEURL + ADD_ANIME_MAL + animeID + ".xml" + "?data=" + urlEncoded); 
-				conn = (HttpURLConnection) url.openConnection();
-				conn.setDoOutput(true);
-				conn.setRequestMethod("GET");
-				conn.setRequestProperty("User-Agent", "My Anime Manager");
-				conn.setRequestProperty("Content-Type", "application/xml");
-
-				String auth = username + ":" + password;
-				String authEncoded = new String(Base64.getEncoder().encode(auth.getBytes()));
-				conn.setRequestProperty("Authorization", "Basic " + authEncoded);
-				conn.setRequestProperty("data", xmlData);
-				
-				rr = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				while ((line = rr.readLine()) != null)
-					result += line;
-				rr.close();
-				
-			}
-			catch (java.net.SocketTimeoutException timeout)
-			{
-				JOptionPane.showMessageDialog(AnimeIndex.frame, "Errore durante la connessione! Potrebbe dipendere dalla tua connessione o dal sito di MyAnimeList.", "Errore!", JOptionPane.ERROR_MESSAGE);
-			}
-			catch (java.net.ConnectException | java.net.UnknownHostException e1)
-			{
-				throw e1;
-			}
-			catch (IOException e)
-			{
-				if (conn != null && conn.getResponseCode() == 401)
-				{
-					System.out.println("Dati non validi");
-					JOptionPane.showMessageDialog(AnimeIndex.frame, "Nome Utente o Password errata!", "Errore!", JOptionPane.ERROR_MESSAGE);
-				}
-			} 
+			xml = searchAnimeMAL(username, password, anime);
+			xmlJSONObj = XML.toJSONObject(xml);
+			json = xmlJSONObj.toString(4);
 		}
-
+		catch (Exception e)
+		{
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
+		}
+        JsonParser parser = new JsonParser();
+        JsonObject root = parser.parse(json).getAsJsonObject();
+        
+        JsonArray searchedAnime = root.get("anime").getAsJsonObject().get("entry").getAsJsonArray();
+        for (JsonElement obj : searchedAnime)
+        {
+        	String name = obj.getAsJsonObject().get("title").getAsString();
+        	int id = obj.getAsJsonObject().get("id").getAsInt();
+        	map.put(name, id);
+        }
+		return map;
 	}
 }

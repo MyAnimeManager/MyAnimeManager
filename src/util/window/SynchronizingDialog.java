@@ -50,6 +50,8 @@ public class SynchronizingDialog extends JDialog
 
 		progressBar = new JProgressBar();
 		progressBar.setIndeterminate(true);
+		progressBar.setStringPainted(true);
+		progressBar.setString("Ricezione dati...");
 		getContentPane().add(progressBar, "cell 0 1,growx,aligny center");
 
 		task.addPropertyChangeListener(new PropertyChangeListener() {
@@ -66,6 +68,7 @@ public class SynchronizingDialog extends JDialog
 						progressBar.setMinimum(0);
 						progressBar.setMaximum((int)task.totalAnimeNumber);
 					}
+					progressBar.setString("Anime sincronizzati " + task.currentAnimeNumber + "/" + task.totalAnimeNumber);
 					progressBar.setValue((int)task.currentAnimeNumber);
 				}
 				else if (evt.getPropertyName().equals("state"))
