@@ -477,16 +477,13 @@ public class ConnectionManager
 			}
 		}
 		validCredentials = true;
-		System.out.println(result); //4596251
 		userID = result.substring(result.indexOf("<id>") + 4, result.lastIndexOf("</id>"));
-		System.out.println(userID);
 		return validCredentials;
 	}
 
 	public static void addAnimeMAL(String username, String password, String animeID) throws IOException, URISyntaxException
 	{
 		boolean validCredentials = verifyCredentialsMAL(username, password);
-		System.out.println("inizio aggiunta");
 		String result = ""; // A long string containing all the HTML
 		if (validCredentials)
 		{
@@ -500,27 +497,25 @@ public class ConnectionManager
 						+ "<entry>" 
 						+ "<episode>2</episode>" 
 						+ "<status>1</status>" 
-//						+ "<score>8</score>" 
-//						+ "<storage_type></storage_type>" 
-//						+ "<storage_value></storage_value>" 
-//						+ "<times_rewatched></times_rewatched>" 
-//						+ "<rewatch_value></rewatch_value>" 
-//						+ "<date_start></date_start>" 
-//						+ "<date_finish></date_finish>" 
-//						+ "<priority></priority>" 
-//						+ "<enable_discussion></enable_discussion>" 
-//						+ "<enable_rewatching></enable_rewatching>" 
-//						+ "<comments></comments>" 
-//						+ "<fansub_group></fansub_group>" 
-//						+ "<tags></tags>" 
+						+ "<score>8</score>" 
+						+ "<storage_type></storage_type>" 
+						+ "<storage_value></storage_value>" 
+						+ "<times_rewatched></times_rewatched>" 
+						+ "<rewatch_value></rewatch_value>" 
+						+ "<date_start></date_start>" 
+						+ "<date_finish></date_finish>" 
+						+ "<priority></priority>" 
+						+ "<enable_discussion></enable_discussion>" 
+						+ "<enable_rewatching></enable_rewatching>" 
+						+ "<comments></comments>" 
+						+ "<fansub_group></fansub_group>" 
+						+ "<tags></tags>" 
 						+ "</entry>";
-				System.out.println(xmlData);
 				String urlEncoded = URLEncoder.encode(xmlData, "utf-8");
 				url = new URL(MAL_BASEURL + ADD_ANIME_MAL + animeID + ".xml" + "?data=" + urlEncoded); 
-				System.out.println(url.toString());
 				conn = (HttpURLConnection) url.openConnection();
 				conn.setDoOutput(true);
-				conn.setRequestMethod("POST");
+				conn.setRequestMethod("GET");
 				conn.setRequestProperty("User-Agent", "My Anime Manager");
 				conn.setRequestProperty("Content-Type", "application/xml");
 
@@ -552,7 +547,6 @@ public class ConnectionManager
 				}
 			} 
 		}
-		System.out.println(result);
 
 	}
 }
