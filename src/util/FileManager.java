@@ -319,9 +319,9 @@ public class FileManager
 		}
 	}
 
-	public static void loadWishList()
+	public static void loadSpecialList(String filename, TreeMap<String,Integer> map, SortedListModel model)
 	{
-		File wishlistFile = new File(MAMUtil.getAnimeFolderPath() + "wishlist.anaconda");
+		File wishlistFile = new File(MAMUtil.getAnimeFolderPath() + filename);
 		if (wishlistFile.isFile())
 		{
 			Scanner scan = null;
@@ -339,8 +339,8 @@ public class FileManager
 
 					String name = line.next();
 					int id = line.nextInt();
-					AnimeIndex.wishlistDialog.wishListModel.addElement(name);
-					AnimeIndex.wishlistMap.put(name, id);
+					model.addElement(name);
+					map.put(name, id);
 				}
 			}
 			catch (FileNotFoundException e)
@@ -367,9 +367,9 @@ public class FileManager
 			}
 	}
 
-	public static void saveWishList()
+	public static void saveSpecialList(String filename, TreeMap<String,Integer> map, SortedListModel model)
 	{
-		File wishlistFile = new File(MAMUtil.getAnimeFolderPath() + "wishlist.anaconda");
+		File wishlistFile = new File(MAMUtil.getAnimeFolderPath() + filename);
 		wishlistFile.delete();
 		wishlistFile.getParentFile().mkdirs();
 		BufferedWriter output;
@@ -377,13 +377,16 @@ public class FileManager
 		{
 			output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(wishlistFile), "UTF-8"));
 
-			Object[] wishListArray = AnimeIndex.wishlistDialog.wishListModel.toArray();
+			Object[] wishListArray = model.toArray();
 			for (int i = 0; i < wishListArray.length; i++)
 			{
 				String name = (String) wishListArray[i];
-				int id = AnimeIndex.wishlistMap.get(name);
+				if (map.containsKey(name))
+				{
+				int id = map.get(name);
 				output.write(name + "||" + id);
 				output.write(System.lineSeparator());
+				}
 			}
 			output.close();
 		}

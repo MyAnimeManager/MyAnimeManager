@@ -12,6 +12,7 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
 import util.task.MALSynchronizationTask;
 
@@ -19,7 +20,7 @@ public class SynchronizingDialog extends JDialog
 {
 
 	private JProgressBar progressBar;
-	private JLabel lblDownloadInCorso;
+	private JLabel lblSynchro;
 	MALSynchronizationTask task;
 
 	/**
@@ -27,6 +28,7 @@ public class SynchronizingDialog extends JDialog
 	 */	
 	public SynchronizingDialog(String username)
 	{
+		super(AnimeIndex.frame, true);
 		task = new MALSynchronizationTask(username);
 		addWindowListener(new WindowAdapter() {
 
@@ -38,18 +40,19 @@ public class SynchronizingDialog extends JDialog
 			}
 		});
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		setModal(true);
 		setResizable(false);
 		setTitle("Sincronizzazione dati da MyAnimeList");
 		setBounds(100, 100, 328, 85);
 
 		getContentPane().setLayout(new MigLayout("", "[320.00px]", "[14px][14px]"));
-		lblDownloadInCorso = new JLabel("Inizio sincronizzazione...");
-		lblDownloadInCorso.setHorizontalAlignment(SwingConstants.CENTER);
-		getContentPane().add(lblDownloadInCorso, "cell 0 0,growx,aligny center");
+		lblSynchro = new JLabel("Inizio sincronizzazione...");
+		lblSynchro.setHorizontalAlignment(SwingConstants.CENTER);
+		getContentPane().add(lblSynchro, "cell 0 0,growx,aligny center");
 
 		progressBar = new JProgressBar();
 		progressBar.setIndeterminate(true);
+		progressBar.setStringPainted(true);
+		progressBar.setString("Ricezione dati...");
 		getContentPane().add(progressBar, "cell 0 1,growx,aligny center");
 
 		task.addPropertyChangeListener(new PropertyChangeListener() {
@@ -66,6 +69,8 @@ public class SynchronizingDialog extends JDialog
 						progressBar.setMinimum(0);
 						progressBar.setMaximum((int)task.totalAnimeNumber);
 					}
+					lblSynchro.setText("Sincronizzazione in corso...");
+					progressBar.setString("Anime sincronizzati " + (int)task.currentAnimeNumber + "/" + (int)task.totalAnimeNumber);
 					progressBar.setValue((int)task.currentAnimeNumber);
 				}
 				else if (evt.getPropertyName().equals("state"))

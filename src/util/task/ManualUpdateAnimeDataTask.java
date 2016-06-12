@@ -49,16 +49,18 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 		String type = oldData.getAnimeType();
 		int id = Integer.parseInt(oldData.getId());
 
+		String data = ConnectionManager.parseAnimeData(id);
+
 		if (exclusionArray[1])
 		{
-			totalEp = ConnectionManager.getAnimeDataGson("total_episodes", id);
+			totalEp = ConnectionManager.getAnimeData("total_episodes", data);
 			if (totalEp.equals("null") || totalEp.equals("0"))
 				totalEp = "??";
 		}
 
 		if (exclusionArray[2])
 		{
-			duration = ConnectionManager.getAnimeDataGson("duration", id);
+			duration = ConnectionManager.getAnimeData("duration", data);
 			if (duration.equals("null") || duration.equals("0"))
 				duration = "?? min";
 			else
@@ -67,7 +69,7 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 
 		if (exclusionArray[3])
 		{
-			startDate = ConnectionManager.getAnimeDataGson("start_date", id);
+			startDate = ConnectionManager.getAnimeData("start_date", data);
 
 			if (startDate.equals("null"))
 				startDate = "??/??/????";
@@ -93,7 +95,7 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 			{
 				if (exclusionArray[3] == false)
 				{
-					startDate = ConnectionManager.getAnimeDataGson("start_date", id);
+					startDate = ConnectionManager.getAnimeData("start_date", data);
 
 					if (startDate.equals("null"))
 						startDate = "??/??/????";
@@ -117,7 +119,7 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 			}
 			else
 			{
-				finishDate = ConnectionManager.getAnimeDataGson("end_date", id);
+				finishDate = ConnectionManager.getAnimeData("end_date", data);
 
 				if (finishDate.equals("null"))
 					finishDate = "??/??/????";
@@ -139,11 +141,11 @@ public class ManualUpdateAnimeDataTask extends SwingWorker
 			}
 			
 		if (exclusionArray[5])
-			type = ConnectionManager.getAnimeDataGson("type", id);
+			type = ConnectionManager.getAnimeData("type", data);
 			
 		if (exclusionArray[0])
 		{
-			String imageLink = ConnectionManager.getAnimeDataGson("image_url_lge", id);
+			String imageLink = ConnectionManager.getAnimeData("image_url_lge", data);
 			imageLink = imageLink.replaceAll("\\\\/", "/");
 			String imageName = name.replaceAll("\\\\", "_");
 			imageName = imageName.replaceAll("/", "_");

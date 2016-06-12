@@ -250,7 +250,10 @@ public class MAMUtil
 		FileManager.saveAnimeListGson("ova.JConda", AnimeIndex.ovaMap);
 		FileManager.saveAnimeListGson("film.JConda", AnimeIndex.filmMap);
 		FileManager.saveAnimeListGson("toSee.JConda", AnimeIndex.completedToSeeMap);
-		FileManager.saveWishList();
+		FileManager.saveSpecialList("wishlist.anaconda", AnimeIndex.wishlistMap, AnimeIndex.wishlistDialog.wishListModel);
+		FileManager.saveSpecialList("wishlistMAL.anaconda", AnimeIndex.wishlistMALMap, AnimeIndex.wishlistDialog.wishListModel);
+		FileManager.saveSpecialList("droplist.anaconda", AnimeIndex.droppedMALMap, AnimeIndex.wishlistDialog.droplistModel);
+		FileManager.saveSpecialList("droplistMAL.anaconda", AnimeIndex.droppedMap, AnimeIndex.wishlistDialog.droplistModel);
 		FileManager.saveExclusionList();
 		FileManager.saveDateMap();
 

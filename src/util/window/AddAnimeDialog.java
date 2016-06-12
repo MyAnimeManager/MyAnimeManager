@@ -1619,7 +1619,8 @@ public class AddAnimeDialog extends JDialog
 			folder = "Film";
 		else if (list.equalsIgnoreCase("completi da vedere"))
 			folder = "Completed To See";
-		String imageLink = ConnectionManager.getAnimeDataGson("image_url_lge", animeID);
+		String animeData = ConnectionManager.parseAnimeData(animeID);
+		String imageLink = ConnectionManager.getAnimeData("image_url_lge", animeData);
 		imageLink = imageLink.replaceAll("\\\\/", "/");
 		String imageName = name.replaceAll("\\\\", "_");
 		imageName = imageName.replaceAll("/", "_");
