@@ -121,7 +121,7 @@ public class AnimeIndex extends JFrame
 	public static final String CURRENT_VERSION = "MyAnimeManager.exe";
 	public static final String NEW_VERSION = "MyAnimeManager_Setup.exe";
 
-	public static JPanel mainFrame;
+	public static JPanel mainPanel;
 	public static JPanel cardContainer;
 	public static AnimeInformation animeInformation;
 	public static AnimeIndex frame;
@@ -261,9 +261,9 @@ public class AnimeIndex extends JFrame
 			public void componentMoved(ComponentEvent e)
 			{
 				if (wishlistDialog.isShowing())
-					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 181, AnimeIndex.mainFrame.getLocationOnScreen().y);
+					wishlistDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x - 181, AnimeIndex.mainPanel.getLocationOnScreen().y);
 				if (newsBoardDialog.isShowing())
-					newsBoardDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x, AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight());
+					newsBoardDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x, AnimeIndex.mainPanel.getLocationOnScreen().y + AnimeIndex.mainPanel.getHeight());
 			}
 		});
 		setTitle("MyAnimeManager");
@@ -280,20 +280,20 @@ public class AnimeIndex extends JFrame
 					{
 						saveModifiedInformation();
 						ExitSaveDialog exitDialog = new ExitSaveDialog();
-						exitDialog.setLocationRelativeTo(mainFrame);
+						exitDialog.setLocationRelativeTo(mainPanel);
 						exitDialog.setVisible(true);
 					}
-					AnimeIndex.mainFrame.requestFocusInWindow();
+					AnimeIndex.mainPanel.requestFocusInWindow();
 				}
 				catch (Exception e)
 				{
 					if (!animeInformation.releaseDateField.getText().trim().isEmpty() && animeInformation.releaseDateField.getText().trim().length() == 10 && animeInformation.releaseDateField.getText().trim().length() == 10 && !animeInformation.finishDateField.getText().trim().isEmpty() && animeInformation.finishDateField.getText().trim().length() == 10 && animeInformation.finishDateField.getText().trim().length() == 10)
 					{
 						ExitSaveDialog exitDialog = new ExitSaveDialog();
-						exitDialog.setLocationRelativeTo(mainFrame);
+						exitDialog.setLocationRelativeTo(mainPanel);
 						exitDialog.setVisible(true);
 					}
-					AnimeIndex.mainFrame.requestFocusInWindow();
+					AnimeIndex.mainPanel.requestFocusInWindow();
 				}
 			}
 
@@ -372,7 +372,7 @@ public class AnimeIndex extends JFrame
 					if (Boolean.parseBoolean(appProp.getProperty("Ask_for_donation")))
 					{
 						String[] array = { "Si!", "Non ora...", "Non ricordarmelo più" };
-						int choiche = JOptionPane.showOptionDialog(AnimeIndex.mainFrame, "Se ti piace  MY ANIME MANAGER  fallo conoscere ai tuoi amici!!\n\rE se vuoi, sostienici con una libera donazione!", "Supporta My Anime Manager !!!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, array, "Si!");
+						int choiche = JOptionPane.showOptionDialog(AnimeIndex.mainPanel, "Se ti piace  MY ANIME MANAGER  fallo conoscere ai tuoi amici!!\n\rE se vuoi, sostienici con una libera donazione!", "Supporta My Anime Manager !!!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, array, "Si!");
 						if (choiche == 0)
 						{
 							String link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RFJLMVCQYZEQG";
@@ -389,10 +389,10 @@ public class AnimeIndex extends JFrame
 							}
 						}
 						else if (choiche == 1)
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" -> \"Crediti\" o\n\rsul menù \"Info\" -> \"Sostenitori\"");
+							JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" -> \"Crediti\" o\n\rsul menù \"Info\" -> \"Sostenitori\"");
 						else if (choiche == 2)
 						{
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "\n\rOk, non te lo chiederemo più.\n\r\n\r\n\rMa ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" -> \"Crediti\" o\n\rsul menù \"Info\" -> \"Sostenitori\"");
+							JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "\n\rOk, non te lo chiederemo più.\n\r\n\r\n\rMa ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" -> \"Crediti\" o\n\rsul menù \"Info\" -> \"Sostenitori\"");
 							appProp.setProperty("Ask_for_donation", "false");
 						}
 					}
@@ -421,7 +421,7 @@ public class AnimeIndex extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				preferenceDialog = new PreferenceDialog();
-				preferenceDialog.setLocationRelativeTo(mainFrame);
+				preferenceDialog.setLocationRelativeTo(mainPanel);
 				preferenceDialog.setVisible(true);
 			}
 		});
@@ -448,13 +448,13 @@ public class AnimeIndex extends JFrame
 				fc.setAcceptAllFileFilterUsed(false);
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				fc.setFileFilter(new ImportExportFileFilter());
-				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Importa");
+				int returnVal = fc.showDialog(AnimeIndex.mainPanel, "Importa");
 				if (returnVal == JFileChooser.APPROVE_OPTION)
 				{
 					File zipFile = fc.getSelectedFile();
 					BackupImportExportTask task = new BackupImportExportTask(zipFile);
 					WaitDialog waitForZip = new WaitDialog("Importando...", "Importando i dati", task, false);
-					waitForZip.setLocationRelativeTo(mainFrame);
+					waitForZip.setLocationRelativeTo(mainPanel);
 					waitForZip.setVisible(true);
 				}
 			}
@@ -475,7 +475,7 @@ public class AnimeIndex extends JFrame
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				fc.setFileFilter(new ImportExportFileFilter());
 				fc.setSelectedFile(new File(chooserDir + File.separator + "MAM_liste"));
-				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Esporta");
+				int returnVal = fc.showDialog(AnimeIndex.mainPanel, "Esporta");
 				if (returnVal == JFileChooser.APPROVE_OPTION)
 				{
 					LinkedHashMap<File, String> fileToZip = new LinkedHashMap<File, String>();
@@ -506,7 +506,7 @@ public class AnimeIndex extends JFrame
 					}
 					BackupImportExportTask task = new BackupImportExportTask(dest, fileToZip);
 					WaitDialog waitForZip = new WaitDialog("Esportando...", "Esportando i dati", task, false);
-					waitForZip.setLocationRelativeTo(mainFrame);
+					waitForZip.setLocationRelativeTo(mainPanel);
 					waitForZip.setVisible(true);
 				}
 			}
@@ -527,7 +527,7 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti i Fansub?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int shouldCancel = JOptionPane.showConfirmDialog(mainPanel, "Vuoi cancellare tutti i Fansub?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (shouldCancel == 0)
 				{
 					try
@@ -552,7 +552,7 @@ public class AnimeIndex extends JFrame
 						fansubMap.put("Crunchyroll", "");
 					AnimeInformation.setFansubComboBox();
 					animeInformation.setBlank();
-					JOptionPane.showMessageDialog(mainFrame, "Fansub eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(mainPanel, "Fansub eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -574,7 +574,7 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti gli Anime Completati?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int shouldCancel = JOptionPane.showConfirmDialog(mainPanel, "Vuoi cancellare tutti gli Anime Completati?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (shouldCancel == 0)
 				{
 					try
@@ -592,7 +592,7 @@ public class AnimeIndex extends JFrame
 					completedMap.clear();
 
 					animeInformation.setBlank();
-					JOptionPane.showMessageDialog(mainFrame, "Anime Completati eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(mainPanel, "Anime Completati eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -604,7 +604,7 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti gli Anime in Corso?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int shouldCancel = JOptionPane.showConfirmDialog(mainPanel, "Vuoi cancellare tutti gli Anime in Corso?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (shouldCancel == 0)
 				{
 					try
@@ -622,7 +622,7 @@ public class AnimeIndex extends JFrame
 					airingMap.clear();
 
 					animeInformation.setBlank();
-					JOptionPane.showMessageDialog(mainFrame, "Anime in Corso eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(mainPanel, "Anime in Corso eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -637,7 +637,7 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti gli OAV?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int shouldCancel = JOptionPane.showConfirmDialog(mainPanel, "Vuoi cancellare tutti gli OAV?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (shouldCancel == 0)
 				{
 					try
@@ -659,7 +659,7 @@ public class AnimeIndex extends JFrame
 					ovaMap.clear();
 
 					animeInformation.setBlank();
-					JOptionPane.showMessageDialog(mainFrame, "OAV eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(mainPanel, "OAV eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -674,7 +674,7 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti i Film", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int shouldCancel = JOptionPane.showConfirmDialog(mainPanel, "Vuoi cancellare tutti i Film", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (shouldCancel == 0)
 				{
 					try
@@ -696,7 +696,7 @@ public class AnimeIndex extends JFrame
 					filmMap.clear();
 
 					animeInformation.setBlank();
-					JOptionPane.showMessageDialog(mainFrame, "Film eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(mainPanel, "Film eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -711,7 +711,7 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti gli Anime Completi da Vedere", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int shouldCancel = JOptionPane.showConfirmDialog(mainPanel, "Vuoi cancellare tutti gli Anime Completi da Vedere", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (shouldCancel == 0)
 				{
 					try
@@ -729,7 +729,7 @@ public class AnimeIndex extends JFrame
 					completedToSeeMap.clear();
 
 					animeInformation.setBlank();
-					JOptionPane.showMessageDialog(mainFrame, "Completi da Vedere eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(mainPanel, "Completi da Vedere eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -747,7 +747,7 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
-				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti gli Anime nella Wishlist?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int shouldCancel = JOptionPane.showConfirmDialog(mainPanel, "Vuoi cancellare tutti gli Anime nella Wishlist?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (shouldCancel == 0)
 				{
 					try
@@ -765,7 +765,7 @@ public class AnimeIndex extends JFrame
 
 					wishlistMap.clear();
 
-					JOptionPane.showMessageDialog(mainFrame, "Anime nella Wishlist eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(mainPanel, "Anime nella Wishlist eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -775,7 +775,7 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Vuoi cancellare tutti i dati?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int shouldCancel = JOptionPane.showConfirmDialog(mainPanel, "Vuoi cancellare tutti i dati?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (shouldCancel == 0)
 				{
 					try
@@ -818,7 +818,7 @@ public class AnimeIndex extends JFrame
 
 					JList list = MAMUtil.getJList();
 					list.clearSelection();
-					JOptionPane.showMessageDialog(mainFrame, "Dati eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(mainPanel, "Dati eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 					ExternalProgram restart = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "MAMRestart.jar");
 					restart.run();
 				}
@@ -838,7 +838,7 @@ public class AnimeIndex extends JFrame
 				String name = AnimeIndex.animeInformation.lblAnimeName.getText();
 				if (name != null && !name.equalsIgnoreCase("Anime"))
 				{
-					int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "La modifica sarà applicata all'anime attualmente selezinato.\n\rL'operazione non potra' essere annullata.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainPanel, "La modifica sarà applicata all'anime attualmente selezinato.\n\rL'operazione non potra' essere annullata.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (shouldCancel == 0)
 					{
 						File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
@@ -846,7 +846,7 @@ public class AnimeIndex extends JFrame
 						fc.setMultiSelectionEnabled(false);
 						fc.addChoosableFileFilter(new ImageChooserFilter());
 						fc.setAcceptAllFileFilterUsed(false);
-						int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Imposta");
+						int returnVal = fc.showDialog(AnimeIndex.mainPanel, "Imposta");
 
 						if (returnVal == JFileChooser.APPROVE_OPTION)
 						{
@@ -876,19 +876,19 @@ public class AnimeIndex extends JFrame
 							FileManager.saveScaledImage(dir, imageName, folder);
 							if (!exclusionAnime.containsKey(name))
 							{
-								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.\n\rAl fine di mantenere la modifica\n\rl'immagine di questo anime è stata aggiunta alla lista\n\rdelle esclusioni dal Controllo Dati Automatico.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Impostazione avvenuta correttamente.\n\rAl fine di mantenere la modifica\n\rl'immagine di questo anime è stata aggiunta alla lista\n\rdelle esclusioni dal Controllo Dati Automatico.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
 								boolean[] exc = { true, false, false, false, false, false };
 								exclusionAnime.put(name, exc);
 							}
 							else if (exclusionAnime.get(name)[0] == false)
 							{
-								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.\n\rAl fine di mantenere la modifica\n\rl'immagine di questo anime è stata aggiunta alla lista\n\rdelle esclusioni dal Controllo Dati Automatico.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Impostazione avvenuta correttamente.\n\rAl fine di mantenere la modifica\n\rl'immagine di questo anime è stata aggiunta alla lista\n\rdelle esclusioni dal Controllo Dati Automatico.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
 								boolean[] exc = exclusionAnime.get(name);
 								exc[0] = true;
 								exclusionAnime.put(name, exc);
 							}
 							else
-								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
 							TreeMap<String, AnimeData> map = MAMUtil.getMap();
 							String list = MAMUtil.getList();
 							AnimeData oldData = map.get(name);
@@ -903,7 +903,7 @@ public class AnimeIndex extends JFrame
 					}
 				}
 				else
-					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessun anime selezionato.\n\rSelezionarne uno da una delle liste e riprovare.", "Errore!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Nessun anime selezionato.\n\rSelezionarne uno da una delle liste e riprovare.", "Errore!", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		mnModifica.add(mntmImmagineAnime);
@@ -936,7 +936,7 @@ public class AnimeIndex extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				suggestionDial = new SuggestionDialog();
-				suggestionDial.setLocationRelativeTo(mainFrame);
+				suggestionDial.setLocationRelativeTo(mainPanel);
 				suggestionDial.setVisible(true);
 			}
 		});
@@ -961,7 +961,7 @@ public class AnimeIndex extends JFrame
 			{
 				if (!newsBoardDialog.isShowing())
 				{
-					newsBoardDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 1, AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight());
+					newsBoardDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y + AnimeIndex.mainPanel.getHeight());
 					newsBoardDialog.setVisible(true);
 					new Timer(1, new ActionListener() {
 
@@ -970,7 +970,7 @@ public class AnimeIndex extends JFrame
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
-							AnimeIndex.mainFrame.requestFocus();
+							AnimeIndex.mainPanel.requestFocus();
 							newsBoardDialog.setSize(795, size++);
 							if (newsBoardDialog.getHeight() == 125)
 								((Timer) e.getSource()).stop();
@@ -986,7 +986,7 @@ public class AnimeIndex extends JFrame
 						public void actionPerformed(ActionEvent e)
 						{
 							newsBoardDialog.setSize(795, size--);
-							AnimeIndex.mainFrame.requestFocus();
+							AnimeIndex.mainPanel.requestFocus();
 							if (newsBoardDialog.getHeight() == 0)
 							{
 								((Timer) e.getSource()).stop();
@@ -1013,7 +1013,7 @@ public class AnimeIndex extends JFrame
 					musicDialog.dispose();
 					
 				musicDialog = new MusicDialog();
-				musicDialog.setLocationRelativeTo(mainFrame);
+				musicDialog.setLocationRelativeTo(mainPanel);
 				musicDialog.setVisible(true);
 			}
 		});
@@ -1025,16 +1025,16 @@ public class AnimeIndex extends JFrame
 			{
 				if (!wishlistDialog.isShowing())
 				{
-					wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x, AnimeIndex.mainFrame.getLocationOnScreen().y);
+					wishlistDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x, AnimeIndex.mainPanel.getLocationOnScreen().y);
 					wishlistDialog.setVisible(true);
 					new Timer(1, new ActionListener() {
 
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
-							AnimeIndex.mainFrame.requestFocus();
-							wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
-							if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 181)
+							AnimeIndex.mainPanel.requestFocus();
+							wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y);
+							if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainPanel.getLocationOnScreen().x - 181)
 								((Timer) e.getSource()).stop();
 						}
 					}).start();
@@ -1047,9 +1047,9 @@ public class AnimeIndex extends JFrame
 						public void actionPerformed(ActionEvent e)
 						{
 
-							wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x + 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
-							AnimeIndex.mainFrame.requestFocus();
-							if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x)
+							wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x + 1, AnimeIndex.mainPanel.getLocationOnScreen().y);
+							AnimeIndex.mainPanel.requestFocus();
+							if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainPanel.getLocationOnScreen().x)
 							{
 								((Timer) e.getSource()).stop();
 								wishlistDialog.dispose();
@@ -1071,7 +1071,7 @@ public class AnimeIndex extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				fansubDialog = new AddFansubDialog();
-				fansubDialog.setLocationRelativeTo(mainFrame);
+				fansubDialog.setLocationRelativeTo(mainPanel);
 				fansubDialog.setVisible(true);
 			}
 		});
@@ -1300,7 +1300,7 @@ public class AnimeIndex extends JFrame
 					nWish += 1;
 				for (int i = 0; i < droppedMap.size(); i++)
 					nDrop += 1;
-				JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Anime Completati:      " + nCompleted + "\n\r\n\rAnime in Corso:           " + nAiring + "\n\r\n\rOav:                               " + nOAV + "\n\r\n\rFilm:                               " + nFilm + "\n\r\n\rCompleti da Vedere:    " + nToSee + "\n\r\n\rWishlist:                         " + nWish + "\n\r\n\rDroplist:                         " + nDrop, "Statistiche", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Anime Completati:      " + nCompleted + "\n\r\n\rAnime in Corso:           " + nAiring + "\n\r\n\rOav:                               " + nOAV + "\n\r\n\rFilm:                               " + nFilm + "\n\r\n\rCompleti da Vedere:    " + nToSee + "\n\r\n\rWishlist:                         " + nWish + "\n\r\n\rDroplist:                         " + nDrop, "Statistiche", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		mnInfo.add(mntmStatistiche);
@@ -1317,7 +1317,7 @@ public class AnimeIndex extends JFrame
 		supporters.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SupportersDialog supporters = new SupportersDialog();
-				supporters.setLocationRelativeTo(AnimeIndex.mainFrame);
+				supporters.setLocationRelativeTo(AnimeIndex.mainPanel);
 				supporters.setVisible(true);
 			}
 		});
@@ -1339,7 +1339,7 @@ public class AnimeIndex extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				ThanksDialog thanks = new ThanksDialog();
-				thanks.setLocationRelativeTo(AnimeIndex.mainFrame);
+				thanks.setLocationRelativeTo(AnimeIndex.mainPanel);
 				thanks.setVisible(true);
 			}
 		});
@@ -1356,7 +1356,7 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				int shouldCancel = JOptionPane.showConfirmDialog(mainFrame, "Per segnalare un bug o proporre nuove funzionalità è disponibile  l' \"Issue Tracker\".\nCreate una nuova discussione con il tasto \"New Issue\" e appena possibile riceverete una risposta.\n\nAprire l’Issue Tracker?", "Bug, Richieste e Suggerimenti", JOptionPane.YES_NO_OPTION);
+				int shouldCancel = JOptionPane.showConfirmDialog(mainPanel, "Per segnalare un bug o proporre nuove funzionalità è disponibile  l' \"Issue Tracker\".\nCreate una nuova discussione con il tasto \"New Issue\" e appena possibile riceverete una risposta.\n\nAprire l’Issue Tracker?", "Bug, Richieste e Suggerimenti", JOptionPane.YES_NO_OPTION);
 				if (shouldCancel == 0)
 				{
 					String link = "https://github.com/MyAnimeManager/MyAnimeManager/issues";
@@ -1438,7 +1438,7 @@ public class AnimeIndex extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				CreditDialog credit = new CreditDialog();
-				credit.setLocationRelativeTo(AnimeIndex.mainFrame);
+				credit.setLocationRelativeTo(AnimeIndex.mainPanel);
 				credit.setVisible(true);
 			}
 		});
@@ -1458,11 +1458,11 @@ public class AnimeIndex extends JFrame
 					MAMUtil.writeLog(e1);
 				}
 				if (updatedVersion.equalsIgnoreCase(VERSION))
-					JOptionPane.showMessageDialog(mainFrame, "Nessun Aggiornamento Trovato", "Aggiornamento", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(mainPanel, "Nessun Aggiornamento Trovato", "Aggiornamento", JOptionPane.INFORMATION_MESSAGE);
 				else
 				{
 					UpdateDialog update = new UpdateDialog(Updater.getWhatsNew());
-					update.setLocationRelativeTo(AnimeIndex.mainFrame);
+					update.setLocationRelativeTo(AnimeIndex.mainPanel);
 					update.setVisible(true);
 				}
 			}
@@ -1487,14 +1487,14 @@ public class AnimeIndex extends JFrame
 			}
 		});
 
-		mainFrame = new JPanel();
-		mainFrame.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(mainFrame);
-		mainFrame.setLayout(new BorderLayout(0, 0));
+		mainPanel = new JPanel();
+		mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(mainPanel);
+		mainPanel.setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel();
 		panel.setMaximumSize(new Dimension(138, 233));
-		mainFrame.add(panel, BorderLayout.WEST);
+		mainPanel.add(panel, BorderLayout.WEST);
 		panel.setLayout(new BorderLayout(0, 0));
 
 		JPanel animeSelectionPanel = new JPanel();
@@ -2644,7 +2644,7 @@ public class AnimeIndex extends JFrame
 				if (!animeInformation.releaseDateField.getText().trim().isEmpty() && animeInformation.releaseDateField.getText().trim().length() == 10 && animeInformation.releaseDateField.getText().trim().length() == 10 && !animeInformation.finishDateField.getText().trim().isEmpty() && animeInformation.finishDateField.getText().trim().length() == 10 && animeInformation.finishDateField.getText().trim().length() == 10)
 				{
 					animeDialog = new AddAnimeDialog();
-					animeDialog.setLocationRelativeTo(mainFrame);
+					animeDialog.setLocationRelativeTo(mainPanel);
 					animeDialog.setVisible(true);
 				}
 			}
@@ -2700,7 +2700,7 @@ public class AnimeIndex extends JFrame
 		buttonPanel.add(setFilterButton, BorderLayout.NORTH);
 
 		animeInformation = new AnimeInformation();
-		mainFrame.add(animeInformation, BorderLayout.CENTER);
+		mainPanel.add(animeInformation, BorderLayout.CENTER);
 		AnimeInformation.setFansubComboBox();
 		animeInformation.setBlank();
 		if (appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Last list"))
@@ -3058,7 +3058,7 @@ public class AnimeIndex extends JFrame
 						i = 2;
 					}
 					lista.setSelectedValue(lastSelection, true);
-					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il numero degli \"Episodi Totali\" non può essere inferiore al numero dell'\"Episodio Corrente\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Il numero degli \"Episodi Totali\" non può essere inferiore al numero dell'\"Episodio Corrente\"", "Errore!", JOptionPane.ERROR_MESSAGE);
 					totalEp = totalEpNumber;
 					if (animeInformation.totalEpisodeText.requestFocusInWindow())
 						animeInformation.totalEpisodeText.requestFocusInWindow();
@@ -3121,7 +3121,7 @@ public class AnimeIndex extends JFrame
 						i = 2;
 					}
 					lista.setSelectedValue(lastSelection, true);
-					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
 					if (animeInformation.releaseDateField.requestFocusInWindow())
 						animeInformation.releaseDateField.requestFocusInWindow();
 					else
@@ -3174,7 +3174,7 @@ public class AnimeIndex extends JFrame
 						i = 2;
 					}
 					lista.setSelectedValue(lastSelection, true);
-					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
 					if (animeInformation.finishDateField.requestFocusInWindow())
 						animeInformation.finishDateField.requestFocusInWindow();
 					else

@@ -390,7 +390,7 @@ public class AnimeInformation extends JPanel
 						plusButton.setEnabled(true);
 					else if (Integer.parseInt(totalEpisodeText.getText()) < Integer.parseInt(currentEpisodeField.getText()))
 					{
-						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il numero degli \"Episodi Totali\" non può essere inferiore al numero dell'\"Episodio Corrente\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Il numero degli \"Episodi Totali\" non può essere inferiore al numero dell'\"Episodio Corrente\"", "Errore!", JOptionPane.ERROR_MESSAGE);
 						if (totalEpisodeText.requestFocusInWindow())
 							totalEpisodeText.requestFocusInWindow();
 						else
@@ -603,7 +603,7 @@ public class AnimeInformation extends JPanel
 				if (!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length() == 10 && releaseDateField.getText().trim().length() == 10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length() == 10 && finishDateField.getText().trim().length() == 10)
 				{
 					setLink = new SetLinkDialog();
-					setLink.setLocationRelativeTo(AnimeIndex.mainFrame);
+					setLink.setLocationRelativeTo(AnimeIndex.mainPanel);
 					setLink.setVisible(true);
 				}
 			}
@@ -650,7 +650,7 @@ public class AnimeInformation extends JPanel
 						releaseDateField.setText(AnimeIndex.startDate);
 					if (releaseDateField.getText().trim().length() != 10 && !releaseDateField.getText().trim().isEmpty())
 					{
-						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
 						if (!releaseDateField.requestFocusInWindow())
 							releaseDateField.requestFocus();
 						else
@@ -703,7 +703,7 @@ public class AnimeInformation extends JPanel
 						finishDateField.setText(AnimeIndex.endDate);
 					if (finishDateField.getText().trim().length() != 10 && !finishDateField.getText().trim().isEmpty())
 					{
-						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "La data deve essere del tipo giorno/mese/anno. (Esempio: 13/09/1995)", "Errore!", JOptionPane.ERROR_MESSAGE);
 						if(!finishDateField.requestFocusInWindow())
 							finishDateField.requestFocus();
 						else
@@ -781,7 +781,7 @@ public class AnimeInformation extends JPanel
 						if (old1.getBd() == false)
 							if (bdType.equalsIgnoreCase("blu-ray"))
 							{
-								int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "Spostare l'Anime in \"Anime in Corso\" come tipo: Blu-ray?", "Richiesta", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+								int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainPanel, "Spostare l'Anime in \"Anime in Corso\" come tipo: Blu-ray?", "Richiesta", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 								if (shouldCancel == 0)
 								{
 									String name = lblAnimeName.getText();
@@ -955,7 +955,7 @@ public class AnimeInformation extends JPanel
 									AnimeIndex.exclusionAnime.put(lblAnimeName.getText(), exc);
 									selectExcludedAnimeAtWindowOpened = true;
 									AnimeIndex.preferenceDialog.exclusionDialog = new SetExclusionDialog();
-									AnimeIndex.preferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
+									AnimeIndex.preferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainPanel);
 									AnimeIndex.preferenceDialog.exclusionDialog.setVisible(true);
 								}
 							});
@@ -987,7 +987,7 @@ public class AnimeInformation extends JPanel
 				{
 					String name = lblAnimeName.getText();
 					if (AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true") && !AnimeIndex.exclusionAnime.containsKey(name))
-						JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "I dati di questo anime sono già stati\n\raggiornati dal \"Controllo Dati Automatico\".", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "I dati di questo anime sono già stati\n\raggiornati dal \"Controllo Dati Automatico\".", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 					else
 					{
 						FieldExclusionDialog exclusions = new FieldExclusionDialog();
@@ -1007,7 +1007,7 @@ public class AnimeInformation extends JPanel
 			public void actionPerformed(ActionEvent e) {	
 			
 				SynchroDial = new SynchronizingDialog("HectorBlaze");
-				SynchroDial.setLocationRelativeTo(AnimeIndex.mainFrame);
+				SynchroDial.setLocationRelativeTo(AnimeIndex.mainPanel);
 				SynchroDial.setVisible(true);
 			}
 		});
@@ -1352,7 +1352,7 @@ public class AnimeInformation extends JPanel
 		add(addToSeeButton, gbc_addToSeeButton);
 		
 		LineBorder dragBorder = new LineBorder(new Color(40, 40, 40), 2, true);
-		new FileDrop(AnimeIndex.mainFrame, dragBorder, new FileDrop.Listener()
+		new FileDrop(AnimeIndex.mainPanel, dragBorder, new FileDrop.Listener()
 		{   public void filesDropped( File[] files )
 			{   
 		   		// handle file drop

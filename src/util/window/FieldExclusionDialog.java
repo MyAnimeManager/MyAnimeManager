@@ -207,7 +207,7 @@ public class FieldExclusionDialog extends JDialog
 					FieldExclusionDialog.this.dispose();
 					boolean[] exclusion = { imageCheckBox.isSelected(), totalEpCheckBox.isSelected(), durationCheckBox.isSelected(), startDateCheckBox.isSelected(), finishDateCheckBox.isSelected(), typeCheckBox.isSelected() };
 					AnimeInformation.dial = new UpdatingAnimeDataDialog(exclusion);
-					AnimeInformation.dial.setLocationRelativeTo(AnimeIndex.mainFrame);
+					AnimeInformation.dial.setLocationRelativeTo(AnimeIndex.mainPanel);
 					AnimeInformation.dial.setVisible(true);
 				}
 			});

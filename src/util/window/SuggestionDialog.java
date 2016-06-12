@@ -146,7 +146,7 @@ public class SuggestionDialog extends JDialog
 					JScrollPane scrollPane = new JScrollPane(textArea);
 				    scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 					scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
-				    JOptionPane.showMessageDialog(AnimeIndex.mainFrame, scrollPane, "Cronologia Anime Consigliati", JOptionPane.PLAIN_MESSAGE);
+				    JOptionPane.showMessageDialog(AnimeIndex.mainPanel, scrollPane, "Cronologia Anime Consigliati", JOptionPane.PLAIN_MESSAGE);
 				}
 			});
 			buttonPane.add(btnClose);

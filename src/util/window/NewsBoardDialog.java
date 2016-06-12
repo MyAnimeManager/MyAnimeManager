@@ -114,7 +114,7 @@ public class NewsBoardDialog extends JDialog
 						public void actionPerformed(ActionEvent e)
 						{
 							NewsBoardDialog.this.setSize(795, size--);
-							AnimeIndex.mainFrame.requestFocus();
+							AnimeIndex.mainPanel.requestFocus();
 							if (NewsBoardDialog.this.getHeight() == 0)
 							{
 								((Timer) e.getSource()).stop();

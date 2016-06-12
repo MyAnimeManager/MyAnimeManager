@@ -930,7 +930,7 @@ public class AddAnimeDialog extends JDialog
 									if (type.equalsIgnoreCase("blu-ray"))
 										bd = true;
 									if (name.contains("|") || duration.contains("|"))
-										JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Alcuni campi contengono caratteri non consentiti.", "Errore !", JOptionPane.ERROR_MESSAGE);
+										JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Alcuni campi contengono caratteri non consentiti.", "Errore !", JOptionPane.ERROR_MESSAGE);
 									else
 									{
 										if ((AnimeIndex.appProp.getProperty("Check_Data_Conflict").equalsIgnoreCase("false")) || finishDate.equalsIgnoreCase("//") || type.equalsIgnoreCase("?????"))
@@ -1034,7 +1034,7 @@ public class AddAnimeDialog extends JDialog
 						{
 							String anime = (String) searchedList.getSelectedValue();
 							if(anime.contains("|") || anime.contains("||"))
-								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Il nome dell'anime contiene caratteri non consentiti.", "Errore !", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Il nome dell'anime contiene caratteri non consentiti.", "Errore !", JOptionPane.ERROR_MESSAGE);
 							else
 								automaticAdd();
 						}
@@ -1547,7 +1547,7 @@ public class AddAnimeDialog extends JDialog
 			if (checkCompletedList == true)
 				if (AnimeIndex.completedMap.containsKey(name))
 				{
-					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Anime già presente in \"Anime Completati\"", "Errore!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Anime già presente in \"Anime Completati\"", "Errore!", JOptionPane.ERROR_MESSAGE);
 					contains = true;
 					ok = false;
 				}

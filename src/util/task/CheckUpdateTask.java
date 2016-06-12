@@ -50,7 +50,7 @@ public class CheckUpdateTask extends SwingWorker
 		if (!updatedVersion.equalsIgnoreCase(AnimeIndex.VERSION))
 		{
 			UpdateDialog update = new UpdateDialog(Updater.getWhatsNew());
-			update.setLocationRelativeTo(AnimeIndex.mainFrame);
+			update.setLocationRelativeTo(AnimeIndex.mainPanel);
 			update.setVisible(true);
 		}
 	}

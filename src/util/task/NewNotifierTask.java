@@ -34,7 +34,7 @@ public class NewNotifierTask extends SwingWorker
 	{
 		if (!packNumber.equalsIgnoreCase(AnimeIndex.appProp.getProperty("Suggestions_Pack_Number")))
 		{
-			JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nuovi anime sono disponibili\n\rnella sezione \"Anime Consigliati\" !!!", "Nuovi Anime !!!", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Nuovi anime sono disponibili\n\rnella sezione \"Anime Consigliati\" !!!", "Nuovi Anime !!!", JOptionPane.INFORMATION_MESSAGE);
 			AnimeIndex.appProp.setProperty("Suggestions_Pack_Number", packNumber);
 		}
 		if (newSongs)
@@ -55,7 +55,7 @@ public class NewNotifierTask extends SwingWorker
 			JScrollPane scrollPane = new JScrollPane(textArea);
 		    scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 			scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
-		    JOptionPane.showMessageDialog(AnimeIndex.mainFrame, scrollPane, "Nuove musiche sono disponibili in \"My Anime Musics\" !!!", JOptionPane.PLAIN_MESSAGE);
+		    JOptionPane.showMessageDialog(AnimeIndex.mainPanel, scrollPane, "Nuove musiche sono disponibili in \"My Anime Musics\" !!!", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 	

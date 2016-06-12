@@ -48,7 +48,7 @@ public class UtilEvent
 									AnimeIndex.exclusionAnime.put(AnimeIndex.animeInformation.lblAnimeName.getText(), exc);
 									AnimeIndex.animeInformation.selectExcludedAnimeAtWindowOpened = true;
 									AnimeIndex.preferenceDialog.exclusionDialog = new SetExclusionDialog();
-									AnimeIndex.preferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
+									AnimeIndex.preferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainPanel);
 									AnimeIndex.preferenceDialog.exclusionDialog.setVisible(true);
 								}
 							});

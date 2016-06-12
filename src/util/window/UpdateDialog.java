@@ -72,7 +72,7 @@ public class UpdateDialog extends JDialog
 			{
 				dial = new DownloadingDialog();
 				UpdateDialog.this.dispose();
-				dial.setLocationRelativeTo(AnimeIndex.mainFrame);
+				dial.setLocationRelativeTo(AnimeIndex.mainPanel);
 				dial.setVisible(true);
 				MAMUtil.saveData();
 				ExternalProgram ext = new ExternalProgram(MAMUtil.getAppDataPath() + File.separator + "Update" + File.separator + AnimeIndex.NEW_VERSION);

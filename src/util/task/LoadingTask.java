@@ -76,16 +76,16 @@ public class LoadingTask extends SwingWorker
 
 		if (AnimeIndex.appProp.getProperty("Open_Wishlist").equalsIgnoreCase("true"))
 		{
-			AnimeIndex.wishlistDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x, AnimeIndex.mainFrame.getLocationOnScreen().y);
+			AnimeIndex.wishlistDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x, AnimeIndex.mainPanel.getLocationOnScreen().y);
 			AnimeIndex.wishlistDialog.setVisible(true);
 			new Timer(1, new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainFrame.getLocationOnScreen().y);
-					AnimeIndex.mainFrame.requestFocus();
-					if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainFrame.getLocationOnScreen().x - 181)
+					AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y);
+					AnimeIndex.mainPanel.requestFocus();
+					if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainPanel.getLocationOnScreen().x - 181)
 						((Timer) e.getSource()).stop();
 				}
 			}).start();
@@ -94,7 +94,7 @@ public class LoadingTask extends SwingWorker
 		if (AnimeIndex.appProp.getProperty("Open_NewsBoard").equalsIgnoreCase("true"))
 			if (!AnimeIndex.newsBoardDialog.isShowing())
 			{
-				AnimeIndex.newsBoardDialog.setLocation(AnimeIndex.mainFrame.getLocationOnScreen().x - 1, AnimeIndex.mainFrame.getLocationOnScreen().y + AnimeIndex.mainFrame.getHeight());
+				AnimeIndex.newsBoardDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y + AnimeIndex.mainPanel.getHeight());
 				AnimeIndex.newsBoardDialog.setVisible(true);
 				new Timer(1, new ActionListener() {
 
@@ -103,7 +103,7 @@ public class LoadingTask extends SwingWorker
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						AnimeIndex.mainFrame.requestFocus();
+						AnimeIndex.mainPanel.requestFocus();
 						AnimeIndex.newsBoardDialog.setSize(795, size++);
 						if (AnimeIndex.newsBoardDialog.getHeight() == 125)
 							((Timer) e.getSource()).stop();

@@ -230,14 +230,14 @@ public class ReleasedAnimeTask extends SwingWorker
 		if (!ReleaseNotifierDialog.ovaReleased.contains("Nessun Anime Rilasciato") || !ReleaseNotifierDialog.filmReleased.contains("Nessun Anime Rilasciato"))
 		{
 			dial = new ReleaseNotifierDialog();
-			dial.setLocationRelativeTo(AnimeIndex.mainFrame);
+			dial.setLocationRelativeTo(AnimeIndex.mainPanel);
 			dial.setVisible(true);
 		}
 		else if (AnimeIndex.openReleaseDialog == true)
 		{
 			AnimeIndex.openReleaseDialog = false;
 			dial = new ReleaseNotifierDialog();
-			dial.setLocationRelativeTo(AnimeIndex.mainFrame);
+			dial.setLocationRelativeTo(AnimeIndex.mainPanel);
 			dial.setVisible(true);
 		}
 	}

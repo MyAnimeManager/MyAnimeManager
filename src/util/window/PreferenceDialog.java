@@ -180,13 +180,13 @@ public class PreferenceDialog extends JDialog
 				if (AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true"))
 				{
 					AnimeIndex.appProp.setProperty("Update_system", "false");
-					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Controllo Dati Automatico:    DISATTIVATO", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Controllo Dati Automatico:    DISATTIVATO", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 					dataCheckButton.setText("Attiva");
 					AnimeIndex.animeInformation.checkDataButton.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/refresh-icon15.png")));
 				}
 				else
 				{
-					int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "Il controllo utilizza Internet.\n\rAssicurarsi che la rete sia disponibile.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainPanel, "Il controllo utilizza Internet.\n\rAssicurarsi che la rete sia disponibile.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (shouldCancel == 0)
 					{
 						AnimeIndex.appProp.setProperty("Update_system", "true");
@@ -211,7 +211,7 @@ public class PreferenceDialog extends JDialog
 			public void actionPerformed(ActionEvent arg0)
 			{
 				exclusionDialog = new SetExclusionDialog();
-				exclusionDialog.setLocationRelativeTo(AnimeIndex.mainFrame);
+				exclusionDialog.setLocationRelativeTo(AnimeIndex.mainPanel);
 				exclusionDialog.setVisible(true);
 			}
 		});
@@ -257,7 +257,7 @@ public class PreferenceDialog extends JDialog
 			public void actionPerformed(ActionEvent e)
 			{
 				ColorDialog dial = new ColorDialog();
-				dial.setLocationRelativeTo(AnimeIndex.mainFrame);
+				dial.setLocationRelativeTo(AnimeIndex.mainPanel);
 				dial.setVisible(true);
 			}
 		});
@@ -290,7 +290,7 @@ public class PreferenceDialog extends JDialog
 				fc.setMultiSelectionEnabled(false);
 				fc.addChoosableFileFilter(new EpisodeChooserFilter());
 				fc.setAcceptAllFileFilterUsed(false);
-				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Imposta");
+				int returnVal = fc.showDialog(AnimeIndex.mainPanel, "Imposta");
 				
 				if (returnVal == JFileChooser.APPROVE_OPTION)
 				{
@@ -298,7 +298,7 @@ public class PreferenceDialog extends JDialog
 					String dir = file.getPath();
 					
 					FileManager.saveDefaultScaledImage(dir, "default");
-					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
 					AnimeIndex.animeInformation.setBlank();
 					
 				}
@@ -321,15 +321,15 @@ public class PreferenceDialog extends JDialog
 			{
 				File img = new File(MAMUtil.getDefaultImageFolderPath());
 				if (img.isDirectory() == false)
-					JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessuna immagine iniziale trovata.", "Errore!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Nessuna immagine iniziale trovata.", "Errore!", JOptionPane.ERROR_MESSAGE);
 				else
 				{
-					int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainFrame, "L'immagine iniziale impostata dall'utente sara' eliminata.\n\rL'operazione non potra' essere annullata.", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainPanel, "L'immagine iniziale impostata dall'utente sara' eliminata.\n\rL'operazione non potra' essere annullata.", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (shouldCancel == 0)
 						try
 					{
 							FileManager.deleteData(img);
-							JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Immagine iniziale rimossa.", "Eliminazione completata", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Immagine iniziale rimossa.", "Eliminazione completata", JOptionPane.INFORMATION_MESSAGE);
 							if (MAMUtil.getJList().isSelectionEmpty())
 								AnimeIndex.animeInformation.animeImage.setIcon(new ImageIcon(ImageIO.read(ClassLoader.getSystemResource("image/default.png"))));
 					}
@@ -380,7 +380,7 @@ public class PreferenceDialog extends JDialog
 						chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 						chooser.setDialogTitle("Esporta in...");
 						
-						int returnVal = chooser.showDialog(AnimeIndex.mainFrame, "Esporta");
+						int returnVal = chooser.showDialog(AnimeIndex.mainPanel, "Esporta");
 						
 						if (returnVal == JFileChooser.APPROVE_OPTION)
 						{
@@ -593,7 +593,7 @@ public class PreferenceDialog extends JDialog
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				fc.setFileFilter(new ImportExportFileFilter());
 				fc.setSelectedFile(new File(chooserDir + File.separator + "MAM_liste"));
-				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Esporta");
+				int returnVal = fc.showDialog(AnimeIndex.mainPanel, "Esporta");
 				if (returnVal == JFileChooser.APPROVE_OPTION)
 				{
 					LinkedHashMap<File, String> fileToZip = new LinkedHashMap<File, String>();
@@ -646,7 +646,7 @@ public class PreferenceDialog extends JDialog
 				fc.setMultiSelectionEnabled(false);
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				fc.setFileFilter(new ImportExportFileFilter());
-				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Importa");
+				int returnVal = fc.showDialog(AnimeIndex.mainPanel, "Importa");
 				if (returnVal == JFileChooser.APPROVE_OPTION)
 				{
 					File zipFile = fc.getSelectedFile();
@@ -763,7 +763,7 @@ public class PreferenceDialog extends JDialog
 				JFileChooser fc = new JFileChooser(chooserDir);
 				fc.setMultiSelectionEnabled(false);
 				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				int returnVal = fc.showDialog(AnimeIndex.mainFrame, "Imposta");
+				int returnVal = fc.showDialog(AnimeIndex.mainPanel, "Imposta");
 				if (returnVal == JFileChooser.APPROVE_OPTION)
 				{
 					mainFolderTextField.setText(fc.getSelectedFile().getPath());

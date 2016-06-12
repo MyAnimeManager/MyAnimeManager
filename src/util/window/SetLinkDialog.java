@@ -137,7 +137,7 @@ public class SetLinkDialog extends JDialog
 							else if (linkNameField.getText() == null && linkNameField.getText().isEmpty())
 								AnimeIndex.animeInformation.btnOpen.setEnabled(false);
 							else
-								JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Nessun link impostato.", "Errore!", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Nessun link impostato.", "Errore!", JOptionPane.ERROR_MESSAGE);
 
 						}
 					});

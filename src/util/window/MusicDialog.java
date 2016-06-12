@@ -498,7 +498,7 @@ public class MusicDialog extends JDialog
 							chooser.setMultiSelectionEnabled(false);
 							chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 							chooser.setDialogTitle("Salva in...");
-							int returnVal = chooser.showDialog(AnimeIndex.mainFrame, "Salva");
+							int returnVal = chooser.showDialog(AnimeIndex.mainPanel, "Salva");
 							if (returnVal == JFileChooser.APPROVE_OPTION)
 							{
 								String musicName = (((DefaultMutableTreeNode) songsTree.getLastSelectedPathComponent()).getUserObject()).toString();
