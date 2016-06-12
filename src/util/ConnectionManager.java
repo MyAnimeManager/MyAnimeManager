@@ -338,7 +338,7 @@ public class ConnectionManager
 		return validCredentials;
 	}
 
-	public static void addAnimeMAL(String username, String password, String animeID, String episode, String status, String score, String tags, String comments) throws IOException
+	public static void addAnimeMAL(String username, String password, int animeID, String episode, String status, String comments) throws IOException
 	{
 		boolean validCredentials = verifyCredentialsMAL(username, password);
 		if (validCredentials)
@@ -351,7 +351,7 @@ public class ConnectionManager
 						+ "<entry>" 
 						+ "<episode>" + episode + "</episode>" 
 						+ "<status>" + status + "</status>" 
-						+ "<score>" + score + "</score>" 
+						+ "<score></score>" 
 						+ "<storage_type></storage_type>" 
 						+ "<storage_value></storage_value>" 
 						+ "<times_rewatched></times_rewatched>" 
@@ -363,7 +363,7 @@ public class ConnectionManager
 						+ "<enable_rewatching></enable_rewatching>" 
 						+ "<comments>" + comments + "</comments>" 
 						+ "<fansub_group></fansub_group>" 
-						+ "<tags>" + tags + "</tags>" 
+						+ "<tags></tags>" 
 						+ "</entry>";
 				String urlEncoded = URLEncoder.encode(xmlData, "utf-8");
 				url = new URL(MAL_BASEURL + ADD_ANIME_MAL + animeID + ".xml" + "?data=" + urlEncoded); 
