@@ -12,6 +12,7 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
 import util.task.MALSynchronizationTask;
 
@@ -27,6 +28,7 @@ public class SynchronizingDialog extends JDialog
 	 */	
 	public SynchronizingDialog(String username)
 	{
+		super(AnimeIndex.frame, true);
 		task = new MALSynchronizationTask(username);
 		addWindowListener(new WindowAdapter() {
 
@@ -38,7 +40,6 @@ public class SynchronizingDialog extends JDialog
 			}
 		});
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		setModal(true);
 		setResizable(false);
 		setTitle("Sincronizzazione dati da MyAnimeList");
 		setBounds(100, 100, 328, 85);
@@ -68,7 +69,7 @@ public class SynchronizingDialog extends JDialog
 						progressBar.setMinimum(0);
 						progressBar.setMaximum((int)task.totalAnimeNumber);
 					}
-					progressBar.setString("Anime sincronizzati " + task.currentAnimeNumber + "/" + task.totalAnimeNumber);
+					progressBar.setString("Anime sincronizzati " + (int)task.currentAnimeNumber + "/" + (int)task.totalAnimeNumber);
 					progressBar.setValue((int)task.currentAnimeNumber);
 				}
 				else if (evt.getPropertyName().equals("state"))

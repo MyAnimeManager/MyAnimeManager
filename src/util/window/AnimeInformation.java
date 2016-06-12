@@ -47,7 +47,6 @@ import javax.swing.text.AbstractDocument;
 
 import main.AnimeIndex;
 import util.AnimeData;
-import util.ConnectionManager;
 import util.FileDrop;
 import util.FileManager;
 import util.Filters;
@@ -1007,20 +1006,9 @@ public class AnimeInformation extends JPanel
 		btnFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-//				SynchroDial = new SynchronizingDialog("HectorBlaze");
-//				SynchroDial.setLocationRelativeTo(AnimeIndex.mainFrame);
-//				SynchroDial.setVisible(true);
-				try
-				{
-					ConnectionManager.getAnimeSearchedMAL("samu301295", "dicembre30", "spice and wolf");
-				}
-				catch (Exception e1)
-				{
-					MAMUtil.writeLog(e1);
-					e1.printStackTrace();
-				}
-
-				
+				SynchroDial = new SynchronizingDialog("HectorBlaze");
+				SynchroDial.setLocationRelativeTo(AnimeIndex.mainFrame);
+				SynchroDial.setVisible(true);
 			}
 		});
 		btnFolder.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/Folder.png")));
