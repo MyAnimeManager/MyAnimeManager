@@ -213,7 +213,7 @@ public class WishlistDialog extends JDialog
 				}
 			});
 			((JLabel)comboBox.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
-			comboBox.setModel(new DefaultComboBoxModel(new String[] { "WISHLIST", "DROPPED" }));
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {"WISHLIST", "DROPLIST"}));
 			searchBar = new SearchBar();
 			searchBar.setAlignmentX(Component.LEFT_ALIGNMENT);
 			searchBar.setFont(AnimeIndex.segui.deriveFont(11f));

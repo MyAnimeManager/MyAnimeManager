@@ -1285,6 +1285,7 @@ public class AnimeIndex extends JFrame
 				int nFilm = 0;
 				int nToSee = 0;
 				int nWish = 0;
+				int nDrop = 0;
 				for (int i = 0; i < completedMap.size(); i++)
 					nCompleted += 1;
 				for (int i = 0; i < airingMap.size(); i++)
@@ -1297,7 +1298,9 @@ public class AnimeIndex extends JFrame
 					nToSee += 1;
 				for (int i = 0; i < wishlistMap.size(); i++)
 					nWish += 1;
-				JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Anime Completati:      " + nCompleted + "\n\r\n\rAnime in Corso:           " + nAiring + "\n\r\n\rOav:                               " + nOAV + "\n\r\n\rFilm:                               " + nFilm + "\n\r\n\rCompleti da Vedere:    " + nToSee + "\n\r\n\rWishlist:                         " + nWish, "Statistiche", JOptionPane.INFORMATION_MESSAGE);
+				for (int i = 0; i < droppedMap.size(); i++)
+					nDrop += 1;
+				JOptionPane.showMessageDialog(AnimeIndex.mainFrame, "Anime Completati:      " + nCompleted + "\n\r\n\rAnime in Corso:           " + nAiring + "\n\r\n\rOav:                               " + nOAV + "\n\r\n\rFilm:                               " + nFilm + "\n\r\n\rCompleti da Vedere:    " + nToSee + "\n\r\n\rWishlist:                         " + nWish + "\n\r\n\rDroplist:                         " + nDrop, "Statistiche", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		mnInfo.add(mntmStatistiche);

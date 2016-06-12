@@ -7,14 +7,11 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.TreeMap;
-
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
-
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
 import org.json.XML;
-
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
@@ -25,7 +22,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import main.AnimeIndex;
 import util.AnimeData;
 import util.ConnectionManager;
@@ -34,7 +30,6 @@ import util.Filters;
 import util.MAMUtil;
 import util.SortedListModel;
 import util.window.AddAnimeDialog;
-import util.window.AnimeInformation;
 
 public class MALSynchronizationTask extends SwingWorker
 {
@@ -62,9 +57,9 @@ public class MALSynchronizationTask extends SwingWorker
 	{
 		getAnimeList();
 		synchronizeAiringAnime();
-		synchronizeAnimeFromJson(notFoundedAnime, false);
-		synchronizeAnimeFromJson(completedAnime, false);
-		synchronizeAnimeFromJson(droppedAnime, true);
+		synchronizeAnimeFromJson(notFoundedAnime);
+		synchronizeAnimeFromJson(completedAnime);
+		synchronizeDropListAnime();
 		synchronizeWishListAnime();
 		return null;
 	}
@@ -140,9 +135,10 @@ public class MALSynchronizationTask extends SwingWorker
 		}
 		catch (FailingHttpStatusCodeException e) {
 			e.printStackTrace();
-			if (e.getStatusCode() == 302) {
-					System.out.println("ERRORE");
-					System.out.println(page.toString());			
+			if (e.getStatusCode() == 302) 
+			{
+				System.out.println("ERRORE");
+				System.out.println(page.toString());			
 			}
 		}
 		catch (Exception e)
@@ -166,6 +162,8 @@ public class MALSynchronizationTask extends SwingWorker
 				int id = map.get(anime);
 				anime = anime.replace("\\", "\\\\");
 				anime = anime.replace("!", "\\!");
+				if(anime.startsWith("."))
+					anime = anime.replaceFirst(".", "");
 				automaticAdd(anime, id, "anime in corso");
 				currentAnimeNumber++;
 				int progress =(int) ((currentAnimeNumber/totalAnimeNumber) * 100);
@@ -177,17 +175,58 @@ public class MALSynchronizationTask extends SwingWorker
 			}
 			else if (map.size() == 0)
 			{
-				notFoundedAnime.add(obj);
+				boolean found = false;
+				if(!obj.get("series_synonyms").isJsonNull())
+				{	
+					String[] synonyms = obj.get("series_synonyms").getAsString().split("; ");
+					for(String syn: synonyms)
+					{
+						if(!found)
+						{
+							map = ConnectionManager.AnimeSearch(syn);
+							if (map.size() == 1)
+							{
+								String anime = (map.keySet().toArray(new String[]{}))[0];
+								int id = map.get(anime);
+								anime = anime.replace("\\", "\\\\");
+								anime = anime.replace("!", "\\!");
+								if(anime.startsWith("."))
+									anime = anime.replaceFirst(".", "");
+								automaticAdd(anime, id, "anime in corso");
+								found = true;
+								currentAnimeNumber++;
+								int progress =(int) ((currentAnimeNumber/totalAnimeNumber) * 100);
+								setProgress(progress);
+							}
+							else if (map.size() > 1)
+							{
+								conflictedAnime.add(obj);
+								found = true;
+							}
+						}
+					}
+				}
+				if(!found)
+					notFoundedAnime.add(obj);
 			}
 		}
 	}
 	
-	private void synchronizeAnimeFromJson(ArrayList<JsonObject> list, boolean isDropped)
+	private void synchronizeAnimeFromJson(ArrayList<JsonObject> list)
 	{
 		for (JsonObject obj: list)
 		{
 			String name = obj.get("series_title").getAsString();
-			if (!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name))
+			boolean match = false;
+			if(!obj.get("series_synonyms").isJsonNull())
+			{	
+				String[] synonyms = obj.get("series_synonyms").getAsString().split("; ");
+				for(String syn: synonyms)
+					if(!match)
+						if (AnimeIndex.completedMap.containsKey(syn) || AnimeIndex.airingMap.containsKey(syn))
+							match = true;
+			}
+			if (!match && !AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name))
 			{
 				String totEp = obj.get("series_episodes").getAsString();
 				String currentEp = obj.get("my_watched_episodes").getAsString();
@@ -259,10 +298,7 @@ public class MALSynchronizationTask extends SwingWorker
 				}
 				String imageLink = obj.get("series_image").getAsString();
 				String imageName = addCompletedAnimeSaveImage(name, imageLink);
-				String note = "";
-				if (isDropped)
-					note = "Droppato";
-								
+				String note = "";				
 				AnimeData data = null;
 				if(!finishDate.contains("?"))
 				{
@@ -281,11 +317,9 @@ public class MALSynchronizationTask extends SwingWorker
 						data = new AnimeData(currentEp, totEp, "", note, imageName + ".png", exitDay, "", "", "", animeType, releaseDate, finishDate, durationEp, false);
 
 					}
-				}
-				
+				}		
 				String listToAdd = checkDataConflict(finishDate, animeType, "Anime Completati");
-				checkAnimeAlreadyAdded(name, listToAdd, data);
-				
+				checkAnimeAlreadyAdded(name, listToAdd, data);	
 			}
 			currentAnimeNumber++;
 			int progress =(int) ((currentAnimeNumber/totalAnimeNumber) * 100);
@@ -299,10 +333,43 @@ public class MALSynchronizationTask extends SwingWorker
 		{
 			String name = obj.get("series_title").getAsString();
 			int id = obj.get("series_animedb_id").getAsInt();
-			if (!AnimeIndex.wishlistMALMap.containsKey(name))
+			boolean match = false;
+			if(!obj.get("series_synonyms").isJsonNull())
+			{	
+				String[] synonyms = obj.get("series_synonyms").getAsString().split("; ");
+				for(String syn: synonyms)
+					if (!match && AnimeIndex.wishlistMALMap.containsKey(syn))
+						match = true;
+			}
+			if (!match && !AnimeIndex.wishlistMALMap.containsKey(name))
 			{
 				AnimeIndex.wishlistMALMap.put(name, id);
 				AnimeIndex.wishlistDialog.wishListModel.addElement(name);
+			}
+			currentAnimeNumber++;
+			int progress =(int) ((currentAnimeNumber/totalAnimeNumber) * 100);
+			setProgress(progress);
+		}
+	}
+	
+	private void synchronizeDropListAnime()
+	{
+		for (JsonObject obj: droppedAnime)
+		{
+			String name = obj.get("series_title").getAsString();
+			int id = obj.get("series_animedb_id").getAsInt();
+			boolean match = false;
+			if(!obj.get("series_synonyms").isJsonNull())
+			{	
+				String[] synonyms = obj.get("series_synonyms").getAsString().split("; ");
+				for(String syn: synonyms)
+					if (!match && AnimeIndex.droppedMap.containsKey(syn))
+						match = true;
+			}
+			if (!match && !AnimeIndex.droppedMALMap.containsKey(name))
+			{
+				AnimeIndex.droppedMALMap.put(name, id);
+				AnimeIndex.wishlistDialog.droplistModel.addElement(name);
 			}
 			currentAnimeNumber++;
 			int progress =(int) ((currentAnimeNumber/totalAnimeNumber) * 100);
@@ -664,7 +731,6 @@ public class MALSynchronizationTask extends SwingWorker
 				if (AddAnimeDialog.getDeletedArrayList(listName).contains(map.get(name).getImagePath(listName)))
 					AddAnimeDialog.getDeletedArrayList(listName).remove(map.get(name).getImagePath(listName));
 				AddAnimeDialog.getArrayList(listName).add(map.get(name).getImagePath(listName));
-				AnimeInformation.fansubComboBox.setSelectedItem("?????");
 			}
 			if (AnimeIndex.filtro != 9)
 				Filters.removeFilters();
