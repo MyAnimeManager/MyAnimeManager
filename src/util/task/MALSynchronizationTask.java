@@ -187,7 +187,7 @@ public class MALSynchronizationTask extends SwingWorker
 		for (JsonObject obj: list)
 		{
 			String name = obj.get("series_title").getAsString();
-			if (!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !match)
+			if (!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name))
 			{
 				String totEp = obj.get("series_episodes").getAsString();
 				String currentEp = obj.get("my_watched_episodes").getAsString();
