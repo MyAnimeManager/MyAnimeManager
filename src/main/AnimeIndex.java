@@ -753,6 +753,7 @@ public class AnimeIndex extends JFrame
 					try
 					{
 						FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "wishlist.anaconda"));
+						FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "wishlistMAL.anaconda"));
 					}
 					catch (IOException e1)
 					{
@@ -764,12 +765,46 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.wishlistDialog.wishListSearchModel.clear();
 
 					wishlistMap.clear();
+					wishlistMALMap.clear();
 
 					JOptionPane.showMessageDialog(mainPanel, "Anime nella Wishlist eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
 		mnEliminaLista.add(mntmWishlist_1);
+		
+		JSeparator separator_24 = new JSeparator();
+		mnEliminaLista.add(separator_24);
+		
+		JMenuItem mntmDroplist = new JMenuItem("DropList");
+		mntmDroplist.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				int shouldCancel = JOptionPane.showConfirmDialog(mainPanel, "Vuoi cancellare tutti gli Anime nella Droplist?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (shouldCancel == 0)
+				{
+					try
+					{
+						FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "droplist.anaconda"));
+						FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "droplistMAL.anaconda"));
+					}
+					catch (IOException e1)
+					{
+						e1.printStackTrace();
+						MAMUtil.writeLog(e1);
+					}
+
+					AnimeIndex.wishlistDialog.dropListModel.clear();
+					AnimeIndex.wishlistDialog.dropListSearchModel.clear();
+
+					droppedMap.clear();
+					droppedMALMap.clear();
+
+					JOptionPane.showMessageDialog(mainPanel, "Anime nella Droplist eliminati", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		mnEliminaLista.add(mntmDroplist);
 		mntmDeleteImage.addActionListener(new ActionListener() {
 
 			@Override
@@ -996,6 +1031,54 @@ public class AnimeIndex extends JFrame
 					}).start();
 			}
 		});
+		
+		JMenuItem mntmDroplist_1 = new JMenuItem("DropList");
+		mntmDroplist_1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				if (!wishlistDialog.isShowing())
+				{
+					wishlistDialog.comboBox.setSelectedItem("DROPLIST");
+					wishlistDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x, AnimeIndex.mainPanel.getLocationOnScreen().y);
+					wishlistDialog.setVisible(true);
+					new Timer(1, new ActionListener() {
+
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							AnimeIndex.mainPanel.requestFocus();
+							wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y);
+							if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainPanel.getLocationOnScreen().x - 181)
+								((Timer) e.getSource()).stop();
+						}
+					}).start();
+
+				}
+				else if(wishlistDialog.comboBox.getSelectedItem().equals("DROPLIST"))
+					new Timer(1, new ActionListener() {
+
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							wishlistDialog.setLocation(wishlistDialog.getLocationOnScreen().x + 1, AnimeIndex.mainPanel.getLocationOnScreen().y);
+							AnimeIndex.mainPanel.requestFocus();
+							if (wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainPanel.getLocationOnScreen().x)
+							{
+								((Timer) e.getSource()).stop();
+								wishlistDialog.dispose();
+							}
+						}
+					}).start();
+				else
+					wishlistDialog.comboBox.setSelectedItem("DROPLIST");
+			}
+		});
+		mntmDroplist_1.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/droplist.png")));
+		mnVisualizza.add(mntmDroplist_1);
+		
+		JSeparator separator_27 = new JSeparator();
+		mnVisualizza.add(separator_27);
 		mnVisualizza.add(mntmNewsboard);
 
 		JSeparator separator_22 = new JSeparator();
@@ -1040,7 +1123,7 @@ public class AnimeIndex extends JFrame
 					}).start();
 
 				}
-				else
+				else if(wishlistDialog.comboBox.getSelectedItem().equals("WISHLIST"))
 					new Timer(1, new ActionListener() {
 
 						@Override
@@ -1056,6 +1139,8 @@ public class AnimeIndex extends JFrame
 							}
 						}
 					}).start();
+				else
+					wishlistDialog.comboBox.setSelectedItem("WISHLIST");
 			}
 		});
 

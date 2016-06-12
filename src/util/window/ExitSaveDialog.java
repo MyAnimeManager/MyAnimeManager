@@ -8,18 +8,15 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.TreeMap;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
-
 import main.AnimeIndex;
 import util.AnimeData;
 import util.AnimeIndexProperties;
-import util.ColorProperties;
 import util.FileManager;
 import util.MAMUtil;
 
@@ -28,9 +25,6 @@ public class ExitSaveDialog extends JDialog
 
 	private final JPanel contentPanel = new JPanel();
 
-	/**
-	 * Create the dialog.
-	 */
 	public ExitSaveDialog()
 	{
 		super(AnimeIndex.frame, true);

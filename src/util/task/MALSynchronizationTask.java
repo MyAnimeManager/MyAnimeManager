@@ -338,10 +338,10 @@ public class MALSynchronizationTask extends SwingWorker
 			{	
 				String[] synonyms = obj.get("series_synonyms").getAsString().split("; ");
 				for(String syn: synonyms)
-					if (!match && AnimeIndex.wishlistMALMap.containsKey(syn))
+					if (!match && AnimeIndex.wishlistMap.containsKey(syn))
 						match = true;
 			}
-			if (!match && !AnimeIndex.wishlistMALMap.containsKey(name))
+			if (!match && !AnimeIndex.wishlistMALMap.containsKey(name) && !AnimeIndex.wishlistMap.containsKey(name))
 			{
 				AnimeIndex.wishlistMALMap.put(name, id);
 				AnimeIndex.wishlistDialog.wishListModel.addElement(name);
@@ -366,10 +366,10 @@ public class MALSynchronizationTask extends SwingWorker
 					if (!match && AnimeIndex.droppedMap.containsKey(syn))
 						match = true;
 			}
-			if (!match && !AnimeIndex.droppedMALMap.containsKey(name))
+			if (!match && !AnimeIndex.droppedMALMap.containsKey(name) && !AnimeIndex.droppedMap.containsKey(name))
 			{
 				AnimeIndex.droppedMALMap.put(name, id);
-				AnimeIndex.wishlistDialog.droplistModel.addElement(name);
+				AnimeIndex.wishlistDialog.dropListModel.addElement(name);
 			}
 			currentAnimeNumber++;
 			int progress =(int) ((currentAnimeNumber/totalAnimeNumber) * 100);

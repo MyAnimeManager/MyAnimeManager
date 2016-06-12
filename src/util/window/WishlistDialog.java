@@ -54,8 +54,8 @@ public class WishlistDialog extends JDialog
 	public final JPanel contentPanel = new JPanel();
 	public SortedListModel wishListModel = new SortedListModel();
 	public SortedListModel wishListSearchModel = new SortedListModel();
-	public SortedListModel droplistModel = new SortedListModel();
-	public SortedListModel droplistSearchModel = new SortedListModel();
+	public SortedListModel dropListModel = new SortedListModel();
+	public SortedListModel dropListSearchModel = new SortedListModel();
 	
 	public SearchBar searchBar;
 	public JButton btnDeleteAnime;
@@ -79,9 +79,7 @@ public class WishlistDialog extends JDialog
 	public JList wishlist;
 	public JList droplist;
 
-	/**
-	 * Create the dialog..
-	 */
+	
 	public WishlistDialog()
 	{
 		super(AnimeIndex.frame, false);
@@ -157,15 +155,17 @@ public class WishlistDialog extends JDialog
 			}
 			{
 				droplistPane = new JScrollPane();
+				droplistPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+				droplistPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 				cardPane.add(droplistPane, "droplist");
 				{
-					droplist = new JList();
+					droplist = new JList(dropListModel);
 					droplist.addListSelectionListener(new ListSelectionListener() {
 
 						@Override
 						public void valueChanged(ListSelectionEvent e)
 						{
-							if (droplistModel.contains("Nessun Anime Corrispondente"))
+							if (dropListModel.contains("Nessun Anime Corrispondente"))
 							{
 								droplist.setEnabled(false);
 								btnDeleteAnime.setEnabled(false);
@@ -234,23 +234,23 @@ public class WishlistDialog extends JDialog
 				{
 					if (comboBox.getSelectedItem().equals("WISHLIST"))
 					{
-					searchList.clearSelection();
-					searchList.setModel(wishListSearchModel);
-					btnDeleteAnime.setEnabled(false);
-					String search = searchBar.getText();
-					CardLayout cl = (CardLayout) (cardPane.getLayout());
-					cl.show(cardPane, "wishlistSearch");
-					searchInList(search, wishListModel, wishListSearchModel);
-					}
-					else
-					{
 						searchList.clearSelection();
-						searchList.setModel(droplistSearchModel);
+						searchList.setModel(wishListSearchModel);
 						btnDeleteAnime.setEnabled(false);
 						String search = searchBar.getText();
 						CardLayout cl = (CardLayout) (cardPane.getLayout());
 						cl.show(cardPane, "wishlistSearch");
-						searchInList(search, droplistModel, droplistSearchModel);
+						searchInList(search, wishListModel, wishListSearchModel);
+					}
+					else
+					{
+						searchList.clearSelection();
+						searchList.setModel(dropListSearchModel);
+						btnDeleteAnime.setEnabled(false);
+						String search = searchBar.getText();
+						CardLayout cl = (CardLayout) (cardPane.getLayout());
+						cl.show(cardPane, "wishlistSearch");
+						searchInList(search, dropListModel, dropListSearchModel);
 					}
 				}
 
@@ -284,7 +284,7 @@ public class WishlistDialog extends JDialog
 						{
 							CardLayout cl = (CardLayout) (cardPane.getLayout());
 							cl.show(cardPane, "wishlistSearch");
-							searchInList(search, droplistModel, droplistSearchModel);
+							searchInList(search, dropListModel, dropListSearchModel);
 						}
 						else
 						{
@@ -336,9 +336,9 @@ public class WishlistDialog extends JDialog
 						}
 						else
 						{
-							model = droplistModel;
+							model = dropListModel;
 							list = droplist;
-							searchModel = droplistSearchModel;
+							searchModel = dropListSearchModel;
 						}
 						
 						if (searchBar.getText().isEmpty())
@@ -404,7 +404,7 @@ public class WishlistDialog extends JDialog
 						SortedListModel searchModel;
 						if (comboBox.getSelectedItem().equals("WISHLIST"))
 						{
-							listName = "wishlist";
+							listName = "Wishlist";
 							model = wishListModel;
 							map = AnimeIndex.wishlistMap;
 							list = wishlist;
@@ -412,15 +412,15 @@ public class WishlistDialog extends JDialog
 						}
 						else
 						{
-							listName = "lista droppati";
-							model = droplistModel;
+							listName = "Droplist";
+							model = dropListModel;
 							map = AnimeIndex.droppedMap;
 							list = droplist;
-							searchModel = droplistSearchModel;
+							searchModel = dropListSearchModel;
 						}
 						String animeName = null;
 						int id = -1;
-						String name = JOptionPane.showInputDialog(AnimeIndex.wishlistDialog, "Nome Anime", "Aggiungi alla" + listName, JOptionPane.QUESTION_MESSAGE);
+						String name = JOptionPane.showInputDialog(AnimeIndex.wishlistDialog, "Nome Anime :", "Aggiungi alla " + listName, JOptionPane.QUESTION_MESSAGE);
 
 						try
 						{
@@ -438,7 +438,7 @@ public class WishlistDialog extends JDialog
 							if (!animeMap.isEmpty() && animeMap.size() > 1)
 							{
 								String[] animeNames = animeMap.keySet().toArray(new String[0]);
-								animeName = (String) JOptionPane.showInputDialog(WishlistDialog.this, "Scegli l'anime da aggiungere", "Conflitto trovato", JOptionPane.QUESTION_MESSAGE, null, animeNames, animeNames[0]);
+								animeName = (String) JOptionPane.showInputDialog(WishlistDialog.this, "Scegli l'anime da aggiungere :", "Conflitto trovato", JOptionPane.QUESTION_MESSAGE, null, animeNames, animeNames[0]);
 
 								if (animeName != null)
 								{
@@ -480,21 +480,37 @@ public class WishlistDialog extends JDialog
 					{
 						String anime = null;
 						if (searchBar.getText().isEmpty())
-							anime = (String) wishlist.getSelectedValue();
+							if(comboBox.getSelectedItem().equals("WISHLIST"))
+								anime = (String) wishlist.getSelectedValue();
+							else
+								anime = (String) droplist.getSelectedValue();
 						else
 							anime = (String) searchList.getSelectedValue();
 						int id = -1;
 						String link = "";
-						if (AnimeIndex.wishlistMap.containsKey(anime) || AnimeIndex.droppedMap.containsKey(anime))
-						{
-							id = AnimeIndex.wishlistMap.get(anime);
-							link = "https://anilist.co/anime/" + id;
-						}
-						else if (AnimeIndex.wishlistMALMap.containsKey(anime) || AnimeIndex.droppedMALMap.containsKey(anime))
-						{
-							id = AnimeIndex.wishlistMALMap.get(anime);
-							link = "http://myanimelist.net/anime/" + id;
-						}
+						try{
+							if (AnimeIndex.wishlistMap.containsKey(anime))
+							{
+								id = AnimeIndex.wishlistMap.get(anime);
+								link = "https://anilist.co/anime/" + id;
+							}
+							else if (AnimeIndex.droppedMap.containsKey(anime))
+							{
+								id = AnimeIndex.droppedMap.get(anime);
+								link = "https://anilist.co/anime/" + id;
+							}
+							else if (AnimeIndex.wishlistMALMap.containsKey(anime))
+							{
+								id = AnimeIndex.wishlistMALMap.get(anime);
+								link = "http://myanimelist.net/anime/" + id;
+							}
+							else if (AnimeIndex.droppedMALMap.containsKey(anime))
+							{
+								id = AnimeIndex.droppedMALMap.get(anime);
+								link = "http://myanimelist.net/anime/" + id;
+							}
+						}catch(NullPointerException e1)
+						{}
 						if (id != -1 && !link.isEmpty())
 							try
 							{
