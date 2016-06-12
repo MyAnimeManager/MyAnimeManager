@@ -243,7 +243,7 @@ public class SuggestionDialog extends JDialog
 		AnimeIndex.wishlistDialog.wishListModel.addElement(name);
 		AnimeIndex.wishlistMap.put(name, Integer.parseInt(id));
 		AnimeIndex.wishlistDialog.wishlist.setEnabled(true);
-		AnimeIndex.wishlistDialog.wishlistSearch.setEnabled(true);
+		AnimeIndex.wishlistDialog.searchList.setEnabled(true);
 		SuggestionDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		// SuggestionDialog.this.dispose();
 	}

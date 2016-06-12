@@ -20,7 +20,7 @@ public class SynchronizingDialog extends JDialog
 {
 
 	private JProgressBar progressBar;
-	private JLabel lblDownloadInCorso;
+	private JLabel lblSynchro;
 	MALSynchronizationTask task;
 
 	/**
@@ -45,9 +45,9 @@ public class SynchronizingDialog extends JDialog
 		setBounds(100, 100, 328, 85);
 
 		getContentPane().setLayout(new MigLayout("", "[320.00px]", "[14px][14px]"));
-		lblDownloadInCorso = new JLabel("Inizio sincronizzazione...");
-		lblDownloadInCorso.setHorizontalAlignment(SwingConstants.CENTER);
-		getContentPane().add(lblDownloadInCorso, "cell 0 0,growx,aligny center");
+		lblSynchro = new JLabel("Inizio sincronizzazione...");
+		lblSynchro.setHorizontalAlignment(SwingConstants.CENTER);
+		getContentPane().add(lblSynchro, "cell 0 0,growx,aligny center");
 
 		progressBar = new JProgressBar();
 		progressBar.setIndeterminate(true);
@@ -69,6 +69,7 @@ public class SynchronizingDialog extends JDialog
 						progressBar.setMinimum(0);
 						progressBar.setMaximum((int)task.totalAnimeNumber);
 					}
+					lblSynchro.setText("Sincronizzazione in corso...");
 					progressBar.setString("Anime sincronizzati " + (int)task.currentAnimeNumber + "/" + (int)task.totalAnimeNumber);
 					progressBar.setValue((int)task.currentAnimeNumber);
 				}

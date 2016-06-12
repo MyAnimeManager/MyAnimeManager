@@ -56,7 +56,10 @@ public class LoadingTask extends SwingWorker
 		else
 		FileManager.loadAnime("toSee.anaconda", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
 		
-		FileManager.loadWishList();
+		FileManager.loadSpecialList("wishlist.anaconda", AnimeIndex.wishlistMap, AnimeIndex.wishlistDialog.wishListModel);
+		FileManager.loadSpecialList("wishlistMAL.anaconda", AnimeIndex.wishlistMALMap, AnimeIndex.wishlistDialog.wishListModel);
+		FileManager.loadSpecialList("droplist.anaconda", AnimeIndex.droppedMALMap, AnimeIndex.wishlistDialog.droplistModel);
+		FileManager.loadSpecialList("droplistMAL.anaconda", AnimeIndex.droppedMap, AnimeIndex.wishlistDialog.droplistModel);
 		FileManager.loadDateMap();
 		FileManager.loadPatternList();
 		return null;
