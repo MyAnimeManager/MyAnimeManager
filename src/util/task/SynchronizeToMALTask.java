@@ -36,17 +36,22 @@ public class SynchronizeToMALTask extends SwingWorker
 	@Override
 	protected Object doInBackground()
 	{
-		setProgress(0);
+		boolean credentialOk = false;
 		try
 		{
-			
+			credentialOk = ConnectionManager.verifyCredentialsMAL(username, password);
+		}
+		catch (IOException e)
+		{
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
+		}
+		if (credentialOk)
+		{
+			setProgress(0);	
 			synchronizeAnimeToMAL(animeToAdd, true);
 			synchronizeAnimeToMAL(notFoundedAnime, false);
 
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
 		}
 		return null;
 	}

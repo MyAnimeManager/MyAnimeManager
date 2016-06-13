@@ -298,6 +298,7 @@ public class ConnectionManager
 		return data;
 	}
 	
+	@SuppressWarnings("unused")
 	public static boolean verifyCredentialsMAL(String username, String password) throws IOException
 	{
 		boolean validCredentials = false;
@@ -338,6 +339,7 @@ public class ConnectionManager
 		return validCredentials;
 	}
 
+	@SuppressWarnings("unused")
 	public static void addAnimeMAL(String username, String password, int animeID, String episode, String status, String comments) throws IOException
 	{
 			URL url;// The URL to read

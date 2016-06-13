@@ -39,6 +39,7 @@ public class AnimeIndexProperties
 			defaultProps.setProperty("General_Pattern", "%T% - %N%");
 			defaultProps.setProperty("Special_Pattern", "%T% - %N%");
 			defaultProps.setProperty("Main_Folder", "");
+			defaultProps.setProperty("Username", "");
 			in.close();
 		}
 		catch (FileNotFoundException fe)
@@ -68,6 +69,7 @@ public class AnimeIndexProperties
 				defaultProps.setProperty("General_Pattern", "%T% - %N%");
 				defaultProps.setProperty("Special_Pattern", "%T% - %N%");
 				defaultProps.setProperty("Episode_Folder", "null");
+				defaultProps.setProperty("Username", "");
 			}
 			catch (IOException e)
 			{
