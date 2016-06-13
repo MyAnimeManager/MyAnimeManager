@@ -527,7 +527,7 @@ public class ConnectionManager
 		}
         JsonParser parser = new JsonParser();
         JsonObject root = parser.parse(json).getAsJsonObject();
-        
+        System.out.println(root.get("anime").getAsJsonObject().get("entry"));
         JsonArray searchedAnime = root.get("anime").getAsJsonObject().get("entry").getAsJsonArray();
         for (JsonElement obj : searchedAnime)
         {
