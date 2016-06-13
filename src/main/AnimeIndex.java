@@ -376,7 +376,7 @@ public class AnimeIndex extends JFrame
 					if (Boolean.parseBoolean(appProp.getProperty("Ask_for_donation")))
 					{
 						String[] array = { "Si!", "Non ora...", "Non ricordarmelo più" };
-						int choiche = JOptionPane.showOptionDialog(AnimeIndex.mainPanel, "Se ti piace  MY ANIME MANAGER  fallo conoscere ai tuoi amici!!\n\rE se vuoi, sostienici con una libera donazione!", "Supporta My Anime Manager !!!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, array, "Si!");
+						int choiche = JOptionPane.showOptionDialog(AnimeIndex.mainPanel, "Se ti piace  MY ANIME MANAGER  fallo conoscere ai tuoi amici!!\n\rE se vuoi, sostienici con una libera donazione!", "Supporta MyAnimeManager !!!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, array, "Si!");
 						if (choiche == 0)
 						{
 							String link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RFJLMVCQYZEQG";
@@ -519,6 +519,9 @@ public class AnimeIndex extends JFrame
 				}
 			}
 		});
+		
+		JSeparator separator_29 = new JSeparator();
+		mnImportaEsporta.add(separator_29);
 		
 		JMenu mnMyanimelist = new JMenu("MyAnimeList");
 		mnImportaEsporta.add(mnMyanimelist);
