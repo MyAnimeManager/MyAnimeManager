@@ -2,16 +2,17 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -213,6 +214,23 @@ public class MALExportDialog extends JDialog
 					    JPasswordField passwordField = new JPasswordField();
 					    controls.add(passwordField);
 					    panel.add(controls, BorderLayout.CENTER);
+					    
+					    JPanel rememberCheckBox = new JPanel();
+					    JCheckBox rememberUsername = new JCheckBox("Ricorda Username");
+					    if (!AnimeIndex.appProp.getProperty("Username").isEmpty())
+					    {
+					    	rememberUsername.setSelected(true);
+					    	usernameField.setText(AnimeIndex.appProp.getProperty("Username"));
+					    }
+					    JCheckBox rememberPassword = new JCheckBox("Ricorda Password");
+					    if (!AnimeIndex.appProp.getProperty("Password").isEmpty())
+					    {
+					    	rememberPassword.setSelected(true);		
+					    	passwordField.setText(new String(Base64.getDecoder().decode(AnimeIndex.appProp.getProperty("Password"))));
+					    }
+					    rememberCheckBox.add(rememberUsername);
+					    rememberCheckBox.add(rememberPassword);
+					    panel.add(rememberCheckBox, BorderLayout.SOUTH);
 
 					    int result = JOptionPane.showConfirmDialog(AnimeIndex.frame, panel, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 					    if (result == JOptionPane.OK_OPTION)
@@ -220,6 +238,8 @@ public class MALExportDialog extends JDialog
 					       List animeToAdd = list.getSelectedValuesList();
 					       String username = usernameField.getText();
 					       String password = new String(passwordField.getPassword());
+					       AnimeIndex.appProp.setProperty("Username", username);
+					       AnimeIndex.appProp.setProperty("Password", new String(Base64.getEncoder().encode(password.getBytes())));
 					       SynchronizingExportDialog dial = new SynchronizingExportDialog(username, password, animeToAdd);
 					       dial.setLocationRelativeTo(MALExportDialog.this);
 					       dial.setVisible(true);

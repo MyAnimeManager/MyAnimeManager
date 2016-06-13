@@ -25,6 +25,7 @@ public class SynchronizeToMALTask extends SwingWorker
 	private ArrayList<String> notFoundedAnime = new ArrayList<String>();
 	public float totalAnimeNumber;
 	public float currentAnimeNumber;
+	boolean credentialOk;
 	
 	public SynchronizeToMALTask(String username, String password, List animeToAdd)
 	{
@@ -36,7 +37,7 @@ public class SynchronizeToMALTask extends SwingWorker
 	@Override
 	protected Object doInBackground()
 	{
-		boolean credentialOk = false;
+		credentialOk = false;
 		try
 		{
 			credentialOk = ConnectionManager.verifyCredentialsMAL(username, password);
@@ -58,82 +59,87 @@ public class SynchronizeToMALTask extends SwingWorker
 	
 	protected void done()
 	{
-		int size = conflictedAnime.size();
-		int current = 1;
-		for (String anime : conflictedAnime)
+		if (credentialOk)
 		{
-			HashMap<String, Integer> map = ConnectionManager.getAnimeSearchedMAL(username, password, anime);
-			if (map.size() > 1)
+			int size = conflictedAnime.size();
+			int current = 1;
+			for (String anime : conflictedAnime)
 			{
-				String[] animeArray = map.keySet().toArray(new String[0]);
-				String animeName = (String) JOptionPane.showInputDialog(AnimeIndex.frame, "Scegli l'anime da aggiungere per \"" + anime + "\" :", "Conflitto trovato" + current + "/" + size, JOptionPane.QUESTION_MESSAGE, null, animeArray, animeArray[0]);
-				if (animeName != null)
+				HashMap<String, Integer> map = ConnectionManager.getAnimeSearchedMAL(username, password, anime);
+				if (map.size() > 1)
 				{
-					int id = map.get(animeName);
-					String episode = "";
-					String status = "";
-					String comments = "";
-					if (AnimeIndex.completedMap.containsKey(anime))
+					String[] animeArray = map.keySet().toArray(new String[0]);
+					String animeName = (String) JOptionPane.showInputDialog(AnimeIndex.frame, "Scegli l'anime da aggiungere per \"" + anime + "\" :", "Conflitto trovato" + current + "/" + size, JOptionPane.QUESTION_MESSAGE, null, animeArray, animeArray[0]);
+					if (animeName != null)
 					{
-						AnimeData data = AnimeIndex.completedMap.get(anime);
-						episode = data.getCurrentEpisode();
-						status = "2";
-						comments = data.getNote();
-					}
-					else if (AnimeIndex.airingMap.containsKey(anime))
-					{
-						AnimeData data = AnimeIndex.airingMap.get(anime);
-						episode = data.getCurrentEpisode();
-						status = "1";
-						comments = data.getNote();
-					}
-					else if (AnimeIndex.ovaMap.containsKey(anime))
-					{
-						AnimeData data = AnimeIndex.ovaMap.get(anime);
-						episode = data.getCurrentEpisode();
-						String episodeTotal = data.getTotalEpisode();
-						if (episode.equals(episodeTotal))
+						int id = map.get(animeName);
+						String episode = "";
+						String status = "";
+						String comments = "";
+						if (AnimeIndex.completedMap.containsKey(anime))
+						{
+							AnimeData data = AnimeIndex.completedMap.get(anime);
+							episode = data.getCurrentEpisode();
 							status = "2";
-						else
+							comments = data.getNote();
+						}
+						else if (AnimeIndex.airingMap.containsKey(anime))
+						{
+							AnimeData data = AnimeIndex.airingMap.get(anime);
+							episode = data.getCurrentEpisode();
 							status = "1";
-						comments = data.getNote();
-					}
-					else if (AnimeIndex.filmMap.containsKey(anime))
-					{
-						AnimeData data = AnimeIndex.completedMap.get(anime);
-						episode = data.getCurrentEpisode();
-						
-						String today = MAMUtil.today();
-						GregorianCalendar todayDate = MAMUtil.getDate(today);
-						String release = data.getReleaseDate();
-						GregorianCalendar releaseDate = MAMUtil.getDate(release);
-						if (releaseDate.before(todayDate) || releaseDate.equals(todayDate))
+							comments = data.getNote();
+						}
+						else if (AnimeIndex.ovaMap.containsKey(anime))
+						{
+							AnimeData data = AnimeIndex.ovaMap.get(anime);
+							episode = data.getCurrentEpisode();
+							String episodeTotal = data.getTotalEpisode();
+							if (episode.equals(episodeTotal))
+								status = "2";
+							else
+								status = "1";
+							comments = data.getNote();
+						}
+						else if (AnimeIndex.filmMap.containsKey(anime))
+						{
+							AnimeData data = AnimeIndex.completedMap.get(anime);
+							episode = data.getCurrentEpisode();
+							
+							String today = MAMUtil.today();
+							GregorianCalendar todayDate = MAMUtil.getDate(today);
+							String release = data.getReleaseDate();
+							GregorianCalendar releaseDate = MAMUtil.getDate(release);
+							if (releaseDate.before(todayDate) || releaseDate.equals(todayDate))
+								status = "1";
+							else
+								status = "6";
+							comments = data.getNote();
+						}
+						else if (AnimeIndex.completedToSeeMap.containsKey(anime))
+						{
+							AnimeData data = AnimeIndex.completedToSeeMap.get(anime);
+							episode = data.getCurrentEpisode();
 							status = "1";
-						else
-							status = "6";
-						comments = data.getNote();
+							comments = data.getNote();
+						}
+						try
+						{
+							ConnectionManager.addAnimeMAL(username, password, id, episode, status, comments);
+							current++;
+						}
+						catch (IOException e)
+						{
+							MAMUtil.writeLog(e);
+							e.printStackTrace();
+						}
 					}
-					else if (AnimeIndex.completedToSeeMap.containsKey(anime))
-					{
-						AnimeData data = AnimeIndex.completedToSeeMap.get(anime);
-						episode = data.getCurrentEpisode();
-						status = "1";
-						comments = data.getNote();
-					}
-					try
-					{
-						ConnectionManager.addAnimeMAL(username, password, id, episode, status, comments);
-						current++;
-					}
-					catch (IOException e)
-					{
-						MAMUtil.writeLog(e);
-						e.printStackTrace();
-					}
+					
 				}
-				
-			}
+			} 
 		}
+		else
+			JOptionPane.showMessageDialog(AnimeIndex.frame, "Credenziali Errate!", "Errore!", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	private void synchronizeAnimeToMAL(List<String> animeToAdd, boolean shouldAddToNotFounded)
