@@ -106,11 +106,12 @@ import util.window.WishlistDialog;
 
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
-//TODO fixare "IL BUG"
-//TODO caratteri speciali aggiunta anime
-//TODO importare uscite stagionali da rad
-//TODO sistema intelligente di risoluzione conflitti durante importazione da MAL
-//TODO Sostituire bottoni con Checkbox nella finestra di sincronizzazione e rendere coerente tuttecose
+//TODO(Kirin) fixare "IL BUG"
+//TODO(Kirin) caratteri speciali aggiunta anime
+//TODO(Kirin) importare uscite stagionali da rad
+//TODO(Kirin) sistema intelligente di risoluzione conflitti durante importazione da MAL
+//TODO(Kirin) Sostituire bottoni con Checkbox nella finestra di sincronizzazione e rendere coerente tuttecose
+//TODO(Kirin) aggiunere wishlist e droplist al MALExportDialog
 
 public class AnimeIndex extends JFrame
 {

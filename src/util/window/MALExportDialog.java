@@ -10,7 +10,6 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -25,14 +24,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import main.AnimeIndex;
 import util.SortedListModel;
 
 
 public class MALExportDialog extends JDialog
 {
-	
 	private final JPanel contentPanel = new JPanel();
 	private SortedListModel listModel = new SortedListModel();
 	private JButton sinchronyzeButton;
@@ -49,7 +46,6 @@ public class MALExportDialog extends JDialog
 	{
 		super(AnimeIndex.frame, true);
 		setResizable(false);
-		setTitle("Selezione Anime da Esportare");
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -62,8 +58,8 @@ public class MALExportDialog extends JDialog
 				airingIndeces = getIndexOf(AnimeIndex.airingModel);
 				ovaIndeces = getIndexOf(AnimeIndex.ovaModel);
 				filmIndeces = getIndexOf(AnimeIndex.filmModel);
-				completedToSeeIndeces = getIndexOf(AnimeIndex.completedModel);
-				
+				completedToSeeIndeces = getIndexOf(AnimeIndex.completedToSeeModel);		
+				setTitle("Selezione Anime da Esportare : 0/"+listModel.getSize());
 			}
 		});
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -184,6 +180,7 @@ public class MALExportDialog extends JDialog
 							sinchronyzeButton.setEnabled(true);
 						else
 							sinchronyzeButton.setEnabled(false);
+						setTitle("Selezione Anime da Esportare : "+list.getSelectedValuesList().size()+"/"+listModel.getSize());
 					}
 				});
 				list.setFont(AnimeIndex.segui.deriveFont(12f));
@@ -196,18 +193,14 @@ public class MALExportDialog extends JDialog
 			{
 				sinchronyzeButton = new JButton("Sincronizza");
 				sinchronyzeButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-						
+					public void actionPerformed(ActionEvent e) {						
 						JPanel panel = new JPanel(new BorderLayout(5, 5));
-						
 						panel.add(new JLabel("Inserire i dati del proprio account MyAnimeList"), BorderLayout.NORTH);
-						
 					    JPanel label = new JPanel(new GridLayout(0, 1, 2, 2));
-					    label.add(new JLabel("Username", SwingConstants.RIGHT));
-					    label.add(new JLabel("Password", SwingConstants.RIGHT));
+					    label.add(new JLabel("Username :", SwingConstants.RIGHT));
+					    label.add(new JLabel("Password :", SwingConstants.RIGHT));
 					    panel.add(label, BorderLayout.WEST);
-
+					    
 					    JPanel controls = new JPanel(new GridLayout(0, 1, 2, 2));
 					    JTextField usernameField = new JTextField();
 					    controls.add(usernameField);
@@ -244,7 +237,6 @@ public class MALExportDialog extends JDialog
 					       dial.setLocationRelativeTo(MALExportDialog.this);
 					       dial.setVisible(true);
 					    }
-						
 					}
 				});
 				buttonPane.setLayout(new GridLayout(0, 2, 0, 0));
