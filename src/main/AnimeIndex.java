@@ -445,33 +445,18 @@ public class AnimeIndex extends JFrame
 		mnImportaEsporta.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/imp-exp.png")));
 		mnMenu.add(mnImportaEsporta);
 		
-		JMenuItem mntmImportaListe = new JMenuItem("Importa Liste Localmente");
+		JMenu mnLocale = new JMenu("Locale");
+		mnImportaEsporta.add(mnLocale);
+		
+		JMenuItem mntmImportaListe = new JMenuItem("Importa Liste");
+		mnLocale.add(mntmImportaListe);
 		mntmImportaListe.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/import_.png")));
-		mntmImportaListe.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
-				JFileChooser fc = new JFileChooser(chooserDir);
-				fc.setMultiSelectionEnabled(false);
-				fc.setAcceptAllFileFilterUsed(false);
-				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				fc.setFileFilter(new ImportExportFileFilter());
-				int returnVal = fc.showDialog(AnimeIndex.mainPanel, "Importa");
-				if (returnVal == JFileChooser.APPROVE_OPTION)
-				{
-					File zipFile = fc.getSelectedFile();
-					BackupImportExportTask task = new BackupImportExportTask(zipFile);
-					WaitDialog waitForZip = new WaitDialog("Importando...", "Importando i dati", task, false);
-					waitForZip.setLocationRelativeTo(mainPanel);
-					waitForZip.setVisible(true);
-				}
-			}
-		});
-		mnImportaEsporta.add(mntmImportaListe);
 		
 		JSeparator separator_26 = new JSeparator();
-		mnImportaEsporta.add(separator_26);
+		mnLocale.add(separator_26);
 		
-		JMenuItem mntmEsportaListe = new JMenuItem("Esporta Liste Localmente");
+		JMenuItem mntmEsportaListe = new JMenuItem("Esporta Liste");
+		mnLocale.add(mntmEsportaListe);
 		mntmEsportaListe.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/export_.png")));
 		mntmEsportaListe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -518,9 +503,44 @@ public class AnimeIndex extends JFrame
 				}
 			}
 		});
-		mnImportaEsporta.add(mntmEsportaListe);
+		mntmImportaListe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+				JFileChooser fc = new JFileChooser(chooserDir);
+				fc.setMultiSelectionEnabled(false);
+				fc.setAcceptAllFileFilterUsed(false);
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				fc.setFileFilter(new ImportExportFileFilter());
+				int returnVal = fc.showDialog(AnimeIndex.mainPanel, "Importa");
+				if (returnVal == JFileChooser.APPROVE_OPTION)
+				{
+					File zipFile = fc.getSelectedFile();
+					BackupImportExportTask task = new BackupImportExportTask(zipFile);
+					WaitDialog waitForZip = new WaitDialog("Importando...", "Importando i dati", task, false);
+					waitForZip.setLocationRelativeTo(mainPanel);
+					waitForZip.setVisible(true);
+				}
+			}
+		});
 		
-		JMenuItem mntmImportMAL = new JMenuItem("Importa Liste da MyAnimeList");
+		JMenu mnMyanimelist = new JMenu("MyAnimeList");
+		mnImportaEsporta.add(mnMyanimelist);
+		
+		JMenuItem mntmImportMAL = new JMenuItem("Importa Liste");
+		mnMyanimelist.add(mntmImportMAL);
+		
+		JSeparator separator_28 = new JSeparator();
+		mnMyanimelist.add(separator_28);
+		
+		JMenuItem mntmExportMAL = new JMenuItem("Esporta Liste");
+		mnMyanimelist.add(mntmExportMAL);
+		mntmExportMAL.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MALExportDialog dial = new MALExportDialog();
+				dial.setLocationRelativeTo(AnimeIndex.mainPanel);
+				dial.setVisible(true);
+			}
+		});
 		mntmImportMAL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String username = JOptionPane.showInputDialog(AnimeIndex.this, "Inserisci il nome utente di MyAnimeList", "Dati richiesti", JOptionPane.QUESTION_MESSAGE);
@@ -532,17 +552,6 @@ public class AnimeIndex extends JFrame
 				}
 			}
 		});
-		mnImportaEsporta.add(mntmImportMAL);
-		
-		JMenuItem mntmExportMAL = new JMenuItem("Esporta Liste su MyAnimeList");
-		mntmExportMAL.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MALExportDialog dial = new MALExportDialog();
-				dial.setLocationRelativeTo(AnimeIndex.mainPanel);
-				dial.setVisible(true);
-			}
-		});
-		mnImportaEsporta.add(mntmExportMAL);
 		
 		JSeparator separator_25 = new JSeparator();
 		mnMenu.add(separator_25);
@@ -1414,7 +1423,11 @@ public class AnimeIndex extends JFrame
 					nToSee += 1;
 				for (int i = 0; i < wishlistMap.size(); i++)
 					nWish += 1;
+				for (int i = 0; i < wishlistMALMap.size(); i++)
+					nWish += 1;
 				for (int i = 0; i < droppedMap.size(); i++)
+					nDrop += 1;
+				for (int i = 0; i < droppedMALMap.size(); i++)
 					nDrop += 1;
 				JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Anime Completati:      " + nCompleted + "\n\r\n\rAnime in Corso:           " + nAiring + "\n\r\n\rOav:                               " + nOAV + "\n\r\n\rFilm:                               " + nFilm + "\n\r\n\rCompleti da Vedere:    " + nToSee + "\n\r\n\rWishlist:                         " + nWish + "\n\r\n\rDroplist:                         " + nDrop, "Statistiche", JOptionPane.INFORMATION_MESSAGE);
 			}

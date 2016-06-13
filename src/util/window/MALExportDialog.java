@@ -47,6 +47,8 @@ public class MALExportDialog extends JDialog
 	public MALExportDialog()
 	{
 		super(AnimeIndex.frame, true);
+		setResizable(false);
+		setTitle("Selezione Anime da Esportare");
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -170,6 +172,8 @@ public class MALExportDialog extends JDialog
 		}
 		{
 			JScrollPane listPane = new JScrollPane();
+			listPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+			listPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 			contentPanel.add(listPane, BorderLayout.CENTER);
 			{
 				list = new JList(listModel);
@@ -187,9 +191,6 @@ public class MALExportDialog extends JDialog
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			FlowLayout fl_buttonPane = new FlowLayout(FlowLayout.CENTER);
-			fl_buttonPane.setHgap(100);
-			buttonPane.setLayout(fl_buttonPane);
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				sinchronyzeButton = new JButton("Sincronizza");
@@ -226,6 +227,7 @@ public class MALExportDialog extends JDialog
 						
 					}
 				});
+				buttonPane.setLayout(new GridLayout(0, 2, 0, 0));
 				sinchronyzeButton.setEnabled(false);
 				buttonPane.add(sinchronyzeButton);
 			}

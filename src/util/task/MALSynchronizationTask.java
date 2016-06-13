@@ -230,7 +230,7 @@ public class MALSynchronizationTask extends SwingWorker
 						if (AnimeIndex.completedMap.containsKey(syn) || AnimeIndex.airingMap.containsKey(syn))
 							match = true;
 			}
-			if (!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !match)
+			if (!match && !AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name))
 			{
 				String totEp = obj.get("series_episodes").getAsString();
 				String currentEp = obj.get("my_watched_episodes").getAsString();
