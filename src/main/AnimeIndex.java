@@ -91,6 +91,7 @@ import util.window.AnimeInformation;
 import util.window.ChristmasDialog;
 import util.window.CreditDialog;
 import util.window.ExitSaveDialog;
+import util.window.MALExportDialog;
 import util.window.MusicDialog;
 import util.window.NewsBoardDialog;
 import util.window.PreferenceDialog;
@@ -531,6 +532,13 @@ public class AnimeIndex extends JFrame
 		mnImportaEsporta.add(mntmImportMAL);
 		
 		JMenuItem mntmExportMAL = new JMenuItem("Esporta Liste su MyAnimeList");
+		mntmExportMAL.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MALExportDialog dial = new MALExportDialog();
+				dial.setLocationRelativeTo(AnimeIndex.mainPanel);
+				dial.setVisible(true);
+			}
+		});
 		mnImportaEsporta.add(mntmExportMAL);
 		
 		JSeparator separator_25 = new JSeparator();

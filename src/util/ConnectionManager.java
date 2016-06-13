@@ -315,7 +315,7 @@ public class ConnectionManager
 			String auth = username + ":" + password;
 			String authEncoded = new String(Base64.getEncoder().encode(auth.getBytes()));
 			conn.setRequestProperty("Authorization" , "Basic " + authEncoded);
-			System.out.println("Success = " + (conn.getResponseCode() == 200));	
+			System.out.println("Auth Success = " + (conn.getResponseCode() == 200));	
 
 		}
 		catch (java.net.SocketTimeoutException timeout)
@@ -376,7 +376,8 @@ public class ConnectionManager
 				String auth = username + ":" + password;
 				String authEncoded = new String(Base64.getEncoder().encode(auth.getBytes()));
 				conn.setRequestProperty("Authorization", "Basic " + authEncoded);
-				System.out.println("Success = " + (conn.getResponseCode() == 201));		
+				int respCode = conn.getResponseCode();
+				System.out.println("Add Success = " + (respCode == 201) + ", Code returned = " + respCode);		
 			}
 			catch (java.net.SocketTimeoutException timeout)
 			{
@@ -470,7 +471,6 @@ public class ConnectionManager
 		{	
 			anime = URLEncoder.encode(anime, "utf-8");
 			url = new URL(MAL_BASEURL + SEARCH_MAL + anime);
-			System.out.println(url);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setRequestMethod("GET");

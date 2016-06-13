@@ -3,6 +3,7 @@ package util.window;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -10,15 +11,16 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -54,7 +56,6 @@ public class MALExportDialog extends JDialog
 				listModel.addAll(AnimeIndex.ovaMap.keySet());
 				listModel.addAll(AnimeIndex.filmMap.keySet());
 				listModel.addAll(AnimeIndex.completedToSeeMap.keySet());
-				
 				completedIndeces = getIndexOf(AnimeIndex.completedModel);
 				airingIndeces = getIndexOf(AnimeIndex.airingModel);
 				ovaIndeces = getIndexOf(AnimeIndex.ovaModel);
@@ -87,14 +88,14 @@ public class MALExportDialog extends JDialog
 				JButton deselectAllButton = new JButton("Deseleziona Tutti");
 				deselectAllButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						list.setSelectedIndex(-1);
+						list.clearSelection();
 					}
 				});
 				optionPanel.add(deselectAllButton);
 			}
 			{
-				JButton compeltedButton = new JButton("Completi");
-				compeltedButton.addActionListener(new ActionListener() {
+				JButton completedButton = new JButton("Completi");
+				completedButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int size = completedIndeces.size();
 						int[] indeces = new int[size];
@@ -105,7 +106,7 @@ public class MALExportDialog extends JDialog
 						list.setSelectedIndices(indeces);
 					}
 				});
-				optionPanel.add(compeltedButton);
+				optionPanel.add(completedButton);
 			}
 			{
 				JButton airingButton = new JButton("In Corso");
@@ -195,24 +196,29 @@ public class MALExportDialog extends JDialog
 				sinchronyzeButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
-						JPanel myPanel = new JPanel();
-						JTextField usernameField = new JTextField();
-					    JTextField passwordField = new JTextField();
-					    myPanel.add(new JLabel("Username:"));
-					    myPanel.add(usernameField);
-					    myPanel.add(Box.createHorizontalStrut(15)); // a spacer
-					    myPanel.add(new JLabel("Password:"));
-					    myPanel.add(passwordField);
+						
+						JPanel panel = new JPanel(new BorderLayout(5, 5));
+						
+						panel.add(new JLabel("Inserire i dati del proprio account MyAnimeList"), BorderLayout.NORTH);
+						
+					    JPanel label = new JPanel(new GridLayout(0, 1, 2, 2));
+					    label.add(new JLabel("Username", SwingConstants.RIGHT));
+					    label.add(new JLabel("Password", SwingConstants.RIGHT));
+					    panel.add(label, BorderLayout.WEST);
 
-					    int result = JOptionPane.showConfirmDialog(AnimeIndex.frame, "Inserire i dati del proprio account MyAnimeList", "Dati richiesti", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+					    JPanel controls = new JPanel(new GridLayout(0, 1, 2, 2));
+					    JTextField usernameField = new JTextField();
+					    controls.add(usernameField);
+					    JPasswordField passwordField = new JPasswordField();
+					    controls.add(passwordField);
+					    panel.add(controls, BorderLayout.CENTER);
+
+					    int result = JOptionPane.showConfirmDialog(AnimeIndex.frame, panel, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 					    if (result == JOptionPane.OK_OPTION)
-					    {
-					       System.out.println("x value: " + usernameField.getText());
-					       System.out.println("y value: " + passwordField.getText());
-					       
+					    {  
 					       List animeToAdd = list.getSelectedValuesList();
 					       String username = usernameField.getText();
-					       String password = passwordField.getText();
+					       String password = new String(passwordField.getPassword());
 					       //TODO aggiungere waiting dialog
 					       SynchronizeToMALTask task = new SynchronizeToMALTask(username, password, animeToAdd);
 					       task.execute();
@@ -221,9 +227,7 @@ public class MALExportDialog extends JDialog
 					}
 				});
 				sinchronyzeButton.setEnabled(false);
-				sinchronyzeButton.setActionCommand("OK");
 				buttonPane.add(sinchronyzeButton);
-				getRootPane().setDefaultButton(sinchronyzeButton);
 			}
 			{
 				JButton cancelButton = new JButton("Annulla");
@@ -232,7 +236,6 @@ public class MALExportDialog extends JDialog
 						MALExportDialog.this.dispose();
 					}
 				});
-				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
