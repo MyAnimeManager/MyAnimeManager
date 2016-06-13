@@ -20,7 +20,7 @@ public class CheckUpdateTask extends SwingWorker
 		{
 			updatedVersion = Updater.getLatestVersion();
 		}
-		catch (Exception e1)
+		catch (java.net.ConnectException | java.net.UnknownHostException e1)
 		{
 			e1.printStackTrace();
 			MAMUtil.writeLog(e1);

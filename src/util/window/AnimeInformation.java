@@ -92,7 +92,7 @@ public class AnimeInformation extends JPanel
 	public static UpdatingAnimeDataDialog dial;
 	public boolean selectExcludedAnimeAtWindowOpened = false;
 	public JButton btnFolder;
-	public SynchronizingDialog SynchroDial;
+
 
 	public AnimeInformation()
 	{
@@ -1005,10 +1005,7 @@ public class AnimeInformation extends JPanel
 		btnFolder = new JButton("");
 		btnFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-			
-				SynchroDial = new SynchronizingDialog("HectorBlaze");
-				SynchroDial.setLocationRelativeTo(AnimeIndex.mainPanel);
-				SynchroDial.setVisible(true);
+
 			}
 		});
 		btnFolder.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/Folder.png")));

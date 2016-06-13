@@ -7,11 +7,14 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.TreeMap;
+
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
+
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
 import org.json.XML;
+
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
@@ -22,6 +25,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
 import main.AnimeIndex;
 import util.AnimeData;
 import util.ConnectionManager;
@@ -68,7 +72,6 @@ public class MALSynchronizationTask extends SwingWorker
 	protected void done()
 	{
 		synchronizeConflictedAnime();
-		System.out.println("FINE");
 	}
 	
 	private void getAnimeList()
@@ -131,7 +134,7 @@ public class MALSynchronizationTask extends SwingWorker
 						airingAnime.add(anime.getAsJsonObject());
 						break;
 				}
-			}
+			}	        
 		}
 		catch (FailingHttpStatusCodeException e) {
 			e.printStackTrace();
@@ -176,7 +179,7 @@ public class MALSynchronizationTask extends SwingWorker
 			else if (map.size() == 0)
 			{
 				boolean found = false;
-				if(!obj.get("series_synonyms").isJsonNull())
+				if(!obj.get("series_synonyms").isJsonObject())
 				{	
 					String[] synonyms = obj.get("series_synonyms").getAsString().split("; ");
 					for(String syn: synonyms)
@@ -210,6 +213,7 @@ public class MALSynchronizationTask extends SwingWorker
 					notFoundedAnime.add(obj);
 			}
 		}
+		
 	}
 	
 	private void synchronizeAnimeFromJson(ArrayList<JsonObject> list)
@@ -218,7 +222,7 @@ public class MALSynchronizationTask extends SwingWorker
 		{
 			String name = obj.get("series_title").getAsString();
 			boolean match = false;
-			if(!obj.get("series_synonyms").isJsonNull())
+			if(!obj.get("series_synonyms").isJsonObject())
 			{	
 				String[] synonyms = obj.get("series_synonyms").getAsString().split("; ");
 				for(String syn: synonyms)
@@ -226,7 +230,7 @@ public class MALSynchronizationTask extends SwingWorker
 						if (AnimeIndex.completedMap.containsKey(syn) || AnimeIndex.airingMap.containsKey(syn))
 							match = true;
 			}
-			if (!match && !AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name))
+			if (!AnimeIndex.completedMap.containsKey(name) && !AnimeIndex.airingMap.containsKey(name) && !match)
 			{
 				String totEp = obj.get("series_episodes").getAsString();
 				String currentEp = obj.get("my_watched_episodes").getAsString();
@@ -334,14 +338,14 @@ public class MALSynchronizationTask extends SwingWorker
 			String name = obj.get("series_title").getAsString();
 			int id = obj.get("series_animedb_id").getAsInt();
 			boolean match = false;
-			if(!obj.get("series_synonyms").isJsonNull())
+			if(!obj.get("series_synonyms").isJsonObject())
 			{	
 				String[] synonyms = obj.get("series_synonyms").getAsString().split("; ");
 				for(String syn: synonyms)
 					if (!match && AnimeIndex.wishlistMap.containsKey(syn))
 						match = true;
 			}
-			if (!match && !AnimeIndex.wishlistMALMap.containsKey(name) && !AnimeIndex.wishlistMap.containsKey(name))
+			if (!AnimeIndex.wishlistMALMap.containsKey(name) && !AnimeIndex.wishlistMap.containsKey(name) && !match)
 			{
 				AnimeIndex.wishlistMALMap.put(name, id);
 				AnimeIndex.wishlistDialog.wishListModel.addElement(name);
@@ -359,7 +363,7 @@ public class MALSynchronizationTask extends SwingWorker
 			String name = obj.get("series_title").getAsString();
 			int id = obj.get("series_animedb_id").getAsInt();
 			boolean match = false;
-			if(!obj.get("series_synonyms").isJsonNull())
+			if(!obj.get("series_synonyms").isJsonObject())
 			{	
 				String[] synonyms = obj.get("series_synonyms").getAsString().split("; ");
 				for(String syn: synonyms)
@@ -387,7 +391,7 @@ public class MALSynchronizationTask extends SwingWorker
 			if (map.size() > 1)
 			{
 				String[] titles = map.keySet().toArray(new String[]{});
-				String anime = (String)JOptionPane.showInputDialog(AnimeIndex.animeInformation.SynchroDial, "Scegli il titolo corretto per : \"" + title +"\"", "Conflitto tra titoli", JOptionPane.WARNING_MESSAGE, null, titles, titles[0]);
+				String anime = (String)JOptionPane.showInputDialog(AnimeIndex.frame.SynchroDial, "Scegli il titolo corretto per : \"" + title +"\"", "Conflitto tra titoli", JOptionPane.WARNING_MESSAGE, null, titles, titles[0]);
 				if (anime != null)
 				{
 					int id = map.get(anime);

@@ -97,6 +97,7 @@ import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
 import util.window.SuggestionDialog;
 import util.window.SupportersDialog;
+import util.window.SynchronizingDialog;
 import util.window.ThanksDialog;
 import util.window.UpdateDialog;
 import util.window.WaitDialog;
@@ -132,6 +133,7 @@ public class AnimeIndex extends JFrame
 	public static AddFansubDialog fansubDialog;
 	public static NewsBoardDialog newsBoardDialog;
 	public static MusicDialog musicDialog;
+	public SynchronizingDialog SynchroDial;
 
 	public static JList completedToSeeList;
 	public static JList filmList;
@@ -186,6 +188,7 @@ public class AnimeIndex extends JFrame
 	public static JComboBox animeTypeComboBox;
 	public static SearchBar searchBar;
 	public static JButton setFilterButton;
+	
 	public static String addToPreviousList;
 	public static String lastSelection;
 	public static String currentEpisodeNumber;
@@ -438,7 +441,7 @@ public class AnimeIndex extends JFrame
 		mnImportaEsporta.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/imp-exp.png")));
 		mnMenu.add(mnImportaEsporta);
 		
-		JMenuItem mntmImportaListe = new JMenuItem("Importa Liste");
+		JMenuItem mntmImportaListe = new JMenuItem("Importa Liste Localmente");
 		mntmImportaListe.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/import_.png")));
 		mntmImportaListe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -464,7 +467,7 @@ public class AnimeIndex extends JFrame
 		JSeparator separator_26 = new JSeparator();
 		mnImportaEsporta.add(separator_26);
 		
-		JMenuItem mntmEsportaListe = new JMenuItem("Esporta Liste");
+		JMenuItem mntmEsportaListe = new JMenuItem("Esporta Liste Localmente");
 		mntmEsportaListe.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/export_.png")));
 		mntmEsportaListe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -512,6 +515,23 @@ public class AnimeIndex extends JFrame
 			}
 		});
 		mnImportaEsporta.add(mntmEsportaListe);
+		
+		JMenuItem mntmImportMAL = new JMenuItem("Importa Liste da MyAnimeList");
+		mntmImportMAL.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String username = JOptionPane.showInputDialog(AnimeIndex.this, "Inserisci il nome utente di MyAnimeList", "Dati richiesti", JOptionPane.QUESTION_MESSAGE);
+				if (username != null && !username.isEmpty())
+				{
+				SynchroDial = new SynchronizingDialog(username);
+				SynchroDial.setLocationRelativeTo(AnimeIndex.mainPanel);
+				SynchroDial.setVisible(true);
+				}
+			}
+		});
+		mnImportaEsporta.add(mntmImportMAL);
+		
+		JMenuItem mntmExportMAL = new JMenuItem("Esporta Liste su MyAnimeList");
+		mnImportaEsporta.add(mntmExportMAL);
 		
 		JSeparator separator_25 = new JSeparator();
 		mnMenu.add(separator_25);
@@ -1597,6 +1617,7 @@ public class AnimeIndex extends JFrame
 			{
 				saveModifiedInformation(list);
 				searchBar.setText("");
+				searchList.setEnabled(true);
 				CardLayout cl = (CardLayout) (cardContainer.getLayout());
 				cl.show(cardContainer, (String) evt.getItem());
 				if (deleteButton.isEnabled())
