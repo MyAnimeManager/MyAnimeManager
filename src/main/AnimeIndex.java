@@ -98,7 +98,7 @@ import util.window.PreferenceDialog;
 import util.window.SetFilterDialog;
 import util.window.SuggestionDialog;
 import util.window.SupportersDialog;
-import util.window.SynchronizingDialog;
+import util.window.SynchronizingImportDialog;
 import util.window.ThanksDialog;
 import util.window.UpdateDialog;
 import util.window.WaitDialog;
@@ -134,7 +134,7 @@ public class AnimeIndex extends JFrame
 	public static AddFansubDialog fansubDialog;
 	public static NewsBoardDialog newsBoardDialog;
 	public static MusicDialog musicDialog;
-	public SynchronizingDialog SynchroDial;
+	public SynchronizingImportDialog SynchroDial;
 
 	public static JList completedToSeeList;
 	public static JList filmList;
@@ -245,6 +245,9 @@ public class AnimeIndex extends JFrame
 					frame.setVisible(true);
 					wishlistDialog = new WishlistDialog();
 					newsBoardDialog = new NewsBoardDialog();
+					UIManager.put("OptionPane.font", segui.deriveFont(11f));
+					UIManager.put("OptionPane.buttonFont", segui.deriveFont(11f));
+					UIManager.put("OptionPane.messageFont", segui.deriveFont(11f));
 				}
 				catch (Exception e)
 				{
@@ -523,7 +526,7 @@ public class AnimeIndex extends JFrame
 				String username = JOptionPane.showInputDialog(AnimeIndex.this, "Inserisci il nome utente di MyAnimeList", "Dati richiesti", JOptionPane.QUESTION_MESSAGE);
 				if (username != null && !username.isEmpty())
 				{
-				SynchroDial = new SynchronizingDialog(username);
+				SynchroDial = new SynchronizingImportDialog(username);
 				SynchroDial.setLocationRelativeTo(AnimeIndex.mainPanel);
 				SynchroDial.setVisible(true);
 				}

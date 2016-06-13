@@ -298,7 +298,7 @@ public class ConnectionManager
 		return data;
 	}
 	
-	private static boolean verifyCredentialsMAL(String username, String password) throws IOException
+	public static boolean verifyCredentialsMAL(String username, String password) throws IOException
 	{
 		boolean validCredentials = false;
 		URL url; // The URL to read
@@ -315,7 +315,7 @@ public class ConnectionManager
 			String auth = username + ":" + password;
 			String authEncoded = new String(Base64.getEncoder().encode(auth.getBytes()));
 			conn.setRequestProperty("Authorization" , "Basic " + authEncoded);
-			System.out.println("Auth Success = " + (conn.getResponseCode() == 200));	
+			int respCode = conn.getResponseCode();
 
 		}
 		catch (java.net.SocketTimeoutException timeout)
@@ -340,9 +340,6 @@ public class ConnectionManager
 
 	public static void addAnimeMAL(String username, String password, int animeID, String episode, String status, String comments) throws IOException
 	{
-		boolean validCredentials = verifyCredentialsMAL(username, password);
-		if (validCredentials)
-		{
 			URL url;// The URL to read
 			HttpURLConnection conn = null;// The actual connection to the web page
 			try
@@ -376,8 +373,7 @@ public class ConnectionManager
 				String auth = username + ":" + password;
 				String authEncoded = new String(Base64.getEncoder().encode(auth.getBytes()));
 				conn.setRequestProperty("Authorization", "Basic " + authEncoded);
-				int respCode = conn.getResponseCode();
-				System.out.println("Add Success = " + (respCode == 201) + ", Code returned = " + respCode);		
+				int respCode = conn.getResponseCode();	
 			}
 			catch (java.net.SocketTimeoutException timeout)
 			{
@@ -395,7 +391,6 @@ public class ConnectionManager
 					JOptionPane.showMessageDialog(AnimeIndex.frame, "Nome Utente o Password errata!", "Errore!", JOptionPane.ERROR_MESSAGE);
 				}
 			} 
-		}
 
 	}
 	
@@ -527,13 +522,21 @@ public class ConnectionManager
 		}
         JsonParser parser = new JsonParser();
         JsonObject root = parser.parse(json).getAsJsonObject();
-        System.out.println(root.get("anime").getAsJsonObject().get("entry"));
-        JsonArray searchedAnime = root.get("anime").getAsJsonObject().get("entry").getAsJsonArray();
-        for (JsonElement obj : searchedAnime)
+        if (root.has("anime") && root.get("anime").getAsJsonObject().get("entry").isJsonArray())
+        {	
+		    JsonArray searchedAnime = root.get("anime").getAsJsonObject().get("entry").getAsJsonArray();
+		    for (JsonElement obj : searchedAnime)
+		    {
+		    	String name = obj.getAsJsonObject().get("title").getAsString();
+		    	int id = obj.getAsJsonObject().get("id").getAsInt();
+		    	map.put(name, id);
+		    }
+        }
+        else if (root.has("anime"))
         {
-        	String name = obj.getAsJsonObject().get("title").getAsString();
-        	int id = obj.getAsJsonObject().get("id").getAsInt();
-        	map.put(name, id);
+        	JsonObject obj = root.get("anime").getAsJsonObject().get("entry").getAsJsonObject();
+	    	int id = obj.getAsJsonObject().get("id").getAsInt();
+	    	map.put(anime, id);
         }
 		return map;
 	}

@@ -16,7 +16,7 @@ import main.AnimeIndex;
 import net.miginfocom.swing.MigLayout;
 import util.task.MALSynchronizationTask;
 
-public class SynchronizingDialog extends JDialog
+public class SynchronizingImportDialog extends JDialog
 {
 
 	private JProgressBar progressBar;
@@ -26,7 +26,7 @@ public class SynchronizingDialog extends JDialog
 	/**
 	 * Create the dialog.
 	 */	
-	public SynchronizingDialog(String username)
+	public SynchronizingImportDialog(String username)
 	{
 		super(AnimeIndex.frame, true);
 		task = new MALSynchronizationTask(username);
@@ -45,7 +45,7 @@ public class SynchronizingDialog extends JDialog
 		setBounds(100, 100, 328, 85);
 
 		getContentPane().setLayout(new MigLayout("", "[320.00px]", "[14px][14px]"));
-		lblSynchro = new JLabel("Inizio sincronizzazione...");
+		lblSynchro = new JLabel("Sincronizzazione in corso...");
 		lblSynchro.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lblSynchro, "cell 0 0,growx,aligny center");
 
@@ -75,7 +75,7 @@ public class SynchronizingDialog extends JDialog
 				}
 				else if (evt.getPropertyName().equals("state"))
 					if (evt.getNewValue().toString().equalsIgnoreCase("done"))
-						SynchronizingDialog.this.dispose();
+						SynchronizingImportDialog.this.dispose();
 
 			}
 		});

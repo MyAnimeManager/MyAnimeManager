@@ -27,7 +27,6 @@ import javax.swing.event.ListSelectionListener;
 
 import main.AnimeIndex;
 import util.SortedListModel;
-import util.task.SynchronizeToMALTask;
 
 
 public class MALExportDialog extends JDialog
@@ -182,6 +181,7 @@ public class MALExportDialog extends JDialog
 							sinchronyzeButton.setEnabled(false);
 					}
 				});
+				list.setFont(AnimeIndex.segui.deriveFont(12f));
 				listPane.setViewportView(list);
 			}
 		}
@@ -219,9 +219,9 @@ public class MALExportDialog extends JDialog
 					       List animeToAdd = list.getSelectedValuesList();
 					       String username = usernameField.getText();
 					       String password = new String(passwordField.getPassword());
-					       //TODO aggiungere waiting dialog
-					       SynchronizeToMALTask task = new SynchronizeToMALTask(username, password, animeToAdd);
-					       task.execute();
+					       SynchronizingExportDialog dial = new SynchronizingExportDialog(username, password, animeToAdd);
+					       dial.setLocationRelativeTo(MALExportDialog.this);
+					       dial.setVisible(true);
 					    }
 						
 					}
