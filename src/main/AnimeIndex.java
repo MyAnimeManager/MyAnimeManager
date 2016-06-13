@@ -107,14 +107,10 @@ import util.window.WishlistDialog;
 //import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 //TODO fixare "IL BUG"
-//fixare conurrent modification exception --> DONE
 //TODO caratteri speciali aggiunta anime
-//cancellando dall'album le musiche nn vengono cancellate dopo aver chiso e riaperto il dialog --> DONE
 //TODO importare uscite stagionali da rad
-//aggiunta manuale: ?? inserimento numero ep totale --> DONE
-//durata ep se manca "min" aggiunta automatica quando si preme aggiungi --> DONE
-//all'inserimento di un nuovo oav se la data di uscita e' prima di quella corrente inserirlo subito nella lista "date" e impostare il giorno di uscita su rilasciato --> DONE
-//impedire inserimento totep < currep in animeinformation --> DONE
+//TODO sistema intelligente di risoluzione conflitti durante importazione da MAL
+//TODO Sostituire bottoni con Checkbox nella finestra di sincronizzazione e rendere coerente tuttecose
 
 public class AnimeIndex extends JFrame
 {
