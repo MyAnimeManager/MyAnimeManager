@@ -85,7 +85,7 @@ public class MALExportDialog extends JDialog
 			}
 		});
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 455, 325);
+		setBounds(100, 100, 464, 325);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -186,33 +186,6 @@ public class MALExportDialog extends JDialog
 				optionPanel.add(deselectAllButton);
 			}
 			{
-				completedButton = new JToggleButton("Completi");
-				completedButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-						if (completedButton.isSelected())
-						{
-							completedButton.setBackground(Color.GRAY);
-							int size = completedIndeces.size();
-							for (int i = 0; i < size; i++)
-							{
-								list.addSelectionInterval(completedIndeces.get(i), completedIndeces.get(i));
-							}						
-						}
-						else
-						{
-							completedButton.setBackground(UIManager.getColor(completedButton));
-							int size = completedIndeces.size();
-							for (int i = 0; i < size; i++)
-							{
-								list.removeSelectionInterval(completedIndeces.get(i), completedIndeces.get(i));
-							}	
-						}
-					}
-				});
-				optionPanel.add(completedButton);
-			}
-			{
 				airingButton = new JToggleButton("In Corso");
 				airingButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -236,6 +209,85 @@ public class MALExportDialog extends JDialog
 						}
 					}
 				});
+				{
+					wishlistButton = new JToggleButton("Wishlist");
+					wishlistButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if (wishlistButton.isSelected())
+							{
+								wishlistButton.setBackground(Color.GRAY);
+								int size = wishlistIndeces.size();
+								for (int i = 0; i < size; i++)
+								{
+									list.addSelectionInterval(wishlistIndeces.get(i), wishlistIndeces.get(i));
+								}						
+							}
+							else
+							{
+								wishlistButton.setBackground(UIManager.getColor(completedButton));
+								int size = wishlistIndeces.size();
+								for (int i = 0; i < size; i++)
+								{
+									list.removeSelectionInterval(wishlistIndeces.get(i), wishlistIndeces.get(i));
+								}	
+							}
+						}
+					});
+					optionPanel.add(wishlistButton);
+				}
+				{
+					droplistButton = new JToggleButton("Droplist");
+					droplistButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if (droplistButton.isSelected())
+							{
+								droplistButton.setBackground(Color.GRAY);
+								int size = droplistIndeces.size();
+								for (int i = 0; i < size; i++)
+								{
+									list.addSelectionInterval(droplistIndeces.get(i), droplistIndeces.get(i));
+								}						
+							}
+							else
+							{
+								droplistButton.setBackground(UIManager.getColor(completedButton));
+								int size = droplistIndeces.size();
+								for (int i = 0; i < size; i++)
+								{
+									list.removeSelectionInterval(droplistIndeces.get(i), droplistIndeces.get(i));
+								}	
+							}
+						}
+					});
+					optionPanel.add(droplistButton);
+				}
+				{
+					completedButton = new JToggleButton("Completati");
+					completedButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							
+							if (completedButton.isSelected())
+							{
+								completedButton.setBackground(Color.GRAY);
+								int size = completedIndeces.size();
+								for (int i = 0; i < size; i++)
+								{
+									list.addSelectionInterval(completedIndeces.get(i), completedIndeces.get(i));
+								}						
+							}
+							else
+							{
+								completedButton.setBackground(UIManager.getColor(completedButton));
+								int size = completedIndeces.size();
+								for (int i = 0; i < size; i++)
+								{
+									list.removeSelectionInterval(completedIndeces.get(i), completedIndeces.get(i));
+								}	
+							}
+						}
+					});
+					optionPanel.add(completedButton);
+				}
 				optionPanel.add(airingButton);
 			}
 			{
@@ -315,58 +367,6 @@ public class MALExportDialog extends JDialog
 					}
 				});
 				optionPanel.add(completedToSeeButton);
-			}
-			{
-				wishlistButton = new JToggleButton("Wishlist");
-				wishlistButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (wishlistButton.isSelected())
-						{
-							wishlistButton.setBackground(Color.GRAY);
-							int size = wishlistIndeces.size();
-							for (int i = 0; i < size; i++)
-							{
-								list.addSelectionInterval(wishlistIndeces.get(i), wishlistIndeces.get(i));
-							}						
-						}
-						else
-						{
-							wishlistButton.setBackground(UIManager.getColor(completedButton));
-							int size = wishlistIndeces.size();
-							for (int i = 0; i < size; i++)
-							{
-								list.removeSelectionInterval(wishlistIndeces.get(i), wishlistIndeces.get(i));
-							}	
-						}
-					}
-				});
-				optionPanel.add(wishlistButton);
-			}
-			{
-				droplistButton = new JToggleButton("Droplist");
-				droplistButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (droplistButton.isSelected())
-						{
-							droplistButton.setBackground(Color.GRAY);
-							int size = droplistIndeces.size();
-							for (int i = 0; i < size; i++)
-							{
-								list.addSelectionInterval(droplistIndeces.get(i), droplistIndeces.get(i));
-							}						
-						}
-						else
-						{
-							droplistButton.setBackground(UIManager.getColor(completedButton));
-							int size = droplistIndeces.size();
-							for (int i = 0; i < size; i++)
-							{
-								list.removeSelectionInterval(droplistIndeces.get(i), droplistIndeces.get(i));
-							}	
-						}
-					}
-				});
-				optionPanel.add(droplistButton);
 			}
 		}
 		{

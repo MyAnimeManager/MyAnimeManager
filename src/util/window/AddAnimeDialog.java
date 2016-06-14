@@ -97,9 +97,7 @@ public class AddAnimeDialog extends JDialog
 	private JComboBox checkDataConflictComboBoxManualAdd;
 	private static JTabbedPane tabbedPane;
 
-	/**
-	 * Create the dialog.
-	 */
+	
 	public AddAnimeDialog()
 	{
 		super(AnimeIndex.frame, true);

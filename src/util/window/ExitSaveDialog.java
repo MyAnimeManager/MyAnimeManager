@@ -1,7 +1,6 @@
 package util.window;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,105 +18,112 @@ import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.FileManager;
 import util.MAMUtil;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+
 
 public class ExitSaveDialog extends JDialog
 {
-
 	private final JPanel contentPanel = new JPanel();
 
 	public ExitSaveDialog()
 	{
 		super(AnimeIndex.frame, true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ExitSaveDialog.class.getResource("/image/icon.png")));
-		setTitle("Conferma Uscita");
+		setTitle("Salvare le modifiche prima di uscire?");
 		setModal(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setResizable(false);
-		setBounds(100, 100, 389, 100);
+		setBounds(100, 100, 335, 156);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
+		contentPanel.setAlignmentY(1.0f);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.NORTH);
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		GridBagLayout gbl_contentPanel = new GridBagLayout();
+		gbl_contentPanel.columnWidths = new int[]{88, 0};
+		gbl_contentPanel.rowHeights = new int[]{40, 40, 34, 0};
+		gbl_contentPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		contentPanel.setLayout(gbl_contentPanel);
+		JButton btnExit = new JButton("Esci");
+		GridBagConstraints gbc_btnExit = new GridBagConstraints();
+		gbc_btnExit.fill = GridBagConstraints.BOTH;
+		gbc_btnExit.insets = new Insets(0, 0, 5, 0);
+		gbc_btnExit.gridx = 0;
+		gbc_btnExit.gridy = 0;
+		contentPanel.add(btnExit, gbc_btnExit);
+		btnExit.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
+
+				imageShifter();
+				
+				try
+				{
+					FileManager.deleteData(new File(MAMUtil.getTempDownloadPath()));
+				}
+				catch (IOException e1)
+				{
+					MAMUtil.writeLog(e1);
+					e1.printStackTrace();
+				}
+				
+				MAMUtil.deleteUselessImage(AnimeIndex.completedSessionAnime);
+				MAMUtil.deleteUselessImage(AnimeIndex.airingSessionAnime);
+				MAMUtil.deleteUselessImage(AnimeIndex.ovaSessionAnime);
+				MAMUtil.deleteUselessImage(AnimeIndex.filmSessionAnime);
+				MAMUtil.deleteUselessImage(AnimeIndex.completedToSeeSessionAnime);
+				MAMUtil.deleteUselessImage(AnimeIndex.sessionAddedAnime);
+				Object[] keyArr = AnimeIndex.sessionAddedAnimeImagesShiftsRegister.keySet().toArray();
+				for (int i = 0; i < keyArr.length; i++)
+					try
+					{
+						FileManager.deleteData(new File(AnimeIndex.sessionAddedAnimeImagesShiftsRegister.get(keyArr[i])));
+					}
+					catch (IOException e)
+					{
+					}
+				System.exit(0);
+			}
+		});
+		JButton btnSaveAndExit = new JButton("Salva ed Esci");
+		GridBagConstraints gbc_btnSaveAndExit = new GridBagConstraints();
+		gbc_btnSaveAndExit.fill = GridBagConstraints.BOTH;
+		gbc_btnSaveAndExit.insets = new Insets(0, 0, 5, 0);
+		gbc_btnSaveAndExit.gridx = 0;
+		gbc_btnSaveAndExit.gridy = 1;
+		contentPanel.add(btnSaveAndExit, gbc_btnSaveAndExit);
+		btnSaveAndExit.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				// salva
+				MAMUtil.saveData();
+
+				System.exit(0);
+			}
+		});
 		{
-			JLabel lblVuoiSalvareLe = new JLabel("Vuoi salvare le modifiche prima di uscire?");
-			contentPanel.add(lblVuoiSalvareLe);
+			JButton button = new JButton("Annulla");
+			button.setActionCommand("Cancel");
+			GridBagConstraints gbc_button = new GridBagConstraints();
+			gbc_button.fill = GridBagConstraints.BOTH;
+			gbc_button.gridx = 0;
+			gbc_button.gridy = 2;
+			contentPanel.add(button, gbc_button);
 		}
 		{
-			JPanel buttonPane = new JPanel();
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			FlowLayout fl_buttonPane = new FlowLayout(FlowLayout.CENTER, 50, 5);
-			buttonPane.setLayout(fl_buttonPane);
-			{
-				{
-					JButton btnSaveAndExit = new JButton("Salva ed Esci");
-					btnSaveAndExit.addActionListener(new ActionListener() {
-
-						@Override
-						public void actionPerformed(ActionEvent e)
-						{
-							// salva
-							MAMUtil.saveData();
-
-							System.exit(0);
-						}
-					});
-					JButton btnExit = new JButton("Esci");
-					btnExit.addActionListener(new ActionListener() {
-
-						@Override
-						public void actionPerformed(ActionEvent arg0)
-						{
-							AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
-
-							imageShifter();
-							
-							try
-							{
-								FileManager.deleteData(new File(MAMUtil.getTempDownloadPath()));
-							}
-							catch (IOException e1)
-							{
-								MAMUtil.writeLog(e1);
-								e1.printStackTrace();
-							}
-							
-							MAMUtil.deleteUselessImage(AnimeIndex.completedSessionAnime);
-							MAMUtil.deleteUselessImage(AnimeIndex.airingSessionAnime);
-							MAMUtil.deleteUselessImage(AnimeIndex.ovaSessionAnime);
-							MAMUtil.deleteUselessImage(AnimeIndex.filmSessionAnime);
-							MAMUtil.deleteUselessImage(AnimeIndex.completedToSeeSessionAnime);
-							MAMUtil.deleteUselessImage(AnimeIndex.sessionAddedAnime);
-							Object[] keyArr = AnimeIndex.sessionAddedAnimeImagesShiftsRegister.keySet().toArray();
-							for (int i = 0; i < keyArr.length; i++)
-								try
-								{
-									FileManager.deleteData(new File(AnimeIndex.sessionAddedAnimeImagesShiftsRegister.get(keyArr[i])));
-								}
-								catch (IOException e)
-								{
-								}
-							System.exit(0);
-						}
-					});
-					buttonPane.add(btnExit);
-					buttonPane.add(btnSaveAndExit);
-				}
-			}
-			{
-				JButton cancelButton = new JButton("Annulla");
-				cancelButton.addActionListener(new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						JButton but = (JButton) e.getSource();
-						JDialog dialog = (JDialog) but.getTopLevelAncestor();
-						dialog.dispose();
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+			JLabel lblNewLabel = new JLabel("");
+			lblNewLabel.setIcon(new ImageIcon(ExitSaveDialog.class.getResource("/image/Hatsune-Miku-Vocaloid...............................png")));
+			lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
+			getContentPane().add(lblNewLabel, BorderLayout.WEST);
 		}
 	}
 
