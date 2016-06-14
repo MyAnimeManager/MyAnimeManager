@@ -403,7 +403,7 @@ public class AnimeIndex extends JFrame
 		});
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		setBounds((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 5, ((int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 7) - 22, 800, 520);
-		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2));
+		this.setMinimumSize(new Dimension(800, 520));
 		this.setMaximumSize(new Dimension(800, 520));
 		
 		JMenuBar menuBar = new JMenuBar();
