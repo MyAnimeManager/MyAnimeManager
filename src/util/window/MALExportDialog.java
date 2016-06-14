@@ -29,6 +29,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import main.AnimeIndex;
 import util.SortedListModel;
 
@@ -54,6 +56,8 @@ public class MALExportDialog extends JDialog
 	private JToggleButton completedToSeeButton;
 	private JToggleButton wishlistButton;
 	private JToggleButton droplistButton;
+	
+	private boolean buttonControl = false;
 	
 	
 	public MALExportDialog()
@@ -135,7 +139,9 @@ public class MALExportDialog extends JDialog
 						}
 						
 						int size = listModel.getSize();
+						buttonControl = true;
 						list.setSelectionInterval(0, size - 1);
+						buttonControl = false;
 					}
 				});
 				optionPanel.add(selectAllButton);
@@ -179,8 +185,9 @@ public class MALExportDialog extends JDialog
 							droplistButton.setSelected(false);
 							droplistButton.setBackground(UIManager.getColor(droplistButton));
 						}
-						
+						buttonControl = true;
 						list.clearSelection();
+						buttonControl = false;
 					}
 				});
 				optionPanel.add(deselectAllButton);
@@ -189,6 +196,7 @@ public class MALExportDialog extends JDialog
 				airingButton = new JToggleButton("In Corso");
 				airingButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						buttonControl = true;
 						if (airingButton.isSelected())
 						{
 							airingButton.setBackground(Color.GRAY);
@@ -207,12 +215,14 @@ public class MALExportDialog extends JDialog
 								list.removeSelectionInterval(airingIndeces.get(i), airingIndeces.get(i));
 							}	
 						}
+						buttonControl = false;
 					}
 				});
 				{
 					wishlistButton = new JToggleButton("Wishlist");
 					wishlistButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
+							buttonControl = true;
 							if (wishlistButton.isSelected())
 							{
 								wishlistButton.setBackground(Color.GRAY);
@@ -231,7 +241,9 @@ public class MALExportDialog extends JDialog
 									list.removeSelectionInterval(wishlistIndeces.get(i), wishlistIndeces.get(i));
 								}	
 							}
+							buttonControl = false;
 						}
+						
 					});
 					optionPanel.add(wishlistButton);
 				}
@@ -239,6 +251,7 @@ public class MALExportDialog extends JDialog
 					droplistButton = new JToggleButton("Droplist");
 					droplistButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
+							buttonControl = true;
 							if (droplistButton.isSelected())
 							{
 								droplistButton.setBackground(Color.GRAY);
@@ -257,6 +270,7 @@ public class MALExportDialog extends JDialog
 									list.removeSelectionInterval(droplistIndeces.get(i), droplistIndeces.get(i));
 								}	
 							}
+							buttonControl = false;
 						}
 					});
 					optionPanel.add(droplistButton);
@@ -265,7 +279,7 @@ public class MALExportDialog extends JDialog
 					completedButton = new JToggleButton("Completati");
 					completedButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							
+							buttonControl = true;
 							if (completedButton.isSelected())
 							{
 								completedButton.setBackground(Color.GRAY);
@@ -284,6 +298,7 @@ public class MALExportDialog extends JDialog
 									list.removeSelectionInterval(completedIndeces.get(i), completedIndeces.get(i));
 								}	
 							}
+							buttonControl = false;
 						}
 					});
 					optionPanel.add(completedButton);
@@ -294,6 +309,7 @@ public class MALExportDialog extends JDialog
 				ovaButton = new JToggleButton("OAV");
 				ovaButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						buttonControl = true;
 						if (ovaButton.isSelected())
 						{
 							ovaButton.setBackground(Color.GRAY);
@@ -312,6 +328,7 @@ public class MALExportDialog extends JDialog
 								list.removeSelectionInterval(ovaIndeces.get(i), ovaIndeces.get(i));
 							}	
 						}
+						buttonControl = false;
 					}
 				});
 				optionPanel.add(ovaButton);
@@ -320,6 +337,7 @@ public class MALExportDialog extends JDialog
 				filmButton = new JToggleButton("Film");
 				filmButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						buttonControl = true;
 						if (filmButton.isSelected())
 						{
 							filmButton.setBackground(Color.GRAY);
@@ -338,6 +356,7 @@ public class MALExportDialog extends JDialog
 								list.removeSelectionInterval(filmIndeces.get(i), filmIndeces.get(i));
 							}	
 						}
+						buttonControl = false;
 					}
 				});
 				optionPanel.add(filmButton);
@@ -346,6 +365,7 @@ public class MALExportDialog extends JDialog
 				completedToSeeButton = new JToggleButton("Completi da Vedere");
 				completedToSeeButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						buttonControl = true;
 						if (completedToSeeButton.isSelected())
 						{
 							completedToSeeButton.setBackground(Color.GRAY);
@@ -364,6 +384,7 @@ public class MALExportDialog extends JDialog
 								list.removeSelectionInterval(completedToSeeIndeces.get(i), completedToSeeIndeces.get(i));
 							}	
 						}
+						buttonControl = false;
 					}
 				});
 				optionPanel.add(completedToSeeButton);
@@ -383,6 +404,79 @@ public class MALExportDialog extends JDialog
 						else
 							sinchronyzeButton.setEnabled(false);
 						setTitle("Selezione Anime da Esportare : "+list.getSelectedValuesList().size()+"/"+listModel.getSize());
+						
+						int[] indeces = list.getSelectedIndices();
+						
+						for (int index : completedIndeces)
+						{
+
+							if (!buttonControl && !ArrayUtils.contains(indeces, index))
+							{
+								completedButton.setSelected(false);
+								completedButton.setBackground(UIManager.getColor(completedButton));
+								break;
+							}
+						}
+						
+						for (int index : airingIndeces)
+						{
+							if (!ArrayUtils.contains(indeces, index))
+							{
+								airingButton.setSelected(false);
+								airingButton.setBackground(UIManager.getColor(completedButton));
+								break;
+							}
+						}
+						
+						for (int index : ovaIndeces)
+						{
+							if (!ArrayUtils.contains(indeces, index))
+							{
+								ovaButton.setSelected(false);
+								ovaButton.setBackground(UIManager.getColor(completedButton));
+								break;
+							}
+						}
+						
+						for (int index : filmIndeces)
+						{
+							if (!ArrayUtils.contains(indeces, index))
+							{
+								filmButton.setSelected(false);
+								filmButton.setBackground(UIManager.getColor(completedButton));
+								break;
+							}
+						}
+						
+						for (int index : completedToSeeIndeces)
+						{
+							if (!ArrayUtils.contains(indeces, index))
+							{
+								completedToSeeButton.setSelected(false);
+								completedToSeeButton.setBackground(UIManager.getColor(completedButton));
+								break;
+							}
+						}
+						
+						for (int index : wishlistIndeces)
+						{
+							if (!ArrayUtils.contains(indeces, index))
+							{
+								wishlistButton.setSelected(false);
+								wishlistButton.setBackground(UIManager.getColor(completedButton));
+								break;
+							}
+						}
+						
+						for (int index : droplistIndeces)
+						{
+							if (!ArrayUtils.contains(indeces, index))
+							{
+								droplistButton.setSelected(false);
+								droplistButton.setBackground(UIManager.getColor(completedButton));
+								break;
+							}
+						}
 					}
 				});
 				list.setFont(AnimeIndex.segui.deriveFont(12f));
