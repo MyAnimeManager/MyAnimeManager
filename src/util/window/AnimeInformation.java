@@ -1034,7 +1034,6 @@ public class AnimeInformation extends JPanel
 		JScrollPane noteScrollPane = new JScrollPane();
 		noteScrollPane.setSize(new Dimension(350, 50));
 		noteScrollPane.setMinimumSize(new Dimension(350, 50));
-		noteScrollPane.setMaximumSize(new Dimension(350, 50));
 		noteScrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 		GridBagConstraints gbc_noteScrollPane = new GridBagConstraints();
 		gbc_noteScrollPane.insets = new Insets(0, 0, 5, 5);
@@ -1047,7 +1046,6 @@ public class AnimeInformation extends JPanel
 		noteTextArea = new JTextArea();
 		noteTextArea.setSize(new Dimension(350, 10));
 		noteTextArea.setMinimumSize(new Dimension(350, 50));
-		noteTextArea.setMaximumSize(new Dimension(350, 50));
 		noteTextArea.setPreferredSize(new Dimension(350, 50));
 		noteTextArea.setFont(AnimeIndex.segui.deriveFont(13f));
 		noteScrollPane.setViewportView(noteTextArea);
