@@ -1,6 +1,7 @@
 package util.window;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -20,10 +22,13 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import main.AnimeIndex;
 import util.SortedListModel;
 
@@ -40,6 +45,15 @@ public class MALExportDialog extends JDialog
 	private ArrayList<Integer> ovaIndeces;
 	private ArrayList<Integer> filmIndeces;
 	private ArrayList<Integer> completedToSeeIndeces;
+	private ArrayList<Integer> wishlistIndeces;
+	private ArrayList<Integer> droplistIndeces;
+	private JToggleButton completedButton;
+	private JToggleButton airingButton;
+	private JToggleButton ovaButton;
+	private JToggleButton filmButton;
+	private JToggleButton completedToSeeButton;
+	private JToggleButton wishlistButton;
+	private JToggleButton droplistButton;
 	
 	
 	public MALExportDialog()
@@ -54,16 +68,24 @@ public class MALExportDialog extends JDialog
 				listModel.addAll(AnimeIndex.ovaMap.keySet());
 				listModel.addAll(AnimeIndex.filmMap.keySet());
 				listModel.addAll(AnimeIndex.completedToSeeMap.keySet());
+				listModel.addAll(AnimeIndex.wishlistMap.keySet());
+				listModel.addAll(AnimeIndex.wishlistMALMap.keySet());
+				listModel.addAll(AnimeIndex.droppedMap.keySet());
+				listModel.addAll(AnimeIndex.droppedMALMap.keySet());
+				
 				completedIndeces = getIndexOf(AnimeIndex.completedModel);
 				airingIndeces = getIndexOf(AnimeIndex.airingModel);
 				ovaIndeces = getIndexOf(AnimeIndex.ovaModel);
 				filmIndeces = getIndexOf(AnimeIndex.filmModel);
-				completedToSeeIndeces = getIndexOf(AnimeIndex.completedToSeeModel);		
+				completedToSeeIndeces = getIndexOf(AnimeIndex.completedToSeeModel);	
+				wishlistIndeces = getIndexOf(AnimeIndex.wishlistDialog.wishListModel);
+				droplistIndeces = getIndexOf(AnimeIndex.wishlistDialog.wishListModel);
+				
 				setTitle("Selezione Anime da Esportare : 0/"+listModel.getSize());
 			}
 		});
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 455, 325);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -76,8 +98,44 @@ public class MALExportDialog extends JDialog
 				JButton selectAllButton = new JButton("Seleziona Tutti");
 				selectAllButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int total = listModel.getSize();
-						list.setSelectionInterval(0, total -1);
+						if (!completedButton.isSelected())
+						{
+							completedButton.setSelected(true);
+							completedButton.setBackground(Color.GRAY);
+						}
+						if (!airingButton.isSelected())
+						{
+							airingButton.setSelected(true);
+							airingButton.setBackground(Color.GRAY);
+						}
+						if (!ovaButton.isSelected())
+						{
+							ovaButton.setSelected(true);
+							ovaButton.setBackground(Color.GRAY);
+						}
+						if (!filmButton.isSelected())
+						{
+							filmButton.setSelected(true);
+							filmButton.setBackground(Color.GRAY);
+						}
+						if (!completedToSeeButton.isSelected())
+						{
+							completedToSeeButton.setSelected(true);
+							completedToSeeButton.setBackground(Color.GRAY);
+						}
+						if (!wishlistButton.isSelected())
+						{
+							wishlistButton.setSelected(true);
+							wishlistButton.setBackground(Color.GRAY);
+						}
+						if (!droplistButton.isSelected())
+						{
+							droplistButton.setSelected(true);
+							droplistButton.setBackground(Color.GRAY);
+						}
+						
+						int size = listModel.getSize();
+						list.setSelectionInterval(0, size - 1);
 					}
 				});
 				optionPanel.add(selectAllButton);
@@ -86,85 +144,229 @@ public class MALExportDialog extends JDialog
 				JButton deselectAllButton = new JButton("Deseleziona Tutti");
 				deselectAllButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						if (completedButton.isSelected())
+						{
+							completedButton.setSelected(false);
+							completedButton.setBackground(UIManager.getColor(completedButton));
+						}
+						if (airingButton.isSelected())
+						{
+							airingButton.setSelected(false);
+							airingButton.setBackground(UIManager.getColor(airingButton));
+						}
+						if (ovaButton.isSelected())
+						{
+							ovaButton.setSelected(false);
+							ovaButton.setBackground(UIManager.getColor(ovaButton));
+						}
+						if (filmButton.isSelected())
+						{
+							filmButton.setSelected(false);
+							filmButton.setBackground(UIManager.getColor(filmButton));
+						}
+						if (completedToSeeButton.isSelected())
+						{
+							completedToSeeButton.setSelected(false);
+							completedToSeeButton.setBackground(UIManager.getColor(completedToSeeButton));
+						}
+						if (wishlistButton.isSelected())
+						{
+							wishlistButton.setSelected(false);
+							wishlistButton.setBackground(UIManager.getColor(wishlistButton));
+						}
+						if (droplistButton.isSelected())
+						{
+							droplistButton.setSelected(false);
+							droplistButton.setBackground(UIManager.getColor(droplistButton));
+						}
+						
 						list.clearSelection();
 					}
 				});
 				optionPanel.add(deselectAllButton);
 			}
 			{
-				JButton completedButton = new JButton("Completi");
+				completedButton = new JToggleButton("Completi");
 				completedButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int size = completedIndeces.size();
-						int[] indeces = new int[size];
-						for (int i = 0; i < size; i++)
+						
+						if (completedButton.isSelected())
 						{
-							indeces[i] = completedIndeces.get(i);
+							completedButton.setBackground(Color.GRAY);
+							int size = completedIndeces.size();
+							for (int i = 0; i < size; i++)
+							{
+								list.addSelectionInterval(completedIndeces.get(i), completedIndeces.get(i));
+							}						
 						}
-						list.setSelectedIndices(indeces);
+						else
+						{
+							completedButton.setBackground(UIManager.getColor(completedButton));
+							int size = completedIndeces.size();
+							for (int i = 0; i < size; i++)
+							{
+								list.removeSelectionInterval(completedIndeces.get(i), completedIndeces.get(i));
+							}	
+						}
 					}
 				});
 				optionPanel.add(completedButton);
 			}
 			{
-				JButton airingButton = new JButton("In Corso");
+				airingButton = new JToggleButton("In Corso");
 				airingButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int size = airingIndeces.size();
-						int[] indeces = new int[size];
-						for (int i = 0; i < size; i++)
+						if (airingButton.isSelected())
 						{
-							indeces[i] = airingIndeces.get(i);
+							airingButton.setBackground(Color.GRAY);
+							int size = airingIndeces.size();
+							for (int i = 0; i < size; i++)
+							{
+								list.addSelectionInterval(airingIndeces.get(i), airingIndeces.get(i));
+							}						
 						}
-						list.setSelectedIndices(indeces);
+						else
+						{
+							airingButton.setBackground(UIManager.getColor(completedButton));
+							int size = airingIndeces.size();
+							for (int i = 0; i < size; i++)
+							{
+								list.removeSelectionInterval(airingIndeces.get(i), airingIndeces.get(i));
+							}	
+						}
 					}
 				});
 				optionPanel.add(airingButton);
 			}
 			{
-				JButton ovaButton = new JButton("OAV");
+				ovaButton = new JToggleButton("OAV");
 				ovaButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int size = ovaIndeces.size();
-						int[] indeces = new int[size];
-						for (int i = 0; i < size; i++)
+						if (ovaButton.isSelected())
 						{
-							indeces[i] = ovaIndeces.get(i);
+							ovaButton.setBackground(Color.GRAY);
+							int size = ovaIndeces.size();
+							for (int i = 0; i < size; i++)
+							{
+								list.addSelectionInterval(ovaIndeces.get(i), ovaIndeces.get(i));
+							}						
 						}
-						list.setSelectedIndices(indeces);
+						else
+						{
+							ovaButton.setBackground(UIManager.getColor(completedButton));
+							int size = ovaIndeces.size();
+							for (int i = 0; i < size; i++)
+							{
+								list.removeSelectionInterval(ovaIndeces.get(i), ovaIndeces.get(i));
+							}	
+						}
 					}
 				});
 				optionPanel.add(ovaButton);
 			}
 			{
-				JButton filmButton = new JButton("Film");
+				filmButton = new JToggleButton("Film");
 				filmButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int size = filmIndeces.size();
-						int[] indeces = new int[size];
-						for (int i = 0; i < size; i++)
+						if (filmButton.isSelected())
 						{
-							indeces[i] = filmIndeces.get(i);
+							filmButton.setBackground(Color.GRAY);
+							int size = filmIndeces.size();
+							for (int i = 0; i < size; i++)
+							{
+								list.addSelectionInterval(filmIndeces.get(i), filmIndeces.get(i));
+							}						
 						}
-						list.setSelectedIndices(indeces);
+						else
+						{
+							filmButton.setBackground(UIManager.getColor(completedButton));
+							int size = filmIndeces.size();
+							for (int i = 0; i < size; i++)
+							{
+								list.removeSelectionInterval(filmIndeces.get(i), filmIndeces.get(i));
+							}	
+						}
 					}
 				});
 				optionPanel.add(filmButton);
 			}
 			{
-				JButton completedToSeeButton = new JButton("Completi da Vedere");
+				completedToSeeButton = new JToggleButton("Completi da Vedere");
 				completedToSeeButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int size = completedToSeeIndeces.size();
-						int[] indeces = new int[size];
-						for (int i = 0; i < size; i++)
+						if (completedToSeeButton.isSelected())
 						{
-							indeces[i] = completedToSeeIndeces.get(i);
+							completedToSeeButton.setBackground(Color.GRAY);
+							int size = completedToSeeIndeces.size();
+							for (int i = 0; i < size; i++)
+							{
+								list.addSelectionInterval(completedToSeeIndeces.get(i), completedToSeeIndeces.get(i));
+							}						
 						}
-						list.setSelectedIndices(indeces);
+						else
+						{
+							completedToSeeButton.setBackground(UIManager.getColor(completedButton));
+							int size = completedToSeeIndeces.size();
+							for (int i = 0; i < size; i++)
+							{
+								list.removeSelectionInterval(completedToSeeIndeces.get(i), completedToSeeIndeces.get(i));
+							}	
+						}
 					}
 				});
 				optionPanel.add(completedToSeeButton);
+			}
+			{
+				wishlistButton = new JToggleButton("Wishlist");
+				wishlistButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (wishlistButton.isSelected())
+						{
+							wishlistButton.setBackground(Color.GRAY);
+							int size = wishlistIndeces.size();
+							for (int i = 0; i < size; i++)
+							{
+								list.addSelectionInterval(wishlistIndeces.get(i), wishlistIndeces.get(i));
+							}						
+						}
+						else
+						{
+							wishlistButton.setBackground(UIManager.getColor(completedButton));
+							int size = wishlistIndeces.size();
+							for (int i = 0; i < size; i++)
+							{
+								list.removeSelectionInterval(wishlistIndeces.get(i), wishlistIndeces.get(i));
+							}	
+						}
+					}
+				});
+				optionPanel.add(wishlistButton);
+			}
+			{
+				droplistButton = new JToggleButton("Droplist");
+				droplistButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (droplistButton.isSelected())
+						{
+							droplistButton.setBackground(Color.GRAY);
+							int size = droplistIndeces.size();
+							for (int i = 0; i < size; i++)
+							{
+								list.addSelectionInterval(droplistIndeces.get(i), droplistIndeces.get(i));
+							}						
+						}
+						else
+						{
+							droplistButton.setBackground(UIManager.getColor(completedButton));
+							int size = droplistIndeces.size();
+							for (int i = 0; i < size; i++)
+							{
+								list.removeSelectionInterval(droplistIndeces.get(i), droplistIndeces.get(i));
+							}	
+						}
+					}
+				});
+				optionPanel.add(droplistButton);
 			}
 		}
 		{

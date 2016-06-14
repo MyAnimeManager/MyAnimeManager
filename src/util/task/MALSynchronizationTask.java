@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import javax.swing.JOptionPane;
@@ -174,7 +175,30 @@ public class MALSynchronizationTask extends SwingWorker
 			}
 			else if (map.size() > 1)
 			{
-				conflictedAnime.add(obj);
+				boolean founded = false; 
+				for (Entry<String,Integer> entry : map.entrySet())
+				{					
+					if (!founded)
+					{
+						String mapTitle = entry.getKey();
+						if (title.equalsIgnoreCase(mapTitle))
+						{
+							founded = true;
+							int id = map.get(mapTitle);
+							mapTitle = mapTitle.replace("\\", "\\\\");
+							mapTitle = mapTitle.replace("!", "\\!");
+							if(mapTitle.startsWith("."))
+								mapTitle = mapTitle.replaceFirst(".", "");
+							automaticAdd(mapTitle, id, "anime in corso");
+							currentAnimeNumber++;
+							int progress =(int) ((currentAnimeNumber/totalAnimeNumber) * 100);
+							setProgress(progress);
+						} 
+					}
+					
+				}
+				if (!founded)
+					conflictedAnime.add(obj);
 			}
 			else if (map.size() == 0)
 			{
@@ -203,8 +227,31 @@ public class MALSynchronizationTask extends SwingWorker
 							}
 							else if (map.size() > 1)
 							{
-								conflictedAnime.add(obj);
 								found = true;
+								boolean founded = false; 
+								for (Entry<String,Integer> entry : map.entrySet())
+								{					
+									if (!founded)
+									{
+										String mapTitle = entry.getKey();
+										if (title.equalsIgnoreCase(mapTitle))
+										{
+											founded = true;
+											int id = map.get(mapTitle);
+											mapTitle = mapTitle.replace("\\", "\\\\");
+											mapTitle = mapTitle.replace("!", "\\!");
+											if(mapTitle.startsWith("."))
+												mapTitle = mapTitle.replaceFirst(".", "");
+											automaticAdd(mapTitle, id, "anime in corso");
+											currentAnimeNumber++;
+											int progress =(int) ((currentAnimeNumber/totalAnimeNumber) * 100);
+											setProgress(progress);
+										} 
+									}
+									
+								}
+								if (!founded)
+									conflictedAnime.add(obj);
 							}
 						}
 					}

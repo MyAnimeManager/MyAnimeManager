@@ -314,7 +314,7 @@ public class FileDrop
                             // Get a useful list
                             java.util.List fileList = (java.util.List) 
                                 tr.getTransferData(java.awt.datatransfer.DataFlavor.javaFileListFlavor);
-                            java.util.Iterator iterator = fileList.iterator();
+//                            java.util.Iterator iterator = fileList.iterator();
 
                             // Convert list to array
                             java.io.File[] filesTemp = new java.io.File[ fileList.size() ];
@@ -418,7 +418,8 @@ public class FileDrop
     }   // end constructor
 
     
-    private static boolean supportsDnD()
+    @SuppressWarnings("unused")
+	private static boolean supportsDnD()
     {   // Static Boolean
         if( supportsDnD == null )
         {   
@@ -591,9 +592,9 @@ public class FileDrop
                     remove( out, comps[i], recursive );
                 return true;
             }   // end if: recursive
-            else return false;
+			return false;
         }   // end if: supports DnD
-        else return false;
+		return false;
     }   // end remove
     
     
@@ -840,11 +841,10 @@ public class FileDrop
                     DATA_FLAVOR,
                     java.awt.datatransfer.DataFlavor.stringFlavor
                 };  // end flavors array
-            else
-                return new java.awt.datatransfer.DataFlavor[]
-                {   DATA_FLAVOR,
-                    java.awt.datatransfer.DataFlavor.stringFlavor
-                };  // end flavors array
+			return new java.awt.datatransfer.DataFlavor[]
+			{   DATA_FLAVOR,
+			    java.awt.datatransfer.DataFlavor.stringFlavor
+			};  // end flavors array
         }   // end getTransferDataFlavors
 
 

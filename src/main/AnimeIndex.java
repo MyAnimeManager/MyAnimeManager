@@ -37,9 +37,11 @@ import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -49,6 +51,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -104,14 +107,10 @@ import util.window.UpdateDialog;
 import util.window.WaitDialog;
 import util.window.WishlistDialog;
 
-//import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
-
 //TODO(Kirin) fixare "IL BUG"
 //TODO(Kirin) caratteri speciali aggiunta anime
 //TODO(Kirin) importare uscite stagionali da rad
-//TODO(Kirin) sistema intelligente di risoluzione conflitti durante importazione da MAL
-//TODO(Kirin) Sostituire bottoni con Checkbox nella finestra di sincronizzazione e rendere coerente tuttecose
-//TODO(Kirin) aggiunere wishlist e droplist al MALExportDialog
+
 
 public class AnimeIndex extends JFrame
 {
@@ -543,12 +542,38 @@ public class AnimeIndex extends JFrame
 		});
 		mntmImportMAL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String username = JOptionPane.showInputDialog(AnimeIndex.this, "Inserisci il nome utente di MyAnimeList", "Dati richiesti", JOptionPane.QUESTION_MESSAGE);
-				if (username != null && !username.isEmpty())
+				
+				JPanel panel = new JPanel(new BorderLayout(5, 5));
+				panel.add(new JLabel("Inserire i dati del proprio account MyAnimeList"), BorderLayout.NORTH);
+			    JPanel label = new JPanel(new GridLayout(0, 1, 2, 2));
+			    label.add(new JLabel("Username :", SwingConstants.RIGHT));
+
+			    panel.add(label, BorderLayout.WEST);
+			    
+			    JPanel controls = new JPanel(new GridLayout(0, 1, 2, 2));
+			    JTextField usernameField = new JTextField();
+			    controls.add(usernameField);
+
+			    panel.add(controls, BorderLayout.CENTER);
+			    
+			    JPanel rememberCheckBox = new JPanel();
+			    JCheckBox rememberUsername = new JCheckBox("Ricorda Username");
+			    if (!AnimeIndex.appProp.getProperty("Username").isEmpty())
+			    {
+			    	rememberUsername.setSelected(true);
+			    	usernameField.setText(AnimeIndex.appProp.getProperty("Username"));
+			    }
+			    rememberCheckBox.add(rememberUsername);
+			    panel.add(rememberCheckBox, BorderLayout.SOUTH);
+				
+			    int result = JOptionPane.showConfirmDialog(AnimeIndex.frame, panel, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if (result == JOptionPane.OK_OPTION)
 				{
-				SynchroDial = new SynchronizingImportDialog(username);
-				SynchroDial.setLocationRelativeTo(AnimeIndex.mainPanel);
-				SynchroDial.setVisible(true);
+					String username = usernameField.getText();
+					AnimeIndex.appProp.setProperty("Username", username);
+					SynchroDial = new SynchronizingImportDialog(username);
+					SynchroDial.setLocationRelativeTo(AnimeIndex.mainPanel);
+					SynchroDial.setVisible(true);
 				}
 			}
 		});

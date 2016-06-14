@@ -19,6 +19,7 @@ import util.window.AnimeInformation;
 public class LoadingTask extends SwingWorker
 {
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected Object doInBackground() throws Exception
 	{
