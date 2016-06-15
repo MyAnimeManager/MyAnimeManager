@@ -32,27 +32,26 @@ public class SplashScreen extends JWindow {
     private static JProgressBar pbar;
  
     public SplashScreen() {
-    	setSize(799,335);
-        setLocationRelativeTo(null);
-        ImageIcon img = new ImageIcon(getClass().getResource("/image/splash.png"));
-                        
-                        JPanel panel = new JPanel();
-                        panel.setBounds(0, 0, 10, 10);
-                        getContentPane().add(panel);
-                        panel.setLayout(new BorderLayout(0, 0));
-                        imglabel = new JLabel(img);
-                        panel.add(imglabel, BorderLayout.CENTER);
-                        imglabel.setPreferredSize(new Dimension(799,315));
-                        imglabel.setMinimumSize(new Dimension(799,315));
-                        pbar = new JProgressBar();
-                        pbar.setBackground(Color.BLACK);
-                        panel.add(pbar, BorderLayout.SOUTH);
-                        pbar.setMinimum(0);
-                        pbar.setMaximum(100);
-                        pbar.setStringPainted(true);
-                        pbar.setBorderPainted(false);
-                        pbar.setPreferredSize(new Dimension(310, 20));
-
+		setSize(799,335);
+	    setLocationRelativeTo(null);
+	    ImageIcon img = new ImageIcon(getClass().getResource("/image/splash.png"));                  
+	    JPanel panel = new JPanel();
+	    panel.setBounds(0, 0, 10, 10);
+	    getContentPane().add(panel);
+	    panel.setLayout(new BorderLayout(0, 0));
+	    imglabel = new JLabel(img);
+	    panel.add(imglabel, BorderLayout.CENTER);
+	    imglabel.setPreferredSize(new Dimension(799,315));
+	    imglabel.setMinimumSize(new Dimension(799,315));
+	    pbar = new JProgressBar();
+	    pbar.setBackground(Color.BLACK);
+	    panel.add(pbar, BorderLayout.SOUTH);
+	    pbar.setMinimum(0);
+	    pbar.setMaximum(100);
+	    pbar.setStringPainted(true);
+	    pbar.setBorderPainted(false);
+	    pbar.setStringPainted(false);
+	    pbar.setPreferredSize(new Dimension(310, 20));
     }
     
     public static void main(String args[])throws Exception
@@ -87,8 +86,7 @@ public class SplashScreen extends JWindow {
 				SubstanceLookAndFeel.getCurrentSkin().registerDecorationAreaSchemeBundle(defaultSchemeBundle, SubstanceLookAndFeel.getDecorationType(pbar));
 				SplashScreen s = new SplashScreen();
 		        s.setVisible(true);
-		        
-			    
+		        			    
 		        LoadingTask task = new LoadingTask();
 		        task.addPropertyChangeListener(new PropertyChangeListener() {
 					
@@ -123,14 +121,11 @@ public class SplashScreen extends JWindow {
 							AnimeIndex.wishlistDialog = new WishlistDialog();
 							AnimeIndex.newsBoardDialog = new NewsBoardDialog();
 					        s.dispose();
-						}
-						
+						}	
 					}
 				});
-		        task.execute();
-		        
+		       task.execute(); 
 			}
-		});
-    	
+		});	
     }
 }

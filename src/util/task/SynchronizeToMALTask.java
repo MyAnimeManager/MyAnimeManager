@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
@@ -53,7 +52,6 @@ public class SynchronizeToMALTask extends SwingWorker
 			setProgress(0);	
 			synchronizeAnimeToMAL(animeToAdd, true);
 			synchronizeAnimeToMAL(notFoundedAnime, false);
-
 		}
 		return null;
 	}
@@ -134,8 +132,7 @@ public class SynchronizeToMALTask extends SwingWorker
 							MAMUtil.writeLog(e);
 							e.printStackTrace();
 						}
-					}
-					
+					}				
 				}
 			} 
 		}
@@ -301,7 +298,6 @@ public class SynchronizeToMALTask extends SwingWorker
 								setProgress(progress);
 							}
 						}
-						
 					}
 				}
 				catch (IOException e)

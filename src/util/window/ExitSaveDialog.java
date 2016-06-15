@@ -32,6 +32,7 @@ public class ExitSaveDialog extends JDialog
 	public ExitSaveDialog()
 	{
 		super(AnimeIndex.frame, true);
+		setType(Type.POPUP);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ExitSaveDialog.class.getResource("/image/icon.png")));
 		setTitle("Salvare le modifiche prima di uscire?");
 		setModal(true);

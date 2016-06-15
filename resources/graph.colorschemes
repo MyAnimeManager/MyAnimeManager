@@ -44,13 +44,13 @@ Graphite Active {
 
 Graphite Selected {
     kind=Dark
-    colorUltraLight=#0000FF
-    colorExtraLight=#0000FF
-    colorLight=#0000FF
+    colorUltraLight=#00bfff
+    colorExtraLight=#0080FF
+    colorLight=#0040FF
     colorMid=#0000FF
-    colorDark=#0000FF
-    colorUltraDark=#0000FF
-    colorForeground=#0000FF
+    colorDark=#0040FF
+    colorUltraDark=#00bfff
+    colorForeground=#00bfff
 }
 
 Graphite Selected Disabled {
