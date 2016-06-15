@@ -20,8 +20,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -56,7 +54,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
@@ -64,12 +61,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
-
 import javafx.util.Pair;
 import util.AnimeData;
-import util.AnimeIndexProperties;
-import util.ColorProperties;
 import util.ExternalProgram;
 import util.FileManager;
 import util.Filters;
@@ -84,7 +77,6 @@ import util.UtilEvent;
 import util.task.AutoUpdateAnimeDataTask;
 import util.task.BackupImportExportTask;
 import util.task.CheckUpdateTask;
-import util.task.LoadingTask;
 import util.task.MAMTeamAdvert;
 import util.task.NewNotifierTask;
 import util.task.ReleasedAnimeTask;
@@ -207,55 +199,48 @@ public class AnimeIndex extends JFrame
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args)
-	{
-		MAMUtil.createLogDirectory();
-		appProp = AnimeIndexProperties.createProperties();
-		colorProp = ColorProperties.createProperties();
-		EventQueue.invokeLater(new Runnable() {
-
-			@Override
-			public void run()
-			{
-				try
-				{
-					UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel());
-				}
-				catch (Exception e)
-				{
-					System.out.println("Substance Graphite failed to initialize");
-				}
-				try
-				{
-					UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel());
-				}
-				catch (Exception e)
-				{
-					System.out.println("Substance Graphite failed to initialize");
-				}
-				try
-				{
-					ColorProperties.setColor(colorProp);
-					segui = MAMUtil.loadFont();
-					frame = new AnimeIndex();
-					frame.setVisible(true);
-					wishlistDialog = new WishlistDialog();
-					newsBoardDialog = new NewsBoardDialog();
-					UIManager.put("OptionPane.messageFont", segui.deriveFont(11f));
-				}
-				catch (Exception e)
-				{
-					MAMUtil.writeLog(e);
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args)
+//	{
+//		EventQueue.invokeLater(new Runnable() {
+//
+//			@Override
+//			public void run()
+//			{
+////				try
+////				{
+////					UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel());
+////				}
+////				catch (Exception e)
+////				{
+////					System.out.println("Substance Graphite failed to initialize");
+////				}
+////				try
+////				{
+////					UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel());
+////				}
+////				catch (Exception e)
+////				{
+////					System.out.println("Substance Graphite failed to initialize");
+////				}
+////				try
+////				{
+//					frame = new AnimeIndex();
+//					frame.setVisible(true);
+//					wishlistDialog = new WishlistDialog();
+//					newsBoardDialog = new NewsBoardDialog();
+////				}
+////				catch (Exception e)
+////				{
+////					MAMUtil.writeLog(e);
+////					e.printStackTrace();
+////				}
+//			}
+//		});
+//	}
 
 	
 	public AnimeIndex()
 	{
-
 		addComponentListener(new ComponentAdapter() {
 
 			@Override
@@ -301,104 +286,129 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void windowOpened(WindowEvent arg0)
 			{
-				LoadingTask loadTask = new LoadingTask();
-				loadTask.addPropertyChangeListener(new PropertyChangeListener() {
-
-					@Override
-					public void propertyChange(PropertyChangeEvent evt)
+					AnimeInformation.setFansubComboBox();
+					String dataRelease = AnimeIndex.appProp.getProperty("Date_Release");
+					if (dataRelease.equalsIgnoreCase("none"))
 					{
-						if (evt.getPropertyName().equals("state"))
-							if (evt.getNewValue().toString().equalsIgnoreCase("done"))
-							{
-								String dataRelease = AnimeIndex.appProp.getProperty("Date_Release");
-								if (dataRelease.equalsIgnoreCase("none"))
-								{
-									ReleasedAnimeTask task = new ReleasedAnimeTask();
-									task.execute();
-								}
-								else
-								{
-									GregorianCalendar calendar = MAMUtil.getDate(MAMUtil.today());
-									GregorianCalendar c = MAMUtil.getDate(dataRelease);
-									if (c.before(calendar))
-									{
-										ReleasedAnimeTask task = new ReleasedAnimeTask();
-										task.execute();
-									}
-								}
-
-								if (AnimeIndex.appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Daily"))
-									Filters.setFilter(8);
-									
-								if (MAMUtil.christmas())
-								{
-									ChristmasDialog dial = new ChristmasDialog();
-									dial.setLocationRelativeTo(AnimeIndex.this);
-									dial.setVisible(true);
-								}
-							}
+						ReleasedAnimeTask task = new ReleasedAnimeTask();
+						task.execute();
 					}
-				});
-				loadTask.execute();
-				File file = new File(MAMUtil.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
-				if (file.isFile())
-					file.delete();
-				NewNotifierTask newSugg = new NewNotifierTask();
-				try
-				{
-					newSugg.execute();
-				}
-				catch (Exception e)
-				{
-					MAMUtil.writeLog(e);
-					e.printStackTrace();
-				}
-
-				CheckUpdateTask updateTask = new CheckUpdateTask();
-				try
-				{
-					updateTask.execute();
-				}
-				catch (Exception e)
-				{
-					MAMUtil.writeLog(e);
-					e.printStackTrace();
-				}
-				
-				int sessionNumber = Integer.parseInt(appProp.getProperty("Session_Number"));
-				sessionNumber++;
-				if (sessionNumber >= 30)
-				{
-					sessionNumber = 0;
-					if (Boolean.parseBoolean(appProp.getProperty("Ask_for_donation")))
+					else
 					{
-						String[] array = { "Si!", "Non ora...", "Non ricordarmelo più" };
-						int choiche = JOptionPane.showOptionDialog(AnimeIndex.mainPanel, "Se ti piace  MY ANIME MANAGER  fallo conoscere ai tuoi amici!!\n\rE se vuoi, sostienici con una libera donazione!", "Supporta MyAnimeManager !!!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, array, "Si!");
-						if (choiche == 0)
+						GregorianCalendar calendar = MAMUtil.getDate(MAMUtil.today());
+						GregorianCalendar c = MAMUtil.getDate(dataRelease);
+						if (c.before(calendar))
 						{
-							String link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RFJLMVCQYZEQG";
-							try
-							{
-								URI uriLink = new URI(link);
-								Desktop.getDesktop().browse(uriLink);
-							}
-							catch (URISyntaxException a)
-							{
-							}
-							catch (IOException a)
-							{
-							}
-						}
-						else if (choiche == 1)
-							JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" -> \"Crediti\" o\n\rsul menù \"Info\" -> \"Sostenitori\"");
-						else if (choiche == 2)
-						{
-							JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "\n\rOk, non te lo chiederemo più.\n\r\n\r\n\rMa ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" -> \"Crediti\" o\n\rsul menù \"Info\" -> \"Sostenitori\"");
-							appProp.setProperty("Ask_for_donation", "false");
+							ReleasedAnimeTask task = new ReleasedAnimeTask();
+							task.execute();
 						}
 					}
-				}
-				appProp.setProperty("Session_Number", Integer.toString(sessionNumber));
+
+					if (AnimeIndex.appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Daily"))
+						Filters.setFilter(8);
+						
+					if (MAMUtil.christmas())
+					{
+						ChristmasDialog dial = new ChristmasDialog();
+						dial.setLocationRelativeTo(AnimeIndex.this);
+						dial.setVisible(true);
+					}
+					File file = new File(MAMUtil.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
+					if (file.isFile())
+						file.delete();
+					NewNotifierTask newSugg = new NewNotifierTask();
+					try
+					{
+						newSugg.execute();
+					}
+					catch (Exception e)
+					{
+						MAMUtil.writeLog(e);
+						e.printStackTrace();
+					}
+	
+					CheckUpdateTask updateTask = new CheckUpdateTask();
+					try
+					{
+						updateTask.execute();
+					}
+					catch (Exception e)
+					{
+						MAMUtil.writeLog(e);
+						e.printStackTrace();
+					}
+					
+					int sessionNumber = Integer.parseInt(appProp.getProperty("Session_Number"));
+					sessionNumber++;
+					if (sessionNumber >= 30)
+					{
+						sessionNumber = 0;
+						if (Boolean.parseBoolean(appProp.getProperty("Ask_for_donation")))
+						{
+							String[] array = { "Si!", "Non ora...", "Non ricordarmelo più" };
+							int choiche = JOptionPane.showOptionDialog(AnimeIndex.mainPanel, "Se ti piace  MY ANIME MANAGER  fallo conoscere ai tuoi amici!!\n\rE se vuoi, sostienici con una libera donazione!", "Supporta MyAnimeManager !!!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, array, "Si!");
+							if (choiche == 0)
+							{
+								String link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RFJLMVCQYZEQG";
+								try
+								{
+									URI uriLink = new URI(link);
+									Desktop.getDesktop().browse(uriLink);
+								}
+								catch (URISyntaxException a)
+								{
+								}
+								catch (IOException a)
+								{
+								}
+							}
+							else if (choiche == 1)
+								JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" -> \"Crediti\" o\n\rsul menù \"Info\" -> \"Sostenitori\"");
+							else if (choiche == 2)
+							{
+								JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "\n\rOk, non te lo chiederemo più.\n\r\n\r\n\rMa ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" -> \"Crediti\" o\n\rsul menù \"Info\" -> \"Sostenitori\"");
+								appProp.setProperty("Ask_for_donation", "false");
+							}
+						}
+					}
+					appProp.setProperty("Session_Number", Integer.toString(sessionNumber));
+					
+					if (AnimeIndex.appProp.getProperty("Open_Wishlist").equalsIgnoreCase("true"))
+					{
+						AnimeIndex.wishlistDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x, AnimeIndex.mainPanel.getLocationOnScreen().y);
+						AnimeIndex.wishlistDialog.setVisible(true);
+						new Timer(1, new ActionListener() {
+			
+							@Override
+							public void actionPerformed(ActionEvent e)
+							{
+								AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y);
+								AnimeIndex.mainPanel.requestFocus();
+								if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainPanel.getLocationOnScreen().x - 181)
+									((Timer) e.getSource()).stop();
+							}
+						}).start();
+					}
+					
+					if (AnimeIndex.appProp.getProperty("Open_NewsBoard").equalsIgnoreCase("true"))
+						if (!AnimeIndex.newsBoardDialog.isShowing())
+						{
+							AnimeIndex.newsBoardDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y + AnimeIndex.mainPanel.getHeight());
+							AnimeIndex.newsBoardDialog.setVisible(true);
+							new Timer(1, new ActionListener() {
+
+								int size = 0;
+
+								@Override
+								public void actionPerformed(ActionEvent e)
+								{
+									AnimeIndex.mainPanel.requestFocus();
+									AnimeIndex.newsBoardDialog.setSize(795, size++);
+									if (AnimeIndex.newsBoardDialog.getHeight() == 125)
+										((Timer) e.getSource()).stop();
+								}
+							}).start();
+						}
 			}
 		});
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);

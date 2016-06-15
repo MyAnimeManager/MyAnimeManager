@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -26,6 +28,10 @@ import org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPai
 import org.pushingpixels.substance.api.skin.GraphiteGlassSkin;
 import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
+
+import util.task.LoadingTask;
+import util.window.NewsBoardDialog;
+import util.window.WishlistDialog;
 
 
 public class SplashScreen extends JWindow {
@@ -52,6 +58,7 @@ public class SplashScreen extends JWindow {
                         pbar.setMinimum(0);
                         pbar.setMaximum(100);
                         pbar.setStringPainted(true);
+                        pbar.setBorderPainted(false);
                         pbar.setPreferredSize(new Dimension(310, 20));
 
     }
@@ -79,39 +86,49 @@ public class SplashScreen extends JWindow {
 				{
 					System.out.println("Substance Graphite failed to initialize");
 				}
+							
+//				ComponentState determinateState = new ComponentState("determinate",
+//				        new ComponentStateFacet[] { ComponentStateFacet.ENABLE,
+//				            ComponentStateFacet.DETERMINATE }, null);				
+//				ColorSchemes schemes = SubstanceSkin.getColorSchemes(SplashScreen.class.getClassLoader().getResource("graph.colorschemes"));
+//				SubstanceColorScheme determinateBorderScheme = schemes.get("Graphite Selected");
+//				SubstanceColorScheme bgBorderScheme = schemes.get("Graphite Background");
+//				SubstanceColorScheme activeBorderScheme = schemes.get("Graphite Active");		
+//																								
+//				SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(determinateBorderScheme,bgBorderScheme,activeBorderScheme);
+//				SubstanceColorScheme selectedBorderScheme = schemes.get("Graphite Border");
+//				defaultSchemeBundle.registerColorScheme(selectedBorderScheme, ColorSchemeAssociationKind.BORDER);				
+//				SubstanceLookAndFeel.getCurrentSkin().registerDecorationAreaSchemeBundle(defaultSchemeBundle, SubstanceLookAndFeel.getDecorationType(pbar));
 				
-				
-				
-				ComponentState determinateState = new ComponentState("determinate",
-				        new ComponentStateFacet[] { ComponentStateFacet.ENABLE,
-				            ComponentStateFacet.DETERMINATE }, null);
-				ComponentState indeterminateState = new ComponentState("indeterminate",
-				        new ComponentStateFacet[] { ComponentStateFacet.ENABLE },
-				        new ComponentStateFacet[] { ComponentStateFacet.DETERMINATE });
-				
-				ColorSchemes schemes = SubstanceSkin.getColorSchemes(SplashScreen.class
-				            .getClassLoader()
-				            .getResource(
-				                "graph.colorschemes"));
-				SubstanceColorScheme determinateBorderScheme = schemes.get("Graphite Selected");
-				SubstanceColorScheme bgBorderScheme = schemes.get("Graphite Background");
-				SubstanceColorScheme activeBorderScheme = schemes.get("Graphite Active");
-				
-				
-				
-																								
-				SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(determinateBorderScheme,bgBorderScheme,activeBorderScheme);
-				SubstanceColorScheme selectedBorderScheme = schemes.get("Graphite Border");
-				defaultSchemeBundle.registerColorScheme(selectedBorderScheme,
-				    ColorSchemeAssociationKind.BORDER);
-				
-				SubstanceLookAndFeel.getCurrentSkin().registerDecorationAreaSchemeBundle(defaultSchemeBundle, SubstanceLookAndFeel.getDecorationType(pbar));
-				 SplashScreen s = new SplashScreen();
+				SplashScreen s = new SplashScreen();
 		        s.setVisible(true);
-		        pbar.setValue(50);
 		        
-//		        s.dispose();
-//		        System.exit(0);
+		       
+		        
+			    
+		        LoadingTask task = new LoadingTask();
+		        task.addPropertyChangeListener(new PropertyChangeListener() {
+					
+					@Override
+					public void propertyChange(PropertyChangeEvent evt)
+					{
+						if (evt.getPropertyName().equalsIgnoreCase("progress"))
+						{
+							pbar.setValue(task.getProgress());
+						}
+						
+						if (evt.getNewValue().toString().equalsIgnoreCase("done"))
+						{
+							
+							AnimeIndex main = new AnimeIndex();
+							main.setVisible(true);
+					        s.dispose();
+						}
+						
+					}
+				});
+		        task.execute();
+		        
 			}
 		});
     	
