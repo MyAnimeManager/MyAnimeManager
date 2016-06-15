@@ -32,19 +32,15 @@ public class LoadingTask extends SwingWorker
 			setProgress(0);
 			MAMUtil.createLogDirectory();
 			setProgress((int)((1f/20f)* 100));
-			System.out.println(getProgress());
 			AnimeIndex.appProp = AnimeIndexProperties.createProperties();
 			setProgress((int)((2f/20f)* 100));
-			System.out.println(getProgress());
 			AnimeIndex.colorProp = ColorProperties.createProperties();		
-			setProgress((int)((3f/20f)* 100));
-			System.out.println(getProgress());
+			setProgress((int)((3f/20f)* 100));		
 			ColorProperties.setColor(AnimeIndex.colorProp);
-			setProgress((int)((4f/20f)* 100));
-			System.out.println(getProgress());
+			setProgress((int)((4f/20f)* 100));		
 			AnimeIndex.segui = MAMUtil.loadFont();
 			setProgress((int)((5f/20f)* 100));
-			System.out.println(getProgress());
+			
 			
 			UIManager.put("OptionPane.messageFont", AnimeIndex.segui.deriveFont(11f));
 			
