@@ -225,8 +225,8 @@ public class SuggestionDialog extends JDialog
 	private void addToWishlist(String id)
 	{
 		SuggestionDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-		if (AnimeIndex.wishlistDialog.wishListModel.contains("Nessun Anime Corrispondente"))
-			AnimeIndex.wishlistDialog.wishListModel.removeElement("Nessun Anime Corrispondente");
+		if (WishlistDialog.wishListModel.contains("Nessun Anime Corrispondente"))
+			WishlistDialog.wishListModel.removeElement("Nessun Anime Corrispondente");
 
 		try
 		{
@@ -240,7 +240,7 @@ public class SuggestionDialog extends JDialog
 		String data = ConnectionManager.parseAnimeData(Integer.parseInt(id));
 		String name = ConnectionManager.getAnimeData("title_romaji", data);
 
-		AnimeIndex.wishlistDialog.wishListModel.addElement(name);
+		WishlistDialog.wishListModel.addElement(name);
 		AnimeIndex.wishlistMap.put(name, Integer.parseInt(id));
 		AnimeIndex.wishlistDialog.wishlist.setEnabled(true);
 		AnimeIndex.wishlistDialog.searchList.setEnabled(true);

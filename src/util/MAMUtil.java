@@ -18,6 +18,7 @@ import javax.swing.JList;
 import org.imgscalr.Scalr;
 import org.imgscalr.Scalr.Method;
 import main.AnimeIndex;
+import util.window.WishlistDialog;
 
 public class MAMUtil
 {
@@ -250,10 +251,10 @@ public class MAMUtil
 		FileManager.saveAnimeListGson("ova.JConda", AnimeIndex.ovaMap);
 		FileManager.saveAnimeListGson("film.JConda", AnimeIndex.filmMap);
 		FileManager.saveAnimeListGson("toSee.JConda", AnimeIndex.completedToSeeMap);
-		FileManager.saveSpecialList("wishlist.anaconda", AnimeIndex.wishlistMap, AnimeIndex.wishlistDialog.wishListModel);
-		FileManager.saveSpecialList("wishlistMAL.anaconda", AnimeIndex.wishlistMALMap, AnimeIndex.wishlistDialog.wishListModel);
-		FileManager.saveSpecialList("droplist.anaconda", AnimeIndex.droppedMALMap, AnimeIndex.wishlistDialog.dropListModel);
-		FileManager.saveSpecialList("droplistMAL.anaconda", AnimeIndex.droppedMap, AnimeIndex.wishlistDialog.dropListModel);
+		FileManager.saveSpecialList("wishlist.anaconda", AnimeIndex.wishlistMap, WishlistDialog.wishListModel);
+		FileManager.saveSpecialList("wishlistMAL.anaconda", AnimeIndex.wishlistMALMap, WishlistDialog.wishListModel);
+		FileManager.saveSpecialList("droplist.anaconda", AnimeIndex.droppedMALMap, WishlistDialog.dropListModel);
+		FileManager.saveSpecialList("droplistMAL.anaconda", AnimeIndex.droppedMap, WishlistDialog.dropListModel);
 		FileManager.saveExclusionList();
 		FileManager.saveDateMap();
 

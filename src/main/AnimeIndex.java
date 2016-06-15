@@ -138,7 +138,6 @@ public class AnimeIndex extends JFrame
 	public static SortedListModel completedToSeeModel = new SortedListModel();
 	public static SortedListModel searchModel = new SortedListModel();
 	public static SortedListModel filterModel = new SortedListModel();
-
 	public static TreeMap<String, String> fansubMap = new TreeMap<String, String>();
 	public static TreeMap<String, AnimeData> completedMap = new TreeMap<String, AnimeData>();
 	public static TreeMap<String, AnimeData> airingMap = new TreeMap<String, AnimeData>();
@@ -205,41 +204,33 @@ public class AnimeIndex extends JFrame
 //			@Override
 //			public void run()
 //			{
-////				try
-////				{
-////					UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel());
-////				}
-////				catch (Exception e)
-////				{
-////					System.out.println("Substance Graphite failed to initialize");
-////				}
-////				try
-////				{
-////					UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel());
-////				}
-////				catch (Exception e)
-////				{
-////					System.out.println("Substance Graphite failed to initialize");
-////				}
-////				try
-////				{
+//				try
+//				{
+//					UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel());
+//				}
+//				catch (Exception e)
+//				{
+//					System.out.println("Substance Graphite failed to initialize");
+//				}
+//				try
+//				{
+//					UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel());
+//				}
+//				catch (Exception e)
+//				{
+//					System.out.println("Substance Graphite failed to initialize");
+//				}
 //					frame = new AnimeIndex();
 //					frame.setVisible(true);
 //					wishlistDialog = new WishlistDialog();
 //					newsBoardDialog = new NewsBoardDialog();
-////				}
-////				catch (Exception e)
-////				{
-////					MAMUtil.writeLog(e);
-////					e.printStackTrace();
-////				}
 //			}
 //		});
 //	}
 
 	
 	public AnimeIndex()
-	{
+	{	
 		addComponentListener(new ComponentAdapter() {
 
 			@Override
@@ -834,7 +825,7 @@ public class AnimeIndex extends JFrame
 						MAMUtil.writeLog(e1);
 					}
 
-					AnimeIndex.wishlistDialog.wishListModel.clear();
+					WishlistDialog.wishListModel.clear();
 					AnimeIndex.wishlistDialog.wishListSearchModel.clear();
 
 					wishlistMap.clear();
@@ -867,7 +858,7 @@ public class AnimeIndex extends JFrame
 						MAMUtil.writeLog(e1);
 					}
 
-					AnimeIndex.wishlistDialog.dropListModel.clear();
+					WishlistDialog.dropListModel.clear();
 					AnimeIndex.wishlistDialog.dropListSearchModel.clear();
 
 					droppedMap.clear();
@@ -922,7 +913,7 @@ public class AnimeIndex extends JFrame
 					animeInformation.setBlank();
 
 					exclusionAnime.clear();
-					AnimeIndex.wishlistDialog.wishListModel.clear();
+					WishlistDialog.wishListModel.clear();
 
 					JList list = MAMUtil.getJList();
 					list.clearSelection();

@@ -82,8 +82,8 @@ public class MALExportDialog extends JDialog
 				ovaIndeces = getIndexOf(AnimeIndex.ovaModel);
 				filmIndeces = getIndexOf(AnimeIndex.filmModel);
 				completedToSeeIndeces = getIndexOf(AnimeIndex.completedToSeeModel);	
-				wishlistIndeces = getIndexOf(AnimeIndex.wishlistDialog.wishListModel);
-				droplistIndeces = getIndexOf(AnimeIndex.wishlistDialog.wishListModel);
+				wishlistIndeces = getIndexOf(WishlistDialog.wishListModel);
+				droplistIndeces = getIndexOf(WishlistDialog.wishListModel);
 				
 				setTitle("Selezione Anime da Esportare : 0/"+listModel.getSize());
 			}

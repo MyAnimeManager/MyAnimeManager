@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
 
-import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 
@@ -15,7 +14,6 @@ import util.ColorProperties;
 import util.DriveUtil;
 import util.FileManager;
 import util.MAMUtil;
-import util.window.NewsBoardDialog;
 import util.window.WishlistDialog;
 
 public class LoadingTask extends SwingWorker
@@ -47,15 +45,6 @@ public class LoadingTask extends SwingWorker
 			FileManager.loadFansubList();
 			setProgress((int)((6f/20f)* 100));
 
-			SwingUtilities.invokeAndWait(new Runnable() {
-				
-				@Override
-				public void run()
-				{
-					AnimeIndex.wishlistDialog = new WishlistDialog();
-				    AnimeIndex.newsBoardDialog = new NewsBoardDialog();			
-				}
-			});
 			setProgress((int)((7f/20f)* 100));
 			FileManager.loadExclusionList();
 			setProgress((int)((8f/20f)* 100));
@@ -94,13 +83,13 @@ public class LoadingTask extends SwingWorker
 				FileManager.loadAnime("toSee.anaconda", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
 			setProgress((int)((13f/20f)* 100));
 			
-			FileManager.loadSpecialList("wishlist.anaconda", AnimeIndex.wishlistMap, AnimeIndex.wishlistDialog.wishListModel);
+			FileManager.loadSpecialList("wishlist.anaconda", AnimeIndex.wishlistMap, WishlistDialog.wishListModel);
 			setProgress((int)((14f/20f)* 100));
-			FileManager.loadSpecialList("wishlistMAL.anaconda", AnimeIndex.wishlistMALMap, AnimeIndex.wishlistDialog.wishListModel);
+			FileManager.loadSpecialList("wishlistMAL.anaconda", AnimeIndex.wishlistMALMap, WishlistDialog.wishListModel);
 			setProgress((int)((15f/20f)* 100));
-			FileManager.loadSpecialList("droplist.anaconda", AnimeIndex.droppedMALMap, AnimeIndex.wishlistDialog.dropListModel);
+			FileManager.loadSpecialList("droplist.anaconda", AnimeIndex.droppedMALMap, WishlistDialog.dropListModel);
 			setProgress((int)((16f/20f)* 100));
-			FileManager.loadSpecialList("droplistMAL.anaconda", AnimeIndex.droppedMap, AnimeIndex.wishlistDialog.dropListModel);
+			FileManager.loadSpecialList("droplistMAL.anaconda", AnimeIndex.droppedMap, WishlistDialog.dropListModel);
 			setProgress((int)((17f/20f)* 100));
 			FileManager.loadDateMap();
 			setProgress((int)((18f/20f)* 100));

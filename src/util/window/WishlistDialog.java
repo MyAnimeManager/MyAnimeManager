@@ -52,10 +52,6 @@ public class WishlistDialog extends JDialog
 {
 
 	public final JPanel contentPanel = new JPanel();
-	public SortedListModel wishListModel = new SortedListModel();
-	public SortedListModel wishListSearchModel = new SortedListModel();
-	public SortedListModel dropListModel = new SortedListModel();
-	public SortedListModel dropListSearchModel = new SortedListModel();
 	
 	public SearchBar searchBar;
 	public JButton btnDeleteAnime;
@@ -78,6 +74,10 @@ public class WishlistDialog extends JDialog
 	public JList searchList;
 	public JList wishlist;
 	public JList droplist;
+	public static SortedListModel wishListSearchModel = new SortedListModel();
+	public static SortedListModel dropListSearchModel = new SortedListModel();
+	public static SortedListModel dropListModel = new SortedListModel();
+	public static SortedListModel wishListModel = new SortedListModel();
 
 	
 	public WishlistDialog()
@@ -103,13 +103,13 @@ public class WishlistDialog extends JDialog
 				wishlistPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 				cardPane.add(wishlistPane, "wishlist");
 				{
-					wishlist = new JList(wishListModel);
+					wishlist = new JList(WishlistDialog.wishListModel);
 					wishlist.addListSelectionListener(new ListSelectionListener() {
 
 						@Override
 						public void valueChanged(ListSelectionEvent e)
 						{
-							if (wishListModel.contains("Nessun Anime Corrispondete"))
+							if (WishlistDialog.wishListModel.contains("Nessun Anime Corrispondete"))
 							{
 								wishlist.setEnabled(false);
 								btnDeleteAnime.setEnabled(false);
@@ -159,13 +159,13 @@ public class WishlistDialog extends JDialog
 				droplistPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 11));
 				cardPane.add(droplistPane, "droplist");
 				{
-					droplist = new JList(dropListModel);
+					droplist = new JList(WishlistDialog.dropListModel);
 					droplist.addListSelectionListener(new ListSelectionListener() {
 
 						@Override
 						public void valueChanged(ListSelectionEvent e)
 						{
-							if (dropListModel.contains("Nessun Anime Corrispondente"))
+							if (WishlistDialog.dropListModel.contains("Nessun Anime Corrispondente"))
 							{
 								droplist.setEnabled(false);
 								btnDeleteAnime.setEnabled(false);
@@ -240,7 +240,7 @@ public class WishlistDialog extends JDialog
 						String search = searchBar.getText();
 						CardLayout cl = (CardLayout) (cardPane.getLayout());
 						cl.show(cardPane, "wishlistSearch");
-						searchInList(search, wishListModel, wishListSearchModel);
+						searchInList(search, WishlistDialog.wishListModel, wishListSearchModel);
 					}
 					else
 					{
@@ -250,7 +250,7 @@ public class WishlistDialog extends JDialog
 						String search = searchBar.getText();
 						CardLayout cl = (CardLayout) (cardPane.getLayout());
 						cl.show(cardPane, "wishlistSearch");
-						searchInList(search, dropListModel, dropListSearchModel);
+						searchInList(search, WishlistDialog.dropListModel, dropListSearchModel);
 					}
 				}
 
@@ -268,7 +268,7 @@ public class WishlistDialog extends JDialog
 						{
 							CardLayout cl = (CardLayout) (cardPane.getLayout());
 							cl.show(cardPane, "wishlistSearch");
-							searchInList(search, wishListModel, wishListSearchModel);
+							searchInList(search, WishlistDialog.wishListModel, wishListSearchModel);
 						}
 						else
 						{
@@ -284,7 +284,7 @@ public class WishlistDialog extends JDialog
 						{
 							CardLayout cl = (CardLayout) (cardPane.getLayout());
 							cl.show(cardPane, "wishlistSearch");
-							searchInList(search, dropListModel, dropListSearchModel);
+							searchInList(search, WishlistDialog.dropListModel, dropListSearchModel);
 						}
 						else
 						{
@@ -330,13 +330,13 @@ public class WishlistDialog extends JDialog
 						SortedListModel searchModel;
 						if (comboBox.getSelectedItem().equals("WISHLIST"))
 						{
-							model = wishListModel;
+							model = WishlistDialog.wishListModel;
 							list = wishlist;
 							searchModel = wishListSearchModel;
 						}
 						else
 						{
-							model = dropListModel;
+							model = WishlistDialog.dropListModel;
 							list = droplist;
 							searchModel = dropListSearchModel;
 						}
@@ -405,7 +405,7 @@ public class WishlistDialog extends JDialog
 						if (comboBox.getSelectedItem().equals("WISHLIST"))
 						{
 							listName = "Wishlist";
-							model = wishListModel;
+							model = WishlistDialog.wishListModel;
 							map = AnimeIndex.wishlistMap;
 							list = wishlist;
 							searchModel = wishListSearchModel;
@@ -413,7 +413,7 @@ public class WishlistDialog extends JDialog
 						else
 						{
 							listName = "Droplist";
-							model = dropListModel;
+							model = WishlistDialog.dropListModel;
 							map = AnimeIndex.droppedMap;
 							list = droplist;
 							searchModel = dropListSearchModel;

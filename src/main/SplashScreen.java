@@ -22,6 +22,8 @@ import org.pushingpixels.substance.api.SubstanceSkin.ColorSchemes;
 import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
 import util.task.LoadingTask;
+import util.window.NewsBoardDialog;
+import util.window.WishlistDialog;
 
 
 public class SplashScreen extends JWindow {
@@ -116,8 +118,10 @@ public class SplashScreen extends JWindow {
 							{
 								System.out.println("Substance Graphite failed to initialize");
 							}
-							AnimeIndex main = new AnimeIndex();
-							main.setVisible(true);
+							AnimeIndex.frame = new AnimeIndex();
+							AnimeIndex.frame.setVisible(true);
+							AnimeIndex.wishlistDialog = new WishlistDialog();
+							AnimeIndex.newsBoardDialog = new NewsBoardDialog();
 					        s.dispose();
 						}
 						

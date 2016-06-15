@@ -35,6 +35,7 @@ import util.Filters;
 import util.MAMUtil;
 import util.SortedListModel;
 import util.window.AddAnimeDialog;
+import util.window.WishlistDialog;
 
 public class MALSynchronizationTask extends SwingWorker
 {
@@ -395,7 +396,7 @@ public class MALSynchronizationTask extends SwingWorker
 			if (!AnimeIndex.wishlistMALMap.containsKey(name) && !AnimeIndex.wishlistMap.containsKey(name) && !match)
 			{
 				AnimeIndex.wishlistMALMap.put(name, id);
-				AnimeIndex.wishlistDialog.wishListModel.addElement(name);
+				WishlistDialog.wishListModel.addElement(name);
 			}
 			currentAnimeNumber++;
 			int progress =(int) ((currentAnimeNumber/totalAnimeNumber) * 100);
@@ -420,7 +421,7 @@ public class MALSynchronizationTask extends SwingWorker
 			if (!match && !AnimeIndex.droppedMALMap.containsKey(name) && !AnimeIndex.droppedMap.containsKey(name))
 			{
 				AnimeIndex.droppedMALMap.put(name, id);
-				AnimeIndex.wishlistDialog.dropListModel.addElement(name);
+				WishlistDialog.dropListModel.addElement(name);
 			}
 			currentAnimeNumber++;
 			int progress =(int) ((currentAnimeNumber/totalAnimeNumber) * 100);
