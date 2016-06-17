@@ -420,7 +420,7 @@ public class MALExportDialog extends JDialog
 						
 						for (int index : airingIndeces)
 						{
-							if (!ArrayUtils.contains(indeces, index))
+							if (!buttonControl && !ArrayUtils.contains(indeces, index))
 							{
 								airingButton.setSelected(false);
 								airingButton.setBackground(UIManager.getColor(completedButton));
@@ -430,7 +430,7 @@ public class MALExportDialog extends JDialog
 						
 						for (int index : ovaIndeces)
 						{
-							if (!ArrayUtils.contains(indeces, index))
+							if (!buttonControl && !ArrayUtils.contains(indeces, index))
 							{
 								ovaButton.setSelected(false);
 								ovaButton.setBackground(UIManager.getColor(completedButton));
@@ -440,7 +440,7 @@ public class MALExportDialog extends JDialog
 						
 						for (int index : filmIndeces)
 						{
-							if (!ArrayUtils.contains(indeces, index))
+							if (!buttonControl && !ArrayUtils.contains(indeces, index))
 							{
 								filmButton.setSelected(false);
 								filmButton.setBackground(UIManager.getColor(completedButton));
@@ -450,7 +450,7 @@ public class MALExportDialog extends JDialog
 						
 						for (int index : completedToSeeIndeces)
 						{
-							if (!ArrayUtils.contains(indeces, index))
+							if (!buttonControl && !ArrayUtils.contains(indeces, index))
 							{
 								completedToSeeButton.setSelected(false);
 								completedToSeeButton.setBackground(UIManager.getColor(completedButton));
@@ -460,7 +460,7 @@ public class MALExportDialog extends JDialog
 						
 						for (int index : wishlistIndeces)
 						{
-							if (!ArrayUtils.contains(indeces, index))
+							if (!buttonControl && !ArrayUtils.contains(indeces, index))
 							{
 								wishlistButton.setSelected(false);
 								wishlistButton.setBackground(UIManager.getColor(completedButton));
@@ -470,7 +470,7 @@ public class MALExportDialog extends JDialog
 						
 						for (int index : droplistIndeces)
 						{
-							if (!ArrayUtils.contains(indeces, index))
+							if (!buttonControl && !ArrayUtils.contains(indeces, index))
 							{
 								droplistButton.setSelected(false);
 								droplistButton.setBackground(UIManager.getColor(completedButton));
