@@ -375,7 +375,7 @@ public class PreferenceDialog extends JDialog
 					if (file != null && file instanceof File)
 					{
 						File choosedFile = (File) file;
-						JFileChooser chooser = new JFileChooser(System.getProperty("user.home") + File.separator + "Desktop");
+						JFileChooser chooser = new JFileChooser();
 						chooser.setMultiSelectionEnabled(false);
 						chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 						chooser.setDialogTitle("Esporta in...");

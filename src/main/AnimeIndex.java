@@ -441,6 +441,7 @@ public class AnimeIndex extends JFrame
 		mnMenu.add(mnImportaEsporta);
 		
 		JMenu mnLocale = new JMenu("Locale");
+		mnLocale.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/pc.png")));
 		mnImportaEsporta.add(mnLocale);
 		
 		JMenuItem mntmImportaListe = new JMenuItem("Importa Liste");
@@ -522,15 +523,18 @@ public class AnimeIndex extends JFrame
 		mnImportaEsporta.add(separator_29);
 		
 		JMenu mnMyanimelist = new JMenu("MyAnimeList");
+		mnMyanimelist.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/MAL.png")));
 		mnImportaEsporta.add(mnMyanimelist);
 		
 		JMenuItem mntmImportMAL = new JMenuItem("Importa Liste");
+		mntmImportMAL.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/down.png")));
 		mnMyanimelist.add(mntmImportMAL);
 		
 		JSeparator separator_28 = new JSeparator();
 		mnMyanimelist.add(separator_28);
 		
 		JMenuItem mntmExportMAL = new JMenuItem("Esporta Liste");
+		mntmExportMAL.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/up.png")));
 		mnMyanimelist.add(mntmExportMAL);
 		mntmExportMAL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -466,7 +466,7 @@ public class ConnectionManager
 		String result = ""; // A long string containing all the HTML
 		try
 		{	
-			anime = URLEncoder.encode(anime, "utf-8");
+			anime = URLEncoder.encode(anime, "UTF-8");
 			url = new URL(MAL_BASEURL + SEARCH_MAL + anime);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
@@ -478,7 +478,7 @@ public class ConnectionManager
 			String authEncoded = new String(Base64.getEncoder().encode(auth.getBytes()));
 			conn.setRequestProperty("Authorization" , "Basic " + authEncoded);
 			
-			rr = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			rr = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 			while ((line = rr.readLine()) != null)
 				result += line;
 			rr.close();

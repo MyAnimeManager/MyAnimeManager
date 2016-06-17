@@ -1,15 +1,23 @@
 package util;
 
+import java.awt.Desktop;
 import java.awt.Rectangle;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -426,11 +434,66 @@ public class UtilEvent
 					else
 						AnimeIndex.animeInformation.setBlank();
 				}
-
 			}
 		};
 
 		return key;
+	}
+	
+	public static MouseAdapter lblAnimeNamePopUpMenu()
+	{
+		MouseAdapter mouse = new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if (SwingUtilities.isRightMouseButton(e))
+				{
+					if(e.getSource().equals(AnimeIndex.animeInformation.lblAnimeName));
+					{
+						JPopupMenu menu = new JPopupMenu();
+						JMenuItem add = new JMenuItem("Copia");
+						add.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/copy-icon.png")));
+						add.addActionListener(new ActionListener() {
+	
+							@Override
+							public void actionPerformed(ActionEvent e)
+							{
+								Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+								clpbrd.setContents(new StringSelection(AnimeIndex.animeInformation.lblAnimeName.getText()), null);
+							}
+						});
+						JMenuItem addd = new JMenuItem("Cerca in Rete");
+						addd.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/net.png")));
+						addd.addActionListener(new ActionListener() {
+	
+							@Override
+							public void actionPerformed(ActionEvent e)
+							{
+								String link = "https://www.google.it/search?q="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+");
+								try
+								{
+									URI uriLink = new URI(link);
+									Desktop.getDesktop().browse(uriLink);
+								}
+								catch (URISyntaxException a)
+								{
+									MAMUtil.writeLog(a);
+								}
+								catch (IOException a)
+								{
+									MAMUtil.writeLog(a);
+								}
+							}
+						});
+						menu.add(add);
+						menu.add(addd);
+						menu.show(AnimeIndex.animeInformation.lblAnimeName, e.getX(), e.getY());
+					}
+				}
+			}
+		};
+		return mouse;
 	}
 
 	private static boolean isAllFalse(boolean[] bool)

@@ -118,6 +118,7 @@ public class AnimeInformation extends JPanel
 		add(scrollPane, gbc_scrollPane);
 
 		lblAnimeName = new JLabel("Anime");
+		lblAnimeName.addMouseListener(UtilEvent.lblAnimeNamePopUpMenu());
 		scrollPane.setViewportView(lblAnimeName);
 		// lblAnimeName.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 25));
 		lblAnimeName.setFont(AnimeIndex.segui.deriveFont(29f));

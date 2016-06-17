@@ -113,7 +113,11 @@ public class ExitSaveDialog extends JDialog
 		});
 		{
 			JButton button = new JButton("Annulla");
-			button.setActionCommand("Cancel");
+			button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ExitSaveDialog.this.dispose();
+				}
+			});
 			GridBagConstraints gbc_button = new GridBagConstraints();
 			gbc_button.fill = GridBagConstraints.BOTH;
 			gbc_button.gridx = 0;
