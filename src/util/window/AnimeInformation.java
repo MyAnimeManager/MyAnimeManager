@@ -1198,7 +1198,6 @@ public class AnimeInformation extends JPanel
 					menu.add(hummingbird);
 					menu.add(aniDB);
 					menu.show(btnAnilistInfo, btnAnilistInfo.getX()-10,-btnAnilistInfo.getHeight()-88);
-					btnAnilistInfo.requestFocus();
 					
 					aniList.addActionListener(new ActionListener() {
 						@Override
