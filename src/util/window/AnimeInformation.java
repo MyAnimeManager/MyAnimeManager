@@ -1181,29 +1181,134 @@ public class AnimeInformation extends JPanel
 			{
 				if (!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length() == 10 && releaseDateField.getText().trim().length() == 10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length() == 10 && finishDateField.getText().trim().length() == 10)
 				{
-					String anime = (String) MAMUtil.getJList().getSelectedValue();
-					AnimeData data = (AnimeData) MAMUtil.getMap().get(anime);
-					if (data.getId() != null && !data.getId().isEmpty())
-					{
-						String link = "https://anilist.co/anime/" + data.getId();
-						if (!link.isEmpty())
+					JPopupMenu menu = new JPopupMenu();
+					JMenuItem aniList = new JMenuItem("AniList");
+					JMenuItem mal = new JMenuItem("MyAnimeList                                        ");
+					JMenuItem animeClick = new JMenuItem("AnimeClick");
+					JMenuItem hummingbird = new JMenuItem("Hummingbird");
+					JMenuItem aniDB = new JMenuItem("AniDB");
+					aniList.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/anilist.png")));
+					mal.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/MAL.png")));
+					animeClick.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/AC.png")));
+					hummingbird.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/hummingbird.me.png")));
+					aniDB.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/anidb_icon.png")));
+					menu.add(aniList);
+					menu.add(mal);
+					menu.add(animeClick);
+					menu.add(hummingbird);
+					menu.add(aniDB);
+					menu.show(btnAnilistInfo, btnAnilistInfo.getX()-10,-btnAnilistInfo.getHeight()-88);
+					btnAnilistInfo.requestFocus();
+					
+					aniList.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							String anime = (String) MAMUtil.getJList().getSelectedValue();
+							AnimeData data = (AnimeData) MAMUtil.getMap().get(anime);
+							if (data.getId() != null && !data.getId().isEmpty())
+							{
+								String link = "https://anilist.co/anime/" + data.getId();
+								try
+								{
+									URI uriLink = new URI(link);
+									Desktop.getDesktop().browse(uriLink);
+								}
+								catch (URISyntaxException a)
+								{
+									MAMUtil.writeLog(a);
+								}
+								catch (IOException a)
+								{
+									MAMUtil.writeLog(a);
+								}
+							}
+						}
+					});
+					
+					mal.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							String link = "http://myanimelist.net/anime.php?q="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+");
 							try
 							{
 								URI uriLink = new URI(link);
 								Desktop.getDesktop().browse(uriLink);
 							}
-							catch (URISyntaxException e1)
+							catch (URISyntaxException a)
 							{
-								JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Link non valido", "Errore", JOptionPane.ERROR_MESSAGE);
-								btnOpen.setEnabled(false);
+								MAMUtil.writeLog(a);
 							}
-							catch (IOException e1)
+							catch (IOException a)
 							{
-								JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Link non valido", "Errore", JOptionPane.ERROR_MESSAGE);
+								MAMUtil.writeLog(a);
 							}
-						else
-							JOptionPane.showMessageDialog(AnimeIndex.animeDialog, "Link non valido", "Errore", JOptionPane.ERROR_MESSAGE);
-					}
+						}
+					});
+					
+					animeClick.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							String link = "http://www.animeclick.it/cerca?tipo=opera&name="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+");
+							try
+							{
+								URI uriLink = new URI(link);
+								Desktop.getDesktop().browse(uriLink);
+							}
+							catch (URISyntaxException a)
+							{
+								MAMUtil.writeLog(a);
+							}
+							catch (IOException a)
+							{
+								MAMUtil.writeLog(a);
+							}
+						}
+					});
+					
+					hummingbird.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							String link = "https://hummingbird.me/search?query="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+")+"&scope=anime";
+							try
+							{
+								URI uriLink = new URI(link);
+								Desktop.getDesktop().browse(uriLink);
+							}
+							catch (URISyntaxException a)
+							{
+								MAMUtil.writeLog(a);
+							}
+							catch (IOException a)
+							{
+								MAMUtil.writeLog(a);
+							}
+						}
+					});
+					
+					aniDB.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							String link = "http://anidb.net/perl-bin/animedb.pl?adb.search="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+")+"&show=animelist&do.search=search";
+							try
+							{
+								URI uriLink = new URI(link);
+								Desktop.getDesktop().browse(uriLink);
+							}
+							catch (URISyntaxException a)
+							{
+								MAMUtil.writeLog(a);
+							}
+							catch (IOException a)
+							{
+								MAMUtil.writeLog(a);
+							}
+						}
+					});
 				}
 			}
 		});
