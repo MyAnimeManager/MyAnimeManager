@@ -1856,18 +1856,17 @@ public class AnimeIndex extends JFrame
 				AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 				AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
 				AnimeIndex.animeInformation.btnFolder.setEnabled(true);
+				AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 				AnimeInformation.fansubComboBox.setEnabled(true);
 				String name = (String) completedList.getSelectedValue();
 				if (name != null && !name.equalsIgnoreCase("Anime"))
 				{
 					if (completedMap.get(name).getId() != null && !completedMap.get(name).getId().isEmpty())
 					{
-						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 						AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 					}
 					else
 					{
-						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(false);
 						AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 					}
 					if (completedMap.get(name).getLink() != null && !completedMap.get(name).getLink().isEmpty())
@@ -1930,6 +1929,7 @@ public class AnimeIndex extends JFrame
 				AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 				AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
 				AnimeIndex.animeInformation.btnFolder.setEnabled(true);
+				AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 				String ep = animeInformation.currentEpisodeField.getText();
 				String fep = animeInformation.totalEpisodeText.getText();
 				if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -1942,12 +1942,10 @@ public class AnimeIndex extends JFrame
 				{
 					if (airingMap.get(name).getId() != null && !airingMap.get(name).getId().isEmpty())
 					{
-						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 						AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 					}
 					else
 					{
-						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(false);
 						AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 					}
 					if (airingMap.get(name).getLink() != null && !airingMap.get(name).getLink().isEmpty())
@@ -2008,6 +2006,7 @@ public class AnimeIndex extends JFrame
 				AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 				AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
 				AnimeIndex.animeInformation.btnFolder.setEnabled(true);
+				AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 				String ep = animeInformation.currentEpisodeField.getText();
 				String fep = animeInformation.totalEpisodeText.getText();
 				if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2020,12 +2019,10 @@ public class AnimeIndex extends JFrame
 				{
 					if (ovaMap.get(name).getId() != null && !ovaMap.get(name).getId().isEmpty())
 					{
-						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 						AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 					}
 					else
 					{
-						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(false);
 						AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 					}
 					if (ovaMap.get(name).getLink() != null && !ovaMap.get(name).getLink().isEmpty())
@@ -2087,6 +2084,7 @@ public class AnimeIndex extends JFrame
 				AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 				AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
 				AnimeIndex.animeInformation.btnFolder.setEnabled(true);
+				AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 				String ep = animeInformation.currentEpisodeField.getText();
 				String fep = animeInformation.totalEpisodeText.getText();
 				if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2099,12 +2097,10 @@ public class AnimeIndex extends JFrame
 				{
 					if (filmMap.get(name).getId() != null && !filmMap.get(name).getId().isEmpty())
 					{
-						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 						AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 					}
 					else
 					{
-						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(false);
 						AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 					}
 					if (filmMap.get(name).getLink() != null && !filmMap.get(name).getLink().isEmpty())
@@ -2166,6 +2162,7 @@ public class AnimeIndex extends JFrame
 				AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 				AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
 				AnimeIndex.animeInformation.btnFolder.setEnabled(true);
+				AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 				String ep = animeInformation.currentEpisodeField.getText();
 				String fep = animeInformation.totalEpisodeText.getText();
 				if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2178,12 +2175,10 @@ public class AnimeIndex extends JFrame
 				{
 					if (completedToSeeMap.get(name).getId() != null && !completedToSeeMap.get(name).getId().isEmpty())
 					{
-						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 						AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 					}
 					else
 					{
-						AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(false);
 						AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 					}
 					if (completedToSeeMap.get(name).getLink() != null && !completedToSeeMap.get(name).getLink().isEmpty())
@@ -2242,18 +2237,17 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
 					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
+					AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 					AnimeInformation.fansubComboBox.setEnabled(true);
 					String name = (String) completedList.getSelectedValue();
 					if (name != null && !name.equalsIgnoreCase("Anime"))
 					{
 						if (completedMap.get(name).getId() != null && !completedMap.get(name).getId().isEmpty())
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						}
 						else
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(false);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 						}
 						if (completedMap.get(name).getLink() != null && !completedMap.get(name).getLink().isEmpty())
@@ -2280,6 +2274,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
 					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
+					AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2292,12 +2287,10 @@ public class AnimeIndex extends JFrame
 					{
 						if (airingMap.get(name).getId() != null && !airingMap.get(name).getId().isEmpty())
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						}
 						else
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(false);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 						}
 						if (airingMap.get(name).getLink() != null && !airingMap.get(name).getLink().isEmpty())
@@ -2325,6 +2318,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
 					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
+					AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2337,12 +2331,10 @@ public class AnimeIndex extends JFrame
 					{
 						if (ovaMap.get(name).getId() != null && !ovaMap.get(name).getId().isEmpty())
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						}
 						else
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(false);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 						}
 						if (ovaMap.get(name).getLink() != null && !ovaMap.get(name).getLink().isEmpty())
@@ -2370,6 +2362,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
 					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
+					AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2382,12 +2375,10 @@ public class AnimeIndex extends JFrame
 					{
 						if (filmMap.get(name).getId() != null && !filmMap.get(name).getId().isEmpty())
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						}
 						else
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(false);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 						}
 						if (filmMap.get(name).getLink() != null && !filmMap.get(name).getLink().isEmpty())
@@ -2414,6 +2405,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
 					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
+					AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2426,12 +2418,10 @@ public class AnimeIndex extends JFrame
 					{
 						if (completedToSeeMap.get(name).getId() != null && !completedToSeeMap.get(name).getId().isEmpty())
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						}
 						else
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(false);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 						}
 						if (completedToSeeMap.get(name).getLink() != null && !completedToSeeMap.get(name).getLink().isEmpty())
@@ -2496,18 +2486,17 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
 					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
+					AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 					AnimeInformation.fansubComboBox.setEnabled(true);
 					String name = (String) completedList.getSelectedValue();
 					if (name != null && !name.equalsIgnoreCase("Anime"))
 					{
 						if (completedMap.get(name).getId() != null && !completedMap.get(name).getId().isEmpty())
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						}
 						else
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(false);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 						}
 						if (completedMap.get(name).getLink() != null && !completedMap.get(name).getLink().isEmpty())
@@ -2534,6 +2523,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
 					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
+					AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2546,12 +2536,10 @@ public class AnimeIndex extends JFrame
 					{
 						if (airingMap.get(name).getId() != null && !airingMap.get(name).getId().isEmpty())
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						}
 						else
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(false);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 						}
 						if (airingMap.get(name).getLink() != null && !airingMap.get(name).getLink().isEmpty())
@@ -2579,6 +2567,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
 					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
+					AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2591,12 +2580,10 @@ public class AnimeIndex extends JFrame
 					{
 						if (ovaMap.get(name).getId() != null && !ovaMap.get(name).getId().isEmpty())
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						}
 						else
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(false);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 						}
 						if (ovaMap.get(name).getLink() != null && !ovaMap.get(name).getLink().isEmpty())
@@ -2624,6 +2611,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(true);
 					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
+					AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2636,12 +2624,10 @@ public class AnimeIndex extends JFrame
 					{
 						if (filmMap.get(name).getId() != null && !filmMap.get(name).getId().isEmpty())
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						}
 						else
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(false);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 						}
 						if (filmMap.get(name).getLink() != null && !filmMap.get(name).getLink().isEmpty())
@@ -2668,6 +2654,7 @@ public class AnimeIndex extends JFrame
 					AnimeIndex.animeInformation.setLinkButton.setEnabled(true);
 					AnimeIndex.animeInformation.exitDaycomboBox.setEnabled(false);
 					AnimeIndex.animeInformation.btnFolder.setEnabled(true);
+					AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 					String ep = animeInformation.currentEpisodeField.getText();
 					String fep = animeInformation.totalEpisodeText.getText();
 					if (ep != null && fep != null && !fep.equalsIgnoreCase("??") && ep.equalsIgnoreCase(fep))
@@ -2680,12 +2667,10 @@ public class AnimeIndex extends JFrame
 					{
 						if (completedToSeeMap.get(name).getId() != null && !completedToSeeMap.get(name).getId().isEmpty())
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(true);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(true);
 						}
 						else
 						{
-							AnimeIndex.animeInformation.btnAnilistInfo.setEnabled(false);
 							AnimeIndex.animeInformation.checkDataButton.setEnabled(false);
 						}
 						if (completedToSeeMap.get(name).getLink() != null && !completedToSeeMap.get(name).getLink().isEmpty())

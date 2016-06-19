@@ -1182,30 +1182,44 @@ public class AnimeInformation extends JPanel
 				if (!releaseDateField.getText().trim().isEmpty() && releaseDateField.getText().trim().length() == 10 && releaseDateField.getText().trim().length() == 10 && !finishDateField.getText().trim().isEmpty() && finishDateField.getText().trim().length() == 10 && finishDateField.getText().trim().length() == 10)
 				{
 					JPopupMenu menu = new JPopupMenu();
-					JMenuItem aniList = new JMenuItem("AniList");
-					JMenuItem mal = new JMenuItem("MyAnimeList                                        ");
+					JMenuItem aniList = null;
+					String menuDim = "";
+					for(int i=0; i<=animeImage.getWidth();i++)
+						menuDim+=" ";
+					try{
+						menuDim = menuDim.substring(0, 40);
+					}catch(IndexOutOfBoundsException e1)
+					{
+						menuDim = "                                        ";
+					}
+					JMenuItem mal = new JMenuItem("MyAnimeList"+menuDim);
 					JMenuItem animeClick = new JMenuItem("AnimeClick");
 					JMenuItem hummingbird = new JMenuItem("Hummingbird");
 					JMenuItem aniDB = new JMenuItem("AniDB");
-					aniList.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/anilist.png")));
 					mal.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/MAL.png")));
 					animeClick.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/AC.png")));
 					hummingbird.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/hummingbird.me.png")));
 					aniDB.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/anidb_icon.png")));
-					menu.add(aniList);
+					int y;
+					AnimeData data = (AnimeData) MAMUtil.getMap().get(MAMUtil.getJList().getSelectedValue());
+					if (data.getId() != null && !data.getId().isEmpty())
+					{
+						aniList = new JMenuItem("AniList");
+						aniList.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/anilist.png")));
+						menu.add(aniList);
+						y = 88;
+					}
+					else
+						y = 67;
 					menu.add(mal);
 					menu.add(animeClick);
 					menu.add(hummingbird);
 					menu.add(aniDB);
-					menu.show(btnAnilistInfo, btnAnilistInfo.getX()-10,-btnAnilistInfo.getHeight()-88);
-					
-					aniList.addActionListener(new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent e)
-						{
-							String anime = (String) MAMUtil.getJList().getSelectedValue();
-							AnimeData data = (AnimeData) MAMUtil.getMap().get(anime);
-							if (data.getId() != null && !data.getId().isEmpty())
+					menu.show(btnAnilistInfo, btnAnilistInfo.getX()-10,-btnAnilistInfo.getHeight()-y);
+					try{
+						aniList.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e)
 							{
 								String link = "https://anilist.co/anime/" + data.getId();
 								try
@@ -1220,10 +1234,10 @@ public class AnimeInformation extends JPanel
 								catch (IOException a)
 								{
 									MAMUtil.writeLog(a);
-								}
+								}	
 							}
-						}
-					});
+						});
+					}catch(NullPointerException e1){}
 					
 					mal.addActionListener(new ActionListener() {
 						@Override
@@ -1313,8 +1327,8 @@ public class AnimeInformation extends JPanel
 		});
 
 		GridBagConstraints gbc_btnAnilistInfo = new GridBagConstraints();
-		gbc_btnAnilistInfo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnAnilistInfo.gridwidth = 2;
+		gbc_btnAnilistInfo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnAnilistInfo.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAnilistInfo.gridx = 1;
 		gbc_btnAnilistInfo.gridy = 11;
