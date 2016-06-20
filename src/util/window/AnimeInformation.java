@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 import javax.imageio.IIOException;
@@ -42,6 +43,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 import javax.swing.text.AbstractDocument;
 
@@ -92,6 +94,7 @@ public class AnimeInformation extends JPanel
 	public static UpdatingAnimeDataDialog dial;
 	public boolean selectExcludedAnimeAtWindowOpened = false;
 	public JButton btnFolder;
+	public JButton btnDrop;
 
 
 	public AnimeInformation()
@@ -1457,11 +1460,127 @@ public class AnimeInformation extends JPanel
 				}
 			}
 		});
+		
+		btnDrop = new JButton("Drop");
+		btnDrop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SortedListModel model = MAMUtil.getModel();
+				SortedListModel secondModel = null;
+				SortedListModel thirdModel = null;
+				JList list = null;
+				if (AnimeIndex.searchBar.getText().isEmpty() && AnimeIndex.filtro == 9)
+					list = MAMUtil.getJList();
+				else if (AnimeIndex.searchBar.getText().isEmpty() && AnimeIndex.filtro != 9)
+				{
+					list = AnimeIndex.filterList;
+					secondModel = AnimeIndex.filterModel;
+				}
+				else if (!AnimeIndex.searchBar.getText().isEmpty() && AnimeIndex.filtro != 9)
+				{
+					list = AnimeIndex.searchList;
+					secondModel = AnimeIndex.searchModel;
+					thirdModel = AnimeIndex.filterModel;
+				}
+				else
+				{
+					list = AnimeIndex.searchList;
+					secondModel = AnimeIndex.searchModel;
+				}
+
+				String listName = MAMUtil.getList();
+				TreeMap<String, AnimeData> map = MAMUtil.getMap();
+				ArrayList<String> arrayList = MAMUtil.getDeletedAnimeArray();
+				int index = list.getSelectedIndex();
+				String name = (String) list.getSelectedValue();
+				model.removeElement(name);
+				if (secondModel != null)
+					secondModel.removeElement(name);
+				if (thirdModel != null)
+					thirdModel.removeElement(name);
+				index -= 1;
+				list.clearSelection();
+				list.setSelectedIndex(index);
+
+				String image = map.get(name).getImagePath(listName);
+				arrayList.add(image);
+				
+				String id = map.get(name).getId();
+				map.remove(name);
+				
+				if (AnimeIndex.sessionAddedAnime.contains(name))
+					AnimeIndex.sessionAddedAnime.remove(name);
+
+				if (AnimeIndex.exitDateMap.containsKey(name))
+					AnimeIndex.exitDateMap.remove(name);
+
+				if (AnimeIndex.exclusionAnime.containsKey(name))
+					AnimeIndex.exclusionAnime.remove(name);
+
+				if (!list.isSelectionEmpty())
+					AnimeIndex.deleteButton.setEnabled(true);
+				else
+				{
+					AnimeIndex.deleteButton.setEnabled(false);
+					AnimeIndex.animeInformation.setBlank();
+				}
+				
+				if (!AnimeIndex.wishlistDialog.isShowing())
+				{
+					AnimeIndex.wishlistDialog.comboBox.setSelectedItem("DROPLIST");
+					AnimeIndex.wishlistDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x, AnimeIndex.mainPanel.getLocationOnScreen().y);
+					AnimeIndex.wishlistDialog.setVisible(true);
+					new Timer(1, new ActionListener() {
+
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							AnimeIndex.mainPanel.requestFocus();
+							AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y);
+							if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainPanel.getLocationOnScreen().x - 181)
+								((Timer) e.getSource()).stop();
+						}
+					}).start();
+				}
+				else
+					AnimeIndex.wishlistDialog.comboBox.setSelectedItem("DROPLIST");
+				
+				AnimeIndex.droppedMap.put(name, Integer.parseInt(id));
+				WishlistDialog.dropListModel.addElement(name);
+				String search = AnimeIndex.wishlistDialog.searchBar.getText();
+				if(!search.isEmpty())
+				{
+					AnimeIndex.wishlistDialog.searchBar.setText("");
+					AnimeIndex.wishlistDialog.searchBar.setText(search);
+					if(WishlistDialog.dropListSearchModel.contains(name))
+					{
+						AnimeIndex.wishlistDialog.searchList.clearSelection();
+						AnimeIndex.wishlistDialog.searchList.setSelectedValue(name, true);
+					}
+					else
+					{
+						AnimeIndex.wishlistDialog.searchBar.setText("");
+						AnimeIndex.wishlistDialog.droplist.clearSelection();
+						AnimeIndex.wishlistDialog.droplist.setSelectedValue(name, true);
+					}
+				}
+				else
+				{
+					AnimeIndex.wishlistDialog.droplist.clearSelection();
+					AnimeIndex.wishlistDialog.droplist.setSelectedValue(name, true);
+				}
+			}
+		});
+		GridBagConstraints gbc_btnDrop = new GridBagConstraints();
+		gbc_btnDrop.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnDrop.insets = new Insets(0, 0, 0, 5);
+		gbc_btnDrop.gridx = 11;
+		gbc_btnDrop.gridy = 11;
+		add(btnDrop, gbc_btnDrop);
 		GridBagConstraints gbc_addToSeeButton = new GridBagConstraints();
-		gbc_addToSeeButton.anchor = GridBagConstraints.EAST;
-		gbc_addToSeeButton.gridwidth = 5;
+		gbc_addToSeeButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_addToSeeButton.gridwidth = 4;
 		gbc_addToSeeButton.insets = new Insets(0, 0, 0, 5);
-		gbc_addToSeeButton.gridx = 11;
+		gbc_addToSeeButton.gridx = 12;
 		gbc_addToSeeButton.gridy = 11;
 		add(addToSeeButton, gbc_addToSeeButton);
 		
@@ -1509,6 +1628,7 @@ public class AnimeInformation extends JPanel
 			fansubComboBox.setSelectedItem("?????");
 			checkDataButton.setEnabled(false);
 			btnFolder.setEnabled(false);
+			btnDrop.setEnabled(false);
 			AnimeIndex.deleteButton.setEnabled(false);
 
 			BufferedImage image = null;
