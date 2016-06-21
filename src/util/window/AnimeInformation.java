@@ -1169,7 +1169,6 @@ public class AnimeInformation extends JPanel
 							list.setSelectedIndex(index - 1);
 						else if (AnimeIndex.filtro == 9 && AnimeIndex.searchBar.getText().isEmpty() && index - 1 < 0)
 							AnimeIndex.animeInformation.setBlank();
-
 					}
 				}
 			}
@@ -1544,7 +1543,10 @@ public class AnimeInformation extends JPanel
 				else
 					AnimeIndex.wishlistDialog.comboBox.setSelectedItem("DROPLIST");
 				
-				AnimeIndex.droppedMap.put(name, Integer.parseInt(id));
+				if(!id.isEmpty())
+					AnimeIndex.droppedMap.put(name, Integer.parseInt(id));
+				else
+					AnimeIndex.droppedMap.put(name, -1);
 				WishlistDialog.dropListModel.addElement(name);
 				String search = AnimeIndex.wishlistDialog.searchBar.getText();
 				if(!search.isEmpty())
