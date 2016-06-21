@@ -19,7 +19,6 @@ import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.TreeMap;
-
 import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -30,8 +29,10 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -41,7 +42,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import main.AnimeIndex;
 import util.ConnectionManager;
 import util.MAMUtil;
@@ -70,6 +70,8 @@ public class WishlistDialog extends JDialog
 	private JScrollPane droplistPane;
 	private JScrollPane searchPane;
 	private JPanel cardPane;
+	private int idLink;
+	private String animeName;
 	public JComboBox comboBox;
 	public JList searchList;
 	public JList wishlist;
@@ -397,75 +399,7 @@ public class WishlistDialog extends JDialog
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						String listName = "";
-						SortedListModel model;
-						TreeMap<String,Integer> map;
-						JList list;
-						SortedListModel searchModel;
-						if (comboBox.getSelectedItem().equals("WISHLIST"))
-						{
-							listName = "Wishlist";
-							model = WishlistDialog.wishListModel;
-							map = AnimeIndex.wishlistMap;
-							list = wishlist;
-							searchModel = wishListSearchModel;
-						}
-						else
-						{
-							listName = "Droplist";
-							model = WishlistDialog.dropListModel;
-							map = AnimeIndex.droppedMap;
-							list = droplist;
-							searchModel = dropListSearchModel;
-						}
-						String animeName = null;
-						int id = -1;
-						String name = JOptionPane.showInputDialog(AnimeIndex.wishlistDialog, "Nome Anime :", "Aggiungi alla " + listName, JOptionPane.QUESTION_MESSAGE);
-
-						try
-						{
-							ConnectionManager.ConnectAndGetToken();
-						}
-						catch (ConnectException | UnknownHostException e1)
-						{
-							e1.printStackTrace();
-							MAMUtil.writeLog(e1);
-						}
-
-						if (name != null)
-						{
-							HashMap<String, Integer> animeMap = ConnectionManager.AnimeSearch(name);
-							if (!animeMap.isEmpty() && animeMap.size() > 1)
-							{
-								String[] animeNames = animeMap.keySet().toArray(new String[0]);
-								animeName = (String) JOptionPane.showInputDialog(WishlistDialog.this, "Scegli l'anime da aggiungere :", "Conflitto trovato", JOptionPane.QUESTION_MESSAGE, null, animeNames, animeNames[0]);
-
-								if (animeName != null)
-								{
-									name = animeName;
-									id = animeMap.get(name);
-									if (model.contains("Nessun Anime Corrispondente"))
-										model.removeElement("Nessun Anime Corrispondente");
-									model.addElement(name);
-									map.put(name, id);
-									list.setEnabled(true);
-									searchList.setEnabled(true);
-								}
-								else
-									animeName = "annulla";
-							}
-						}
-						if (name != null && animeName == null)
-						{
-							if (model.contains("Nessun Anime Corrispondente"))
-								model.removeElement("Nessun Anime Corrispondente");
-							model.addElement(name);
-							map.put(name, id);
-							list.setEnabled(true);
-							searchList.setEnabled(true);
-						}
-						if (!searchBar.getText().isEmpty())
-							searchInList(searchBar.getText(), model, searchModel);
+						searchAnime();
 					}
 				});
 			}
@@ -478,55 +412,166 @@ public class WishlistDialog extends JDialog
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						String anime = null;
+						animeName = null;
 						if (searchBar.getText().isEmpty())
 							if(comboBox.getSelectedItem().equals("WISHLIST"))
-								anime = (String) wishlist.getSelectedValue();
+								animeName = (String) wishlist.getSelectedValue();
 							else
-								anime = (String) droplist.getSelectedValue();
+								animeName = (String) droplist.getSelectedValue();
 						else
-							anime = (String) searchList.getSelectedValue();
-						int id = -1;
-						String link = "";
+							animeName = (String) searchList.getSelectedValue();
+						
+						JPopupMenu menu = new JPopupMenu();
+						JMenuItem aniList = null;
+						JMenuItem mal = new JMenuItem("MyAnimeList                   ");
+						JMenuItem animeClick = new JMenuItem("AnimeClick");
+						JMenuItem hummingbird = new JMenuItem("Hummingbird");
+						JMenuItem aniDB = new JMenuItem("AniDB");
+						mal.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/MAL.png")));
+						animeClick.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/AC.png")));
+						hummingbird.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/hummingbird.me.png")));
+						aniDB.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/anidb_icon.png")));
+						int y;
+						idLink = -1;
 						try{
-							if (AnimeIndex.wishlistMap.containsKey(anime))
+							if (AnimeIndex.wishlistMap.containsKey(animeName))
 							{
-								id = AnimeIndex.wishlistMap.get(anime);
-								link = "https://anilist.co/anime/" + id;
+								idLink = AnimeIndex.wishlistMap.get(animeName);
 							}
-							else if (AnimeIndex.droppedMap.containsKey(anime))
+							else if (AnimeIndex.droppedMap.containsKey(animeName))
 							{
-								id = AnimeIndex.droppedMap.get(anime);
-								link = "https://anilist.co/anime/" + id;
+								idLink = AnimeIndex.droppedMap.get(animeName);
 							}
-							else if (AnimeIndex.wishlistMALMap.containsKey(anime))
+							else if (AnimeIndex.wishlistMALMap.containsKey(animeName))
 							{
-								id = AnimeIndex.wishlistMALMap.get(anime);
-								link = "http://myanimelist.net/anime/" + id;
+								idLink = AnimeIndex.wishlistMALMap.get(animeName);
 							}
-							else if (AnimeIndex.droppedMALMap.containsKey(anime))
+							else if (AnimeIndex.droppedMALMap.containsKey(animeName))
 							{
-								id = AnimeIndex.droppedMALMap.get(anime);
-								link = "http://myanimelist.net/anime/" + id;
+								idLink = AnimeIndex.droppedMALMap.get(animeName);
 							}
 						}catch(NullPointerException e1)
 						{}
-						if (id != -1 && !link.isEmpty())
-							try
-							{
-								URI uriLink = new URI(link);
-								Desktop.getDesktop().browse(uriLink);
-							}
-							catch (URISyntaxException e1)
-							{
-								JOptionPane.showMessageDialog(WishlistDialog.this, "Link non valido", "Errore", JOptionPane.ERROR_MESSAGE);
-							}
-							catch (IOException e1)
-							{
-								JOptionPane.showMessageDialog(WishlistDialog.this, "Link non valido", "Errore", JOptionPane.ERROR_MESSAGE);
-							}
+						if (idLink != -1)
+						{
+							aniList = new JMenuItem("AniList");
+							aniList.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/anilist.png")));
+							menu.add(aniList);
+							y = 88;
+						}
 						else
-							JOptionPane.showMessageDialog(WishlistDialog.this, "      Pagina non disponibile", "Errore", JOptionPane.ERROR_MESSAGE);
+							y = 67;
+						menu.add(mal);
+						menu.add(animeClick);
+						menu.add(hummingbird);
+						menu.add(aniDB);
+						menu.show(btnID, btnID.getX()-6,-btnID.getHeight()-y);
+						try{
+							aniList.addActionListener(new ActionListener() {
+								@Override
+								public void actionPerformed(ActionEvent e)
+								{
+									String link = "https://anilist.co/anime/" + idLink;
+									try
+									{
+										URI uriLink = new URI(link);
+										Desktop.getDesktop().browse(uriLink);
+									}
+									catch (URISyntaxException a)
+									{
+										MAMUtil.writeLog(a);
+									}
+									catch (IOException a)
+									{
+										MAMUtil.writeLog(a);
+									}	
+								}
+							});
+						}catch(NullPointerException e1){}
+						
+						mal.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e)
+							{
+								String link = "http://myanimelist.net/anime.php?q="+animeName.replace(" ", "+").replace("\"", "").replace("%", "").replace("\\", "").replace("<", "").replace(">", "").replace("^", "").replace("|", "").replace("{", "").replace("}", "");
+								try
+								{
+									URI uriLink = new URI(link);
+									Desktop.getDesktop().browse(uriLink);
+								}
+								catch (URISyntaxException a)
+								{
+									MAMUtil.writeLog(a);
+								}
+								catch (IOException a)
+								{
+									MAMUtil.writeLog(a);
+								}
+							}
+						});
+						
+						animeClick.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e)
+							{
+								String link = "http://www.animeclick.it/cerca?tipo=opera&name="+animeName.replace(" ", "+").replace("\"", "").replace("%", "").replace("\\", "").replace("<", "").replace(">", "").replace("^", "").replace("|", "").replace("{", "").replace("}", "");
+								try
+								{
+									URI uriLink = new URI(link);
+									Desktop.getDesktop().browse(uriLink);
+								}
+								catch (URISyntaxException a)
+								{
+									MAMUtil.writeLog(a);
+								}
+								catch (IOException a)
+								{
+									MAMUtil.writeLog(a);
+								}
+							}
+						});
+						
+						hummingbird.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e)
+							{
+								String link = "https://hummingbird.me/search?query="+animeName.replace(" ", "+").replace("\"", "").replace("%", "").replace("\\", "").replace("<", "").replace(">", "").replace("^", "").replace("|", "").replace("{", "").replace("}", "")+"&scope=anime";
+								try
+								{
+									URI uriLink = new URI(link);
+									Desktop.getDesktop().browse(uriLink);
+								}
+								catch (URISyntaxException a)
+								{
+									MAMUtil.writeLog(a);
+								}
+								catch (IOException a)
+								{
+									MAMUtil.writeLog(a);
+								}
+							}
+						});
+						
+						aniDB.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e)
+							{
+								String link = "http://anidb.net/perl-bin/animedb.pl?adb.search="+animeName.replace(" ", "+").replace("\"", "").replace("%", "").replace("\\", "").replace("<", "").replace(">", "").replace("^", "").replace("|", "").replace("{", "").replace("}", "")+"&show=animelist&do.search=search";
+								try
+								{
+									URI uriLink = new URI(link);
+									Desktop.getDesktop().browse(uriLink);
+								}
+								catch (URISyntaxException a)
+								{
+									MAMUtil.writeLog(a);
+								}
+								catch (IOException a)
+								{
+									MAMUtil.writeLog(a);
+								}
+							}
+						});
 					}
 				});
 			}
@@ -567,6 +612,104 @@ public class WishlistDialog extends JDialog
 			searchModel.addElement("Nessun Anime Corrispondente");
 			searchList.setEnabled(false);
 			btnDeleteAnime.setEnabled(false);
+		}
+	}
+	
+	private void searchAnime()
+	{
+		String listName = "";
+		SortedListModel model;
+		TreeMap<String,Integer> map;
+		JList list;
+		SortedListModel searchModel;
+		if (comboBox.getSelectedItem().equals("WISHLIST"))
+		{
+			listName = "Wishlist";
+			model = WishlistDialog.wishListModel;
+			map = AnimeIndex.wishlistMap;
+			list = wishlist;
+			searchModel = wishListSearchModel;
+		}
+		else
+		{
+			listName = "Droplist";
+			model = WishlistDialog.dropListModel;
+			map = AnimeIndex.droppedMap;
+			list = droplist;
+			searchModel = dropListSearchModel;
+		}
+		String animeName = null;
+		int id = -1;
+		String name = JOptionPane.showInputDialog(AnimeIndex.wishlistDialog, "Nome Anime :", "Aggiungi alla " + listName, JOptionPane.QUESTION_MESSAGE).trim();
+
+		try
+		{
+			ConnectionManager.ConnectAndGetToken();
+		}
+		catch (ConnectException | UnknownHostException e1)
+		{
+			e1.printStackTrace();
+			MAMUtil.writeLog(e1);
+		}
+
+		if (name != null)
+		{
+			HashMap<String, Integer> animeMap = ConnectionManager.AnimeSearch(name);
+			if (!animeMap.isEmpty() && animeMap.size() > 1)
+			{
+				String[] animeNames = animeMap.keySet().toArray(new String[0]);
+				animeName = (String) JOptionPane.showInputDialog(WishlistDialog.this, "Scegli l'anime da aggiungere :", "Conflitto trovato", JOptionPane.QUESTION_MESSAGE, null, animeNames, animeNames[0]);
+
+				if (animeName != null)
+				{
+					name = animeName;
+					id = animeMap.get(name);
+					if (model.contains("Nessun Anime Corrispondente"))
+						model.removeElement("Nessun Anime Corrispondente");
+					model.addElement(name);
+					map.put(name, id);
+					list.setEnabled(true);
+					searchList.setEnabled(true);
+					list.setSelectedValue(name, true);
+				}
+				else
+					animeName = "annulla";
+			}
+			else if(!animeMap.isEmpty() && animeMap.size() == 1)
+			{
+				name = animeName = animeMap.keySet().toArray(new String[0])[0];
+				id = animeMap.get(name);
+				if (model.contains("Nessun Anime Corrispondente"))
+					model.removeElement("Nessun Anime Corrispondente");
+				model.addElement(name);
+				map.put(name, id);
+				list.setEnabled(true);
+				searchList.setEnabled(true);
+				list.setSelectedValue(name, true);
+			}
+		}
+		if (name != null && animeName == null)
+		{
+			int choice = JOptionPane.showConfirmDialog(WishlistDialog.this,"L'Anime cercato non è stato trovato.\n\rRipetere la ricerca?" , "Riceca fallita", JOptionPane.YES_NO_OPTION);
+			if(choice==0)
+			{
+				searchAnime();
+			}
+			else
+			{
+				if (model.contains("Nessun Anime Corrispondente"))
+					model.removeElement("Nessun Anime Corrispondente");
+				model.addElement(name);
+				map.put(name, id);
+				list.setEnabled(true);
+				searchList.setEnabled(true);
+				list.setSelectedValue(name, true);
+			}
+		}
+		if (!searchBar.getText().isEmpty())
+		{
+			searchInList(searchBar.getText(), model, searchModel);
+			searchList.setSelectedValue(name, true);
 		}
 	}
 }

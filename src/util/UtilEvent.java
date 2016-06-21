@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -470,9 +471,9 @@ public class UtilEvent
 							@Override
 							public void actionPerformed(ActionEvent e)
 							{
-								String link = "https://www.google.it/search?q="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+");
 								try
 								{
+									String link = "https://www.google.it/search?q="+URLEncoder.encode(AnimeIndex.animeInformation.lblAnimeName.getText(), "UTF-8");
 									URI uriLink = new URI(link);
 									Desktop.getDesktop().browse(uriLink);
 								}

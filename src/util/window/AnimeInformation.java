@@ -1176,7 +1176,7 @@ public class AnimeInformation extends JPanel
 		});
 
 		btnAnilistInfo = new JButton("Pi\u00F9 Informazioni");
-		btnAnilistInfo.setToolTipText("Apri la pagina di Anilist dell'anime");
+		btnAnilistInfo.setToolTipText("Cerca l'Anime in un Database");
 		btnAnilistInfo.addActionListener(new ActionListener() {
 
 			@Override
@@ -1246,7 +1246,7 @@ public class AnimeInformation extends JPanel
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
-							String link = "http://myanimelist.net/anime.php?q="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+");
+							String link = "http://myanimelist.net/anime.php?q="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+").replace("\"", "").replace("%", "").replace("\\", "").replace("<", "").replace(">", "").replace("^", "").replace("|", "").replace("{", "").replace("}", "");
 							try
 							{
 								URI uriLink = new URI(link);
@@ -1267,7 +1267,7 @@ public class AnimeInformation extends JPanel
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
-							String link = "http://www.animeclick.it/cerca?tipo=opera&name="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+");
+							String link = "http://www.animeclick.it/cerca?tipo=opera&name="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+").replace("\"", "").replace("%", "").replace("\\", "").replace("<", "").replace(">", "").replace("^", "").replace("|", "").replace("{", "").replace("}", "");
 							try
 							{
 								URI uriLink = new URI(link);
@@ -1288,7 +1288,7 @@ public class AnimeInformation extends JPanel
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
-							String link = "https://hummingbird.me/search?query="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+")+"&scope=anime";
+							String link = "https://hummingbird.me/search?query="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+").replace("\"", "").replace("%", "").replace("\\", "").replace("<", "").replace(">", "").replace("^", "").replace("|", "").replace("{", "").replace("}", "")+"&scope=anime";
 							try
 							{
 								URI uriLink = new URI(link);
@@ -1309,7 +1309,7 @@ public class AnimeInformation extends JPanel
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
-							String link = "http://anidb.net/perl-bin/animedb.pl?adb.search="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+")+"&show=animelist&do.search=search";
+							String link = "http://anidb.net/perl-bin/animedb.pl?adb.search="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+").replace("\"", "").replace("%", "").replace("\\", "").replace("<", "").replace(">", "").replace("^", "").replace("|", "").replace("{", "").replace("}", "")+"&show=animelist&do.search=search";
 							try
 							{
 								URI uriLink = new URI(link);
