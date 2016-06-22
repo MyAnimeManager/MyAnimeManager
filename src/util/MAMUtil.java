@@ -260,6 +260,24 @@ public class MAMUtil
 		FileManager.saveExclusionList();
 		FileManager.saveDateMap();
 
+		File file = new File(getAnimeFolderPath() + "completed.anaconda");
+		file.delete();
+		file = new File(getAnimeFolderPath() + "airing.anaconda");
+		file.delete();
+		file = new File(getAnimeFolderPath() + "ova.anaconda");
+		file.delete();
+		file = new File(getAnimeFolderPath() + "film.anaconda");
+		file.delete();
+		file = new File(getAnimeFolderPath() + "toSee.anaconda");
+		file.delete();
+		file = new File(getAnimeFolderPath() + "wishlist.anaconda");
+		file.delete();
+		file = new File(getAnimeFolderPath() + "wishlistMAL.anaconda");
+		file.delete();
+		file = new File(getAnimeFolderPath() + "droplist.anaconda");
+		file.delete();
+		file = new File(getAnimeFolderPath() + "droplistMAL.anaconda");
+		file.delete();
 		try
 		{
 			FileManager.deleteData(new File(MAMUtil.getTempDownloadPath()));
