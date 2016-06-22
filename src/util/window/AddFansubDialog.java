@@ -2,7 +2,6 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -33,6 +32,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import main.AnimeIndex;
 import util.PatternFilter;
 import util.SortedListModel;
+import java.awt.GridLayout;
 
 public class AddFansubDialog extends JDialog
 {
@@ -46,9 +46,7 @@ public class AddFansubDialog extends JDialog
 	private TreeMap<String, String> fansubMap = new TreeMap<String, String>();
 	private JButton addButton;
 
-	/**
-	 * Create the dialog.
-	 */
+	
 	public AddFansubDialog()
 	{
 		super(AnimeIndex.frame, true);
@@ -59,7 +57,7 @@ public class AddFansubDialog extends JDialog
 		setType(Type.POPUP);
 		setTitle("Fansub");
 		setModal(true);
-		setBounds(100, 100, 289, 316);
+		setBounds(100, 100, 289, 305);
 		this.setModalityType(ModalityType.APPLICATION_MODAL);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -211,7 +209,6 @@ public class AddFansubDialog extends JDialog
 			{
 				JLabel lblNome = new JLabel("Nome : ");
 				GridBagConstraints gbc_lblNome = new GridBagConstraints();
-				gbc_lblNome.anchor = GridBagConstraints.WEST;
 				gbc_lblNome.insets = new Insets(0, 0, 5, 5);
 				gbc_lblNome.gridx = 0;
 				gbc_lblNome.gridy = 0;
@@ -233,7 +230,6 @@ public class AddFansubDialog extends JDialog
 			{
 				JLabel lblLink = new JLabel("Link :");
 				GridBagConstraints gbc_lblLink = new GridBagConstraints();
-				gbc_lblLink.anchor = GridBagConstraints.WEST;
 				gbc_lblLink.insets = new Insets(0, 0, 0, 5);
 				gbc_lblLink.gridx = 0;
 				gbc_lblLink.gridy = 1;
@@ -253,9 +249,6 @@ public class AddFansubDialog extends JDialog
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			FlowLayout fl_buttonPane = new FlowLayout(FlowLayout.CENTER);
-			fl_buttonPane.setHgap(50);
-			buttonPane.setLayout(fl_buttonPane);
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
@@ -317,6 +310,7 @@ public class AddFansubDialog extends JDialog
 						dialog.dispose();
 					}
 				});
+				buttonPane.setLayout(new GridLayout(0, 2, 0, 0));
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
