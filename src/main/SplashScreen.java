@@ -95,7 +95,61 @@ public class SplashScreen extends JWindow {
 					{
 						if (evt.getPropertyName().equalsIgnoreCase("progress"))
 						{
-							pbar.setValue(task.getProgress());
+							if (!pbar.isStringPainted())
+								pbar.setStringPainted(true);
+							int progress = task.getProgress();
+							pbar.setValue(progress);
+							switch (progress)
+							{
+								case 0:
+									pbar.setString("Creazione Directory Log");
+									break;
+								case 5:
+									pbar.setString("Caricamento Impostazioni");
+									break;
+								case 10: case 15:
+									pbar.setString("Caricamento Impostazioni Estetiche");
+									break;
+								case 20: case 25:
+									pbar.setString("Caricamento font");
+									break;
+								case 30:
+									pbar.setString("Caricamento fansub");
+									break;
+								case 35:
+									pbar.setString("Caricamento esclusioni");
+									break;
+								case 40:
+									pbar.setString("Caricamento Anime Completati");
+									break;
+								case 45:
+									pbar.setString("Caricamento Anime in Corso");
+									break;
+								case 50:
+									pbar.setString("Caricamento OVA");
+									break;
+								case 55:
+									pbar.setString("Caricamento Film");
+									break;
+								case 60:
+									pbar.setString("Caricamento Anime Completi da Vedere");
+									break;
+								case 65: case 70:
+									pbar.setString("Caricamento Wihslist");
+									break;
+								case 75: case 80:
+									pbar.setString("Caricamento Droplist");
+									break;
+								case 85:
+									pbar.setString("Caricamento Date");
+									break;
+								case 90:
+									pbar.setString("Caricamento Pattern");
+									break;
+								case 95:
+									pbar.setString("Inizializzazione servizio Google Drive");
+									break;
+							}
 						}
 						
 						if (evt.getNewValue().toString().equalsIgnoreCase("done"))

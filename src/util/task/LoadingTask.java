@@ -55,6 +55,7 @@ public class LoadingTask extends SwingWorker
 			else
 				FileManager.loadAnime("completed.anaconda", AnimeIndex.completedModel, AnimeIndex.completedMap);
 			setProgress((int)((9f/20f)* 100));
+			
 			File airing = new File(MAMUtil.getAnimeFolderPath() + "airing.JConda");
 			if (airing.isFile())
 				FileManager.loadAnimeGson("airing.JConda", AnimeIndex.airingModel, AnimeIndex.airingMap);
@@ -83,13 +84,33 @@ public class LoadingTask extends SwingWorker
 				FileManager.loadAnime("toSee.anaconda", AnimeIndex.completedToSeeModel, AnimeIndex.completedToSeeMap);
 			setProgress((int)((13f/20f)* 100));
 			
-			FileManager.loadSpecialList("wishlist.anaconda", AnimeIndex.wishlistMap, WishlistDialog.wishListModel);
+			File wishlist = new File(MAMUtil.getAnimeFolderPath() + "wishlist.JConda");
+			if (wishlist.isFile())
+				FileManager.loadSpecialListGson("wishlist.JConda", AnimeIndex.wishlistMap, WishlistDialog.wishListModel);
+			else
+				FileManager.loadSpecialList("wishlist.anaconda", AnimeIndex.wishlistMap, WishlistDialog.wishListModel);
 			setProgress((int)((14f/20f)* 100));
-			FileManager.loadSpecialList("wishlistMAL.anaconda", AnimeIndex.wishlistMALMap, WishlistDialog.wishListModel);
+			
+			File wishlistMAL = new File(MAMUtil.getAnimeFolderPath() + "wishlistMAL.JConda");
+			if (wishlistMAL.isFile())
+				FileManager.loadSpecialListGson("wishlistMAL.JConda", AnimeIndex.wishlistMALMap, WishlistDialog.wishListModel);
+			else
+				FileManager.loadSpecialList("wishlistMAL.anaconda", AnimeIndex.wishlistMALMap, WishlistDialog.wishListModel);
 			setProgress((int)((15f/20f)* 100));
-			FileManager.loadSpecialList("droplist.anaconda", AnimeIndex.droppedMALMap, WishlistDialog.dropListModel);
+			
+			File droplist = new File(MAMUtil.getAnimeFolderPath() + "droplist.JConda");
+			if (droplist.isFile())
+				FileManager.loadSpecialListGson("droplist.JConda", AnimeIndex.droppedMALMap, WishlistDialog.dropListModel);
+			else
+				FileManager.loadSpecialList("droplist.anaconda", AnimeIndex.droppedMALMap, WishlistDialog.dropListModel);
 			setProgress((int)((16f/20f)* 100));
-			FileManager.loadSpecialList("droplistMAL.anaconda", AnimeIndex.droppedMap, WishlistDialog.dropListModel);
+			
+			File droplistMAL = new File(MAMUtil.getAnimeFolderPath() + "droplistMAL.JConda");
+			if (droplistMAL.isFile())
+				FileManager.loadSpecialListGson("droplistMAL.JConda", AnimeIndex.droppedMap, WishlistDialog.dropListModel);
+			else 
+				FileManager.loadSpecialList("droplistMAL.anaconda", AnimeIndex.droppedMap, WishlistDialog.dropListModel);
+			
 			setProgress((int)((17f/20f)* 100));
 			FileManager.loadDateMap();
 			setProgress((int)((18f/20f)* 100));

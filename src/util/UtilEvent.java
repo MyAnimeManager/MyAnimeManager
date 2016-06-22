@@ -47,6 +47,19 @@ public class UtilEvent
 						{
 							list.setSelectedIndex(row);
 							JPopupMenu menu = new JPopupMenu();
+							
+							JMenuItem copy = new JMenuItem("Copia");
+							copy.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/copy-icon.png")));
+							copy.addActionListener(new ActionListener() {
+								
+								@Override
+								public void actionPerformed(ActionEvent e)
+								{
+									Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+									clpbrd.setContents(new StringSelection(AnimeIndex.animeInformation.lblAnimeName.getText()), null);
+								}
+							});
+							
 							JMenuItem add = new JMenuItem("Aggiungi alle Esclusioni");
 							add.addActionListener(new ActionListener() {
 
@@ -74,6 +87,7 @@ public class UtilEvent
 								menu.add(remove);
 							else
 								menu.add(add);
+							menu.add(copy);
 							menu.show(list, e.getX(), e.getY());
 						}
 					}
@@ -452,44 +466,47 @@ public class UtilEvent
 				{
 					if(e.getSource().equals(AnimeIndex.animeInformation.lblAnimeName));
 					{
-						JPopupMenu menu = new JPopupMenu();
-						JMenuItem add = new JMenuItem("Copia");
-						add.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/copy-icon.png")));
-						add.addActionListener(new ActionListener() {
-	
-							@Override
-							public void actionPerformed(ActionEvent e)
-							{
-								Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
-								clpbrd.setContents(new StringSelection(AnimeIndex.animeInformation.lblAnimeName.getText()), null);
-							}
-						});
-						JMenuItem addd = new JMenuItem("Cerca in Rete");
-						addd.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/net.png")));
-						addd.addActionListener(new ActionListener() {
-	
-							@Override
-							public void actionPerformed(ActionEvent e)
-							{
-								try
+						if (!AnimeIndex.animeInformation.lblAnimeName.getText().equalsIgnoreCase("Anime"))
+						{
+							JPopupMenu menu = new JPopupMenu();
+							JMenuItem add = new JMenuItem("Copia");
+							add.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/copy-icon.png")));
+							add.addActionListener(new ActionListener() {
+								
+								@Override
+								public void actionPerformed(ActionEvent e)
 								{
-									String link = "https://www.google.it/search?q="+URLEncoder.encode(AnimeIndex.animeInformation.lblAnimeName.getText(), "UTF-8");
-									URI uriLink = new URI(link);
-									Desktop.getDesktop().browse(uriLink);
+									Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+									clpbrd.setContents(new StringSelection(AnimeIndex.animeInformation.lblAnimeName.getText()), null);
 								}
-								catch (URISyntaxException a)
+							});
+							JMenuItem addd = new JMenuItem("Cerca in Rete");
+							addd.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/net.png")));
+							addd.addActionListener(new ActionListener() {
+								
+								@Override
+								public void actionPerformed(ActionEvent e)
 								{
-									MAMUtil.writeLog(a);
+									try
+									{
+										String link = "https://www.google.it/search?q=" + URLEncoder.encode(AnimeIndex.animeInformation.lblAnimeName.getText(), "UTF-8");
+										URI uriLink = new URI(link);
+										Desktop.getDesktop().browse(uriLink);
+									}
+									catch (URISyntaxException a)
+									{
+										MAMUtil.writeLog(a);
+									}
+									catch (IOException a)
+									{
+										MAMUtil.writeLog(a);
+									}
 								}
-								catch (IOException a)
-								{
-									MAMUtil.writeLog(a);
-								}
-							}
-						});
-						menu.add(add);
-						menu.add(addd);
-						menu.show(AnimeIndex.animeInformation.lblAnimeName, e.getX(), e.getY());
+							});
+							menu.add(add);
+							menu.add(addd);
+							menu.show(AnimeIndex.animeInformation.lblAnimeName, e.getX(), e.getY());
+						}
 					}
 				}
 			}

@@ -927,67 +927,63 @@ public class AddAnimeDialog extends JDialog
 									boolean bd = false;
 									if (type.equalsIgnoreCase("blu-ray"))
 										bd = true;
-									if (name.contains("|") || duration.contains("|"))
-										JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Alcuni campi contengono caratteri non consentiti.", "Errore !", JOptionPane.ERROR_MESSAGE);
+									
+									if ((AnimeIndex.appProp.getProperty("Check_Data_Conflict").equalsIgnoreCase("false")) || finishDate.equalsIgnoreCase("//") || type.equalsIgnoreCase("?????"))
+									{
+										String listName = (String) listToAdd.getSelectedItem();
+										if(!startDate.contains("?"))
+										{
+											if(listName.equalsIgnoreCase("Film") || listName.equalsIgnoreCase("OAV"))
+											{
+												GregorianCalendar rDate = MAMUtil.getDate(startDate);
+												String cDay = MAMUtil.today();
+												GregorianCalendar tDate = MAMUtil.getDate(cDay);
+//													if(type.equalsIgnoreCase("Movie") || type.equalsIgnoreCase("OVA") || type.equalsIgnoreCase("ONA") || type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("TV Short"))
+//													{
+													if(rDate.before(tDate) || rDate.equals(tDate))
+													{
+														AnimeIndex.exitDateMap.put(name, cDay);
+														exitDay = "Rilasciato";
+													}
+//													}
+											}
+										}
+										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
+										JList list = AddAnimeDialog.getJList(listName);
+										SortedListModel model = AddAnimeDialog.getModel(listName);
+										TreeMap<String, AnimeData> map = AddAnimeDialog.getMap(listName);
+										map.put(name, data);
+										model.addElement(name);
+										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+										list.clearSelection();
+										list.setSelectedValue(name, true);
+										AddAnimeDialog.this.dispose();
+									}
 									else
 									{
-										if ((AnimeIndex.appProp.getProperty("Check_Data_Conflict").equalsIgnoreCase("false")) || finishDate.equalsIgnoreCase("//") || type.equalsIgnoreCase("?????"))
+										String list = AddAnimeDialog.checkDataConflict(finishDate, type, false);
+										if(!startDate.contains("?"))
 										{
-											String listName = (String) listToAdd.getSelectedItem();
-											if(!startDate.contains("?"))
+											if(list.equalsIgnoreCase("Film") || list.equalsIgnoreCase("OAV"))
 											{
-												if(listName.equalsIgnoreCase("Film") || listName.equalsIgnoreCase("OAV"))
-												{
-													GregorianCalendar rDate = MAMUtil.getDate(startDate);
-													String cDay = MAMUtil.today();
-													GregorianCalendar tDate = MAMUtil.getDate(cDay);
+												GregorianCalendar rDate = MAMUtil.getDate(startDate);
+												String cDay = MAMUtil.today();
+												GregorianCalendar tDate = MAMUtil.getDate(cDay);
 //													if(type.equalsIgnoreCase("Movie") || type.equalsIgnoreCase("OVA") || type.equalsIgnoreCase("ONA") || type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("TV Short"))
 //													{
-														if(rDate.before(tDate) || rDate.equals(tDate))
-														{
-															AnimeIndex.exitDateMap.put(name, cDay);
-															exitDay = "Rilasciato";
-														}
+													if(rDate.before(tDate) || rDate.equals(tDate))
+													{
+														AnimeIndex.exitDateMap.put(name, cDay);
+														exitDay = "Rilasciato";
+													}
 //													}
-												}
 											}
-											AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
-											JList list = AddAnimeDialog.getJList(listName);
-											SortedListModel model = AddAnimeDialog.getModel(listName);
-											TreeMap<String, AnimeData> map = AddAnimeDialog.getMap(listName);
-											map.put(name, data);
-											model.addElement(name);
-											AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-											list.clearSelection();
-											list.setSelectedValue(name, true);
-											AddAnimeDialog.this.dispose();
 										}
-										else
-										{
-											String list = AddAnimeDialog.checkDataConflict(finishDate, type, false);
-											if(!startDate.contains("?"))
-											{
-												if(list.equalsIgnoreCase("Film") || list.equalsIgnoreCase("OAV"))
-												{
-													GregorianCalendar rDate = MAMUtil.getDate(startDate);
-													String cDay = MAMUtil.today();
-													GregorianCalendar tDate = MAMUtil.getDate(cDay);
-//													if(type.equalsIgnoreCase("Movie") || type.equalsIgnoreCase("OVA") || type.equalsIgnoreCase("ONA") || type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("TV Short"))
-//													{
-														if(rDate.before(tDate) || rDate.equals(tDate))
-														{
-															AnimeIndex.exitDateMap.put(name, cDay);
-															exitDay = "Rilasciato";
-														}
-//													}
-												}
-											}
-											AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
-											updateControlList(list);
-											AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
-										}
-										AnimeIndex.lastSelection = name;
+										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
+										updateControlList(list);
+										AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
 									}
+									AnimeIndex.lastSelection = name;
 								}
 							}
 						});
@@ -1030,11 +1026,7 @@ public class AddAnimeDialog extends JDialog
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
-							String anime = (String) searchedList.getSelectedValue();
-							if(anime.contains("|") || anime.contains("||"))
-								JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Il nome dell'anime contiene caratteri non consentiti.", "Errore !", JOptionPane.ERROR_MESSAGE);
-							else
-								automaticAdd();
+							automaticAdd();
 						}
 					});
 					{

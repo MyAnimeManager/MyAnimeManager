@@ -319,6 +319,7 @@ public class FileManager
 		}
 	}
 
+	@Deprecated
 	public static void loadSpecialList(String filename, TreeMap<String,Integer> map, SortedListModel model)
 	{
 		File wishlistFile = new File(MAMUtil.getAnimeFolderPath() + filename);
@@ -367,6 +368,7 @@ public class FileManager
 			}
 	}
 
+	@Deprecated
 	public static void saveSpecialList(String filename, TreeMap<String,Integer> map, SortedListModel model)
 	{
 		File wishlistFile = new File(MAMUtil.getAnimeFolderPath() + filename);
@@ -397,7 +399,50 @@ public class FileManager
 		}
 	}
 
-	// Treemap date
+	public static void loadSpecialListGson(String filename, TreeMap<String,Integer> map, SortedListModel model)
+	{
+		File specialListFile = new File(MAMUtil.getAnimeFolderPath() + filename);
+		InputStreamReader reader;
+		try
+		{
+			reader = new InputStreamReader(new FileInputStream(specialListFile), "UTF-8");
+			JsonParser parser = new JsonParser();
+			JsonElement animeList = parser.parse(reader);
+			JsonObject anime = animeList.getAsJsonObject();
+			Gson gsonMap = new GsonBuilder().serializeNulls().create();
+			Type mapType = new TypeToken<TreeMap<String, Integer>>() {}.getType();
+			map.putAll(gsonMap.fromJson(anime, mapType));			
+			model.addAll(map.keySet());
+		}
+		catch (FileNotFoundException | UnsupportedEncodingException e)
+		{
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
+		}
+	}
+
+	public static void saveSpecialListGson(String filename, TreeMap<String,Integer> map)
+	{
+		Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+        String json = gson.toJson(map);
+		
+		
+		File specialListFile = new File(MAMUtil.getAnimeFolderPath() + filename);
+		specialListFile.getParentFile().mkdirs();
+		BufferedWriter output;
+		try
+		{
+			output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(specialListFile), "UTF-8"));
+            output.write(json);
+            output.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+			MAMUtil.writeLog(e);
+		}
+	}
+
 	public static void saveDateMap()
 	{
 		File dateFile = new File(MAMUtil.getAnimeFolderPath() + "date.anaconda");
@@ -886,7 +931,7 @@ public class FileManager
 	}
 	
 	public static void createZip(File dest, LinkedHashMap<File,String> fileDestMap)
-	{	//usare File.list per prendere la lista dei file nella cartella
+	{	
 		try
 		{
 			FileOutputStream zipFile = new FileOutputStream(dest);
@@ -925,9 +970,10 @@ public class FileManager
 	         ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
 	         ZipEntry entry;
 	         while((entry = zis.getNextEntry()) != null) {
-	            System.out.println("Extracting: " + entry);	            int count;
+	            System.out.println("Extracting: " + entry);	            
+	            int count;
 	            byte data[] = new byte[BUFFER];
-	            // write the files to the disk
+
 	            String fileName = folderDest.getAbsolutePath() + File.separator + entry.getName();
 	            File folder = new File(fileName).getParentFile();
 	            System.out.println(folder);
