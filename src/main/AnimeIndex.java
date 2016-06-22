@@ -101,17 +101,13 @@ import util.window.WishlistDialog;
 //TODO(Kirin) fixare "IL BUG"
 //TODO(Kirin) caratteri speciali aggiunta anime
 //TODO(Kirin) importare uscite stagionali da rad
-//    (Saya)  printare processo task sulla barra dello splash --> DONE
 //TODO(Kirin) spostmento tramite ricerca in anilist dalla wishlist e dalla droplist alla lista principale attualmente selezionata(con controllo compatibilita')
-//    (Saya)  json per wishlist e droplist --> DONE
-//    (Saya)  rimozione controlli per | nell'addanimedialog --> DONE
 //TODO(Kirin) velocizzare apertura splash
 //TODO(kirin) import/export anilist --> WUT?
 
 
 public class AnimeIndex extends JFrame
-{
-	
+{	
 	public static final String VERSION = "1.1.3";
 	public static final String CURRENT_VERSION = "MyAnimeManager.exe";
 	public static final String NEW_VERSION = "MyAnimeManager_Setup.exe";

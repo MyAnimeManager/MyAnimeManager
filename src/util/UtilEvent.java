@@ -48,7 +48,7 @@ public class UtilEvent
 							list.setSelectedIndex(row);
 							JPopupMenu menu = new JPopupMenu();
 							
-							JMenuItem copy = new JMenuItem("Copia");
+							JMenuItem copy = new JMenuItem("Copia Nome");
 							copy.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/copy-icon.png")));
 							copy.addActionListener(new ActionListener() {
 								
@@ -60,7 +60,32 @@ public class UtilEvent
 								}
 							});
 							
+							JMenuItem netSearch = new JMenuItem("Cerca in Rete");
+							netSearch.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/net.png")));
+							netSearch.addActionListener(new ActionListener() {
+								
+								@Override
+								public void actionPerformed(ActionEvent e)
+								{
+									try
+									{
+										String link = "https://www.google.it/search?q=" + URLEncoder.encode(AnimeIndex.animeInformation.lblAnimeName.getText(), "UTF-8");
+										URI uriLink = new URI(link);
+										Desktop.getDesktop().browse(uriLink);
+									}
+									catch (URISyntaxException a)
+									{
+										MAMUtil.writeLog(a);
+									}
+									catch (IOException a)
+									{
+										MAMUtil.writeLog(a);
+									}
+								}
+							});
+							
 							JMenuItem add = new JMenuItem("Aggiungi alle Esclusioni");
+							add.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/exclude-icon.png")));
 							add.addActionListener(new ActionListener() {
 
 								@Override
@@ -75,6 +100,7 @@ public class UtilEvent
 								}
 							});
 							JMenuItem remove = new JMenuItem("Rimuovi dalle Esclusioni");
+							remove.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/include-icon.png")));
 							remove.addActionListener(new ActionListener() {
 
 								@Override
@@ -88,6 +114,7 @@ public class UtilEvent
 							else
 								menu.add(add);
 							menu.add(copy);
+							menu.add(netSearch);
 							menu.show(list, e.getX(), e.getY());
 						}
 					}
