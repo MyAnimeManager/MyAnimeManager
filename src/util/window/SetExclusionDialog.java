@@ -45,6 +45,8 @@ import main.AnimeIndex;
 import util.MAMUtil;
 import util.SearchBar;
 import util.SortedListModel;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 public class SetExclusionDialog extends JDialog
 {
@@ -67,9 +69,7 @@ public class SetExclusionDialog extends JDialog
 	private JList searchListToExclude;
 	private JPanel excludedPane;
 	private JLabel lblCampiEsclusi;
-
 	private String selectedAnime = "";
-
 	private JCheckBox imgExcludeCheck;
 	private JCheckBox totEpExcludeCheck;
 	private JCheckBox durationExcludeCheck;
@@ -78,10 +78,9 @@ public class SetExclusionDialog extends JDialog
 	private JCheckBox typeExcludeCheck;
 	private TreeMap<String, boolean[]> exclusionSessionAnime = new TreeMap<String, boolean[]>();
 	private ArrayList<String> checkSessionAnime = new ArrayList<String>();
+	private JSeparator separator;
 
-	/**
-	 * Create the dialog..
-	 */
+
 	public SetExclusionDialog()
 	{
 		super(AnimeIndex.frame, true);
@@ -109,14 +108,14 @@ public class SetExclusionDialog extends JDialog
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);
 		setResizable(false);
-		setBounds(100, 100, 618, 271);
+		setBounds(100, 100, 617, 271);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[] { 15, 196, 16, 103, 106, 0, 0 };
+		gbl_contentPanel.columnWidths = new int[] { 15, 196, 16, 103, 106, 0, 0, 0 };
 		gbl_contentPanel.rowHeights = new int[] { 23, 0, 0, 0, 31, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
@@ -153,10 +152,22 @@ public class SetExclusionDialog extends JDialog
 			searchBarCheck.setFont(AnimeIndex.segui.deriveFont(11f));
 			ImageIcon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(AnimeIndex.class.getResource("/image/search.png")));
 			{
+				separator = new JSeparator();
+				separator.setMinimumSize(new Dimension(2, 0));
+				separator.setOrientation(SwingConstants.VERTICAL);
+				GridBagConstraints gbc_separator = new GridBagConstraints();
+				gbc_separator.fill = GridBagConstraints.BOTH;
+				gbc_separator.gridheight = 7;
+				gbc_separator.insets = new Insets(0, 0, 5, 5);
+				gbc_separator.gridx = 5;
+				gbc_separator.gridy = 1;
+				contentPanel.add(separator, gbc_separator);
+			}
+			{
 				lblCampiEsclusi = new JLabel("Campi Esclusi");
 				GridBagConstraints gbc_lblCampiEsclusi = new GridBagConstraints();
 				gbc_lblCampiEsclusi.insets = new Insets(0, 0, 5, 0);
-				gbc_lblCampiEsclusi.gridx = 5;
+				gbc_lblCampiEsclusi.gridx = 6;
 				gbc_lblCampiEsclusi.gridy = 1;
 				contentPanel.add(lblCampiEsclusi, gbc_lblCampiEsclusi);
 			}
@@ -432,7 +443,7 @@ public class SetExclusionDialog extends JDialog
 				GridBagConstraints gbc_imgExcludeCheck = new GridBagConstraints();
 				gbc_imgExcludeCheck.anchor = GridBagConstraints.WEST;
 				gbc_imgExcludeCheck.insets = new Insets(0, 0, 5, 0);
-				gbc_imgExcludeCheck.gridx = 5;
+				gbc_imgExcludeCheck.gridx = 6;
 				gbc_imgExcludeCheck.gridy = 2;
 				contentPanel.add(imgExcludeCheck, gbc_imgExcludeCheck);
 			}
@@ -451,7 +462,7 @@ public class SetExclusionDialog extends JDialog
 				GridBagConstraints gbc_totEpExcludeCheck = new GridBagConstraints();
 				gbc_totEpExcludeCheck.anchor = GridBagConstraints.WEST;
 				gbc_totEpExcludeCheck.insets = new Insets(0, 0, 5, 0);
-				gbc_totEpExcludeCheck.gridx = 5;
+				gbc_totEpExcludeCheck.gridx = 6;
 				gbc_totEpExcludeCheck.gridy = 3;
 				contentPanel.add(totEpExcludeCheck, gbc_totEpExcludeCheck);
 			}
@@ -665,7 +676,7 @@ public class SetExclusionDialog extends JDialog
 				GridBagConstraints gbc_durationExcludeCheck = new GridBagConstraints();
 				gbc_durationExcludeCheck.anchor = GridBagConstraints.WEST;
 				gbc_durationExcludeCheck.insets = new Insets(0, 0, 5, 0);
-				gbc_durationExcludeCheck.gridx = 5;
+				gbc_durationExcludeCheck.gridx = 6;
 				gbc_durationExcludeCheck.gridy = 4;
 				contentPanel.add(durationExcludeCheck, gbc_durationExcludeCheck);
 			}
@@ -691,7 +702,7 @@ public class SetExclusionDialog extends JDialog
 			GridBagConstraints gbc_releaseDateExcludeCheck = new GridBagConstraints();
 			gbc_releaseDateExcludeCheck.anchor = GridBagConstraints.WEST;
 			gbc_releaseDateExcludeCheck.insets = new Insets(0, 0, 5, 0);
-			gbc_releaseDateExcludeCheck.gridx = 5;
+			gbc_releaseDateExcludeCheck.gridx = 6;
 			gbc_releaseDateExcludeCheck.gridy = 5;
 			contentPanel.add(releaseDateExcludeCheck, gbc_releaseDateExcludeCheck);
 		}
@@ -758,7 +769,7 @@ public class SetExclusionDialog extends JDialog
 				GridBagConstraints gbc_finischDateExcludeCheck = new GridBagConstraints();
 				gbc_finischDateExcludeCheck.anchor = GridBagConstraints.WEST;
 				gbc_finischDateExcludeCheck.insets = new Insets(0, 0, 5, 0);
-				gbc_finischDateExcludeCheck.gridx = 5;
+				gbc_finischDateExcludeCheck.gridx = 6;
 				gbc_finischDateExcludeCheck.gridy = 6;
 				contentPanel.add(finischDateExcludeCheck, gbc_finischDateExcludeCheck);
 			}
@@ -777,7 +788,7 @@ public class SetExclusionDialog extends JDialog
 				GridBagConstraints gbc_typeExcludeCheck = new GridBagConstraints();
 				gbc_typeExcludeCheck.anchor = GridBagConstraints.WEST;
 				gbc_typeExcludeCheck.insets = new Insets(0, 0, 5, 0);
-				gbc_typeExcludeCheck.gridx = 5;
+				gbc_typeExcludeCheck.gridx = 6;
 				gbc_typeExcludeCheck.gridy = 7;
 				contentPanel.add(typeExcludeCheck, gbc_typeExcludeCheck);
 			}

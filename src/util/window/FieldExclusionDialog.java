@@ -32,9 +32,6 @@ public class FieldExclusionDialog extends JDialog
 	private JPanel panel;
 	private JCheckBox imageCheckBox;
 
-	/**
-	 * Create the dialog.
-	 */
 	public FieldExclusionDialog()
 	{
 		super(AnimeIndex.frame, true);

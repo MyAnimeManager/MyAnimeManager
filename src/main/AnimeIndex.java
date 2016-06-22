@@ -379,6 +379,23 @@ public class AnimeIndex extends JFrame
 							}
 						}).start();
 					}
+					else if (AnimeIndex.appProp.getProperty("Open_Droplist").equalsIgnoreCase("true"))
+					{
+						AnimeIndex.wishlistDialog.comboBox.setSelectedItem("DROPLIST");
+						AnimeIndex.wishlistDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x, AnimeIndex.mainPanel.getLocationOnScreen().y);
+						AnimeIndex.wishlistDialog.setVisible(true);
+						new Timer(1, new ActionListener() {
+			
+							@Override
+							public void actionPerformed(ActionEvent e)
+							{
+								AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y);
+								AnimeIndex.mainPanel.requestFocus();
+								if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainPanel.getLocationOnScreen().x - 181)
+									((Timer) e.getSource()).stop();
+							}
+						}).start();
+					}
 					
 					if (AnimeIndex.appProp.getProperty("Open_NewsBoard").equalsIgnoreCase("true"))
 						if (!AnimeIndex.newsBoardDialog.isShowing())
@@ -415,7 +432,7 @@ public class AnimeIndex extends JFrame
 		mnMenu.setOpaque(true);
 		menuBar.add(mnMenu);
 
-		JMenuItem mntmPreferenze = new JMenuItem("Preferenze");
+		JMenuItem mntmPreferenze = new JMenuItem("Impostazioni");
 		mntmPreferenze.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/System-Preferences-icon.png")));
 		mntmPreferenze.addActionListener(new ActionListener() {
 
@@ -527,6 +544,7 @@ public class AnimeIndex extends JFrame
 		mnImportaEsporta.add(mnMyanimelist);
 		
 		JMenuItem mntmImportMAL = new JMenuItem("Importa Liste");
+		mntmImportMAL.setToolTipText("Importa le liste da MyAnimeList in MyAnimeManager");
 		mntmImportMAL.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/down.png")));
 		mnMyanimelist.add(mntmImportMAL);
 		
@@ -534,6 +552,7 @@ public class AnimeIndex extends JFrame
 		mnMyanimelist.add(separator_28);
 		
 		JMenuItem mntmExportMAL = new JMenuItem("Esporta Liste");
+		mntmExportMAL.setToolTipText("Esporta le liste da MyAnimeManager su MyAnimeList");
 		mntmExportMAL.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/up.png")));
 		mnMyanimelist.add(mntmExportMAL);
 		mntmExportMAL.addActionListener(new ActionListener() {

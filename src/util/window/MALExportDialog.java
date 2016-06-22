@@ -91,7 +91,7 @@ public class MALExportDialog extends JDialog
 				filmIndeces = getIndexOf(AnimeIndex.filmModel);
 				completedToSeeIndeces = getIndexOf(AnimeIndex.completedToSeeModel);	
 				wishlistIndeces = getIndexOf(WishlistDialog.wishListModel);
-				droplistIndeces = getIndexOf(WishlistDialog.wishListModel);
+				droplistIndeces = getIndexOf(WishlistDialog.dropListModel);
 				
 				setTitle("Selezione Anime da Esportare : 0/"+listModel.getSize());
 			}
@@ -226,6 +226,7 @@ public class MALExportDialog extends JDialog
 						});
 						{
 							separator = new JSeparator();
+							separator.setMinimumSize(new Dimension(2, 0));
 							separator.setOrientation(SwingConstants.VERTICAL);
 							GridBagConstraints gbc_separator = new GridBagConstraints();
 							gbc_separator.fill = GridBagConstraints.BOTH;
