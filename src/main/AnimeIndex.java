@@ -101,9 +101,11 @@ import util.window.WishlistDialog;
 //TODO(Kirin) fixare "IL BUG"
 //TODO(Kirin) caratteri speciali aggiunta anime
 //TODO(Kirin) importare uscite stagionali da rad
+//TODO(Kirin) mastah all'avvio
+//TODO(Kirin) dialog gestione episodi
 //TODO(Kirin) spostmento tramite ricerca in anilist dalla wishlist e dalla droplist alla lista principale attualmente selezionata(con controllo compatibilita')
 //TODO(Kirin) velocizzare apertura splash
-//TODO(kirin) import/export anilist --> WUT?
+//TODO(Kirin) import/export anilist --> WUT?
 
 
 public class AnimeIndex extends JFrame
