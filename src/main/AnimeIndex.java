@@ -101,11 +101,11 @@ import util.window.WishlistDialog;
 //TODO(Kirin) fixare "IL BUG"
 //TODO(Kirin) caratteri speciali aggiunta anime
 //TODO(Kirin) importare uscite stagionali da rad
-//TODO(Kirin) mastah all'avvio
 //TODO(Kirin) dialog gestione episodi
 //TODO(Kirin) spostmento tramite ricerca in anilist dalla wishlist e dalla droplist alla lista principale attualmente selezionata(con controllo compatibilita')
 //TODO(Kirin) velocizzare apertura splash
 //TODO(Kirin) import/export anilist --> WUT?
+//TODO(Kirin) json per datemap e exclusionlist
 
 
 public class AnimeIndex extends JFrame
@@ -1480,7 +1480,7 @@ public class AnimeIndex extends JFrame
 					nDrop += 1;
 				for (int i = 0; i < droppedMALMap.size(); i++)
 					nDrop += 1;
-				JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Anime Completati:      " + nCompleted + "\n\r\n\rAnime in Corso:           " + nAiring + "\n\r\n\rOav:                               " + nOAV + "\n\r\n\rFilm:                               " + nFilm + "\n\r\n\rCompleti da Vedere:    " + nToSee + "\n\r\n\rWishlist:                         " + nWish + "\n\r\n\rDroplist:                         " + nDrop, "Statistiche", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Anime Completati:       " + nCompleted + "\n\r\n\rAnime in Corso:            " + nAiring + "\n\r\n\rOav:                               " + nOAV + "\n\r\n\rFilm:                               " + nFilm + "\n\r\n\rCompleti da Vedere:     " + nToSee + "\n\r\n\rWishlist:                         " + nWish + "\n\r\n\rDroplist:                         " + nDrop, "Statistiche", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		mnInfo.add(mntmStatistiche);
