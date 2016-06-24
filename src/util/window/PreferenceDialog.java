@@ -45,6 +45,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseWheelEvent;
 import javax.swing.JSlider;
+import java.awt.Component;
 
 public class PreferenceDialog extends JDialog
 {
@@ -538,13 +539,14 @@ public class PreferenceDialog extends JDialog
 		generalSettingPane.add(chckbxIntro, gbc_chckbxIntro);
 		
 		introVolume = new JSlider();
+		introVolume.setPaintTicks(true);
+		introVolume.setMajorTickSpacing(10);
 		introVolume.setPreferredSize(new Dimension(210, 26));
 		introVolume.setRequestFocusEnabled(false);
 		introVolume.setFocusable(false);
-		introVolume.setValueIsAdjusting(true);
 		introVolume.setValue(0);
 		GridBagConstraints gbc_introVolume = new GridBagConstraints();
-		gbc_introVolume.fill = GridBagConstraints.HORIZONTAL;
+		gbc_introVolume.fill = GridBagConstraints.BOTH;
 		gbc_introVolume.gridwidth = 2;
 		gbc_introVolume.insets = new Insets(0, 0, 5, 5);
 		gbc_introVolume.gridx = 1;

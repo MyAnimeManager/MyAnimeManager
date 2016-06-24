@@ -1,7 +1,7 @@
 package util.task;
 
 import java.io.BufferedInputStream;
-import java.io.FileInputStream;
+import java.io.InputStream;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -11,8 +11,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Mixer;
 import javax.swing.SwingWorker;
 
-import main.AnimeIndex;
 import javazoom.jl.player.Player;
+import main.AnimeIndex;
 
 
 public class AudioIntroTask extends SwingWorker
@@ -64,7 +64,7 @@ public class AudioIntroTask extends SwingWorker
 			    }  
 			}
 			try{
-			FileInputStream fis = new FileInputStream(AudioIntroTask.class.getClassLoader().getResourceAsStream("Mastah.mp3").toString());
+			InputStream fis = this.getClass().getClassLoader().getResourceAsStream("Mastah.mp3");
 			BufferedInputStream buff = new BufferedInputStream(fis);
 			Player player = new Player(buff);
 			player.play();
