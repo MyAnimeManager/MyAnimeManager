@@ -2,13 +2,16 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.io.File;
 import java.io.IOException;
 
@@ -24,7 +27,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
+import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -35,17 +40,6 @@ import main.AnimeIndex;
 import util.EpisodeChooserFilter;
 import util.FileManager;
 import util.MAMUtil;
-
-import java.awt.GridLayout;
-
-import javax.swing.JProgressBar;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseWheelListener;
-import java.awt.event.MouseWheelEvent;
-import javax.swing.JSlider;
-import java.awt.Component;
 
 public class PreferenceDialog extends JDialog
 {
@@ -538,7 +532,46 @@ public class PreferenceDialog extends JDialog
 		gbc_chckbxIntro.gridy = 11;
 		generalSettingPane.add(chckbxIntro, gbc_chckbxIntro);
 		
+		JPopupMenu sliderPop = new JPopupMenu();
+		JLabel sliderLabel = new JLabel();
 		introVolume = new JSlider();
+		introVolume.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				sliderPop.add(sliderLabel);
+				sliderPop.setVisible(true);
+				sliderPop.setLocation((PreferenceDialog.this.getX() + introVolume.getX()+ e.getX()),
+		                   PreferenceDialog.this.getY() + introVolume.getY() + 35);
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (e.getX() > introVolume.getWidth() || e.getX() < 0)
+					sliderPop.setVisible(false);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				sliderLabel.setText((introVolume.getValue() + ""));
+				sliderPop.add(sliderLabel);
+				sliderPop.setVisible(true);
+				sliderPop.setLocation((PreferenceDialog.this.getX() + introVolume.getX()+ e.getX()),
+		                   PreferenceDialog.this.getY() + introVolume.getY() + 35);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				sliderPop.setVisible(false);
+			}
+		});
+		introVolume.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+					sliderLabel.setText((introVolume.getValue() + ""));
+					sliderPop.setVisible(true);
+					sliderPop.setLocation((PreferenceDialog.this.getX() + introVolume.getX()+ e.getX()),
+				                   PreferenceDialog.this.getY() + introVolume.getY() + 35);
+			}
+
+		});
+
 		introVolume.setPaintTicks(true);
 		introVolume.setMajorTickSpacing(10);
 		introVolume.setPreferredSize(new Dimension(210, 26));
@@ -772,4 +805,5 @@ public class PreferenceDialog extends JDialog
 			}
 		return size;
 	}
+
 }
