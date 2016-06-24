@@ -518,13 +518,13 @@ public class PreferenceDialog extends JDialog
 		introVolume.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				lblIntroVolume.setText("Volume Intro :   "+introVolume.getValue()+"%");
+				lblIntroVolume.setText("Volume Intro :          "+introVolume.getValue()+"%");
 			}
 		});
 		introVolume.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				lblIntroVolume.setText("Volume Intro :   "+introVolume.getValue()+"%");
+				lblIntroVolume.setText("Volume Intro :          "+introVolume.getValue()+"%");
 			}
 		});
 		introVolume.setPaintTicks(true);
@@ -541,7 +541,7 @@ public class PreferenceDialog extends JDialog
 		gbc_introVolume.gridy = 11;
 		generalSettingPane.add(introVolume, gbc_introVolume);
 		
-		lblIntroVolume = new JLabel("Volume Intro :   "+(int)(Float.parseFloat(AnimeIndex.appProp.getProperty("Mastah"))*100)+"%");
+		lblIntroVolume = new JLabel("Volume Intro :          "+(int)(Float.parseFloat(AnimeIndex.appProp.getProperty("Mastah"))*100)+"%");
 		GridBagConstraints gbc_lblIntroVolume = new GridBagConstraints();
 		gbc_lblIntroVolume.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblIntroVolume.insets = new Insets(0, 0, 5, 5);
@@ -600,7 +600,7 @@ public class PreferenceDialog extends JDialog
 			btnEsporta.setEnabled(false);
 			btnCancella.setEnabled(false);
 		}
-		logLabel = new JLabel("File di Log : (" + space + "Kb)");
+		logLabel = new JLabel("File di Log :  (" + space + "Kb)");
 		GridBagConstraints gbc_logLabel = new GridBagConstraints();
 		gbc_logLabel.anchor = GridBagConstraints.WEST;
 		gbc_logLabel.insets = new Insets(0, 0, 0, 5);

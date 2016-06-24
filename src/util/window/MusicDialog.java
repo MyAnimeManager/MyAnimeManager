@@ -33,7 +33,14 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.Line;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -55,9 +62,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import main.AnimeIndex;
+
 import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -67,15 +76,18 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
+
 import util.FileManager;
 import util.JMarqueeLabel;
 import util.JTreeIcons;
 import util.MAMUtil;
 import util.task.DriveFileFetcherTask;
 import util.task.GoogleDriveDownloadTask;
+
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
+
 import javax.swing.SwingConstants;
 
 public class MusicDialog extends JDialog
@@ -183,6 +195,7 @@ public class MusicDialog extends JDialog
 					}
 				});
 				task.execute();
+				setLineVolume(1.0f);
 			}
 
 			@Override
@@ -1185,5 +1198,41 @@ public class MusicDialog extends JDialog
 				return new TreePath(node.getPath());
 		}
 		return null;
+	}
+	
+	private void setLineVolume(float f)
+	{
+		Mixer.Info[] mixers = AudioSystem.getMixerInfo();  
+		for (Mixer.Info mixerInfo : mixers)  
+		{  
+		    Mixer mixer = AudioSystem.getMixer(mixerInfo);  
+		    Line.Info[] lineInfos = mixer.getTargetLineInfo();
+		    for (Line.Info lineInfo : lineInfos)  
+		    {   
+		        Line line = null;  
+		        boolean opened = true;  
+		        try  
+		        {  
+		            line = mixer.getLine(lineInfo);  
+		            opened = line.isOpen() || line instanceof Clip;  
+		            if (!opened)  
+		            {  
+		                line.open();  
+		            }  
+		            ((FloatControl)line.getControl(FloatControl.Type.VOLUME)).setValue(f); //0.0f(MIN) 1.0f(MAX)
+		        }  
+		        catch (LineUnavailableException e)  
+		        {}  
+		        catch (IllegalArgumentException iaEx)  
+		        {}  
+		        finally  
+		        {  
+		            if (line != null && !opened)  
+		            {  
+		                line.close();  
+		            }  
+		        }  
+		    }  
+		}
 	}
 }
