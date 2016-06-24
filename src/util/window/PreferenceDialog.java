@@ -127,7 +127,7 @@ public class PreferenceDialog extends JDialog
 				else
 					AnimeIndex.appProp.setProperty("Open_NewsBoard", "false");
 				
-//TODO			if(chckbxIntro.isSelected())
+//TODO			if(chckbxIntro.isSelected())  
 //					AnimeIndex.appProp.setProperty("Mastah", "true:1.0f");
 //				else
 //					AnimeIndex.appProp.setProperty("Mastah", "false:1.0f");
