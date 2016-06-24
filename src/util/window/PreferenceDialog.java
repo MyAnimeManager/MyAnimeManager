@@ -2,7 +2,6 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -37,15 +36,10 @@ import util.FileManager;
 import util.MAMUtil;
 
 import java.awt.GridLayout;
-
-import javax.swing.JProgressBar;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseWheelListener;
-import java.awt.event.MouseWheelEvent;
 import javax.swing.JSlider;
-import java.awt.Component;
 
 public class PreferenceDialog extends JDialog
 {
@@ -133,10 +127,11 @@ public class PreferenceDialog extends JDialog
 				else
 					AnimeIndex.appProp.setProperty("Open_NewsBoard", "false");
 				
-//TODO			if(chckbxIntro.isSelected())
-//					AnimeIndex.appProp.setProperty("Mastah", "true:1.0f");
-//				else
-//					AnimeIndex.appProp.setProperty("Mastah", "false:1.0f");
+				if(chckbxIntro.isSelected())
+					AnimeIndex.appProp.setProperty("Mastah", "true:"+((float)introVolume.getValue())/100);
+				else
+					AnimeIndex.appProp.setProperty("Mastah", "false:"+((float)introVolume.getValue())/100);
+				
 				 String generalPattern = generalPatternTextField.getText();
 				 AnimeIndex.appProp.setProperty("General_Pattern", generalPattern);
 				 
@@ -539,6 +534,18 @@ public class PreferenceDialog extends JDialog
 		generalSettingPane.add(chckbxIntro, gbc_chckbxIntro);
 		
 		introVolume = new JSlider();
+		introVolume.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				introVolume.setToolTipText(introVolume.getValue()+"%");
+			}
+		});
+		introVolume.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				introVolume.setToolTipText(introVolume.getValue()+"%");
+			}
+		});
 		introVolume.setPaintTicks(true);
 		introVolume.setMajorTickSpacing(10);
 		introVolume.setPreferredSize(new Dimension(210, 26));
@@ -757,6 +764,19 @@ public class PreferenceDialog extends JDialog
 			chckbxDroplist.setSelected(true);
 		else
 			chckbxDroplist.setSelected(false);
+		String[] prop = AnimeIndex.appProp.getProperty("Mastah").split(":");
+		if(prop[0].equals("true"))
+		{
+			chckbxIntro.setSelected(true);
+			introVolume.setEnabled(true);
+			introVolume.setValue((int)(Float.parseFloat(prop[1])*100));
+		}
+		else
+		{
+			chckbxIntro.setSelected(false);
+			introVolume.setEnabled(false);
+			introVolume.setValue((int)(Float.parseFloat(prop[1])*100));
+		}
 	}
 	
 	private long getFolderSize(File folder)

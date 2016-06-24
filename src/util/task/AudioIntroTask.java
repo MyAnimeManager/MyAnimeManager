@@ -63,17 +63,12 @@ public class AudioIntroTask extends SwingWorker
 			        }  
 			    }  
 			}
-			try{
 			InputStream fis = this.getClass().getClassLoader().getResourceAsStream("Mastah.mp3");
 			BufferedInputStream buff = new BufferedInputStream(fis);
 			Player player = new Player(buff);
 			player.play();
 			fis.close();
 			buff.close();
-			}catch(Exception e)
-			{
-				e.printStackTrace();
-			}
 		}
 		return null;
 	}
