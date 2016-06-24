@@ -42,7 +42,7 @@ public class AnimeIndexProperties
 			defaultProps.setProperty("Main_Folder", "");
 			defaultProps.setProperty("Username", "");
 			defaultProps.setProperty("Password", "");
-			defaultProps.setProperty("Mastah", "true:1.0f");
+			defaultProps.setProperty("Mastah", "1.0");
 			in.close();
 		}
 		catch (FileNotFoundException fe)
@@ -75,7 +75,7 @@ public class AnimeIndexProperties
 				defaultProps.setProperty("Episode_Folder", "null");
 				defaultProps.setProperty("Username", "");
 				defaultProps.setProperty("Password", "");
-				defaultProps.setProperty("Mastah", "true:1.0f");
+				defaultProps.setProperty("Mastah", "1.0");
 			}
 			catch (IOException e)
 			{

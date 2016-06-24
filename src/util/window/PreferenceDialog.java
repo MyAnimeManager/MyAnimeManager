@@ -4,14 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.io.File;
 import java.io.IOException;
 
@@ -27,9 +23,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
-import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -40,6 +34,12 @@ import main.AnimeIndex;
 import util.EpisodeChooserFilter;
 import util.FileManager;
 import util.MAMUtil;
+
+import java.awt.GridLayout;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
+import javax.swing.JSlider;
 
 public class PreferenceDialog extends JDialog
 {
@@ -54,7 +54,7 @@ public class PreferenceDialog extends JDialog
 	private JCheckBox chckbxApriWishlist;
 	private JCheckBox chckbxDroplist;
 	private JCheckBox chckbxApriNewsboard;
-	private JCheckBox chckbxIntro;
+	private JLabel lblIntroVolume;
 	private JSlider introVolume;
 	private JButton btnEsporta;
 	private JButton btnCancella;
@@ -95,6 +95,8 @@ public class PreferenceDialog extends JDialog
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
+				AnimeIndex.appProp.setProperty("Mastah",((float)(introVolume.getValue())/100)+"");
+				
 				if (rdbtnLastList.isSelected())
 				{
 					AnimeIndex.appProp.setProperty("List_to_visualize_at_start", "Last list");
@@ -127,10 +129,6 @@ public class PreferenceDialog extends JDialog
 				else
 					AnimeIndex.appProp.setProperty("Open_NewsBoard", "false");
 				
-//TODO			if(chckbxIntro.isSelected())  
-//					AnimeIndex.appProp.setProperty("Mastah", "true:1.0f");
-//				else
-//					AnimeIndex.appProp.setProperty("Mastah", "false:1.0f");
 				 String generalPattern = generalPatternTextField.getText();
 				 AnimeIndex.appProp.setProperty("General_Pattern", generalPattern);
 				 
@@ -516,62 +514,19 @@ public class PreferenceDialog extends JDialog
 			}
 		});
 		
-		chckbxIntro = new JCheckBox("Intro Sonora :");
-		chckbxIntro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(chckbxIntro.isSelected())
-					introVolume.setEnabled(true);
-				else
-					introVolume.setEnabled(false);
-			}
-		});
-		GridBagConstraints gbc_chckbxIntro = new GridBagConstraints();
-		gbc_chckbxIntro.fill = GridBagConstraints.HORIZONTAL;
-		gbc_chckbxIntro.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxIntro.gridx = 0;
-		gbc_chckbxIntro.gridy = 11;
-		generalSettingPane.add(chckbxIntro, gbc_chckbxIntro);
-		
-		JPopupMenu sliderPop = new JPopupMenu();
-		JLabel sliderLabel = new JLabel();
 		introVolume = new JSlider();
 		introVolume.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
-				sliderPop.add(sliderLabel);
-				sliderPop.setVisible(true);
-				sliderPop.setLocation((PreferenceDialog.this.getX() + introVolume.getX()+ e.getX()),
-		                   PreferenceDialog.this.getY() + introVolume.getY() + 35);
-			}
-			@Override
 			public void mouseReleased(MouseEvent e) {
-				if (e.getX() > introVolume.getWidth() || e.getX() < 0)
-					sliderPop.setVisible(false);
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				sliderLabel.setText((introVolume.getValue() + ""));
-				sliderPop.add(sliderLabel);
-				sliderPop.setVisible(true);
-				sliderPop.setLocation((PreferenceDialog.this.getX() + introVolume.getX()+ e.getX()),
-		                   PreferenceDialog.this.getY() + introVolume.getY() + 35);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				sliderPop.setVisible(false);
+				lblIntroVolume.setText("Volume Intro :   "+introVolume.getValue()+"%");
 			}
 		});
 		introVolume.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
-					sliderLabel.setText((introVolume.getValue() + ""));
-					sliderPop.setVisible(true);
-					sliderPop.setLocation((PreferenceDialog.this.getX() + introVolume.getX()+ e.getX()),
-				                   PreferenceDialog.this.getY() + introVolume.getY() + 35);
+				lblIntroVolume.setText("Volume Intro :   "+introVolume.getValue()+"%");
 			}
-
 		});
-
 		introVolume.setPaintTicks(true);
 		introVolume.setMajorTickSpacing(10);
 		introVolume.setPreferredSize(new Dimension(210, 26));
@@ -585,6 +540,14 @@ public class PreferenceDialog extends JDialog
 		gbc_introVolume.gridx = 1;
 		gbc_introVolume.gridy = 11;
 		generalSettingPane.add(introVolume, gbc_introVolume);
+		
+		lblIntroVolume = new JLabel("Volume Intro :   "+(int)(Float.parseFloat(AnimeIndex.appProp.getProperty("Mastah"))*100)+"%");
+		GridBagConstraints gbc_lblIntroVolume = new GridBagConstraints();
+		gbc_lblIntroVolume.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblIntroVolume.insets = new Insets(0, 0, 5, 5);
+		gbc_lblIntroVolume.gridx = 0;
+		gbc_lblIntroVolume.gridy = 11;
+		generalSettingPane.add(lblIntroVolume, gbc_lblIntroVolume);
 		
 		JSeparator separator = new JSeparator();
 		GridBagConstraints gbc_separator = new GridBagConstraints();
@@ -790,6 +753,8 @@ public class PreferenceDialog extends JDialog
 			chckbxDroplist.setSelected(true);
 		else
 			chckbxDroplist.setSelected(false);
+		
+		introVolume.setValue((int)(Float.parseFloat(AnimeIndex.appProp.getProperty("Mastah"))*100));
 	}
 	
 	private long getFolderSize(File folder)
@@ -805,5 +770,4 @@ public class PreferenceDialog extends JDialog
 			}
 		return size;
 	}
-
 }

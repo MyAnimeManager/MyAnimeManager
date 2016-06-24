@@ -20,8 +20,8 @@ public class AudioIntroTask extends SwingWorker
 	@Override
 	protected Object doInBackground() throws Exception
 	{
-		String[] prop = AnimeIndex.appProp.getProperty("Mastah").split(":");
-		if(prop[0].equals("true"))
+		String prop = AnimeIndex.appProp.getProperty("Mastah");
+		if(!prop.equals("0.0"))
 		{
 			Mixer.Info[] mixers = AudioSystem.getMixerInfo();  
 			//System.out.println("There are " + mixers.length + " mixer info objects");  
@@ -43,7 +43,7 @@ public class AudioIntroTask extends SwingWorker
 			            {  
 			                line.open();  
 			            }  
-			            ((FloatControl)line.getControl(FloatControl.Type.VOLUME)).setValue(Float.parseFloat(prop[1])); 
+			            ((FloatControl)line.getControl(FloatControl.Type.VOLUME)).setValue(Float.parseFloat(prop)); 
 			           // System.out.println("    volCtrl.getValue() = " + volCtrl.getValue());
 			        }  
 			        catch (LineUnavailableException e)  
