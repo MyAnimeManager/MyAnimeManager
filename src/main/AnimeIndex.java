@@ -73,6 +73,7 @@ import util.SearchBar;
 import util.SortedListModel;
 import util.Updater;
 import util.UtilEvent;
+import util.task.AudioIntroTask;
 import util.task.AutoUpdateAnimeDataTask;
 import util.task.BackupImportExportTask;
 import util.task.CheckUpdateTask;
@@ -280,146 +281,146 @@ public class AnimeIndex extends JFrame
 			@Override
 			public void windowOpened(WindowEvent arg0)
 			{
-					AnimeInformation.setFansubComboBox();
-					String dataRelease = AnimeIndex.appProp.getProperty("Date_Release");
-					if (dataRelease.equalsIgnoreCase("none"))
+				AnimeInformation.setFansubComboBox();
+				String dataRelease = AnimeIndex.appProp.getProperty("Date_Release");
+				if (dataRelease.equalsIgnoreCase("none"))
+				{
+					ReleasedAnimeTask task = new ReleasedAnimeTask();
+					task.execute();
+				}
+				else
+				{
+					GregorianCalendar calendar = MAMUtil.getDate(MAMUtil.today());
+					GregorianCalendar c = MAMUtil.getDate(dataRelease);
+					if (c.before(calendar))
 					{
 						ReleasedAnimeTask task = new ReleasedAnimeTask();
 						task.execute();
 					}
-					else
-					{
-						GregorianCalendar calendar = MAMUtil.getDate(MAMUtil.today());
-						GregorianCalendar c = MAMUtil.getDate(dataRelease);
-						if (c.before(calendar))
-						{
-							ReleasedAnimeTask task = new ReleasedAnimeTask();
-							task.execute();
-						}
-					}
+				}
 
-					if (AnimeIndex.appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Daily"))
-						Filters.setFilter(8);
-						
-					if (MAMUtil.christmas())
-					{
-						ChristmasDialog dial = new ChristmasDialog();
-						dial.setLocationRelativeTo(AnimeIndex.this);
-						dial.setVisible(true);
-					}
-					File file = new File(MAMUtil.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
-					if (file.isFile())
-						file.delete();
-					NewNotifierTask newSugg = new NewNotifierTask();
-					try
-					{
-						newSugg.execute();
-					}
-					catch (Exception e)
-					{
-						MAMUtil.writeLog(e);
-						e.printStackTrace();
-					}
-	
-					CheckUpdateTask updateTask = new CheckUpdateTask();
-					try
-					{
-						updateTask.execute();
-					}
-					catch (Exception e)
-					{
-						MAMUtil.writeLog(e);
-						e.printStackTrace();
-					}
+				if (AnimeIndex.appProp.getProperty("List_to_visualize_at_start").equalsIgnoreCase("Daily"))
+					Filters.setFilter(8);
 					
-					int sessionNumber = Integer.parseInt(appProp.getProperty("Session_Number"));
-					sessionNumber++;
-					if (sessionNumber >= 30)
+				if (MAMUtil.christmas())
+				{
+					ChristmasDialog dial = new ChristmasDialog();
+					dial.setLocationRelativeTo(AnimeIndex.this);
+					dial.setVisible(true);
+				}
+				File file = new File(MAMUtil.getAppDataPath() + File.separator + "Update" + File.separator + NEW_VERSION);
+				if (file.isFile())
+					file.delete();
+				NewNotifierTask newSugg = new NewNotifierTask();
+				try
+				{
+					newSugg.execute();
+				}
+				catch (Exception e)
+				{
+					MAMUtil.writeLog(e);
+					e.printStackTrace();
+				}
+
+				CheckUpdateTask updateTask = new CheckUpdateTask();
+				try
+				{
+					updateTask.execute();
+				}
+				catch (Exception e)
+				{
+					MAMUtil.writeLog(e);
+					e.printStackTrace();
+				}
+				
+				int sessionNumber = Integer.parseInt(appProp.getProperty("Session_Number"));
+				sessionNumber++;
+				if (sessionNumber >= 30)
+				{
+					sessionNumber = 0;
+					if (Boolean.parseBoolean(appProp.getProperty("Ask_for_donation")))
 					{
-						sessionNumber = 0;
-						if (Boolean.parseBoolean(appProp.getProperty("Ask_for_donation")))
+						String[] array = { "Si!", "Non ora...", "Non ricordarmelo più" };
+						int choiche = JOptionPane.showOptionDialog(AnimeIndex.mainPanel, "Se ti piace  MY ANIME MANAGER  fallo conoscere ai tuoi amici!!\n\rE se vuoi, sostienici con una libera donazione!", "Supporta MyAnimeManager !!!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, array, "Si!");
+						if (choiche == 0)
 						{
-							String[] array = { "Si!", "Non ora...", "Non ricordarmelo più" };
-							int choiche = JOptionPane.showOptionDialog(AnimeIndex.mainPanel, "Se ti piace  MY ANIME MANAGER  fallo conoscere ai tuoi amici!!\n\rE se vuoi, sostienici con una libera donazione!", "Supporta MyAnimeManager !!!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, array, "Si!");
-							if (choiche == 0)
+							String link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RFJLMVCQYZEQG";
+							try
 							{
-								String link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RFJLMVCQYZEQG";
-								try
-								{
-									URI uriLink = new URI(link);
-									Desktop.getDesktop().browse(uriLink);
-								}
-								catch (URISyntaxException a)
-								{
-								}
-								catch (IOException a)
-								{
-								}
+								URI uriLink = new URI(link);
+								Desktop.getDesktop().browse(uriLink);
 							}
-							else if (choiche == 1)
-								JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" -> \"Crediti\" o\n\rsul menù \"Info\" -> \"Sostenitori\"");
-							else if (choiche == 2)
+							catch (URISyntaxException a)
 							{
-								JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "\n\rOk, non te lo chiederemo più.\n\r\n\r\n\rMa ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" -> \"Crediti\" o\n\rsul menù \"Info\" -> \"Sostenitori\"");
-								appProp.setProperty("Ask_for_donation", "false");
+							}
+							catch (IOException a)
+							{
 							}
 						}
+						else if (choiche == 1)
+							JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" -> \"Crediti\" o\n\rsul menù \"Info\" -> \"Sostenitori\"");
+						else if (choiche == 2)
+						{
+							JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "\n\rOk, non te lo chiederemo più.\n\r\n\r\n\rMa ricorda che puoi supportarci\n\rin qualsiasi momento andando\n\rsul menù \"Info\" -> \"Crediti\" o\n\rsul menù \"Info\" -> \"Sostenitori\"");
+							appProp.setProperty("Ask_for_donation", "false");
+						}
 					}
-					appProp.setProperty("Session_Number", Integer.toString(sessionNumber));
-					
-					if (AnimeIndex.appProp.getProperty("Open_Wishlist").equalsIgnoreCase("true"))
+				}
+				appProp.setProperty("Session_Number", Integer.toString(sessionNumber));
+				
+				if (AnimeIndex.appProp.getProperty("Open_Wishlist").equalsIgnoreCase("true"))
+				{
+					AnimeIndex.wishlistDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x, AnimeIndex.mainPanel.getLocationOnScreen().y);
+					AnimeIndex.wishlistDialog.setVisible(true);
+					new Timer(1, new ActionListener() {
+		
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y);
+							AnimeIndex.mainPanel.requestFocus();
+							if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainPanel.getLocationOnScreen().x - 181)
+								((Timer) e.getSource()).stop();
+						}
+					}).start();
+				}
+				else if (AnimeIndex.appProp.getProperty("Open_Droplist").equalsIgnoreCase("true"))
+				{
+					AnimeIndex.wishlistDialog.comboBox.setSelectedItem("DROPLIST");
+					AnimeIndex.wishlistDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x, AnimeIndex.mainPanel.getLocationOnScreen().y);
+					AnimeIndex.wishlistDialog.setVisible(true);
+					new Timer(1, new ActionListener() {
+		
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y);
+							AnimeIndex.mainPanel.requestFocus();
+							if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainPanel.getLocationOnScreen().x - 181)
+								((Timer) e.getSource()).stop();
+						}
+					}).start();
+				}
+				
+				if (AnimeIndex.appProp.getProperty("Open_NewsBoard").equalsIgnoreCase("true"))
+					if (!AnimeIndex.newsBoardDialog.isShowing())
 					{
-						AnimeIndex.wishlistDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x, AnimeIndex.mainPanel.getLocationOnScreen().y);
-						AnimeIndex.wishlistDialog.setVisible(true);
+						AnimeIndex.newsBoardDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y + AnimeIndex.mainPanel.getHeight());
+						AnimeIndex.newsBoardDialog.setVisible(true);
 						new Timer(1, new ActionListener() {
-			
+
+							int size = 0;
+
 							@Override
 							public void actionPerformed(ActionEvent e)
 							{
-								AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y);
 								AnimeIndex.mainPanel.requestFocus();
-								if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainPanel.getLocationOnScreen().x - 181)
+								AnimeIndex.newsBoardDialog.setSize(795, size++);
+								if (AnimeIndex.newsBoardDialog.getHeight() == 125)
 									((Timer) e.getSource()).stop();
 							}
 						}).start();
 					}
-					else if (AnimeIndex.appProp.getProperty("Open_Droplist").equalsIgnoreCase("true"))
-					{
-						AnimeIndex.wishlistDialog.comboBox.setSelectedItem("DROPLIST");
-						AnimeIndex.wishlistDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x, AnimeIndex.mainPanel.getLocationOnScreen().y);
-						AnimeIndex.wishlistDialog.setVisible(true);
-						new Timer(1, new ActionListener() {
-			
-							@Override
-							public void actionPerformed(ActionEvent e)
-							{
-								AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y);
-								AnimeIndex.mainPanel.requestFocus();
-								if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainPanel.getLocationOnScreen().x - 181)
-									((Timer) e.getSource()).stop();
-							}
-						}).start();
-					}
-					
-					if (AnimeIndex.appProp.getProperty("Open_NewsBoard").equalsIgnoreCase("true"))
-						if (!AnimeIndex.newsBoardDialog.isShowing())
-						{
-							AnimeIndex.newsBoardDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y + AnimeIndex.mainPanel.getHeight());
-							AnimeIndex.newsBoardDialog.setVisible(true);
-							new Timer(1, new ActionListener() {
-
-								int size = 0;
-
-								@Override
-								public void actionPerformed(ActionEvent e)
-								{
-									AnimeIndex.mainPanel.requestFocus();
-									AnimeIndex.newsBoardDialog.setSize(795, size++);
-									if (AnimeIndex.newsBoardDialog.getHeight() == 125)
-										((Timer) e.getSource()).stop();
-								}
-							}).start();
-						}
 			}
 		});
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);

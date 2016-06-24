@@ -56,6 +56,7 @@ import util.MAMUtil;
 import util.PatternFilter;
 import util.SortedListModel;
 import util.UtilEvent;
+import util.task.AudioIntroTask;
 
 public class AnimeInformation extends JPanel
 {
@@ -1009,7 +1010,8 @@ public class AnimeInformation extends JPanel
 		btnFolder = new JButton("");
 		btnFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-
+				AudioIntroTask mastah = new AudioIntroTask();
+				mastah.execute();
 			}
 		});
 		btnFolder.setIcon(new ImageIcon(AnimeInformation.class.getResource("/image/Folder.png")));

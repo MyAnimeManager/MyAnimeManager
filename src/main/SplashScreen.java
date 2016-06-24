@@ -3,7 +3,6 @@ package main;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -12,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JWindow;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.pushingpixels.substance.api.SubstanceColorScheme;
@@ -21,6 +21,8 @@ import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSkin.ColorSchemes;
 import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
+import util.MAMUtil;
+import util.task.AudioIntroTask;
 import util.task.LoadingTask;
 import util.window.NewsBoardDialog;
 import util.window.WishlistDialog;
@@ -56,7 +58,7 @@ public class SplashScreen extends JWindow {
     
     public static void main(String args[])throws Exception
     {
-    	EventQueue.invokeLater(new Runnable() {
+    	SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run()
@@ -147,7 +149,7 @@ public class SplashScreen extends JWindow {
 									pbar.setString("Caricamento Pattern");
 									break;
 								case 95:
-									pbar.setString("Inizializzazione servizio Google Drive");
+									pbar.setString("Inizializzazione serivizio MyAnimeMusic");
 									break;
 							}
 						}
@@ -169,6 +171,16 @@ public class SplashScreen extends JWindow {
 							catch (Exception e)
 							{
 								System.out.println("Substance Graphite failed to initialize");
+							}
+							AudioIntroTask mastah = new AudioIntroTask();
+							try
+							{
+								mastah.execute();
+							}
+							catch (Exception e)
+							{
+								MAMUtil.writeLog(e);
+								e.printStackTrace();
 							}
 							AnimeIndex.frame = new AnimeIndex();
 							AnimeIndex.frame.setVisible(true);
