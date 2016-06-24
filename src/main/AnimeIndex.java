@@ -73,7 +73,6 @@ import util.SearchBar;
 import util.SortedListModel;
 import util.Updater;
 import util.UtilEvent;
-import util.task.AudioIntroTask;
 import util.task.AutoUpdateAnimeDataTask;
 import util.task.BackupImportExportTask;
 import util.task.CheckUpdateTask;

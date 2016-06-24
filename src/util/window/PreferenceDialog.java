@@ -2,6 +2,7 @@ package util.window;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -10,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -26,12 +28,23 @@ import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
 import org.apache.commons.io.FileUtils;
+
 import main.AnimeIndex;
 import util.EpisodeChooserFilter;
 import util.FileManager;
 import util.MAMUtil;
+
 import java.awt.GridLayout;
+
+import javax.swing.JProgressBar;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseWheelListener;
+import java.awt.event.MouseWheelEvent;
+import javax.swing.JSlider;
 
 public class PreferenceDialog extends JDialog
 {
@@ -46,6 +59,8 @@ public class PreferenceDialog extends JDialog
 	private JCheckBox chckbxApriWishlist;
 	private JCheckBox chckbxDroplist;
 	private JCheckBox chckbxApriNewsboard;
+	private JCheckBox chckbxIntro;
+	private JSlider introVolume;
 	private JButton btnEsporta;
 	private JButton btnCancella;
 	private JLabel logLabel;
@@ -60,7 +75,7 @@ public class PreferenceDialog extends JDialog
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PreferenceDialog.class.getResource("/image/System-Preferences-icon.png")));
 		setTitle("Impostazioni");
 		setResizable(false);
-		setBounds(100, 100, 380, 339);
+		setBounds(100, 100, 335, 390);
 		BorderLayout borderLayout = new BorderLayout();
 		getContentPane().setLayout(borderLayout);
 		
@@ -116,7 +131,11 @@ public class PreferenceDialog extends JDialog
 					AnimeIndex.appProp.setProperty("Open_NewsBoard", "true");
 				else
 					AnimeIndex.appProp.setProperty("Open_NewsBoard", "false");
-					
+				
+//TODO			if(chckbxIntro.isSelected())
+//					AnimeIndex.appProp.setProperty("Mastah", "true:1.0f");
+//				else
+//					AnimeIndex.appProp.setProperty("Mastah", "false:1.0f");
 				 String generalPattern = generalPatternTextField.getText();
 				 AnimeIndex.appProp.setProperty("General_Pattern", generalPattern);
 				 
@@ -148,10 +167,10 @@ public class PreferenceDialog extends JDialog
 		JPanel generalSettingPane = new JPanel();
 		tabbedPane.addTab("Impostazioni Generali", null, generalSettingPane, null);
 		GridBagLayout gbl_generalSettingPane = new GridBagLayout();
-		gbl_generalSettingPane.columnWidths = new int[] { 0, 0, 0 };
-		gbl_generalSettingPane.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_generalSettingPane.columnWidths = new int[] { 82, 0, 0 };
+		gbl_generalSettingPane.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_generalSettingPane.columnWeights = new double[] { 1.0, 0.0, 0.0 };
-		gbl_generalSettingPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_generalSettingPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		generalSettingPane.setLayout(gbl_generalSettingPane);
 			
 		dataCheckButton = new JButton("Disattiva");
@@ -294,6 +313,7 @@ public class PreferenceDialog extends JDialog
 		
 		JSeparator separator5 = new JSeparator();
 		GridBagConstraints gbc_separator5 = new GridBagConstraints();
+		gbc_separator5.weighty = 0.1;
 		gbc_separator5.insets = new Insets(0, 0, 5, 0);
 		gbc_separator5.fill = GridBagConstraints.BOTH;
 		gbc_separator5.gridwidth = 3;
@@ -334,6 +354,7 @@ public class PreferenceDialog extends JDialog
 		
 		JSeparator separator3 = new JSeparator();
 		GridBagConstraints gbc_separator3 = new GridBagConstraints();
+		gbc_separator3.weighty = 0.1;
 		gbc_separator3.insets = new Insets(0, 0, 5, 0);
 		gbc_separator3.fill = GridBagConstraints.BOTH;
 		gbc_separator3.gridwidth = 3;
@@ -451,6 +472,7 @@ public class PreferenceDialog extends JDialog
 			
 		JSeparator separator4 = new JSeparator();
 		GridBagConstraints gbc_separator4 = new GridBagConstraints();
+		gbc_separator4.weighty = 0.1;
 		gbc_separator4.insets = new Insets(0, 0, 5, 0);
 		gbc_separator4.fill = GridBagConstraints.BOTH;
 		gbc_separator4.gridwidth = 3;
@@ -498,14 +520,53 @@ public class PreferenceDialog extends JDialog
 				}
 			}
 		});
+		
+		chckbxIntro = new JCheckBox("Intro Sonora :");
+		chckbxIntro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(chckbxIntro.isSelected())
+					introVolume.setEnabled(true);
+				else
+					introVolume.setEnabled(false);
+			}
+		});
+		GridBagConstraints gbc_chckbxIntro = new GridBagConstraints();
+		gbc_chckbxIntro.fill = GridBagConstraints.HORIZONTAL;
+		gbc_chckbxIntro.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxIntro.gridx = 0;
+		gbc_chckbxIntro.gridy = 11;
+		generalSettingPane.add(chckbxIntro, gbc_chckbxIntro);
+		
+		introVolume = new JSlider();
+		introVolume.setPreferredSize(new Dimension(210, 26));
+		introVolume.setRequestFocusEnabled(false);
+		introVolume.setFocusable(false);
+		introVolume.setValueIsAdjusting(true);
+		introVolume.setValue(0);
+		GridBagConstraints gbc_introVolume = new GridBagConstraints();
+		gbc_introVolume.fill = GridBagConstraints.HORIZONTAL;
+		gbc_introVolume.gridwidth = 2;
+		gbc_introVolume.insets = new Insets(0, 0, 5, 5);
+		gbc_introVolume.gridx = 1;
+		gbc_introVolume.gridy = 11;
+		generalSettingPane.add(introVolume, gbc_introVolume);
+		
+		JSeparator separator = new JSeparator();
+		GridBagConstraints gbc_separator = new GridBagConstraints();
+		gbc_separator.weighty = 0.1;
+		gbc_separator.fill = GridBagConstraints.BOTH;
+		gbc_separator.gridwidth = 3;
+		gbc_separator.insets = new Insets(0, 0, 5, 0);
+		gbc_separator.gridx = 0;
+		gbc_separator.gridy = 12;
+		generalSettingPane.add(separator, gbc_separator);
 		GridBagConstraints gbc_btnEsporta = new GridBagConstraints();
 		gbc_btnEsporta.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnEsporta.insets = new Insets(0, 0, 0, 5);
 		gbc_btnEsporta.gridx = 1;
-		gbc_btnEsporta.gridy = 11;
+		gbc_btnEsporta.gridy = 13;
 		generalSettingPane.add(btnEsporta, gbc_btnEsporta);
-		
-		
+				
 		btnCancella = new JButton("Cancella");
 		btnCancella.addActionListener(new ActionListener() {
 			
@@ -514,7 +575,7 @@ public class PreferenceDialog extends JDialog
 			{
 				int choiche = JOptionPane.showConfirmDialog(PreferenceDialog.this, "Vuoi rimuovere tutti i file di log?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (choiche == JOptionPane.YES_OPTION)
-					try
+				try
 				{
 						FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "log" + File.separator));
 						btnCancella.setEnabled(false);
@@ -531,7 +592,7 @@ public class PreferenceDialog extends JDialog
 		GridBagConstraints gbc_btnCancella = new GridBagConstraints();
 		gbc_btnCancella.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCancella.gridx = 2;
-		gbc_btnCancella.gridy = 11;
+		gbc_btnCancella.gridy = 13;
 		generalSettingPane.add(btnCancella, gbc_btnCancella);
 		
 		File folder = new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "log" + File.separator);
@@ -546,7 +607,7 @@ public class PreferenceDialog extends JDialog
 		gbc_logLabel.anchor = GridBagConstraints.WEST;
 		gbc_logLabel.insets = new Insets(0, 0, 0, 5);
 		gbc_logLabel.gridx = 0;
-		gbc_logLabel.gridy = 11;
+		gbc_logLabel.gridy = 13;
 		generalSettingPane.add(logLabel, gbc_logLabel);
 		generalSettingPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
