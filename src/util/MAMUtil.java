@@ -253,12 +253,12 @@ public class MAMUtil
 		FileManager.saveAnimeListGson("ova.JConda", AnimeIndex.ovaMap);
 		FileManager.saveAnimeListGson("film.JConda", AnimeIndex.filmMap);
 		FileManager.saveAnimeListGson("toSee.JConda", AnimeIndex.completedToSeeMap);
-		FileManager.saveSpecialListGson("wishlist.anaconda", AnimeIndex.wishlistMap);
-		FileManager.saveSpecialListGson("wishlistMAL.anaconda", AnimeIndex.wishlistMALMap);
-		FileManager.saveSpecialListGson("droplist.anaconda", AnimeIndex.droppedMALMap);
-		FileManager.saveSpecialListGson("droplistMAL.anaconda", AnimeIndex.droppedMap);
-		FileManager.saveExclusionList();
-		FileManager.saveDateMap();
+		FileManager.saveSpecialListGson("wishlist.JConda", AnimeIndex.wishlistMap);
+		FileManager.saveSpecialListGson("wishlistMAL.JConda", AnimeIndex.wishlistMALMap);
+		FileManager.saveSpecialListGson("droplist.JConda", AnimeIndex.droppedMALMap);
+		FileManager.saveSpecialListGson("droplistMAL.JConda", AnimeIndex.droppedMap);
+		FileManager.saveExclusionListGson();
+		FileManager.saveDateMapGson();
 
 		File file = new File(getAnimeFolderPath() + "completed.anaconda");
 		file.delete();
@@ -277,6 +277,10 @@ public class MAMUtil
 		file = new File(getAnimeFolderPath() + "droplist.anaconda");
 		file.delete();
 		file = new File(getAnimeFolderPath() + "droplistMAL.anaconda");
+		file.delete();
+		file = new File(getAnimeFolderPath() + "exclusion.anaconda");
+		file.delete();
+		file = new File(getAnimeFolderPath() + "date.anaconda");
 		file.delete();
 		try
 		{

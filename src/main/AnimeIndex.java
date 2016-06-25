@@ -103,9 +103,9 @@ import util.window.WishlistDialog;
 //TODO(Kirin) importare uscite stagionali da rad
 //TODO(Kirin) dialog gestione episodi
 //TODO(Kirin) spostmento tramite ricerca in anilist dalla wishlist e dalla droplist alla lista principale attualmente selezionata(con controllo compatibilita')
-//TODO(Kirin) velocizzare apertura splash
+//            velocizzare apertura splash --> Più di così non si può 
 //TODO(Kirin) import/export anilist --> WUT?
-//TODO(Kirin) json per datemap e exclusionlist
+//            json per datemap e exclusionlist --> DONE
 
 
 public class AnimeIndex extends JFrame
@@ -736,7 +736,7 @@ public class AnimeIndex extends JFrame
 						for (Map.Entry<String, AnimeData> entry : ovaMap.entrySet())
 							if (exitDateMap.containsKey(entry.getKey()))
 								exitDateMap.remove(entry.getKey());
-						FileManager.saveDateMap();
+						FileManager.saveDateMapGson();
 						FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "ova.anaconda"));
 						FileManager.deleteData(new File(MAMUtil.getImageFolderPath() + "Ova"));
 					}
@@ -773,7 +773,7 @@ public class AnimeIndex extends JFrame
 						for (Map.Entry<String, AnimeData> entry : ovaMap.entrySet())
 							if (exitDateMap.containsKey(entry.getKey()))
 								exitDateMap.remove(entry.getKey());
-						FileManager.saveDateMap();
+						FileManager.saveDateMapGson();
 						FileManager.deleteData(new File(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "Anime" + File.separator + "film.anaconda"));
 						FileManager.deleteData(new File(MAMUtil.getImageFolderPath() + "Film"));
 					}

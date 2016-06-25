@@ -14,7 +14,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLConnection;
@@ -189,13 +188,19 @@ public class FileManager
 			Type mapType = new TypeToken<TreeMap<String, AnimeData>>() {}.getType();
 			map.putAll(gsonMap.fromJson(anime, mapType));			
 			list.addAll(map.keySet());
+			reader.close();
 		}
-		catch (FileNotFoundException | UnsupportedEncodingException e)
+		catch (FileNotFoundException e)
+		{
+			//File non esistente, non fare nulla
+		}
+		catch (IOException e)
 		{
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
 		}
 	}
+	
 	@Deprecated
 	public static void saveAnimeList(String file, TreeMap<String, AnimeData> map)
 	{
@@ -244,6 +249,7 @@ public class FileManager
         }
 	}
 	
+	@Deprecated
 	public static void loadExclusionList()
 	{
 		File exclusionFile = new File(MAMUtil.getAnimeFolderPath() + "exclusion.anaconda");
@@ -291,6 +297,33 @@ public class FileManager
 			}
 	}
 
+	public static void loadExclusionListGson()
+	{
+		File exclusionFile = new File(MAMUtil.getAnimeFolderPath() + "exclusion.JConda");
+		InputStreamReader reader;
+		try
+		{
+			reader = new InputStreamReader(new FileInputStream(exclusionFile), "UTF-8");
+			JsonParser parser = new JsonParser();
+			JsonElement animeList = parser.parse(reader);
+			JsonObject anime = animeList.getAsJsonObject();
+			Gson gsonMap = new GsonBuilder().serializeNulls().create();
+			Type mapType = new TypeToken<TreeMap<String, boolean[]>>(){}.getType();
+			AnimeIndex.exclusionAnime.putAll(gsonMap.fromJson(anime, mapType));			
+			reader.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			//File non esistente, non fare nulla
+		}
+		catch (IOException e)
+		{
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
+		}
+	}
+	
+	@Deprecated
 	public static void saveExclusionList()
 	{
 		File exclusionFile = new File(MAMUtil.getAnimeFolderPath() + "exclusion.anaconda");
@@ -319,6 +352,27 @@ public class FileManager
 		}
 	}
 
+	public static void saveExclusionListGson()
+	{		
+		Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+        String json = gson.toJson(AnimeIndex.exclusionAnime);
+			
+        File exclusionFile = new File(MAMUtil.getAnimeFolderPath() + "exclusion.JConda");
+		exclusionFile.getParentFile().mkdirs();
+		BufferedWriter output;
+		try
+		{
+			output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(exclusionFile), "UTF-8"));
+            output.write(json);
+            output.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+			MAMUtil.writeLog(e);
+		}
+	}
+	
 	@Deprecated
 	public static void loadSpecialList(String filename, TreeMap<String,Integer> map, SortedListModel model)
 	{
@@ -413,8 +467,13 @@ public class FileManager
 			Type mapType = new TypeToken<TreeMap<String, Integer>>() {}.getType();
 			map.putAll(gsonMap.fromJson(anime, mapType));			
 			model.addAll(map.keySet());
+			reader.close();
 		}
-		catch (FileNotFoundException | UnsupportedEncodingException e)
+		catch (FileNotFoundException e)
+		{
+			//File non esistente, non fare nulla
+		}
+		catch (IOException e)
 		{
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
@@ -425,8 +484,7 @@ public class FileManager
 	{
 		Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
         String json = gson.toJson(map);
-		
-		
+			
 		File specialListFile = new File(MAMUtil.getAnimeFolderPath() + filename);
 		specialListFile.getParentFile().mkdirs();
 		BufferedWriter output;
@@ -443,6 +501,7 @@ public class FileManager
 		}
 	}
 
+	@Deprecated
 	public static void saveDateMap()
 	{
 		File dateFile = new File(MAMUtil.getAnimeFolderPath() + "date.anaconda");
@@ -467,7 +526,29 @@ public class FileManager
 			MAMUtil.writeLog(e);
 		}
 	}
+	
+	public static void saveDateMapGson()
+	{
+		Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+        String json = gson.toJson(AnimeIndex.exitDateMap);
+				
+        File dateFile = new File(MAMUtil.getAnimeFolderPath() + "date.JConda");
+        dateFile.getParentFile().mkdirs();
+		BufferedWriter output;
+		try
+		{
+			output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dateFile), "UTF-8"));
+            output.write(json);
+            output.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+			MAMUtil.writeLog(e);
+		}
+	}
 
+	@Deprecated
 	public static void loadDateMap()
 	{
 		File exclusionFile = new File(MAMUtil.getAnimeFolderPath() + "date.anaconda");
@@ -509,6 +590,33 @@ public class FileManager
 			}
 	}
 
+	public static void loadDateMapGson()
+	{
+		File exclusionFile = new File(MAMUtil.getAnimeFolderPath() + "date.JConda");	
+		InputStreamReader reader;
+		try
+		{
+			reader = new InputStreamReader(new FileInputStream(exclusionFile), "UTF-8");
+			JsonParser parser = new JsonParser();
+			JsonElement animeList = parser.parse(reader);
+			JsonObject anime = animeList.getAsJsonObject();
+			Gson gsonMap = new GsonBuilder().serializeNulls().create();
+			Type mapType = new TypeToken<TreeMap<String, String>>() {}.getType();
+			AnimeIndex.exitDateMap.putAll(gsonMap.fromJson(anime, mapType));
+			reader.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			//File non esistente, non fare nulla
+		}
+		catch (IOException e)
+		{
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
+		}
+	}
+
+	
 	public static void saveSongMap()
 	{
 		File songListFile = new File(MAMUtil.getMusicPath() + "[[[music]]].anaconda");
@@ -653,6 +761,7 @@ public class FileManager
 				MAMUtil.writeLog(e);
 			}
 	}
+	
 	// util
 
 	private static void addDefaultFansub()

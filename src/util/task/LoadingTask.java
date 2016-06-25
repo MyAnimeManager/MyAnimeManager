@@ -37,8 +37,7 @@ public class LoadingTask extends SwingWorker
 			ColorProperties.setColor(AnimeIndex.colorProp);
 			setProgress((int)((4f/20f)* 100));		
 			AnimeIndex.segui = MAMUtil.loadFont();
-			setProgress((int)((5f/20f)* 100));
-			
+			setProgress((int)((5f/20f)* 100));			
 			
 			UIManager.put("OptionPane.messageFont", AnimeIndex.segui.deriveFont(11f));
 			
@@ -46,7 +45,11 @@ public class LoadingTask extends SwingWorker
 			setProgress((int)((6f/20f)* 100));
 
 			setProgress((int)((7f/20f)* 100));
-			FileManager.loadExclusionList();
+			File exclusion = new File(MAMUtil.getAnimeFolderPath() + "exclusion.JConda");
+			if (exclusion.isFile())
+				FileManager.loadExclusionListGson();
+			else
+				FileManager.loadExclusionList();
 			setProgress((int)((8f/20f)* 100));
 
 			File completed = new File(MAMUtil.getAnimeFolderPath() + "completed.JConda");
@@ -112,7 +115,11 @@ public class LoadingTask extends SwingWorker
 				FileManager.loadSpecialList("droplistMAL.anaconda", AnimeIndex.droppedMap, WishlistDialog.dropListModel);
 			
 			setProgress((int)((17f/20f)* 100));
-			FileManager.loadDateMap();
+			File dateMap = new File(MAMUtil.getAnimeFolderPath() + "date.JConda");
+			if (dateMap.isFile())
+				FileManager.loadDateMapGson();
+			else
+				FileManager.loadDateMap();
 			setProgress((int)((18f/20f)* 100));
 			FileManager.loadPatternList();
 			setProgress((int)((19f/20f)* 100));
