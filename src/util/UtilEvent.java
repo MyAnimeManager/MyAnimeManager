@@ -25,6 +25,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
 import main.AnimeIndex;
+import util.window.PreferenceDialog;
 import util.window.SetExclusionDialog;
 
 public class UtilEvent
@@ -94,6 +95,8 @@ public class UtilEvent
 									boolean[] exc = { true, true, true, true, true, true };
 									AnimeIndex.exclusionAnime.put(AnimeIndex.animeInformation.lblAnimeName.getText(), exc);
 									AnimeIndex.animeInformation.selectExcludedAnimeAtWindowOpened = true;
+									if (AnimeIndex.preferenceDialog == null)
+										AnimeIndex.preferenceDialog = new PreferenceDialog();
 									AnimeIndex.preferenceDialog.exclusionDialog = new SetExclusionDialog();
 									AnimeIndex.preferenceDialog.exclusionDialog.setLocationRelativeTo(AnimeIndex.mainPanel);
 									AnimeIndex.preferenceDialog.exclusionDialog.setVisible(true);
