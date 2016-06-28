@@ -73,6 +73,7 @@ import util.SearchBar;
 import util.SortedListModel;
 import util.Updater;
 import util.UtilEvent;
+import util.task.AudioIntroTask;
 import util.task.AutoUpdateAnimeDataTask;
 import util.task.BackupImportExportTask;
 import util.task.CheckUpdateTask;
@@ -103,9 +104,9 @@ import util.window.WishlistDialog;
 //TODO(Kirin) importare uscite stagionali da rad
 //TODO(Kirin) dialog gestione episodi
 //TODO(Kirin) spostmento tramite ricerca in anilist dalla wishlist e dalla droplist alla lista principale attualmente selezionata(con controllo compatibilita')
-//            velocizzare apertura splash --> Più di così non si può 
+//TODO(Kirin) risolvere problema font
 //TODO(Kirin) import/export anilist --> WUT?
-//            json per datemap e exclusionlist --> DONE
+
 
 
 public class AnimeIndex extends JFrame
@@ -3425,6 +3426,17 @@ public class AnimeIndex extends JFrame
 				}
 			};	
 			AnimeIndex.appThread.start();
+		}
+	}
+	{
+		try
+		{
+			new AudioIntroTask().execute();
+		}
+		catch (Exception e)
+		{
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
 		}
 	}
 }

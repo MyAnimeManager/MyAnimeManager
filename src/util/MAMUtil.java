@@ -144,7 +144,7 @@ public class MAMUtil
 		Font font = null;
 		try
 		{
-			font = Font.createFont(Font.TRUETYPE_FONT, is);
+			font = Font.createFont(Font.PLAIN, is);
 		}
 		catch (FontFormatException | IOException e)
 		{

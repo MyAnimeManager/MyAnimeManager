@@ -58,6 +58,7 @@ import util.SortedListModel;
 import util.UtilEvent;
 import util.task.AudioIntroTask;
 
+
 public class AnimeInformation extends JPanel
 {
 	public JTextField totalEpisodeText;

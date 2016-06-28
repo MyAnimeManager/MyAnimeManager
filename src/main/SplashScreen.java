@@ -12,17 +12,19 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
+import javax.swing.UIDefaults;
 import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 
 import org.pushingpixels.substance.api.SubstanceColorScheme;
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSkin.ColorSchemes;
+import org.pushingpixels.substance.api.fonts.FontPolicy;
+import org.pushingpixels.substance.api.fonts.FontSet;
 import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
 
-import util.MAMUtil;
-import util.task.AudioIntroTask;
 import util.task.LoadingTask;
 import util.window.NewsBoardDialog;
 import util.window.WishlistDialog;
@@ -158,7 +160,42 @@ public class SplashScreen extends JWindow {
 						{
 							try
 							{
-								UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel());
+								SubstanceGraphiteGlassLookAndFeel laf = new SubstanceGraphiteGlassLookAndFeel();
+								laf.setFontPolicy(new FontPolicy() {
+									
+									@Override
+									public FontSet getFontSet(String arg0, UIDefaults arg1)
+									{
+										FontSet fontSet = new FontSet() {
+											FontUIResource fontUIResource = new FontUIResource(AnimeIndex.segui.deriveFont(12f));
+								            public FontUIResource getWindowTitleFont() {
+								                return fontUIResource; //this is where the title font changes
+								            }
+
+								            public FontUIResource getTitleFont() {
+								                return fontUIResource;
+								            }
+
+								            public FontUIResource getSmallFont() {
+								                return fontUIResource;
+								            }
+
+								            public FontUIResource getMessageFont() {
+								                return fontUIResource;
+								            }
+
+								            public FontUIResource getMenuFont() {
+								                return fontUIResource;
+								            }
+
+								            public FontUIResource getControlFont() {
+								                return new FontUIResource(AnimeIndex.segui.deriveFont(12f));
+								            }
+								        };
+								        return fontSet;
+								    }
+								});
+								UIManager.setLookAndFeel(laf);
 							}
 							catch (Exception e)
 							{
@@ -171,16 +208,6 @@ public class SplashScreen extends JWindow {
 							catch (Exception e)
 							{
 								System.out.println("Substance Graphite failed to initialize");
-							}
-							AudioIntroTask mastah = new AudioIntroTask();
-							try
-							{
-								mastah.execute();
-							}
-							catch (Exception e)
-							{
-								MAMUtil.writeLog(e);
-								e.printStackTrace();
 							}
 							AnimeIndex.frame = new AnimeIndex();
 							AnimeIndex.frame.setVisible(true);
