@@ -1793,9 +1793,6 @@ public class AddAnimeDialog extends JDialog
 				finishDate = releaseDate;
 			
 		String exitDay = "?????";
-		if (((String) listToAddAniComboBox.getSelectedItem()).equalsIgnoreCase("completi da vedere"))
-			exitDay = "Concluso";
-
 		if (currentEp.equals(totEp))
 			AnimeIndex.animeInformation.plusButton.setEnabled(false);
 		String list = "";
@@ -1804,6 +1801,8 @@ public class AddAnimeDialog extends JDialog
 		else
 			list = checkDataConflict(finishDate, animeType, true);
 
+		if (list.equalsIgnoreCase("completi da vedere"))
+			exitDay = "Concluso";
 		if (list.equalsIgnoreCase("anime completati"))
 		{
 			currentEp = totEp;
@@ -1817,14 +1816,11 @@ public class AddAnimeDialog extends JDialog
 				GregorianCalendar rDate = MAMUtil.getDate(releaseDate);
 				String cDay = MAMUtil.today();
 				GregorianCalendar tDate = MAMUtil.getDate(cDay);
-//				if(animeType.equalsIgnoreCase("Movie") || animeType.equalsIgnoreCase("OVA") || animeType.equalsIgnoreCase("ONA") || animeType.equalsIgnoreCase("Special") || animeType.equalsIgnoreCase("TV Short"))
-//				{
-					if(rDate.before(tDate) || rDate.equals(tDate))
-					{
-						AnimeIndex.exitDateMap.put(name, cDay);
-						exitDay = "Rilasciato";
-					}
-//				}
+				if(rDate.before(tDate) || rDate.equals(tDate))
+				{
+					AnimeIndex.exitDateMap.put(name, cDay);
+					exitDay = "Rilasciato";
+				}
 			}
 		}
 		AnimeData dat = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png", exitDay, Integer.toString(id), "", "", animeType, releaseDate, finishDate, durationEp, false);
