@@ -161,14 +161,14 @@ public class SplashScreen extends JWindow {
 							try
 							{
 								SubstanceGraphiteGlassLookAndFeel laf = new SubstanceGraphiteGlassLookAndFeel();
+								FontUIResource fontUIResource = new FontUIResource(AnimeIndex.segui.deriveFont(12f));
 								laf.setFontPolicy(new FontPolicy() {
 									
 									@Override
 									public FontSet getFontSet(String arg0, UIDefaults arg1)
 									{
 										FontSet fontSet = new FontSet() {
-											FontUIResource fontUIResource = new FontUIResource(AnimeIndex.segui.deriveFont(12f));
-								            public FontUIResource getWindowTitleFont() {
+											 public FontUIResource getWindowTitleFont() {
 								                return fontUIResource; //this is where the title font changes
 								            }
 
