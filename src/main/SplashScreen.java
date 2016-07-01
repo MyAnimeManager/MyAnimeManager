@@ -161,7 +161,7 @@ public class SplashScreen extends JWindow {
 							try
 							{
 								SubstanceGraphiteGlassLookAndFeel laf = new SubstanceGraphiteGlassLookAndFeel();
-								FontUIResource fontUIResource = new FontUIResource(AnimeIndex.segui.deriveFont(12f));
+								FontUIResource fontUIResource = new FontUIResource(laf.getFontPolicy().getFontSet("Substance", null).getControlFont().deriveFont(12f));
 								laf.setFontPolicy(new FontPolicy() {
 									
 									@Override
@@ -169,7 +169,7 @@ public class SplashScreen extends JWindow {
 									{
 										FontSet fontSet = new FontSet() {
 											 public FontUIResource getWindowTitleFont() {
-								                return fontUIResource; //this is where the title font changes
+								                return fontUIResource; 
 								            }
 
 								            public FontUIResource getTitleFont() {
@@ -189,7 +189,7 @@ public class SplashScreen extends JWindow {
 								            }
 
 								            public FontUIResource getControlFont() {
-								                return new FontUIResource(AnimeIndex.segui.deriveFont(12f));
+								                return fontUIResource;
 								            }
 								        };
 								        return fontSet;
