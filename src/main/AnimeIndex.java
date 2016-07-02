@@ -106,6 +106,7 @@ import util.window.WishlistDialog;
 //TODO(Kirin) spostmento tramite ricerca in anilist dalla wishlist e dalla droplist alla lista principale attualmente selezionata(con controllo compatibilita')
 //TODO(Kirin) risolvere problema font
 //TODO(Kirin) import/export anilist --> WUT?
+//TODO(kirin) sistemare bug exclusionDialog
 
 
 
