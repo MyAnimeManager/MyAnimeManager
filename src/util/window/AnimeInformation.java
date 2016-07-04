@@ -1433,7 +1433,7 @@ public class AnimeInformation extends JPanel
 						if (!AnimeIndex.shiftsRegister.containsKey(name))
 							AnimeIndex.shiftsRegister.put(name, type);
 						if (AnimeIndex.sessionAddedAnime.contains(name))
-							AnimeIndex.sessionAddedAnimeImagesShiftsRegister.put(name, MAMUtil.getImageFolderPath() + "Completed to See" + File.separator + name + ".png");
+							AnimeIndex.sessionAddedAnimeImagesShiftsRegister.put(name, MAMUtil.getImageFolderPath() + "Completed To See" + File.separator + name + ".png");
 						if (AnimeIndex.exitDateMap.containsKey(name))
 							AnimeIndex.exitDateMap.remove(name);
 						AnimeIndex.animeInformation.minusButton.setEnabled(true);
