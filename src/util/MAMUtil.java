@@ -297,7 +297,7 @@ public class MAMUtil
 		deleteUselessImage(AnimeIndex.ovaDeletedAnime);
 		deleteUselessImage(AnimeIndex.filmDeletedAnime);
 		deleteUselessImage(AnimeIndex.completedToSeeDeletedAnime);
-		deleteUselessImage(AnimeIndex.sessionAddedAnime);
+//		deleteUselessImage(AnimeIndex.sessionAddedAnime);
 
 		AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
 		ColorProperties.saveProperties(AnimeIndex.colorProp);
@@ -322,6 +322,23 @@ public class MAMUtil
 				writeLog(e);
 			}
 		}
+	}
+	
+	public static ArrayList<String> getSessionAddedAnimeList()
+	{
+		String listName = MAMUtil.getList();
+		ArrayList<String> list = null;
+		if (listName.equalsIgnoreCase("anime completati"))
+			list = AnimeIndex.completedSessionAnime;
+		else if (listName.equalsIgnoreCase("anime in corso"))
+			list = AnimeIndex.airingSessionAnime;
+		else if (listName.equalsIgnoreCase("oav"))
+			list = AnimeIndex.ovaSessionAnime;
+		else if (listName.equalsIgnoreCase("film"))
+			list = AnimeIndex.filmSessionAnime;
+		else if (listName.equalsIgnoreCase("completi da vedere"))
+			list = AnimeIndex.completedToSeeSessionAnime;
+		return list;
 	}
 	
 	public static String getAppDataPath()

@@ -103,7 +103,7 @@ public class AnimeData
 		else if (listName.equalsIgnoreCase("film"))
 			folder = "Film";
 		else if (listName.equalsIgnoreCase("completi da vedere"))
-			folder = "Completed to See";
+			folder = "Completed To See";
 
 		return IMAGE_PATH + folder + File.separator + this.getImageName();
 	}

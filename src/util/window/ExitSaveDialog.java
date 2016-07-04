@@ -7,19 +7,23 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.TreeMap;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+
 import main.AnimeIndex;
 import util.AnimeData;
 import util.AnimeIndexProperties;
 import util.FileManager;
 import util.MAMUtil;
+
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -80,7 +84,7 @@ public class ExitSaveDialog extends JDialog
 				MAMUtil.deleteUselessImage(AnimeIndex.ovaSessionAnime);
 				MAMUtil.deleteUselessImage(AnimeIndex.filmSessionAnime);
 				MAMUtil.deleteUselessImage(AnimeIndex.completedToSeeSessionAnime);
-				MAMUtil.deleteUselessImage(AnimeIndex.sessionAddedAnime);
+//				MAMUtil.deleteUselessImage(AnimeIndex.sessionAddedAnime);
 				Object[] keyArr = AnimeIndex.sessionAddedAnimeImagesShiftsRegister.keySet().toArray();
 				for (int i = 0; i < keyArr.length; i++)
 					try

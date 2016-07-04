@@ -59,7 +59,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import javafx.util.Pair;
 import util.AnimeData;
 import util.ExternalProgram;
@@ -100,6 +99,7 @@ import util.window.WaitDialog;
 import util.window.WishlistDialog;
 
 //TODO(Kirin) fixare "IL BUG"
+//TODO(kirin) le immagini a volte nn si cancellano (??????)
 //TODO(Kirin) caratteri speciali aggiunta anime
 //TODO(Kirin) importare uscite stagionali da rad
 //TODO(Kirin) dialog gestione episodi
@@ -107,6 +107,7 @@ import util.window.WishlistDialog;
 //TODO(Kirin) risolvere problema font
 //TODO(Kirin) import/export anilist --> WUT?
 //TODO(kirin) sistemare bug exclusionDialog
+//TODO(kirin) sistemare ritardo audio primo avvio
 
 
 
@@ -1002,31 +1003,42 @@ public class AnimeIndex extends JFrame
 							else if (listName.equalsIgnoreCase("completi da vedere"))
 								folder = "Completed to See";
 							FileManager.saveScaledImage(dir, imageName, folder);
-							if (!exclusionAnime.containsKey(name))
+							TreeMap<String, AnimeData> map = MAMUtil.getMap();
+							AnimeData oldData = map.get(name);
+							if(!oldData.getId().isEmpty())
 							{
-								JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Impostazione avvenuta correttamente.\n\rAl fine di mantenere la modifica\n\rl'immagine di questo anime è stata aggiunta alla lista\n\rdelle esclusioni dal Controllo Dati Automatico.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
-								boolean[] exc = { true, false, false, false, false, false };
-								exclusionAnime.put(name, exc);
-							}
-							else if (exclusionAnime.get(name)[0] == false)
-							{
-								JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Impostazione avvenuta correttamente.\n\rAl fine di mantenere la modifica\n\rl'immagine di questo anime è stata aggiunta alla lista\n\rdelle esclusioni dal Controllo Dati Automatico.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
-								boolean[] exc = exclusionAnime.get(name);
-								exc[0] = true;
-								exclusionAnime.put(name, exc);
+								if (!exclusionAnime.containsKey(name))
+								{
+									JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Impostazione avvenuta correttamente.\n\rAl fine di mantenere la modifica\n\rl'immagine di questo anime è stata aggiunta alla lista\n\rdelle esclusioni dal Controllo Dati Automatico.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+									boolean[] exc = { true, false, false, false, false, false };
+									exclusionAnime.put(name, exc);
+								}
+								else if (exclusionAnime.get(name)[0] == false)
+								{
+									JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Impostazione avvenuta correttamente.\n\rAl fine di mantenere la modifica\n\rl'immagine di questo anime è stata aggiunta alla lista\n\rdelle esclusioni dal Controllo Dati Automatico.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
+									boolean[] exc = exclusionAnime.get(name);
+									exc[0] = true;
+									exclusionAnime.put(name, exc);
+								}
+								else
+									JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
 							}
 							else
 								JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Impostazione avvenuta correttamente.", "Operazione Completata", JOptionPane.INFORMATION_MESSAGE);
-							TreeMap<String, AnimeData> map = MAMUtil.getMap();
-							String list = MAMUtil.getList();
-							AnimeData oldData = map.get(name);
-							String path = oldData.getImagePath(list);
 							if (!oldData.getImageName().equalsIgnoreCase(imageName))
 							{
 								AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), oldData.getNote(), imageName + ".png", oldData.getDay(), oldData.getId(), oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
 								map.put(name, newData);
 							}
-							AnimeIndex.animeInformation.setImage(path);
+							String oldImagePath = oldData.getImagePath(MAMUtil.getList());
+							String newImagePath = oldImagePath.replace("default", imageName+".png");
+							AnimeIndex.animeInformation.setImage(newImagePath);
+							ArrayList<String> tmplist = MAMUtil.getSessionAddedAnimeList();
+							if(tmplist.contains(oldImagePath))
+							{
+								tmplist.remove(oldImagePath);
+								tmplist.add(newImagePath);
+							}			
 						}
 					}
 				}

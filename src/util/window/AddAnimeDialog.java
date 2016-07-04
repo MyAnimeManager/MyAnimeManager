@@ -938,25 +938,19 @@ public class AddAnimeDialog extends JDialog
 												GregorianCalendar rDate = MAMUtil.getDate(startDate);
 												String cDay = MAMUtil.today();
 												GregorianCalendar tDate = MAMUtil.getDate(cDay);
-//													if(type.equalsIgnoreCase("Movie") || type.equalsIgnoreCase("OVA") || type.equalsIgnoreCase("ONA") || type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("TV Short"))
-//													{
-													if(rDate.before(tDate) || rDate.equals(tDate))
-													{
-														AnimeIndex.exitDateMap.put(name, cDay);
-														exitDay = "Rilasciato";
-													}
-//													}
+//												if(type.equalsIgnoreCase("Movie") || type.equalsIgnoreCase("OVA") || type.equalsIgnoreCase("ONA") || type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("TV Short"))
+//												{
+												if(rDate.before(tDate) || rDate.equals(tDate))
+												{
+													AnimeIndex.exitDateMap.put(name, cDay);
+													exitDay = "Rilasciato";
+												}
+//												}
 											}
 										}
 										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
-										JList list = AddAnimeDialog.getJList(listName);
-										SortedListModel model = AddAnimeDialog.getModel(listName);
-										TreeMap<String, AnimeData> map = AddAnimeDialog.getMap(listName);
-										map.put(name, data);
-										model.addElement(name);
-										AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
-										list.clearSelection();
-										list.setSelectedValue(name, true);
+										updateControlList(listName);
+										AddAnimeDialog.checkAnimeAlreadyAdded(name, listName, data);
 										AddAnimeDialog.this.dispose();
 									}
 									else
@@ -969,14 +963,14 @@ public class AddAnimeDialog extends JDialog
 												GregorianCalendar rDate = MAMUtil.getDate(startDate);
 												String cDay = MAMUtil.today();
 												GregorianCalendar tDate = MAMUtil.getDate(cDay);
-//													if(type.equalsIgnoreCase("Movie") || type.equalsIgnoreCase("OVA") || type.equalsIgnoreCase("ONA") || type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("TV Short"))
-//													{
-													if(rDate.before(tDate) || rDate.equals(tDate))
-													{
-														AnimeIndex.exitDateMap.put(name, cDay);
-														exitDay = "Rilasciato";
-													}
-//													}
+//												if(type.equalsIgnoreCase("Movie") || type.equalsIgnoreCase("OVA") || type.equalsIgnoreCase("ONA") || type.equalsIgnoreCase("Special") || type.equalsIgnoreCase("TV Short"))
+//												{
+												if(rDate.before(tDate) || rDate.equals(tDate))
+												{
+													AnimeIndex.exitDateMap.put(name, cDay);
+													exitDay = "Rilasciato";
+												}
+//												}
 											}
 										}
 										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
@@ -1734,7 +1728,6 @@ public class AddAnimeDialog extends JDialog
 		String anime = (String) searchedList.getSelectedValue();
 		int id = animeSearched.get(anime);
 		String data = ConnectionManager.parseAnimeData(id);
-
 		String name = ConnectionManager.getAnimeData("title_romaji", data);
 		String totEp = ConnectionManager.getAnimeData("total_episodes", data);
 		String currentEp = "1";
@@ -1825,9 +1818,9 @@ public class AddAnimeDialog extends JDialog
 		}
 		AnimeData dat = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png", exitDay, Integer.toString(id), "", "", animeType, releaseDate, finishDate, durationEp, false);
 		updateControlList(list);
-		AddAnimeDialog.checkAnimeAlreadyAdded(name, list, dat);
 		restorePreviousCheck();
 		AnimeIndex.lastSelection = anime;
+		AddAnimeDialog.checkAnimeAlreadyAdded(name, list, dat);
 		AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 }
