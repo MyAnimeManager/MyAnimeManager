@@ -948,7 +948,15 @@ public class AddAnimeDialog extends JDialog
 //												}
 											}
 										}
-										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
+										String imageName = name.replaceAll("\\\\", "_");
+										imageName = imageName.replaceAll("/", "_");
+										imageName = imageName.replaceAll(":", "_");
+										imageName = imageName.replaceAll("\\*", "_");
+										imageName = imageName.replaceAll("\\?", "_");
+										imageName = imageName.replaceAll("\"", "_");
+										imageName = imageName.replaceAll(">", "_");
+										imageName = imageName.replaceAll("<", "_");
+										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName+".png", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
 										updateControlList(listName);
 										AddAnimeDialog.checkAnimeAlreadyAdded(name, listName, data);
 										AddAnimeDialog.this.dispose();
@@ -973,7 +981,15 @@ public class AddAnimeDialog extends JDialog
 //												}
 											}
 										}
-										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "default", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
+										String imageName = name.replaceAll("\\\\", "_");
+										imageName = imageName.replaceAll("/", "_");
+										imageName = imageName.replaceAll(":", "_");
+										imageName = imageName.replaceAll("\\*", "_");
+										imageName = imageName.replaceAll("\\?", "_");
+										imageName = imageName.replaceAll("\"", "_");
+										imageName = imageName.replaceAll(">", "_");
+										imageName = imageName.replaceAll("<", "_");
+										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName+".png", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
 										updateControlList(list);
 										AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
 									}

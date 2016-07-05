@@ -1030,15 +1030,7 @@ public class AnimeIndex extends JFrame
 								AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), oldData.getTotalEpisode(), oldData.getFansub(), oldData.getNote(), imageName + ".png", oldData.getDay(), oldData.getId(), oldData.getLinkName(), oldData.getLink(), oldData.getAnimeType(), oldData.getReleaseDate(), oldData.getFinishDate(), oldData.getDurationEp(), oldData.getBd());
 								map.put(name, newData);
 							}
-							String oldImagePath = oldData.getImagePath(MAMUtil.getList());
-							String newImagePath = oldImagePath.replace("default", imageName+".png");
-							AnimeIndex.animeInformation.setImage(newImagePath);
-							ArrayList<String> tmplist = MAMUtil.getSessionAddedAnimeList();
-							if(tmplist.contains(oldImagePath))
-							{
-								tmplist.remove(oldImagePath);
-								tmplist.add(newImagePath);
-							}			
+							AnimeIndex.animeInformation.setImage(oldData.getImagePath(MAMUtil.getList()));			
 						}
 					}
 				}
