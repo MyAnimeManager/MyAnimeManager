@@ -507,7 +507,7 @@ public class MusicDialog extends JDialog
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
-							JFileChooser chooser = new JFileChooser(System.getProperty("user.home") + File.separator + "Desktop");
+							JFileChooser chooser = new JFileChooser();
 							chooser.setMultiSelectionEnabled(false);
 							chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 							chooser.setDialogTitle("Salva in...");
