@@ -108,6 +108,7 @@ import util.window.WishlistDialog;
 //TODO(Kirin) import/export anilist --> WUT?
 //TODO(kirin) sistemare bug exclusionDialog
 //TODO(kirin) sistemare ritardo audio primo avvio
+//TODO(kirin) permettere modifica del nome di un anime tramite id
 
 
 
