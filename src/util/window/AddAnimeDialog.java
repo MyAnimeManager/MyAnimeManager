@@ -1834,9 +1834,9 @@ public class AddAnimeDialog extends JDialog
 		}
 		AnimeData dat = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png", exitDay, Integer.toString(id), "", "", animeType, releaseDate, finishDate, durationEp, false);
 		updateControlList(list);
-		restorePreviousCheck();
 		AnimeIndex.lastSelection = anime;
 		AddAnimeDialog.checkAnimeAlreadyAdded(name, list, dat);
+		restorePreviousCheck();
 		AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 }
