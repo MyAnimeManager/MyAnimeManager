@@ -640,8 +640,11 @@ public class WishlistDialog extends JDialog
 		}
 		String animeName = null;
 		int id = -1;
-		String name = JOptionPane.showInputDialog(AnimeIndex.wishlistDialog, "Nome Anime :", "Aggiungi alla " + listName, JOptionPane.QUESTION_MESSAGE).trim();
-
+		String name = null;
+		try{
+			name = JOptionPane.showInputDialog(AnimeIndex.wishlistDialog, "Nome Anime :", "Aggiungi alla " + listName, JOptionPane.QUESTION_MESSAGE).trim();
+		}catch(NullPointerException e)
+		{}
 		try
 		{
 			ConnectionManager.ConnectAndGetToken();
@@ -652,7 +655,7 @@ public class WishlistDialog extends JDialog
 			MAMUtil.writeLog(e1);
 		}
 
-		if (name != null)
+		if (name != null && !name.isEmpty())
 		{
 			HashMap<String, Integer> animeMap = ConnectionManager.AnimeSearch(name);
 			if (!animeMap.isEmpty() && animeMap.size() > 1)
@@ -688,7 +691,7 @@ public class WishlistDialog extends JDialog
 				list.setSelectedValue(name, true);
 			}
 		}
-		if (name != null && animeName == null)
+		if (name != null && !name.isEmpty() && animeName == null)
 		{
 			int choice = JOptionPane.showConfirmDialog(WishlistDialog.this,"L'Anime cercato non è stato trovato.\n\rRipetere la ricerca?" , "Riceca fallita", JOptionPane.YES_NO_OPTION);
 			if(choice==0)
@@ -706,7 +709,7 @@ public class WishlistDialog extends JDialog
 				list.setSelectedValue(name, true);
 			}
 		}
-		if (!searchBar.getText().isEmpty())
+		if (!searchBar.getText().isEmpty() && name != null && !name.isEmpty())
 		{
 			searchInList(searchBar.getText(), model, searchModel);
 			searchList.setSelectedValue(name, true);
