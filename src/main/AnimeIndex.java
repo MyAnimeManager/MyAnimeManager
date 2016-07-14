@@ -99,14 +99,12 @@ import util.window.WaitDialog;
 import util.window.WishlistDialog;
 
 //TODO(Kirin) fixare "IL BUG"
-//TODO(kirin) le immagini a volte nn si cancellano (??????)
-//TODO(Kirin) caratteri speciali aggiunta anime
+//TODO(Kirin) import/export anilist
 //TODO(Kirin) importare uscite stagionali da rad
 //TODO(Kirin) dialog gestione episodi
-//TODO(Kirin) spostmento tramite ricerca in anilist dalla wishlist e dalla droplist alla lista principale attualmente selezionata(con controllo compatibilita')
-//TODO(Kirin) import/export anilist --> WUT?
-//TODO(kirin) permettere modifica del nome di un anime tramite id
 
+//TODO(Kirin) spostmento tramite ricerca in anilist dalla wishlist e dalla droplist alla lista principale attualmente selezionata(con controllo compatibilita')
+//TODO(kirin) permettere modifica del nome di un anime tramite id
 
 
 public class AnimeIndex extends JFrame
