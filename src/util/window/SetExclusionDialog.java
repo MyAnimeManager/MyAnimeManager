@@ -89,6 +89,8 @@ public class SetExclusionDialog extends JDialog
 			@Override
 			public void windowOpened(WindowEvent arg0)
 			{
+				for (Map.Entry<String, boolean[]> entry : AnimeIndex.exclusionAnime.entrySet())
+					excludedModel.addElement(entry.getKey());
 				cancelButton.requestFocusInWindow();
 				comboBox.setSelectedItem(AnimeIndex.animeTypeComboBox.getSelectedItem());
 				changeModel(MAMUtil.getModel());
@@ -861,8 +863,6 @@ public class SetExclusionDialog extends JDialog
 
 	private void changeModel(SortedListModel model)
 	{
-		for (Map.Entry<String, boolean[]> entry : AnimeIndex.exclusionAnime.entrySet())
-			excludedModel.addElement(entry.getKey());
 
 		totalModel.clear();
 		Object[] totalArray = model.toArray();
