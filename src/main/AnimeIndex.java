@@ -104,10 +104,7 @@ import util.window.WishlistDialog;
 //TODO(Kirin) importare uscite stagionali da rad
 //TODO(Kirin) dialog gestione episodi
 //TODO(Kirin) spostmento tramite ricerca in anilist dalla wishlist e dalla droplist alla lista principale attualmente selezionata(con controllo compatibilita')
-//TODO(Kirin) risolvere problema font
 //TODO(Kirin) import/export anilist --> WUT?
-//TODO(kirin) sistemare bug exclusionDialog
-//TODO(kirin) sistemare ritardo audio primo avvio
 //TODO(kirin) permettere modifica del nome di un anime tramite id
 
 

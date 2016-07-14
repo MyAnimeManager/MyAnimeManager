@@ -41,6 +41,7 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.Line;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Mixer;
+import javax.sound.sampled.Port;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -1205,34 +1206,37 @@ public class MusicDialog extends JDialog
 		Mixer.Info[] mixers = AudioSystem.getMixerInfo();  
 		for (Mixer.Info mixerInfo : mixers)  
 		{  
-		    Mixer mixer = AudioSystem.getMixer(mixerInfo);  
-		    Line.Info[] lineInfos = mixer.getTargetLineInfo();
-		    for (Line.Info lineInfo : lineInfos)  
-		    {   
-		        Line line = null;  
-		        boolean opened = true;  
-		        try  
-		        {  
-		            line = mixer.getLine(lineInfo);  
-		            opened = line.isOpen() || line instanceof Clip;  
-		            if (!opened)  
-		            {  
-		                line.open();  
-		            }  
-		            ((FloatControl)line.getControl(FloatControl.Type.VOLUME)).setValue(f); //0.0f(MIN) 1.0f(MAX)
-		        }  
-		        catch (LineUnavailableException e)  
-		        {}  
-		        catch (IllegalArgumentException iaEx)  
-		        {}  
-		        finally  
-		        {  
-		            if (line != null && !opened)  
-		            {  
-		                line.close();  
-		            }  
-		        }  
-		    }  
+			Mixer mixer = AudioSystem.getMixer(mixerInfo);
+			if(!mixer.isLineSupported(Port.Info.MICROPHONE))
+			{
+			    Line.Info[] lineInfos = mixer.getTargetLineInfo();
+			    for (Line.Info lineInfo : lineInfos)  
+			    {   
+			        Line line = null;  
+			        boolean opened = true;  
+			        try  
+			        {  
+			            line = mixer.getLine(lineInfo);  
+			            opened = line.isOpen() || line instanceof Clip;  
+			            if (!opened)  
+			            {  
+			                line.open();  
+			            }  
+			            ((FloatControl)line.getControl(FloatControl.Type.VOLUME)).setValue(f); //0.0f(MIN) 1.0f(MAX)
+			        }  
+			        catch (LineUnavailableException e)  
+			        {}  
+			        catch (IllegalArgumentException iaEx)  
+			        {}  
+			        finally  
+			        {  
+			            if (line != null && !opened)  
+			            {  
+			                line.close();  
+			            }  
+			        }  
+			    }  
+			}
 		}
 	}
 }
