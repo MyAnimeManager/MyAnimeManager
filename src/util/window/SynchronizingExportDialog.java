@@ -71,7 +71,7 @@ public class SynchronizingExportDialog extends JDialog
 						progressBar.setMinimum(0);
 						progressBar.setMaximum((int)task.totalAnimeNumber);
 					}
-					lblSynchro.setText("Sincronizzazione in corso... : \"" + task.currentAnime + "\"");
+					lblSynchro.setText("Sincronizzazione in corso... (" + task.currentAnime + ")");
 					progressBar.setString("Anime sincronizzati " + (int)task.currentAnimeNumber + "/" + (int)task.totalAnimeNumber);
 					progressBar.setValue((int)task.currentAnimeNumber);
 				}
