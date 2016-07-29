@@ -7,11 +7,14 @@ import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URI;
@@ -19,6 +22,7 @@ import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.TreeMap;
+
 import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -35,6 +39,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.MatteBorder;
@@ -42,6 +47,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import main.AnimeIndex;
 import util.ConnectionManager;
 import util.MAMUtil;
@@ -106,6 +112,39 @@ public class WishlistDialog extends JDialog
 				cardPane.add(wishlistPane, "wishlist");
 				{
 					wishlist = new JList(WishlistDialog.wishListModel);
+					wishlist.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							if (SwingUtilities.isRightMouseButton(e))
+								{
+									JList list = (JList) e.getSource();
+									int row = list.locationToIndex(e.getPoint());
+									Rectangle bound = list.getCellBounds(row, row);
+									if (bound.contains(e.getPoint()))
+									{
+										list.setSelectedIndex(row);
+										JPopupMenu menu = new JPopupMenu();
+										
+										JMenuItem wishListTransfer = new JMenuItem("Importa in...");
+										//TODO settare icona
+//										wishListTransfer.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/copy-icon.png")));
+										wishListTransfer.addActionListener(new ActionListener() {
+											
+											@Override
+											public void actionPerformed(ActionEvent e)
+											{
+												AnimeIndex.animeDialog = new AddAnimeDialog();
+												AnimeIndex.animeDialog.setLocationRelativeTo(AnimeIndex.mainPanel);
+												AnimeIndex.animeDialog.doSearch((String)list.getSelectedValue());
+												AnimeIndex.animeDialog.setVisible(true);
+											}
+										});
+										menu.add(wishListTransfer);
+										menu.show(list, e.getX(), e.getY());
+									}
+								}
+						}
+					});
 					wishlist.addListSelectionListener(new ListSelectionListener() {
 
 						@Override
@@ -136,6 +175,39 @@ public class WishlistDialog extends JDialog
 				cardPane.add(searchPane, "wishlistSearch");
 				{
 					searchList = new JList(wishListSearchModel);
+					searchList.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							if (SwingUtilities.isRightMouseButton(e))
+							{
+								JList list = (JList) e.getSource();
+								int row = list.locationToIndex(e.getPoint());
+								Rectangle bound = list.getCellBounds(row, row);
+								if (bound.contains(e.getPoint()))
+								{
+									list.setSelectedIndex(row);
+									JPopupMenu menu = new JPopupMenu();
+									
+									JMenuItem searchListTransfer = new JMenuItem("Importa in...");
+									//TODO settare icona
+//									wishListTransfer.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/copy-icon.png")));
+									searchListTransfer.addActionListener(new ActionListener() {
+										
+										@Override
+										public void actionPerformed(ActionEvent e)
+										{
+											AnimeIndex.animeDialog = new AddAnimeDialog();
+											AnimeIndex.animeDialog.setLocationRelativeTo(AnimeIndex.mainPanel);
+											AnimeIndex.animeDialog.doSearch((String)list.getSelectedValue());
+											AnimeIndex.animeDialog.setVisible(true);
+										}
+									});
+									menu.add(searchListTransfer);
+									menu.show(list, e.getX(), e.getY());
+								}
+							}
+						}
+					});
 					searchList.setFont(AnimeIndex.segui.deriveFont(12f));
 					searchList.addListSelectionListener(new ListSelectionListener() {
 
@@ -162,6 +234,39 @@ public class WishlistDialog extends JDialog
 				cardPane.add(droplistPane, "droplist");
 				{
 					droplist = new JList(WishlistDialog.dropListModel);
+					droplist.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							if (SwingUtilities.isRightMouseButton(e))
+							{
+								JList list = (JList) e.getSource();
+								int row = list.locationToIndex(e.getPoint());
+								Rectangle bound = list.getCellBounds(row, row);
+								if (bound.contains(e.getPoint()))
+								{
+									list.setSelectedIndex(row);
+									JPopupMenu menu = new JPopupMenu();
+									
+									JMenuItem dropListTransfer = new JMenuItem("Importa in...");
+									//TODO settare icona
+//									wishListTransfer.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/copy-icon.png")));
+									dropListTransfer.addActionListener(new ActionListener() {
+										
+										@Override
+										public void actionPerformed(ActionEvent e)
+										{
+											AnimeIndex.animeDialog = new AddAnimeDialog();
+											AnimeIndex.animeDialog.setLocationRelativeTo(AnimeIndex.mainPanel);
+											AnimeIndex.animeDialog.doSearch((String)list.getSelectedValue());
+											AnimeIndex.animeDialog.setVisible(true);
+										}
+									});
+									menu.add(dropListTransfer);
+									menu.show(list, e.getX(), e.getY());
+								}
+							}
+						}
+					});
 					droplist.addListSelectionListener(new ListSelectionListener() {
 
 						@Override

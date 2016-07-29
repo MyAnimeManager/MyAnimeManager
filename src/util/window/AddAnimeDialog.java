@@ -1884,4 +1884,10 @@ public class AddAnimeDialog extends JDialog
 		restorePreviousCheck();
 		AddAnimeDialog.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
+
+	public void doSearch(String search)
+	{
+		searchBar.setText(search);
+		btnCerca.doClick();
+	}
 }
