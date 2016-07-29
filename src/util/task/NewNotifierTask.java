@@ -12,7 +12,6 @@ import javax.swing.SwingWorker;
 import org.apache.commons.lang3.StringEscapeUtils;
 import main.AnimeIndex;
 import util.MAMUtil;
-import util.SuggestionHelper;
 
 public class NewNotifierTask extends SwingWorker
 {
@@ -23,8 +22,8 @@ public class NewNotifierTask extends SwingWorker
 	@Override
 	protected Object doInBackground() throws Exception
 	{
-		String data = SuggestionHelper.getData();
-		packNumber = SuggestionHelper.getPackVersion(data);
+//		String data = SuggestionHelper.getData();
+//		packNumber = SuggestionHelper.getPackVersion(data);
 		newSongs = newSongs();
 		return null;
 	}
@@ -32,11 +31,11 @@ public class NewNotifierTask extends SwingWorker
 	@Override
 	public void done()
 	{
-		if (!packNumber.equalsIgnoreCase(AnimeIndex.appProp.getProperty("Suggestions_Pack_Number")))
-		{
-			JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Nuovi anime sono disponibili\n\rnella sezione \"Anime Consigliati\" !!!", "Nuovi Anime !!!", JOptionPane.INFORMATION_MESSAGE);
-			AnimeIndex.appProp.setProperty("Suggestions_Pack_Number", packNumber);
-		}
+//		if (!packNumber.equalsIgnoreCase(AnimeIndex.appProp.getProperty("Suggestions_Pack_Number")))
+//		{
+//			JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Nuovi anime sono disponibili\n\rnella sezione \"Anime Consigliati\" !!!", "Nuovi Anime !!!", JOptionPane.INFORMATION_MESSAGE);
+//			AnimeIndex.appProp.setProperty("Suggestions_Pack_Number", packNumber);
+//		}
 		if (newSongs)
 		{
 			JTextArea textArea = new JTextArea(8, 30);

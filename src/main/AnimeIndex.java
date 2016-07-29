@@ -59,6 +59,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import javafx.util.Pair;
 import util.AnimeData;
 import util.ExternalProgram;
@@ -106,7 +107,6 @@ import util.window.WishlistDialog;
 
 //TODO(Kirin) spostmento tramite ricerca in anilist dalla wishlist e dalla droplist alla lista principale attualmente selezionata(con controllo compatibilita')
 //TODO(kirin) colore label animeindex
-//TODO(kirin) disattivare suggerimento anime e relativa task
 
 
 public class AnimeIndex extends JFrame
@@ -1058,22 +1058,22 @@ public class AnimeIndex extends JFrame
 		JSeparator separator_2 = new JSeparator();
 		mnVisualizza.add(separator_2);
 
-		JMenuItem mntmAnimeConsigliati = new JMenuItem("Anime Consigliati");
-		mntmAnimeConsigliati.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/suggested-anime.png")));
-		mntmAnimeConsigliati.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				suggestionDial = new SuggestionDialog();
-				suggestionDial.setLocationRelativeTo(mainPanel);
-				suggestionDial.setVisible(true);
-			}
-		});
-		mnVisualizza.add(mntmAnimeConsigliati);
-
-		JSeparator separator_7 = new JSeparator();
-		mnVisualizza.add(separator_7);
+//		JMenuItem mntmAnimeConsigliati = new JMenuItem("Anime Consigliati");
+//		mntmAnimeConsigliati.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/suggested-anime.png")));
+//		mntmAnimeConsigliati.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e)
+//			{
+//				suggestionDial = new SuggestionDialog();
+//				suggestionDial.setLocationRelativeTo(mainPanel);
+//				suggestionDial.setVisible(true);
+//			}
+//		});
+//		mnVisualizza.add(mntmAnimeConsigliati);
+//
+//		JSeparator separator_7 = new JSeparator();
+//		mnVisualizza.add(separator_7);
 
 		JMenuItem mntmWishlist = new JMenuItem("WishList");
 		mntmWishlist.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/wishlist_256.png")));
