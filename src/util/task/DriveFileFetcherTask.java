@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+
 import javax.swing.SwingWorker;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -16,6 +17,7 @@ import com.google.api.services.drive.model.ChildList;
 import com.google.api.services.drive.model.ChildReference;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
+
 import main.AnimeIndex;
 import util.DriveUtil;
 import util.MAMUtil;
@@ -56,7 +58,7 @@ public class DriveFileFetcherTask extends SwingWorker
 	private TreeMap<String, ArrayList<String>> getMusicFolderChildren() throws IOException
 	{
 		TreeMap<String, ArrayList<String>> fileParentMap = new TreeMap<String, ArrayList<String>>();
-		FileList request = DriveUtil.service.files().list().setQ("mimeType = 'application/vnd.google-apps.folder' and title != 'Musica'").execute();
+		FileList request = DriveUtil.service.files().list().setMaxResults(1000).setQ("mimeType = 'application/vnd.google-apps.folder' and title != 'Musica'").execute();
 		List<File> children = request.getItems();
 		if (children == null || children.size() == 0)
 			System.out.println("No files found.");
@@ -91,7 +93,7 @@ public class DriveFileFetcherTask extends SwingWorker
 	{
 		ArrayList<String> newFolderSong = new ArrayList<String>();
 		//cartelle
-		FileList requestFolder = DriveUtil.service.files().list().setQ("mimeType = 'application/vnd.google-apps.folder' and modifiedDate >= '" + date + "'").execute();
+		FileList requestFolder = DriveUtil.service.files().list().setMaxResults(1000).setQ("mimeType = 'application/vnd.google-apps.folder' and modifiedDate >= '" + date + "'").execute();
 		List<File> newFolderList = requestFolder.getItems();
 		if (newFolderList == null || newFolderList.size() == 0)
 			System.out.println("No files found.");
@@ -119,7 +121,7 @@ public class DriveFileFetcherTask extends SwingWorker
 			}
 		}
 		//canzoni singole
-		FileList request = DriveUtil.service.files().list().setQ("mimeType != 'application/vnd.google-apps.folder' and modifiedDate >= '" + date + "'").execute();
+		FileList request = DriveUtil.service.files().list().setMaxResults(1000).setQ("mimeType != 'application/vnd.google-apps.folder' and modifiedDate >= '" + date + "'").execute();
 		List<File> newSongsList = request.getItems();
 		if (newSongsList == null || newSongsList.size() == 0)
 			System.out.println("No files found.");
