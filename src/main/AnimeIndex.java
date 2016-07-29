@@ -102,9 +102,11 @@ import util.window.WishlistDialog;
 //TODO(Kirin) import/export anilist
 //TODO(Kirin) importare uscite stagionali da rad
 //TODO(Kirin) dialog gestione episodi
+//TODO(kirin) permettere modifica del nome di un anime tramite id
 
 //TODO(Kirin) spostmento tramite ricerca in anilist dalla wishlist e dalla droplist alla lista principale attualmente selezionata(con controllo compatibilita')
-//TODO(kirin) permettere modifica del nome di un anime tramite id
+//TODO(kirin) colore label animeindex
+//TODO(kirin) disattivare suggerimento anime e relativa task
 
 
 public class AnimeIndex extends JFrame
