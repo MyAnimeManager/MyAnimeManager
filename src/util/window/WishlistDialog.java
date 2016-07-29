@@ -120,14 +120,13 @@ public class WishlistDialog extends JDialog
 									JList list = (JList) e.getSource();
 									int row = list.locationToIndex(e.getPoint());
 									Rectangle bound = list.getCellBounds(row, row);
-									if (bound.contains(e.getPoint()))
+									if (bound!=null && bound.contains(e.getPoint()))
 									{
 										list.setSelectedIndex(row);
 										JPopupMenu menu = new JPopupMenu();
 										
-										JMenuItem wishListTransfer = new JMenuItem("Importa in...");
-										//TODO settare icona
-//										wishListTransfer.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/copy-icon.png")));
+										JMenuItem wishListTransfer = new JMenuItem("Aggiungi a una Lista");
+										wishListTransfer.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/add-property-xxl.png")));
 										wishListTransfer.addActionListener(new ActionListener() {
 											
 											@Override
@@ -183,14 +182,13 @@ public class WishlistDialog extends JDialog
 								JList list = (JList) e.getSource();
 								int row = list.locationToIndex(e.getPoint());
 								Rectangle bound = list.getCellBounds(row, row);
-								if (bound.contains(e.getPoint()))
+								if (bound!=null && bound.contains(e.getPoint()))
 								{
 									list.setSelectedIndex(row);
 									JPopupMenu menu = new JPopupMenu();
 									
-									JMenuItem searchListTransfer = new JMenuItem("Importa in...");
-									//TODO settare icona
-//									wishListTransfer.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/copy-icon.png")));
+									JMenuItem searchListTransfer = new JMenuItem("Aggiungi a una Lista");
+									searchListTransfer.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/add-property-xxl.png")));
 									searchListTransfer.addActionListener(new ActionListener() {
 										
 										@Override
@@ -242,14 +240,13 @@ public class WishlistDialog extends JDialog
 								JList list = (JList) e.getSource();
 								int row = list.locationToIndex(e.getPoint());
 								Rectangle bound = list.getCellBounds(row, row);
-								if (bound.contains(e.getPoint()))
+								if (bound!=null && bound.contains(e.getPoint()))
 								{
 									list.setSelectedIndex(row);
 									JPopupMenu menu = new JPopupMenu();
 									
-									JMenuItem dropListTransfer = new JMenuItem("Importa in...");
-									//TODO settare icona
-//									wishListTransfer.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/copy-icon.png")));
+									JMenuItem dropListTransfer = new JMenuItem("Aggiungi a una Lista");
+									dropListTransfer.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/add-property-xxl.png")));
 									dropListTransfer.addActionListener(new ActionListener() {
 										
 										@Override

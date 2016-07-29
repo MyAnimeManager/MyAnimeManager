@@ -105,9 +105,6 @@ import util.window.WishlistDialog;
 //TODO(Kirin) dialog gestione episodi
 //TODO(kirin) permettere modifica del nome di un anime tramite id
 
-//TODO(Kirin) spostmento tramite ricerca in anilist dalla wishlist e dalla droplist alla lista principale attualmente selezionata(con controllo compatibilita')
-//TODO(kirin) colore label animeindex
-
 
 public class AnimeIndex extends JFrame
 {	

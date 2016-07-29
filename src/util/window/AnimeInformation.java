@@ -1023,7 +1023,7 @@ public class AnimeInformation extends JPanel
 		gbc_btnFolder.insets = new Insets(0, 0, 5, 5);
 		gbc_btnFolder.gridx = 14;
 		gbc_btnFolder.gridy = 9;
-		add(btnFolder, gbc_btnFolder);
+//		add(btnFolder, gbc_btnFolder);
 		checkDataButton.setSize(new Dimension(30, 30));
 		checkDataButton.setPreferredSize(new Dimension(30, 30));
 		checkDataButton.setMinimumSize(new Dimension(30, 30));
