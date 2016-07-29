@@ -156,14 +156,10 @@ public class ConnectionManager
 		String result = ""; // A long string containing all the HTML
 		try
 		{
-			String animeQuery = animeToSearch.replace("-", "\\-");
-			animeQuery = animeQuery.replace("!", "\\!");
-			animeQuery = animeQuery.replace("/", "\\");
-			animeQuery = animeQuery.replace(".", "\\.");
-			animeQuery = animeQuery.replace("&", "\\&");
-			
+			String animeQuery = URLEncoder.encode(animeToSearch.replace(".", "\\.").replace("/", "\\ ").replace("-","\\-").replace("!","\\!"), "UTF-8");
+		
 			url = new URL(ANI_BASEURL + SEARCH + animeQuery + "?access_token=" + ConnectionManager.token);
-
+			
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setRequestMethod("GET");
