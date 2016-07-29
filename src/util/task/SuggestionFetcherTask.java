@@ -22,5 +22,4 @@ public class SuggestionFetcherTask extends SwingWorker
 	{
 		AnimeIndex.suggestionDial.waitDialog.dispose();
 	}
-
 }
