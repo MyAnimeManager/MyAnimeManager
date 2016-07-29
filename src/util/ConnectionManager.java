@@ -156,9 +156,12 @@ public class ConnectionManager
 		String result = ""; // A long string containing all the HTML
 		try
 		{
-			String animeQuery = URLEncoder.encode(animeToSearch, "UTF-8");
-			animeQuery = animeQuery.replace("-", "\\-");
+			String animeQuery = animeToSearch.replace("-", "\\-");
 			animeQuery = animeQuery.replace("!", "\\!");
+			animeQuery = animeQuery.replace("/", "\\");
+			animeQuery = animeQuery.replace(".", "\\.");
+			animeQuery = animeQuery.replace("&", "\\&");
+			
 			url = new URL(ANI_BASEURL + SEARCH + animeQuery + "?access_token=" + ConnectionManager.token);
 
 			conn = (HttpURLConnection) url.openConnection();
