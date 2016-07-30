@@ -27,18 +27,20 @@ import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileSystemView;
 
 import org.apache.commons.io.FileUtils;
 
 import main.AnimeIndex;
-import util.EpisodeChooserFilter;
 import util.FileManager;
+import util.ImageChooserFilter;
 import util.MAMUtil;
 
 import java.awt.GridLayout;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
+
 import javax.swing.JSlider;
 
 public class PreferenceDialog extends JDialog
@@ -404,10 +406,10 @@ public class PreferenceDialog extends JDialog
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+				File chooserDir = FileSystemView.getFileSystemView().getHomeDirectory();
 				JFileChooser fc = new JFileChooser(chooserDir);
 				fc.setMultiSelectionEnabled(false);
-				fc.addChoosableFileFilter(new EpisodeChooserFilter());
+				fc.addChoosableFileFilter(new ImageChooserFilter());
 				fc.setAcceptAllFileFilterUsed(false);
 				int returnVal = fc.showDialog(AnimeIndex.mainPanel, "Imposta");
 				
@@ -489,7 +491,7 @@ public class PreferenceDialog extends JDialog
 					if (file != null && file instanceof File)
 					{
 						File choosedFile = (File) file;
-						JFileChooser chooser = new JFileChooser();
+						JFileChooser chooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 						chooser.setMultiSelectionEnabled(false);
 						chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 						chooser.setDialogTitle("Esporta in...");

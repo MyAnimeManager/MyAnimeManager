@@ -59,6 +59,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileSystemView;
 
 import javafx.util.Pair;
 import util.AnimeData;
@@ -100,15 +101,19 @@ import util.window.WaitDialog;
 import util.window.WishlistDialog;
 
 //TODO(Kirin) fixare "IL BUG"
-//TODO(Kirin) import/export anilist
+//TODO(Kirin) import/export liste Anilist
+//TODO(Kirin) importare anime da MAL
 //TODO(Kirin) importare uscite stagionali da rad
 //TODO(Kirin) dialog gestione episodi
-//TODO(kirin) permettere modifica del nome di un anime tramite id
+//TODO(Kirin) permettere modifica del nome di un anime tramite id
+//TODO(Kirin) rimuovere setFont() inutili
+//TODO(Kirin) implementare lingua inglese
+//TODO(Kirin) riabilitare anime suggeriti
 
 
 public class AnimeIndex extends JFrame
 {	
-	public static final String VERSION = "1.1.3";
+	public static final String VERSION = "1.2.0";
 	public static final String CURRENT_VERSION = "MyAnimeManager.exe";
 	public static final String NEW_VERSION = "MyAnimeManager_Setup.exe";
 
@@ -475,7 +480,7 @@ public class AnimeIndex extends JFrame
 		mntmEsportaListe.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/export_.png")));
 		mntmEsportaListe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+				File chooserDir = FileSystemView.getFileSystemView().getHomeDirectory();
 				JFileChooser fc = new JFileChooser(chooserDir);
 				fc.setMultiSelectionEnabled(false);
 				fc.setAcceptAllFileFilterUsed(false);
@@ -520,7 +525,7 @@ public class AnimeIndex extends JFrame
 		});
 		mntmImportaListe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+				File chooserDir = FileSystemView.getFileSystemView().getHomeDirectory();
 				JFileChooser fc = new JFileChooser(chooserDir);
 				fc.setMultiSelectionEnabled(false);
 				fc.setAcceptAllFileFilterUsed(false);
@@ -965,7 +970,7 @@ public class AnimeIndex extends JFrame
 					int shouldCancel = JOptionPane.showConfirmDialog(AnimeIndex.mainPanel, "La modifica sarà applicata all'anime attualmente selezinato.\n\rL'operazione non potra' essere annullata.\n\rContinuare?", "Attenzione!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (shouldCancel == 0)
 					{
-						File chooserDir = new File(System.getProperty("user.home") + File.separator + "Desktop");
+						File chooserDir = FileSystemView.getFileSystemView().getHomeDirectory();
 						JFileChooser fc = new JFileChooser(chooserDir);
 						fc.setMultiSelectionEnabled(false);
 						fc.addChoosableFileFilter(new ImageChooserFilter());
@@ -1481,7 +1486,7 @@ public class AnimeIndex extends JFrame
 					nDrop += 1;
 				for (int i = 0; i < droppedMALMap.size(); i++)
 					nDrop += 1;
-				JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Anime Completati:       " + nCompleted + "\n\r\n\rAnime in Corso:            " + nAiring + "\n\r\n\rOav:                               " + nOAV + "\n\r\n\rFilm:                               " + nFilm + "\n\r\n\rCompleti da Vedere:     " + nToSee + "\n\r\n\rWishlist:                         " + nWish + "\n\r\n\rDroplist:                         " + nDrop, "Statistiche", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(AnimeIndex.mainPanel, "Anime Completati:       " + nCompleted + "\n\r\n\rAnime in Corso:            " + nAiring + "\n\r\n\rOav:                               " + nOAV + "\n\r\n\rFilm:                               " + nFilm + "\n\r\n\rCompleti da Vedere:    " + nToSee + "\n\r\n\rWishlist:                        " + nWish + "\n\r\n\rDroplist:                        " + nDrop, "Statistiche", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		mnInfo.add(mntmStatistiche);
