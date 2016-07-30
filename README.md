@@ -10,7 +10,7 @@ L'aggiunta da web permette di inserire anime nelle liste e di importare tutti i 
 
 L'utente ha a disposizione anche una Wishlist per gli anime che desidera vedere e una Droplist per quelli scartati. 
 
-Ad ogni anime è associabile un fansub con link per aprire velocemente la relativa pagina web.
+A ogni anime è associabile un fansub con link per aprire velocemente la relativa pagina web.
 
 Sono presenti inoltre collegamenti alle piattaforme più diffuse come AnimeClick, MyAnimeList, AniDB, AniList, AniChart e altre ancora.
 
