@@ -8,7 +8,7 @@ E' stato implementato un sistema di controllo che verifica lo stato degli anime 
 
 L'aggiunta da web permette di inserire anime nelle liste e di importare tutti i dati più recenti molto rapidamente.
 
-L'utente ha a disposizione anche una Wishlist per gli anime che desidera vedere e una Droplist per quelli scaritati. 
+L'utente ha a disposizione anche una Wishlist per gli anime che desidera vedere e una Droplist per quelli scartati. 
 
 Ad ogni anime è associabile un fansub con link per aprire velocemente la relativa pagina web.
 
