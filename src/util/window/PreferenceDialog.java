@@ -612,7 +612,7 @@ public class PreferenceDialog extends JDialog
 		generalSettingPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		JPanel episodeSettingPane = new JPanel();
-		tabbedPane.addTab("Impostazioni Episodi", null, episodeSettingPane, null);		
+//		tabbedPane.addTab("Impostazioni Episodi", null, episodeSettingPane, null);		
 		GridBagLayout gbl_episodeSettingPane = new GridBagLayout();
 		gbl_episodeSettingPane.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_episodeSettingPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
