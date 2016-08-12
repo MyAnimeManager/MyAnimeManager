@@ -59,6 +59,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -508,7 +509,7 @@ public class MusicDialog extends JDialog
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
-							JFileChooser chooser = new JFileChooser();
+							JFileChooser chooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 							chooser.setMultiSelectionEnabled(false);
 							chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 							chooser.setDialogTitle("Salva in...");

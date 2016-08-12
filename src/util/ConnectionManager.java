@@ -188,6 +188,7 @@ public class ConnectionManager
 					{
 						ConnectAndGetToken();
 						AnimeSearch(animeToSearch);
+						attempts = 0;
 					}
 					else
 						JOptionPane.showMessageDialog(AnimeIndex.frame, "Errore durante la connessione! Potrebbe dipendere dalla tua connessione o dal sito di Anilist.", "Errore!", JOptionPane.ERROR_MESSAGE);
@@ -264,10 +265,12 @@ public class ConnectionManager
 					System.out.println("Errore 401");
 					System.out.println("Token scaduto, richiesta nuovo token");
 					ConnectionManager.tokenExpired = true;
+					attempts++;
 					if (attempts > 5)
 					{
 						ConnectAndGetToken();
 						getAnimeInformation(animeID);
+						attempts = 0;
 					}
 					else
 						JOptionPane.showMessageDialog(AnimeIndex.frame, "Errore durante la connessione! Potrebbe dipendere dalla tua connessione o dal sito di Anilist.", "Errore!", JOptionPane.ERROR_MESSAGE);
