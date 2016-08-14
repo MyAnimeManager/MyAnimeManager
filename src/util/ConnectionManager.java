@@ -3,6 +3,7 @@ package util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -29,7 +30,7 @@ public class ConnectionManager
 {
 
 	private static final String ANI_BASEURL = "https://anilist.co/api/";
-	private static final String AUTH = "auth/access_token?grant_type=client_credentials&client_id=samu301295-rjxvs&client_secret=PWynCpeBALVf8GnZEJl3RT";
+	private static final String AUTH = "auth/access_token";
 	private static final String SEARCH = "anime/search/";
 	private static final String ANIMEDATA = "anime/";
 	
@@ -41,6 +42,7 @@ public class ConnectionManager
 	
 	private static String token;
 	private static boolean tokenExpired = true;
+	private static int attempts = 0;
 
 	public static void ConnectAndGetToken() throws java.net.ConnectException, java.net.UnknownHostException
 	{
@@ -59,11 +61,13 @@ public class ConnectionManager
 				conn.setRequestMethod("POST");
 				conn.setRequestProperty("User-Agent", "My Anime Manager");
 				conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+				OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");   
+				out.write("grant_type=client_credentials&client_id=samu301295-rjxvs&client_secret=PWynCpeBALVf8GnZEJl3RT");
+				out.close();
 				rr = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 				while ((line = rr.readLine()) != null)
 					result += line;
 				rr.close();
-
 			}
 			catch (java.net.SocketTimeoutException timeout)
 			{
@@ -179,8 +183,15 @@ public class ConnectionManager
 					System.out.println("Errore 401");
 					System.out.println("Token scaduto, richiesta nuovo token");
 					ConnectionManager.tokenExpired = true;
-					ConnectAndGetToken();
-					AnimeSearch(animeToSearch);
+					attempts++;
+					if (attempts > 5)
+					{
+						ConnectAndGetToken();
+						AnimeSearch(animeToSearch);
+						attempts = 0;
+					}
+					else
+						JOptionPane.showMessageDialog(AnimeIndex.frame, "Errore durante la connessione! Potrebbe dipendere dalla tua connessione o dal sito di Anilist.", "Errore!", JOptionPane.ERROR_MESSAGE);
 				}
 				else
 				{
@@ -254,8 +265,15 @@ public class ConnectionManager
 					System.out.println("Errore 401");
 					System.out.println("Token scaduto, richiesta nuovo token");
 					ConnectionManager.tokenExpired = true;
-					ConnectAndGetToken();
-					getAnimeInformation(animeID);
+					attempts++;
+					if (attempts > 5)
+					{
+						ConnectAndGetToken();
+						getAnimeInformation(animeID);
+						attempts = 0;
+					}
+					else
+						JOptionPane.showMessageDialog(AnimeIndex.frame, "Errore durante la connessione! Potrebbe dipendere dalla tua connessione o dal sito di Anilist.", "Errore!", JOptionPane.ERROR_MESSAGE);
 				}
 				else
 				{
