@@ -109,6 +109,7 @@ import util.window.WishlistDialog;
 //TODO(Kirin) rimuovere setFont() inutili
 //TODO(Kirin) implementare lingua inglese
 //TODO(Kirin) riabilitare anime suggeriti
+//TODO(Kirin) controllare algoritmo segnalazione uscite
 
 
 public class AnimeIndex extends JFrame
