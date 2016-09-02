@@ -1367,7 +1367,7 @@ public class AddAnimeDialog extends JDialog
 
 					if (today.before(finish))
 					{
-						int choiche = JOptionPane.showConfirmDialog(AnimeIndex.animeDialog, "L'anime non è un OAV o uno Special. Vuoi aggiungerlo agli \"Anime in Corso\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						int choiche = JOptionPane.showConfirmDialog(AnimeIndex.animeDialog, "L'anime non è un Film. Vuoi aggiungerlo agli \"Anime in Corso\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 						if (choiche == 0)
 							map = "Anime in Corso";
 						else
@@ -1375,7 +1375,7 @@ public class AddAnimeDialog extends JDialog
 					}
 					else if (today.after(finish))
 					{
-						int choiche = JOptionPane.showConfirmDialog(AnimeIndex.animeDialog, "L'anime non è un OAV o uno Special. Vuoi aggiungerlo agli anime \"Completi da Vedere\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						int choiche = JOptionPane.showConfirmDialog(AnimeIndex.animeDialog, "L'anime non è un Film. Vuoi aggiungerlo agli anime \"Completi da Vedere\"?", "Conflitto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 						if (choiche == 0)
 							map = "Completi Da Vedere";
 						else
