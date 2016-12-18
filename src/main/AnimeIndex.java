@@ -110,6 +110,7 @@ import util.window.WishlistDialog;
 //TODO(Kirin) implementare lingua inglese
 //TODO(Kirin) riabilitare anime suggeriti
 //TODO(Kirin) controllare algoritmo segnalazione uscite
+//TODO(Kirin) fixare errore 500 dopo molto tempo che il programma e' aperto (la ricerca tramite anilist nn funzia piu')
 
 
 public class AnimeIndex extends JFrame
