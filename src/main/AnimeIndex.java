@@ -113,6 +113,7 @@ import util.window.WishlistDialog;
 //TODO(Kirin) fixare errore 500 dopo molto tempo che il programma e' aperto (la ricerca tramite anilist nn funzia piu')
 //TODO(kirin) problema ricerca anime con il carattere "-"
 //TODO(kirin) il fansub nn viene settato se si aggiunge un anime con l'aggiunta manuale
+//TODO(Kirin) aggiungere feed RSS
 
 
 public class AnimeIndex extends JFrame
