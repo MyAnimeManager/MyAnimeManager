@@ -114,6 +114,7 @@ import util.window.WishlistDialog;
 //TODO(kirin) problema ricerca anime con il carattere "-"
 //TODO(kirin) il fansub nn viene settato se si aggiunge un anime con l'aggiunta manuale
 //TODO(Kirin) aggiungere feed RSS
+//TODO(Kirin) aggiungere lista anime suggeriti per affinità
 
 
 public class AnimeIndex extends JFrame
