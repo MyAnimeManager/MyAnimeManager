@@ -115,6 +115,7 @@ import util.window.WishlistDialog;
 //TODO(kirin) il fansub nn viene settato se si aggiunge un anime con l'aggiunta manuale
 //TODO(Kirin) aggiungere feed RSS
 //TODO(Kirin) aggiungere lista anime suggeriti per affinità
+//TODO(Kirin) aggiungere aggionramento lista all'inserimento di un nuovo anime se la casella cerca nn e' vuota
 
 
 public class AnimeIndex extends JFrame
