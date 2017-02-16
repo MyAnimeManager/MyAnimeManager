@@ -116,6 +116,7 @@ import util.window.WishlistDialog;
 //TODO(Kirin) aggiungere feed RSS
 //TODO(Kirin) aggiungere lista anime suggeriti per affinità
 //TODO(Kirin) aggiungere aggionramento lista all'inserimento di un nuovo anime se la casella cerca nn e' vuota
+//TODO(Kirin) se accendi mam senza internet ti crea un file di log di errore di connessione al sito
 
 
 public class AnimeIndex extends JFrame
