@@ -10,6 +10,10 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 
 public class RecommendationSystem {
 	private String username;
@@ -17,7 +21,7 @@ public class RecommendationSystem {
 		// TODO Auto-generated constructor stub
 		this.username = username;
 	}
-	public boolean esiste() throws JSONException {
+	public boolean sheExist() throws JSONException {
 		String output = request();
 		JSONObject jsonObj = new JSONObject(output);
 		return (jsonObj.getJSONArray("Data").length() != 0);
@@ -49,5 +53,11 @@ public class RecommendationSystem {
 		}
 		result = StringEscapeUtils.unescapeJava(result);
 		return result;
+	}
+	public String banana() {
+		JsonParser parser = new JsonParser();
+	      JsonElement animeList = parser.parse(request());
+	      JsonObject anime = animeList.getAsJsonObject();
+	      return null;
 	}
 }
