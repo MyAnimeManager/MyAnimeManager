@@ -82,8 +82,8 @@ public class WishlistDialog extends JDialog
 	public JList searchList;
 	public JList wishlist;
 	public JList droplist;
-	public static SortedListModel wishListSearchModel = new SortedListModel();
-	public static SortedListModel dropListSearchModel = new SortedListModel();
+	public SortedListModel wishListSearchModel = new SortedListModel();
+	public SortedListModel dropListSearchModel = new SortedListModel();
 	public static SortedListModel dropListModel = new SortedListModel();
 	public static SortedListModel wishListModel = new SortedListModel();
 

@@ -1553,7 +1553,7 @@ public class AnimeInformation extends JPanel
 				{
 					AnimeIndex.wishlistDialog.searchBar.setText("");
 					AnimeIndex.wishlistDialog.searchBar.setText(search);
-					if(WishlistDialog.dropListSearchModel.contains(name))
+					if(AnimeIndex.wishlistDialog.dropListSearchModel.contains(name))
 					{
 						AnimeIndex.wishlistDialog.searchList.clearSelection();
 						AnimeIndex.wishlistDialog.searchList.setSelectedValue(name, true);
