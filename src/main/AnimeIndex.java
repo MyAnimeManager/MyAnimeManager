@@ -80,6 +80,7 @@ import util.task.BackupImportExportTask;
 import util.task.CheckUpdateTask;
 import util.task.MAMTeamAdvert;
 import util.task.NewNotifierTask;
+import util.task.RSSNewsTask;
 import util.task.ReleasedAnimeTask;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
@@ -124,6 +125,7 @@ public class AnimeIndex extends JFrame
 	public static final String VERSION = "1.2.0";
 	public static final String CURRENT_VERSION = "MyAnimeManager.exe";
 	public static final String NEW_VERSION = "MyAnimeManager_Setup.exe";
+	private static final boolean DEBUG = true;
 
 	public static JPanel mainPanel;
 	public static JPanel cardContainer;
@@ -1601,6 +1603,19 @@ public class AnimeIndex extends JFrame
 		JMenuItem mntmCredit = new JMenuItem("Crediti");
 		mntmCredit.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/icon2.png")));
 		mnInfo.add(mntmCredit);
+		
+		//TODO Pulsante per test. Nascondere nella versione finale.
+		if (DEBUG)
+		{
+		JButton btnTest = new JButton("Test");
+		btnTest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RSSNewsTask task = new RSSNewsTask("http://redanimedatabase.forumcommunity.net/rss.php?c=570618&src=tag");
+				task.execute();
+			}
+		});
+		menuBar.add(btnTest);
+		}
 		
 		Component horizontalStrut = Box.createHorizontalStrut(3);
 		horizontalStrut.setEnabled(false);
