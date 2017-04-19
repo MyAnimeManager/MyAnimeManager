@@ -18,6 +18,7 @@ import java.beans.PropertyChangeListener;
 import java.net.URI;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -27,16 +28,18 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.MatteBorder;
+
 import main.AnimeIndex;
 import util.MAMUtil;
 import util.task.NewsTask;
+import util.task.RSSNewsTask;
 
 public class NewsBoardDialog extends JDialog
 {
 
 	private final JPanel contentPanel = new JPanel();
 	private LinkedHashMap<String, String> animeMap;
-	NewsTask task = new NewsTask();
+	RSSNewsTask task = new RSSNewsTask("http://redanimedatabase.forumcommunity.net/rss.php?c=570618&src=tag");
 	private JPanel newsPanel;
 	private JLabel titleLabel;
 	private JButton updateButton;
@@ -137,7 +140,7 @@ public class NewsBoardDialog extends JDialog
 					public void actionPerformed(ActionEvent e)
 					{
 						newsPanel.removeAll();
-						task = new NewsTask();
+						task = new RSSNewsTask("http://redanimedatabase.forumcommunity.net/rss.php?c=570618&src=tag");
 						task.addPropertyChangeListener(new PropertyChangeListener() {
 
 							@Override

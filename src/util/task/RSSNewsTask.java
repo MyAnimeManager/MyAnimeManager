@@ -37,6 +37,7 @@ public class RSSNewsTask extends SwingWorker {
 	private static final String PUB_DATE = "pubDate";
 	private static final String GUID = "guid";
 	private static final String RAD_TOPIC = "http://redanimedatabase.forumcommunity.net/?t=";
+	private static final String RAD_FB = "www.facebook.com/RedAnimeDatabase";
 
 	public RSSNewsTask(String feedUrl) {
 		try {
@@ -48,19 +49,58 @@ public class RSSNewsTask extends SwingWorker {
 
 	@Override
 	protected Object doInBackground() throws Exception {
-		Feed rss = readFeed();
-		for (FeedMessage message : rss.getMessages()) {
-			String title = message.getTitle();
-			if (!title.startsWith("RAD - RedAnimeDatabase:"))
-			{
-				title = title.substring(title.indexOf(":") + 1).trim();
-				//				System.out.println(title);
+		try {
+			Feed rss = readFeed();
+			for (FeedMessage message : rss.getMessages()) {
+				String title = message.getTitle();
+				String desc = message.getDescription();
+				if (!title.startsWith("RAD - RedAnimeDatabase:")) {
+					title = title.substring(title.indexOf(":") + 1).trim();
+					if (title.endsWith("...")) {
+						title = title.substring(0, title.length() - 3);
+						int startIndex = desc.indexOf(title);
+						int endIndex = desc.lastIndexOf("</b></span>");
+						if (startIndex != -1 && endIndex != -1)
+							title = desc.substring(startIndex, endIndex);
+						if (title.contains("By <img"))
+						{
+							int index = title.indexOf("By <img");
+							title = title.substring(0,index);
+						}
+						if (title.contains("<img"))
+						{
+							int index = title.indexOf("<img");
+							title = title.substring(0,index);
+						}
+					}
+					if (title.contains(":RAD:"))
+						title = title.replace(":RAD:", "RAD");
+					int  startIndex = -1;
+					if (desc.contains(RAD_TOPIC))
+						startIndex = desc.indexOf(RAD_TOPIC);
+					else if (desc.contains(RAD_FB))
+						startIndex = desc.indexOf(RAD_FB);
+					
+					int endIndex = desc.indexOf("target=_blank>");
+
+					String link = desc.substring(startIndex, endIndex);
+					link = link.replace("target=_blank>", "").trim();
+					map.put(title, link);
+				}
 			}
-			//			System.out.println(message);
+			System.out.println("fine");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
 
+	@Override
+	protected void done()
+	{
+		AnimeIndex.newsBoardDialog.setMap(map);
+	}
+	
 	private Feed readFeed() {
 		Feed feed = null;
 		try {
@@ -80,7 +120,7 @@ public class RSSNewsTask extends SwingWorker {
 			inputFactory.setProperty(XMLInputFactory.IS_COALESCING, true);
 			// Setup a new eventReader
 			String xml = readAndFixXml();
-			byte[] byteArray = xml.getBytes("UTF-8");
+			byte[] byteArray = xml.getBytes("windows-1252");
 			ByteArrayInputStream in = new ByteArrayInputStream(byteArray);
 			XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
 			// read the XML document
@@ -155,7 +195,7 @@ public class RSSNewsTask extends SwingWorker {
 			while (!hasLink)
 			{
 				event = eventReader.nextEvent();
-				if ((event instanceof Characters) && event.asCharacters().getData().contains(RAD_TOPIC))
+				if ((event instanceof Characters) && (event.asCharacters().getData().contains(RAD_TOPIC) || event.asCharacters().getData().contains(RAD_FB)))
 				{
 					hasLink = true;
 					result = event.asCharacters().getData();
@@ -189,7 +229,7 @@ public class RSSNewsTask extends SwingWorker {
 		{
 			e.printStackTrace();
 		}
-		result = result.replaceAll("& ", "&amp;");
+		result = result.replaceAll("& ", "&amp; ");
 		result = result.replaceAll("&saved", "");
 		return result;
 	}
