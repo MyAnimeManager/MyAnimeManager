@@ -31,7 +31,6 @@ import javax.swing.border.MatteBorder;
 
 import main.AnimeIndex;
 import util.MAMUtil;
-import util.task.NewsTask;
 import util.task.RSSNewsTask;
 
 public class NewsBoardDialog extends JDialog

@@ -113,11 +113,11 @@ import util.window.WishlistDialog;
 //TODO(Kirin) controllare algoritmo segnalazione uscite
 //TODO(Kirin) fixare errore 500 dopo molto tempo che il programma e' aperto (la ricerca tramite anilist nn funzia piu')
 //TODO(kirin) problema ricerca anime con il carattere "-"
-//TODO(kirin) il fansub nn viene settato se si aggiunge un anime con l'aggiunta manuale
-//TODO(Kirin) aggiungere feed RSS
 //TODO(Kirin) aggiungere lista anime suggeriti per affinità
 //TODO(Kirin) aggiungere aggionramento lista all'inserimento di un nuovo anime se la casella cerca nn e' vuota
-//TODO(Kirin) se accendi mam senza internet ti crea un file di log di errore di connessione al sito
+//DONE se accendi mam senza internet ti crea un file di log di errore di connessione al sito
+//DONE il fansub nn viene settato se si aggiunge un anime con l'aggiunta manuale
+//DONE aggiungere feed RSS
 
 
 public class AnimeIndex extends JFrame
@@ -1933,7 +1933,7 @@ public class AnimeIndex extends JFrame
 						AnimeIndex.animeInformation.fansubButton.setEnabled(true);
 						
 				autoDataCheck();
-
+				//TODO SearchInList(searchBar.getText(), completedModel);
 			}
 		});
 
@@ -2948,6 +2948,11 @@ public class AnimeIndex extends JFrame
 			searchModel.addElement("Nessun Anime Corrispondente");
 			searchList.setEnabled(false);
 			deleteButton.setEnabled(false);
+		}
+		else
+		{
+			searchList.setEnabled(true);
+			deleteButton.setEnabled(true);
 		}
 	}
 

@@ -99,6 +99,7 @@ public class FileManager
 		else
 			try
 			{
+				addDefaultFansub();
 				fansubFile.getParentFile().mkdirs();
 				fansubFile.createNewFile();
 			}
@@ -733,8 +734,8 @@ public class FileManager
 					String folder = line.next();
 					Pair<String,String> pair = new Pair<String,String>(pattern,folder);
 					AnimeIndex.patternAnimeMap.put(animeName, pair);
-					addDefaultFansub();
 				}
+				addDefaultFansub();
 
 			}
 			catch (FileNotFoundException e)
@@ -776,6 +777,7 @@ public class FileManager
 			AnimeIndex.fansubMap.put("Crunchyroll", "");
 		if (!AnimeIndex.fansubMap.containsKey("RAD"))
 			AnimeIndex.fansubMap.put("RAD", "www.redanimedatabase.forumcommunity.net/");
+
 	}
 
 	public static void saveImage(String imageUrl, String destinationFile, String folderName)

@@ -148,74 +148,8 @@ public class LoadingTask extends SwingWorker
 		}
 		catch (Exception e)
 		{
-			MAMUtil.writeLog(e);
 			e.printStackTrace();
 		}
 		return null;
-	}
-	@Override
-	protected void done()
-	{
-//		AnimeIndex.completedModel.update();
-//		AnimeIndex.airingModel.update();
-//		AnimeIndex.ovaModel.update();
-//		AnimeIndex.filmModel.update();
-//		AnimeIndex.completedToSeeModel.update();
-
-//		if (AnimeIndex.appProp.getProperty("Open_Wishlist").equalsIgnoreCase("true"))
-//		{
-//			AnimeIndex.wishlistDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x, AnimeIndex.mainPanel.getLocationOnScreen().y);
-//			AnimeIndex.wishlistDialog.setVisible(true);
-//			new Timer(1, new ActionListener() {
-//
-//				@Override
-//				public void actionPerformed(ActionEvent e)
-//				{
-//					AnimeIndex.wishlistDialog.setLocation(AnimeIndex.wishlistDialog.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y);
-//					AnimeIndex.mainPanel.requestFocus();
-//					if (AnimeIndex.wishlistDialog.getLocationOnScreen().x == AnimeIndex.mainPanel.getLocationOnScreen().x - 181)
-//						((Timer) e.getSource()).stop();
-//				}
-//			}).start();
-//		}
-//
-//		if (AnimeIndex.appProp.getProperty("Open_NewsBoard").equalsIgnoreCase("true"))
-//			if (!AnimeIndex.newsBoardDialog.isShowing())
-//			{
-//				AnimeIndex.newsBoardDialog.setLocation(AnimeIndex.mainPanel.getLocationOnScreen().x - 1, AnimeIndex.mainPanel.getLocationOnScreen().y + AnimeIndex.mainPanel.getHeight());
-//				AnimeIndex.newsBoardDialog.setVisible(true);
-//				new Timer(1, new ActionListener() {
-//
-//					int size = 0;
-//
-//					@Override
-//					public void actionPerformed(ActionEvent e)
-//					{
-//						AnimeIndex.mainPanel.requestFocus();
-//						AnimeIndex.newsBoardDialog.setSize(795, size++);
-//						if (AnimeIndex.newsBoardDialog.getHeight() == 125)
-//							((Timer) e.getSource()).stop();
-//					}
-//				}).start();
-//			}
-//		try
-//		{
-//			DriveUtil.getDriveService();
-//		}
-//		catch (GeneralSecurityException e)
-//		{
-//			MAMUtil.writeLog(e);
-//			e.printStackTrace();
-//		}
-//		catch (IOException e)
-//		{
-//			MAMUtil.writeLog(e);
-//			e.printStackTrace();
-//		}
-//		catch (URISyntaxException e)
-//		{
-//			MAMUtil.writeLog(e);
-//			e.printStackTrace();
-//		}
 	}
 }

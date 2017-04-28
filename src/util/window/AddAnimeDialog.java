@@ -121,7 +121,7 @@ public class AddAnimeDialog extends JDialog
 		});
 		setTitle("Aggiungi anime");
 		setResizable(false);
-		setBounds(100, 100, 585, 354);
+		setBounds(100, 100, 585, 360);
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
 		{
@@ -989,6 +989,7 @@ public class AddAnimeDialog extends JDialog
 										imageName = imageName.replaceAll("\"", "_");
 										imageName = imageName.replaceAll(">", "_");
 										imageName = imageName.replaceAll("<", "_");
+
 										AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName+".png", exitDay, "", "", "", type, startDate, finishDate, duration, bd);
 										updateControlList(list);
 										AddAnimeDialog.checkAnimeAlreadyAdded(name, list, data);
@@ -1580,8 +1581,11 @@ public class AddAnimeDialog extends JDialog
 			AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 			list.clearSelection();
 			list.setSelectedValue(name, true);
+			if (data.getFansub().isEmpty())
+				AnimeInformation.fansubComboBox.setSelectedItem("?????");
+			else
+				AnimeInformation.fansubComboBox.setSelectedItem(data.getFansub());
 			AnimeIndex.shouldUpdate = true;
-			AnimeInformation.fansubComboBox.setSelectedItem("?????");
 		}
 		else
 		{
@@ -1634,10 +1638,13 @@ public class AddAnimeDialog extends JDialog
 				getArrayList(listName).add(map.get(name).getImagePath(listName));
 				AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 				AnimeIndex.shouldUpdate = false;
-				list.clearSelection();
+				list.clearSelection();			
 				list.setSelectedValue(name, true);
+				if (data.getFansub().isEmpty())
+					AnimeInformation.fansubComboBox.setSelectedItem("?????");
+				else
+					AnimeInformation.fansubComboBox.setSelectedItem(data.getFansub());
 				AnimeIndex.shouldUpdate = true;
-				AnimeInformation.fansubComboBox.setSelectedItem("?????");
 			}
 
 			if (AnimeIndex.filtro != 9)
