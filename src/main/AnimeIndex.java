@@ -114,7 +114,8 @@ import util.window.WishlistDialog;
 //TODO(Kirin) fixare errore 500 dopo molto tempo che il programma e' aperto (la ricerca tramite anilist nn funzia piu')
 //TODO(kirin) problema ricerca anime con il carattere "-"
 //TODO(Kirin) aggiungere lista anime suggeriti per affinità
-//TODO(Kirin) aggiungere aggionramento lista all'inserimento di un nuovo anime se la casella cerca nn e' vuota
+
+//DONE aggiungere aggionramento lista all'inserimento di un nuovo anime se la casella cerca nn e' vuota
 //DONE se accendi mam senza internet ti crea un file di log di errore di connessione al sito
 //DONE il fansub nn viene settato se si aggiunge un anime con l'aggiunta manuale
 //DONE aggiungere feed RSS
@@ -2317,6 +2318,7 @@ public class AnimeIndex extends JFrame
 					if (link != null && !link.isEmpty())
 						if (fansubMap.get(link) != null && !fansubMap.get(link).isEmpty())
 							AnimeIndex.animeInformation.fansubButton.setEnabled(true);
+					SearchInList(searchBar.getText(), completedModel);
 				}
 				else if (cBox.equalsIgnoreCase("Anime in Corso"))
 				{
@@ -2931,7 +2933,7 @@ public class AnimeIndex extends JFrame
 		return fansubMap.keySet().toArray(new String[0]);
 	}
 
-	public void SearchInList(String searchedVal, SortedListModel modelToSearch)
+	public static void SearchInList(String searchedVal, SortedListModel modelToSearch)
 	{
 		Object[] mainArray = modelToSearch.toArray();
 		searchModel.clear();

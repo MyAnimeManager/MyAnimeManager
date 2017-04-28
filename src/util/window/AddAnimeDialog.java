@@ -1579,6 +1579,8 @@ public class AddAnimeDialog extends JDialog
 			getArrayList(listName).add(map.get(name).getImagePath(listName));
 			AnimeIndex.shouldUpdate = false;
 			AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
+			if (!AnimeIndex.searchBar.getText().isEmpty())
+				list = AnimeIndex.searchList;
 			list.clearSelection();
 			list.setSelectedValue(name, true);
 			if (data.getFansub().isEmpty())
@@ -1638,7 +1640,10 @@ public class AddAnimeDialog extends JDialog
 				getArrayList(listName).add(map.get(name).getImagePath(listName));
 				AnimeIndex.animeTypeComboBox.setSelectedItem(listName);
 				AnimeIndex.shouldUpdate = false;
-				list.clearSelection();			
+				AnimeIndex.SearchInList(AnimeIndex.searchBar.getText(), model);
+				if (!AnimeIndex.searchBar.getText().isEmpty())
+					list = AnimeIndex.searchList;
+				list.clearSelection();
 				list.setSelectedValue(name, true);
 				if (data.getFansub().isEmpty())
 					AnimeInformation.fansubComboBox.setSelectedItem("?????");
