@@ -112,7 +112,7 @@ import util.window.WishlistDialog;
 //TODO(Kirin) riabilitare anime suggeriti
 //TODO(Kirin) controllare algoritmo segnalazione uscite
 //TODO(Kirin) fixare errore 500 dopo molto tempo che il programma e' aperto (la ricerca tramite anilist nn funzia piu')
-//TODO(kirin) problema ricerca anime con il carattere "-"
+//TODO(kirin) problema ricerca anime con il carattere "-" e "!"
 //TODO(Kirin) aggiungere lista anime suggeriti per affinità
 
 //DONE aggiungere aggionramento lista all'inserimento di un nuovo anime se la casella cerca nn e' vuota
