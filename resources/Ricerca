@@ -1,0 +1,32 @@
+{
+  Page(page: 1) {
+    pageInfo {
+      total
+      currentPage
+      hasNextPage
+    }
+    media(search: $ricerca$, type:ANIME) {
+      id
+      idMal
+      title 
+      {
+        romaji
+      }
+      episodes
+      format
+      startDate 
+      {
+        year
+        month
+        day
+      }
+      endDate 
+      {
+        year
+        month
+        day
+      }
+      genres
+    }
+  }
+}

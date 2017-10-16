@@ -1,0 +1,25 @@
+{
+  Media(id: 2966, type: ANIME) {
+    id
+    idMal
+    title 
+    {
+      romaji
+    }
+    startDate 
+    {
+      year
+      month
+      day
+    }
+    endDate 
+    {
+      year
+      month
+      day
+    }
+    format
+    episodes
+    duration
+  }
+}
