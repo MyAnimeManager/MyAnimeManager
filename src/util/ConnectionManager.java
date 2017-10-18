@@ -1,7 +1,12 @@
 package util;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ConnectException;
@@ -11,6 +16,7 @@ import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
@@ -19,6 +25,8 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONObject;
 import org.json.XML;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -28,21 +36,29 @@ import main.AnimeIndex;
 
 public class ConnectionManager
 {
-
+	@Deprecated
 	private static final String ANI_BASEURL = "https://anilist.co/api/";
+	@Deprecated
 	private static final String AUTH = "auth/access_token";
-	private static final String SEARCH = "anime/search/";
+	@Deprecated
+	static final String SEARCH = "anime/search/";
+	@Deprecated
 	private static final String ANIMEDATA = "anime/";
+	
+	private static final String ANIV2_BASEURL = "https://graphql.anilist.co";
 	
 	private static final String MAL_BASEURL = "http://myanimelist.net/api/";
 	private static final String VERIFY_CREDENTIALS_MAL = "account/verify_credentials.xml";
 	private static final String ADD_ANIME_MAL = "animelist/add/";
 	private static final String UPDATE_ANIME_MAL = "animelist/update/";
 	private static final String SEARCH_MAL = "anime/search.xml?q=";
-	
+	@Deprecated
 	private static String token;
+	@Deprecated
 	private static boolean tokenExpired = true;
+	@Deprecated
 	private static int attempts = 0;
+	
 
 	public static void ConnectAndGetToken() throws java.net.ConnectException, java.net.UnknownHostException
 	{
@@ -104,7 +120,7 @@ public class ConnectionManager
 		sc.close();
 	}
 
-	
+	@Deprecated
 	public static HashMap<String, Integer> AnimeSearch(String anime)
 	{
 		HashMap<String, Integer> animeList = new HashMap<String, Integer>();
@@ -133,7 +149,7 @@ public class ConnectionManager
 		return animeList;
 	}
 
-	
+	@Deprecated
 	private static String getSearchedAnime(String animeToSearch)
 	{
 		if (token == null)
@@ -210,6 +226,56 @@ public class ConnectionManager
 		return result;
 	}
 
+	/**
+	 * Ricerca l'anime indicato nel database di anilist.
+	 * @param searchedAnime L'anime da cercare
+	 * @return Una mappa <Nome,ID> contenente i vari risultati
+	**/
+	public static LinkedHashMap<String, Integer> SearchAnime(String searchedAnime)
+	{
+		String query = getSearchQuery(searchedAnime);
+		HttpURLConnection conn = null;
+		LinkedHashMap<String, Integer> animeList = new LinkedHashMap<String, Integer>();
+		try {
+			conn = prepareConnection();
+			OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");   
+			out.write(query);
+			out.close();
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	        StringBuffer jsonString = new StringBuffer();
+	        String line;
+	        while ((line = br.readLine()) != null) {
+	                jsonString.append(line);
+	        }
+	        br.close();
+			
+	        JsonParser jsonParser = new JsonParser();
+	        JsonObject jo = (JsonObject)jsonParser.parse(jsonString.toString());
+	        JsonObject data = jo.get("data").getAsJsonObject();
+	        JsonObject page = data.get("Page").getAsJsonObject();
+	        JsonArray media = page.get("media").getAsJsonArray();
+	        for (JsonElement jsonElement : media) {
+	        	JsonObject obj = jsonElement.getAsJsonObject();
+	        	int id = obj.get("id").getAsInt();
+	        	String title = obj.get("title").getAsJsonObject().get("romaji").getAsString();
+				animeList.put(title, id);
+			}
+//	        Gson gson = new GsonBuilder().setPrettyPrinting().create();  
+//	        String json = gson.toJson(media);
+//	        BufferedWriter output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("D:\\Desktop/Output.json"), "UTF-8"));
+//	        output.write(json);
+//	        output.close();
+
+		} catch (Exception e) {
+			InputStream error = conn.getErrorStream();
+			System.out.print(MAMUtil.getStringFromInputStream(error));
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
+		}
+		return animeList;
+
+	}
 	
 	
 	/**
@@ -561,4 +627,52 @@ public class ConnectionManager
         }
 		return map;
 	}
+	/**
+	 * Prepare la connessione al server di anilist
+	 * @return L'oggetto della connessione con i parametri settati
+	 * @throws Exception
+	 */
+	private static HttpURLConnection prepareConnection() throws Exception
+	{
+		HttpURLConnection conn = null;
+		URL url = new URL(ANIV2_BASEURL);	
+		conn = (HttpURLConnection) url.openConnection();
+		conn.setDoOutput(true);
+		conn.setDoInput(true);
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("User-Agent", "My Anime Manager");
+		conn.setRequestProperty("Content-Type", "application/json");
+		conn.setRequestProperty("Accept", "application/json");
+		return conn;
+	}
+	
+	/**
+	 * Ritorna la query della ricerca.
+	 * @param searchedAnime L'anime da cercare
+	 * @return La stringa da inviare come query
+	 */
+	private static String getSearchQuery(String searchedAnime)
+	{
+		File file = new File(ConnectionManager.class.getResource("/Ricerca.txt").getFile());
+		Scanner scan = null;
+		String query = "";
+		try {
+			scan = new Scanner(file);
+			while (scan.hasNextLine())
+			{
+				query = query + scan.nextLine();
+			}
+			scan.close();
+			query = query.replace("$ricerca$", "\\\"" + searchedAnime + "\\\"");
+		} catch (FileNotFoundException e) {
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
+		}
+		finally
+		{
+			scan.close();
+		}
+		return query;
+	}
+		
 }

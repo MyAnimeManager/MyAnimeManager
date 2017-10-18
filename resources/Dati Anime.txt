@@ -1,4 +1,4 @@
-{
+{"query":"query{
   Media(id: 2966, type: ANIME) {
     id
     idMal
@@ -22,4 +22,5 @@
     episodes
     duration
   }
+  }"
 }

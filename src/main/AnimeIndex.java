@@ -63,6 +63,7 @@ import javax.swing.filechooser.FileSystemView;
 
 import javafx.util.Pair;
 import util.AnimeData;
+import util.ConnectionManager;
 import util.ExternalProgram;
 import util.FileManager;
 import util.Filters;
@@ -1611,8 +1612,7 @@ public class AnimeIndex extends JFrame
 		JButton btnTest = new JButton("Test");
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				RSSNewsTask task = new RSSNewsTask("http://redanimedatabase.forumcommunity.net/rss.php?c=570618&src=tag");
-				task.execute();
+				ConnectionManager.SearchAnime("spice");
 			}
 		});
 		menuBar.add(btnTest);

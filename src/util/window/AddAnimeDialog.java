@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.TreeMap;
 
 import javax.swing.DefaultComboBoxModel;
@@ -65,7 +65,7 @@ public class AddAnimeDialog extends JDialog
 	private static JList searchedList;
 	private JButton btnCerca;
 	private DefaultListModel animeModel;
-	private static HashMap<String, Integer> animeSearched;
+	private static LinkedHashMap<String, Integer> animeSearched;
 	private static JComboBox listToAddAniComboBox;
 	private JButton addAniButton;
 	private JPanel anilistAddPanel;
@@ -175,7 +175,7 @@ public class AddAnimeDialog extends JDialog
 									{
 										JOptionPane.showMessageDialog(AddAnimeDialog.this, "Errore di connessione", "Errore!", JOptionPane.ERROR_MESSAGE);
 									}
-									animeSearched = ConnectionManager.AnimeSearch(searchBar.getText());
+									animeSearched = ConnectionManager.SearchAnime(searchBar.getText());
 									if (animeSearched.isEmpty())
 									{
 										animeModel.addElement("Nessun anime trovato");
@@ -358,19 +358,19 @@ public class AddAnimeDialog extends JDialog
 								public void actionPerformed(ActionEvent e)
 								{
 									animeModel.clear();
-									try
-									{
-										ConnectionManager.ConnectAndGetToken();
-									}
-									catch (UnknownHostException e2)
-									{
-										JOptionPane.showMessageDialog(AddAnimeDialog.this, "Errore di connessione", "Errore!", JOptionPane.ERROR_MESSAGE);
-									}
-									catch (ConnectException e1)
-									{
-										JOptionPane.showMessageDialog(AddAnimeDialog.this, "Errore di connessione", "Errore!", JOptionPane.ERROR_MESSAGE);
-									};
-									animeSearched = ConnectionManager.AnimeSearch(searchBar.getText());
+//									try
+//									{
+//										ConnectionManager.ConnectAndGetToken();
+//									}
+//									catch (UnknownHostException e2)
+//									{
+//										JOptionPane.showMessageDialog(AddAnimeDialog.this, "Errore di connessione", "Errore!", JOptionPane.ERROR_MESSAGE);
+//									}
+//									catch (ConnectException e1)
+//									{
+//										JOptionPane.showMessageDialog(AddAnimeDialog.this, "Errore di connessione", "Errore!", JOptionPane.ERROR_MESSAGE);
+//									};
+									animeSearched = ConnectionManager.SearchAnime(searchBar.getText());
 									if (animeSearched.isEmpty())
 									{
 										animeModel.addElement("Nessun anime trovato");
