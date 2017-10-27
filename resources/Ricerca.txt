@@ -1,4 +1,4 @@
-as{"query":"query
+{"query":"query
     {
       Page(page: 1) {
         media(search: $ricerca$, type:ANIME) {

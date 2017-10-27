@@ -59,7 +59,7 @@ public class ConnectionManager
 	@Deprecated
 	private static int attempts = 0;
 	
-
+	@Deprecated
 	public static void ConnectAndGetToken() throws java.net.ConnectException, java.net.UnknownHostException
 	{
 		if (token == null || tokenExpired)
@@ -103,7 +103,7 @@ public class ConnectionManager
 			ConnectionManager.tokenExpired = false;
 		}
 	}
-
+	@Deprecated
 	private static void SaveAccessToken(String result)
 	{
 		Scanner sc = new Scanner(result);
@@ -277,7 +277,42 @@ public class ConnectionManager
 
 	}
 	
+	public static JsonObject getAnimeData(int id)
+	{
+		String query = getDataQuery(id);
+		HttpURLConnection conn = null;
+		try {
+			conn = prepareConnection();
+			OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");   
+			out.write(query);
+			out.close();
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	        StringBuffer jsonString = new StringBuffer();
+	        String line;
+	        while ((line = br.readLine()) != null) {
+	                jsonString.append(line);
+	        }
+	        br.close();
+	        System.out.print(jsonString);
+	        
+	        JsonParser jsonParser = new JsonParser();
+	        JsonObject jo = (JsonObject)jsonParser.parse(jsonString.toString());
+	        JsonObject data = jo.get("data").getAsJsonObject();
+	        JsonObject media = data.get("Media").getAsJsonObject();
+	        return media;
+
+		} catch (Exception e) {
+//			InputStream error = conn.getErrorStream();
+//			System.out.print(MAMUtil.getStringFromInputStream(error));
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
+	//VECCHI METODI
+	@Deprecated
 	/**
 	 * ottiene la risposta contentente tutte le informazioni
 	 *
@@ -295,7 +330,6 @@ public class ConnectionManager
 		sc1.close();
 		return result;
 	}
-	
 	
 	private static String getAnimeInformation(int animeID)
 	{
@@ -358,7 +392,6 @@ public class ConnectionManager
 		return result;
 	}
 		
-	
 	/**
 	 * Prende i dati richiesti da una stringa contenente la risposta di anilist
 	 * ottenuta con il metodo parseAnimeData di questa stessa classe
@@ -627,6 +660,7 @@ public class ConnectionManager
         }
 		return map;
 	}
+	
 	/**
 	 * Prepare la connessione al server di anilist
 	 * @return L'oggetto della connessione con i parametri settati
@@ -674,5 +708,58 @@ public class ConnectionManager
 		}
 		return query;
 	}
+	
+	/**
+	 * Ritorna la query dei dati dell'anime.
+	 * @param IDAnime L'ID dell'anime
+	 * @return La stringa da inviare come query
+	 */
+	private static String getDataQuery(int IDAnime)
+	{
+		File file = new File(ConnectionManager.class.getResource("/DatiAnime.txt").getFile());
+		Scanner scan = null;
+		String query = "";
+		try {
+			scan = new Scanner(file);
+			while (scan.hasNextLine())
+			{
+				query = query + scan.nextLine();
+			}
+			scan.close();
+			query = query.replace("$id$", "" + IDAnime);
+		} catch (FileNotFoundException e) {
+			MAMUtil.writeLog(e);
+			e.printStackTrace();
+		}
+		finally
+		{
+			scan.close();
+		}
+		return query;
+	}
+	
+	/**
+	 * Crea un oggetto AnimeData con i valori dell'anime
+	 * @param jo JsonObject dei dati dell'anime
+	 * @param id Id dell'anime
+	 * @return AnimeData con i vari valori dell'anime.
+	 */
+	private static AnimeData parseAnimeData(JsonObject jo, int id)
+	{		
+		String name = jo.get("title").getAsJsonObject().get("romaji").getAsString();
+		String totEp = jo.get("duration").getAsString();
+		String currentEp = "1";
+		String fansub = "";
+		String animeType = jo.get("format").getAsString();
+		JsonObject releaseDateJson = jo.get("startDate").getAsJsonObject();
+		String releaseDate = releaseDateJson.get("day").getAsString() + "/" + releaseDateJson.get("month").getAsString() + "/" +releaseDateJson.get("year").getAsString();
+		JsonObject finishDateJson = jo.get("endDate").getAsJsonObject();
+		String finishDate = finishDateJson.get("day").getAsString() + "/" + releaseDateJson.get("month").getAsString() + "/" +releaseDateJson.get("year").getAsString();
+		String duration = jo.get("duration").getAsString() + " min";
+		String exitDay = "?????";
 		
+		//TODO vari controlli. Settare immagine sull'add image. Spostare questo metodo in AddAnimeDialog?
+		AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "", exitDay, Integer.toString(id), "", "", animeType, releaseDate, finishDate, duration, false);
+		return data;
+	}
 }

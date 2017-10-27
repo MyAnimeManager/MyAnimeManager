@@ -1,5 +1,5 @@
 {"query":"query{
-  Media(id: 2966, type: ANIME) {
+  Media(id: $id$, type: ANIME) {
     id
     idMal
     title 
@@ -21,6 +21,10 @@
     format
     episodes
     duration
+    coverImage 
+    {
+      large
+    }
   }
   }"
 }

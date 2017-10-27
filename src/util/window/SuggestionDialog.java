@@ -386,8 +386,8 @@ public class SuggestionDialog extends JDialog
 			currentEp = totEp;
 			exitDay = "Concluso";
 		}
-		String imageName = AddAnimeDialog.addSaveImage(name, Integer.parseInt(id), listName);
-		AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png", exitDay, id, "", "", animeType, releaseDate, finishDate, durationEp, false);
+//		String imageName = AddAnimeDialog.addSaveImage(name, Integer.parseInt(id), listName);
+		AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "image" + ".png", exitDay, id, "", "", animeType, releaseDate, finishDate, durationEp, false);
 		JList list = AddAnimeDialog.getJList(listName);
 		SortedListModel model = AddAnimeDialog.getModel(listName);
 		TreeMap<String, AnimeData> map = AddAnimeDialog.getMap(listName);

@@ -81,7 +81,6 @@ import util.task.BackupImportExportTask;
 import util.task.CheckUpdateTask;
 import util.task.MAMTeamAdvert;
 import util.task.NewNotifierTask;
-import util.task.RSSNewsTask;
 import util.task.ReleasedAnimeTask;
 import util.window.AddAnimeDialog;
 import util.window.AddFansubDialog;
@@ -1612,7 +1611,7 @@ public class AnimeIndex extends JFrame
 		JButton btnTest = new JButton("Test");
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ConnectionManager.SearchAnime("spice");
+				ConnectionManager.getAnimeData(1234);
 			}
 		});
 		menuBar.add(btnTest);
