@@ -15,7 +15,13 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import java.security.cert.X509Certificate;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -672,6 +678,38 @@ public class ConnectionManager
 		conn.setRequestProperty("User-Agent", "My Anime Manager");
 		conn.setRequestProperty("Content-Type", "application/json");
 		conn.setRequestProperty("Accept", "application/json");
+		
+		 TrustManager[] trustAllCerts = new TrustManager[] {
+			       new X509TrustManager() {
+			          public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+			            return null;
+			          }
+			          @Override
+			          public void checkClientTrusted(X509Certificate[] certs, String authType) {  }
+
+			          @Override
+			          public void checkServerTrusted(X509Certificate[] certs, String authType) {  }
+						
+					}
+
+			    };
+
+			    SSLContext sc = SSLContext.getInstance("SSL");
+			    sc.init(null, trustAllCerts, new java.security.SecureRandom());
+			    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+			    // Create all-trusting host name verifier
+			    HostnameVerifier allHostsValid = new HostnameVerifier() {
+			        public boolean verify(String hostname, SSLSession session) {
+			          return true;
+			        }
+			    };
+			    // Install the all-trusting host verifier
+			    HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+			    /*
+			     * end of the fix
+			     */
+		
 		return conn;
 	}
 	
