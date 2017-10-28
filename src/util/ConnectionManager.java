@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -228,7 +229,7 @@ public class ConnectionManager
 	public static LinkedHashMap<String, Integer> SearchAnime(String searchedAnime)
 	{
 		String query = getSearchQuery(searchedAnime);
-		HttpURLConnection conn = null;
+		HttpsURLConnection conn = null;
 		LinkedHashMap<String, Integer> animeList = new LinkedHashMap<String, Integer>();
 		try {
 			conn = prepareConnection();
@@ -660,11 +661,11 @@ public class ConnectionManager
 	 * @return L'oggetto della connessione con i parametri settati
 	 * @throws Exception
 	 */
-	private static HttpURLConnection prepareConnection() throws Exception
+	private static HttpsURLConnection prepareConnection() throws Exception
 	{
-		HttpURLConnection conn = null;
+		HttpsURLConnection conn = null;
 		URL url = new URL(ANIV2_BASEURL);	
-		conn = (HttpURLConnection) url.openConnection();
+		conn = (HttpsURLConnection) url.openConnection();
 		conn.setDoOutput(true);
 		conn.setDoInput(true);
 		conn.setRequestMethod("POST");
