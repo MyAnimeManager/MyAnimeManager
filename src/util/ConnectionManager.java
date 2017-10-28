@@ -275,7 +275,7 @@ public class ConnectionManager
 	public static JsonObject getAnimeData(int id)
 	{
 		String query = getDataQuery(id);
-		HttpURLConnection conn = null;
+		HttpsURLConnection conn = null;
 		try {
 			conn = prepareConnection();
 			OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");   
