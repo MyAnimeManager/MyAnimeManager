@@ -687,7 +687,7 @@ public class ConnectionManager
 	 */
 	private static String getSearchQuery(String searchedAnime)
 	{
-		File file = new File(ConnectionManager.class.getResource("/Ricerca.txt").getFile());
+		File file = new File(ConnectionManager.class.getResource("/Ricerca.txt").toString());
 		Scanner scan = null;
 		String query = "";
 		try {
