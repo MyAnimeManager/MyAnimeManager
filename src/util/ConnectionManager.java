@@ -262,8 +262,8 @@ public class ConnectionManager
 //	        output.close();
 
 		} catch (Exception e) {
-			InputStream error = conn.getErrorStream();
-			System.out.print(MAMUtil.getStringFromInputStream(error));
+//			InputStream error = conn.getErrorStream();
+//			System.out.print(MAMUtil.getStringFromInputStream(error));
 			MAMUtil.writeLog(e);
 			e.printStackTrace();
 		}
