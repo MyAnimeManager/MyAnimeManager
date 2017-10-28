@@ -1,10 +1,6 @@
 package util;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -25,8 +21,6 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONObject;
 import org.json.XML;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -687,25 +681,16 @@ public class ConnectionManager
 	 */
 	private static String getSearchQuery(String searchedAnime)
 	{
-		File file = new File(ConnectionManager.class.getResource("/Ricerca.txt").toString());
+		InputStream file = ConnectionManager.class.getResourceAsStream("/Ricerca.txt");
 		Scanner scan = null;
 		String query = "";
-		try {
-			scan = new Scanner(file);
-			while (scan.hasNextLine())
-			{
-				query = query + scan.nextLine();
-			}
-			scan.close();
-			query = query.replace("$ricerca$", "\\\"" + searchedAnime + "\\\"");
-		} catch (FileNotFoundException e) {
-			MAMUtil.writeLog(e);
-			e.printStackTrace();
-		}
-		finally
+		scan = new Scanner(file);
+		while (scan.hasNextLine())
 		{
-			scan.close();
+			query = query + scan.nextLine();
 		}
+		scan.close();
+		query = query.replace("$ricerca$", "\\\"" + searchedAnime + "\\\"");
 		return query;
 	}
 	
@@ -716,50 +701,17 @@ public class ConnectionManager
 	 */
 	private static String getDataQuery(int IDAnime)
 	{
-		File file = new File(ConnectionManager.class.getResource("/DatiAnime.txt").getFile());
+		InputStream file = ConnectionManager.class.getResourceAsStream("/DatiAnime.txt");
 		Scanner scan = null;
 		String query = "";
-		try {
-			scan = new Scanner(file);
-			while (scan.hasNextLine())
-			{
-				query = query + scan.nextLine();
-			}
-			scan.close();
-			query = query.replace("$id$", "" + IDAnime);
-		} catch (FileNotFoundException e) {
-			MAMUtil.writeLog(e);
-			e.printStackTrace();
-		}
-		finally
+		scan = new Scanner(file);
+		while (scan.hasNextLine())
 		{
-			scan.close();
+			query = query + scan.nextLine();
 		}
+		scan.close();
+		query = query.replace("$id$", "" + IDAnime);
 		return query;
 	}
-	
-	/**
-	 * Crea un oggetto AnimeData con i valori dell'anime
-	 * @param jo JsonObject dei dati dell'anime
-	 * @param id Id dell'anime
-	 * @return AnimeData con i vari valori dell'anime.
-	 */
-	private static AnimeData parseAnimeData(JsonObject jo, int id)
-	{		
-		String name = jo.get("title").getAsJsonObject().get("romaji").getAsString();
-		String totEp = jo.get("duration").getAsString();
-		String currentEp = "1";
-		String fansub = "";
-		String animeType = jo.get("format").getAsString();
-		JsonObject releaseDateJson = jo.get("startDate").getAsJsonObject();
-		String releaseDate = releaseDateJson.get("day").getAsString() + "/" + releaseDateJson.get("month").getAsString() + "/" +releaseDateJson.get("year").getAsString();
-		JsonObject finishDateJson = jo.get("endDate").getAsJsonObject();
-		String finishDate = finishDateJson.get("day").getAsString() + "/" + releaseDateJson.get("month").getAsString() + "/" +releaseDateJson.get("year").getAsString();
-		String duration = jo.get("duration").getAsString() + " min";
-		String exitDay = "?????";
-		
-		//TODO vari controlli. Settare immagine sull'add image. Spostare questo metodo in AddAnimeDialog?
-		AnimeData data = new AnimeData(currentEp, totEp, fansub, "", "", exitDay, Integer.toString(id), "", "", animeType, releaseDate, finishDate, duration, false);
-		return data;
-	}
+
 }
