@@ -165,18 +165,18 @@ public class AddAnimeDialog extends JDialog
 								{
 									AddAnimeDialog.this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 									animeModel.clear();
-									try
-									{
-										ConnectionManager.ConnectAndGetToken();
-									}
-									catch (ConnectException e1)
-									{
-										JOptionPane.showMessageDialog(AddAnimeDialog.this, "Errore di connessione", "Errore!", JOptionPane.ERROR_MESSAGE);
-									}
-									catch (UnknownHostException e2)
-									{
-										JOptionPane.showMessageDialog(AddAnimeDialog.this, "Errore di connessione", "Errore!", JOptionPane.ERROR_MESSAGE);
-									}
+//									try
+//									{
+//										ConnectionManager.ConnectAndGetToken();
+//									}
+//									catch (ConnectException e1)
+//									{
+//										JOptionPane.showMessageDialog(AddAnimeDialog.this, "Errore di connessione", "Errore!", JOptionPane.ERROR_MESSAGE);
+//									}
+//									catch (UnknownHostException e2)
+//									{
+//										JOptionPane.showMessageDialog(AddAnimeDialog.this, "Errore di connessione", "Errore!", JOptionPane.ERROR_MESSAGE);
+//									}
 									animeSearched = ConnectionManager.SearchAnime(searchBar.getText());
 									if (animeSearched.isEmpty())
 									{
