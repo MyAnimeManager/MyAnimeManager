@@ -289,7 +289,7 @@ public class ConnectionManager
 	                jsonString.append(line);
 	        }
 	        br.close();
-	        System.out.print(jsonString);
+	        System.out.println(jsonString);
 	        
 	        JsonParser jsonParser = new JsonParser();
 	        JsonObject jo = (JsonObject)jsonParser.parse(jsonString.toString());

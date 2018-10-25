@@ -1817,6 +1817,8 @@ public class AddAnimeDialog extends JDialog
 			releaseDate = releaseDateJson.get("day").getAsString();
 			if (releaseDate.length() == 1)
 				releaseDate = "0" + releaseDate + "/";
+			else
+			releaseDate = releaseDate + "/";
 		}
 		
 		if (releaseDateJson.get("month").isJsonNull())
@@ -1842,13 +1844,15 @@ public class AddAnimeDialog extends JDialog
 			finishDate = finishDateJson.get("day").getAsString();
 			if (finishDate.length() == 1)
 				finishDate = "0" + finishDate + "/";
+			else
+				finishDate = finishDate + "/";
 		}
 		
 		if (finishDateJson.get("month").isJsonNull())
 			finishDate = finishDate + "??/";
 		else
 		{
-			String finishDateMonth = releaseDateJson.get("month").getAsString();
+			String finishDateMonth = finishDateJson.get("month").getAsString();
 			if (finishDateMonth.length() == 1)
 				finishDateMonth = "0" + finishDateMonth;
 			finishDate = finishDate + finishDateMonth + "/";
@@ -1858,7 +1862,6 @@ public class AddAnimeDialog extends JDialog
 			finishDate = finishDate + "????";
 		else
 			finishDate = finishDate + finishDateJson.get("year").getAsString();
-		
 		String duration = jo.get("duration").getAsString();
 		String exitDay = "?????";
 
