@@ -5,6 +5,8 @@ import java.util.TreeMap;
 
 import javax.swing.SwingWorker;
 
+import com.google.gson.JsonObject;
+
 import main.AnimeIndex;
 import util.AnimeData;
 import util.ConnectionManager;
@@ -20,7 +22,6 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 	{
 		if (AnimeIndex.appProp.getProperty("Update_system").equalsIgnoreCase("true"))
 		{
-			ConnectionManager.ConnectAndGetToken();
 			String nome = "";
 			if (AnimeIndex.filtro != 9)
 			{
@@ -39,65 +40,78 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 			if (!AnimeIndex.exclusionAnime.containsKey(name))
 			{
 				int id = Integer.parseInt(oldData.getId());
-				String data = ConnectionManager.parseAnimeData(id);
+				JsonObject jo = ConnectionManager.getAnimeData(id);
 
-				String totalEp = ConnectionManager.getAnimeData("total_episodes", data);
-				if (totalEp.equals("null") || totalEp.equals("0"))
-					totalEp = "??";
-				String duration = ConnectionManager.getAnimeData("duration", data);
-				if (duration.equals("null") || duration.equals("0"))
-					duration = "?? min";
-				else
-					duration += " min";
-				String startDate = ConnectionManager.getAnimeData("start_date", data);
-				if (startDate.equals("null"))
-					startDate = "??/??/????";
-				else if (startDate.length() == 4)
-					startDate = "??/??/" + startDate;
-				else if (startDate.length() == 7)
-				{
-					String monthStart = startDate.substring(5, 7);
-					String yearStart = startDate.substring(0, 4);
-					startDate = "??/" + monthStart + "/" + yearStart;
-				}
-				else if (startDate.length() > 7)
-				{
-					String dayStart = startDate.substring(8, 10);
-					String monthStart = startDate.substring(5, 7);
-					String yearStart = startDate.substring(0, 4);
-					startDate = dayStart + "/" + monthStart + "/" + yearStart;
-				}
-
-				String finishDate;
-				if (totalEp.equals("1"))
-					finishDate = startDate;
+				String totEp = jo.get("episodes").getAsString();
+				if (totEp != null && !totEp.isEmpty())
+					if (totEp.equals("null") || totEp.equals("0"))
+						totEp = "??";
+				
+				String duration = jo.get("duration").getAsString();
+				if (duration != null && !duration.isEmpty())
+					if (duration.equals("null") || duration.equals("0"))
+						duration = "?? min";
+					else
+						duration += " min";
+				
+				JsonObject releaseDateJson = jo.get("startDate").getAsJsonObject();
+				String releaseDate = "";
+				if (releaseDateJson.get("day").isJsonNull())
+					releaseDate = "??/";
 				else
 				{
-					finishDate = ConnectionManager.getAnimeData("end_date", data);
-					if (finishDate.equals("null"))
-						finishDate = "??/??/????";
-					else if (finishDate.length() == 4)
-						finishDate = "??/??/" + finishDate;
-					else if (finishDate.length() == 7)
-					{
-						String monthEnd = finishDate.substring(5, 7);
-						String yearEnd = finishDate.substring(0, 4);
-						finishDate = "??/" + monthEnd + "/" + yearEnd;
-					}
-					else if (finishDate.length() > 7)
-					{
-						String dayEnd = finishDate.substring(8, 10);
-						String monthEnd = finishDate.substring(5, 7);
-						String yearEnd = finishDate.substring(0, 4);
-						finishDate = dayEnd + "/" + monthEnd + "/" + yearEnd;
-					}
+					releaseDate = releaseDateJson.get("day").getAsString();
+					if (releaseDate.length() == 1)
+						releaseDate = "0" + releaseDate;
+					releaseDate = releaseDate + "/";
 				}
+				
+				if (releaseDateJson.get("month").isJsonNull())
+					releaseDate = releaseDate + "??/";
+				else
+				{
+					String releaseDateMonth = releaseDateJson.get("month").getAsString();
+					if (releaseDateMonth.length() == 1)
+						releaseDateMonth = "0" + releaseDateMonth;
+					releaseDate = releaseDate + releaseDateMonth + "/";
+				}
+				if (releaseDateJson.get("year").isJsonNull())
+					releaseDate = releaseDate + "????";
+				else
+					releaseDate = releaseDate + releaseDateJson.get("year").getAsString();
+
+				JsonObject finishDateJson = jo.get("endDate").getAsJsonObject();
+				String finishDate = "";
+				if (finishDateJson.get("day").isJsonNull())
+					finishDate = "??/";
+				else
+				{
+					finishDate = finishDateJson.get("day").getAsString();
+					if (finishDate.length() == 1)
+						finishDate = "0" + finishDate;
+					finishDate = finishDate + "/";
+				}
+				
+				if (finishDateJson.get("month").isJsonNull())
+					finishDate = finishDate + "??/";
+				else
+				{
+					String finishDateMonth = finishDateJson.get("month").getAsString();
+					if (finishDateMonth.length() == 1)
+						finishDateMonth = "0" + finishDateMonth;
+					finishDate = finishDate + finishDateMonth + "/";
+				}
+				
+				if (finishDateJson.get("year").isJsonNull())
+					finishDate = finishDate + "????";
+				else
+					finishDate = finishDate + finishDateJson.get("year").getAsString();
 
 				String type = (String) AnimeIndex.animeInformation.typeComboBox.getSelectedItem();
 				if (!type.equals("Blu-ray"))
-					type = ConnectionManager.getAnimeData("type", data);
+					type = jo.get("format").getAsString();
 
-				String imageLink = ConnectionManager.getAnimeData("image_url_lge", data);
+				String imageLink = jo.get("coverImage").getAsJsonObject().get("large").getAsString();
 				imageLink = imageLink.replaceAll("\\\\/", "/");
 				String imageName = name.replaceAll("\\\\", "_");
 				imageName = imageName.replaceAll("/", "_");
@@ -126,7 +140,7 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 				else
 					AnimeIndex.animeInformation.setImage("default");
 
-				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), totalEp, oldData.getFansub(), oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(), oldData.getLinkName(), oldData.getLink(), type, startDate, finishDate, duration, oldData.getBd());
+				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), totEp, oldData.getFansub(), oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(), oldData.getLinkName(), oldData.getLink(), type, releaseDate, finishDate, duration, oldData.getBd());
 
 				map.put(name, newData);
 			}
@@ -134,24 +148,24 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 			{
 				String totalEp = oldData.getTotalEpisode();
 				String duration = oldData.getDurationEp();
-				String startDate = oldData.getReleaseDate();
+				String releaseDate = oldData.getReleaseDate();
 				String finishDate = oldData.getFinishDate();
 				String type = oldData.getAnimeType();
 				int id = Integer.parseInt(oldData.getId());
 
 				boolean[] exclusionArray = AnimeIndex.exclusionAnime.get(name);
-				String data = ConnectionManager.parseAnimeData(id);
+				JsonObject jo = ConnectionManager.getAnimeData(id);;
 
 				if (exclusionArray[1] == false)
 				{
-					totalEp = ConnectionManager.getAnimeData("total_episodes", data);
+					totalEp = jo.get("episodes").getAsString();
 					if (totalEp.equals("null") || totalEp.equals("0"))
 						totalEp = "??";
 				}
 
 				if (exclusionArray[2] == false)
 				{
-					duration = ConnectionManager.getAnimeData("duration", data);
+					duration = jo.get("duration").getAsString();
 					if (duration.equals("null") || duration.equals("0"))
 						duration = "?? min";
 					else
@@ -160,85 +174,101 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 
 				if (exclusionArray[3] == false)
 				{
-					startDate = ConnectionManager.getAnimeData("start_date", data);
-
-					if (startDate.equals("null"))
-						startDate = "??/??/????";
-					else if (startDate.length() == 4)
-						startDate = "??/??/" + startDate;
-					else if (startDate.length() == 7)
+					JsonObject releaseDateJson = jo.get("startDate").getAsJsonObject();
+					if (releaseDateJson.get("day").isJsonNull())
+						releaseDate = "??/";
+					else
 					{
-						String monthStart = startDate.substring(5, 7);
-						String yearStart = startDate.substring(0, 4);
-						startDate = "??/" + monthStart + "/" + yearStart;
+						releaseDate = releaseDateJson.get("day").getAsString();
+						if (releaseDate.length() == 1)
+							releaseDate = "0" + releaseDate;
+						releaseDate = releaseDate + "/";
 					}
-					else if (startDate.length() > 7)
+					
+					if (releaseDateJson.get("month").isJsonNull())
+						releaseDate = releaseDate + "??/";
+					else
 					{
-						String dayStart = startDate.substring(8, 10);
-						String monthStart = startDate.substring(5, 7);
-						String yearStart = startDate.substring(0, 4);
-						startDate = dayStart + "/" + monthStart + "/" + yearStart;
+						String releaseDateMonth = releaseDateJson.get("month").getAsString();
+						if (releaseDateMonth.length() == 1)
+							releaseDateMonth = "0" + releaseDateMonth;
+						releaseDate = releaseDate + releaseDateMonth + "/";
 					}
+					if (releaseDateJson.get("year").isJsonNull())
+						releaseDate = releaseDate + "????";
+					else
+						releaseDate = releaseDate + releaseDateJson.get("year").getAsString();
 				}
 
 				if (exclusionArray[4] == false)
 					if (totalEp.equals("1"))
 					{
 						if (exclusionArray[3] == false)
-							finishDate = startDate;
+							finishDate = releaseDate;
 						else
 						{
-							startDate = ConnectionManager.getAnimeData("start_date", data);
-
-							if (startDate.equals("null"))
-								startDate = "??/??/????";
-							else if (startDate.length() == 4)
-								startDate = "??/??/" + startDate;
-							else if (startDate.length() == 7)
+							JsonObject releaseDateJson = jo.get("startDate").getAsJsonObject();
+							if (releaseDateJson.get("day").isJsonNull())
+								releaseDate = "??/";
+							else
 							{
-								String monthStart = startDate.substring(5, 7);
-								String yearStart = startDate.substring(0, 4);
-								startDate = "??/" + monthStart + "/" + yearStart;
+								releaseDate = releaseDateJson.get("day").getAsString();
+								if (releaseDate.length() == 1)
+									releaseDate = "0" + releaseDate;
+								releaseDate = releaseDate + "/";
 							}
-							else if (startDate.length() > 7)
+							
+							if (releaseDateJson.get("month").isJsonNull())
+								releaseDate = releaseDate + "??/";
+							else
 							{
-								String dayStart = startDate.substring(8, 10);
-								String monthStart = startDate.substring(5, 7);
-								String yearStart = startDate.substring(0, 4);
-								startDate = dayStart + "/" + monthStart + "/" + yearStart;
+								String releaseDateMonth = releaseDateJson.get("month").getAsString();
+								if (releaseDateMonth.length() == 1)
+									releaseDateMonth = "0" + releaseDateMonth;
+								releaseDate = releaseDate + releaseDateMonth + "/";
 							}
-							finishDate = startDate;
+							if (releaseDateJson.get("year").isJsonNull())
+								releaseDate = releaseDate + "????";
+							else
+								releaseDate = releaseDate + releaseDateJson.get("year").getAsString();
+							finishDate = releaseDate;
 						}
 					}
 					else
 					{
-						finishDate = ConnectionManager.getAnimeData("end_date", data);
-
-						if (finishDate.equals("null"))
-							finishDate = "??/??/????";
-						else if (finishDate.length() == 4)
-							finishDate = "??/??/" + finishDate;
-						else if (finishDate.length() == 7)
+						JsonObject finishDateJson = jo.get("endDate").getAsJsonObject();
+						if (finishDateJson.get("day").isJsonNull())
+							finishDate = "??/";
+						else
 						{
-							String monthEnd = finishDate.substring(5, 7);
-							String yearEnd = finishDate.substring(0, 4);
-							finishDate = "??/" + monthEnd + "/" + yearEnd;
+							finishDate = finishDateJson.get("day").getAsString();
+							if (finishDate.length() == 1)
+								finishDate = "0" + finishDate;
+							finishDate = finishDate + "/";
 						}
-						else if (finishDate.length() > 7)
+						
+						if (finishDateJson.get("month").isJsonNull())
+							finishDate = finishDate + "??/";
+						else
 						{
-							String dayEnd = finishDate.substring(8, 10);
-							String monthEnd = finishDate.substring(5, 7);
-							String yearEnd = finishDate.substring(0, 4);
-							finishDate = dayEnd + "/" + monthEnd + "/" + yearEnd;
+							String finishDateMonth = finishDateJson.get("month").getAsString();
+							if (finishDateMonth.length() == 1)
+								finishDateMonth = "0" + finishDateMonth;
+							finishDate = finishDate + finishDateMonth + "/";
 						}
+						
+						if (finishDateJson.get("year").isJsonNull())
+							finishDate = finishDate + "????";
+						else
+							finishDate = finishDate + finishDateJson.get("year").getAsString();
 					}
 					
 				if (exclusionArray[5] == false && !type.equalsIgnoreCase("Blu-ray"))
-					type = ConnectionManager.getAnimeData("type", data);
+					type = jo.get("format").getAsString();
 					
 				if (exclusionArray[0] == false)
 				{
-					String imageLink = ConnectionManager.getAnimeData("image_url_lge", data);
+					String imageLink = jo.get("coverImage").getAsJsonObject().get("large").getAsString();
 					imageLink = imageLink.replaceAll("\\\\/", "/");
 					String imageName = name.replaceAll("\\\\", "_");
 					imageName = imageName.replaceAll("/", "_");
@@ -267,7 +297,7 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 					else
 						AnimeIndex.animeInformation.setImage("default");
 				}
-				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), totalEp, oldData.getFansub(), oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(), oldData.getLinkName(), oldData.getLink(), type, startDate, finishDate, duration, oldData.getBd());
+				AnimeData newData = new AnimeData(oldData.getCurrentEpisode(), totalEp, oldData.getFansub(), oldData.getNote(), oldData.getImageName(), oldData.getDay(), oldData.getId(), oldData.getLinkName(), oldData.getLink(), type, releaseDate, finishDate, duration, oldData.getBd());
 				map.put(name, newData);
 
 			}
