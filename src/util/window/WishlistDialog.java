@@ -527,11 +527,11 @@ public class WishlistDialog extends JDialog
 						JMenuItem aniList = null;
 						JMenuItem mal = new JMenuItem("MyAnimeList                   ");
 						JMenuItem animeClick = new JMenuItem("AnimeClick");
-						JMenuItem hummingbird = new JMenuItem("Hummingbird");
+						JMenuItem kitsu = new JMenuItem("Hummingbird");
 						JMenuItem aniDB = new JMenuItem("AniDB");
 						mal.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/MAL.png")));
 						animeClick.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/AC.png")));
-						hummingbird.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/hummingbird.me.png")));
+						kitsu.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/kitsu.png")));
 						aniDB.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/anidb_icon.png")));
 						int y;
 						idLink = -1;
@@ -565,7 +565,7 @@ public class WishlistDialog extends JDialog
 							y = 67;
 						menu.add(mal);
 						menu.add(animeClick);
-						menu.add(hummingbird);
+						menu.add(kitsu);
 						menu.add(aniDB);
 						menu.show(btnID, btnID.getX()-6,-btnID.getHeight()-y);
 						try{
@@ -633,11 +633,11 @@ public class WishlistDialog extends JDialog
 							}
 						});
 						
-						hummingbird.addActionListener(new ActionListener() {
+						kitsu.addActionListener(new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e)
 							{
-								String link = "https://hummingbird.me/search?query="+animeName.replace(" ", "+").replace("\"", "").replace("%", "").replace("\\", "").replace("<", "").replace(">", "").replace("^", "").replace("|", "").replace("{", "").replace("}", "")+"&scope=anime";
+								String link = "https://kitsu.io/anime?text="+animeName.replace(" ", "+").replace("\"", "").replace("%", "").replace("\\", "").replace("<", "").replace(">", "").replace("^", "").replace("|", "").replace("{", "").replace("}", "")+"&scope=anime";
 								try
 								{
 									URI uriLink = new URI(link);

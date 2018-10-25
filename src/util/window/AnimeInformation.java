@@ -1196,11 +1196,11 @@ public class AnimeInformation extends JPanel
 					}
 					JMenuItem mal = new JMenuItem("MyAnimeList"+menuDim);
 					JMenuItem animeClick = new JMenuItem("AnimeClick");
-					JMenuItem hummingbird = new JMenuItem("Hummingbird");
+					JMenuItem kitsu = new JMenuItem("Kitsu");
 					JMenuItem aniDB = new JMenuItem("AniDB");
 					mal.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/MAL.png")));
 					animeClick.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/AC.png")));
-					hummingbird.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/hummingbird.me.png")));
+					kitsu.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/kitsu.png")));
 					aniDB.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/anidb_icon.png")));
 					int y;
 					AnimeData data = (AnimeData) MAMUtil.getMap().get(MAMUtil.getJList().getSelectedValue());
@@ -1215,7 +1215,7 @@ public class AnimeInformation extends JPanel
 						y = 67;
 					menu.add(mal);
 					menu.add(animeClick);
-					menu.add(hummingbird);
+					menu.add(kitsu);
 					menu.add(aniDB);
 					menu.show(btnAnilistInfo, btnAnilistInfo.getX()-10,-btnAnilistInfo.getHeight()-y);
 					try{
@@ -1283,11 +1283,11 @@ public class AnimeInformation extends JPanel
 						}
 					});
 					
-					hummingbird.addActionListener(new ActionListener() {
+					kitsu.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
-							String link = "https://hummingbird.me/search?query="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+").replace("\"", "").replace("%", "").replace("\\", "").replace("<", "").replace(">", "").replace("^", "").replace("|", "").replace("{", "").replace("}", "")+"&scope=anime";
+							String link = "https://kitsu.io/anime?text="+AnimeIndex.animeInformation.lblAnimeName.getText().replace(" ", "+").replace("\"", "").replace("%", "").replace("\\", "").replace("<", "").replace(">", "").replace("^", "").replace("|", "").replace("{", "").replace("}", "")+"&scope=anime";
 							try
 							{
 								URI uriLink = new URI(link);

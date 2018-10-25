@@ -112,13 +112,13 @@ import util.window.WishlistDialog;
 //TODO(Kirin) riabilitare anime suggeriti
 //TODO(Kirin) controllare algoritmo segnalazione uscite
 //TODO(Kirin) fixare errore 500 dopo molto tempo che il programma e' aperto (la ricerca tramite anilist nn funzia piu')
-//TODO(kirin) problema ricerca anime con il carattere "-" e "!"
 //TODO(Kirin) aggiungere lista anime suggeriti per affinità
 
 //DONE aggiungere aggionramento lista all'inserimento di un nuovo anime se la casella cerca nn e' vuota
 //DONE se accendi mam senza internet ti crea un file di log di errore di connessione al sito
 //DONE il fansub nn viene settato se si aggiunge un anime con l'aggiunta manuale
 //DONE aggiungere feed RSS
+//DONE problema ricerca anime con il carattere "-" e "!"
 
 
 public class AnimeIndex extends JFrame
@@ -1360,14 +1360,14 @@ public class AnimeIndex extends JFrame
 		JSeparator separator_8 = new JSeparator();
 		mnAnichart.add(separator_8);
 
-		JMenuItem mntmHummingbird = new JMenuItem("Hummingbird");
-		mntmHummingbird.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/hummingbird.me.png")));
-		mntmHummingbird.addActionListener(new ActionListener() {
+		JMenuItem mntmKitsu = new JMenuItem("Kitsu");
+		mntmKitsu.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/kitsu.png")));
+		mntmKitsu.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				String link = "https://hummingbird.me/";
+				String link = "https://kitsu.io/";
 				try
 				{
 					URI uriLink = new URI(link);
@@ -1381,7 +1381,7 @@ public class AnimeIndex extends JFrame
 				}
 			}
 		});
-		mnAnichart.add(mntmHummingbird);
+		mnAnichart.add(mntmKitsu);
 
 		JMenuItem mntmAnidb = new JMenuItem("AniDB");
 		mntmAnidb.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/anidb_icon.png")));
@@ -1411,37 +1411,10 @@ public class AnimeIndex extends JFrame
 
 		JSeparator separator_19 = new JSeparator();
 		mnAnichart.add(separator_19);
-
-		JMenu mnNewMenu = new JMenu("RedAnimeDatabase");
-		mnAnichart.add(mnNewMenu);
-		mnNewMenu.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/RAD.png")));
-
-		JMenuItem mntmRadForum = new JMenuItem("RAD Forum");
-		mnNewMenu.add(mntmRadForum);
+		
+		JMenuItem mntmRadForum = new JMenuItem("RedAnimeDatabase");
+		mnAnichart.add(mntmRadForum);
 		mntmRadForum.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/RAD.png")));
-
-		JMenuItem mntmRadNews = new JMenuItem("RAD News");
-		mnNewMenu.add(mntmRadNews);
-		mntmRadNews.setIcon(new ImageIcon(AnimeIndex.class.getResource("/image/RAD.png")));
-		mntmRadNews.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				String link = "http://www.redanimedatabase.it/";
-				try
-				{
-					URI uriLink = new URI(link);
-					Desktop.getDesktop().browse(uriLink);
-				}
-				catch (URISyntaxException a)
-				{
-				}
-				catch (IOException a)
-				{
-				}
-			}
-		});
 		mntmRadForum.addActionListener(new ActionListener() {
 
 			@Override
@@ -1461,7 +1434,7 @@ public class AnimeIndex extends JFrame
 				}
 			}
 		});
-
+				
 		JMenu mnInfo = new JMenu("Info");
 		menuBar.add(mnInfo);
 
