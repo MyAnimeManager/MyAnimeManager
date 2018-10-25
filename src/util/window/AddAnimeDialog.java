@@ -1806,7 +1806,14 @@ public class AddAnimeDialog extends JDialog
 		String totEp = jo.get("episodes").getAsString();
 		String currentEp = "1";
 		String fansub = "";
+		
 		String animeType = jo.get("format").getAsString();
+		if (animeType.equalsIgnoreCase("movie"))
+				animeType = "Movie";
+		if (animeType.equalsIgnoreCase("TV_SHORT"))
+			animeType = "TV Short";
+		if (animeType.equalsIgnoreCase("SPECIAL"))
+			animeType = "Special";
 //		String idMal = jo.get("idMal").getAsString();
 		JsonObject releaseDateJson = jo.get("startDate").getAsJsonObject();
 		String releaseDate = "";

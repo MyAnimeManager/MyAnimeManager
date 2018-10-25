@@ -110,7 +110,13 @@ public class AutoUpdateAnimeDataTask extends SwingWorker
 				String type = (String) AnimeIndex.animeInformation.typeComboBox.getSelectedItem();
 				if (!type.equals("Blu-ray"))
 					type = jo.get("format").getAsString();
-
+				if (type.equalsIgnoreCase("MOVIE"))
+					type = "Movie";
+				if (type.equalsIgnoreCase("TV_SHORT"))
+					type = "TV Short";
+				if (type.equalsIgnoreCase("SPECIAL"))
+					type = "Special";
+				
 				String imageLink = jo.get("coverImage").getAsJsonObject().get("large").getAsString();
 				imageLink = imageLink.replaceAll("\\\\/", "/");
 				String imageName = name.replaceAll("\\\\", "_");
