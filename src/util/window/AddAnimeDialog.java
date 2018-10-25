@@ -1803,7 +1803,7 @@ public class AddAnimeDialog extends JDialog
 		JsonObject jo = ConnectionManager.getAnimeData(id);
 		
 		String name = jo.get("title").getAsJsonObject().get("romaji").getAsString();
-		String totEp = jo.get("duration").getAsString();
+		String totEp = jo.get("episodes").getAsString();
 		String currentEp = "1";
 		String fansub = "";
 		String animeType = jo.get("format").getAsString();
