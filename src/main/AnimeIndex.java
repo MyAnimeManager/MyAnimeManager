@@ -123,10 +123,10 @@ import util.window.WishlistDialog;
 
 public class AnimeIndex extends JFrame
 {	
-	public static final String VERSION = "1.2.0";
+	public static final String VERSION = "1.2.1";
 	public static final String CURRENT_VERSION = "MyAnimeManager.exe";
 	public static final String NEW_VERSION = "MyAnimeManager_Setup.exe";
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 
 	public static JPanel mainPanel;
 	public static JPanel cardContainer;
