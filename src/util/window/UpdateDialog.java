@@ -74,6 +74,10 @@ public class UpdateDialog extends JDialog
 				UpdateDialog.this.dispose();
 				dial.setLocationRelativeTo(AnimeIndex.mainPanel);
 				dial.setVisible(true);
+				if(AnimeIndex.appProp.getProperty("Ask_for_donation").equalsIgnoreCase("false"))
+				{
+					AnimeIndex.appProp.setProperty("Ask_for_donation", "true");
+				}
 				MAMUtil.saveData();
 				ExternalProgram ext = new ExternalProgram(MAMUtil.getAppDataPath() + File.separator + "Update" + File.separator + AnimeIndex.NEW_VERSION);
 				ext.run();
