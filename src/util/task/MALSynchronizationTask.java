@@ -160,7 +160,7 @@ public class MALSynchronizationTask extends SwingWorker
 		for (JsonObject obj: airingAnime)
 		{
 			String title = obj.get("series_title").getAsString();
-			HashMap<String,Integer> map = ConnectionManager.AnimeSearch(title);
+			HashMap<String,Integer> map = ConnectionManager.SearchAnime(title);
 			if (map.size() == 1)
 			{
 				String anime = (map.keySet().toArray(new String[]{}))[0];
@@ -211,7 +211,7 @@ public class MALSynchronizationTask extends SwingWorker
 					{
 						if(!found)
 						{
-							map = ConnectionManager.AnimeSearch(syn);
+							map = ConnectionManager.SearchAnime(syn);
 							if (map.size() == 1)
 							{
 								String anime = (map.keySet().toArray(new String[]{}))[0];
@@ -435,7 +435,7 @@ public class MALSynchronizationTask extends SwingWorker
 		for (JsonObject obj : conflictedAnime)
 		{
 			String title = obj.get("series_title").getAsString();
-			HashMap<String,Integer> map = ConnectionManager.AnimeSearch(title);
+			HashMap<String,Integer> map = ConnectionManager.SearchAnime(title);
 			if (map.size() > 1)
 			{
 				String[] titles = map.keySet().toArray(new String[]{});
@@ -458,65 +458,81 @@ public class MALSynchronizationTask extends SwingWorker
 	private void automaticAdd(String anime, int id, String listToAdd)
 	{
 		AnimeIndex.addToPreviousList = listToAdd;
-		String animeData = ConnectionManager.parseAnimeData(id);
-		String name = ConnectionManager.getAnimeData("title_romaji", animeData);
-		String totEp = ConnectionManager.getAnimeData("total_episodes", animeData);
+		
+
+		JsonObject jo = ConnectionManager.getAnimeData(id);
+		
+		String name = jo.get("title").getAsJsonObject().get("romaji").getAsString();
+		String totEp = jo.get("duration").getAsString();
 		String currentEp = "1";
 		String fansub = "";
-		String animeType = ConnectionManager.getAnimeData("type", animeData);
-		String releaseDate = ConnectionManager.getAnimeData("start_date", animeData);
-		String finishDate = ConnectionManager.getAnimeData("end_date", animeData);
-		String durationEp = ConnectionManager.getAnimeData("duration", animeData);
+		String animeType = jo.get("format").getAsString();
+		JsonObject releaseDateJson = jo.get("startDate").getAsJsonObject();
+		String releaseDate = "";
+		if (releaseDateJson.get("day").isJsonNull())
+			releaseDate = "??/";
+		else
+		{
+			releaseDate = releaseDateJson.get("day").getAsString();
+			if (releaseDate.length() == 1)
+				releaseDate = "0" + releaseDate + "/";
+		}
+		
+		if (releaseDateJson.get("month").isJsonNull())
+			releaseDate = releaseDate + "??/";
+		else
+		{
+			String releaseDateMonth = releaseDateJson.get("month").getAsString();
+			if (releaseDateMonth.length() == 1)
+				releaseDateMonth = "0" + releaseDateMonth;
+			releaseDate = releaseDate + releaseDateMonth + "/";
+		}
+		if (releaseDateJson.get("year").isJsonNull())
+			releaseDate = releaseDate + "????";
+		else
+			releaseDate = releaseDate + releaseDateJson.get("year").getAsString();
+		
+		JsonObject finishDateJson = jo.get("endDate").getAsJsonObject();
+		String finishDate = "";
+		if (finishDateJson.get("day").isJsonNull())
+			finishDate = "??/";
+		else
+		{
+			finishDate = finishDateJson.get("day").getAsString();
+			if (finishDate.length() == 1)
+				finishDate = "0" + finishDate + "/";
+		}
+		
+		if (finishDateJson.get("month").isJsonNull())
+			finishDate = finishDate + "??/";
+		else
+		{
+			String finishDateMonth = releaseDateJson.get("month").getAsString();
+			if (finishDateMonth.length() == 1)
+				finishDateMonth = "0" + finishDateMonth;
+			finishDate = finishDate + finishDateMonth + "/";
+		}
+		
+		if (finishDateJson.get("year").isJsonNull())
+			finishDate = finishDate + "????";
+		else
+			finishDate = finishDate + finishDateJson.get("year").getAsString();
+		
+		String duration = jo.get("duration").getAsString();
+		String exitDay = "?????";
 
 		if (totEp != null && !totEp.isEmpty())
 			if (totEp.equals("null") || totEp.equals("0"))
 				totEp = "??";
 				
-		if (durationEp != null && !durationEp.isEmpty())
-			if (durationEp.equals("null") || durationEp.equals("0"))
-				durationEp = "?? min";
+		if (duration != null && !duration.isEmpty())
+			if (duration.equals("null") || duration.equals("0"))
+				duration = "?? min";
 			else
-				durationEp += " min";
-		if (releaseDate != null && !releaseDate.isEmpty())
-			if (releaseDate.equals("null"))
-				releaseDate = "??/??/????";
-			else if (releaseDate.length() == 4)
-				releaseDate = "??/??/" + releaseDate;
-			else if (releaseDate.length() == 7)
-			{
-				String monthStart = releaseDate.substring(5, 7);
-				String yearStart = releaseDate.substring(0, 4);
-				releaseDate = "??/" + monthStart + "/" + yearStart;
-			}
-			else if (releaseDate.length() > 7)
-			{
-				String dayStart = releaseDate.substring(8, 10);
-				String monthStart = releaseDate.substring(5, 7);
-				String yearStart = releaseDate.substring(0, 4);
-				releaseDate = dayStart + "/" + monthStart + "/" + yearStart;
-			}
-		if (finishDate != null && !finishDate.isEmpty())
-			if (finishDate.equals("null"))
-				finishDate = "??/??/????";
-			else if (finishDate.length() == 4)
-				finishDate = "??/??/" + finishDate;
-			else if (finishDate.length() == 7)
-			{
-				String monthEnd = finishDate.substring(5, 7);
-				String yearEnd = finishDate.substring(0, 4);
-				finishDate = "??/" + monthEnd + "/" + yearEnd;
-			}
-			else if (finishDate.length() > 7)
-			{
-				String dayEnd = finishDate.substring(8, 10);
-				String monthEnd = finishDate.substring(5, 7);
-				String yearEnd = finishDate.substring(0, 4);
-				finishDate = dayEnd + "/" + monthEnd + "/" + yearEnd;
-			}
-			if (totEp.equals("1"))
-				finishDate = releaseDate;
+				duration += " min";
+		if (totEp.equals("1"))
+			finishDate = releaseDate;
 			
-		String exitDay = "?????";
 		if (listToAdd.equalsIgnoreCase("completi da vedere"))
 			exitDay = "Concluso";
 
@@ -533,7 +549,8 @@ public class MALSynchronizationTask extends SwingWorker
 			currentEp = totEp;
 			exitDay = "Concluso";
 		}
-		String imageName = AddAnimeDialog.addSaveImage(name, id, list);
+		String imageLink = jo.get("coverImage").getAsJsonObject().get("large").getAsString();
+		String imageName = AddAnimeDialog.addSaveImage(name, imageLink, list);
 		if(list.equalsIgnoreCase("Film") || list.equalsIgnoreCase("OAV"))
 		{
 			if(!releaseDate.contains("?"))
@@ -551,7 +568,7 @@ public class MALSynchronizationTask extends SwingWorker
 //				}
 			}
 		}
-		AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png", exitDay, Integer.toString(id), "", "", animeType, releaseDate, finishDate, durationEp, false);
+		AnimeData data = new AnimeData(currentEp, totEp, fansub, "", imageName + ".png", exitDay, Integer.toString(id), "", "", animeType, releaseDate, finishDate, duration, false);
 		checkAnimeAlreadyAdded(name, list, data);
 		AnimeIndex.lastSelection = anime;
 	}

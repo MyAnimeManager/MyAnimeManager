@@ -16,8 +16,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.net.ConnectException;
-import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1809,6 +1807,7 @@ public class AddAnimeDialog extends JDialog
 		String currentEp = "1";
 		String fansub = "";
 		String animeType = jo.get("format").getAsString();
+//		String idMal = jo.get("idMal").getAsString();
 		JsonObject releaseDateJson = jo.get("startDate").getAsJsonObject();
 		String releaseDate = "";
 		if (releaseDateJson.get("day").isJsonNull())
