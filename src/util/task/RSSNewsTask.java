@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedHashMap;
+import java.util.NoSuchElementException;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
@@ -193,12 +194,15 @@ public class RSSNewsTask extends SwingWorker {
 			boolean hasLink = false;
 			while (!hasLink)
 			{
-				event = eventReader.nextEvent();
-				if ((event instanceof Characters) && (event.asCharacters().getData().contains(RAD_TOPIC) || event.asCharacters().getData().contains(RAD_FB)))
-				{
-					hasLink = true;
-					result = event.asCharacters().getData();
-				}
+				//if(eventReader.hasNext())
+				//{
+					event = eventReader.nextEvent();
+					if ((event instanceof Characters) && (event.asCharacters().getData().contains(RAD_TOPIC) || event.asCharacters().getData().contains(RAD_FB)))
+					{
+						hasLink = true;
+						result = event.asCharacters().getData();
+					}
+				//}
 			}
 		}
 		return result;
@@ -216,6 +220,7 @@ public class RSSNewsTask extends SwingWorker {
 			conn.setDoOutput(true);
 			conn.setRequestProperty("User-Agent", "My Anime Manager");
 			rr = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			int i=1;
 			while ((line = rr.readLine()) != null)
 				result += line + "\r\n";
 			rr.close();
@@ -228,12 +233,11 @@ public class RSSNewsTask extends SwingWorker {
 		{
 			e.printStackTrace();
 		}
+		
 		result = result.replaceAll("& ", "&amp; ");
 		result = result.replaceAll("&saved", "");
+		result = result.replaceAll("HD &", "HD e");
+		//System.out.println(result);
 		return result;
 	}
-
-
-
-
 }
