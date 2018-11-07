@@ -7,8 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import main.AnimeIndex;
-
 public class AnimeIndexProperties
 {
 	private static Properties applicationProps;

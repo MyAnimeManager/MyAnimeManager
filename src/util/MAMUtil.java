@@ -303,8 +303,6 @@ public class MAMUtil
 
 		AnimeIndexProperties.saveProperties(AnimeIndex.appProp);
 		ColorProperties.saveProperties(AnimeIndex.colorProp);
-
-		System.exit(0);
 	}
 	
 

@@ -397,6 +397,7 @@ public class ColorDialog extends JDialog
 								MAMUtil.saveData();
 								ExternalProgram restart = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "MAMRestart.jar");
 								restart.run();
+								System.exit(0);
 							}
 							else
 								changed = false;
@@ -419,6 +420,7 @@ public class ColorDialog extends JDialog
 								MAMUtil.saveData();
 								ExternalProgram restart = new ExternalProgram(System.getenv("APPDATA") + File.separator + "MyAnimeManager" + File.separator + "MAMRestart.jar");
 								restart.run();
+								System.exit(0);
 							}
 						}
 					});

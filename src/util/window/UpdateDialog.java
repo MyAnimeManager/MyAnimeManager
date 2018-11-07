@@ -81,6 +81,7 @@ public class UpdateDialog extends JDialog
 				MAMUtil.saveData();
 				ExternalProgram ext = new ExternalProgram(MAMUtil.getAppDataPath() + File.separator + "Update" + File.separator + AnimeIndex.NEW_VERSION);
 				ext.run();
+				System.exit(0);
 			}
 		});
 

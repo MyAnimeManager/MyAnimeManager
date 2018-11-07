@@ -16,11 +16,9 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.UnknownHostException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.TreeMap;
 
 import javax.swing.Box;
@@ -747,19 +745,9 @@ public class WishlistDialog extends JDialog
 			name = JOptionPane.showInputDialog(AnimeIndex.wishlistDialog, "Nome Anime :", "Aggiungi alla " + listName, JOptionPane.QUESTION_MESSAGE).trim();
 		}catch(NullPointerException e)
 		{}
-		try
-		{
-			ConnectionManager.ConnectAndGetToken();
-		}
-		catch (ConnectException | UnknownHostException e1)
-		{
-			e1.printStackTrace();
-			MAMUtil.writeLog(e1);
-		}
-
 		if (name != null && !name.isEmpty())
 		{
-			HashMap<String, Integer> animeMap = ConnectionManager.AnimeSearch(name);
+			LinkedHashMap<String, Integer> animeMap = ConnectionManager.SearchAnime(name);
 			if (!animeMap.isEmpty() && animeMap.size() > 1)
 			{
 				String[] animeNames = animeMap.keySet().toArray(new String[0]);
