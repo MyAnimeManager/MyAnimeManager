@@ -1803,7 +1803,10 @@ public class AddAnimeDialog extends JDialog
 		JsonObject jo = ConnectionManager.getAnimeData(id);
 		
 		String name = jo.get("title").getAsJsonObject().get("romaji").getAsString();
-		String totEp = jo.get("episodes").getAsString();
+		//TODO l'errore era qui, non controllava se il campo episodes del JSON era un null o no
+		String totEp = "??";
+		if(!jo.get("episodes").isJsonNull())
+			totEp = jo.get("episodes").getAsString();
 		String currentEp = "1";
 		String fansub = "";
 		
