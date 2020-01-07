@@ -1808,6 +1808,7 @@ public class AddAnimeDialog extends JDialog
 			totEp = jo.get("episodes").getAsString();
 		String currentEp = "1";
 		String fansub = "";
+		String duration = "?? min";
 		
 		String animeType = jo.get("format").getAsString();
 		if (animeType.equalsIgnoreCase("movie"))
@@ -1869,19 +1870,18 @@ public class AddAnimeDialog extends JDialog
 			finishDate = finishDate + "????";
 		else
 			finishDate = finishDate + finishDateJson.get("year").getAsString();
-		String duration = jo.get("duration").getAsString();
+
+		if (!jo.get("duration").isJsonNull())
+		{
+			duration = jo.get("duration").getAsString();
+			duration += " min";
+		}
+		
 		String exitDay = "?????";
 
 		if (totEp != null && !totEp.isEmpty())
 			if (totEp.equals("null") || totEp.equals("0"))
-				totEp = "??";
-				
-		if (duration != null && !duration.isEmpty())
-			if (duration.equals("null") || duration.equals("0"))
-				duration = "?? min";
-			else
-				duration += " min";
-			
+				totEp = "??";			
 		
 		if (totEp.equals("1"))
 			finishDate = releaseDate;
